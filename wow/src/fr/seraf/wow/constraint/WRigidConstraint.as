@@ -27,7 +27,7 @@ package fr.seraf.wow.constraint {
 	import fr.seraf.wow.math.WVectorMath;
 	
 	/**
-	 * A Rigid constraint that connects two particles WARNING only the second particle is moved to adjust the correct length
+	 * A Rigid constraint that connects two particles 
 	 */
 	public class WRigidConstraint extends WConstraint{
 		
@@ -176,6 +176,7 @@ package fr.seraf.wow.constraint {
 				}
 				if (! p1.fixed) {
 					p2.curr=WVectorMath.sub(p1.curr,WVectorMath.scale(delta,diff));
+					return;
 				}
 				if (! p2.fixed) {
 					p1.curr=WVectorMath.addVector(p2.curr,WVectorMath.scale(delta,diff));
