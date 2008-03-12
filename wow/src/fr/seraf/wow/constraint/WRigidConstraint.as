@@ -29,16 +29,16 @@ package fr.seraf.wow.constraint {
 	/**
 	 * A Rigid constraint that connects two particles WARNING only the second particle is moved to adjust the correct length
 	 */
-	public class WRigidConstraint extends WConstraint {
+	public class WRigidConstraint extends WConstraint{
 		
 		private var p1:WParticle;
 		private var p2:WParticle;
 		
 		private var restLen:Number;
 
-		private var massAffect:Boolean;
+		//private var massAffect:Boolean;
 		private var delta:WVector;
-		private var deltaLength:Number;
+		//private var deltaLength:Number;
 		
 
 		
@@ -53,14 +53,14 @@ package fr.seraf.wow.constraint {
 			super(0.8);
 			this.p1 = p1;
 			this.p2 = p2;
-			massAffect=true;
+			//massAffect=true;
 			checkParticlesLocation();
 			
 		
 			
 			delta = WVectorMath.sub(p1.curr,p2.curr);
-			deltaLength = WVectorMath.distance(p1.curr,p2.curr);
-			restLength = deltaLength;
+			//deltaLength = WVectorMath.distance(p1.curr,p2.curr);
+			restLength =  WVectorMath.distance(p1.curr,p2.curr);
 		}
 		
 		
@@ -145,22 +145,7 @@ package fr.seraf.wow.constraint {
 		}
 	
 			
-		/**
-		 * The <code>restLength</code> property sets the length of SpringConstraint. This value will be
-		 * the distance between the two particles unless their position is altered by external forces. The
-		 * SpringConstraint will always try to keep the particles this distance apart.
-		 */			
-		public function get massAffected():Boolean {
-			return massAffect;
-		}
-		
-		
-		/**
-		 * @private
-		 */	
-		public function set massAffected(r:Boolean):void {
-			massAffect = r;
-		}
+
 	
 
 		
@@ -176,66 +161,13 @@ package fr.seraf.wow.constraint {
 		/**
 		 * @private
 		 */
-		public override function resolve():void {
+		public  override function resolve():void {
 			
-			//if (p1.fixed && p2.fixed) return;
-			/*
-			//delta le vecteur des 2 pts
-			delta = WVectorMath.sub(p1.curr,p2.curr);
-			//la longueur du vecteur
-			deltaLength =  WVectorMath.distance(p1.curr,p2.curr);
-			
-			
-			var diff:Number = (deltaLength - restLength) / deltaLength;
-			
-			var dmd:WVector =WVectorMath.scale( delta,diff * stiffness);
-	
-			var invM1:Number = p1.invMass; 
-			var invM2:Number = p2.invMass;
-			var sumInvMass:Number = invM1 + invM2;
-			
-			// REVIEW TO SEE IF A SINGLE FIXED PARTICLE IS RESOLVED CORRECTLY
-			if (! p1.fixed){
-				dmd=WVectorMath.scale(dmd,invM1 / sumInvMass);
-			 p1.curr=WVectorMath.sub(p1.curr,dmd);
-			}
-			if (! p2.fixed){
-				dmd=WVectorMath.scale(dmd,invM2 / sumInvMass)
-				p2.curr=WVectorMath.addVector(p2.curr, dmd);
-			}*/
-			//var dx: Number = ( p1.x + p1.vx ) - ( p0.x + p0.vx );
-			//var dy: Number = ( p1.y + p1.vy ) - ( p0.y + p0.vy );
-			delta = WVectorMath.sub(p1.curr,p2.curr);
-			
-			//var d1: Number = Math.sqrt( dx * dx + dy * dy );
-			deltaLength =  WVectorMath.distance(p1.curr,p2.curr);
-			//var d2: Number = stiffness * ( d1 - restLength ) / d1;
-			var diff:Number = stiffness * ( deltaLength - restLength ) / deltaLength;
-			//dx *= d2;
-			//dy *= d2;
-			var dmd:WVector =WVectorMath.scale(delta,diff);
-			var invM1:Number = p1.invMass;
-			var invM2:Number = p2.invMass;
-			var sumInvMass:Number = invM1 + invM2;
-			/*if (! p1.fixed) {
-				if(massAffected)dmd=WVectorMath.scale(dmd,invM1 / sumInvMass);
-				p1.curr=WVectorMath.sub(p1.curr,dmd);
-			}*/
-			
-				if(massAffected)dmd=WVectorMath.scale(dmd,invM2 / sumInvMass)
-				p2.curr=WVectorMath.addVector(p2.curr,dmd);
-				//on normalise et on donne la bonne distance entre les deux boule au final seul la deuxieme boule sera deplacer
 				delta = WVectorMath.sub(p1.curr,p2.curr);
 				var d:Number=WVectorMath.distance(p1.curr,p2.curr)
-				diff=restLength/d
+				var diff:Number=restLength/d
 				p2.curr=WVectorMath.sub(p1.curr,WVectorMath.scale(delta,diff));
-				d=WVectorMath.distance(p1.curr,p2.curr)
 				
-				
-			/*p0.vx += dx;
-			p0.vy += dy;
-			p1.vx -= dx;
-			p1.vy -= dy;*/
 		}
 
 	
