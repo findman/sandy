@@ -162,11 +162,24 @@ package fr.seraf.wow.constraint {
 		 * @private
 		 */
 		public  override function resolve():void {
-			
+				if (p1.fixed && p2.fixed) return;
 				delta = WVectorMath.sub(p1.curr,p2.curr);
 				var d:Number=WVectorMath.distance(p1.curr,p2.curr)
 				var diff:Number=restLength/d
-				p2.curr=WVectorMath.sub(p1.curr,WVectorMath.scale(delta,diff));
+				
+				if (! p1.fixed && ! p2.fixed) {
+					var d2:WVector = WVectorMath.scale(WVectorMath.scale(delta,-diff),.5)
+					var c:WVector=center
+					p1.curr=WVectorMath.sub(c,d2);
+					p2.curr=WVectorMath.addVector(c,d2);
+					return
+				}
+				if (! p1.fixed) {
+					p2.curr=WVectorMath.sub(p1.curr,WVectorMath.scale(delta,diff));
+				}
+				if (! p2.fixed) {
+					p1.curr=WVectorMath.addVector(p2.curr,WVectorMath.scale(delta,diff));
+				}
 				
 		}
 
@@ -175,9 +188,6 @@ package fr.seraf.wow.constraint {
 		 * if the two particles are at the same location warn the user
 		 */
 		private function checkParticlesLocation():void {
-			if (p2.fixed) {
-				throw new Error("The second particle can't be fixed");
-			}
 			if (p1.curr.x == p2.curr.x && p1.curr.y == p2.curr.y&& p1.curr.z == p2.curr.z) {
 				throw new Error("The two particles specified for a SpringContraint can't be at the same location");
 			}
