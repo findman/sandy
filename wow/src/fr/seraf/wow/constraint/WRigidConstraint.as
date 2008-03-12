@@ -45,14 +45,12 @@ package fr.seraf.wow.constraint {
 		/**
 		 * @param p1 The first particle this constraint is connected to.
 		 * @param p2 The second particle this constraint is connected to.
-		 * @param stiffness The strength of the spring. Valid values are between 0 and 1. Lower values
-		 * result in softer springs. Higher values result in stiffer, stronger springs.
 		 */
 		public function WRigidConstraint(
 				p1:WParticle, 
 				p2:WParticle) {
 			
-			super(0.5);
+			super(0.8);
 			this.p1 = p1;
 			this.p2 = p2;
 			massAffect=true;
@@ -229,16 +227,11 @@ package fr.seraf.wow.constraint {
 				//on normalise et on donne la bonne distance entre les deux boule au final seul la deuxieme boule sera deplacer
 				delta = WVectorMath.sub(p1.curr,p2.curr);
 				var d:Number=WVectorMath.distance(p1.curr,p2.curr)
-				trace(p1.curr,p2.curr)
-				trace("distance",d)
-				 diff=restLength/d
-				trace("diff",diff)
+				diff=restLength/d
 				p2.curr=WVectorMath.sub(p1.curr,WVectorMath.scale(delta,diff));
+				d=WVectorMath.distance(p1.curr,p2.curr)
 				
-			trace(p1.curr,p2.curr)
-			 d=WVectorMath.distance(p1.curr,p2.curr)
 				
-				trace("distance",d)
 			/*p0.vx += dx;
 			p0.vy += dy;
 			p1.vx -= dx;
