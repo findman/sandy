@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -39,17 +38,16 @@ package sandy.materials.attributes
 	public final class LightAttributes extends ALightAttributes
 	{
 		/**
-		 * Flag for lightening mode.
-		 * <p>If true, the lit objects use full light range from black to white.<b />
-		 * If false (the default) they just range from black to their normal appearance.</p>
+		 * Flag for lighting mode.
+		 * <p>If true, the lit objects use full light range from black to white. If false (the default) they range from black to their normal appearance.</p>
 		 */
 		public var useBright:Boolean = false;
 		
 		/**
 		 * Creates a new LightAttributes object.
 		 *
-		 * @param p_bBright The brightness (value for useBright).
-		 * @param p_nAmbient The ambient light value. Value must be between 0 and 1
+		 * @param p_bBright		The brightness (value for useBright).
+		 * @param p_nAmbient	The ambient light value. Value must be between 0 and 1
 		 */
 		public function LightAttributes( p_bBright:Boolean = false, p_nAmbient:Number = 0.3 )
 		{
@@ -59,13 +57,8 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * Draw the attribute onto the graphics object to simulate the flat shading.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going o be drawn
-		 * @param p_oMaterial the refering material
-		 * @param p_oScene the scene
-		 */
+		* @private
+		*/
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);

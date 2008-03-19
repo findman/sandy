@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,8 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -42,8 +40,7 @@ package sandy.materials.attributes
 	{
 		/**
 		 * Flag for lightening mode.
-		 * <p>If true, the lit objects use full light range from black to white.<b />
-		 * If false (the default) they just range from black to their normal appearance.</p>
+		 * <p>If true, the lit objects use full light range from black to white. If false (the default) they just range from black to their normal appearance.</p>
 		 */
 		public var useBright:Boolean = false;
 
@@ -73,6 +70,9 @@ package sandy.materials.attributes
 		private var colours:Array = new Array(0,0); 
 		private var ratios:Array = [ 0x00, 0xFF ];
 		
+		/**
+		* @inheritDoc
+		*/
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);

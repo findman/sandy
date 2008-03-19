@@ -103,6 +103,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the sphere.
 		*
+		* @return The geometry object for the sphere.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		public function generate(... arguments):Geometry3D

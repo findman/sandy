@@ -105,9 +105,7 @@ package sandy.primitive
 		* @param p_nWidth 	Width of the box (along the x-axis).
 		* @param p_nHeight	Height of the box (along the y-axis).
 		* @param p_nDepth	Depth of the box (along the z-axis).
-		* @param p_sMode	One of two available face generation modes:
-		*                      "tri" generates faces with 3 vertices,
-		* 			"quad" generates faces with 4 vertices.
+		* @param p_sMode	The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
 		*
 		* @see PrimitiveMode
 		*/
@@ -126,6 +124,8 @@ package sandy.primitive
 
 		/**
 		* Generates the geometry object for the box.
+		*
+		* @return The geometry object for the box.
 		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/

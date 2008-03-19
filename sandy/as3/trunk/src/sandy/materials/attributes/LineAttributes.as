@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -44,9 +43,9 @@ package sandy.materials.attributes
 		/**
 		 * Creates a new LineAttributes object.
 		 *
-		 * @param p_nThickness	The line thickness - Defaoult 1
-		 * @param p_nColor	The line color - Defaoult 0 ( black )
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+		 * @param p_nThickness	The line thickness
+		 * @param p_nColor		The line color
+		 * @param p_nAlpha		The alpha value in percent of full opacity ( 0 - 1 )
 		 */
 		public function LineAttributes( p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1 )
 		{
@@ -58,7 +57,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque). The default value is 1.
 		 */
 		public function get alpha():Number
 		{
@@ -66,7 +65,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * The line color
 		 */
 		public function get color():Number
 		{
@@ -74,17 +73,15 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
-		 */
+		 * The line thickness
+		 */	
 		public function get thickness():Number
 		{
 			return m_nThickness;
 		}
 		
 		/**
-		 * The alpha value for the lines ( 0 - 1 )
-		 *
-		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 * @private
 		 */
 		public function set alpha(p_nValue:Number):void
 		{
@@ -93,7 +90,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line color
+		 * @private
 		 */
 		public function set color(p_nValue:Number):void
 		{
@@ -102,8 +99,8 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * The line thickness
-		 */	
+		 * @private
+		 */
 		public function set thickness(p_nValue:Number):void
 		{
 			m_nThickness = p_nValue; 
@@ -111,13 +108,8 @@ package sandy.materials.attributes
 		}
 	
 		/**
-		 * Draw the edges of the polygon into the graphics object.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going to be drawn
-		 * @param p_oMaterial the referring material
-		 * @param p_oScene the scene
-		 */
+		* @private
+		*/
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
 			var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;

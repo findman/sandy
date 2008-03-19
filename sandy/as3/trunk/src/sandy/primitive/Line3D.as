@@ -64,6 +64,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the line.
 		*
+		* @return The geometry object for the line.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		public function generate ( ... arguments ) : Geometry3D

@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -44,14 +43,17 @@ package sandy.materials.attributes
 		private var m_nColor:Number;
 		private var m_nAlpha:Number;
 		// --
+		/**
+		 * A dev care to enlighten us?
+		 */
 		public var modified:Boolean;
 		
 		/**
 		 * Creates a new OutlineAttributes object.
 		 *
-		 * @param p_nThickness	The line thickness - Defaoult 1
-		 * @param p_nColor	The line color - Default 0 ( black )
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+		 * @param p_nThickness	The line thickness
+		 * @param p_nColor		The line color
+		 * @param p_nAlpha		The alpha value in percent of full opacity ( 0 - 1 )
 		 */
 		public function OutlineAttributes( p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1 )
 		{
@@ -63,7 +65,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque). The default value is 1.
 		 */
 		public function get alpha():Number
 		{
@@ -71,7 +73,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * The line color
 		 */
 		public function get color():Number
 		{
@@ -79,17 +81,15 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
-		 */
+		 * The line thickness
+		 */	
 		public function get thickness():Number
 		{
 			return m_nThickness;
 		}
 		
 		/**
-		 * The alpha value for the lines ( 0 - 1 )
-		 *
-		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 * @private
 		 */
 		public function set alpha(p_nValue:Number):void
 		{
@@ -98,7 +98,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line color
+		 * @private
 		 */
 		public function set color(p_nValue:Number):void
 		{
@@ -107,8 +107,8 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * The line thickness
-		 */	
+		 * @private
+		 */
 		public function set thickness(p_nValue:Number):void
 		{
 			m_nThickness = p_nValue; 
@@ -116,8 +116,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * Allows to proceed to an initialization
-		 * to know when the polyon isn't lined to the material, look at #unlink
+		 * @private
 		 */
 		override public function init( p_oPolygon:Polygon ):void
 		{
@@ -157,8 +156,7 @@ package sandy.materials.attributes
 		}
 	
 		/**
-		 * Remove all the initialization
-		 * opposite of init
+		 * @private
 		 */
 		override public function unlink( p_oPolygon:Polygon ):void
 		{
@@ -167,12 +165,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * Draw the outline edges of the polygon into the graphics object.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going to be drawn
-		 * @param p_oMaterial the refering material
-		 * @param p_oScene the scene
+		 * @private
 		 */
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
@@ -213,10 +206,7 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * Outline the sprite. This has to clear any drawing done on sprite container, sorry.
-		 *  
-		 * @param p_oSprite the Sprite2D object to apply attributes to
-		 * @param p_oScene the scene
+		 * @private
 		 */
 		override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{

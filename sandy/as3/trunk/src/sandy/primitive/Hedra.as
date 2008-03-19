@@ -64,6 +64,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the hedra.
 		*
+		* @return The geometry object for the hedra.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		public function generate (... arguments):Geometry3D

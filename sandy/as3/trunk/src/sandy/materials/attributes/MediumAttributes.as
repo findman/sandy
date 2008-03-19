@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.DisplayObject;
@@ -44,8 +43,7 @@ package sandy.materials.attributes
 	public final class MediumAttributes extends AAttributes
 	{
 		/**
-		 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
-		 * If this value is transparent, color gradient will be extrapolated beyond that point.
+		 * @private
 		 */
 		public function set color (p_nColor:uint):void
 		{
@@ -54,7 +52,8 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
+		 * If this value is transparent, color gradient will be extrapolated beyond that point.
 		 */
 		public function get color ():uint
 		{
@@ -62,7 +61,7 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * Attenuation vector. This is the vector from transparent point to opaque point.
+		 * @private
 		 */
 		public function set fadeTo (p_oW:Vector):void
 		{
@@ -71,7 +70,9 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * Attenuation vector. This is the vector from transparent point to opaque point.
+		 *
+		 * @see sandy.core.data.Vector
 		 */
 		public function get fadeTo ():Vector
 		{
@@ -80,6 +81,8 @@ package sandy.materials.attributes
 
 		/**
 		 * Transparent point in wx, wy and wz coordinates.
+		 *
+		 * @see sandy.core.data.Vector
 		 */
 		public var fadeFrom:Vector;
 
@@ -91,10 +94,12 @@ package sandy.materials.attributes
 		/**
 		 * Creates a new MediumAttributes object.
 		 *
-		 * @param p_nColor - Medium color (opaque white by default).
-		 * @param p_oFadeTo - Attenuation vector (500 pixels beyond the screen by default).
-		 * @param p_oFadeFrom - Transparent point (at the screen by default).
-		 * @param p_nBlurAmount - Maximum amount of blur to add (0 by default).
+		 * @param p_nColor		Medium color
+		 * @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
+		 * @param p_oFadeFrom	Transparent point (at the screen by default).
+		 * @param p_nBlurAmount	Maximum amount of blur to add
+		 *
+		 * @see sandy.core.data.Vector
 		 */
 		public function MediumAttributes (p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:Vector = null, p_oFadeTo:Vector = null, p_nBlurAmount:Number = 0)
 		{
@@ -107,12 +112,7 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * Draw the attribute onto the graphics object to simulate viewing through partially opaque medium.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going to be drawn
-		 * @param p_oMaterial the refering material
-		 * @param p_oScene the scene
+		 * @private
 		 */
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
@@ -163,10 +163,7 @@ package sandy.materials.attributes
 		}
 
 		/**
-		 * Draw the attribute on sprite to simulate viewing through partially opaque medium.
-		 *  
-		 * @param p_oSprite the Sprite2D object to apply attributes to
-		 * @param p_oScene the scene
+		 * @private
 		 */
 		override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{

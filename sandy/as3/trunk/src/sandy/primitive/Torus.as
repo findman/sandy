@@ -129,6 +129,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the torus.
 		*
+		* @return The geometry object for the torus.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		public function generate(... arguments) : Geometry3D

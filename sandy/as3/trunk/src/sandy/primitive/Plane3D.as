@@ -94,6 +94,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the plane.
 		*
+		* @return The geometry object for the plane.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		public function generate( ...arguments ):Geometry3D

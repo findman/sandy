@@ -40,6 +40,7 @@ package sandy.materials.attributes
 		
 		/**
 		 * Creates a new VertexNormalAttributes object.
+		 *
 		 * @param p_nLength The length of the segment
 		 * @param p_nThickness	The line thickness - Defaoult 1
 		 * @param p_nColor	The line color - Defaoult 0 ( black )
@@ -57,7 +58,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * @private
+		 * The line length
 		 */
 		public function get length():Number
 		{
@@ -65,7 +66,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line length
+		 * @private
 		 */
 		public function set length( p_nValue:Number ):void
 		{
@@ -74,12 +75,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * Draw the edges of the polygon into the graphics object.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going o be drawn
-		 * @param p_oMaterial the refering material
-		 * @param p_oScene the scene
+		 * @private
 		 */
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
@@ -113,8 +109,7 @@ package sandy.materials.attributes
 		}
 	
 		/**
-		 * Method called before the display list rendering.
-		 * This is the common place for this attribute to precompute things
+		 * @private
 		 */
 		override public function begin( p_oScene:Scene3D ):void
 		{

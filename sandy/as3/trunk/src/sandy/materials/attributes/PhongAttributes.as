@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -65,7 +64,9 @@ package sandy.materials.attributes
 		 * implementation does not render specular reflection in this case.</p>
 		 */
 		public function get useBright ():Boolean
-		{return _useBright;}
+		{
+			return _useBright;
+		}
 		
 		/**
 		 * @private
@@ -89,6 +90,8 @@ package sandy.materials.attributes
 		 * lighting).
 		 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected (greater
 		 * values will produce a little bit more accurate interpolation with non-equally spaced anchors).
+		 *
+		 * @see sandy.core.light.Light3D
 		 */
 		public function computeLightMap (p_oLight:Light3D, p_nQuality:int = 4, p_nSamples:int = 4):void
 		{
@@ -252,7 +255,9 @@ package sandy.materials.attributes
 		// light map to use in this rendering session
 		private var m_oCurrentLightMap:PhongAttributesLightMap;
 
-		// set current light map for "draw" to use
+		/**
+		 * @private
+		 */
 		override public function begin( p_oScene:Scene3D ):void
 		{
 			super.begin (p_oScene);
@@ -275,7 +280,9 @@ package sandy.materials.attributes
 		// vertex dictionary
 		private var m_oVertices:Dictionary;
 		
-		// --
+		/**
+		 * @private
+		 */
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
@@ -422,7 +429,11 @@ package sandy.materials.attributes
 			l_aPoints = null;
 		}
 
-		// when Phong model parameters change, any light maps we had are no longer valid
+		/**
+		 * @private
+		 *
+		 * when Phong model parameters change, any light maps we had are no longer valid
+		 */
 		override protected function onPropertyChange ():void
 		{
 			m_oLightMaps = new Dictionary ();

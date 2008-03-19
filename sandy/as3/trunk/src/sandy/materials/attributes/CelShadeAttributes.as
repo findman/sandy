@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,14 +13,13 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-	
+
 	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
@@ -52,7 +51,10 @@ package sandy.materials.attributes
 
 		/**
 		 * Create the CelShadeAttributes object.
-		 * @param p_oLightMap A lightmap that object will use (default map has four shades of gray).
+		 *
+		 * @param p_oLightMap A lightmap that the object will use (default map has four shades of gray).
+		 *
+		 * @see PhongAttributesLightMap
 		 */
 		public function CelShadeAttributes (p_oLightMap:PhongAttributesLightMap = null)
 		{
@@ -83,7 +85,9 @@ package sandy.materials.attributes
 			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}
 
-		// --
+		/**
+		* @inheritDoc
+		*/
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
@@ -92,7 +96,9 @@ package sandy.materials.attributes
 
 			// got anything at all to do?
 			if( !p_oMaterial.lightingEnable )
+			{
 				return;
+			}
 
 			// get vertices and prepare matrix2
 			var l_aPoints:Array = (p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices;
@@ -107,7 +113,10 @@ package sandy.materials.attributes
 			for (i = 0; i < 3; i++)
 			{
 				aN0 [i].copy (p_oPolygon.vertexNormals [i].getWorldVector());
-				if (!p_oPolygon.visible) aN0 [i].scale (-1);
+				if (!p_oPolygon.visible)
+				{
+					aN0 [i].scale (-1);
+				}
 
 				if (spherize > 0)
 				{
@@ -143,7 +152,10 @@ package sandy.materials.attributes
 				aN [i].copy (aN0 [i]);
 
 				var d_dot_aNi:Number = d.dot (aN [i]);
-				if (d_dot_aNi < 0) backside = false;
+				if (d_dot_aNi < 0)
+				{
+					backside = false;
+				}
 
 				// intersect with parabola - q(r) in computeLightMap() corresponds to this
 				aN[i].scale (1 / (1 - d_dot_aNi));
@@ -221,6 +233,9 @@ package sandy.materials.attributes
 		// vertex dictionary
 		private var m_oVertices:Dictionary;
 
+		/**
+		* @private
+		*/
 		override public function begin( p_oScene:Scene3D ):void
 		{
 			super.begin (p_oScene);

@@ -1,6 +1,6 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -27,7 +26,7 @@ package sandy.materials.attributes
 	import sandy.core.scenegraph.Camera3D;
 	
 	/**
-	 * Holds all new line style Attributes data for a material.
+	 * Holds all dashed line attributes data for a material.
 	 *
 	 * 
 	 * @author		Max Pellizzaro
@@ -36,35 +35,29 @@ package sandy.materials.attributes
 	 */
 	public class DashedLineAttributes extends LineAttributes
 	{
-		 private var thisLenght:Number;
+		 private var thisLength:Number;
 		 private var thisGap:Number;
 		 
 		
 		/**
-		 * Creates a new LineAStyleAttributes object.
+		 * Creates a new DashedLineAttributes object.
 		 *
-		 * @param p_nThickness	The line thickness - Defaoult 1
-		 * @param p_nColor	The line color - Defaoult 0 ( black )
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
-		 * @param p_style		The Style you want to use
+		 * @param p_nThickness	The line thickness.
+		 * @param p_nColor		The line color.
+		 * @param p_nAlpha		The alpha value in percent of full opacity ( 0 - 1 )
+		 * @param p_length		The length of the line
+		 * @param p_gap			The length of the gaps
 		 */
-		public function DashedLineAttributes( p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_lenght:Number = 10, p_gap:Number = 10 )
+		public function DashedLineAttributes( p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_length:Number = 10, p_gap:Number = 10 )
 		{
 			super(p_nThickness,p_nColor,p_nAlpha);
-			thisLenght = p_lenght;
+			thisLength = p_length;
 			thisGap = Math.abs( p_gap );
 		}
 		
-		
 		/**
-		 * Draw the edges of the polygon into the graphics object.
-		 *  
-		 * @param p_oGraphics the Graphics object to draw attributes into
-		 * @param p_oPolygon the polygon which is going o be drawn
-		 * @param p_oMaterial the refering material
-		 * @param p_oScene the scene
-		 *
-		 */
+		* @inheritDoc
+		*/
 		override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
 			var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
@@ -80,7 +73,7 @@ package sandy.materials.attributes
 				// --
 				if(  thisGap != 0 )
 				{
-					dashTo(p_oGraphics, p_oScene.camera, l_aPoints[l_nId], l_aPoints[l_nNext], thisLenght, thisGap); 
+					dashTo(p_oGraphics, p_oScene.camera, l_aPoints[l_nId], l_aPoints[l_nNext], thisLength, thisGap); 
 				}
 			  	else
 			  	{

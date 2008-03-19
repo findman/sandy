@@ -31,6 +31,8 @@ package sandy.primitive
 		/**
 		* Generates the geometry for the primitive.
 		*
+		* @return The geometry object for the primitive.
+		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
 		function generate(... arguments):Geometry3D;
