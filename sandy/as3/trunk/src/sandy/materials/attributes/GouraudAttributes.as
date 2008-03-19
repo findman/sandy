@@ -26,8 +26,6 @@ package sandy.materials.attributes
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
 	import sandy.materials.Material;
-	import sandy.math.VertexMath;
-	import sandy.util.NumberUtil;
 
 	/**
 	 * Realize a Gouraud shading on a material.
@@ -57,7 +55,7 @@ package sandy.materials.attributes
 		public function GouraudAttributes( p_bBright:Boolean = false, p_nAmbient:Number = 0.0 )
 		{
 			useBright = p_bBright;
-			ambient = NumberUtil.constrain( p_nAmbient, 0, 1 );
+			ambient = Math.min (Math.max (p_nAmbient, 0), 1);
 			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}
 		
@@ -91,12 +89,9 @@ package sandy.materials.attributes
 			v1N = p_oPolygon.vertexNormals[1].getWorldVector();
 			v2N = p_oPolygon.vertexNormals[2].getWorldVector();
 			// --
-			v0L = NumberUtil.constrain (calculate (v0N, p_oPolygon.visible), 0, 1);
-			v1L = NumberUtil.constrain (calculate (v1N, p_oPolygon.visible), 0, 1);
-			v2L = NumberUtil.constrain (calculate (v2N, p_oPolygon.visible), 0, 1);
-			v0L = NumberUtil.constrain( v0L, 0, 1 );
-			v1L = NumberUtil.constrain( v1L, 0, 1 );
-			v2L = NumberUtil.constrain( v2L, 0, 1 );	
+			v0L = calculate (v0N, p_oPolygon.visible); if (v0L < 0) v0L = 0; else if (v0L > 1)v0L = 1;
+			v1L = calculate (v1N, p_oPolygon.visible); if (v1L < 0) v1L = 0; else if (v1L > 1)v1L = 1;
+			v2L = calculate (v2N, p_oPolygon.visible); if (v2L < 0) v2L = 0; else if (v2L > 1)v2L = 1;
 			// --
 			aL[0] = v0L; aL[1] =  v1L; aL[2] = v2L;
 			aLId = aL.sort( Array.NUMERIC | Array.RETURNINDEXEDARRAY );
