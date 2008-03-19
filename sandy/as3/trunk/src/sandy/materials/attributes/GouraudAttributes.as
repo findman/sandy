@@ -149,7 +149,7 @@ package sandy.materials.attributes
 			}
 
 			// matrix
-			VertexMath.linearGradientMatrix (v0, v1, v2, aL[int(id0)], aL[int(id1)], aL[int(id2)], matrix);
+			linearGradientMatrix (v0, v1, v2, aL[int(id0)], aL[int(id1)], aL[int(id2)], matrix);
 
 			p_oGraphics.lineStyle();
 			p_oGraphics.beginGradientFill( "linear",colours, alpha, ratios, matrix );
@@ -165,6 +165,45 @@ package sandy.materials.attributes
 			v0N = null;
 			v1N = null;
 			v2N = null;
+		}
+
+		/**
+		 * Calculates linear gradient matrix from three vertices and ratios
+		 *
+		 * <p>This function expects vertices to be ordered in such a way that p_nR0 &lt; p_nR1 &lt; p_n2.
+		 * Ratios can be scaled by any positive factor;
+		 * see beginGradientFill documentation for ratios meaning.</p>
+		 *
+		 * @param p_oV0 Left-most vertex in a gradient.
+		 * @param p_oV1 Inner vertex in a gradient.
+		 * @param p_oV2 Right-most vertex in a gradient.
+		 * @param p_nR0 Ratio for p_oV0.
+		 * @param p_nR1 Ratio for p_oV1.
+		 * @param p_nR2 Ratio for p_oV2.
+		 * @param p_oMatrix (Optional) matrix object to use.
+		 * @return 	The matrix to use with beginGradientFill, GradientType.LINEAR.
+		 */
+		private function linearGradientMatrix (p_oV0:Vertex, p_oV1:Vertex, p_oV2:Vertex,
+			p_nR0:Number, p_nR1:Number, p_nR2:Number, p_oMatrix:Matrix = null):Matrix
+		{
+			const coef:Number = (p_nR1 - p_nR0) / (p_nR2 - p_nR0);
+			const p3x:Number = p_oV0.sx + coef * (p_oV2.sx - p_oV0.sx);
+			const p3y:Number = p_oV0.sy + coef * (p_oV2.sy - p_oV0.sy);
+			const p4x:Number = p_oV2.sx - p_oV0.sx;
+			const p4y:Number = p_oV2.sy - p_oV0.sy;
+			const p4len:Number = Math.sqrt (p4x*p4x + p4y*p4y);
+			const d:Number = Math.atan2 (p3x - p_oV1.sx, -(p3y - p_oV1.sy));
+
+			if (p_oMatrix != null)
+				p_oMatrix.identity ();
+			else
+				p_oMatrix = new Matrix ();
+
+			p_oMatrix.a = Math.cos (Math.atan2 (p4y, p4x) - d) * p4len / (32768 * 0.05);
+			p_oMatrix.rotate (d);
+			p_oMatrix.translate ((p_oV2.sx + p_oV0.sx) / 2, (p_oV2.sy + p_oV0.sy) / 2);
+
+			return p_oMatrix;
 		}
 	}
 }
