@@ -81,7 +81,6 @@ package sandy.core.scenegraph
 			setPerspectiveProjection( _nFov, viewport.ratio, _nNear, _nFar );
 			m_nOffx = viewport.width2; 
 			m_nOffy = viewport.height2;
-			viewport.hasChanged = false;
 			// It's a non visible node
 			visible = false;
 			z = -300;

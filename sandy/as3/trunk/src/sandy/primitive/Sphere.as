@@ -153,8 +153,8 @@ package sandy.primitive
 						var l_nP3:Number = aVtc[j-1][(i==0?iHorNum:i)-1];
 						var l_nP4:Number = aVtc[j-1][bEnd?0:i];
 						// uv
-						var fJ0:Number = j		/ iVerNum;
-						var fJ1:Number = (j-1)	/ iVerNum;
+						var fJ0:Number = j		/ (iVerNum-1);
+						var fJ1:Number = (j-1)	/ (iVerNum-1);
 						var fI0:Number = (i+1)	/ iHorNum;
 						var fI1:Number = i		/ iHorNum;
 

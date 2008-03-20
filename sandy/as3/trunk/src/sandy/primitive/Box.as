@@ -190,7 +190,7 @@ package sandy.primitive
 			//Bottom Face
 			__tesselate(l_geometry,
 						l_nID0, l_nID4, l_nID5, l_nID1,
-						3, 1, 0, 2,
+						0, 2, 3, 1,
 						_q - 1 );
 			//Left Face
 			__tesselate(l_geometry,
@@ -200,7 +200,7 @@ package sandy.primitive
 			//Right Face
 			__tesselate(l_geometry,
 						l_nID1, l_nID5, l_nID6, l_nID2,
-						1, 0, 2, 3,
+						0, 2, 3, 1,
 						_q - 1 );
 
 			return l_geometry;

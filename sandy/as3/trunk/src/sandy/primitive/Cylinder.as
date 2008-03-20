@@ -224,8 +224,8 @@ package sandy.primitive
 						var fJ0:Number, fJ1:Number, fI0:Number, fI1:Number;
 						if( m_bIsWholeMappingEnabled )
 						{
-							fJ0 = j		/ iVerNum;
-							fJ1 = (j-1)	/ iVerNum;
+							fJ0 = j		/ (iVerNum-1);;
+							fJ1 = (j-1)	/ (iVerNum-1);;
 							fI0 = (i+1)	/ iHorNum;
 							fI1 = i		/ iHorNum;
 						}

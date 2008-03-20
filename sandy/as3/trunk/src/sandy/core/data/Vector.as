@@ -307,47 +307,5 @@ package sandy.core.data
 			return (p_vector.x == x && p_vector.y == y && p_vector.z == z);
 		}
 
-		// Useful for XML output
-		/**
-		 * Returns a string representation of this vector with rounded values.
-		 *
-		 * <p>[<strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
-		 *
-		 * @param decPlaces	Number of decimals
-		 * @return 		The specific serialize string
-		 */
-		public final function serialize(decPlaces:Number=0):String
-		{
-			if (decPlaces == 0)
-			{
-				decPlaces = .01
-			}
-			//returns x,y,x
-			return  (	NumberUtil.roundTo(x, decPlaces) + "," +
-					 NumberUtil.roundTo(y, decPlaces) + "," +
-					 NumberUtil.roundTo(z, decPlaces)
-				);
-		}
-
-		// Useful for XML output
-		/**
-		 * Sets the elements of this vector from a string representation.
-		 *
-		 * <p>[<strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
-		 *
-		 * @param 	A string representing the vector ( specific serialize format )
-		 */
-		public final function deserialize(convertFrom:String):void
-		{
-			var tmp:Array = convertFrom.split(",");
-			if (tmp.length != 3)
-			{
-				trace ("Unexpected length of string to deserialize into a vector " + convertFrom);
-			}
-
-			x = tmp[0];
-			y = tmp[1];
-			z = tmp[2];
-		}
 	}
 }
