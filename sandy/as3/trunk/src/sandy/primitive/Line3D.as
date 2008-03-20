@@ -47,7 +47,7 @@ package sandy.primitive
 		*
 		* @see sandy.core.data.Vector
 		*/
-		public function Line3D ( p_sName:String, ...rest )
+		public function Line3D ( p_sName:String=null, ...rest )
 		{
 			super ( p_sName );
 			if( rest.length < 2 )

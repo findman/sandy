@@ -52,7 +52,7 @@ package sandy.primitive
 		* @param p_nWidth	Width of the hedra (along the x-axis).
 		* @param p_nDepth	Depth of the hedra (along the z-axis).
 		*/
-		public function Hedra ( p_sName:String, p_nHeight : Number = 100, p_nWidth : Number = 100, p_nDepth : Number = 100 )
+		public function Hedra ( p_sName:String=null, p_nHeight : Number = 100, p_nWidth : Number = 100, p_nDepth : Number = 100 )
 		{
 			super (p_sName);
 			_radius = (p_nDepth)?p_nDepth:100;

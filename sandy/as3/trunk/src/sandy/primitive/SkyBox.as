@@ -63,7 +63,7 @@ package sandy.primitive
 		* @param p_nQualityV	Number of vertical segments of the planes of the skybox. (WARNING: Some faces are rotated, and so, the quality isn't representative. To fix!)
 		*
 		*/
-		public function SkyBox(p_sName:String="", p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint=1 )
+		public function SkyBox(p_sName:String=null, p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint=1 )
 		{
 			super(p_sName); // TOP BOTTOM
 			var l_oPlane:Plane3D;
