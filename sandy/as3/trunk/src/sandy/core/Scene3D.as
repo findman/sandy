@@ -106,7 +106,8 @@ package sandy.core
 
 					if (root != null && camera != null)
 					{
-						root.addChild(camera);
+						if( !camera.hasParent() ) 
+							root.addChild(camera);
 					}
 				}
 				m_sName = p_sName;

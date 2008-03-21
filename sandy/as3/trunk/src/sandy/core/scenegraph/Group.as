@@ -113,5 +113,10 @@ package sandy.core.scenegraph
 			
 			return l_oGroup;
 		}
+		
+		public override function toString():String
+		{
+			return "sandy.core.scenegraph.Group :["+name+"]";
+		}
 	}
 }

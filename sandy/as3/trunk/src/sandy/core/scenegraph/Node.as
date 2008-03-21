@@ -419,7 +419,6 @@ package sandy.core.scenegraph
 			{
 				l_oNode.update( p_oScene, p_oModelMatrix, changed );
 			}
-		
 		}
 
 

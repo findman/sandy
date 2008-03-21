@@ -72,10 +72,10 @@ package sandy.core.scenegraph
 			{
 			    const lChanged:Boolean = p_bChanged || changed;
 			    for each( var l_oNode:Node in children )
+			    {
 			        l_oNode.cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+			    }
 			}
-			// --
-			//super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );
 		}
 
 		/**
@@ -118,7 +118,7 @@ package sandy.core.scenegraph
 		 */
 		public override function toString():String
 		{
-			return "sandy.core.scenegraph.TransformGroup";
+			return "sandy.core.scenegraph.TransformGroup :["+name+"]";
 		}
 	}
 }

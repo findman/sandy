@@ -609,7 +609,7 @@ package sandy.core.data
 		 *
 		 * @return	The normal vector
 		 */
-		public function createNormal():Vector
+		public function createTransformedNormal():Vector
 		{
 			if( vertices.length > 2 )
 			{
@@ -630,6 +630,27 @@ package sandy.core.data
 			}
 		}
 
+		public function createNormal():Vector
+		{
+			if( vertices.length > 2 )
+			{
+				var v:Vector, w:Vector;
+				var a:Vertex = vertices[0], b:Vertex = vertices[1], c:Vertex = vertices[2];
+				v = new Vector( b.x - a.x, b.y - a.y, b.z - a.z );
+				w = new Vector( b.x - c.x, b.y - c.y, b.z - c.z );
+				// we compute de cross product
+				var l_normal:Vector = VectorMath.cross( v, w );
+				// we normalize the resulting vector
+				VectorMath.normalize( l_normal ) ;
+				// we return the resulting vertex
+				return l_normal;
+			}
+			else
+			{
+				return new Vector();
+			}
+		}
+		
 		/**
 		 * The appearance of this polygon.
 		 */
