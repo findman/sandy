@@ -23,7 +23,6 @@ package sandy.materials.attributes
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
 	import sandy.materials.Material;
-	import sandy.util.NumberUtil;
 	
 	/**
 	 * Realize a flat shading effect when associated to a material.
@@ -47,12 +46,12 @@ package sandy.materials.attributes
 		 * Creates a new LightAttributes object.
 		 *
 		 * @param p_bBright		The brightness (value for useBright).
-		 * @param p_nAmbient	The ambient light value. Value must be between 0 and 1
+		 * @param p_nAmbient	The ambient light value. A value between O and 1 is expected.
 		 */
 		public function LightAttributes( p_bBright:Boolean = false, p_nAmbient:Number = 0.3 )
 		{
 			useBright = p_bBright;
-			ambient = NumberUtil.constrain( p_nAmbient, 0, 1 );
+			ambient = Math.min (Math.max (p_nAmbient, 0), 1);
 			m_nFlags |= SandyFlags.POLYGON_NORMAL_WORLD;
 		}
 		
@@ -68,7 +67,8 @@ package sandy.materials.attributes
 				var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
 				var l_oNormal:Vector = p_oPolygon.normal.getWorldVector();
 				// --
-				var lightStrength:Number = NumberUtil.constrain (calculate (l_oNormal, p_oPolygon.visible), 0, 1);
+				var lightStrength:Number = calculate (l_oNormal, p_oPolygon.visible);
+				if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;
 				// --
 				p_oGraphics.lineStyle();
 				if( useBright) 
