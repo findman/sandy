@@ -408,7 +408,7 @@ package sandy.materials.attributes
 					// where the hell do they keep coming from?
 					p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
 					a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
-					while ((-1e-2 < a) && (a < 1e-2))
+					while ((-20 < a) && (a < 20))
 					{
 						p.x--; p1.y++; p2.x++;
 						a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
