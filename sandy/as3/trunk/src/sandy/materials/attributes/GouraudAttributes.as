@@ -90,6 +90,7 @@ package sandy.materials.attributes
 		
 		private var m1:Matrix = new Matrix();
 		private var m2:Matrix = new Matrix();
+		private var m_oVertex:Vertex;
 
 		/**
 		 * Current light map; setting this to null will use slower, but more accurate vector gradient map.
@@ -97,7 +98,7 @@ package sandy.materials.attributes
 		public var lightMap:BitmapData;
 
 		/**
-		 * Amount of map width taken by end colors on both sides
+		 * Amount of map width taken by end colors on both sides.
 		 */
 		public var lightMapPadding:Number = 0.25;
 		
@@ -126,7 +127,17 @@ package sandy.materials.attributes
 			// perpendicular projections
 			if( (u0 == u1) && (u1 == u2) )
 			{
-				u1++;
+				// this is solid color case - so fill accordingly
+				var ca:uint = lightMap.getPixel32(u0, 0), c:uint = ca & 0xFFFFFF;
+				p_oGraphics.lineStyle();
+				p_oGraphics.beginFill (c, (ca - c) / 0xFF000000 );
+				p_oGraphics.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+				for each( m_oVertex in l_aPoints )
+				{
+					p_oGraphics.lineTo( m_oVertex.sx, m_oVertex.sy );
+				}
+				p_oGraphics.endFill();
+				return;
 			}
 			else
 			{
@@ -150,9 +161,9 @@ package sandy.materials.attributes
 			p_oGraphics.lineStyle();
 			p_oGraphics.beginBitmapFill (lightMap, m1, true, lightMapSmooth);
 			p_oGraphics.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
-			for each( var l_oVertex:Vertex in l_aPoints )
+			for each( m_oVertex in l_aPoints )
 			{
-				p_oGraphics.lineTo( l_oVertex.sx, l_oVertex.sy );
+				p_oGraphics.lineTo( m_oVertex.sx, m_oVertex.sy );
 			}
 			p_oGraphics.endFill();
 		}
