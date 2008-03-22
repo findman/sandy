@@ -207,6 +207,19 @@ package sandy.core.data
 		}
 
 		/**
+		 * Crosses this vector with specified one.
+		 *
+		 * @param v 	The vector to make the cross product with ( right side )
+		 */
+		public final function crossWith( v:Vector):void
+		{
+			const cx:Number = (y * v.z) - (z * v.y);
+			const cy:Number = (z * v.x) - (x * v.z);
+			const cz:Number = (x * v.y) - (y * v.x);
+			x = cx; y = cy; z = cz;
+		}
+
+		/**
 		 * Normalizes this vector.
 		 *
 		 * <p>After normalizing the vector, the direction is the same, but the length is = 1.</p>
