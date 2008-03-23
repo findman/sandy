@@ -41,7 +41,7 @@ package sandy.materials
 	 * @version		3.0
 	 * @date 		26.07.2007
 	 */
-	public class BitmapMaterial extends Material
+	public class BitmapMaterial extends Material implements IAlphaMaterial
 	{
 
 		/**
@@ -415,6 +415,26 @@ package sandy.materials
 			texture.applyFilter( m_orgTexture, texture.rect, m_oPoint, m_oCmf );
 		}
 
+		/**
+		 * @private
+		 */
+		public function get alpha():Number 
+		{
+			return m_nAlpha;
+		}
+
+		/**
+		 * The alpha value for this material ( 0 - 1 )
+		 *
+		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 */
+		public function set alpha(p_nValue:Number):void	
+		{
+			setTransparency(p_nValue);
+			m_nAlpha = p_nValue;
+			m_bModified = true;
+		}
+
 		public override function unlink( p_oPolygon:Polygon ):void
 		{
 			if( m_oPolygonMatrixMap[p_oPolygon.id] )
@@ -463,6 +483,7 @@ package sandy.materials
 		private var m_nWidth:Number;
 		private var m_nInvHeight:Number;
 		private var m_nInvWidth:Number;
+		private var m_nAlpha:Number = 1.0;
 
 		private var m_nRecLevel:int = 0;
 		protected var m_oPolygonMatrixMap:Dictionary;

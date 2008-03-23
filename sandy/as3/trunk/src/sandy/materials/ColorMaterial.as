@@ -35,7 +35,7 @@ package sandy.materials
 	 * @version		3.0
 	 * @date 		26.07.2007
 	 */
-	public final class ColorMaterial extends Material
+	public final class ColorMaterial extends Material implements IAlphaMaterial
 	{
 		private var m_nColor:Number;
 		private var m_nAlpha:Number;
