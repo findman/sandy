@@ -468,6 +468,44 @@ package sandy.core.scenegraph
 		}
 
 		/**
+		 * Performs an operation on this node and all of its children.
+		 * 
+		 * <p>Traverses the subtree made up of this node and all of its children.
+		 * While traversing the subtree, individual operations are performed 
+		 * on entry and exit of each node of the subtree.</p>
+		 * <p>Implements the visitor design pattern: 
+		 * Using the visitor design pattern, you can define a new operation on Node
+		 * and its subclasses without having to change the classes and without having
+		 * to take care of traversing the node tree.</p>
+		 * 
+		 * @example
+		 * <listing version="3.0">
+		 *     var mySpecialOperation:SpecialOperation = new SpecialOperation;
+		 * 
+		 *     mySpecialOperation.someParameter = 0.8;
+		 *     someTreeNode.perform(mySpecialOperation);
+		 *     trace(mySpecialOperation.someResult);
+		 * 
+		 *     mySpecialOperation.someParameter = 0.2;
+		 *     someOtherTreeNode.perform(mySpecialOperation);
+		 *     trace(mySpecialOperation.someResult);
+		 * </listing>
+		 * 
+		 * @param  p_iOperation   The operation to be performed on the node subtree
+		 */ 
+		public function perform( p_iOperation:INodeOperation ):void {
+			p_iOperation.performOnEntry( this );
+			
+			// perform operation on all child nodes
+			for each( var l_oChild:Node in children ) 
+			{
+				l_oChild.perform( p_iOperation );
+			}
+				
+			p_iOperation.performOnExit( this );
+		}
+
+		/**
 		 * Returns a string representation of this object
 		 *
 		 * @return	The fully qualified name of this class
