@@ -42,7 +42,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  Holds all new line style Attributes data for a material.
+  Holds all dashed line attributes data for a material.
     
   <p></p>
 <br>
@@ -65,8 +65,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="LineAttributes.html#alpha">alpha</a> : Number<div class="summaryTableDescription">
-   The alpha value for the lines ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</div>
+   Indicates the alpha transparency value of the line.</div>
 </td><td class="summaryTableOwnerCol"><a href="LineAttributes.html">LineAttributes</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -77,7 +76,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AAttributes.html#flags">flags</a> : uint<div class="summaryTableDescription">
-   Returns the specific flags of this attribute.</div>
+  Returns the specific flags of this attribute.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -89,27 +88,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    The line thickness
    </div>
 </td><td class="summaryTableOwnerCol"><a href="LineAttributes.html">LineAttributes</a></td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedProperty" id="hideInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Properties</a>
-</div>
-<div class="showInheritedProtectedProperty" id="showInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Properties</a>
-</div>
-</div>
-<table id="summaryTableProtectedProperty" class="summaryTable hideInheritedProtectedProperty" cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AAttributes.html#m_nFlags">m_nFlags</a> : uint = 0<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 </table>
 </div>
@@ -131,9 +109,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#DashedLineAttributes()">DashedLineAttributes</a>(p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_lenght:Number = 10, p_gap:Number = 10)</div>
+<a class="signatureLink" href="#DashedLineAttributes()">DashedLineAttributes</a>(p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_length:Number = 10, p_gap:Number = 10)</div>
 <div class="summaryTableDescription">
-   Creates a new LineAStyleAttributes object.</div>
+   Creates a new DashedLineAttributes object.</div>
 </td><td class="summaryTableOwnerCol">DashedLineAttributes</td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -141,7 +119,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#begin()">begin</a>(p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Method called before the display list rendering.</div>
+  Method called before the display list rendering.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="">
@@ -149,7 +127,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#draw()">draw</a>(p_oGraphics:Graphics, p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Draw the edges of the polygon into the graphics object.</div>
+  
+  </div>
 </td><td class="summaryTableOwnerCol">DashedLineAttributes</td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -157,7 +136,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="../../core/scenegraph/Sprite2D.html">Sprite2D</a>, p_oMaterial:<a href="../../materials/Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Apply attributes to sprites.</div>
+  Applies attribute to a sprite.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -165,8 +144,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#finish()">finish</a>(p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Method called right after the display list rendering
-   This is the place to remove and dispose memory if necessary.</div>
+  Method called right after the display list rendering.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -174,9 +152,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#init()">init</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Allows to proceed to an initialization
-   to know when the polyon isn't lined to the material, look at #unlink
-   </div>
+  Allows to proceed to an initialization to know when the polyon isn't lined to the material.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -184,9 +160,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#unlink()">unlink</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Remove all the initialization
-   opposite of init
-   </div>
+  Remove all the initialization opposite of init.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 </table>
@@ -205,40 +179,41 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function DashedLineAttributes(p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_lenght:Number = 10, p_gap:Number = 10)</code><p>
-   Creates a new LineAStyleAttributes object.
+<code>public function DashedLineAttributes(p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1, p_length:Number = 10, p_gap:Number = 10)</code><p>
+   Creates a new DashedLineAttributes object.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nThickness</span>:uint</code> (default = <code>1</code>)<code></code> &mdash; The line thickness - Defaoult 1
+<td width="20px"></td><td><code><span class="label">p_nThickness</span>:uint</code> (default = <code>1</code>)<code></code> &mdash; The line thickness.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nColor</span>:uint</code> (default = <code>0</code>)<code></code> &mdash; The line color - Defaoult 0 ( black )
+<td width="20px"></td><td><code><span class="label">p_nColor</span>:uint</code> (default = <code>0</code>)<code></code> &mdash;  The line color.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nAlpha</span>:Number</code> (default = <code>1</code>)<code></code> &mdash; The alpha value in percent of full opacity ( 0 - 1 )
+<td width="20px"></td><td><code><span class="label">p_nAlpha</span>:Number</code> (default = <code>1</code>)<code></code> &mdash;  The alpha value in percent of full opacity ( 0 - 1 )
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_lenght</span>:Number</code> (default = <code>10</code>)<code></code> &mdash;  The Style you want to use
+<td width="20px"></td><td><code><span class="label">p_length</span>:Number</code> (default = <code>10</code>)<code></code> &mdash;  The length of the line
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_gap</span>:Number</code> (default = <code>10</code>)<code></code></td>
+<td width="20px"></td><td><code><span class="label">p_gap</span>:Number</code> (default = <code>10</code>)<code></code> &mdash;   The length of the gaps
+   </td>
 </tr>
 </table>
 </div>
@@ -252,34 +227,29 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public override function draw(p_oGraphics:Graphics, p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</code><p>
-   Draw the edges of the polygon into the graphics object.
-    
-   </p><span class="label">Parameters</span>
+  
+  </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oGraphics</span>:Graphics</code> &mdash; the Graphics object to draw attributes into
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oGraphics</span>:Graphics</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../../core/data/Polygon.html">Polygon</a></code> &mdash; the polygon which is going o be drawn
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../../core/data/Polygon.html">Polygon</a></code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oMaterial</span>:<a href="../Material.html">Material</a></code> &mdash; the refering material
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oMaterial</span>:<a href="../Material.html">Material</a></code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../../core/Scene3D.html">Scene3D</a></code> &mdash; the scene
-      </td>
+<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../../core/Scene3D.html">Scene3D</a></code></td>
 </tr>
 </table>
 </div>

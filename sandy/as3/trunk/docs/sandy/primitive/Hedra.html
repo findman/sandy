@@ -410,7 +410,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Hedra()">Hedra</a>(p_sName:String, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nDepth:Number = 100)</div>
+<a class="signatureLink" href="#Hedra()">Hedra</a>(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nDepth:Number = 100)</div>
 <div class="summaryTableDescription">
   Creates a Hedra primitive.</div>
 </td><td class="summaryTableOwnerCol">Hedra</td>
@@ -579,6 +579,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    Translates this object vertically in ots parent frame.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../core/scenegraph/Node.html#perform()">perform</a>(p_iOperation:<a href="../core/scenegraph/INodeOperation.html">INodeOperation</a>):void</div>
+<div class="summaryTableDescription">
+   Performs an operation on this node and all of its children.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -766,14 +774,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Hedra(p_sName:String, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nDepth:Number = 100)</code><p>
+<code>public function Hedra(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nDepth:Number = 100)</code><p>
   Creates a Hedra primitive.
     </p><p>The Hedra is created centered at the origin of the world coordinate system
   with its edges parallel to world coordinate axes.</p>
     <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sName</span>:String</code> &mdash; A string identifier for this object.
+<td width="20px"></td><td><code><span class="label">p_sName</span>:String</code> (default = <code>null</code>)<code></code> &mdash; A string identifier for this object.
   </td>
 </tr>
 <tr>
@@ -820,7 +828,11 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code></td>
+<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code> &mdash; 
+                        The geometry object for the hedra.
+    
+                        
+                     </td>
 </tr>
 </table>
 <p>

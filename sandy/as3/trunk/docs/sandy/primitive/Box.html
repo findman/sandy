@@ -592,6 +592,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
+<a class="signatureLink" href="../core/scenegraph/Node.html#perform()">perform</a>(p_iOperation:<a href="../core/scenegraph/INodeOperation.html">INodeOperation</a>):void</div>
+<div class="summaryTableDescription">
+   Performs an operation on this node and all of its children.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
 <a class="signatureLink" href="../core/scenegraph/Node.html#remove()">remove</a>():void</div>
 <div class="summaryTableDescription">
    Removes this node from the node tree, saving its child nodes.</div>
@@ -840,9 +848,7 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sMode</span>:String</code> (default = "<code>tri</code>")<code></code> &mdash; One of two available face generation modes:
-                       "tri" generates faces with 3 vertices,
-     "quad" generates faces with 4 vertices.
+<td width="20px"></td><td><code><span class="label">p_sMode</span>:String</code> (default = "<code>tri</code>")<code></code> &mdash; The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
     </td>
 </tr>
 <tr>
@@ -880,7 +886,11 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code></td>
+<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code> &mdash; 
+                        The geometry object for the box.
+    
+                        
+                     </td>
 </tr>
 </table>
 <p>

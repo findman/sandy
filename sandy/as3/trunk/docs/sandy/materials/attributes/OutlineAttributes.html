@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="OutlineAttributes,sandy.materials.attributes.OutlineAttributes,modified,alpha,color,thickness,draw,drawOnSprite,init,unlink" name="keywords">
+<meta content="OutlineAttributes,sandy.materials.attributes.OutlineAttributes,modified,alpha,color,thickness" name="keywords">
 <title>sandy.materials.attributes.OutlineAttributes</title>
 </head>
 <body>
@@ -67,8 +67,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#alpha">alpha</a> : Number<div class="summaryTableDescription">
-   The alpha value for the lines ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</div>
+   Indicates the alpha transparency value of the line.</div>
 </td><td class="summaryTableOwnerCol">OutlineAttributes</td>
 </tr>
 <tr class="">
@@ -79,11 +78,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AAttributes.html#flags">flags</a> : uint<div class="summaryTableDescription">
-   Returns the specific flags of this attribute.</div>
+  Returns the specific flags of this attribute.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#modified">modified</a> : Boolean<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#modified">modified</a> : Boolean<div class="summaryTableDescription">
+   A dev care to enlighten us?
+   </div>
 </td><td class="summaryTableOwnerCol">OutlineAttributes</td>
 </tr>
 <tr class="">
@@ -91,27 +92,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    The line thickness
    </div>
 </td><td class="summaryTableOwnerCol">OutlineAttributes</td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedProperty" id="hideInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Properties</a>
-</div>
-<div class="showInheritedProtectedProperty" id="showInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Properties</a>
-</div>
-</div>
-<table id="summaryTableProtectedProperty" class="summaryTable hideInheritedProtectedProperty" cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AAttributes.html#m_nFlags">m_nFlags</a> : uint = 0<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 </table>
 </div>
@@ -143,53 +123,48 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#begin()">begin</a>(p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Method called before the display list rendering.</div>
+  Method called before the display list rendering.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#draw()">draw</a>(p_oGraphics:Graphics, p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
+<a class="signatureLink" href="AAttributes.html#draw()">draw</a>(p_oGraphics:Graphics, p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>, p_oMaterial:<a href="../../materials/Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Draw the outline edges of the polygon into the graphics object.</div>
-</td><td class="summaryTableOwnerCol">OutlineAttributes</td>
+  Draws attribute to the graphics object.</div>
+</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="../../core/scenegraph/Sprite2D.html">Sprite2D</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
+<a class="signatureLink" href="AAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="../../core/scenegraph/Sprite2D.html">Sprite2D</a>, p_oMaterial:<a href="../../materials/Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Outline the sprite.</div>
-</td><td class="summaryTableOwnerCol">OutlineAttributes</td>
+  Applies attribute to a sprite.</div>
+</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="AAttributes.html#finish()">finish</a>(p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</div>
 <div class="summaryTableDescription">
-   Method called right after the display list rendering
-   This is the place to remove and dispose memory if necessary.</div>
+  Method called right after the display list rendering.</div>
 </td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#init()">init</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
+<a class="signatureLink" href="AAttributes.html#init()">init</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Allows to proceed to an initialization
-   to know when the polyon isn't lined to the material, look at #unlink
-   </div>
-</td><td class="summaryTableOwnerCol">OutlineAttributes</td>
+  Allows to proceed to an initialization to know when the polyon isn't lined to the material.</div>
+</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#unlink()">unlink</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
+<a class="signatureLink" href="AAttributes.html#unlink()">unlink</a>(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Remove all the initialization
-   opposite of init
-   </div>
-</td><td class="summaryTableOwnerCol">OutlineAttributes</td>
+  Remove all the initialization opposite of init.</div>
+</td><td class="summaryTableOwnerCol"><a href="AAttributes.html">AAttributes</a></td>
 </tr>
 </table>
 </div>
@@ -208,8 +183,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>alpha:Number</code>&nbsp;&nbsp;[read-write]<p>
-   The alpha value for the lines ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+   Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque). The default value is 1.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get alpha():Number</code>
@@ -240,8 +214,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var modified:Boolean</code>
-</div>
+<code>public var modified:Boolean</code><p>
+   A dev care to enlighten us?
+   </p></div>
 <a name="thickness"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -272,128 +247,22 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nThickness</span>:uint</code> (default = <code>1</code>)<code></code> &mdash; The line thickness - Defaoult 1
+<td width="20px"></td><td><code><span class="label">p_nThickness</span>:uint</code> (default = <code>1</code>)<code></code> &mdash; The line thickness
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nColor</span>:uint</code> (default = <code>0</code>)<code></code> &mdash; The line color - Default 0 ( black )
+<td width="20px"></td><td><code><span class="label">p_nColor</span>:uint</code> (default = <code>0</code>)<code></code> &mdash;  The line color
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nAlpha</span>:Number</code> (default = <code>1</code>)<code></code> &mdash; The alpha value in percent of full opacity ( 0 - 1 )
+<td width="20px"></td><td><code><span class="label">p_nAlpha</span>:Number</code> (default = <code>1</code>)<code></code> &mdash;  The alpha value in percent of full opacity ( 0 - 1 )
    </td>
-</tr>
-</table>
-</div>
-<a name="methodDetail"></a>
-<div class="detailSectionHeader">Method detail</div>
-<a name="draw()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">draw</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function draw(p_oGraphics:Graphics, p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</code><p>
-   Draw the outline edges of the polygon into the graphics object.
-    
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oGraphics</span>:Graphics</code> &mdash; the Graphics object to draw attributes into
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../../core/data/Polygon.html">Polygon</a></code> &mdash; the polygon which is going to be drawn
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oMaterial</span>:<a href="../Material.html">Material</a></code> &mdash; the refering material
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../../core/Scene3D.html">Scene3D</a></code> &mdash; the scene
-   </td>
-</tr>
-</table>
-</div>
-<a name="drawOnSprite()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">drawOnSprite</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function drawOnSprite(p_oSprite:<a href="../../core/scenegraph/Sprite2D.html">Sprite2D</a>, p_oMaterial:<a href="../Material.html">Material</a>, p_oScene:<a href="../../core/Scene3D.html">Scene3D</a>):void</code><p>
-   Outline the sprite. This has to clear any drawing done on sprite container, sorry.
-    
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oSprite</span>:<a href="../../core/scenegraph/Sprite2D.html">Sprite2D</a></code> &mdash; the Sprite2D object to apply attributes to
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oMaterial</span>:<a href="../Material.html">Material</a></code> &mdash; the scene
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../../core/Scene3D.html">Scene3D</a></code></td>
-</tr>
-</table>
-</div>
-<a name="init()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">init</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function init(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</code><p>
-   Allows to proceed to an initialization
-   to know when the polyon isn't lined to the material, look at #unlink
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../../core/data/Polygon.html">Polygon</a></code></td>
-</tr>
-</table>
-</div>
-<a name="unlink()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">unlink</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function unlink(p_oPolygon:<a href="../../core/data/Polygon.html">Polygon</a>):void</code><p>
-   Remove all the initialization
-   opposite of init
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../../core/data/Polygon.html">Polygon</a></code></td>
 </tr>
 </table>
 </div>

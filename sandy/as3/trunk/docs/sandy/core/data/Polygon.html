@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,hasAppearanceChanged,id,isClipped,m_nDepth,m_oContainer,m_oEB,minZ,normal,scene,shape,uvBounds,vertexNormals,vertices,visible,broadcaster,container,depth,enableEvents,enableInteractivity,appearance,_onInteraction,_onTextureInteraction,_startMouseInteraction,_stopMouseInteraction,addEventListener,clear,clip,clipFrontPlane,createNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString" name="keywords">
+<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,hasAppearanceChanged,id,isClipped,m_nDepth,m_oContainer,m_oEB,minZ,normal,scene,shape,uvBounds,vertexNormals,vertices,visible,broadcaster,container,depth,enableEvents,enableInteractivity,appearance,_onInteraction,_onTextureInteraction,_startMouseInteraction,_stopMouseInteraction,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString" name="keywords">
 <title>sandy.core.data.Polygon</title>
 </head>
 <body>
@@ -246,6 +246,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#createNormal()">createNormal</a>():<a href="../data/Vector.html">Vector</a>
+</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">Polygon</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#createTransformedNormal()">createTransformedNormal</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
    Calculates and returns the normal vector of the polygon.</div>
@@ -881,7 +889,23 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function createNormal():<a href="../data/Vector.html">Vector</a></code><p>
+<code>public function createNormal():<a href="../data/Vector.html">Vector</a></code>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code></td>
+</tr>
+</table>
+</div>
+<a name="createTransformedNormal()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">createTransformedNormal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function createTransformedNormal():<a href="../data/Vector.html">Vector</a></code><p>
    Calculates and returns the normal vector of the polygon.
       </p><p></p>
 <span class="label">Returns</span>

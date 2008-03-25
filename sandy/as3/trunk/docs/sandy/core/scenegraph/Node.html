@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Node,sandy.core.scenegraph.Node,boundingBox,boundingSphere,changed,children,culled,id,m_oEB,modelMatrix,name,scene,viewMatrix,visible,broadcaster,parent,appearance,enableBackFaceCulling,enableEvents,enableInteractivity,useSingleContainer,addChild,addEventListener,cull,destroy,getChildByName,hasParent,isParent,remove,removeChildByName,removeEventListener,render,swapParent,toString,update" name="keywords">
+<meta content="Node,sandy.core.scenegraph.Node,boundingBox,boundingSphere,changed,children,culled,id,m_oEB,modelMatrix,name,scene,viewMatrix,visible,broadcaster,parent,appearance,enableBackFaceCulling,enableEvents,enableInteractivity,useSingleContainer,addChild,addEventListener,cull,destroy,getChildByName,hasParent,isParent,perform,remove,removeChildByName,removeEventListener,render,swapParent,toString,update" name="keywords">
 <title>sandy.core.scenegraph.Node</title>
 </head>
 <body>
@@ -229,6 +229,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#isParent()">isParent</a>(p_oNode:<a href="Node.html">Node</a>):Boolean</div>
 <div class="summaryTableDescription">
    Tests if the node passed in the argument is parent of this node.</div>
+</td><td class="summaryTableOwnerCol">Node</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#perform()">perform</a>(p_iOperation:<a href="INodeOperation.html">INodeOperation</a>):void</div>
+<div class="summaryTableDescription">
+   Performs an operation on this node and all of its children.</div>
 </td><td class="summaryTableOwnerCol">Node</td>
 </tr>
 <tr class="">
@@ -717,6 +725,47 @@ showHideInherited();
    </td>
 </tr>
 </table>
+</div>
+<a name="perform()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">perform</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function perform(p_iOperation:<a href="INodeOperation.html">INodeOperation</a>):void</code><p>
+   Performs an operation on this node and all of its children.
+   
+   </p><p>Traverses the subtree made up of this node and all of its children.
+   While traversing the subtree, individual operations are performed 
+   on entry and exit of each node of the subtree.</p>
+   <p>Implements the visitor design pattern: 
+   Using the visitor design pattern, you can define a new operation on Node
+   and its subclasses without having to change the classes and without having
+   to take care of traversing the node tree.</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">p_iOperation</span>:<a href="INodeOperation.html">INodeOperation</a></code> &mdash; p_iOperation   The operation to be performed on the node subtree
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Example</span>
+<br>   <div class='listing'><pre>
+       var mySpecialOperation:SpecialOperation = new SpecialOperation;
+   
+       mySpecialOperation.someParameter = 0.8;
+       someTreeNode.perform(mySpecialOperation);
+       trace(mySpecialOperation.someResult);
+   
+       mySpecialOperation.someParameter = 0.2;
+       someOtherTreeNode.perform(mySpecialOperation);
+       trace(mySpecialOperation.someResult);
+   </pre></div>
+   
+   <p></p>
 </div>
 <a name="remove()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">

@@ -45,14 +45,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  Holds all new line style Attributes data for a material.</td>
+  Holds all dashed line attributes data for a material.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html#DashedLineAttributes()">DashedLineAttributes</a>(p_nThickness, p_nColor, p_nAlpha, p_lenght, p_gap) &mdash; Constructor in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html">DashedLineAttributes</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html#DashedLineAttributes()">DashedLineAttributes</a>(p_nThickness, p_nColor, p_nAlpha, p_length, p_gap) &mdash; Constructor in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html">DashedLineAttributes</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates a new LineAStyleAttributes object.</td>
+   Creates a new DashedLineAttributes object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html#data">data</a> &mdash; Property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a></td>
@@ -230,14 +230,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   The depth to draw the starfield at (1e10).</td>
+   The depth to draw the starfield at.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#deserialize()">deserialize</a>(convertFrom) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#depthIndex">depthIndex</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Sets the elements of this vector from a string representation.</td>
+   An index in stars array; if set to valid value, depth returns distance to that star.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#deserialize()">deserialize</a>(convertFrom) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -425,126 +425,52 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Draw attributes into the graphics object.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   This method applies light color to polygon containers.</td>
+  Draws attribute to the graphics object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html">CelShadeAttributes</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  
+  </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html">DashedLineAttributes</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Draw the edges of the polygon into the graphics object.</td>
+  
+  </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/GouraudAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/GouraudAttributes.html">GouraudAttributes</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/IAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in interface sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/IAttributes.html">IAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LightAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LightAttributes.html">LightAttributes</a></td>
-</tr>
-<tr>
 <td width="20"></td><td>
-   Draw the attribute onto the graphics object to simulate the flat shading.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LineAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LineAttributes.html">LineAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Draw the edges of the polygon into the graphics object.</td>
+  
+  </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html">MaterialAttributes</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MediumAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MediumAttributes.html">MediumAttributes</a></td>
-</tr>
-<tr>
 <td width="20"></td><td>
-   Draw the attribute onto the graphics object to simulate viewing through partially opaque medium.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/OutlineAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/OutlineAttributes.html">OutlineAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Draw the outline edges of the polygon into the graphics object.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html">PhongAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/VertexNormalAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/VertexNormalAttributes.html">VertexNormalAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Draw the edges of the polygon into the graphics object.</td>
+  Draws all attributes to the graphics object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/AAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/AAttributes.html">AAttributes</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Apply attributes to sprites.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   This method applies light color to sprite containers.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/IAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in interface sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/IAttributes.html">IAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
+  Applies attribute to a sprite.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html">MaterialAttributes</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MediumAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MediumAttributes.html">MediumAttributes</a></td>
-</tr>
-<tr>
 <td width="20"></td><td>
-   Draw the attribute on sprite to simulate viewing through partially opaque medium.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/OutlineAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/OutlineAttributes.html">OutlineAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Outline the sprite.</td>
+  Applies attributes to a sprite.</td>
 </tr>
 <tr>
 <td style="padding-bottom:20px" colspan="2"></td>

@@ -380,7 +380,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#SkyBox()">SkyBox</a>(p_sName:String = "", p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1)</div>
+<a class="signatureLink" href="#SkyBox()">SkyBox</a>(p_sName:String = null, p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1)</div>
 <div class="summaryTableDescription">
   Creates a SkyBox object.</div>
 </td><td class="summaryTableOwnerCol">SkyBox</td>
@@ -522,6 +522,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    Translates this object vertically in ots parent frame.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../core/scenegraph/Node.html#perform()">perform</a>(p_iOperation:<a href="../core/scenegraph/INodeOperation.html">INodeOperation</a>):void</div>
+<div class="summaryTableDescription">
+   Performs an operation on this node and all of its children.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -754,7 +762,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function SkyBox(p_sName:String = "", p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1)</code><p>
+<code>public function SkyBox(p_sName:String = null, p_nDim:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1)</code><p>
   Creates a SkyBox object.
     </p><p>The skybox is created as a TransformGroup. This is a special behaviour comparing the other primitives which directly extend Shape3D.
   A skyBox isn't a graphical object itself, but it is composed of 6 planes (Plane3D objects) that represents the 6 sides of the skybox.</p>
@@ -763,7 +771,7 @@ showHideInherited();
     <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sName</span>:String</code> (default = "<code></code>")<code></code> &mdash;  The name of the skybox. It is recommended to give a explicit name.
+<td width="20px"></td><td><code><span class="label">p_sName</span>:String</code> (default = <code>null</code>)<code></code> &mdash;  The name of the skybox. It is recommended to give a explicit name.
   </td>
 </tr>
 <tr>
