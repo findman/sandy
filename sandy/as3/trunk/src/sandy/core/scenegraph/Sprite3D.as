@@ -29,7 +29,6 @@ package sandy.core.scenegraph
 	import sandy.core.data.Vertex;
 	import sandy.events.BubbleEvent;
 	import sandy.math.VectorMath;
-	import sandy.util.NumberUtil;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;
 
@@ -86,7 +85,7 @@ package sandy.core.scenegraph
 			{
 				super.content = p_content;
 				// --
-				m_nAutoOffset = ((m_oContent as MovieClip).totalFrames - 1) / 360;
+				m_nAutoOffset = (m_oContent as MovieClip).totalFrames / 360;
 			}
 		}
 
@@ -143,14 +142,14 @@ package sandy.core.scenegraph
 		// Returns the frame to show at the current camera angle
 		private function __frameFromAngle(a:Number):uint
 		{
-			a = NumberUtil.toDegree( a );
+			// to degree
+			a *= 57.295779513082321; // *= 180 / Math.PI
+			// correction to simply use uint ()
+			a += 0.5 / m_nAutoOffset;
+			// force 0...360 range
 			a = (( a + offset )+360) % 360;
-			// -- we have a frame for a 360 content, let's make it fit the current one
-			// angles 0 to 360 should map to frames 1 to 360 * m_nAutoOffset = m_nTotalFrames
-			a = 1 + Math.round ( a * m_nAutoOffset );
-			
-			
-			return uint(a);
+			// convert corrected angle to frame number
+			return 1 + uint (a * m_nAutoOffset);
 		}
 
 		// -- frames offset
