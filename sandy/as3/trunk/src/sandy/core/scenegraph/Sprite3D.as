@@ -62,7 +62,7 @@ package sandy.core.scenegraph
 		 *			Default value is 1.0 which means unchanged.
 		 * 			A value of 2.0 will make the object will double the size
 		 *
-		 * @param p_nOffset 	A number between [0-360] to give a frame offset into the clip.
+		 * @param p_nOffset 	A number between [0-360] to give angle offset into the clip.
 		 */
 		public function Sprite3D( p_sName:String = "", p_oContent:MovieClip = null, p_nScale:Number=1, p_nOffset:Number=0 )
 		{
@@ -86,7 +86,7 @@ package sandy.core.scenegraph
 			{
 				super.content = p_content;
 				// --
-				m_nAutoOffset = (m_oContent as MovieClip).totalFrames / 360;
+				m_nAutoOffset = ((m_oContent as MovieClip).totalFrames - 1) / 360;
 			}
 		}
 
@@ -146,7 +146,10 @@ package sandy.core.scenegraph
 			a = NumberUtil.toDegree( a );
 			a = (( a + offset )+360) % 360;
 			// -- we have a frame for a 360 content, let's make it fit the current one
-			a = ( a * m_nAutoOffset ) << 0;
+			// angles 0 to 360 should map to frames 1 to 360 * m_nAutoOffset = m_nTotalFrames
+			a = 1 + Math.round ( a * m_nAutoOffset );
+			
+			
 			return uint(a);
 		}
 
