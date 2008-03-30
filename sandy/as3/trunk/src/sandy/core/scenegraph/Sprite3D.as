@@ -28,7 +28,6 @@ package sandy.core.scenegraph
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
 	import sandy.events.BubbleEvent;
-	import sandy.math.VectorMath;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;
 
@@ -66,9 +65,6 @@ package sandy.core.scenegraph
 		public function Sprite3D( p_sName:String = "", p_oContent:MovieClip = null, p_nScale:Number=1, p_nOffset:Number=0 )
 		{
 			super(p_sName, p_oContent, p_nScale);
-			// --
-			_dir = new Vertex( 0, 0, -1 );
-			_vView = new Vector( 0, 0, 1 );
 			// -- set the offset
 			offset = p_nOffset;
 		}
@@ -97,46 +93,9 @@ package sandy.core.scenegraph
 		 */
 		override public function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
 		{
-			if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
-			{
-				p_oScene.materialManager.register( m_oMaterial );
-			}
-
-			const l_oMatrix:Matrix4 = viewMatrix,
-				m11:Number = l_oMatrix.n11, m21:Number = l_oMatrix.n21, m31:Number = l_oMatrix.n31,
-				m12:Number = l_oMatrix.n12, m22:Number = l_oMatrix.n22, m32:Number = l_oMatrix.n32,
-				m13:Number = l_oMatrix.n13, m23:Number = l_oMatrix.n23, m33:Number = l_oMatrix.n33,
-				m14:Number = l_oMatrix.n14, m24:Number = l_oMatrix.n24, m34:Number = l_oMatrix.n34;
-
-			_dir.wx = _dir.x * m11 + _dir.y * m12 + _dir.z * m13 + m14;
-			_dir.wy = _dir.x * m21 + _dir.y * m22 + _dir.z * m23 + m24;
-			_dir.wz = _dir.x * m31 + _dir.y * m32 + _dir.z * m33 + m34;
-
-			_v.wx = _v.x * m11 + _v.y * m12 + _v.z * m13 + m14;
-			_v.wy = _v.x * m21 + _v.y * m22 + _v.z * m23 + m24;
-			_v.wz = _v.x * m31 + _v.y * m32 + _v.z * m33 + m34;
-
-			m_nDepth = enableForcedDepth ? forcedDepth : _v.wz;
+			super.render ( p_oScene, p_oCamera );
 			// --
-			p_oCamera.projectVertex( _v );
-			p_oCamera.addToDisplayList( this );
-			
-			_vx.copy (_v); _vx.wx++; p_oCamera.projectVertex (_vx);
-			_vy.copy (_v); _vy.wy++; p_oCamera.projectVertex (_vy);
-
-			m_nPerspScaleX = _nScale * (_vx.sx - _v.sx);
-			m_nPerspScaleY = _nScale * (_v.sy - _vy.sy);
-
-			m_nRotation = Math.atan2( m12, m22 );
-			// -- We push the vertex to project onto the viewport.
-		        m_oNormale.x = _v.wx - _dir.wx;
-		        m_oNormale.y = _v.wy - _dir.wy;
-	        	m_oNormale.z = _v.wz - _dir.wz;
-			m_nAngle = VectorMath.getAngle( _vView, m_oNormale );
-			if( m_oNormale.x < 0 ) m_nAngle = 2*Math.PI - m_nAngle;
-
-			// FIXME problem around 180 frame. A big jump occurs. Problem of precision ?
-			(m_oContent as MovieClip).gotoAndStop( __frameFromAngle( m_nAngle ) );
+			(m_oContent as MovieClip).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
 		}
 
 		// Returns the frame to show at the current camera angle
@@ -153,10 +112,7 @@ package sandy.core.scenegraph
 		}
 
 		// -- frames offset
-		private var _vView:Vector;
-		private var _dir:Vertex;
 		private var m_oNormale:Vector = new Vector();
 		private var m_nAutoOffset:Number;
-		private var m_nAngle:Number;
 	}
 }
