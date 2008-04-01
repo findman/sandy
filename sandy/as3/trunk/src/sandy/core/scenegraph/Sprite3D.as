@@ -58,7 +58,8 @@ package sandy.core.scenegraph
 		 * 			In case that the object projected dimension
 		 *			isn't adapted to your needs.
 		 *			Default value is 1.0 which means unchanged.
-		 * 			A value of 2.0 will make the object will double the size
+		 * 			A value of 2.0 will double object size.
+		 * 			A value of 0 will force original graphics size independent of distance.
 		 *
 		 * @param p_nOffset 	A number between [0-360] to give angle offset into the clip.
 		 */
