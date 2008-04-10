@@ -31,15 +31,18 @@ package sandy.primitive
 	import sandy.core.scenegraph.Shape3D;
 	
 	/**
-	* GeodesicSphere implements dome, a kind of sphere tesselation with evenly distributed triangles.
+	* GeodesicSphere implements octahedron-based geodesic sphere.
 	*
-	* <p>This primitive is ported from Away3D as is (with the exception of U/V mapping).</p>
+	* <p>Compared to regular sphere, this primitive produces geometry with more
+	* evenly distributed triangles (code ported from Away3D as is, with the exception
+	* of U/V mapping).</p>
 	*
 	* @author		makc
 	* @version		3.0.3
 	* @date 		10.04.2008
 	*
 	* @see http://en.wikipedia.org/wiki/Geodesic_dome
+	* @see http://en.wikipedia.org/wiki/Octahedron
 	*/
 	public class GeodesicSphere extends Shape3D implements Primitive3D {
 		 
@@ -72,6 +75,7 @@ package sandy.primitive
 
 			// Set up variables for keeping track of the vertices, faces, and texture coords.
 			var nVertices:int = 0, nFaces:int = 0;
+			var aPacificFaces:Array = [];
 			
 			// Set up variables for keeping track of the number of iterations and the angles
 			var iVerts:uint = fractures_in + 1, jVerts:uint;
@@ -85,9 +89,7 @@ package sandy.primitive
 			var R_00:Number = cosPd4, R_01:Number = -sinPd4, R_10:Number = sinPd4, R_11:Number = cosPd4;
 
 			PhiDel = Math.PI / ( 2 * iVerts);
-			// Build the top vertex
-			l_oGeometry3D.setVertex (nVertices, 0, radius_in, 0);
-			l_oGeometry3D.setUVCoords (nVertices, 0.5, 0); nVertices++;
+
 			Phi += PhiDel;
 			// Build the tops worth of vertices for the sphere progressing in rings around the sphere
 			var i:int;
@@ -133,8 +135,15 @@ package sandy.primitive
 			}
 			
 			// Build the last vertice
-			l_oGeometry3D.setVertex (nVertices, 0, -radius_in, 0);
-			l_oGeometry3D.setUVCoords (nVertices, 0.5, 1); nVertices++;
+/*			l_oGeometry3D.setVertex (nVertices, 0, -radius_in, 0);
+			l_oGeometry3D.setUVCoords (nVertices, 0.5, 1); nVertices++;*/
+			
+			// Four triangles meet at every pole, so we make 8 polar vertices to reduce polar distortions
+			for (i = 0; i < 8; i++)
+			{
+				l_oGeometry3D.setVertex (nVertices + i, 0, (i < 4) ? radius_in : -radius_in, 0);
+				l_oGeometry3D.setUVCoords (nVertices + i, 0.25 * (i%4 + 0.5), (i < 4) ? 0 : 1);
+			}
 
 			// Build the faces for the sphere
 			// Build the upper four sections
@@ -164,12 +173,28 @@ package sandy.primitive
 							Pt0 = L_Ind;
 							Pt2 = U_Ind;
 							U_Ind++;
-							if( U_Ind > U_Ind_e ) U_Ind = U_Ind_s;
+							if( U_Ind > U_Ind_e ) {
+								// pacific problem - correct vertex does not exist
+								aPacificFaces.push ({ a:Pt2 -1, b:Pt0 -1, c:U_Ind_s -1 });
+								continue;
+							}
 							Pt1 = U_Ind;
 							isUpTri = true;
 						}
-						l_oGeometry3D.setFaceVertexIds (nFaces, Pt0, Pt1, Pt2);
-						l_oGeometry3D.setFaceUVCoordsIds (nFaces, Pt0, Pt1, Pt2); nFaces++;
+
+						// use extra vertices for pole
+						if (Pt0 == 0)
+						{
+							Pt0 = Pt1 + nVertices;
+							if (Pt1 == 4) {
+								// pacific problem at North pole
+								aPacificFaces.push ({ a:Pt0 -1, b:Pt1 -1, c:Pt2 -1 });
+								continue;
+							}
+						}
+
+						l_oGeometry3D.setFaceVertexIds (nFaces, Pt0 -1, Pt1 -1, Pt2 -1);
+						l_oGeometry3D.setFaceUVCoordsIds (nFaces, Pt0 -1, Pt1 -1, Pt2 -1); nFaces++;
 					}
 				}
 				tris += 2;
@@ -191,6 +216,10 @@ package sandy.primitive
 							Pt1 = L_Ind;
 							L_Ind++;
 							if( L_Ind > L_Ind_e ) L_Ind = L_Ind_s;
+/*								// pacific problem - correct vertex does not exist
+								aPacificFaces.push ({ a:Pt0 -1, b:Pt2 -1, c:U_Ind_s -1 });
+								continue;
+							}*/
 							Pt2 = L_Ind;
 							isUpTri = false;
 						} else {
@@ -201,11 +230,44 @@ package sandy.primitive
 							Pt1 = U_Ind;
 							isUpTri = true;
 						}
-						l_oGeometry3D.setFaceVertexIds (nFaces, Pt0, Pt2, Pt1);
-						l_oGeometry3D.setFaceUVCoordsIds (nFaces, Pt0, Pt2, Pt1); nFaces++;
+
+						// use extra vertices for pole
+						if (Pt0 == nVertices +1)
+						{
+							Pt0 = Pt1 + 8;
+							if (Pt1 == nVertices) {
+								// pacific problem at South pole
+								aPacificFaces.push ({ a:Pt0 -1, b:Pt2 -1, c:Pt1 -1 });
+								continue;
+							}
+						}
+
+						l_oGeometry3D.setFaceVertexIds (nFaces, Pt0 -1, Pt2 -1, Pt1 -1);
+						l_oGeometry3D.setFaceUVCoordsIds (nFaces, Pt0 -1, Pt2 -1, Pt1 -1); nFaces++;
 					}
 				}
 			}
+			
+			// only now we can fix pacific problem
+			// (because doing so in any other way would break Gabriel code ;)
+			nVertices = l_oGeometry3D.aVertex.length;
+			for (i = 0; i < aPacificFaces.length; i++)
+			{
+				trace (l_oGeometry3D.aUVCoords [aPacificFaces [i].c].u);
+				l_oGeometry3D.setVertex (nVertices,
+					l_oGeometry3D.aVertex [aPacificFaces [i].c].x,
+					l_oGeometry3D.aVertex [aPacificFaces [i].c].y,
+					l_oGeometry3D.aVertex [aPacificFaces [i].c].z);
+				l_oGeometry3D.setUVCoords (nVertices, 1,
+					l_oGeometry3D.aUVCoords [aPacificFaces [i].c].v);
+
+				l_oGeometry3D.setFaceVertexIds (nFaces, aPacificFaces [i].a, aPacificFaces [i].b, nVertices);
+				l_oGeometry3D.setFaceUVCoordsIds (nFaces, aPacificFaces [i].a, aPacificFaces [i].b, nVertices);
+
+				nVertices++;
+				nFaces++;
+			}
+
 			return l_oGeometry3D;
 		}
 	}
