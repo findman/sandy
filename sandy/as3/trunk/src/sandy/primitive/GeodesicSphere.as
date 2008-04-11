@@ -134,10 +134,6 @@ package sandy.primitive
 				Phi += PhiDel;
 			}
 			
-			// Build the last vertice
-/*			l_oGeometry3D.setVertex (nVertices, 0, -radius_in, 0);
-			l_oGeometry3D.setUVCoords (nVertices, 0.5, 1); nVertices++;*/
-			
 			// Four triangles meet at every pole, so we make 8 polar vertices to reduce polar distortions
 			for (i = 0; i < 8; i++)
 			{
@@ -175,7 +171,10 @@ package sandy.primitive
 							U_Ind++;
 							if( U_Ind > U_Ind_e ) {
 								// pacific problem - correct vertex does not exist
-								aPacificFaces.push ({ a:Pt2 -1, b:Pt0 -1, c:U_Ind_s -1 });
+								aPacificFaces.push (
+									(Pt2 % 2 == 0) ?
+									[ Pt2 -1, Pt0 -1, U_Ind_s -1 ] :
+									[ Pt0 -1, Pt2 -1, U_Ind_s -1 ]);
 								continue;
 							}
 							Pt1 = U_Ind;
@@ -188,7 +187,7 @@ package sandy.primitive
 							Pt0 = Pt1 + nVertices;
 							if (Pt1 == 4) {
 								// pacific problem at North pole
-								aPacificFaces.push ({ a:Pt0 -1, b:Pt1 -1, c:Pt2 -1 });
+								aPacificFaces.push ([ Pt0 -1, Pt1 -1, Pt2 -1 ]);
 								continue;
 							}
 						}
@@ -216,17 +215,19 @@ package sandy.primitive
 							Pt1 = L_Ind;
 							L_Ind++;
 							if( L_Ind > L_Ind_e ) L_Ind = L_Ind_s;
-/*								// pacific problem - correct vertex does not exist
-								aPacificFaces.push ({ a:Pt0 -1, b:Pt2 -1, c:U_Ind_s -1 });
-								continue;
-							}*/
 							Pt2 = L_Ind;
 							isUpTri = false;
 						} else {
 							Pt0 = L_Ind;
 							Pt2 = U_Ind;
 							U_Ind++;
-							if( U_Ind > U_Ind_e ) U_Ind = U_Ind_s;
+							if( U_Ind > U_Ind_e ) {
+								if (Pt2 %2 == 0)
+									aPacificFaces.push ([ Pt0 -1, Pt2 -1, U_Ind_s -1 ]);
+/*								else
+									aPacificFaces.push ([ what here ]);*/
+								continue;
+							}
 							Pt1 = U_Ind;
 							isUpTri = true;
 						}
@@ -237,7 +238,7 @@ package sandy.primitive
 							Pt0 = Pt1 + 8;
 							if (Pt1 == nVertices) {
 								// pacific problem at South pole
-								aPacificFaces.push ({ a:Pt0 -1, b:Pt2 -1, c:Pt1 -1 });
+								aPacificFaces.push ([ Pt0 -1, Pt2 -1, Pt1 -1 ]);
 								continue;
 							}
 						}
@@ -252,19 +253,22 @@ package sandy.primitive
 			// (because doing so in any other way would break Gabriel code ;)
 			nVertices = l_oGeometry3D.aVertex.length;
 			for (i = 0; i < aPacificFaces.length; i++)
+			for (k = 0; k < 3; k++)
 			{
-				trace (l_oGeometry3D.aUVCoords [aPacificFaces [i].c].u);
-				l_oGeometry3D.setVertex (nVertices,
-					l_oGeometry3D.aVertex [aPacificFaces [i].c].x,
-					l_oGeometry3D.aVertex [aPacificFaces [i].c].y,
-					l_oGeometry3D.aVertex [aPacificFaces [i].c].z);
-				l_oGeometry3D.setUVCoords (nVertices, 1,
-					l_oGeometry3D.aUVCoords [aPacificFaces [i].c].v);
+				if (l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].u == 0)
+				{
+					l_oGeometry3D.setVertex (nVertices,
+						l_oGeometry3D.aVertex [aPacificFaces [i][k]].x,
+						l_oGeometry3D.aVertex [aPacificFaces [i][k]].y,
+						l_oGeometry3D.aVertex [aPacificFaces [i][k]].z);
+					l_oGeometry3D.setUVCoords (nVertices, 1,
+						l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].v);
+					aPacificFaces [i][k] = nVertices; nVertices++;
+				}
 
-				l_oGeometry3D.setFaceVertexIds (nFaces, aPacificFaces [i].a, aPacificFaces [i].b, nVertices);
-				l_oGeometry3D.setFaceUVCoordsIds (nFaces, aPacificFaces [i].a, aPacificFaces [i].b, nVertices);
+				l_oGeometry3D.setFaceVertexIds (nFaces, aPacificFaces [i][0], aPacificFaces [i][1], aPacificFaces [i][2]);
+				l_oGeometry3D.setFaceUVCoordsIds (nFaces, aPacificFaces [i][0], aPacificFaces [i][1], aPacificFaces [i][2]);
 
-				nVertices++;
 				nFaces++;
 			}
 
