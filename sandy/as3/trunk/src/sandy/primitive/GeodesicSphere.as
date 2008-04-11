@@ -73,12 +73,12 @@ package sandy.primitive
 
 			// Set up variables for keeping track of the vertices, faces, and texture coords.
 			var nVertices:int = 0, nFaces:int = 0;
-			var aPacificFaces:Array = [];
+			var aPacificFaces:Array = [], aVertexNormals:Array = [];
 			
 			// Set up variables for keeping track of the number of iterations and the angles
 			var iVerts:uint = fractures_in + 1, jVerts:uint;
 			var j:uint, Theta:Number=0, Phi:Number=0, ThetaDel:Number, PhiDel:Number;
-			var cosTheta:Number, sinTheta:Number, rcosPhi:Number, rsinPhi:Number;
+			var cosTheta:Number, sinTheta:Number, cosPhi:Number, sinPhi:Number;
 
 			// Although original code used quite clever diamond projection, let's change it to
 			// equirectangular just to see how it performs compared to standard Sphere - makc
@@ -89,44 +89,27 @@ package sandy.primitive
 			PhiDel = Math.PI / ( 2 * iVerts);
 
 			Phi += PhiDel;
-			// Build the tops worth of vertices for the sphere progressing in rings around the sphere
-			var i:int;
-			
-			for( i = 1 ; i <= iVerts; i++ ){
-				j = 0;
-				jVerts = i*4;
+
+			// Build vertices for the sphere progressing in rings around the sphere
+			var i:int, q:int, aI:Array = [];
+			for (q = 1; q <= iVerts; q++) aI.push (q);
+			for (q = iVerts -1; q > 0; q--) aI.push (q);
+
+			for (q = 0; q < aI.length; q++) {
+				i = aI[q]; j = 0; jVerts = i*4;
 				Theta = 0;
 				ThetaDel = 2* Math.PI / jVerts;
-				rcosPhi = Math.cos( Phi ) * radius_in;
-				rsinPhi = Math.sin( Phi ) * radius_in;
-				for( j; j < jVerts; j++ ){
-					
-					// some code removed here, may result in useles vars above.
-
+				cosPhi = Math.cos( Phi );
+				sinPhi = Math.sin( Phi );
+				for( j; j < jVerts; j++ )
+				{
 					cosTheta = Math.cos( Theta );
 					sinTheta = Math.sin( Theta );
 
-					l_oGeometry3D.setVertex (nVertices, cosTheta * rsinPhi, rcosPhi, sinTheta * rsinPhi);
+					l_oGeometry3D.setVertex (nVertices, cosTheta * sinPhi * radius_in, cosPhi * radius_in, sinTheta * sinPhi * radius_in);
+					l_oGeometry3D.setVertexNormal (nVertices, cosTheta * sinPhi, cosPhi, sinTheta * sinPhi);
 					l_oGeometry3D.setUVCoords (nVertices, Theta * PIInv * 0.5, Phi * PIInv); nVertices++;
 
-					Theta += ThetaDel;
-				}
-				Phi += PhiDel;
-			}
-			// Build the bottom worth of vertices for the sphere.
-			i = iVerts-1;
-			for( i; i >0; i-- ){
-				j = 0;
-				jVerts = i*4;
-				Theta = 0;
-				ThetaDel = 2* Math.PI / jVerts;
-				rcosPhi = Math.cos( Phi ) * radius_in;
-				rsinPhi = Math.sin( Phi ) * radius_in;
-				for( j; j < jVerts; j++ ){
-					cosTheta = Math.cos( Theta );
-					sinTheta = Math.sin( Theta );
-					l_oGeometry3D.setVertex (nVertices, cosTheta * rsinPhi, rcosPhi, sinTheta * rsinPhi);
-					l_oGeometry3D.setUVCoords (nVertices, Theta * PIInv * 0.5, Phi * PIInv); nVertices++;
 					Theta += ThetaDel;
 				}
 				Phi += PhiDel;
@@ -136,6 +119,7 @@ package sandy.primitive
 			for (i = 0; i < 8; i++)
 			{
 				l_oGeometry3D.setVertex (nVertices + i, 0, (i < 4) ? radius_in : -radius_in, 0);
+				l_oGeometry3D.setVertexNormal (nVertices + i, 0, (i < 4) ? 1 : -1, 0);
 				l_oGeometry3D.setUVCoords (nVertices + i, 0.25 * (i%4 + 0.5), (i < 4) ? 0 : 1);
 			}
 
@@ -254,15 +238,21 @@ package sandy.primitive
 			{
 				for (k = 0; k < 3; k++)
 				{
-					if (l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].u == 0)
+					var p:int = aPacificFaces [i][k];
+					if (l_oGeometry3D.aUVCoords [p].u == 0)
 					{
 						l_oGeometry3D.setVertex (nVertices,
-							l_oGeometry3D.aVertex [aPacificFaces [i][k]].x,
-							l_oGeometry3D.aVertex [aPacificFaces [i][k]].y,
-							l_oGeometry3D.aVertex [aPacificFaces [i][k]].z);
+							l_oGeometry3D.aVertex [p].x,
+							l_oGeometry3D.aVertex [p].y,
+							l_oGeometry3D.aVertex [p].z);
+						l_oGeometry3D.setVertexNormal (nVertices,
+							l_oGeometry3D.aVertexNormals [p].x,
+							l_oGeometry3D.aVertexNormals [p].y,
+							l_oGeometry3D.aVertexNormals [p].z);
 						l_oGeometry3D.setUVCoords (nVertices, 1,
-							l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].v);
-						aPacificFaces [i][k] = nVertices; nVertices++;
+							l_oGeometry3D.aUVCoords [p].v);
+						aPacificFaces [i][k] = nVertices;
+						nVertices++;
 					}
 				}
 
