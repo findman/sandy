@@ -224,8 +224,8 @@ package sandy.primitive
 							if( U_Ind > U_Ind_e ) {
 								if (Pt2 %2 == 0)
 									aPacificFaces.push ([ Pt0 -1, Pt2 -1, U_Ind_s -1 ]);
-/*								else
-									aPacificFaces.push ([ what here ]);*/
+								else
+									aPacificFaces.push ([ Pt0 -1, U_Ind_s -1, L_Ind_s -1 ]);
 								continue;
 							}
 							Pt1 = U_Ind;
