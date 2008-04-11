@@ -161,7 +161,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="Sprite2D.html">Sprite2D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Sprite2D.html#floorCenter">floorCenter</a> : Boolean = false<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Sprite2D.html#floorCenter">floorCenter</a> : Boolean = false<div class="summaryTableDescription">
+   When enabled, the sprite will be displayed at its bottom line.</div>
 </td><td class="summaryTableOwnerCol"><a href="Sprite2D.html">Sprite2D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -794,14 +795,15 @@ showHideInherited();
       In case that the object projected dimension
      isn't adapted to your needs.
      Default value is 1.0 which means unchanged.
-      A value of 2.0 will make the object will double the size
+      A value of 2.0 will double object size.
+      A value of 0 will force original graphics size independent of distance.
       </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nOffset</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  A number between [0-360] to give a frame offset into the clip.
+<td width="20px"></td><td><code><span class="label">p_nOffset</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  A number between [0-360] to give angle offset into the clip.
    </td>
 </tr>
 </table>
