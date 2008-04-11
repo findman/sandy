@@ -25,8 +25,6 @@
 
 package sandy.primitive
 {
-//	import sandy.core.data.Vertex;
-	import sandy.core.data.UVCoord;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 	
@@ -34,8 +32,8 @@ package sandy.primitive
 	* GeodesicSphere implements octahedron-based geodesic sphere.
 	*
 	* <p>Compared to regular sphere, this primitive produces geometry with more
-	* evenly distributed triangles (code ported from Away3D as is, with the exception
-	* of U/V mapping).</p>
+	* evenly distributed triangles (code ported from Away3D mostly as is, with
+	* the exception of U/V mapping).</p>
 	*
 	* @author		makc
 	* @version		3.0.3
@@ -253,17 +251,19 @@ package sandy.primitive
 			// (because doing so in any other way would break Gabriel code ;)
 			nVertices = l_oGeometry3D.aVertex.length;
 			for (i = 0; i < aPacificFaces.length; i++)
-			for (k = 0; k < 3; k++)
 			{
-				if (l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].u == 0)
+				for (k = 0; k < 3; k++)
 				{
-					l_oGeometry3D.setVertex (nVertices,
-						l_oGeometry3D.aVertex [aPacificFaces [i][k]].x,
-						l_oGeometry3D.aVertex [aPacificFaces [i][k]].y,
-						l_oGeometry3D.aVertex [aPacificFaces [i][k]].z);
-					l_oGeometry3D.setUVCoords (nVertices, 1,
-						l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].v);
-					aPacificFaces [i][k] = nVertices; nVertices++;
+					if (l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].u == 0)
+					{
+						l_oGeometry3D.setVertex (nVertices,
+							l_oGeometry3D.aVertex [aPacificFaces [i][k]].x,
+							l_oGeometry3D.aVertex [aPacificFaces [i][k]].y,
+							l_oGeometry3D.aVertex [aPacificFaces [i][k]].z);
+						l_oGeometry3D.setUVCoords (nVertices, 1,
+							l_oGeometry3D.aUVCoords [aPacificFaces [i][k]].v);
+						aPacificFaces [i][k] = nVertices; nVertices++;
+					}
 				}
 
 				l_oGeometry3D.setFaceVertexIds (nFaces, aPacificFaces [i][0], aPacificFaces [i][1], aPacificFaces [i][2]);
