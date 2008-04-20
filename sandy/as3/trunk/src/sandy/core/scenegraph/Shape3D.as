@@ -20,7 +20,6 @@ package sandy.core.scenegraph
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	import flash.utils.Dictionary;
 	
 	import sandy.bounds.BBox;
 	import sandy.bounds.BSphere;
@@ -28,17 +27,17 @@ package sandy.core.scenegraph
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
+	import sandy.core.data.UVCoord;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
-	import sandy.events.BubbleEvent;
+	import sandy.core.sorters.IDepthSorter;
+	import sandy.events.Shape3DEvent;
 	import sandy.materials.Appearance;
 	import sandy.materials.Material;
 	import sandy.materials.WireFrameMaterial;
 	import sandy.math.IntersectionMath;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;
-	import sandy.core.data.UVCoord;
-	import sandy.events.Shape3DEvent;
 
 	/**
 	 * The Shape3D class is the base class of all true 3D shapes.
@@ -67,6 +66,12 @@ package sandy.core.scenegraph
 		 * The array of polygons building this object.
 		 */		
 		public var aPolygons:Array = new Array();
+		
+		/**
+		 * This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
+		 * In that case, that property will return the invert model matrix on that node
+		 */
+		public var invModelMatrix:Matrix4;
 
 		/**
 		 * <p>
@@ -176,6 +181,7 @@ package sandy.core.scenegraph
     		}
     		m_bUseSingleContainer = p_bUseSingleContainer;
     	}
+    
 
 		/**
 		 * @private
@@ -361,6 +367,25 @@ package sandy.core.scenegraph
 			
 			if( l_nFlags == 0 ) return;
 			
+			
+			if( appearance.flags & SandyFlags.INVERT_MODEL_MATRIX )
+			{
+				// -- fast camera model matrix inverssion
+				invModelMatrix.n11 = modelMatrix.n11;
+				invModelMatrix.n12 = modelMatrix.n21;
+				invModelMatrix.n13 = modelMatrix.n31;
+				invModelMatrix.n21 = modelMatrix.n12;
+				invModelMatrix.n22 = modelMatrix.n22;
+				invModelMatrix.n23 = modelMatrix.n32;
+				invModelMatrix.n31 = modelMatrix.n13;
+				invModelMatrix.n32 = modelMatrix.n23;
+				invModelMatrix.n33 = modelMatrix.n33;
+				invModelMatrix.n14 = -(modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34);
+				invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
+				invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
+			}
+			
+			// DEPRECATED
 			var i:int;
 			l_oMatrix = modelMatrix;
             m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
@@ -494,6 +519,18 @@ package sandy.core.scenegraph
 			updateBoundingVolumes();	
 		}
 		
+		/**
+		 * Apply a new depth sorter to all the polygons.
+		 * @param p_iSorter The new depth sorting object
+		 */
+		public function set depthSorter( p_iSorter:IDepthSorter ):void
+    	{
+    		for each( var l_oPoly:Polygon in  aPolygons)
+			{
+				l_oPoly.depthSorter = p_iSorter;
+			}
+    	}
+    	
 		/**
 		 * The appearance of this object.
 		 */

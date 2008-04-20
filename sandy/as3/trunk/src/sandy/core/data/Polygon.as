@@ -30,13 +30,14 @@ package sandy.core.data
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.IDisplayable;
 	import sandy.core.scenegraph.Shape3D;
-	import sandy.events.BubbleEvent;
+	import sandy.core.sorters.IDepthSorter;
+	import sandy.core.sorters.MeanDepthSorter;
 	import sandy.events.BubbleEventBroadcaster;
+	import sandy.events.Shape3DEvent;
 	import sandy.materials.Appearance;
 	import sandy.math.IntersectionMath;
 	import sandy.math.VectorMath;
 	import sandy.view.Frustum;
-	import sandy.events.Shape3DEvent;
 
 	/**
 	 * Polygon's are the building blocks of visible 3D shapes.
@@ -140,6 +141,9 @@ package sandy.core.data
 		public var m_nDepth:Number;
 		
 		public var a:Vertex, b:Vertex, c:Vertex;
+		
+		public var depthSorter:IDepthSorter;
+		
 		/**
 		 * States if the appearance of the polygon has changed since the previous rendering.
 		 * Often used to update the scene material manager.
@@ -164,6 +168,7 @@ package sandy.core.data
 			// --
 			__update( p_aVertexID, p_aUVCoordsID, p_nFaceNormalID, p_nEdgesID );
 			m_oContainer = new Sprite();
+			depthSorter = new MeanDepthSorter();
 			// --
 			POLYGON_MAP[id] = this;
 		}
@@ -202,7 +207,8 @@ package sandy.core.data
 		{
 			m_oEB.removeEventListener(p_sEvent, oL);
 		}
-			
+
+		
 		/**
 		 * Pre-compute several properties of the polygon in the same time.
 		 * List of the computed properties :
@@ -220,12 +226,8 @@ package sandy.core.data
 			if (c != null)
 			{
 				if (c.wz < minZ) minZ = c.wz;
-				m_nDepth = 0.333*(a.wz+b.wz+c.wz);
 			}
-			else
-			{
-				m_nDepth = 0.5*(a.wz+b.wz);
-			}
+			m_nDepth = depthSorter.getDepth(this);
 		}
 	
 

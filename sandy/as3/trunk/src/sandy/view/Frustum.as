@@ -57,8 +57,8 @@ package sandy.view
 		// right plane : aNormals[3], aConstants[3] <-> aPoints[0], aPoints[3], aPoints[4], aPoints[7]
 		// left plane  : aNormals[4], aConstants[4] <-> aPoints[1], aPoints[2], aPoints[5], aPoints[6]
 		// back plane  : aNormals[5], aConstants[5] <-> aPoints[4], aPoints[5], aPoints[6], aPoints[7] 	
-		public static const NEAR:uint 	= 0;
-		public static const FAR:uint 	= 1;
+		public static const FAR:uint 	= 0;
+		public static const NEAR:uint 	= 1;
 		public static const RIGHT:uint 	= 2;
 		public static const LEFT:uint	= 3;
 	    public static const TOP:uint 	= 4;

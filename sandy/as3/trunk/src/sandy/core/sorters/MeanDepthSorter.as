@@ -11,14 +11,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-# ***** END LICENSE BLOCK ******/
+# ***** END LICENSE BLOCK *****
+*/
 
-package sandy.core
+package sandy.core.sorters
 {
-	public final class SandyFlags
+	import sandy.core.data.Polygon;
+	import sandy.core.data.Vertex;
+
+	public class MeanDepthSorter implements IDepthSorter
 	{
-		public static const POLYGON_NORMAL_WORLD:uint = 1;
-		public static const VERTEX_NORMAL_WORLD:uint = 2;
-		public static const INVERT_MODEL_MATRIX:uint = 4;
+		public function MeanDepthSorter()
+		{}
+		
+		public function getDepth( p_oPolygon:Polygon ):Number
+		{
+			if( p_oPolygon.c != null)
+			{
+				return 0.333*(p_oPolygon.a.wz + p_oPolygon.b.wz + p_oPolygon.c.wz);
+			}
+			else
+			{
+				return 0.5*(p_oPolygon.a.wz + p_oPolygon.b.wz);
+			}
+		}
+		
 	}
 }
