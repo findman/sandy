@@ -20,9 +20,12 @@ package sandy.materials.attributes
 	import flash.geom.ColorTransform;
 	import flash.utils.Dictionary;
 
+	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
+	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
+	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.Sprite2D;
 	import sandy.events.SandyEvent;
 	import sandy.materials.Material;
@@ -159,6 +162,23 @@ package sandy.materials.attributes
 			return l_k * m_nI;
 		}
 
+		protected function calculate2 (p_oNormal:Vector, p_bFrontside:Boolean, p_bIgnoreSpecular:Boolean = false):Number
+		{
+			var l_n:Number = p_bFrontside ? -1 : 1;
+			var l_k:Number = l_n * m_oCurrentL.dot (p_oNormal); if (l_k < 0) l_k = 0; l_k += ambient;
+			if (!p_bIgnoreSpecular && (specular > 0))
+			{
+				var l_s:Number = l_n * m_oCurrentH.dot (p_oNormal); if (l_s < 0) l_s = 0;
+				l_k += specular * Math.pow (l_s, gloss);
+			}
+			return l_k * m_nI;
+		}
+
+protected var m_oCurrentL:Vector = new Vector ();
+protected var m_oCurrentV:Vector = new Vector ();
+protected var m_oCurrentH:Vector = new Vector ();
+protected var m_oCurrentShape:Shape3D;
+
 		/**
 		* @private
 		*/
@@ -170,6 +190,23 @@ package sandy.materials.attributes
 					p_oPolygon.shape.useSingleContainer ? p_oPolygon.shape.container : p_oPolygon.container,
 					p_oScene.light.color, 1
 				);
+
+				// compute local versions of vectors
+				if (m_oCurrentShape != p_oPolygon.shape)
+				{
+					m_oCurrentShape = p_oPolygon.shape;
+
+					var invModelMatrix:Matrix4 = m_oCurrentShape.invModelMatrix;
+
+					m_oCurrentL.copy (m_oL);
+					invModelMatrix.vectorMult3x3 (m_oCurrentL);
+
+					m_oCurrentV.copy (m_oV);
+					invModelMatrix.vectorMult3x3 (m_oCurrentV);
+
+					m_oCurrentH.copy (m_oH);
+					invModelMatrix.vectorMult3x3 (m_oCurrentH);
+				}
 			}
 		}
 
@@ -223,6 +260,9 @@ package sandy.materials.attributes
 
 			// compute Blinn halfway vector
 			m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
+
+			// clear current shape reference
+			m_oCurrentShape = null;
 		}
 
 		/**
@@ -247,6 +287,7 @@ package sandy.materials.attributes
 		public function unlink( p_oPolygon:Polygon ):void
 		{
 			;// to remove reference to the shapes/polygons that use this attribute
+			if (m_oCurrentShape == p_oPolygon.shape) m_oCurrentShape = null;
 		}
 
 		/**
@@ -260,7 +301,7 @@ package sandy.materials.attributes
 		/**
 		* @private
 		*/
-		protected var m_nFlags:uint = 0;
+		protected var m_nFlags:uint = SandyFlags.INVERT_MODEL_MATRIX;
 
 		// --
 		private var _ambient:Number = 0.3;

@@ -18,7 +18,6 @@ package sandy.materials.attributes
 	import flash.display.Graphics;
 	import flash.geom.Matrix;
 	
-	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
@@ -71,7 +70,6 @@ package sandy.materials.attributes
 		{
 			useBright = p_bBright;
 			ambient = Math.min (Math.max (p_nAmbient, 0), 1);
-			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}
 
 		private var v0L:Number, v1L:Number, v2L:Number;
@@ -94,9 +92,9 @@ package sandy.materials.attributes
 			const l_bVisible:Boolean = p_oPolygon.visible;
 			const l_nAmbient:Number = ambient;
 
-			var v0L:Number = calculate (Vertex(p_oPolygon.vertexNormals[0]).getWorldVector(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
-			var v1L:Number = calculate (Vertex(p_oPolygon.vertexNormals[1]).getWorldVector(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
-			var v2L:Number = calculate (Vertex(p_oPolygon.vertexNormals[2]).getWorldVector(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
+			var v0L:Number = calculate2 (Vertex(p_oPolygon.vertexNormals[0]).getVector(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
+			var v1L:Number = calculate2 (Vertex(p_oPolygon.vertexNormals[1]).getVector(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
+			var v2L:Number = calculate2 (Vertex(p_oPolygon.vertexNormals[2]).getVector(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
 			// affine mapping
 			var v0:Number, v1:Number, v2:Number,
 				u0:Number, u1:Number, u2:Number, tmp:Number;
