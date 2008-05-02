@@ -324,7 +324,7 @@ package sandy.materials.attributes
 					l_oVertex = l_aPoints [i];
 					if (m_oVertices [l_oVertex] == null)
 					{
-						dv = l_oVertex.getVector ();
+						dv = l_oVertex.getVector ().clone ();
 						dv.sub (p_oPolygon.shape.geometryCenter);
 						p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
 						dv.normalize ();

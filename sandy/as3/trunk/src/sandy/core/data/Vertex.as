@@ -119,10 +119,13 @@ package sandy.core.data
 		 *
 		 * @return 	The vector
 		 */
-	    public final function getVector():Vector
-	    {
-	   		return new Vector( x, y, z );
-	    }
+		public final function getVector():Vector
+		{
+			m_oLocal.x = x;
+			m_oLocal.y = y;
+			m_oLocal.z = z;
+			return m_oLocal;
+		}
 
 		/**
 		 * Returns a clone of this vertex.
@@ -448,5 +451,6 @@ package sandy.core.data
 		}
 		
 		private const m_oWorld:Vector = new Vector();
+		private const m_oLocal:Vector = new Vector();
 	}
 }
