@@ -165,11 +165,11 @@ package sandy.materials.attributes
 		protected function calculate2 (p_oNormal:Vector, p_bFrontside:Boolean, p_bIgnoreSpecular:Boolean = false):Number
 		{
 			var l_n:Number = p_bFrontside ? -1 : 1;
-			var l_k:Number = l_n * m_oCurrentL.dot (p_oNormal); if (l_k < 0) l_k = 0; l_k += ambient;
+			var l_k:Number = l_n * m_oCurrentL.dot (p_oNormal); if (l_k < 0) l_k = 0; l_k = _ambient + _diffuse * l_k;
 			if (!p_bIgnoreSpecular && (specular > 0))
 			{
 				var l_s:Number = l_n * m_oCurrentH.dot (p_oNormal); if (l_s < 0) l_s = 0;
-				l_k += specular * Math.pow (l_s, gloss);
+				l_k += _specular * Math.pow (l_s, _gloss);
 			}
 			return l_k * m_nI;
 		}
@@ -196,7 +196,7 @@ protected var m_oCurrentShape:Shape3D;
 				{
 					m_oCurrentShape = p_oPolygon.shape;
 
-					var invModelMatrix:Matrix4 = m_oCurrentShape.invModelMatrix;
+					const invModelMatrix:Matrix4 = m_oCurrentShape.invModelMatrix;
 
 					m_oCurrentL.copy (m_oL);
 					invModelMatrix.vectorMult3x3 (m_oCurrentL);
