@@ -370,6 +370,8 @@ package sandy.core.scenegraph
 			
 			if( appearance.flags & SandyFlags.INVERT_MODEL_MATRIX )
 			{
+				if (invModelMatrix == null)
+					invModelMatrix = new Matrix4 ();
 				// -- fast camera model matrix inverssion
 				invModelMatrix.n11 = modelMatrix.n11;
 				invModelMatrix.n12 = modelMatrix.n21;

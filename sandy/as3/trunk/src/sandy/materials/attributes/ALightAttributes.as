@@ -26,7 +26,6 @@ package sandy.materials.attributes
 	import sandy.core.scenegraph.Sprite2D;
 	import sandy.events.SandyEvent;
 	import sandy.materials.Material;
-	import sandy.math.ColorMath;
 
 	/**
 	 * ABSTRACT CLASS - super class for all light attributes.
@@ -194,13 +193,16 @@ package sandy.materials.attributes
 			{
 				c = 0xFFFFFF;
 			}
-			const rgb:Object = ColorMath.hex2rgb (c);
-			const bY:Number = b * Math.sqrt (3) / Math.sqrt (rgb.r * rgb.r + rgb.g * rgb.g + rgb.b * rgb.b);
-			rgb.r *= bY; rgb.g *= bY; rgb.b *= bY;
+			var rgb_r:Number = (0xFF0000 & c) >> 16;
+			var rgb_g:Number = (0x00FF00 & c) >> 8;
+			var rgb_b:Number = (0x0000FF & c);
+
+			const bY:Number = b * 1.7321 /*Math.sqrt (3)*/ / Math.sqrt (rgb_r * rgb_r + rgb_g * rgb_g + rgb_b * rgb_b);
+			rgb_r *= bY; rgb_g *= bY; rgb_b *= bY;
 			const ct:ColorTransform = s.transform.colorTransform;
-			if ((ct.redMultiplier != rgb.r) || (ct.greenMultiplier != rgb.g) || (ct.blueMultiplier != rgb.b))
+			if ((ct.redMultiplier != rgb_r) || (ct.greenMultiplier != rgb_g) || (ct.blueMultiplier != rgb_b))
 			{
-				ct.redMultiplier = rgb.r; ct.greenMultiplier = rgb.g; ct.blueMultiplier = rgb.b;
+				ct.redMultiplier = rgb_r; ct.greenMultiplier = rgb_g; ct.blueMultiplier = rgb_b;
 				s.transform.colorTransform = ct;
 			}
 		}
