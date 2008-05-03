@@ -17,7 +17,6 @@ package sandy.materials.attributes
 {
 	import flash.display.Graphics;
 	
-	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
@@ -52,7 +51,6 @@ package sandy.materials.attributes
 		{
 			useBright = p_bBright;
 			ambient = Math.min (Math.max (p_nAmbient, 0), 1);
-			m_nFlags |= SandyFlags.POLYGON_NORMAL_WORLD;
 		}
 		
 		/**
@@ -65,9 +63,9 @@ package sandy.materials.attributes
 			if( p_oMaterial.lightingEnable )
 			{	
 				var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
-				var l_oNormal:Vector = p_oPolygon.normal.getWorldVector();
+				var l_oNormal:Vector = p_oPolygon.normal.getVector();
 				// --
-				var lightStrength:Number = calculate (l_oNormal, p_oPolygon.visible);
+				var lightStrength:Number = calculate2 (l_oNormal, p_oPolygon.visible);
 				if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;
 				// --
 				p_oGraphics.lineStyle();
@@ -76,7 +74,7 @@ package sandy.materials.attributes
 				else 
 					p_oGraphics.beginFill( 0, 1-lightStrength );
 				// --
-				p_oGraphics.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+				p_oGraphics.moveTo( Vertex(l_aPoints[0]).sx, Vertex(l_aPoints[0]).sy );
 				for each( var l_oVertex:Vertex in l_aPoints )
 				{
 					p_oGraphics.lineTo( l_oVertex.sx, l_oVertex.sy );
