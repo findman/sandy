@@ -20,7 +20,6 @@ package sandy.materials.attributes
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 
-	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
@@ -81,8 +80,6 @@ package sandy.materials.attributes
 					  80, 120,
 					 120, 180];
 			}
-
-			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}
 
 		/**
@@ -93,7 +90,7 @@ package sandy.materials.attributes
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 			var i:int, l_oVertex:Vertex,
-				v:Vector, dv:Vector,
+				v:Vector,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -123,36 +120,26 @@ package sandy.materials.attributes
 			var backside:Boolean = true;
 			for (i = 0; i < 3; i++)
 			{
-				v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldVector());
+				v = aN [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getVector());
 
 				if (spherize > 0)
 				{
-					// too bad, l_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-					// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
-					// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
 					l_oVertex = l_aPoints [i];
-					if (m_oVertices [l_oVertex] == null)
-					{
-						dv = l_oVertex.getVector ().clone ();
-						dv.sub (p_oPolygon.shape.geometryCenter);
-						p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
-						dv.normalize ();
-						dv.scale (spherize);
-						m_oVertices [l_oVertex] = dv;
-					}
-					else
-					{
-						dv = m_oVertices [l_oVertex];
-					}
+
+					dv.copy (l_oVertex.getVector ());
+					dv.sub (p_oPolygon.shape.geometryCenter);
+					dv.normalize ();
+					dv.scale (spherize);
+
 					v.add (dv);
 					v.normalize ();
 				}
 
 				if (!p_oPolygon.visible) v.scale (-1);
 
-				a = m_oL.dot (v); if (a < 0) backside = false;
+				a = m_oCurrentL.dot (v); if (a < 0) backside = false;
 
-				// intersect with parabola - q(r) in computeLightMap() corresponds to this
+				// intersect with parabola - is it really needed here?
 				v.scale (1 / (1 - a));
 			}
 
@@ -170,13 +157,13 @@ package sandy.materials.attributes
 				// calculate two arbitrary vectors perpendicular to light direction
 				if ((m_oL.x != 0) || (m_oL.y != 0))
 				{
-					e1.x = m_oL.y; e1.y = -m_oL.x; e1.z = 0;
+					e1.x = m_oCurrentL.y; e1.y = -m_oCurrentL.x; e1.z = 0;
 				}
 				else
 				{
-					e1.x = m_oL.z; e1.y = 0; e1.z = -m_oL.x;
+					e1.x = m_oCurrentL.z; e1.y = 0; e1.z = -m_oCurrentL.x;
 				}
-				e2.copy (m_oL); e2.crossWith (e1);
+				e2.copy (m_oCurrentL); e2.crossWith (e1);
 				e1.normalize ();
 				e2.normalize ();
 
@@ -228,24 +215,11 @@ package sandy.materials.attributes
 			l_aPoints = null;
 		}
 
-		// vertex dictionary
-		private var m_oVertices:Dictionary;
-
-		/**
-		* @private
-		*/
-		override public function begin( p_oScene:Scene3D ):void
-		{
-			super.begin (p_oScene);
-
-			// clear vertex dictionary
-			m_oVertices = new Dictionary (true);
-		}
-
 		// --
 		private var aN:Array  = [new Vector (), new Vector (), new Vector ()];
 		private var aNP:Array = [new Point (), new Point (), new Point ()];
 
+		private var dv:Vector = new Vector ();
 		private var e1:Vector = new Vector ();
 		private var e2:Vector = new Vector ();
 

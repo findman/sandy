@@ -279,7 +279,7 @@ package sandy.materials.attributes
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 			var i:int, j:int, l_oVertex:Vertex,
-				v:Vector,// dv:Vector,
+				v:Vector,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -328,7 +328,7 @@ package sandy.materials.attributes
 			for (j = onlySpecular ? 1 : 0; j < (_useBright ? 2 : 1); j++)
 			{
 				// get highlight direction vector
-				var d:Vector = (j == 0) ? m_oL : m_oH;
+				var d:Vector = (j == 0) ? m_oCurrentL : m_oCurrentH;
 
 				// see if we are on the backside relative to d
 				var backside:Boolean = true;
