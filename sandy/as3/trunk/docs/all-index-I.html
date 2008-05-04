@@ -85,6 +85,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Makes this matrix into an identity matrix.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/sorters/class-list.html');" href="sandy/core/sorters/IDepthSorter.html"><i>IDepthSorter</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('sandy/core/sorters/class-list.html');" href="sandy/core/sorters/package-detail.html">sandy.core.sorters</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html"><i>IDisplayable</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/package-detail.html">sandy.core.scenegraph</a></td>
 </tr>
 <tr>
@@ -241,6 +247,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
   Return the inverse of the matrix passed in parameter.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html#INVERT_MODEL_MATRIX">INVERT_MODEL_MATRIX</a> &mdash; Constant static property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html">SandyFlags</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#invModelMatrix">invModelMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
 </tr>
 <tr>
@@ -249,6 +261,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    This is apply at the culling phasis
    The matrix is inverted in comparison of the real model view matrix.<br/>
    This allows replacement of the objects in the correct camera frame before projection</p>
+   </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#invModelMatrix">invModelMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
+   In that case, that property will return the invert model matrix on that node
    </td>
 </tr>
 <tr>

@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Shape3D,sandy.core.scenegraph.Shape3D,DEFAULT_APPEARANCE,DEFAULT_MATERIAL,aPolygons,enableClipping,enableForcedDepth,enableNearClipping,forcedDepth,m_bUseSingleContainer,m_nDepth,m_oContainer,m_oGeomCenter,container,depth,enableInteractivity,geometryCenter,visiblePolygonsCount,appearance,enableBackFaceCulling,enableEvents,geometry,useSingleContainer,_onInteraction,clear,clone,cull,destroy,display,render,swapCulling,toString,updateBoundingVolumes" name="keywords">
+<meta content="Shape3D,sandy.core.scenegraph.Shape3D,DEFAULT_APPEARANCE,DEFAULT_MATERIAL,aPolygons,enableClipping,enableForcedDepth,enableNearClipping,forcedDepth,invModelMatrix,m_bUseSingleContainer,m_nDepth,m_oContainer,m_oGeomCenter,container,depth,enableInteractivity,geometryCenter,visiblePolygonsCount,appearance,depthSorter,enableBackFaceCulling,enableEvents,geometry,useSingleContainer,_onInteraction,clear,clone,cull,destroy,display,render,swapCulling,toString,updateBoundingVolumes" name="keywords">
 <title>sandy.core.scenegraph.Shape3D</title>
 </head>
 <body>
@@ -143,6 +143,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    The depth of this object.</div>
 </td><td class="summaryTableOwnerCol">Shape3D</td>
 </tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#depthSorter">depthSorter</a> : <a href="../sorters/IDepthSorter.html">IDepthSorter</a>
+<div class="summaryTableDescription">[write-only]
+   Apply a new depth sorter to all the polygons.</div>
+</td><td class="summaryTableOwnerCol">Shape3D</td>
+</tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="ATransformable.html#disable">disable</a> : Boolean = false<div class="summaryTableDescription">
    Disable the local transformations applied to this Node if set to false.</div>
@@ -194,6 +200,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#geometryCenter">geometryCenter</a> : <a href="../data/Vector.html">Vector</a>
 <div class="summaryTableDescription">
    This property call allows you to get the geometryCenter offset vector of the Shape.</div>
+</td><td class="summaryTableOwnerCol">Shape3D</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#invModelMatrix">invModelMatrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
+<div class="summaryTableDescription">
+   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
+   In that case, that property will return the invert model matrix on that node
+   </div>
 </td><td class="summaryTableOwnerCol">Shape3D</td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -830,6 +844,20 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get depth():Number</code>
 <br>
 </div>
+<a name="depthSorter"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">depthSorter</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>depthSorter:<a href="../sorters/IDepthSorter.html">IDepthSorter</a></code>&nbsp;&nbsp;[write-only]<p>
+   Apply a new depth sorter to all the polygons.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set depthSorter(value:<a href="../sorters/IDepthSorter.html">IDepthSorter</a>):void</code>
+<br>
+</div>
 <a name="enableBackFaceCulling"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -987,6 +1015,17 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set geometryCenter(value:<a href="../data/Vector.html">Vector</a>):void</code>
 <br>
 </div>
+<a name="invModelMatrix"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">invModelMatrix</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var invModelMatrix:<a href="../data/Matrix4.html">Matrix4</a></code><p>
+   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
+   In that case, that property will return the invert model matrix on that node
+   </p></div>
 <a name="m_bUseSingleContainer"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
