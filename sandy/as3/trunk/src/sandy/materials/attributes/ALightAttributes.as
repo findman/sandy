@@ -263,6 +263,9 @@ protected var m_oCurrentShape:Shape3D;
 
 			// clear current shape reference
 			m_oCurrentShape = null;
+
+			// init local vectors to any valid values
+			m_oCurrentL.copy (m_oL); m_oCurrentV.copy (m_oV); m_oCurrentH.copy (m_oH);
 		}
 
 		/**

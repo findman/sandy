@@ -20,7 +20,6 @@ package sandy.materials.attributes
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	
-	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
@@ -102,11 +101,11 @@ package sandy.materials.attributes
 
 			// store Blinn vector, and replace it with light direction
 			// this is to simplify specular map calculation
-			var l_oH:Vector = m_oH.clone (); m_oH.copy (m_oL);
+			var l_oCurrentH:Vector = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
 
 			// take arbitrary vector perpendicular to light direction and normalize it
-			var e:Vector = (Math.abs (m_oL.x) + Math.abs (m_oL.y) > 0) ?
-				new Vector (m_oL.y, -m_oL.x, 0) : new Vector (m_oL.z, 0, -m_oL.x); e.normalize ();
+			var e:Vector = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
+				new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 	
 			// sample ambient + diffuse and specular separately
 			var n:Vector = new Vector ();
@@ -117,13 +116,13 @@ package sandy.materials.attributes
 				// radius in the lightmap (scaled 0 to 1) and its complimentary number (to parabola)
 				var r:Number = i * 1.0 / (N - 1), q:Number = 0.5 * (1 - r * r);
 				// take arbitrary normal that will map to radius r in the lightmap
-				n.x = e.x * r - m_oL.x * q;
-				n.y = e.y * r - m_oL.y * q;
-				n.z = e.z * r - m_oL.z * q;
+				n.x = e.x * r - m_oCurrentL.x * q;
+				n.y = e.y * r - m_oCurrentL.y * q;
+				n.z = e.z * r - m_oCurrentL.z * q;
 				n.normalize ();
 				// calculate reflection from that normal
-				l_aReflection [0] [i] = calculate (n, true, true);
-				l_aReflection [1] [i] = calculate (n, true) - l_aReflection [0] [i];
+				l_aReflection [0] [i] = calculate2 (n, true, true);
+				l_aReflection [1] [i] = calculate2 (n, true) - l_aReflection [0] [i];
 
 				for (j = 0; j < 2; j++)
 				{				
@@ -143,7 +142,7 @@ package sandy.materials.attributes
 			}
 
 			// restore original Blinn vector
-			m_oH.copy (l_oH);
+			m_oCurrentH.copy (l_oCurrentH);
 
 			// compute the light map
 			var l_oLightMap:PhongAttributesLightMap = new PhongAttributesLightMap ();
@@ -230,8 +229,6 @@ package sandy.materials.attributes
 
 			m_nQuality = p_nQuality;
 			m_nSamples = p_nSamples;
-			
-			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}
 
 		// default quality to pass to computeLightMap (set in constructor)
@@ -272,14 +269,8 @@ package sandy.materials.attributes
 			}
 
 			m_oCurrentLightMap = m_oLightMaps [l_oLight] as PhongAttributesLightMap;
-			
-			// also, clear vertex dictionary
-			m_oVertices = new Dictionary (true);
 		}
 
-		// vertex dictionary
-		private var m_oVertices:Dictionary;
-		
 		/**
 		 * @private
 		 */
@@ -288,7 +279,7 @@ package sandy.materials.attributes
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 			var i:int, j:int, l_oVertex:Vertex,
-				v:Vector, dv:Vector,
+				v:Vector,// dv:Vector,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -314,27 +305,17 @@ package sandy.materials.attributes
 			// transform 1st three normals
 			for (i = 0; i < 3; i++)
 			{
-				v = aN0 [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldVector());
+				v = aN0 [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getVector());
 
 				if (spherize > 0)
 				{
-					// too bad, l_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-					// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
-					// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
 					l_oVertex = l_aPoints [i];
-					if (m_oVertices [l_oVertex] == null)
-					{
-						dv = l_oVertex.getVector ().clone ();
-						dv.sub (p_oPolygon.shape.geometryCenter);
-						p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
-						dv.normalize ();
-						dv.scale (spherize);
-						m_oVertices [l_oVertex] = dv;
-					}
-					else
-					{
-						dv = m_oVertices [l_oVertex];
-					}
+
+					dv.copy (l_oVertex.getVector ());
+					dv.sub (p_oPolygon.shape.geometryCenter);
+					dv.normalize ();
+					dv.scale (spherize);
+
 					v.add (dv);
 					v.normalize ();
 				}
@@ -459,6 +440,7 @@ package sandy.materials.attributes
 		private var aN:Array  = [new Vector (), new Vector (), new Vector ()];
 		private var aNP:Array = [new Point (), new Point (), new Point ()];
 
+		private var dv:Vector = new Vector ();		
 		private var e1:Vector = new Vector ();
 		private var e2:Vector = new Vector ();
 
