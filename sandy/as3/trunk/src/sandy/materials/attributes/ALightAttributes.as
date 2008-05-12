@@ -162,6 +162,9 @@ package sandy.materials.attributes
 			return l_k * m_nI;
 		}
 
+		/**
+		 * @private
+		 */
 		protected function calculate2 (p_oNormal:Vector, p_bFrontside:Boolean, p_bIgnoreSpecular:Boolean = false):Number
 		{
 			var l_n:Number = p_bFrontside ? -1 : 1;
@@ -174,13 +177,25 @@ package sandy.materials.attributes
 			return l_k * m_nI;
 		}
 
-protected var m_oCurrentL:Vector = new Vector ();
-protected var m_oCurrentV:Vector = new Vector ();
-protected var m_oCurrentH:Vector = new Vector ();
-protected var m_oCurrentShape:Shape3D;
+		/**
+		 * @private
+		 */
+		protected var m_oCurrentL:Vector = new Vector ();
+		/**
+		 * @private
+		 */
+		protected var m_oCurrentV:Vector = new Vector ();
+		/**
+		 * @private
+		 */
+		protected var m_oCurrentH:Vector = new Vector ();
+		/**
+		 * @private
+		 */
+		protected var m_oCurrentShape:Shape3D;
 
 		/**
-		* @private
+		* Draws light on shape.
 		*/
 		public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
@@ -211,7 +226,7 @@ protected var m_oCurrentShape:Shape3D;
 		}
 
 		/**
-		* @private
+		* Draws light on sprite.
 		*/
 		public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
@@ -290,11 +305,14 @@ protected var m_oCurrentShape:Shape3D;
 		public function unlink( p_oPolygon:Polygon ):void
 		{
 			;// to remove reference to the shapes/polygons that use this attribute
-			if (m_oCurrentShape == p_oPolygon.shape) m_oCurrentShape = null;
+			if (m_oCurrentShape == p_oPolygon.shape)
+			{
+				m_oCurrentShape = null;
+			}
 		}
 
 		/**
-		* @private
+		* Flags for the attribute.
 		*/
 		public function get flags():uint
 		{

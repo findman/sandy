@@ -41,10 +41,10 @@ package sandy.materials.attributes
 		/**
 		 * Creates a new VertexNormalAttributes object.
 		 *
-		 * @param p_nLength The length of the segment
-		 * @param p_nThickness	The line thickness - Defaoult 1
-		 * @param p_nColor	The line color - Defaoult 0 ( black )
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+		 * @param p_nLength		The length of the segment.
+		 * @param p_nThickness	The line thickness.
+		 * @param p_nColor		The line color.
+		 * @param p_nAlpha		The alpha transparency value of the material.
 		 */
 		public function VertexNormalAttributes( p_nLength:Number = 10, p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1 )
 		{
@@ -58,7 +58,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line length
+		 * The line length.
 		 */
 		public function get length():Number
 		{

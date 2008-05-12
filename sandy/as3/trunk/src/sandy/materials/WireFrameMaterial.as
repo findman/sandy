@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials
 {
 	import flash.display.Sprite;
@@ -37,10 +36,12 @@ package sandy.materials
 		/**
 		 * Creates a new WireFrameMaterial.
 		 *
-		 * @param p_nThickness	The thickness of the lines - Default 1
-		 * @param p_nColor 	The color of the lines - Default 0
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
-		 * @param p_oAttr	The attributes for this material
+		 * @param p_nThickness	The thickness of the lines.
+		 * @param p_nColor		The color of the lines.
+		 * @param p_nAlpha		The alpha transparency value of the material.
+		 * @param p_oAttr		The attributes for this material.
+		 *
+		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function WireFrameMaterial( p_nThickness:uint=1, p_nColor:uint = 0, p_nAlpha: Number = 1, p_oAttr:MaterialAttributes=null )
 		{
@@ -53,11 +54,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Renders this material on the face it dresses.
-		 *
-		 * @param p_oScene		The current scene
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */		
 		public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void 
 		{

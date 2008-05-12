@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials 
 {
 	import sandy.core.Scene3D;
@@ -21,7 +20,7 @@ package sandy.materials
 	/**
 	 * Represents the appearance property of the visible objects.
 	 *
-	 * <p>The appearance holds the front and back materials of the object</p>
+	 * <p>The appearance holds the front and back materials of the object.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
@@ -32,11 +31,14 @@ package sandy.materials
 		/**
 		 * Creates an appearance with front and back materials.
 		 *
-		 * <p>If no material is passed, the default material for back and front is a default ColorMaterial.<br/>
+		 * <p>If no material is passed, the default material for back and front is a default ColorMaterial.<br />
 		 * If only a front material is passed, it will be used as back material as well.</p>
 		 *
 		 * @param p_oFront	The front material
 		 * @param p_oBack	The back material
+		 *
+		 * @see sandy.materials.ColorMaterial
+		 * @see sandy.materials.Material
 		 */
 		public function Appearance( p_oFront:Material=null, p_oBack:Material=null )
 		{
@@ -45,15 +47,14 @@ package sandy.materials
 		}
 		
 		/**
-		 * Get the use of vertex normal feature of the appearance
+		 * Get the use of vertex normal feature of the appearance.
 		 *
-		 * <p>true ONLY ONE of the materials is using this feature</p>
+		 * <p><b>Note: Only one of the materials is using this feature.</p>
 		 */		
 		public function get useVertexNormal():Boolean
 		{ 
 			return Boolean(m_oBackMaterial.useVertexNormal && m_oFrontMaterial.useVertexNormal); 
 		}
-		
 		
 		/**
 		 * @private
@@ -61,7 +62,10 @@ package sandy.materials
 		public function set frontMaterial( p_oMat:Material ):void
 		{
 			m_oFrontMaterial = p_oMat;
-			if( m_oBackMaterial == null ) m_oBackMaterial = p_oMat;
+			if( m_oBackMaterial == null )
+			{
+				m_oBackMaterial = p_oMat;
+			}
 		}
 		
 		/**
@@ -70,12 +74,14 @@ package sandy.materials
 		public function set backMaterial( p_oMat:Material ):void
 		{
 			m_oBackMaterial = p_oMat;
-			if( m_oFrontMaterial == null ) m_oFrontMaterial = p_oMat;
+			if( m_oFrontMaterial == null )
+			{
+				m_oFrontMaterial = p_oMat;
+			}
 		}
 
 		/**
-		 * The front material held by this appearance
-		 *
+		 * The front material held by this appearance.
 		 */
 		public function get frontMaterial():Material
 		{
@@ -83,8 +89,7 @@ package sandy.materials
 		}
 		
 		/**
-		 * The back material held by this appearance
-		 *
+		 * The back material held by this appearance.
 		 */
 		public function get backMaterial():Material
 		{
@@ -92,17 +97,25 @@ package sandy.materials
 		}
 		
 		
+		/**
+		* Returns the flags for the front and back materials.
+		*
+		* @see sandy.core.SandyFlags
+		*/
 		public function get flags():uint
 		{
 			var l_nFlag:uint =  m_oFrontMaterial.flags;
-			if( m_oFrontMaterial != m_oBackMaterial ) l_nFlag |= m_oBackMaterial.flags;
+			if( m_oFrontMaterial != m_oBackMaterial )
+			{
+				l_nFlag |= m_oBackMaterial.flags;
+			}
 			return l_nFlag;
 		}
 		
 		/**
 		 * Returns a string representation of this object.
 		 *
-		 * @return	The fully qualified name of this object
+		 * @return	The fully qualified name of this object.
 		 */
 		public function toString():String
 		{

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials 
 {
 	/**
@@ -28,9 +27,6 @@ package sandy.materials
 	 */
 	public class MaterialType
 	{
-		//---------//
-		//Constants//
-		//---------//
 		/**
 		 * Constant value representing the default material
 		 */

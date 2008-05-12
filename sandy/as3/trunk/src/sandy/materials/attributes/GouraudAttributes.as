@@ -78,7 +78,7 @@ package sandy.materials.attributes
 		private var m_oVertex:Vertex;
 
 		/**
-		* @inheritDoc
+		* @private
 		*/
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{

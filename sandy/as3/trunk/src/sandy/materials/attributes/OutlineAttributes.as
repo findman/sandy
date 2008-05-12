@@ -51,9 +51,9 @@ package sandy.materials.attributes
 		/**
 		 * Creates a new OutlineAttributes object.
 		 *
-		 * @param p_nThickness	The line thickness
-		 * @param p_nColor		The line color
-		 * @param p_nAlpha		The alpha value in percent of full opacity ( 0 - 1 )
+		 * @param p_nThickness	The line thickness.
+		 * @param p_nColor		The line color.
+		 * @param p_nAlpha		The alpha transparency value of the material.
 		 */
 		public function OutlineAttributes( p_nThickness:uint = 1, p_nColor:uint = 0, p_nAlpha:Number = 1 )
 		{
@@ -65,7 +65,9 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque). The default value is 1.
+		 * Indicates the alpha transparency value of the outline. Valid values are 0 (fully transparent) to 1 (fully opaque).
+		 *
+		 * @default 1.0
 		 */
 		public function get alpha():Number
 		{

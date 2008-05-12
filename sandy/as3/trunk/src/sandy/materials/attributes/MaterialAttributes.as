@@ -31,6 +31,9 @@ package sandy.materials.attributes
 	 */
 	public class MaterialAttributes
 	{
+		/**
+		 * List of attributes.
+		 */
 		public var attributes:Array = new Array();
 		
 		/**
@@ -64,7 +67,7 @@ package sandy.materials.attributes
 		}
 	
 		/**
-		* Remove all initializations opposite of init from all attributes.
+		* Remove all initializations (opposite of init method) from all attributes.
 		*
 		* @param p_oPolygon	The polygon.
 		*

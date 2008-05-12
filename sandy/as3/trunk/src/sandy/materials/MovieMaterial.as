@@ -44,10 +44,10 @@ package sandy.materials
 	public class MovieMaterial extends BitmapMaterial
 	{
 		/**
-		 * Default color used to draw the bitmapdata content with.
-		 * In case you need a specific color, change  this value at your application initialization
+		 * Default color used to draw the bitmapdata content.
+		 * In case you need a specific color, change this value at your application initialization.
 		 */
-		public static var DEFAULT_FILL_COLOR:uint = 0;
+		public static const DEFAULT_FILL_COLOR:uint = 0;
 
 		private var m_oTimer:Timer;
 		private var m_oMovie:Sprite;
@@ -61,12 +61,14 @@ package sandy.materials
 		 * It is converted to a bitmap to give it a perspective distortion.<br/>
 		 * To see the animation the bitmap has to be recreated from the MovieClip on a regular basis.</p>
 		 *
-		 * @param p_oMovie 	The Movieclip to be shown by this material
-		 * @param p_nUpdateMS	The update interval
-		 * @param p_oAttr	The material attributes
-		 * @param p_bRemoveTransparentBorder	Remove the transparent border
-		 * @param p_nWidth	desired width ( chunk the movieclip )
-		 * @param p_nHeight	desired height ( chunk the movieclip )
+		 * @param p_oMovie		The Movieclip to be shown by this material.
+		 * @param p_nUpdateMS	The update interval.
+		 * @param p_oAttr		The material attributes.
+		 * @param p_bRemoveTransparentBorder	Remove the transparent border.
+		 * @param p_nWidth		Desired width ( chunk the movieclip )
+		 * @param p_nHeight		Desired height ( chunk the movieclip )
+		 *
+		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function MovieMaterial( p_oMovie:Sprite, p_nUpdateMS:uint = 40, p_oAttr:MaterialAttributes = null, p_bRemoveTransparentBorder:Boolean = false, p_nHeight:Number=0, p_nWidth:Number=0 )
 		{
@@ -108,11 +110,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Renders this material on the face it dresses.
-		 *
-		 * @param p_oScene		The current scene
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */
 		public override function renderPolygon ( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ) : void
 		{
@@ -121,11 +119,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Changes the transparency of the texture.
-		 *
-		 * <p>The passed value is the percentage of opacity.</p>
-		 *
-		 * @param p_nValue 	A value between 0 and 1. (automatically constrained)
+		 * @private
 		 */
 		public override function setTransparency( p_nValue:Number ):void
 		{
@@ -166,7 +160,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Get the movieclip used for the material
+		 * Get the sprite used for the material.
 		 */
 		public function get movie() : Sprite
 		{

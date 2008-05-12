@@ -106,7 +106,7 @@ package sandy.materials.attributes
 		}
 
 		/**
-		* Remove all the initialization opposite of init.
+		* Remove all the initialization (opposite of init).
 		*
 		* @param p_oPolygon	The polygon.
 		*

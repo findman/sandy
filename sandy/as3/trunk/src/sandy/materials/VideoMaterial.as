@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials
 {
 	import flash.display.BitmapData;
@@ -43,10 +42,10 @@ package sandy.materials
 	public class VideoMaterial extends BitmapMaterial
 	{
 		/**
-		 * Default color used to draw the bitmapdata content with.
-		 * In case you need a specific color, change  this value at your application initialization
+		 * Default color used to draw the bitmapdata content.
+		 * In case you need a specific color, change this value at your application initialization.
 		 */
-		public static var DEFAULT_FILL_COLOR:uint = 0;
+		public static const DEFAULT_FILL_COLOR:uint = 0;
 
 		private var m_oTimer:Timer;
 		private var m_oVideo:Video;
@@ -59,9 +58,11 @@ package sandy.materials
 		 * <p>The video is converted to a bitmap to give it a perspective distortion.<br/>
 		 * To see the animation, the bitmap has to be recreated from the video on a regular basis.</p>
 		 *
-		 * @param p_oVideo 	The video to be shown by this material
-		 * @param p_nUpdateMS	The update interval
-		 * @param p_oAttr	The material attributes
+		 * @param p_oVideo		The video to be shown by this material.
+		 * @param p_nUpdateMS	The update interval.
+		 * @param p_oAttr		The material attributes.
+		 *
+		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function VideoMaterial( p_oVideo:Video, p_nUpdateMS:uint = 40, p_oAttr:MaterialAttributes = null )
 		{
@@ -76,11 +77,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Renders this material on the face it dresses.
-		 *
-		 * @param p_oScene		The current scene
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */
 		public override function renderPolygon ( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ) : void
 		{
@@ -89,11 +86,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Changes the transparency of the texture.
-		 *
-		 * <p>The passed value is the percentage of opacity.</p>
-		 *
-		 * @param p_nValue 	A value between 0 and 1. (automatically constrained)
+		 * @private
 		 */
 		public override function setTransparency( p_nValue:Number ):void
 		{

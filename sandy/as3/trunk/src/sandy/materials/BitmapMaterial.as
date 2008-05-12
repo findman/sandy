@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials
 {
 	import flash.display.BitmapData;
@@ -32,7 +31,7 @@ package sandy.materials
 	import sandy.util.NumberUtil;
 
 	/**
-	 * Displays a bitmap on the faces of a 3D shape..
+	 * Displays a bitmap on the faces of a 3D shape.
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @author		Xavier Martin - zeflasher - transparency managment
@@ -45,7 +44,7 @@ package sandy.materials
 	{
 
 		/**
-		 * This property enable smooth bitmap rendering when set to true.
+		 * This property enables smooth bitmap rendering when set to true.
 		 * The default value is set to false to have the best performance first.
 		 * Enable this property have a performance impact, use it warefully
 		 */
@@ -72,9 +71,12 @@ package sandy.materials
 		 * Creates a new BitmapMaterial.
 		 * <p>Please note that we ue internally a copy of the constructor bitmapdata. Thatea mns in case you need to access this bitmapdata, you can't just use the same reference
 		 * but you shall use the BitmapMaterial#texture getter property to make it work.</p>
-		 * @param p_oTexture 	The bitmapdata for this material
-		 * @param p_oAttr	The attributes for this material
-		 * @param p_nPrecision The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
+		 *
+		 * @param p_oTexture	The bitmapdata for this material.
+		 * @param p_oAttr		The attributes for this material.
+		 * @param p_nPrecision	The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
+		 *
+		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function BitmapMaterial( p_oTexture:BitmapData = null, p_oAttr:MaterialAttributes = null, p_nPrecision:uint = 0 )
 		{
@@ -92,11 +94,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Renders this material on the face it dresses
-		 *
-		 * @param p_oScene		The current scene
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */
 		public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void
 		{
@@ -149,6 +147,9 @@ package sandy.materials
 			l_uv = null;
 		}
 
+		/**
+		 * @private
+		 */
 		protected function _tesselatePolygon ( p_aPoints:Array, p_aUv:Array ):void
 		{
 			var l_points: Array = p_aPoints.slice();
@@ -187,6 +188,9 @@ package sandy.materials
 			l_uv = null;
 	 	}
 
+		/**
+		 * @private
+		 */
   		protected function renderRec( ta:Number, tb:Number, tc:Number, td:Number, tx:Number, ty:Number,
             ax:Number, ay:Number, az:Number, bx:Number, by:Number, bz:Number, cx:Number, cy:Number, cz:Number):void
         {
@@ -282,6 +286,9 @@ package sandy.materials
         }
         
 
+		/**
+		 * @private
+		 */
 		protected function renderTriangle(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number,
 			v0x:Number, v0y:Number, v1x:Number, v1y:Number, v2x:Number, v2y:Number):void
 		{
@@ -305,7 +312,9 @@ package sandy.materials
 			graphics.endFill();
 		}
 
-
+		/**
+		 * @private
+		 */
 		protected function _createTextureMatrix( p_aUv:Array ):Matrix
 		{
 			var u0: Number = (p_aUv[0].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
@@ -416,7 +425,9 @@ package sandy.materials
 		}
 
 		/**
-		 * @private
+		 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+		 *
+		 * @default 1.0
 		 */
 		public function get alpha():Number 
 		{
@@ -424,9 +435,7 @@ package sandy.materials
 		}
 
 		/**
-		 * The alpha value for this material ( 0 - 1 )
-		 *
-		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 * @private
 		 */
 		public function set alpha(p_nValue:Number):void	
 		{
@@ -435,6 +444,9 @@ package sandy.materials
 			m_bModified = true;
 		}
 
+		/**
+		 * @private
+		 */
 		public override function unlink( p_oPolygon:Polygon ):void
 		{
 			if( m_oPolygonMatrixMap[p_oPolygon.id] )
@@ -442,9 +454,8 @@ package sandy.materials
 			// --
 			super.unlink( p_oPolygon );
 		}
+		
 		/**
-		 * Initiates this material.
-		 *
 		 * @param p_oPolygon	The face dressed by this material
 		 */
 		public override function init( p_oPolygon:Polygon ):void
@@ -468,17 +479,41 @@ package sandy.materials
 			super.init( p_oPolygon );
 		}
 
+		/**
+		 * Returns a string representation of this object.
+		 *
+		 * @return	The fully qualified name of this object.
+		 */
 		public function toString():String
 		{
 			return 'sandy.materials.BitmapMaterial' ;
 		}
 
+		/**
+		 * @private
+		 */
 		internal var polygon:Polygon;
+		
+		/**
+		 * @private
+		 */
         internal var graphics:Graphics;
+		
+		/**
+		 * @private
+		 */
         internal var map:Matrix = new Matrix();
 
+		/**
+		 * @private
+		 */
 		protected var m_oTexture:BitmapData;
+		
+		/**
+		 * @private
+		 */
 		protected var m_orgTexture:BitmapData;
+		
 		private var m_nHeight:Number;
 		private var m_nWidth:Number;
 		private var m_nInvHeight:Number;
@@ -486,11 +521,35 @@ package sandy.materials
 		private var m_nAlpha:Number = 1.0;
 
 		private var m_nRecLevel:int = 0;
+		
+		/**
+		 * @private
+		 */
 		protected var m_oPolygonMatrixMap:Dictionary;
+		
+		/**
+		 * @private
+		 */
 		protected var m_oPoint:Point = new Point();
+		
+		/**
+		 * @private
+		 */
 		protected var m_oCmf:ColorMatrixFilter;
+		
+		/**
+		 * @private
+		 */
 		protected var matrix:Matrix = new Matrix();
+
+		/**
+		 * @private
+		 */
 		protected const m_oTiling:Point = new Point( 1, 1 );
+		
+		/**
+		 * @private
+		 */
 		protected const m_oOffset:Point = new Point( 0, 0 );
 	}
 }

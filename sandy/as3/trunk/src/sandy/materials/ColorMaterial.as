@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials
 {
 	import flash.display.Graphics;
@@ -43,9 +42,11 @@ package sandy.materials
 		/**
 		 * Creates a new ColorMaterial.
 		 *
-		 * @param p_nColor 	The color for this material in hexadecimal notation
-		 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
-		 * @param p_oAttr	The attributes for this material
+		 * @param p_nColor 	The color for this material in hexadecimal notation.
+		 * @param p_nAlpha	The alpha transparency value of the material.
+		 * @param p_oAttr	The attributes for this material.
+		 *
+		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function ColorMaterial( p_nColor:uint = 0x00, p_nAlpha:Number = 1, p_oAttr:MaterialAttributes = null )
 		{
@@ -58,11 +59,7 @@ package sandy.materials
 		}
 
 		/**
-		 * Renders this material on the face it dresses
-		 *
-		 * @param p_oScene		The current scene
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */
 		public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void
 		{
@@ -84,7 +81,9 @@ package sandy.materials
 		}
 
 		/**
-		 * @private
+		 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+		 *
+		 * @default 1.0
 		 */
 		public function get alpha():Number
 		{
@@ -92,18 +91,17 @@ package sandy.materials
 		}
 
 		/**
-		 * @private
+		 * The color of this material
+		 *
+		 * @default 0x00
 		 */
 		public function get color():Number
 		{
 			return m_nColor;
 		}
 
-
 		/**
-		 * The alpha value for this material ( 0 - 1 )
-		 *
-		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 * @private
 		 */
 		public function set alpha(p_nValue:Number):void
 		{
@@ -112,7 +110,7 @@ package sandy.materials
 		}
 
 		/**
-		 * The color of this material
+		 * @private
 		 */
 		public function set color(p_nValue:Number):void
 		{

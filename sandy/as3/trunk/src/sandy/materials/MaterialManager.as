@@ -1,6 +1,6 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -17,6 +17,9 @@ package sandy.materials
 {
 	import sandy.core.Scene3D;
 	
+	/**
+	 * Could a dev please document this? :)
+	 **/
 	public final class MaterialManager
 	{
 		public function MaterialManager()

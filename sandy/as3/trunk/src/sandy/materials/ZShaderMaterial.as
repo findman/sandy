@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials
 {
 	
@@ -29,7 +28,7 @@ package sandy.materials
 	import sandy.util.NumberUtil;
 
 	/**
-	 * Displays a kind of Z shading of any object that this material is applied to
+	 * Displays a kind of Z shading of any object that this material is applied to.
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
@@ -37,19 +36,19 @@ package sandy.materials
 	 */	
 	public class ZShaderMaterial extends Material
 	{
-		internal var matrix:Matrix = new Matrix();
+		private var matrix:Matrix = new Matrix();
 		// --
 		
+		/**
+		 * @see sandy.materials.attributes.MaterialAttributes
+		 */
 		public function ZShaderMaterial( p_nCoef:Number = 1, p_oAttr:MaterialAttributes = null )
 		{
 			super(p_oAttr);
 		}
 		
 		/**
-		 * Renders this material on the face it dresses
-		 *
-		 * @param p_oPolygon	The face to be rendered
-		 * @param p_mcContainer	The container to draw on
+		 * @private
 		 */
 		public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void 
 		{

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -26,9 +26,7 @@ package sandy.materials
 	public interface IAlphaMaterial
 	{
 		/**
-		 * The alpha value for this material ( 0 - 1 )
-		 *
-		 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
+		 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
 		 */
 		function set alpha(p_nValue:Number):void;
 
