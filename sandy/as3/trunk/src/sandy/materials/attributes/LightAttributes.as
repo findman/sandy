@@ -65,7 +65,7 @@ package sandy.materials.attributes
 				var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
 				var l_oNormal:Vector = p_oPolygon.normal.getVector();
 				// --
-				var lightStrength:Number = calculate2 (l_oNormal, p_oPolygon.visible);
+				var lightStrength:Number = calculate (l_oNormal, p_oPolygon.visible);
 				if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;
 				// --
 				p_oGraphics.lineStyle();

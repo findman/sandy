@@ -121,8 +121,8 @@ package sandy.materials.attributes
 				n.z = e.z * r - m_oCurrentL.z * q;
 				n.normalize ();
 				// calculate reflection from that normal
-				l_aReflection [0] [i] = calculate2 (n, true, true);
-				l_aReflection [1] [i] = calculate2 (n, true) - l_aReflection [0] [i];
+				l_aReflection [0] [i] = calculate (n, true, true);
+				l_aReflection [1] [i] = calculate (n, true) - l_aReflection [0] [i];
 
 				for (j = 0; j < 2; j++)
 				{				
@@ -222,7 +222,7 @@ package sandy.materials.attributes
 		 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected.
 		 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected.
 		 */
-		public function PhongAttributes (p_bBright:Boolean = false, p_nAmbient:Number = 0.0, p_nQuality:int = 4, p_nSamples:int = 4)
+		public function PhongAttributes (p_bBright:Boolean = false, p_nAmbient:Number = 0.0, p_nQuality:int = 15, p_nSamples:int = 4)
 		{
 			useBright = p_bBright;
 			ambient = NumberUtil.constrain (p_nAmbient, 0, 1);
