@@ -19,6 +19,8 @@ package sandy.core.scenegraph
 	import flash.display.*;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.ColorTransform;
+	import flash.geom.Matrix;
 	
 	import sandy.bounds.BSphere;
 	import sandy.core.Scene3D;
@@ -59,6 +61,14 @@ package sandy.core.scenegraph
 		public var starColors:Array = [];
 
 		/**
+		 * Array of star sprites (any IBitmapDrawable-s; if not specified, StarField uses setPixel to draw a star).
+		 *
+		 * <p>Star sprites are affected by corresponding starColors value; for DisplayObject-s, StarField will use
+		 * their blendMode to draw them.</p>
+		 */
+		public var starSprites:Array = [];
+
+		/**
 		 * Creates a StarField.
 		 *
 		 * @param p_sName	A string identifier for this object
@@ -71,6 +81,7 @@ package sandy.core.scenegraph
 			m_oBitmapData = new BitmapData (1, 1, true, 0);
 			m_oBitmap = new Bitmap (m_oBitmapData);
 			m_oContainer.addChild (m_oBitmap);
+			_vx = new Vertex(); _vy = new Vertex();
 		}
 
 		/**
@@ -141,7 +152,8 @@ package sandy.core.scenegraph
 			m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			m_oBitmapData.lock();
 			// --
-			var i:int = 0, c32:Number, a:Number, r:Number;
+			var i:int = 0;
+			var c32:Number, a:Number, c:Number, r:Number, rgb_r:Number, rgb_g:Number, rgb_b:Number, bY:Number;
 			for (i = 0; i < stars.length; i++)
 			{
 				var _v:Vertex = stars [i];
@@ -155,10 +167,44 @@ package sandy.core.scenegraph
 					if (r < 1)
 					{
 						// will uint and bit shift really make a difference?
-						c32 = (i < starColors.length) ? starColors [i] : 0xFFFFFFFF;
-						a = c32 / 0x1000000 * (1 - r);
+						c32 = (i < starColors.length) ? Number (starColors [i]) : 0xFFFFFFFF;
+						a = c32 / 0x1000000 * (1 - r); c = c32 & 0xFFFFFF;
 						p_oCamera.projectVertex (_v);
-						m_oBitmapData.setPixel32 (_v.sx, _v.sy, (c32 & 0xFFFFFF) + Math.floor (a) * 0x1000000);
+						if ((i < starSprites.length /* avoid array access */) && (starSprites [i] is IBitmapDrawable))
+						{
+							_vx.copy (_v); _vx.wx++; p_oCamera.projectVertex (_vx);
+							_vy.copy (_v); _vy.wy++; p_oCamera.projectVertex (_vy);
+							m_oMatrix.tx = _v.sx; m_oMatrix.a = (_vx.sx - _v.sx);
+							m_oMatrix.ty = _v.sy; m_oMatrix.d = (_v.sy - _vy.sy);
+
+							if (c != 0xFFFFFF)
+							{
+								rgb_r = (0xFF0000 & c) >> 16;
+								rgb_g = (0x00FF00 & c) >> 8;
+								rgb_b = (0x0000FF & c);
+								bY = /* a * */ 1.7321 /*Math.sqrt (3)*/ / Math.sqrt (rgb_r * rgb_r + rgb_g * rgb_g + rgb_b * rgb_b);
+								rgb_r *= bY; rgb_g *= bY; rgb_b *= bY;
+							}
+							else
+							{
+								rgb_r = rgb_g = rgb_b = 1;
+							}
+
+							m_oColorTransform.redMultiplier = rgb_r;
+							m_oColorTransform.greenMultiplier = rgb_g;
+							m_oColorTransform.blueMultiplier = rgb_b;
+
+							// TODO think about support for fade-to-black along with fade-to-transparent?
+							m_oColorTransform.alphaMultiplier = a / 255.0;
+
+							var star:IBitmapDrawable = starSprites [i];
+							m_sBlendMode = (star as DisplayObject == null) ? "normal" : DisplayObject(star).blendMode;
+							m_oBitmapData.draw (star, m_oMatrix, m_oColorTransform, m_sBlendMode);
+						}
+						else
+						{
+							m_oBitmapData.setPixel32 (_v.sx, _v.sy, (c32 & 0xFFFFFF) + Math.floor (a) * 0x1000000);
+						}
 					}
 				}
 			}
@@ -203,5 +249,9 @@ package sandy.core.scenegraph
 		private var m_oContainer:Sprite;
 		private var m_oBitmap:Bitmap;
 		private var m_oBitmapData:BitmapData;
+		private var m_oMatrix:Matrix = new Matrix ();
+		private var m_oColorTransform:ColorTransform = new ColorTransform ();
+		private var m_sBlendMode:String = "";
+		private var _vx:Vertex, _vy:Vertex;
 	}
 }
