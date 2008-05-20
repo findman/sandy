@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.parser
 {
 	import flash.events.*;
@@ -70,6 +69,8 @@ package sandy.parser
 		}
 
 		/**
+		 * @private
+		 *
 		 * Starts the parsing process
 		 * @param e				The Event object
 		 */

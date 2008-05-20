@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -16,6 +16,41 @@ limitations under the License.
 
 package sandy.parser
 {
+	/**
+	* Dispatched when parsing fails.
+	*
+	* @eventType sandy.events.ParserEvent.FAIL
+	*/
+	[Event(name="onFailEVENT", type="sandy.parser.ParserEvent")]
+
+	/**
+	* Dispatched when parsing is complete.
+	*
+	* @eventType sandy.events.ParserEvent.INIT
+	*/
+	[Event(name="onInitEVENT", type="sandy.parser.ParserEvent")]
+
+	/**
+	* Dispatched when the file starts loading.
+	*
+	* @eventType sandy.events.ParserEvent.LOAD
+	*/
+	[Event(name="onLoadEVENT", type="sandy.parser.ParserEvent")]
+
+	/**
+	* Dispatched when data is received as the parsing progresses.
+	*
+	* @eventType sandy.events.ParserEvent.PROGRESS
+	*/
+	[Event(name="onProgressEVENT", type="sandy.parser.ParserEvent")]
+
+	/**
+	* Dispatched when a parser reads the next line of data in a file.
+	*
+	* @eventType sandy.events.ParserEvent.PARSING
+	*/
+	[Event(name="onParsingEVENT", type="sandy.parser.ParserEvent")]
+
 	/**
 	 * The Parser factory class creates instances of parser classes.
 	 * The specific parser can be specified in the create method's second parameter.
@@ -35,18 +70,15 @@ package sandy.parser
 	public final class Parser
 	{
 		/**
-		 * Parameter that is used to specify that the ASE (ASCII Scene Export)
-		 * Parser should be used
+		 * Specifies that the ASE (ASCII Scene Export) parser should be used.
 		 */
 		public static const ASE:String = "ASE";
 		/**
-		 * Parameter that is used to specify that the 3DS (3D Studio) Parser 
-		 * should be used
+		 * Specifies that the 3DS (3D Studio) parser should be used.
 		 */
 		public static const MAX_3DS:String = "3DS";
 		/**
-		 * Parameter that is used to specify that the COLLADA (COLLAborative 
-		 * Design Activity ) Parser should be used
+		 * Specifies that the COLLADA (COLLAborative Design Activity ) parser should be used.
 		 */
 		public static const COLLADA:String = "DAE";
 		

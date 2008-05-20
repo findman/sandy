@@ -21,8 +21,19 @@ package sandy.core.light
 	import sandy.core.data.Vector;
 	import sandy.events.SandyEvent;
 	import sandy.util.NumberUtil;
-
+	
+	/**
+	* Dispatched when the light is updated.
+	*
+	* @eventType sandy.events.SandyEvent.LIGHT_UPDATED
+	*/
 	[Event(name="lightUpdated", type="sandy.events.SandyEvent")]
+	
+	/**
+	* Dispatched when the light color is changed.
+	*
+	* @eventType sandy.events.SandyEvent.LIGHT_COLOR_CHANGED
+	*/
 	[Event(name="lightColorChanged", type="sandy.events.SandyEvent")]
 
 	 /**

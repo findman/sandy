@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.parser
 {
 	import flash.events.Event;
@@ -30,29 +29,49 @@ package sandy.parser
 	 
 	public final class ParserEvent extends Event
 	{
-		/**
-	     * The load has failed
-	     */
-	    static public const FAIL:String = 'onFailEVENT';
 	    /**
-	     * The OBject3D object is initialized
+		 * Defines the value of the <code>type</code> property of a <code>onFailEVENT</code> event object.
+	     *
+	     * @eventType onFailEVENT
 	     */
-	    static public const INIT:String = 'onInitEVENT';
+	    public static const FAIL:String = 'onFailEVENT';
+		
 	    /**
-	     * The load has started
+		 * Defines the value of the <code>type</code> property of a <code>onInitEVENT</code> event object.
+	     *
+	     * @eventType onInitEVENT
 	     */
-	    static public const LOAD:String = 'onLoadEVENT';
-		/**
-		 *  The load is in progress
-		 */
+	    public static const INIT:String = 'onInitEVENT';
+		
+	    /**
+		 * Defines the value of the <code>type</code> property of a <code>onLoadEVENT</code> event object.
+	     *
+	     * @eventType onLoadEVENT
+	     */
+	    public static const LOAD:String = 'onLoadEVENT';
+		
+	    /**
+		 * Defines the value of the <code>type</code> property of a <code>onProgressEVENT</code> event object.
+	     *
+	     * @eventType onProgressEVENT
+	     */
 		public static const PROGRESS:String = 'onProgressEVENT';
 		
-		/**
-		 * Parsing is in progress
-		 */
+	    /**
+		 * Defines the value of the <code>type</code> property of a <code>onParsingEVENT</code> event object.
+	     *
+	     * @eventType onParsingEVENT
+	     */
 		public static const PARSING:String = 'onParsingEVENT';
 		
+		/**
+		 * The percent of the loading that is complete.
+		 */
 		public var percent:Number;
+		
+		/**
+		 * The group the object will be assigned to.
+		 */
 		public var group:Group;
 
 		/**

@@ -26,10 +26,39 @@ package sandy.core
 	import sandy.events.SandyEvent;
 	import sandy.materials.MaterialManager;
 
+	/**
+	* Dispatched when a light is added to the scene.
+	*
+	* @eventType sandy.events.SandyEvent.LIGHT_ADDED
+	*/
 	[Event(name="lightAdded", type="sandy.events.SandyEvent")]
+
+	/**
+	* Dispatched when the scene is rendered.
+	*
+	* @eventType sandy.events.SandyEvent.SCENE_RENDER
+	*/
 	[Event(name="scene_render", type="sandy.events.SandyEvent")]
+
+	/**
+	* Dispatched when the scene is culled.
+	*
+	* @eventType sandy.events.SandyEvent.SCENE_CULL
+	*/
 	[Event(name="scene_cull", type="sandy.events.SandyEvent")]
+
+	/**
+	* Dispatched when the scene is updated.
+	*
+	* @eventType sandy.events.SandyEvent.SCENE_UPDATE
+	*/
 	[Event(name="scene_update", type="sandy.events.SandyEvent")]
+
+	/**
+	* Dispatched when the display list is rendered.
+	*
+	* @eventType sandy.events.SandyEvent.SCENE_RENDER_DISPLAYLIST
+	*/
 	[Event(name="scene_render_display_list", type="sandy.events.SandyEvent")]
 
 	/**
@@ -77,7 +106,10 @@ package sandy.core
 		 */
 		public var container:Sprite;
 
-		public const materialManager:MaterialManager = new MaterialManager();
+		/**
+		 * The material manager for the scene.
+		 */
+		public var materialManager:MaterialManager = new MaterialManager();
 
 		/**
 		 * Creates a new Scene.
@@ -224,6 +256,9 @@ package sandy.core
 			return m_sName;
 		}
 
+		/**
+	     * @private
+		 */
 		protected var m_sName:String;
 		private var m_bRectClipped:Boolean = true;
 		private var _light:Light3D; 	//the unique light instance of the world

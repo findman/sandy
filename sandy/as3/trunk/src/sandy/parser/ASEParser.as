@@ -65,6 +65,7 @@ package sandy.parser
 		}
 
 		/**
+		 * @private
 		 * Starts the parsing process
 		 *
 		 * @param e				The Event object

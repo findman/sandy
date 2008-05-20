@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -26,7 +26,7 @@ package sandy.util
 	public class NumberUtil 
 	{
 		/**
-		 * Math constant 2*pi
+		 * Math constant pi&#42;2
 		 */
 		public static function get TWO_PI():Number { return __TWO_PI; }
 		private static var __TWO_PI:Number = 2 * Math.PI;

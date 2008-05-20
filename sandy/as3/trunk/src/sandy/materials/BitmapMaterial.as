@@ -341,7 +341,7 @@ package sandy.materials
 		}
 
 		/**
-		 * The texture ( bitmap ) of this material
+		 * The texture ( bitmap ) of this material.
 		 */
 		public function get texture():BitmapData
 		{

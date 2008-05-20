@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -27,13 +27,24 @@ package sandy.util
 	import sandy.events.QueueEvent;
 	import sandy.events.SandyEvent;
 
+	/**
+	* Dispatched when a resource has been loaded.
+	*
+	* @eventType sandy.events.QueueEvent.QUEUE_COMPLETE
+	*/
 	[Event(name="queueComplete", type="sandy.events.QueueEvent")]
+
+	/**
+	* Dispatched when an error is encountered while loading a resource.
+	*
+	* @eventType sandy.events.QueueEvent.QUEUE_LOADER_ERROR
+	*/
 	[Event(name="queueLoaderError", type="sandy.events.QueueEvent")]
 
-       	/**
+    /**
 	 * Utility class for loading resources.
 	 *
-	 * <p>A LoaderQueue allows you to queue up requests for loading external resources</p>
+	 * <p>A LoaderQueue allows you to queue up requests for loading external resources.</p>
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0

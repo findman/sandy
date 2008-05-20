@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.parser
 {
 	import flash.events.Event;
@@ -44,12 +43,39 @@ package sandy.parser
 	public class AParser extends EventDispatcher implements IParser
 	{
 		//protected static var m_eProgress:ParserEvent = new ParserEvent( ParserEvent.PROGRESS );
+		/**
+		 * @private
+		 */
 		protected const m_oLoader:URLLoader = new URLLoader();
+		
+		/**
+		 * @private
+		 */
 		protected var m_oGroup:Group;
+		
+		/**
+		 * @private
+		 */
 		protected var m_oFile:Object;
+		
+		/**
+		 * @private
+		 */
 		protected var m_oFileLoader:URLLoader
+		
+		/**
+		 * @private
+		 */
 		protected var m_sDataFormat:String;
+		
+		/**
+		 * @private
+		 */
 		protected var m_nScale:Number;
+		
+		/**
+		 * @private
+		 */
 		protected var m_oStandardAppearance : Appearance;
 
 		private var m_sUrl:String;
@@ -59,8 +85,8 @@ package sandy.parser
 		 * and sets up an URLLoader.
 		 *
 		 * @param p_sFile		Must be either a text string containing the location
-		 * 						to a file or an embedded object
-		 * @param p_nScale		The scale amount
+		 * 						to a file or an embedded object.
+		 * @param p_nScale		The scale amount.
 		 */
 		public function AParser( p_sFile:*, p_nScale:Number )
 		{
@@ -84,7 +110,7 @@ package sandy.parser
 		/**
 		 * Set the standard appearance for all the parsed objects.
 		 *
-		 * @param p_oAppearance		The standard appearance
+		 * @param p_oAppearance		The standard appearance.
 		 */
 		public function set standardAppearance( p_oAppearance:Appearance ):void
 		{
@@ -94,7 +120,7 @@ package sandy.parser
 		/**
 		* Called when an I/O error occurs.
 		 *
-		* @param	e	The error event
+		* @param	e	The error event.
 		*/
 		private function _io_error( e:IOErrorEvent ):void
 		{
@@ -102,9 +128,11 @@ package sandy.parser
 		}
 
 		/**
-		 * This method is called when all files are loaded and initialized
+		 * @private
 		 *
-		 * @param e		The event object
+		 * This method is called when all files are loaded and initialized.
+		 *
+		 * @param e		The event object.
 		 */
 		protected function parseData( e:Event=null ):void
 		{
@@ -115,6 +143,9 @@ package sandy.parser
 			}
 		}
 
+		/**
+		 * @private
+		 */
 		protected function onProgress( p_oEvt:ProgressEvent ):void
 		{
 			var event:ParserEvent = new ParserEvent( ParserEvent.PROGRESS );

@@ -91,7 +91,7 @@ package sandy.materials
 		}
 
 		/**
-		 * The color of this material
+		 * The color of this material.
 		 *
 		 * @default 0x00
 		 */

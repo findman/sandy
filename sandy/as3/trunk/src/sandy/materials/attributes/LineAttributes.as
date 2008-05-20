@@ -38,6 +38,9 @@ package sandy.materials.attributes
 		private var m_nColor:Number;
 		private var m_nAlpha:Number;
 		// --
+		/**
+		 * Whether the attribute has been modified since it's last render.
+		 */
 		public var modified:Boolean;
 		
 		/**

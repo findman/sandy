@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -29,7 +29,7 @@ package sandy.events
 	public class SandyEvent extends Event
 	{
 	    /**
-	     * Indicates that a light has been added to a Scene3D object.
+		 * Defines the value of the <code>type</code> property of a <code>lightAdded</code> event object.
 	     *
 	     * @eventType lightAdded
 	     *
@@ -38,7 +38,7 @@ package sandy.events
 		public static const LIGHT_ADDED:String = "lightAdded";
 
 	    /**
-	     * Indicates that the Light3D object of the scene has been updated.
+		 * Defines the value of the <code>type</code> property of a <code>lightUpdated</code> event object.
 	     *
 	     * @eventType lightUpdated
 	     *
@@ -47,7 +47,7 @@ package sandy.events
 		public static const LIGHT_UPDATED:String = "lightUpdated";
 
 	    /**
-	     * Indicates that the color of the light has changed.
+		 * Defines the value of the <code>type</code> property of a <code>lightColorChanged</code> event object.
 	     *
 	     * @eventType lightColorChanged
 	     *
@@ -56,7 +56,7 @@ package sandy.events
 		public static const LIGHT_COLOR_CHANGED:String = "lightColorChanged";
 
 	    /**
-	     * Indicates the scene has been rendered.
+		 * Defines the value of the <code>type</code> property of a <code>scene_render</code> event object.
 	     *
 	     * @eventType scene_render
 	     *
@@ -65,7 +65,7 @@ package sandy.events
 		public static const SCENE_RENDER:String = "scene_render";
 
 	    /**
-	     * Indicates the scene has been culled.
+		 * Defines the value of the <code>type</code> property of a <code>scene_cull</code> event object.
 	     *
 	     * @eventType scene_cull
 	     *
@@ -74,7 +74,7 @@ package sandy.events
 		public static const SCENE_CULL:String = "scene_cull";
 
 	    /**
-	     * Indicates the scene has been updated.
+		 * Defines the value of the <code>type</code> property of a <code>scene_update</code> event object.
 	     *
 	     * @eventType scene_update
 	     *
@@ -83,7 +83,7 @@ package sandy.events
 		public static const SCENE_UPDATE:String = "scene_update";
 
 	    /**
-	     * Indicates the display list has been rendered.
+		 * Defines the value of the <code>type</code> property of a <code>scene_render_display_list</code> event object.
 	     *
 	     * @eventType scene_render_display_list
 	     *
@@ -92,6 +92,7 @@ package sandy.events
 		public static const SCENE_RENDER_DISPLAYLIST:String = "scene_render_display_list";
 
 	    /**
+		 * Defines the value of the <code>type</code> property of a <code>containerCreated</code> event object.
 	     * Not in use?
 	     *
 	     * @eventType containerCreated
@@ -101,6 +102,7 @@ package sandy.events
 		public static const CONTAINER_CREATED:String = "containerCreated";
 
 	    /**
+		 * Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
 	     * Uneeded? Also in QueueEvent class...
 	     *
 	     * @eventType queueComplete
@@ -110,6 +112,7 @@ package sandy.events
 		public static const QUEUE_COMPLETE:String = "queueComplete";
 
 	    /**
+		 * Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
 	     * Uneeded? Also in QueueEvent class...
 	     *
 	     * @eventType queueLoaderError

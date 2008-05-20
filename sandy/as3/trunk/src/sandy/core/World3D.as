@@ -21,10 +21,6 @@ package sandy.core
 	import sandy.errors.SingletonError;
 	import sandy.events.SandyEvent;
 
-	[Event(name="containerCreated", type="sandy.events.SandyEvent")]
-	[Event(name="lightAdded", type="sandy.events.SandyEvent")]
-	[Event(name="render", type="sandy.events.SandyEvent")]
-
 	/**
 	 * The Sandy 3D world.
 	 *
@@ -92,7 +88,10 @@ package sandy.core
 
 			return instance;
 		}
-
+		
+		/**
+		 * Returns the string representation of the World3D object.
+		 */
 		public override function toString():String
 		{
 			return "sandy.core.World3D";

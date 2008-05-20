@@ -44,7 +44,7 @@ package sandy.materials.attributes
 		private var m_nAlpha:Number;
 		// --
 		/**
-		 * A dev care to enlighten us?
+		 * Whether the attribute has been modified since it's last render.
 		 */
 		public var modified:Boolean;
 		
@@ -75,7 +75,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line color
+		 * The line color.
 		 */
 		public function get color():Number
 		{
@@ -83,7 +83,7 @@ package sandy.materials.attributes
 		}
 		
 		/**
-		 * The line thickness
+		 * The line thickness.
 		 */	
 		public function get thickness():Number
 		{

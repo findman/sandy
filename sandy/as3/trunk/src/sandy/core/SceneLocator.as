@@ -21,14 +21,15 @@ package sandy.core
 	/**
 	 * The SceneLocator serves as a registry of all scenes in the application.
 	 *
-	 * <p>You can only have one SceneLocator in an application.<br />
-	 * You can find, register and unregister scenes by their name.</p>
-	 * <p>When scenes (Scene3D ) are created in an application, they aoutomatically
-	 * register with the SceneLocator registry</p>
+	 * <p>An application can only have one SceneLocator. Using the SceneLocator, scenes can be located, registered, and unregistered.</p>
+	 * <p>When scenes are created in an application, they aoutomatically
+	 * register with the SceneLocator registry.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
 	 * @date 		26.07.2007
+	 *
+	 * @see Scene3D
 	 */
 	public class SceneLocator
 	{
@@ -37,10 +38,9 @@ package sandy.core
 		private var _m		: Dictionary;
 
 		/**
-		 * Creates the SceneLocator registry
+		 * Creates the SceneLocator registry.
 		 *
-		 * <p>This constructor is never called directly.<br />
-		 * Instead you get the registry instance by calling SceneLocator.getInstance().</p>
+		 * <p>This constructor is never called directly. Instead you get the registry instance by calling SceneLocator.getInstance().</p>
 		 *
 		 * @param access	A singleton access flag object
 		 */
@@ -52,7 +52,7 @@ package sandy.core
 		/**
 		 * Returns a SceneLocator.
 		 *
-		 * @return 	The single locator
+		 * @return 	The single locator.
 		 */
 		public static function getInstance() : SceneLocator
 		{
@@ -64,8 +64,8 @@ package sandy.core
 		/**
 		 * Returns the Scene3D object with the specified name.
 		 *
-		 * @param	key 	The name of the scene
-		 * @return	The requested scene
+		 * @param	key 	The name of the scene.
+		 * @return	The requested scene.
 		 */
 		public function getScene( key : String ) : Scene3D
 		{
@@ -76,8 +76,8 @@ package sandy.core
 		/**
 		 * Check if a scene with the specified name is registered.
 		 *
-		 * @param 	key The Name of the scene to check
-		 * @return	true if a scene with that name is registered, false otherwise
+		 * @param 	key The Name of the scene to check.
+		 * @return	true if a scene with that name is registered, false otherwise.
 		 */
 		public function isRegistered( key : String ) : Boolean
 		{
@@ -85,11 +85,11 @@ package sandy.core
 		}
 
 		/**
-		 * Registers a scene with this SceneLocator
+		 * Registers a scene.
 		 *
-		 * @param	key : String, name of the scene to register
-		 * @param	o	: Scene3D, object to register
-		 * @return	true if the registration was successful, false otherwise
+		 * @param	key : String, name of the scene to register.
+		 * @param	o	: Scene3D, object to register.
+		 * @return	true if the registration was successful, false otherwise.
 		 */
 		public function registerScene( key : String, o : Scene3D ) : Boolean
 		{
@@ -107,9 +107,9 @@ package sandy.core
 		}
 
 		/**
-		 * Unregisters a scene with the specified name
+		 * Unregisters a scene with the specified name.
 		 *
-		 * @param	key Th name of the scene to unregister
+		 * @param	key The name of the scene to unregister.
 		 */
 		public function unregisterScene( key : String ) : void
 		{

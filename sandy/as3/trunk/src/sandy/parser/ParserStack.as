@@ -1,10 +1,10 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Sandy is a software supplied by Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-    http://www.mozilla.org/MPL/MPL-1.1.html
+	http://www.mozilla.org/MPL/MPL-1.1.html
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,8 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
-
 package sandy.parser
 {
 	import flash.events.Event;
@@ -26,9 +24,30 @@ package sandy.parser
 	import sandy.parser.IParser;
 	import sandy.parser.ParserEvent;
 	
+	/**
+	* Dispatched when data is received as the parsing progresses.
+	*
+	* @eventType sandy.parser.ParserStack.PROGRESS
+	*/
+	[Event(name="parserstack_progress", type="sandy.parser.ParserStack")]
+	
+	/**
+	* Dispatched when an error occurs in the parsing process.
+	*
+	* @eventType sandy.parser.ParserStack.ERROR
+	*/
+	[Event(name="parserstack_error", type="sandy.parser.ParserStack")]
+	
+	/**
+	* Dispatched when the parsing process is complete.
+	*
+	* @eventType sandy.parser.ParserStack.COMPLETE
+	*/
+	[Event(name="parserstack_complete", type="sandy.parser.ParserStack")]
+	
 	 /**
-     * ParserStack utility class
-     * <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the laoding/parsing automatially and sequentially..</p>
+     * ParserStack utility class.
+     * <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the loading/parsing automatially and sequentially.</p>
      *
      * @author      Thomas Pfeiffer - kiroukou
      * @since       3.0
@@ -37,9 +56,26 @@ package sandy.parser
      */
 	public class ParserStack extends EventDispatcher
 	{
-		public static const PROGRESS:String = new String( "parserstack_progress" );
-		public static const ERROR:String = new String( "parserstack_error" );
-		public static const COMPLETE:String = new String( "parserstack_complete" );
+		/**
+		 * Defines the value of the <code>type</code> property of a <code>parserstack_progress</code> event object.
+	     *
+	     * @eventType parserstack_progress
+		 */
+		public static const PROGRESS:String = "parserstack_progress";
+		
+		/**
+		 * Defines the value of the <code>type</code> property of a <code>parserstack_error</code> event object.
+	     *
+	     * @eventType parserstack_error
+		 */
+		public static const ERROR:String = "parserstack_error";
+		
+		/**
+		 * Defines the value of the <code>type</code> property of a <code>parserstack_complete</code> event object.
+	     *
+	     * @eventType parserstack_complete
+		 */
+		public static const COMPLETE:String = "parserstack_complete";
 		
 		private var m_oMap:Dictionary = new Dictionary(true);
 		private var m_oNameMap:Dictionary = new Dictionary(true);
@@ -47,11 +83,18 @@ package sandy.parser
 		private var m_oParser:AParser;
 		private var m_nId:int = 0;
 		private var m_aList:Array = new Array();
+		
+		/**
+		 * Constructor.
+		 */
 		public function ParserStack()
 		{
 			super();
 		}
 		
+		/**
+		 * Clears the stack.
+		 */
 		public function clear():void
 		{
 			m_aList.splice(0);
@@ -91,7 +134,7 @@ package sandy.parser
 		}
 		
 		/**
-		 * Launch the loading/parsing process
+		 * Launch the loading/parsing process.
 		 */
 		public function start():void
 		{
@@ -145,8 +188,7 @@ package sandy.parser
 		}
 		
 		/**
-		 * Public progress percent var.
-		 * It gives the percentage of the loading/parsing status of the different parsers.
+		 * The percent of the loading that is complete.
 		 */
 		public var progress:Number = 0;
 	}

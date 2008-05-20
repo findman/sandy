@@ -40,6 +40,11 @@ package sandy.materials
 		// --
 		
 		/**
+		 * Creates a new ZShaderMaterial.
+		 *
+		 * @param p_nCoef	Could a dev help us out here? :)
+		 * @param p_oAttr	The attributes for this material.
+		 *
 		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function ZShaderMaterial( p_nCoef:Number = 1, p_oAttr:MaterialAttributes = null )
@@ -53,7 +58,10 @@ package sandy.materials
 		public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void 
 		{
 			const l_points:Array = ((p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices);
-			if( !l_points.length ) return;
+			if( !l_points.length )
+			{
+				return;
+			}
 			const l_graphics:Graphics = p_mcContainer.graphics;	
 
 			//-- get zSort
@@ -65,7 +73,9 @@ package sandy.materials
 
 			//-- compute gray values
 			if (!p_oPolygon.shape.boundingBox.uptodate)
+			{
 				p_oPolygon.shape.boundingBox.transform (p_oPolygon.shape.viewMatrix);
+			}
 
 			var zM: Number = p_oPolygon.shape.boundingBox.tmin.z;
 			var zR: Number = p_oPolygon.shape.boundingBox.tmax.z - zM;
@@ -91,7 +101,10 @@ package sandy.materials
             }
 			l_graphics.endFill();
 			// --
-			if( attributes )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+			if( attributes )
+			{
+				attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+			}
 		}
 
 	}

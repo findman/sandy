@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -31,14 +31,14 @@ package sandy.events
 		private var _loaders:Object;
 
 	    /**
-	     * Indicates a resource has been loaded.
+		 * Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
 	     *
 	     * @eventType queueComplete
 	     */
 		public static const QUEUE_COMPLETE:String = "queueComplete";
 
 	    /**
-	     * Indicates an error was encountered while loading a resource.
+		 * Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
 	     *
 	     * @eventType queueLoaderError
 	     */
