@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.math 
 {
 	import flash.geom.Matrix;
@@ -39,7 +38,7 @@ package sandy.math
 		 * 
 		 * <p>This is a singleton constructor, and should not be called directly.<br />
 		 * If called from outside the ColorMath class, it throws a SingletonError.</p>
-		 * [<strong>ToDo</strong>: Why instantiate this at all? - all methods are class methods! ]
+		 * <p>[<strong>ToDo</strong>: Why instantiate this at all? - all methods are class methods! ]</p>
 		 */ 
 		public function VertexMath(){
 			if ( !create )
@@ -51,7 +50,7 @@ package sandy.math
 		/**
 		 * Returns an instance of this class.
 		 *
-		 * <p>Call this method to get an instance of VertexMath</p>
+		 * <p>Call this method to get an instance of VertexMath.</p>
 		 */
 		public static function getInstance():VertexMath
 		{
@@ -68,10 +67,11 @@ package sandy.math
 		/**
 		 * Computes the opposite of a vertex.
 		 *
-		 * <p>The "opposite" vertex is a vertex where all components are multiplied by -1</p>
+		 * <p>The opposite vertex is a vertex where all components are multiplied by <code>-1</code>.</p>
 		 *
-		 * @param p_oV 	The vertex.
-		 * @return 	The opposite vertex.
+		 * @param p_oV	The vertex.
+		 *
+		 * @return The opposite vertex.
 		 */
 		public static function negate( p_oV:Vertex ): Vertex
 		{
@@ -85,9 +85,10 @@ package sandy.math
 		/**
 		 * Computes the dot product of the two vertices.
 		 *
-		 * @param p_oV 	The first vertex
-		 * @param p_oW 	The second vertex
-		 * @return 	The dot procuct
+		 * @param p_oV	The first vertex.
+		 * @param p_oW	The second vertex.
+		 *
+		 * @return The dot procuct.
 		 */
 		public static function dot( p_oV: Vertex, p_oW: Vertex):Number
 		{
@@ -99,9 +100,10 @@ package sandy.math
 		 *
 		 * <p>[<strong>ToDo</strong>: Check here! We should add all the properties of the vertices! ]</p>
 		 *
-		 * @param p_oV 	The first vertex
-		 * @param p_oW 	The second vertex
-		 * @return 	The resulting vertex
+		 * @param p_oV	The first vertex.
+		 * @param p_oW	The second vertex.
+		 *
+		 * @return The resulting vertex.
 		 */
 		public static function addVertex( p_oV:Vertex, p_oW:Vertex ): Vertex
 		{
@@ -114,11 +116,12 @@ package sandy.math
 		}
 		
 		/**
-		 * Substracts one vertices from another
+		 * Substracts one vertices from another.
 		 *
-		 * @param p_oV 	The vertex to subtract from
-		 * @param p_oW	The vertex to subtract
-		 * @return 	The resulting vertex
+		 * @param p_oV	The vertex to subtract from.
+		 * @param p_oW	The vertex to subtract.
+		 *
+		 * @return The resulting vertex.
 		 */
 		public static function sub( p_oV:Vertex, p_oW:Vertex ): Vertex
 		{
@@ -135,9 +138,10 @@ package sandy.math
 		/**
 		 * Computes the cross product the two vertices.
 		 *
-		 * @param p_oV 	The first vertex
-		 * @param p_oW 	The second vertex
-		 * @return 	The resulting cross product
+		 * @param p_oV	The first vertex.
+		 * @param p_oW	The second vertex.
+		 *
+		 * @return The resulting cross product.
 		 */
 		public static function cross(p_oW:Vertex, p_oV:Vertex):Vertex
 		{
@@ -152,7 +156,8 @@ package sandy.math
 		 * Clones a vertex.
 		 *
 		 * @param p_oV	A vertex to clone.
-		 * @return 	The clone
+		 *
+		 * @return The clone.
 		 */	
 		public static function clone( p_oV:Vertex ): Vertex
 		{
@@ -160,20 +165,21 @@ package sandy.math
 		}
 
 		/**
-		 * Calculates linear gradient matrix from three vertices and ratios
+		 * Calculates linear gradient matrix from three vertices and ratios.
 		 *
 		 * <p>This function expects vertices to be ordered in such a way that p_nR0 &lt; p_nR1 &lt; p_n2.
-		 * Ratios can be scaled by any positive factor;
-		 * see beginGradientFill documentation for ratios meaning.</p>
+		 * Ratios can be scaled by any positive factor.</p>
+		 * <p>See flash.display.Graphics.beginGradientFill() documentation for ratios meaning.</p>
 		 *
-		 * @param p_oV0 Left-most vertex in a gradient.
-		 * @param p_oV1 Inner vertex in a gradient.
-		 * @param p_oV2 Right-most vertex in a gradient.
-		 * @param p_nR0 Ratio for p_oV0.
-		 * @param p_nR1 Ratio for p_oV1.
-		 * @param p_nR2 Ratio for p_oV2.
-		 * @param p_oMatrix (Optional) matrix object to use.
-		 * @return 	The matrix to use with beginGradientFill, GradientType.LINEAR.
+		 * @param p_oV0		The leftmost vertex in a gradient.
+		 * @param p_oV1		The inner vertex in a gradient.
+		 * @param p_oV2		The rightmost vertex in a gradient.
+		 * @param p_nR0		The ratio for the leftmost vertext.
+		 * @param p_nR1		The ratio for the inner vertex.
+		 * @param p_nR2		The ratio for the rightmost.
+		 * @param p_oMatrix	The matrix to use.
+		 *
+		 * @return The transformation matrix to use with beginGradientFill (GradientType.LINEAR only).
 		 */
 		public static function linearGradientMatrix (p_oV0:Vertex, p_oV1:Vertex, p_oV2:Vertex,
 			p_nR0:Number, p_nR1:Number, p_nR2:Number, p_oMatrix:Matrix = null):Matrix

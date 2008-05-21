@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,14 +13,13 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.util 
 {
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.*;
 	
-       	/**
+	/**
 	 * Utility class for Bitmap calculations.
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
@@ -35,10 +34,11 @@ package sandy.util
 		 * <p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
 		 * This method does.</p>
 		 * 
-		 * @param p_oSprite 		The sprite to convert
-		 * @param p_bTransparent	Should we allow transparency ( includes na alpha channel ) - Default true
-		 * @param p_nColor		Background color ( 32 bits ) - default 0x00FF00CC ( Magenta )
-		 * @return 			The bitmap
+		 * @param p_oSprite 		The sprite to convert.
+		 * @param p_bTransparent	Whether to allow transparency.
+		 * @param p_nColor			Background color (32 bit).
+		 *
+		 * @return 			The converted bitmap.
 		 */
 		public static function movieToBitmap( p_oSprite:Sprite, p_bTransparent:Boolean=true, p_nColor:Number=0x00FF00CC /* a random color, needed tby the bitmapData constructor to apply transparency */ ):BitmapData
 		{
@@ -55,12 +55,13 @@ package sandy.util
 		 * Returns a scaled version of a bitmap.
 		 * 
 		 * <p>The method takes a bitmap as input, and returns a scaled copy.<br/>
-		 * The original is not changed</p>
+		 * The original is not changed.</p>
 		 *
-		 * @param p_oBitmap	The bitmap to scale
-		 * @param p_nScalex	The x-scale
-		 * @param p_nScaley	The y-scale
-		 * @return 		The scaled version
+		 * @param p_oBitmap	The bitmap to scale.
+		 * @param p_nScalex	The x-scale.
+		 * @param p_nScaley	The y-scale.
+		 *
+		 * @return 		The scaled bitmap data.
 		 */
 		public static function getScaledBitmap( p_oBitmap:BitmapData, p_nScalex:Number, p_nScaley:Number=0 ):BitmapData
 		{
@@ -75,9 +76,10 @@ package sandy.util
 		 * 
 		 * <p>[<strong>ToDo</strong>: Explain what matrices are handled here ]</p>
 		 * 
-		 * @param p_oM1	The matrix of the first bitmap
-		 * @param p_oM2	The matrix of the second bitmap
-		 * @return 	The resulting matrix
+		 * @param p_oM1	The matrix of the first bitmap.
+		 * @param p_oM2	The matrix of the second bitmap.
+		 *
+		 * @return 	The resulting matrix.
 		 */
 		public static function concatBitmapMatrix( p_oM1:Object, p_oM2:Object ):Object
 		{	

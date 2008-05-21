@@ -101,12 +101,9 @@ package sandy.primitive
 		static public const MIN_SEGMENTSH :Number = 2;
 
 		/**
-		* Creates a Torus primitive ( a donut )
+		* Creates a Torus primitive.
 		*
-		* <p>The Torus is created centered at the origin of the world coordinate system,
-		* with its axis along the y axis. </p>
-		*
-		* <p>All arguments to the constructor have default values.</p>
+		* <p>A torus is created at the origin of the world coordinate system, centered, with its axis along the y axis.</p>
 		*
 		* @param p_sName 		A string identifier for this object.
 		* @param p_nLargeRadius	Large radius of the torus.

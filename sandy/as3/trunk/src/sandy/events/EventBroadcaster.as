@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.events
 {
 	import flash.events.Event;
@@ -22,7 +21,7 @@ package sandy.events
 	import sandy.commands.Delegate;
 
 	/**
-	 * Perhaps a dev can enlighten us ;)
+	 * The event broadcaster of Sandy.
 	 *
 	 * @version 3.0
 	 */
@@ -34,10 +33,21 @@ package sandy.events
 	    private var m_oDelegateDico:Dictionary = new Dictionary(true);
 	    private var listeners:Array;
 
+		/**
+		 * Constructor.
+		 */
 	    public function EventBroadcaster()
 	    {
 	    }
 
+		/**
+		 * Determines whether a listener is registered to the event broadcaster.
+		 *
+		 * @param listener	The listener function to check for.
+		 * @param type		The event type of the listener function.
+		 *
+		 * @return Whether the listener is registered.
+		 */
 	    public function isRegistered(listener:Object, type:String = null):Boolean
 		{
 			if (type == null)
@@ -65,16 +75,37 @@ package sandy.events
 			}
 		}
 
+		/**
+		 * Removes listeners from the event broadcaster of the given type.
+		 *
+		 * @param type	The event type of listeners to remove.
+		 */
 	    public function removeListenerCollection(type:String):void
 		{
 			delete m_oType[type];
 		}
 
+		/**
+		 * Returns listeners in the event broadcaster of the given type.
+		 *
+		 * @param type	The event type of listeners to retrieve.
+		 *
+		 * @return A list of listeners.
+		 */
 	    public function getListenerCollection(type:String = null):Dictionary
 		{
 			return (type != null) ? m_oType[type] : m_oAll;
 		}
 
+		/**
+		 * Adds a listener to the event broadcaster.
+		 *
+		 * @param type		The type of event.
+		 * @param listener	The listener function that processes the event.
+		 * @param ...rest	Extra parameters for the listener function.
+		 *
+		 * @return Whether the listener was successfully added.
+		 */
 		public function addEventListener(type:String, listener:Object, ...rest):Boolean
 		{
 			if (listener is Function)
@@ -125,11 +156,26 @@ package sandy.events
 			return false;
 		}
 
+		/**
+		 * Determines whether the event broadcaster has a certain type of event registered to it.
+		 *
+		 * @param type	The event type to check for.
+		 *
+		 * @return Whether the event type is found in the event broadcaster.
+		 */
 		public function hasListenerCollection(type:String):Boolean
 		{
 			return (m_oType[type] != null);
 		}
 
+		/**
+		 * Removes a listener from the event broadcaster.
+		 *
+		 * @param type		The event type of the listener.
+		 * @param listener	The listener function that processes the event.
+		 *
+		 * @return Whether the listener was successfully removed.
+		 */
 		public function removeEventListener(type:String, listener:Object):Boolean
 		{
 			if (hasListenerCollection(type))
@@ -163,6 +209,11 @@ package sandy.events
 			}
 		}
 
+		/**
+		 * Broadcasts an event.
+		 *
+		 * @param e		The event being broadcasted.
+		 */
 		public function broadcastEvent(e:Event):void
 		{
 			if (hasListenerCollection(e.type))
@@ -176,7 +227,7 @@ package sandy.events
 			}
 		}
 
-		public function _broadcastEvent(c:Dictionary, e:Event):void
+		private function _broadcastEvent(c:Dictionary, e:Event):void
 		{
 			var type:String = e.type;
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -37,7 +37,7 @@ package sandy.events
 		}
 
 		/**
-		 * Starts receiving bubble events from passed-in child.
+		 * Starts receiving bubble events from specified child.
 		 *
 		 * @param child	A BubbleEventBroadcaster instance that will send bubble events.
 		 */
@@ -47,8 +47,8 @@ package sandy.events
 		}
 
 		/**
-		 * Stops receiving bubble events from passed-in child.
-		 * FIXME : This method has very bad implementation and disabled for the moment
+		 * Stops receiving bubble events from specified child.
+		 * <p>[<strong>ToDo</strong>: This method has very bad implementation and disabled for the moment. ]</p>
 		 *
 		 * @param child	A BubbleEventBroadcaster instance that will stop sending bubble events.
 		 */
@@ -57,6 +57,9 @@ package sandy.events
 			//child.parent = null;
 		}
 
+	 	/**
+		 * The parent of this broadcaster.
+	     */
 		public function get parent():BubbleEventBroadcaster
 		{
 			return m_oParent;

@@ -20,7 +20,7 @@ package sandy.parser
 	import sandy.core.scenegraph.Group;
 
 	/**
-	 * Events that are used by the Parser classes.
+	 * Events that are used by the parser classes.
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.math 
 {
 	import sandy.core.data.Vector;
@@ -28,12 +27,12 @@ package sandy.math
 	 */
 	public class VectorMath
 	{
-		
 		/**
 		 * Computes the norm of a 3D vector.
 		 *
-		 * @param p_oV 	The vector.
-		 * @return 	The norm of the vector.
+		 * @param p_oV	The vector.
+		 *
+		 * @return The norm of the vector.
 		 */
 		public static function getNorm( p_oV:Vector ):Number
 		{
@@ -44,7 +43,8 @@ package sandy.math
 		 * Computes the oposite vector of a specified 3D vector.
 		 *
 		 * @param p_oV 	The vector.
-		 * @return 	The opposed vector.
+		 *
+		 * @return The opposed vector.
 		 */
 		public static function negate( p_oV:Vector ): Vector
 		{
@@ -54,9 +54,10 @@ package sandy.math
 		/**
 		 * Adds two 3D vectors.
 		 *
-		 * @param p_oV 	The first vector
-		 * @param p_oW 	The second vector
-		 * @return 	The resulting vector
+		 * @param p_oV 	The first vector.
+		 * @param p_oW 	The second vector.
+		 *
+		 * @return The resulting vector.
 		 */
 		public static function addVector( p_oV:Vector, p_oW:Vector ): Vector
 		{
@@ -66,11 +67,12 @@ package sandy.math
 		}
 		
 		/**
-		 * Substracts one 3D vector from another
+		 * Substracts one 3D vector from another.
 		 *
-		 * @param p_oV 	The vector to subtract from
-		 * @param p_oW	The vector to subtract
-		 * @return 	The resulting vector
+		 * @param p_oV 	The vector to subtract from.
+		 * @param p_oW	The vector to subtract.
+		 *
+		 * @return The resulting vector.
 		 */
 		public static function sub( p_oV:Vector, p_oW:Vector ): Vector
 		{
@@ -82,13 +84,14 @@ package sandy.math
 		/**
 		 * Computes the power of a 3D vector.
 		 *
-		 * <p>Here the meaning of the power of a vector is a new vector<br />
+		 * <p>Here the meaning of the power of a vector is a new vector
 		 * where each element is the the n:th power of the corresponding element.</p>
-		 * <p>Ex: A^n = ( A.x^n, A.y^n, A.z^n ) </p>
+		 * <p>Ex: A^n = ( A.x^n, A.y^n, A.z^n )</p>
 		 * 
 		 * @param p_oV		The vector.
-		 * @param p_nExp	The exponent
-		 * @return 		The resulting vector.
+		 * @param p_nExp	The exponent.
+		 *
+		 * @return The resulting vector.
 		 */
 		public static function pow( p_oV:Vector, p_nExp:Number ): Vector
 		{
@@ -99,9 +102,10 @@ package sandy.math
 		/**
 		 * Multiplies a 3D vector by specified scalar.
 		 *
-		 * @param p_oV 	The vector to multiply
-		 * @param n 	The scaler to multiply
-		 * @return 	The resulting vector
+		 * @param p_oV 	The vector to multiply.
+		 * @param n 	The scaler to multiply.
+		 *
+		 * @return The resulting vector.
 		 */
 		public static function scale( p_oV:Vector, n:Number ): Vector
 		{
@@ -114,9 +118,10 @@ package sandy.math
 		/**
 		 * Computes the dot product the two 3D vectors.
 		 *
-		 * @param p_oV 	The first vector
-		 * @param p_oW 	The second vector
-		 * @return 	The dot procuct
+		 * @param p_oV 	The first vector.
+		 * @param p_oW 	The second vector.
+		 *
+		 * @return The dot procuct.
 		 */
 		public static function dot( p_oV: Vector, p_oW: Vector):Number
 		{
@@ -126,9 +131,10 @@ package sandy.math
 		/**
 		 * Computes the cross product of two 3D vectors.
 		 *
-		 * @param p_oW	The first vector
-		 * @param p_oV	The second vector
-		 * @return 	The resulting cross product
+		 * @param p_oW	The first vector.
+		 * @param p_oV	The second vector.
+		 *
+		 * @return The resulting cross product.
 		 */
 		public static function cross(p_oW:Vector, p_oV:Vector):Vector
 		{
@@ -143,8 +149,9 @@ package sandy.math
 		/**
 		 * Normalizes a 3d vector.
 		 *
-		 * @param p_oV 	The vector to normalize
-		 * @return 	true if the normalization was successful, false otherwise.
+		 * @param p_oV 	The vector to normalize.
+		 *
+		 * @return Whether the normalization was successful.
 		 */	
 		public static function normalize( p_oV:Vector ): Boolean
 		{
@@ -162,9 +169,10 @@ package sandy.math
 		/**
 		 * Calculates the angle between two 3D vectors. 
 		 * 
-		 * @param p_oV	The first Vector
-		 * @param p_oW	The second vector
-		 * @return	The angle in radians between the two vectors.
+		 * @param p_oV	The first vector.
+		 * @param p_oW	The second vector.
+		 *
+		 * @return The angle in radians between the two vectors.
 		 */
 		public static function getAngle ( p_oV:Vector, p_oW:Vector ):Number
 		{
@@ -181,7 +189,7 @@ package sandy.math
 		}
 		
 		/**
-		 * Returns a random vector contained betweeen the first and second values
+		 * Returns a random vector contained betweeen the first and second values.
 		 */
 		public static function sphrand( inner:Number, outer:Number ):Vector
 		{
@@ -203,8 +211,9 @@ package sandy.math
 		/**
 		 * Clones a 3D vector.
 		 *
-		 * @param p_oV 	The vector
-		 * @return 	The clone
+		 * @param p_oV 	The vector.
+		 *
+		 * @return The clone.
 		 */	
 		public static function clone( p_oV:Vector ): Vector
 		{

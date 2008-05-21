@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -24,7 +24,7 @@ package sandy.events
 
 	/**
 	 * This class represents the type of events broadcasted by shapes objects.
-	 * It gives some useful information about the clicked object such as the polygon clicked, and real 3D position of the point under mouse, the Uv coordinate under mouse.
+	 * It gives some useful information about the clicked object such as the polygon clicked, and real 3D position of the point under mouse, the UV coordinate under mouse.
 	 * It allows some advanced interaction with the object and its texture.
 	 *
 	 * @version 3.0

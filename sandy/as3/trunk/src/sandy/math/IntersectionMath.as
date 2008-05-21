@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.math
 {
 	import flash.geom.Point;
@@ -27,8 +26,7 @@ package sandy.math
 	import sandy.util.NumberUtil;
 	
 	/**
-	 * An util class with static method which provides useful
-	 * functions related to intersection
+	 * An util class with static method which provides useful functions related to intersection.
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
@@ -37,8 +35,12 @@ package sandy.math
 	public final class IntersectionMath
 	{
 		/**
-		 * Provide an intersection test between 2 bounding boxes.
-		 * @return Boolean true is their are intersection, false otherwise
+		 * Determines whether two bounding spheres intersect.
+		 *
+		 * @param p_oBSphereA	The first bounding sphere.
+		 * @param p_oBSphereB	The second bounding sphere.
+		 *
+		 * @return Whether the two spheres intersect.
 		 */
 		public static function intersectionBSphere( p_oBSphereA:BSphere, p_oBSphereB:BSphere ):Boolean
 		{
@@ -52,9 +54,16 @@ package sandy.math
 		
 		
 		/**
-		 * Computes the smallest distance between these 3D lines.
-		 * As 3D lines can be not intersecting, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.
-		 * The 2 points define a segment which length represents hte shortest distance between these 2 lines.
+		 * Computes the smallest distance between two 3D lines.
+		 * <p>As 3D lines cannot intersect, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.</p>
+		 * <p>The two points define a segment which length represents the shortest distance between these two lines.</p>
+		 *
+		 * @param p_oPointA	A vector of the first 3D line.
+		 * @param p_oPointB	Another vector of the first 3D line.
+		 * @param p_oPointC	A vector of the second 3D line.
+		 * @param p_oPointD	Another vector of the second 3D line.
+		 *
+		 * @return An array containing the vectors of the segment connecting the two 3D lines.
 		 */
 		public static function intersectionLine3D( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector, p_oPointD:Vector ):Array
 		{
@@ -102,11 +111,14 @@ package sandy.math
 		}
 		
 		/**
-		 * Computation of the intersection point between 2 2D lines AB and CD.
-		 * This function returns the intersection point.
-		 * Returns null in case the two lines are coincident or parallel
-		 * 
-		 * Original implementation : http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
+		 * Finds the intersection point of two 2D lines.
+		 *
+		 * @param p_oPointA	A point of the first line.
+		 * @param p_oPointB	Another point of the first line.
+		 * @param p_oPointC	A point of the second line.
+		 * @param p_oPointD	Another point of the second line.
+		 *
+		 * @return The point where the two lines intersect. Returns null if lines are coincident or parallel.
 		 */
 		public static function intersectionLine2D( p_oPointA:Point, p_oPointB:Point, p_oPointC:Point, p_oPointD:Point ):Point
 		{
@@ -130,6 +142,16 @@ package sandy.math
 			return new Point( xA + uA * ( xB - xA ), yA + uA*( yB - yA ) );
 		}
 		
+		/**
+		 * Determines if a point is within a triangle.
+		 *
+		 * @param p_oPoint	The point to find in the triangle.
+		 * @param p_oA		The first point of the triangle.
+		 * @param p_oB		The second point of the triangle.
+		 * @param p_oC		The third point of the triangle.
+		 *
+		 * @return Whether the point is inside the triangle.
+		 */
 		/*
       	** From http://www.blackpawn.com/texts/pointinpoly/default.html
       	** Points right on the perimeter are NOT treated as in.

@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.util 
 {
 	/**
@@ -26,25 +25,25 @@ package sandy.util
 	public class NumberUtil 
 	{
 		/**
-		 * Math constant pi&#42;2
+		 * Math constant pi&#42;2.
 		 */
 		public static function get TWO_PI():Number { return __TWO_PI; }
 		private static var __TWO_PI:Number = 2 * Math.PI;
 		
 		/**
-		 * Math constant pi
+		 * Math constant pi.
 		 */
 		public static function get PI():Number { return __PI; }
 		private static var __PI:Number = Math.PI;	
 		
 		/**
-		 * Math constant pi/2
+		 * Math constant pi/2.
 		 */
 		public static function get HALF_PI():Number { return __HALF_PI; }
 		private static var __HALF_PI:Number = 0.5 * Math.PI;	
 		
 		/**
-		 * Constant used to convert angle from radians to degrees
+		 * Constant used to convert angle from radians to degrees.
 		 */
 		public static function get TO_DEGREE():Number { return __TO_DREGREE; }
 		private static var __TO_DREGREE:Number = 180 /  Math.PI;
@@ -64,12 +63,13 @@ package sandy.util
 		public static var TOL:Number = 0.00001;	
 			
 		/**
-		 * Is the number small enough to be regarded as zero?.
+		 * Determines if a number is regarded as zero.
 		 *
-		 * <p>Adjust the TOL property depending on the precision of your application</p>
+		 * <p>Adjust the TOL property depending on the precision of your application.</p>
 		 *
-		 * @param p_nN 	The number to compare to zero
-		 * @return 	true if the number is to be regarded as zero, false otherwise.
+		 * @param p_nN 	The number to compare to zero.
+		 *
+		 * @return 	Whether the number is to be regarded as zero.
 		 */
 		public static function isZero( p_nN:Number ):Boolean
 		{
@@ -77,13 +77,14 @@ package sandy.util
 		}
 		
 		/**
-		 * Are the numbers close enough to be regarded as equal?.
+		 * Compares two numbers and determines if they are equal.
 		 * 
-		 * <p>Adjust the TOL property depending on the precision of your application</p>
+		 * <p>Adjust the TOL property depending on the precision of your application.</p>
 		 *
-		 * @param p_nN 	The first number
-		 * @param p_nM 	The second number
-		 * @return 	true if the numbers are regarded as equal, false otherwise.
+		 * @param p_nN 	The first number.
+		 * @param p_nM 	The second number.
+		 *
+		 * @return 	Whether the numbers are regarded as equal.
 		 */
 		public static function areEqual( p_nN:Number, p_nM:Number ):Boolean
 		{
@@ -93,8 +94,8 @@ package sandy.util
 		/**
 		 * Converts an angle from radians to degrees
 		 *
-		 * @param p_nRad	A number representing the angle in radians
-		 * @return 		The angle in degrees
+		 * @param p_nRad	A number representing the angle in radians.
+		 * @return 		The angle in degrees.
 		 */
 		public static function toDegree ( p_nRad:Number ):Number
 		{
@@ -104,8 +105,8 @@ package sandy.util
 		/**
 		 * Converts an angle from degrees to radians.
 		 * 
-		 * @param p_nDeg 	A number representing the angle in dregrees
-		 * @return 		The angle in radians
+		 * @param p_nDeg 	A number representing the angle in dregrees.
+		 * @return 		The angle in radians.
 		 */
 		public static function toRadian ( p_nDeg:Number ):Number
 		{
@@ -113,12 +114,13 @@ package sandy.util
 		}
 			
 		/**
-		 * Constrains a number to a given interval
+		 * Constrains a number to a given interval.
 		 * 
-		 * @param p_nN 		The number to constrain
-		 * @param p_nMin 	The minimal valid value
-		 * @param p_nMax 	The maximal valid value
-		 * @return 		The constrained number
+		 * @param p_nN 		The number to constrain.
+		 * @param p_nMin 	The minimal valid value.
+		 * @param p_nMax 	The maximal valid value.
+		 *
+		 * @return 		The constrained number.
 		 */
 		public static function constrain( p_nN:Number, p_nMin:Number, p_nMax:Number ):Number
 		{
@@ -130,9 +132,10 @@ package sandy.util
 		 *
 		 * <p>To round off the number to 2 decimals, set the the accuracy to 0.01</p>
 		 *
-		 * @param p_nN 			The number to round off
-		 * @param p_nRoundToInterval 	The accuracy to which to round
-		 * @return 			The rounded number
+		 * @param p_nN					The number to round.
+		 * @param p_nRoundToInterval	The accuracy to which to round.
+		 *
+		 * @return 			The rounded number.
 		 */
 		public static function roundTo (p_nN:Number, p_nRoundToInterval:Number=0):Number 
 		{

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.math 
 {
 	
@@ -28,13 +27,13 @@ package sandy.math
 	 * @since		0.1
 	 * @version		3.0
 	 * @date 		26.07.2007
+	 *
+	 * @see sandy.core.data.Matrix4
 	 */
 	public class Matrix4Math 
 	{
 		/**
-		 * Should we use the fast math calculations?
-		 *
-		 * <p>Set to true if fast math is used - Default false
+		 * Specifies whether to use fast math calculations.
 		 */
 		public static var USE_FAST_MATH:Boolean = false;
 		
@@ -44,10 +43,10 @@ package sandy.math
 		/**
 		 * Computes the multiplication of two Matrix4 matrices, as if they were 3x3.
 		 *
-		 * @see "sandy.core.data.Matrix4"
 		 * @param m1 	The first matrix.
 		 * @param m2	The second matrix.
-		 * @return 	The resulting matrix
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function multiply3x3(m1:Matrix4, m2:Matrix4) : Matrix4 
 		{
@@ -87,7 +86,8 @@ package sandy.math
 		 *
 		 * @param m1 	The first matrix.
 		 * @param m2	The second matrix.
-		 * @return 	The resulting matrix
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function multiply4x3( m1:Matrix4, m2:Matrix4 ):Matrix4
 		{
@@ -130,7 +130,8 @@ package sandy.math
 		 *
 		 * @param m1 	The first matrix.
 		 * @param m2	The second matrix.
-		 * @return 	The resulting matrix
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function multiply(m1:Matrix4, m2:Matrix4) : Matrix4 
 		{
@@ -172,7 +173,8 @@ package sandy.math
 		 *
 		 * @param m1 	The first matrix.
 		 * @param m2	The second matrix.
-		 * @return 	The resulting matrix
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function addMatrix4(m1:Matrix4, m2:Matrix4): Matrix4
 		{
@@ -188,8 +190,9 @@ package sandy.math
 		/**
 		 * Returns the clone of a Matrix4 matrix.
 		 *
-		 * @param m1 	The matrix to clone
-		 * @return 	The resulting matrix
+		 * @param m1	The matrix to clone.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function clone(m:Matrix4):Matrix4
 		{
@@ -205,9 +208,10 @@ package sandy.math
 		/**
 		 * Multiplies a 3D vertex by a Matrix4 matrix.
 		 *
-		 * @param m 	The matrix.
-		 * @param pv	The vertex
-		 * @return 	The resulting vector
+		 * @param m		The matrix.
+		 * @param pv	The vertex.
+		 *
+		 * @return The resulting vector.
 		 */    
 		public static function vectorMult( m:Matrix4, pv:Vector ): Vector
 		{
@@ -223,9 +227,10 @@ package sandy.math
 		 *
 		 * <p>Uses the upper left 3 by 3 elements</p>
 		 *
-		 * @param m 	The matrix
-		 * @param v 	The vector
-		 * @return 	The resulting vector
+		 * @param m	The matrix.
+		 * @param v	The vector.
+		 *
+		 * @return The resulting vector.
 		 */
 		public static function vectorMult3x3( m:Matrix4, pv:Vector ):Vector
 		{
@@ -239,10 +244,11 @@ package sandy.math
 		/**
 		 * Computes a rotation Matrix4 matrix from the Euler angle in degrees.
 		 *
-		 * @param ax 	Angle of rotation around X axis in degrees.
-		 * @param ay 	Angle of rotation around Y axis in degrees.
-		 * @param az 	Angle of rotation around Z axis in degrees.
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param ax	Angle of rotation around X axis in degrees.
+		 * @param ay	Angle of rotation around Y axis in degrees.
+		 * @param az	Angle of rotation around Z axis in degrees.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function eulerRotation ( ax:Number, ay:Number, az:Number ) : Matrix4
 		{
@@ -276,8 +282,9 @@ package sandy.math
 		/**
 		 * Computes a rotation Matrix4 matrix for an x axis rotation.
 		 *
-		 * @param angle	Angle of rotation
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param angle	Angle of rotation.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function rotationX ( angle:Number ):Matrix4
 		{
@@ -296,8 +303,9 @@ package sandy.math
 		/**
 		 * Computes a rotation Matrix4 matrix for an y axis rotation.
 		 *
-		 * @param angle	Angle of rotation
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param angle	Angle of rotation.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function rotationY ( angle:Number ):Matrix4
 		{
@@ -316,8 +324,9 @@ package sandy.math
 		/**
 		 * Computes a rotation Matrix4 matrix for an z axis rotation.
 		 *
-		 * @param angle	Angle of rotation
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param angle	Angle of rotation.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function rotationZ ( angle:Number ):Matrix4
 		{
@@ -336,9 +345,10 @@ package sandy.math
 		/**
 		 * Computes a rotation Matrix4 matrix for a general axis of rotation.
 		 *
-		 * @param v 	The axis of rotation
-		 * @param angle The angle of rotation in degrees
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param v 	The axis of rotation.
+		 * @param angle The angle of rotation in degrees.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function axisRotationVector ( v:Vector, angle:Number ) : Matrix4
 		{
@@ -352,9 +362,10 @@ package sandy.math
 		 *
 		 * @param u 	rotation X.
 		 * @param v 	rotation Y.
-		 * @param w 	rotation Z.
-		 * @param angle	The angle of rotation in degrees
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param w		rotation Z.
+		 * @param angle	The angle of rotation in degrees.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function axisRotation ( u:Number, v:Number, w:Number, angle:Number ) : Matrix4
 		{
@@ -400,7 +411,8 @@ package sandy.math
 		 * @param nTx 	Translation in the x direction.
 		 * @param nTy 	Translation in the y direction.
 		 * @param nTz 	Translation in the z direction.
-		 * @return 	The resulting Matrix4 matrix.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function translation(nTx:Number, nTy:Number, nTz:Number) : Matrix4 
 		{
@@ -421,8 +433,9 @@ package sandy.math
 		 * |Tx Ty Tz 1|
 		 * </pre>
 		 * 
-		 * @param v 	Translation Vector.
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param v		Translation Vector.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function translationVector( v:Vector ) : Matrix4 
 		{
@@ -443,10 +456,11 @@ package sandy.math
 		 * |0  0  0  1|
 		 * </pre>
 		 *
-		 * @param nXScale 	Scale factor in the x direction
-		 * @param nYScale 	Scale factor in the y direction
-		 * @param nZScale 	Scale factor in the z direction
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param nXScale 	Scale factor in the x direction.
+		 * @param nYScale 	Scale factor in the y direction.
+		 * @param nZScale 	Scale factor in the z direction.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function scale(nXScale:Number, nYScale:Number, nZScale:Number) : Matrix4 
 		{
@@ -467,8 +481,9 @@ package sandy.math
 		 * |0  0  0  1|
 		 * </pre>
 		 *
-		 * @param v	The vector containing the scale values
-		 * @return 	The resulting Matrix4 matrix.
+		 * @param v	The vector containing the scale values.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function scaleVector( v:Vector) : Matrix4 
 		{
@@ -482,8 +497,9 @@ package sandy.math
 		/**
 		 * Computes the determinant of a Matrix4 matrix.
 		 *
-		 * @param m 	The matrix
-		 * @return 	The determinant
+		 * @param m 	The matrix.
+		 *
+		 * @return The determinant.
 		 */
 		public static function det( m:Matrix4 ):Number
 		{
@@ -496,10 +512,11 @@ package sandy.math
 		/**
 		 * Computes the 3x3 determinant of a Matrix4 matrix.
 		 *
-		 * <p>Uses the upper left 3 by 3 elements</p>
+		 * <p>Uses the upper left 3 by 3 elements.</p>
 		 *
-		 * @param m 	The matrix
-		 * @return 	The determinant
+		 * @param m		The matrix.
+		 *
+		 * @return The determinant.
 		 */
 		public static function det3x3( m:Matrix4 ):Number
 		{	
@@ -509,10 +526,11 @@ package sandy.math
 		/**
 		 * Computes the trace of a Matrix4 matrix.
 		 *
-		 * <p>The trace value is the sum of the element on the diagonal of the matrix</p>
+		 * <p>The trace value is the sum of the element on the diagonal of the matrix.</p>
 		 *
-		 * @param m 	The matrix we want to compute the trace
-		 * @return 	The trace value
+		 * @param m		The matrix we want to compute the trace.
+		 *
+		 * @return The trace value.
 		 */
 		public static function getTrace( m:Matrix4 ):Number
 		{
@@ -522,8 +540,9 @@ package sandy.math
 		/**
 		* Returns the inverse of a Matrix4 matrix.
 		*
-		* @param m 	The matrix to invert
-		* @return 	The inverse Matrix4 matrix
+		* @param m	The matrix to invert.
+		*
+		* @return 	The inverse Matrix4 matrix.
 		*/
 		public static function getInverse( m:Matrix4 ):Matrix4
 		{
@@ -565,9 +584,11 @@ package sandy.math
 		 * 
 		 * <p>NOTE - The axis must be normalized!</p>
 		 *
-		 * @param axis 		A vector representing the axis of rtation.
+		 * @param axis 		A vector representing the axis of rotation.
 		 * @param ref 		The center of rotation.
 		 * @param pAngle	The angle of rotation in degrees.
+		 *
+		 * @return The resulting matrix.
 		 */
 		public static function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Number ):Matrix4
 		{

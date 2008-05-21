@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.util
 {
 	import flash.display.Loader;
@@ -56,10 +55,13 @@ package sandy.util
 		private var m_nLoaders : int;
 		private var m_oQueueEvent : QueueEvent;
 		
+		/**
+		 * A list of all resources indexed by their names.
+		 */
 		public var data:Dictionary = new Dictionary( true );
+		
 		/**
 		 * Creates a new loader queue.
-		 *
 		 */
 		public function LoaderQueue()
 		{
@@ -88,7 +90,9 @@ package sandy.util
 			for each( var l_oElement:QueueElement in m_oLoaders )
 			{
 				if( p_oLoader == l_oElement.loader )
+				{
 					return l_oElement.name;
+				}
 			}
 			return null;
 		}

@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.util 
 {
 	import sandy.core.data.Vector;
@@ -30,7 +29,7 @@ package sandy.util
 	public class RotationUtil 
 	{
 		/**
-		 * Tweening variable (tween this from 0 to 1)
+		 * Tweening variable (tween this from 0 to 1).
 		 */
 		public function get t():Number { return _t; }
 
@@ -66,7 +65,7 @@ package sandy.util
 		}
 
 		/**
-		 * Initial "out" vector
+		 * Initial "out" vector.
 		 */
 		public function get out0():Vector { return _out0; }
 
@@ -79,7 +78,7 @@ package sandy.util
 		}
 
 		/**
-		 * Final "out" vector
+		 * Final "out" vector.
 		 */
 		public function get out1():Vector { return _out1; }
 
@@ -92,27 +91,27 @@ package sandy.util
 		}
 
 		/**
-		 * ATransformable object to tween
+		 * ATransformable object to tween.
 		 */
 		public var obj:ATransformable;
 
 		/**
-		 * If enabled, rolls ATransformable while tweening
+		 * If enabled, rolls ATransformable while tweening.
 		 */
 		public var enableRoll:Boolean = false;
 
 		/**
-		 * Initial roll angle
+		 * Initial roll angle.
 		 */
 		public var roll0:Number;
 
 		/**
-		 * Final roll angle
+		 * Final roll angle.
 		 */
 		public var roll1:Number;
 
 		/**
-		 * Resets object (useful to call after tweening)
+		 * Resets object (useful to call after tweening).
 		 */
 		public function reset ():void
 		{

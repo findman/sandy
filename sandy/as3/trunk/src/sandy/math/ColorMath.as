@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.math 
 {	
 	/**
@@ -33,8 +32,9 @@ package sandy.math
 		 * Returns the color with altered alpha value.
 		 * 
 		 * @param c	32-bit color.
-		 * @param a	New alpha. 	( 0 - 1 )
-		 * @return	The hexadecimal value
+		 * @param a	New alpha ( 0 - 1 ).
+		 *
+		 * @return	The hexadecimal value of the altered color.
 		 */
 		public static function applyAlpha (c:uint, a:Number):uint
 		{
@@ -42,12 +42,13 @@ package sandy.math
 		}
 		
 		/**
-		 * Converts color component values ( rgb ) to one hexadecimal value.
+		 * Converts color component values ( RGB ) to one hexadecimal value.
 		 * 
-		 * @param r	Red Color. 	( 0 - 255 )
-		 * @param g	Green Color. 	( 0 - 255 )
-		 * @param b	Blue Color. 	( 0 - 255 )
-		 * @return	The hexadecimal value
+		 * @param r	Red color ( 0 - 255 ).
+		 * @param g	Green color ( 0 - 255 ).
+		 * @param b	Blue color ( 0 - 255 ).
+		 *
+		 * @return	The hexadecimal value of the RGB color.
 		 */
 		public static function rgb2hex(r:Number, g:Number, b:Number):Number  
 		{
@@ -55,10 +56,11 @@ package sandy.math
 		}
 	
 		/**
-		 * Converts a hexadecimal color value to rgb components
+		 * Converts a hexadecimal color value to RGB components
 		 * 
-		 * @param	hex	hexadecimal color.
-		 * @return	The rgb color of the hexadecimal given.
+		 * @param hex	Hexadecimal color.
+		 *
+		 * @return	The RGB color of the hexadecimal.
 		 */   
 		public static function hex2rgb(hex:Number):Object 
 		{
@@ -75,7 +77,7 @@ package sandy.math
 		* Converts hexadecimal color value to normalized rgb components ( 0 - 1 ).
 		* 
 		* @param	hex	hexadecimal color value.
-		* @return	The normalized rgb components ( 0 - 1.0 )
+		* @return	The normalized rgb components ( 0 - 1 ).
 		*/   
 		public static function hex2rgbn(hex:Number):Object 
 		{
@@ -89,10 +91,9 @@ package sandy.math
 		}
 		
 		/**
-		 * Calculate the colour for a particular lighting strength.
-		 * This converts the supplied pre-multiplied RGB colour into HSL
-		 * then modifies the L according to the light strength. 
-		 * The result is then mapped back into the RGB space.
+		 * Calculate the color for a particular lighting strength.
+		 * <p>This converts the supplied pre-multiplied RGB color into HSL then modifies the L according to the light strength. 
+		 * The result is then mapped back into the RGB space.</p>
 		 */	
 		public static function calculateLitColour(col:Number, lightStrength:Number):Number
 		{

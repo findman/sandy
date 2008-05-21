@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -16,8 +16,8 @@ limitations under the License.
 package sandy.errors
 {
 	/**
-	 * Private constructors do not exist in ActionScript 3.0. That's why we need
-	 * to use a workaround. Every singleton class in Sandy has a private static variable
+	 * The SingletonError class is used as a workaround for private constructors not existing
+	 * in ActionScript 3.0. Every singleton class in Sandy has a private static variable
 	 * called <code>instance</code>. The <code>instance</code> variable is given a 
 	 * reference to an instance of the class the first time the class constructor or
 	 * <code>getInstance()</code> is called. If an attempt is made to instantiate the
@@ -32,8 +32,7 @@ package sandy.errors
 	public class SingletonError extends Error
 	{
 		/**
-		 * All the constructor does is passing the error message string to the 
-		 * superclass.
+		 * All the constructor does is pass the error message to the superclass.
 		 */		
 		public function SingletonError()
 		{

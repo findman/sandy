@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.materials.attributes
 {
 	import flash.display.Graphics;
@@ -25,7 +24,7 @@ package sandy.materials.attributes
 	import sandy.materials.Material;
 	
 	/**
-	 * Display the vertex normals of a given object
+	 * Display the vertex normals of a given object.
 	 *
 	 * <p>Developed originally for a debug purpose, this class allows you to create some
 	 * special effects, displaying the normal of each vertex.</p>

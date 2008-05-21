@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -30,23 +30,22 @@ package sandy.view
 	 */	
 	public final class ViewPort
 	{
-	    
 	    /**
-		 * Offset to change the viewport center.
-		 * For example, if you set myCamera.viewport.offset.y to 100, everything drawn at the screen will be moved 100 pixels down (due to Flash vertical axis convention).
+		 * A point representing the offset to change the view port center.
+		 * <p>If you set myCamera.viewport.offset.y to 100, everything drawn at the screen will be moved 100 pixels down (due to Flash vertical axis convention).</p>
 		 */
 		public const offset:Point = new Point();
 				
 		/**
-		 * Flag which specifies if the viewport dimension has changed
+		 * Flag which specifies if the view port dimension has changed.
 		 */
 		public var hasChanged:Boolean = false;
 		
 	    /**
 		 * Creates a new ViewPort.
 		 *
-		 * @param p_nW 	The width of the rendered screen
-		 * @param p_nH 	The height of the rendered screen
+		 * @param p_nW 	The width of the rendered screen.
+		 * @param p_nH 	The height of the rendered screen.
 		 **/
 		public function ViewPort ( p_nW:Number, p_nH:Number )
 		{
@@ -55,7 +54,7 @@ package sandy.view
 		}
 		
 		/**
-		 * Updates the view port
+		 * Updates the view port.
 		 */
 		public function update():void
 		{
@@ -68,13 +67,31 @@ package sandy.view
 		}
 		
 		
+	    /**
+		 * The width of the view port.
+		 **/
 		public function get width():int { return m_nW; }
+		
+	    /**
+		 * The height of the view port.
+		 **/
 		public function get height():int { return m_nH; }
 		public function get width2():int { return m_nW2; }
 		public function get height2():int { return m_nH2; }
+		
+	    /**
+		 * The width/height ratio of the view port.
+		 **/
 		public function get ratio():Number { return m_nRatio; }
 		
+	    /**
+		 * @private
+		 **/
 		public function set width( p_nValue:int ):void { m_nW = p_nValue; update(); }
+		
+	    /**
+		 * @private
+		 **/
 		public function set height( p_nValue:int ):void { m_nH = p_nValue; update(); }
 
 		

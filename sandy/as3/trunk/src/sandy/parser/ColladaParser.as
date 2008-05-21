@@ -27,7 +27,7 @@ package sandy.parser
 	import sandy.util.NumberUtil;
 
 	/**
-	 * Transforms a COLLADA XML Document into Sandy geometries.
+	 * Transforms a COLLADA XML document into Sandy geometries.
 	 * <p>Creates a Group as rootnode which appends all geometries it finds.
 	 * Recommended settings for the COLLADA exporter:</p>
 	 * <ul>
@@ -76,8 +76,8 @@ package sandy.parser
 		 * Creates a new COLLADA parser instance.
 		 *
 		 * @param p_sUrl		Can be either a string pointing to the location of the
-		 * 						COLLADA file or an instance of an embedded COLLADA file
-		 * @param p_nScale		The scale factor
+		 * 						COLLADA file or an instance of an embedded COLLADA file.
+		 * @param p_nScale		The scale factor.
 		 */
 		public function ColladaParser( p_sUrl:*, p_nScale:Number )
 		{

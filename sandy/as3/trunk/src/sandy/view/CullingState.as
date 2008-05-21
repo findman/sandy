@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,14 +13,13 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.view 
 {
 	/**
 	 * Used to identify the culling state of an object.
 	 *
-	 * <p>A 3D object can be completely or partly inside the frustum of the camera, <br/>
-	 * or compleately outside. These are teh culling states.</p>
+	 * <p>A 3D object can be completely or partly inside the frustum of the camera,
+	 * or completely outside of it.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
@@ -29,21 +28,23 @@ package sandy.view
 	public class CullingState 
 	{
 		/**
-		 * INTERSECT means that the object intersects one or more planes of the frustum, 
-		 * and should be partly rendered.
+		 * Specifies that the object intersects one or more planes of the frustum and should be partly rendered.
 		 */
 		public static const INTERSECT:CullingState = new CullingState("intersect");
 		
 		/**
-		 * INSIDE means that the object is completely inside the frustum, and should be rendered.
+		 * Specifies that the object completely inside the frustum and should be rendered.
 		 */
 		public static const INSIDE:CullingState = new CullingState("inside");
 		
 		/**
-		 * OUTSIDE means that the object is completely outside the frustum, and should not be rendered..
+		 * Specifies that the object completely outside the frustum and should not be rendered.
 		 */
 		public static const OUTSIDE:CullingState = new CullingState("outside");
 		
+		/**
+		 * Returns the string representation of the CullingState object.
+		 */
 		public function toString():String
 		{
 			return "[sandy.view.CullingState] :: state : "+m_sState;

@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -28,7 +28,7 @@ package sandy.view
 	/**
 	 * Used to create the frustum of the camera.
 	 * 
-	 * <p>The frustum is volume used to control if geometrical object, such as a box, a sphere, or a point
+	 * <p>The frustum is volume used to control a geometrical object, such as a box, a sphere, or a point
 	 * can be seen by the camera, and thus should be rendered.</p> 
 	 * <p>Clipping of objects and polygons is performed against the frustum surfaces, as well as the near and far planes.</p>
 	 * 
@@ -38,6 +38,9 @@ package sandy.view
 	 */
 	public class Frustum 
 	{
+		/**
+		* An array of planes representing the frustum.
+		*/
 		public var aPlanes:Array;
 		//  0-> +
 		//  |
@@ -48,6 +51,10 @@ package sandy.view
 		//    1---0 /   
 		//    |/  |/
 		//    2---3 	
+
+		/**
+		* An array of points representing the frustum.
+		*/
 		public var aPoints:Array;
 		public var aNormals:Array;
 		public var aConstants:Array;
@@ -57,15 +64,50 @@ package sandy.view
 		// right plane : aNormals[3], aConstants[3] <-> aPoints[0], aPoints[3], aPoints[4], aPoints[7]
 		// left plane  : aNormals[4], aConstants[4] <-> aPoints[1], aPoints[2], aPoints[5], aPoints[6]
 		// back plane  : aNormals[5], aConstants[5] <-> aPoints[4], aPoints[5], aPoints[6], aPoints[7] 	
+		
+		/**
+		* Specifies the index of the far plane of the frustum in the aPlanes array.
+		*/
 		public static const FAR:uint 	= 0;
+		
+		/**
+		* Specifies the index of the near plane of the frustum in the aPlanes array.
+		*/
 		public static const NEAR:uint 	= 1;
+		
+		/**
+		* Specifies the index of the right plane of the frustum in the aPlanes array.
+		*/
 		public static const RIGHT:uint 	= 2;
+		
+		/**
+		* Specifies the index of the left plane of the frustum in the aPlanes array.
+		*/
 		public static const LEFT:uint	= 3;
+		
+		/**
+		* Specifies the index of the top plane of the frustum in the aPlanes array.
+		*/
 	    public static const TOP:uint 	= 4;
+		
+		/**
+		* Specifies the index of the bottom plane of the frustum in the aPlanes array.
+		*/
 		public static const BOTTOM:uint = 5; 
 		
+		/**
+		* Alias of CullingState.INSIDE.
+		*/
 		public static const INSIDE:CullingState = CullingState.INSIDE;
+		
+		/**
+		* Alias of CullingState.OUTSIDE.
+		*/
 		public static const OUTSIDE:CullingState = CullingState.OUTSIDE;
+		
+		/**
+		* Alias of CullingState.INTERSECT.
+		*/
 		public static const INTERSECT:CullingState = CullingState.INTERSECT;
 		public static const EPSILON:Number = 0.005;
 	
@@ -85,10 +127,10 @@ package sandy.view
 		/**
 		 * Computes the frustum planes.
 		 * 
-		 * @param p_nAspect	Aspect ration of the camera
-		 * @param p_nNear	The distance from the camera to the near clipping plane
-		 * @param p_nFar	The distance from the camera to the far clipping plane
-		 * @param p_nFov	Vertical field of view of the camera
+		 * @param p_nAspect	Aspect ration of the camera.
+		 * @param p_nNear	The distance from the camera to the near clipping plane.
+		 * @param p_nFar	The distance from the camera to the far clipping plane.
+		 * @param p_nFov	Vertical field of view of the camera.
 		 */
 		public function computePlanes( p_nAspect:Number, p_nNear:Number, p_nFar:Number, p_nFov:Number ):void
 		{
@@ -182,10 +224,12 @@ package sandy.view
 		/**
 		 * Returns the culling state for the passed point.
 		 * 
-		 * <p>The method tests if the passed point is within the frustum volume or not.<br/>
-		 * The returned culling state is Frustum.INSIDE or Frustum.OUTSIDE</p>
+		 * <p>The method tests if the passed point is within the frustum volume or not.
+		 * The returned culling state is either Frustum.INSIDE or Frustum.OUTSIDE.</p>
 		 *
-		 * @param p_oPoint	The point to test
+		 * @param p_oPoint	The point to test.
+		 *
+		 * @return The culling state of the point.
 		 */
 		public function pointInFrustum( p_oPoint:Vector ):CullingState
 		{
@@ -202,10 +246,12 @@ package sandy.view
 		/**
 		 * Returns the culling state for the passed bounding sphere.
 		 * 
-		 * <p>The method tests if the bounding sphere is within the frustum volume or not.<br/>
-		 * The returned culling state is Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
+		 * <p>The method tests if the bounding sphere is within the frustum volume or not.
+		 * The returned culling state is either Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
 		 *
-		 * @param p_oS	The sphere to test
+		 * @param p_oS	The sphere to test.
+		 *
+		 * @return The culling state of the sphere.
 		 */
 		public function sphereInFrustum( p_oS:BSphere ):CullingState
 		{
@@ -231,10 +277,12 @@ package sandy.view
 		/**
 		 * Returns the culling state for the passed bounding box.
 		 * 
-		 * <p>The method tests if the bounding box is within the frustum volume or not.<br/>
-		 * The returned culling state is Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
+		 * <p>The method tests if the bounding box is within the frustum volume or not.
+		 * The returned culling state is either Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
 		 *
-		 * @param p_oS	The box to test
+		 * @param p_oS	The box to test.
+		 *
+		 * @return The culling state of the box.
 		 */
 		public function boxInFrustum( box:BBox ):CullingState
 		{
@@ -281,37 +329,47 @@ package sandy.view
 		}
 	
 		/**
-		 * Clips a polygon against the frustum planes
+		 * Clips a polygon against the frustum planes.
 		 *
-		 * @param p_aCvert	Vertices of the polygon
-		 * @param p_aUVCoords	UV coordiantes of the polygon
+		 * @param p_aCvert		Vertices of the polygon.
+		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
 		public function clipFrustum( p_aCvert: Array, p_aUVCoords:Array ):void
 		{
-	        if( p_aCvert.length <= 2 ) return;
+	        if ( p_aCvert.length <= 2 )
+			{
+				return;
+			}
+			
 			clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
-			if( p_aCvert.length <= 2 ) return;
 			clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
-			if( p_aCvert.length <= 2 ) return;
 			clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
-			if( p_aCvert.length <= 2 ) return;
 	        clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
-			if( p_aCvert.length <= 2 ) return;
 		    clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom	
 		}
 	
+	
 		/**
-		 * Clip the given vertex and UVCoords arrays against the frustum front plane
+		 * Clips a polygon against the front frustum plane.
+		 *
+		 * @param p_aCvert		Vertices of the polygon.
+		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
 		public function clipFrontPlane( p_aCvert: Array, p_aUVCoords:Array ):void
 		{
-			if( p_aCvert.length <= 2 ) return;
+			if ( p_aCvert.length <= 2 )
+			{
+				return;
+			}
+			
 			clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near;
 		}
 		
 
 		/**
-		 * Clip the given vertex and UVCoords arrays against the frustum front plane
+		 * Clip the given vertex and UVCoords arrays against the frustum front plane.
+		 *
+		 * @param p_aCvert	Vertices of the line.
 		 */
 		public function clipLineFrontPlane( p_aCvert: Array ):void
 		{
@@ -361,11 +419,11 @@ package sandy.view
 		
    
 		/**
-		 * Clips a polygon against one the frustum planes
+		 * Clips a polygon against one the frustum planes.
 		 *
-		 * @param p_oPlane	The plane to clip against
-		 * @param p_aCvert	Vertices of the polygon		 
-		 * @param p_aUVCoords	UV coordiantes of the polygon
+		 * @param p_oPlane	The plane to clip against.
+		 * @param p_aCvert	Vertices of the polygon. 
+		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
 		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):void
 		{	
