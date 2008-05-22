@@ -26,11 +26,25 @@ package sandy.core.scenegraph
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Vertex;
-	import sandy.events.BubbleEvent;
+	import sandy.events.StarFieldRenderEvent;
 	import sandy.materials.Material;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;
 	
+	/**
+	* Dispatched when after BitmapData object is locked and normally about to be cleared.
+	*
+	* @eventType sandy.events.StarFieldRenderEvent.BEFORE_RENDER
+	*/
+	[Event(name="beforeRender", type="sandy.events.StarFieldRenderEvent")]
+	
+	/**
+	* Dispatched when after BitmapData object is unlocked.
+	*
+	* @eventType sandy.events.StarFieldRenderEvent.AFTER_RENDER
+	*/
+	[Event(name="afterRender", type="sandy.events.StarFieldRenderEvent")]
+
 	/**
 	 * The StarField class renders dense star field at reasonable FPS.
 	 *
@@ -78,7 +92,7 @@ package sandy.core.scenegraph
 			super(p_sName);
 			// create something
 			m_oContainer = new Sprite ();
-			m_oBitmapData = new BitmapData (1, 1, true, 0);
+			m_oBitmapData = new BitmapData (1, 1, true, 0); makeEvents ();
 			m_oBitmap = new Bitmap (m_oBitmapData);
 			m_oContainer.addChild (m_oBitmap);
 			_vx = new Vertex(); _vy = new Vertex();
@@ -136,7 +150,7 @@ package sandy.core.scenegraph
 			{
 				m_oBitmap.bitmapData.dispose ();
 				m_oBitmapData = new BitmapData (p_oScene.camera.viewport.width,
-					p_oScene.camera.viewport.height, true, 0);
+					p_oScene.camera.viewport.height, true, 0); makeEvents ();
 				m_oBitmap.bitmapData = m_oBitmapData;
 			}
 		}
@@ -149,8 +163,11 @@ package sandy.core.scenegraph
 		 */
 		public override function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
 		{
-			m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
+			resetEvents ();
+
 			m_oBitmapData.lock();
+			m_oEB.broadcastEvent (m_oEventBefore);
+			if (m_oEventBefore.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			// --
 			var i:int = 0;
 			var c32:Number, a:Number, c:Number, r:Number, rgb_r:Number, rgb_g:Number, rgb_b:Number, bY:Number;
@@ -203,11 +220,13 @@ package sandy.core.scenegraph
 						}
 						else
 						{
-							m_oBitmapData.setPixel32 (_v.sx, _v.sy, (c32 & 0xFFFFFF) + Math.floor (a) * 0x1000000);
+							m_oBitmapData.setPixel32 (_v.sx, _v.sy, c + int (a) * 0x1000000);
 						}
 					}
 				}
 			}
+			m_oEB.broadcastEvent (m_oEventAfter);
+			if (m_oEventAfter.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			m_oBitmapData.unlock();
 
 			p_oCamera.addToDisplayList (this);
@@ -253,5 +272,20 @@ package sandy.core.scenegraph
 		private var m_oColorTransform:ColorTransform = new ColorTransform ();
 		private var m_sBlendMode:String = "";
 		private var _vx:Vertex, _vy:Vertex;
+		private var m_oEventBefore:StarFieldRenderEvent;
+		private var m_oEventAfter:StarFieldRenderEvent;
+
+		private function makeEvents ():void
+		{
+			m_oEventBefore = new StarFieldRenderEvent (StarFieldRenderEvent.BEFORE_RENDER, this, m_oBitmapData, true);
+			m_oEventAfter  = new StarFieldRenderEvent (StarFieldRenderEvent.AFTER_RENDER,  this, m_oBitmapData, false);
+		}
+
+		private function resetEvents ():void
+		{
+			// reset whatever could have been changed by listener
+			m_oEventBefore.clear = true;
+			m_oEventAfter.clear = false;
+		}
 	}
 }
