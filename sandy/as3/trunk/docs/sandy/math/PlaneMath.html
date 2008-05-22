@@ -55,18 +55,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#classifyPoint()">classifyPoint</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</div>
+<a class="signatureLink" href="#classifyPoint()">classifyPoint</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oVector:<a href="../core/data/Vector.html">Vector</a>):Number</div>
 <div class="summaryTableDescription">[static]
-   Returns a classification constant depending on a points position relative to a plane.</div>
+   Returns a classification constant depending on a vector's position relative to a plane.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#computePlaneFromPoints()">computePlaneFromPoints</a>(p_oPointA:<a href="../core/data/Vector.html">Vector</a>, p_oPointB:<a href="../core/data/Vector.html">Vector</a>, p_oPointC:<a href="../core/data/Vector.html">Vector</a>):<a href="../core/data/Plane.html">Plane</a>
+<a class="signatureLink" href="#computePlaneFromPoints()">computePlaneFromPoints</a>(p_oVectorA:<a href="../core/data/Vector.html">Vector</a>, p_oVectorB:<a href="../core/data/Vector.html">Vector</a>, p_oVectorC:<a href="../core/data/Vector.html">Vector</a>):<a href="../core/data/Plane.html">Plane</a>
 </div>
 <div class="summaryTableDescription">[static]
-   Computes a plane from three specified points.</div>
+   Computes a plane from three vectors.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 <tr class="">
@@ -81,9 +81,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#distanceToPoint()">distanceToPoint</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</div>
+<a class="signatureLink" href="#distanceToPoint()">distanceToPoint</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oVector:<a href="../core/data/Vector.html">Vector</a>):Number</div>
 <div class="summaryTableDescription">[static]
-   Computes the distance between a plane and a 3D point (a vector here).</div>
+   Computes the distance between a plane and a vector.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 <tr class="">
@@ -105,20 +105,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#NEGATIVE">NEGATIVE</a> : int = -1<div class="summaryTableDescription">[static]
-   Defines the numeric value -1
-   </div>
+   Specifies a negative distance from a vector to a plane.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ON_PLANE">ON_PLANE</a> : int = 0<div class="summaryTableDescription">[static]
-   Defines the numeric value 0
-   </div>
+   Specifies a vector is on a plane.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#POSITIVE">POSITIVE</a> : int = 1<div class="summaryTableDescription">[static]
-   Defines the numeric value 1
-   </div>
+   Specifies a positive distance from a vector to a plane.</div>
 </td><td class="summaryTableOwnerCol">PlaneMath</td>
 </tr>
 </table>
@@ -137,29 +134,29 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function classifyPoint(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
-   Returns a classification constant depending on a points position relative to a plane.
+<code>public static function classifyPoint(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oVector:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
+   Returns a classification constant depending on a vector's position relative to a plane.
    
-   </p><p>The classification is one of PlaneMath.NEGATIVE PlaneMath.POSITIVE PlaneMath.ON_PLANE</p>
+   </p><p>The classification is one of PlaneMath.NEGATIVE, PlaneMath.POSITIVE, and PlaneMath.ON_PLANE.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code> &mdash;  The reference plane
+<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code> &mdash; The reference plane.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash;   The point we want to classify
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The vector we want to classify.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The classification of the point
+<td width="20"></td><td><code>Number</code> &mdash; The classification of the vector.
    </td>
 </tr>
 </table>
@@ -171,27 +168,27 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function computePlaneFromPoints(p_oPointA:<a href="../core/data/Vector.html">Vector</a>, p_oPointB:<a href="../core/data/Vector.html">Vector</a>, p_oPointC:<a href="../core/data/Vector.html">Vector</a>):<a href="../core/data/Plane.html">Plane</a></code><p>
-   Computes a plane from three specified points.
+<code>public static function computePlaneFromPoints(p_oVectorA:<a href="../core/data/Vector.html">Vector</a>, p_oVectorB:<a href="../core/data/Vector.html">Vector</a>, p_oVectorC:<a href="../core/data/Vector.html">Vector</a>):<a href="../core/data/Plane.html">Plane</a></code><p>
+   Computes a plane from three vectors.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointA</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The first point
+<td width="20px"></td><td><code><span class="label">p_oVectorA</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The first vector.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointB</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The second point
+<td width="20px"></td><td><code><span class="label">p_oVectorB</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The second vector.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointC</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The third point
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oVectorC</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The third vector.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -199,7 +196,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/data/Plane.html">Plane</a></code> &mdash; 
-                         The Plane object   
+                         The computed plane.
    
                         
                      </td>
@@ -218,15 +215,15 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oNormal</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The normal vector
+<td width="20px"></td><td><code><span class="label">p_oNormal</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The normal vector.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nPoint</span>:Number</code> &mdash;  The point
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nPoint</span>:Number</code> &mdash; The point.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -234,7 +231,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/data/Plane.html">Plane</a></code> &mdash; 
-                          The Plane object
+                         The computed plane.
    
                         
                      </td>
@@ -248,27 +245,27 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function distanceToPoint(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
-   Computes the distance between a plane and a 3D point (a vector here).
+<code>public static function distanceToPoint(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_oVector:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
+   Computes the distance between a plane and a vector.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code> &mdash; The plane we want to compute the distance from
+<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code> &mdash; The plane.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash;  The point in space
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The vector.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The distance between the point and the plane.
+<td width="20"></td><td><code>Number</code> &mdash;  The distance between the vector and the plane.
    </td>
 </tr>
 </table>
@@ -302,7 +299,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const NEGATIVE:int = -1</code><p>
-   Defines the numeric value -1
+   Specifies a negative distance from a vector to a plane.
    </p></div>
 <a name="ON_PLANE"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -312,7 +309,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const ON_PLANE:int = 0</code><p>
-   Defines the numeric value 0
+   Specifies a vector is on a plane.
    </p></div>
 <a name="POSITIVE"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -322,7 +319,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const POSITIVE:int = 1</code><p>
-   Defines the numeric value 1
+   Specifies a positive distance from a vector to a plane.
    </p></div>
 <br>
 <br>

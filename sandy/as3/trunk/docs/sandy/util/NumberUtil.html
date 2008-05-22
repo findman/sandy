@@ -54,20 +54,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#HALF_PI">HALF_PI</a> : Number<div class="summaryTableDescription">[static][read-only]
-   Math constant pi/2
-   </div>
+   Math constant pi/2.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PI">PI</a> : Number<div class="summaryTableDescription">[static][read-only]
-   Math constant pi
-   </div>
+   Math constant pi.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TO_DEGREE">TO_DEGREE</a> : Number<div class="summaryTableDescription">[static][read-only]
-   Constant used to convert angle from radians to degrees
-   </div>
+   Constant used to convert angle from radians to degrees.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
@@ -82,8 +79,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TWO_PI">TWO_PI</a> : Number<div class="summaryTableDescription">[static][read-only]
-   Math constant 2i
-   </div>
+   Math constant pi&#42;2.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 </table>
@@ -100,7 +96,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#areEqual()">areEqual</a>(p_nN:Number, p_nM:Number):Boolean</div>
 <div class="summaryTableDescription">[static]
-   Are the numbers close enough to be regarded as equal?.</div>
+   Compares two numbers and determines if they are equal.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
@@ -108,9 +104,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#constrain()">constrain</a>(p_nN:Number, p_nMin:Number, p_nMax:Number):Number</div>
 <div class="summaryTableDescription">[static]
-   Constrains a number to a given interval
-   
-   </div>
+   Constrains a number to a given interval.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
@@ -118,7 +112,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#isZero()">isZero</a>(p_nN:Number):Boolean</div>
 <div class="summaryTableDescription">[static]
-   Is the number small enough to be regarded as zero?.</div>
+   Determines if a number is regarded as zero.</div>
 </td><td class="summaryTableOwnerCol">NumberUtil</td>
 </tr>
 <tr class="">
@@ -163,7 +157,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>HALF_PI:Number</code>&nbsp;&nbsp;[read-only]<p>
-   Math constant pi/2
+   Math constant pi/2.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get HALF_PI():Number</code>
@@ -177,7 +171,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>PI:Number</code>&nbsp;&nbsp;[read-only]<p>
-   Math constant pi
+   Math constant pi.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get PI():Number</code>
@@ -191,7 +185,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>TO_DEGREE:Number</code>&nbsp;&nbsp;[read-only]<p>
-   Constant used to convert angle from radians to degrees
+   Constant used to convert angle from radians to degrees.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get TO_DEGREE():Number</code>
@@ -232,7 +226,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>TWO_PI:Number</code>&nbsp;&nbsp;[read-only]<p>
-   Math constant 2i
+   Math constant pi&#42;2.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public static function get TWO_PI():Number</code>
@@ -248,28 +242,28 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function areEqual(p_nN:Number, p_nM:Number):Boolean</code><p>
-   Are the numbers close enough to be regarded as equal?.
+   Compares two numbers and determines if they are equal.
    
-   </p><p>Adjust the TOL property depending on the precision of your application</p>
+   </p><p>Adjust the TOL property depending on the precision of your application.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;  The first number
+<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;  The first number.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nM</span>:Number</code> &mdash;  The second number
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nM</span>:Number</code> &mdash;  The second number.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash;  true if the numbers are regarded as equal, false otherwise.
+<td width="20"></td><td><code>Boolean</code> &mdash;  Whether the numbers are regarded as equal.
    </td>
 </tr>
 </table>
@@ -282,34 +276,34 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function constrain(p_nN:Number, p_nMin:Number, p_nMax:Number):Number</code><p>
-   Constrains a number to a given interval
+   Constrains a number to a given interval.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;   The number to constrain
+<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;   The number to constrain.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nMin</span>:Number</code> &mdash;  The minimal valid value
+<td width="20px"></td><td><code><span class="label">p_nMin</span>:Number</code> &mdash;  The minimal valid value.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nMax</span>:Number</code> &mdash;  The maximal valid value
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nMax</span>:Number</code> &mdash;  The maximal valid value.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The constrained number
+<td width="20"></td><td><code>Number</code> &mdash;   The constrained number.
    </td>
 </tr>
 </table>
@@ -322,20 +316,20 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function isZero(p_nN:Number):Boolean</code><p>
-   Is the number small enough to be regarded as zero?.
-      </p><p>Adjust the TOL property depending on the precision of your application</p>
+   Determines if a number is regarded as zero.
+      </p><p>Adjust the TOL property depending on the precision of your application.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;  The number to compare to zero
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;  The number to compare to zero.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash;  true if the number is to be regarded as zero, false otherwise.
+<td width="20"></td><td><code>Boolean</code> &mdash;  Whether the number is to be regarded as zero.
    </td>
 </tr>
 </table>
@@ -353,22 +347,22 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;    The number to round off
+<td width="20px"></td><td><code><span class="label">p_nN</span>:Number</code> &mdash;     The number to round.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nRoundToInterval</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The accuracy to which to round
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nRoundToInterval</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The accuracy to which to round.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;    The rounded number
+<td width="20"></td><td><code>Number</code> &mdash;    The rounded number.
    </td>
 </tr>
 </table>
@@ -385,7 +379,7 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nRad</span>:Number</code> &mdash; A number representing the angle in radians
+<td width="20px"></td><td><code><span class="label">p_nRad</span>:Number</code> &mdash; A number representing the angle in radians.
    </td>
 </tr>
 </table>
@@ -393,7 +387,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The angle in degrees
+<td width="20"></td><td><code>Number</code> &mdash;   The angle in degrees.
    </td>
 </tr>
 </table>
@@ -411,7 +405,7 @@ showHideInherited();
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nDeg</span>:Number</code> &mdash;  A number representing the angle in dregrees
+<td width="20px"></td><td><code><span class="label">p_nDeg</span>:Number</code> &mdash;  A number representing the angle in dregrees.
    </td>
 </tr>
 </table>
@@ -419,7 +413,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The angle in radians
+<td width="20"></td><td><code>Number</code> &mdash;   The angle in radians.
    </td>
 </tr>
 </table>

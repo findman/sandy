@@ -272,14 +272,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#event:scene_cull">scene_cull</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the scene is culled.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#SCENE_CULL">SCENE_CULL</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates the scene has been culled.</td>
+   Defines the value of the <code>type</code> property of a <code>scene_cull</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html">SceneLocator</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/package-detail.html">sandy.core</a></td>
@@ -293,49 +294,49 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates the SceneLocator registry
-      <p>This constructor is never called directly.<br />
-   Instead you get the registry instance by calling SceneLocator.getInstance().</p>
-      </td>
+   Creates the SceneLocator registry.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#event:scene_render">scene_render</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the scene is rendered.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#SCENE_RENDER">SCENE_RENDER</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates the scene has been rendered.</td>
+   Defines the value of the <code>type</code> property of a <code>scene_render</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#event:scene_render_display_list">scene_render_display_list</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the display list is rendered.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#SCENE_RENDER_DISPLAYLIST">SCENE_RENDER_DISPLAYLIST</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates the display list has been rendered.</td>
+   Defines the value of the <code>type</code> property of a <code>scene_render_display_list</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#event:scene_update">scene_update</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the scene is updated.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#SCENE_UPDATE">SCENE_UPDATE</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates the scene has been updated.</td>
+   Defines the value of the <code>type</code> property of a <code>scene_update</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html#SCL_TRACK_TAG">SCL_TRACK_TAG</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html">Parser3DSChunkTypes</a></td>
@@ -506,20 +507,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
    Changes the transparency of the texture.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html#setTransparency()">setTransparency</a>(p_nValue) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html">MovieMaterial</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Changes the transparency of the texture.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html#setTransparency()">setTransparency</a>(p_nValue) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html">VideoMaterial</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Changes the transparency of the texture.</td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html#setUVCoords()">setUVCoords</a>(p_nID, p_UValue, p_nVValue) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html">Geometry3D</a></td>
 </tr>
 <tr>
@@ -610,15 +597,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  Private constructors do not exist in ActionScript 3.0.</td>
+  The SingletonError class is used as a workaround for private constructors not existing
+  in ActionScript 3.0.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/errors/class-list.html');" href="sandy/errors/SingletonError.html#SingletonError()">SingletonError</a>() &mdash; Constructor in class sandy.errors.<a onclick="javascript:loadClassListFrame('sandy/errors/class-list.html');" href="sandy/errors/SingletonError.html">SingletonError</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   All the constructor does is passing the error message string to the 
-   superclass.</td>
+   All the constructor does is pass the error message to the superclass.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/SkyBox.html">SkyBox</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/package-detail.html">sandy.primitive</a></td>
@@ -646,7 +633,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   This property enable smooth bitmap rendering when set to true.</td>
+   This property enables smooth bitmap rendering when set to true.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html">Sound3D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/package-detail.html">sandy.core.scenegraph</a></td>
@@ -769,8 +756,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a random vector contained betweeen the first and second values
-   </td>
+   Returns a random vector contained betweeen the first and second values.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/package-detail.html">sandy.core.scenegraph</a></td>
@@ -837,11 +823,32 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
    Creates a StarField.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/package-detail.html">sandy.events</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  This class represents the type of events broadcasted by StarField objects.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html#StarFieldRenderEvent()">StarFieldRenderEvent</a>(e, p_oStarField:<a href="sandy/core/scenegraph/StarField.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:StarField</a>, p_oBitmapData, p_bClear) &mdash; Constructor in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Constructs a new StarFieldRenderEvent instance.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#stars">stars</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Array of Vertex - star coordinates data.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#starSprites">starSprites</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Array of star sprites (any IBitmapDrawable-s; if not specified, StarField uses setPixel to draw a star).</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html#start()">start</a>() &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html">MovieMaterial</a></td>
@@ -862,8 +869,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Launch the loading/parsing process
-   </td>
+   Launch the loading/parsing process.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html#start()">start</a>() &mdash; Method in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a></td>
@@ -955,16 +961,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Substracts one 3D vector from another
-      </td>
+   Substracts one 3D vector from another.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html#sub()">sub</a>(p_oV:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>, p_oW:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html">VertexMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Substracts one vertices from another
-      </td>
+   Substracts one vertices from another.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#swapCulling()">swapCulling</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>

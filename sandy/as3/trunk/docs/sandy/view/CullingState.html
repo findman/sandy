@@ -40,8 +40,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   Used to identify the culling state of an object.
-    <p>A 3D object can be completely or partly inside the frustum of the camera, <br/>
-  or compleately outside. These are teh culling states.</p>
+    <p>A 3D object can be completely or partly inside the frustum of the camera,
+  or completely outside of it.</p>
     <p></p>
 <br>
 <hr>
@@ -65,7 +65,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns the string representation of the CullingState object.</div>
 </td><td class="summaryTableOwnerCol">CullingState</td>
 </tr>
 </table>
@@ -80,20 +81,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#INSIDE">INSIDE</a> : <a href="../view/CullingState.html">CullingState</a>
 <div class="summaryTableDescription">[static]
-   INSIDE means that the object is completely inside the frustum, and should be rendered.</div>
+   Specifies that the object completely inside the frustum and should be rendered.</div>
 </td><td class="summaryTableOwnerCol">CullingState</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#INTERSECT">INTERSECT</a> : <a href="../view/CullingState.html">CullingState</a>
 <div class="summaryTableDescription">[static]
-   INTERSECT means that the object intersects one or more planes of the frustum, 
-   and should be partly rendered.</div>
+   Specifies that the object intersects one or more planes of the frustum and should be partly rendered.</div>
 </td><td class="summaryTableOwnerCol">CullingState</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#OUTSIDE">OUTSIDE</a> : <a href="../view/CullingState.html">CullingState</a>
 <div class="summaryTableDescription">[static]
-   OUTSIDE means that the object is completely outside the frustum, and should not be rendered..</div>
+   Specifies that the object completely outside the frustum and should not be rendered.</div>
 </td><td class="summaryTableOwnerCol">CullingState</td>
 </tr>
 </table>
@@ -130,8 +130,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function toString():String</code>
-<p></p>
+<code>public function toString():String</code><p>
+   Returns the string representation of the CullingState object.
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -149,7 +150,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const INSIDE:<a href="../view/CullingState.html">CullingState</a></code><p>
-   INSIDE means that the object is completely inside the frustum, and should be rendered.
+   Specifies that the object completely inside the frustum and should be rendered.
    </p></div>
 <a name="INTERSECT"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -159,8 +160,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const INTERSECT:<a href="../view/CullingState.html">CullingState</a></code><p>
-   INTERSECT means that the object intersects one or more planes of the frustum, 
-   and should be partly rendered.
+   Specifies that the object intersects one or more planes of the frustum and should be partly rendered.
    </p></div>
 <a name="OUTSIDE"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -170,7 +170,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const OUTSIDE:<a href="../view/CullingState.html">CullingState</a></code><p>
-   OUTSIDE means that the object is completely outside the frustum, and should not be rendered..
+   Specifies that the object completely outside the frustum and should not be rendered.
    </p></div>
 <br>
 <br>

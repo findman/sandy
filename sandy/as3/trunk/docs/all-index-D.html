@@ -58,7 +58,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html#data">data</a> &mdash; Property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   A list of all resources indexed by their names.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#DEFAULT_APPEARANCE">DEFAULT_APPEARANCE</a> &mdash; Static property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
@@ -68,18 +69,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
    Default appearance for Shape3D instances.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> &mdash; Static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html">MovieMaterial</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> &mdash; Constant static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MovieMaterial.html">MovieMaterial</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Default color used to draw the bitmapdata content with.</td>
+   Default color used to draw the bitmapdata content.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> &mdash; Static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html">VideoMaterial</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> &mdash; Constant static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html">VideoMaterial</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Default color used to draw the bitmapdata content with.</td>
+   Default color used to draw the bitmapdata content.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Cylinder.html#DEFAULT_HEIGHT">DEFAULT_HEIGHT</a> &mdash; Constant static property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Cylinder.html">Cylinder</a></td>
@@ -399,11 +400,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
    Returns the distance of a point from the surface.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#distanceToPoint()">distanceToPoint</a>(p_oPlane:<a href="sandy/core/data/Plane.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Plane</a>, p_oPoint:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#distanceToPoint()">distanceToPoint</a>(p_oPlane:<a href="sandy/core/data/Plane.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Plane</a>, p_oVector:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes the distance between a plane and a 3D point (a vector here).</td>
+   Computes the distance between a plane and a vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#dot()">dot</a>(w:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
@@ -441,36 +442,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
   Draws attribute to the graphics object.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html">CelShadeAttributes</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-  
-  </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CylinderEnvMap.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CylinderEnvMap.html">CylinderEnvMap</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-  
-  Draws attribute to the graphics object.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/DashedLineAttributes.html">DashedLineAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-  
-  </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/GouraudAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/GouraudAttributes.html">GouraudAttributes</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-  
-  </td>
+  Draws light on shape.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html#draw()">draw</a>(p_oGraphics, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html">MaterialAttributes</a></td>
@@ -485,6 +461,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("DÂ
 <tr>
 <td width="20"></td><td>
   Applies attribute to a sprite.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  Draws light on sprite.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html#drawOnSprite()">drawOnSprite</a>(p_oSprite:<a href="sandy/core/scenegraph/Sprite2D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Sprite2D</a>, p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>, p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html">MaterialAttributes</a></td>

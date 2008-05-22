@@ -42,8 +42,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  Private constructors do not exist in ActionScript 3.0. That's why we need
-  to use a workaround. Every singleton class in Sandy has a private static variable
+  The SingletonError class is used as a workaround for private constructors not existing
+  in ActionScript 3.0. Every singleton class in Sandy has a private static variable
   called <code>instance</code>. The <code>instance</code> variable is given a 
   reference to an instance of the class the first time the class constructor or
   <code>getInstance()</code> is called. If an attempt is made to instantiate the
@@ -67,8 +67,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#SingletonError()">SingletonError</a>()</div>
 <div class="summaryTableDescription">
-   All the constructor does is passing the error message string to the 
-   superclass.</div>
+   All the constructor does is pass the error message to the superclass.</div>
 </td><td class="summaryTableOwnerCol">SingletonError</td>
 </tr>
 </table>
@@ -88,8 +87,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function SingletonError()</code><p>
-   All the constructor does is passing the error message string to the 
-   superclass.
+   All the constructor does is pass the error message to the superclass.
    </p></div>
 <br>
 <br>

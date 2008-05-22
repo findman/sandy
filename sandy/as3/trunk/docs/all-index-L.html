@@ -58,7 +58,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#LEFT">LEFT</a> &mdash; Constant static property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  Specifies the index of the left plane of the frustum in the aPlanes array.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html#length()">length</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html">UVCoord</a></td>
@@ -71,8 +72,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   The line length
-   </td>
+   The line length.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#light">light</a> &mdash; Property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
@@ -105,20 +105,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#event:lightAdded">lightAdded</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/World3D.html#event:lightAdded">lightAdded</a> &mdash; Event in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/World3D.html">World3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when a light is added to the scene.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#LIGHT_ADDED">LIGHT_ADDED</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates that a light has been added to a Scene3D object.</td>
+   Defines the value of the <code>type</code> property of a <code>lightAdded</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LightAttributes.html">LightAttributes</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/package-detail.html">sandy.materials.attributes</a></td>
@@ -138,21 +133,22 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#event:lightColorChanged">lightColorChanged</a> &mdash; Event in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the light color is changed.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#LIGHT_COLOR_CHANGED">LIGHT_COLOR_CHANGED</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates that the color of the light has changed.</td>
+   Defines the value of the <code>type</code> property of a <code>lightColorChanged</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html#lightingEnable">lightingEnable</a> &mdash; Property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html">Material</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Specify is the material can receive light and apply the light attributes if specified.</td>
+   Specifies if the material can receive light and have light attributes applied to it.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html#lightmap">lightmap</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html">CelShadeAttributes</a></td>
@@ -165,14 +161,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#event:lightUpdated">lightUpdated</a> &mdash; Event in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when the light is updated.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#LIGHT_UPDATED">LIGHT_UPDATED</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-      Indicates that the Light3D object of the scene has been updated.</td>
+   Defines the value of the <code>type</code> property of a <code>lightUpdated</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Line3D.html">Line3D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/package-detail.html">sandy.primitive</a></td>
@@ -193,8 +190,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Calculates linear gradient matrix from three vertices and ratios
-      <p>This function expects vertices to be ordered in such a way that p_nR0 &lt; p_nR1 &lt; p_n2.</td>
+   Calculates linear gradient matrix from three vertices and ratios.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LineAttributes.html">LineAttributes</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/package-detail.html">sandy.materials.attributes</a></td>
@@ -233,8 +229,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("LÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-      The load has started
-      </td>
+   Defines the value of the <code>type</code> property of a <code>onLoadEVENT</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/package-detail.html">sandy.util</a></td>

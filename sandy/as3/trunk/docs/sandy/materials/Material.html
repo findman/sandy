@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Material,sandy.materials.Material,_useLight,attributes,lightingEnable,m_bModified,m_nFlags,m_oType,repeat,useVertexNormal,flags,id,modified,type,filters,begin,finish,init,renderPolygon,renderSprite,unlink" name="keywords">
+<meta content="Material,sandy.materials.Material,attributes,lightingEnable,repeat,useVertexNormal,filters,flags,id,modified,type,begin,finish,init,renderPolygon,renderSprite,unlink" name="keywords">
 <title>sandy.materials.Material</title>
 </head>
 <body>
@@ -68,18 +68,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flags">flags</a> : uint<div class="summaryTableDescription">[read-only]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flags">flags</a> : uint<div class="summaryTableDescription">[read-only]
+   Contains specific material flags.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#id">id</a> : Number<div class="summaryTableDescription">[read-only]
-   The unique id of this material
-   </div>
+   The unique id of this material.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#lightingEnable">lightingEnable</a> : Boolean = false<div class="summaryTableDescription">
-   Specify is the material can receive light and apply the light attributes if specified.</div>
+   Specifies if the material can receive light and have light attributes applied to it.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
@@ -100,35 +100,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#useVertexNormal">useVertexNormal</a> : Boolean = false<div class="summaryTableDescription">
-   Specify if the material use the vertex normal information
-   Default value is set to false.</div>
-</td><td class="summaryTableOwnerCol">Material</td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_bModified">m_bModified</a> : Boolean<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Material</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_nFlags">m_nFlags</a> : uint = 0<div class="summaryTableDescription">
-   DO NOT TOUCH THIS PROPERTY UNLESS YOU PERFECTLY KNOW WHAT YOU ARE DOING.</div>
-</td><td class="summaryTableOwnerCol">Material</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oType">m_oType</a> : <a href="../materials/MaterialType.html">MaterialType</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Material</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#_useLight">_useLight</a> : Boolean = false<div class="summaryTableDescription"></div>
+   Specify if the material use the vertex normal information.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 </table>
@@ -152,14 +124,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#begin()">begin</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls begin method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#finish()">finish</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls finish method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
@@ -167,9 +141,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#init()">init</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Allows to proceed to an initialization
-   to know when the polyon isn't lined to the material, look at #unlink
-   </div>
+   Calls init method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 <tr class="">
@@ -193,9 +165,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#unlink()">unlink</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Remove all the initialization
-   opposite of init
-   </div>
+   Calls unlink method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol">Material</td>
 </tr>
 </table>
@@ -216,7 +186,13 @@ showHideInherited();
 <div class="detailBody">
 <code>public var attributes:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code><p>
    The attributes of this material.
-   </p></div>
+      </p><p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html" target="">sandy.materials.attributes.MaterialAttributes</a>
+</div>
+</div>
 <a name="filters"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -243,7 +219,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>flags:uint</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<code>flags:uint</code>&nbsp;&nbsp;[read-only]<p>
+   Contains specific material flags.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get flags():uint</code>
 <br>
@@ -256,7 +234,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>id:Number</code>&nbsp;&nbsp;[read-only]<p>
-   The unique id of this material
+   The unique id of this material.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get id():Number</code>
@@ -270,29 +248,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var lightingEnable:Boolean = false</code><p>
-   Specify is the material can receive light and apply the light attributes if specified.
-   Can be useful to disable very rapidly the light when unused.
-   Default value : false
-   </p></div>
-<a name="m_bModified"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_bModified</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_bModified:Boolean</code>
-</div>
-<a name="m_nFlags"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_nFlags</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_nFlags:uint = 0</code><p>
-   DO NOT TOUCH THIS PROPERTY UNLESS YOU PERFECTLY KNOW WHAT YOU ARE DOING.
-   this flag property contains the specific material flags.
+   Specifies if the material can receive light and have light attributes applied to it.
+   Can be useful to rapidly disable light on the object when unneeded.
    </p></div>
 <a name="modified"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -308,15 +265,6 @@ showHideInherited();
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get modified():Boolean</code>
 <br>
-</div>
-<a name="m_oType"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oType</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oType:<a href="../materials/MaterialType.html">MaterialType</a></code>
 </div>
 <a name="repeat"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -340,20 +288,17 @@ showHideInherited();
 <code>type:<a href="../materials/MaterialType.html">MaterialType</a></code>&nbsp;&nbsp;[read-only]<p>
    The material type of this material.
    
-   </p><p>For the default material this value is set to NONE</p>
-   <span class="label">Implementation</span>
+   </p><p>The default value is <code>MaterialType.NONE</code>.</p>
+<span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get type():<a href="../materials/MaterialType.html">MaterialType</a></code>
 <br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="MaterialType.html" target="">MaterialType</a>
 </div>
-<a name="_useLight"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_useLight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var _useLight:Boolean = false</code>
 </div>
 <a name="useVertexNormal"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -363,9 +308,10 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var useVertexNormal:Boolean = false</code><p>
-   Specify if the material use the vertex normal information
-   Default value is set to false.
-   </p></div>
+   Specify if the material use the vertex normal information.
+   
+   </p><p>The default value is <code>false</code>.</p>
+</div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Material()"></a>
@@ -377,14 +323,20 @@ showHideInherited();
 <div class="detailBody">
 <code>public function Material(p_oAttr:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a> = null)</code><p>
    Creates a material.
-      </p><p>This constructor is never called directly - but by sub class constructors</p>
+      </p><p>This constructor is never called directly - but by sub class constructors.</p>
    <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash; The attributes for this material
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash; The attributes for this material.
+      </td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html" target="">sandy.materials.attributes.MaterialAttributes</a>
+</div>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
@@ -395,12 +347,20 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function begin(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</code><span class="label">Parameters</span>
+<code>public function begin(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</code><p>
+   Calls begin method of the MaterialAttributes associated with this material.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html#begin()" target="">sandy.materials.attributes.MaterialAttributes.begin()</a>
+</div>
 </div>
 <a name="finish()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -409,12 +369,20 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function finish(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</code><span class="label">Parameters</span>
+<code>public function finish(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</code><p>
+   Calls finish method of the MaterialAttributes associated with this material.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html#finish()" target="">sandy.materials.attributes.MaterialAttributes.finish()</a>
+</div>
 </div>
 <a name="init()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -424,14 +392,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function init(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</code><p>
-   Allows to proceed to an initialization
-   to know when the polyon isn't lined to the material, look at #unlink
-   </p><span class="label">Parameters</span>
+   Calls init method of the MaterialAttributes associated with this material.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html#init()" target="">sandy.materials.attributes.MaterialAttributes.init()</a>
+</div>
 </div>
 <a name="renderPolygon()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -442,8 +415,8 @@ showHideInherited();
 <div class="detailBody">
 <code>public function renderPolygon(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</code><p>
    Renders the polygon dress in this material.
-      </p><p>Implemented by sub classes</p>
-   <span class="label">Parameters</span>
+      </p><p>Implemented by sub classes.</p>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code></td>
@@ -461,6 +434,14 @@ showHideInherited();
 <td width="20px"></td><td><code><span class="label">p_mcContainer</span>:Sprite</code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/Scene3D.html" target="">sandy.core.Scene3D</a>
+<br>
+<a href="../core/data/Polygon.html" target="">sandy.core.data.Polygon</a>
+</div>
 </div>
 <a name="renderSprite()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -472,7 +453,7 @@ showHideInherited();
 <code>public function renderSprite(p_oSprite:<a href="../core/scenegraph/Sprite2D.html">Sprite2D</a>, p_oMaterial:<a href="Material.html">Material</a>, p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</code><p>
    Renders the sprite dress in this material.
       </p><p>Basically only needed to apply attributes to sprites</p>
-   <span class="label">Parameters</span>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oSprite</span>:<a href="../core/scenegraph/Sprite2D.html">Sprite2D</a></code></td>
@@ -490,6 +471,14 @@ showHideInherited();
 <td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/scenegraph/Sprite2D.html" target="">sandy.core.scenegraph.Sprite2D</a>
+<br>
+<a href="../core/Scene3D.html" target="">sandy.core.Scene3D</a>
+</div>
 </div>
 <a name="unlink()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -499,14 +488,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function unlink(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</code><p>
-   Remove all the initialization
-   opposite of init
-   </p><span class="label">Parameters</span>
+   Calls unlink method of the MaterialAttributes associated with this material.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html#unlink()" target="">sandy.materials.attributes.MaterialAttributes.unlink()</a>
+</div>
 </div>
 <br>
 <br>

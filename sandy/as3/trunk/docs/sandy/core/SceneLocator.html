@@ -40,11 +40,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   The SceneLocator serves as a registry of all scenes in the application.
-    <p>You can only have one SceneLocator in an application.<br />
-  You can find, register and unregister scenes by their name.</p>
-  <p>When scenes (Scene3D ) are created in an application, they aoutomatically
-  register with the SceneLocator registry</p>
+    <p>An application can only have one SceneLocator. Using the SceneLocator, scenes can be located, registered, and unregistered.</p>
+  <p>When scenes are created in an application, they aoutomatically
+  register with the SceneLocator registry.</p>
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="Scene3D.html" target="">Scene3D</a>
+</div>
 <br>
 <hr>
 </div>
@@ -60,10 +65,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#SceneLocator()">SceneLocator</a>(access:PrivateConstructorAccess)</div>
 <div class="summaryTableDescription">
-   Creates the SceneLocator registry
-      <p>This constructor is never called directly.<br />
-   Instead you get the registry instance by calling SceneLocator.getInstance().</p>
-      </div>
+   Creates the SceneLocator registry.</div>
 </td><td class="summaryTableOwnerCol">SceneLocator</td>
 </tr>
 <tr class="">
@@ -97,8 +99,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#registerScene()">registerScene</a>(key:String, o:<a href="Scene3D.html">Scene3D</a>):Boolean</div>
 <div class="summaryTableDescription">
-   Registers a scene with this SceneLocator
-      </div>
+   Registers a scene.</div>
 </td><td class="summaryTableOwnerCol">SceneLocator</td>
 </tr>
 <tr class="">
@@ -106,8 +107,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#unregisterScene()">unregisterScene</a>(key:String):void</div>
 <div class="summaryTableDescription">
-   Unregisters a scene with the specified name
-      </div>
+   Unregisters a scene with the specified name.</div>
 </td><td class="summaryTableOwnerCol">SceneLocator</td>
 </tr>
 </table>
@@ -127,9 +127,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function SceneLocator(access:PrivateConstructorAccess)</code><p>
-   Creates the SceneLocator registry
-      </p><p>This constructor is never called directly.<br />
-   Instead you get the registry instance by calling SceneLocator.getInstance().</p>
+   Creates the SceneLocator registry.
+      </p><p>This constructor is never called directly. Instead you get the registry instance by calling SceneLocator.getInstance().</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -154,7 +153,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/SceneLocator.html">SceneLocator</a></code> &mdash; 
-                         The single locator
+                         The single locator.
    
                         
                      </td>
@@ -173,7 +172,7 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash;  The name of the scene
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash;  The name of the scene.
    </td>
 </tr>
 </table>
@@ -182,7 +181,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/Scene3D.html">Scene3D</a></code> &mdash; 
-                        The requested scene
+                        The requested scene.
    
                         
                      </td>
@@ -201,7 +200,7 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; key The Name of the scene to check
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; key The Name of the scene to check.
    </td>
 </tr>
 </table>
@@ -209,7 +208,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash; true if a scene with that name is registered, false otherwise
+<td width="20"></td><td><code>Boolean</code> &mdash; true if a scene with that name is registered, false otherwise.
    </td>
 </tr>
 </table>
@@ -222,18 +221,18 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function registerScene(key:String, o:<a href="Scene3D.html">Scene3D</a>):Boolean</code><p>
-   Registers a scene with this SceneLocator
+   Registers a scene.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; : String, name of the scene to register
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; : String, name of the scene to register.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">o</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash; : Scene3D, object to register
+<td width="20px"></td><td><code><span class="label">o</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash; : Scene3D, object to register.
    </td>
 </tr>
 </table>
@@ -241,7 +240,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash; true if the registration was successful, false otherwise
+<td width="20"></td><td><code>Boolean</code> &mdash; true if the registration was successful, false otherwise.
    </td>
 </tr>
 </table>
@@ -254,11 +253,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function unregisterScene(key:String):void</code><p>
-   Unregisters a scene with the specified name
+   Unregisters a scene with the specified name.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; Th name of the scene to unregister
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; The name of the scene to unregister.
    </td>
 </tr>
 </table>

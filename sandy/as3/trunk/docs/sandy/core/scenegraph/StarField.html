@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="StarField,sandy.core.scenegraph.StarField,depthIndex,fadeFrom,fadeTo,starColors,stars,container,depth,clear,cull,display,remove,render" name="keywords">
+<meta content="StarField,sandy.core.scenegraph.StarField,depthIndex,fadeFrom,fadeTo,starColors,starSprites,stars,container,depth,clear,cull,display,remove,render" name="keywords">
 <title>sandy.core.scenegraph.StarField</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 <td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?sandy/core/scenegraph/StarField.html&amp;sandy/core/scenegraph/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;StarField</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;StarField</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,7 +27,7 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class StarField"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class StarField"); titleBar_setSubNav(true,true,false,false,true,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
@@ -240,6 +240,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#stars">stars</a> : Array<div class="summaryTableDescription">
    Array of Vertex - star coordinates data.</div>
+</td><td class="summaryTableOwnerCol">StarField</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#starSprites">starSprites</a> : Array<div class="summaryTableDescription">
+   Array of star sprites (any IBitmapDrawable-s; if not specified, StarField uses setPixel to draw a star).</div>
 </td><td class="summaryTableOwnerCol">StarField</td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -613,6 +618,31 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 </div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:afterRender">afterRender</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when after BitmapData object is unlocked.</td><td class="summaryTableOwnerCol">StarField</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:beforeRender">beforeRender</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when after BitmapData object is locked and normally about to be cleared.</td><td class="summaryTableOwnerCol">StarField</td>
+</tr>
+</table>
+</div>
 <a name="constantSummary"></a>
 <div class="summarySection">
 <div class="summaryTableTitle">Public Constants</div>
@@ -742,6 +772,18 @@ showHideInherited();
 <code>public var stars:Array</code><p>
    Array of Vertex - star coordinates data.
    </p></div>
+<a name="starSprites"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">starSprites</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var starSprites:Array</code><p>
+   Array of star sprites (any IBitmapDrawable-s; if not specified, StarField uses setPixel to draw a star).
+      </p><p>Star sprites are affected by corresponding starColors value; for DisplayObject-s, StarField will use
+   their blendMode to draw them.</p>
+   </div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="StarField()"></a>
@@ -868,6 +910,37 @@ showHideInherited();
 </tr>
 </table>
 </div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:afterRender"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">afterRender</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../../events/StarFieldRenderEvent.html"><code>sandy.events.StarFieldRenderEvent</code></a>
+<br>
+<span class="label">StarFieldRenderEvent.type property = </span><a href="../../events/StarFieldRenderEvent.html#AFTER_RENDER"><code>sandy.events.StarFieldRenderEvent.AFTER_RENDER</code></a>
+<br><p>
+ Dispatched when after BitmapData object is unlocked.
+  </p><p>
+   Defines the value of the <code>type</code> property of a <code>afterRender</code> event object.
+      </p></div>
+<a name="event:beforeRender"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">beforeRender</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../../events/StarFieldRenderEvent.html"><code>sandy.events.StarFieldRenderEvent</code></a>
+<br>
+<span class="label">StarFieldRenderEvent.type property = </span><a href="../../events/StarFieldRenderEvent.html#BEFORE_RENDER"><code>sandy.events.StarFieldRenderEvent.BEFORE_RENDER</code></a>
+<br><p>
+ Dispatched when after BitmapData object is locked and normally about to be cleared.
+  </p><p>
+   Defines the value of the <code>type</code> property of a <code>beforeRender</code> event object.
+      </p></div>
 <br>
 <br>
 <hr>

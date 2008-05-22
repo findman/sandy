@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="MovieMaterial,sandy.materials.MovieMaterial,DEFAULT_FILL_COLOR,movie,renderPolygon,setTransparency,start,stop" name="keywords">
+<meta content="MovieMaterial,sandy.materials.MovieMaterial,DEFAULT_FILL_COLOR,movie,start,stop" name="keywords">
 <title>sandy.materials.MovieMaterial</title>
 </head>
 <body>
@@ -65,8 +65,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#alpha">alpha</a> : Number<div class="summaryTableDescription">
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</div>
+   Indicates the alpha transparency value of the material.</div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -75,38 +74,25 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    The attributes of this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> : uint = 0<div class="summaryTableDescription">[static]
-   Default color used to draw the bitmapdata content with.</div>
-</td><td class="summaryTableOwnerCol">MovieMaterial</td>
-</tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#filters">filters</a> : Array<div class="summaryTableDescription">
    The array of filters for this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#flags">flags</a> : uint<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#flags">flags</a> : uint<div class="summaryTableDescription">
+   Contains specific material flags.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#graphics">graphics</a> : Graphics<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#id">id</a> : Number<div class="summaryTableDescription">
-   The unique id of this material
-   </div>
+   The unique id of this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#lightingEnable">lightingEnable</a> : Boolean = false<div class="summaryTableDescription">
-   Specify is the material can receive light and apply the light attributes if specified.</div>
+   Specifies if the material can receive light and have light attributes applied to it.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#map">map</a> : Matrix<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#maxRecurssionDepth">maxRecurssionDepth</a> : uint = 5<div class="summaryTableDescription">
@@ -120,14 +106,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#movie">movie</a> : Sprite<div class="summaryTableDescription">[read-only]
-   Get the movieclip used for the material
-   </div>
+   Get the sprite used for the material.</div>
 </td><td class="summaryTableOwnerCol">MovieMaterial</td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#polygon">polygon</a> : <a href="../core/data/Polygon.html">Polygon</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#precision">precision</a> : uint = 0<div class="summaryTableDescription">
@@ -141,13 +121,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#smooth">smooth</a> : Boolean = false<div class="summaryTableDescription">
-   This property enable smooth bitmap rendering when set to true.</div>
+   This property enables smooth bitmap rendering when set to true.</div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#texture">texture</a> : BitmapData<div class="summaryTableDescription">
-   The texture ( bitmap ) of this material
-   </div>
+   The texture ( bitmap ) of this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -158,67 +137,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#useVertexNormal">useVertexNormal</a> : Boolean = false<div class="summaryTableDescription">
-   Specify if the material use the vertex normal information
-   Default value is set to false.</div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedProperty" id="hideInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Properties</a>
-</div>
-<div class="showInheritedProtectedProperty" id="showInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Properties</a>
-</div>
-</div>
-<table id="summaryTableProtectedProperty" class="summaryTable hideInheritedProtectedProperty" cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#matrix">matrix</a> : Matrix<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_bModified">m_bModified</a> : Boolean<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_nFlags">m_nFlags</a> : uint = 0<div class="summaryTableDescription">
-   DO NOT TOUCH THIS PROPERTY UNLESS YOU PERFECTLY KNOW WHAT YOU ARE DOING.</div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oCmf">m_oCmf</a> : ColorMatrixFilter<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oPoint">m_oPoint</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oPolygonMatrixMap">m_oPolygonMatrixMap</a> : Dictionary<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_orgTexture">m_orgTexture</a> : BitmapData<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oTexture">m_oTexture</a> : BitmapData<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_oType">m_oType</a> : <a href="../materials/MaterialType.html">MaterialType</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#_useLight">_useLight</a> : Boolean = false<div class="summaryTableDescription"></div>
+   Specify if the material use the vertex normal information.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 </table>
@@ -250,14 +169,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="Material.html#begin()">begin</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls begin method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="Material.html#finish()">finish</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls finish method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -265,16 +186,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="BitmapMaterial.html#init()">init</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Initiates this material.</div>
+   </div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#renderPolygon()">renderPolygon</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</div>
+<a class="signatureLink" href="Material.html#renderPolygon()">renderPolygon</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</div>
 <div class="summaryTableDescription">
-   Renders this material on the face it dresses.</div>
-</td><td class="summaryTableOwnerCol">MovieMaterial</td>
+   Renders the polygon dress in this material.</div>
+</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -292,13 +213,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    Sets texture tiling and optional offset.</div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setTransparency()">setTransparency</a>(p_nValue:Number):void</div>
+<a class="signatureLink" href="BitmapMaterial.html#setTransparency()">setTransparency</a>(p_nValue:Number):void</div>
 <div class="summaryTableDescription">
    Changes the transparency of the texture.</div>
-</td><td class="summaryTableOwnerCol">MovieMaterial</td>
+</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
@@ -320,85 +241,31 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="BitmapMaterial.html#toString()">toString</a>():String</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="BitmapMaterial.html#unlink()">unlink</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
+<a class="signatureLink" href="Material.html#unlink()">unlink</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
+<div class="summaryTableDescription">
+   Calls unlink method of the MaterialAttributes associated with this material.</div>
+</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 </table>
 </div>
-<a name="protectedMethodSummary"></a>
+<a name="constantSummary"></a>
 <div class="summarySection">
-<div class="summaryTableTitle">Protected Methods</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedMethod" id="hideInheritedProtectedMethod">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedMethod');" href="#protectedMethodSummary" class="showHideLink"><img src="../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Methods</a>
-</div>
-<div class="showInheritedProtectedMethod" id="showInheritedProtectedMethod">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedMethod');" href="#protectedMethodSummary" class="showHideLink"><img src="../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Methods</a>
-</div>
-</div>
-<table id="summaryTableProtectedMethod" class="summaryTable hideInheritedProtectedMethod" cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="BitmapMaterial.html#_createTextureMatrix()">_createTextureMatrix</a>(p_aUv:Array):Matrix</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="BitmapMaterial.html#_tesselatePolygon()">_tesselatePolygon</a>(p_aPoints:Array, p_aUv:Array):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="BitmapMaterial.html#renderRec()">renderRec</a>(ta:Number, tb:Number, tc:Number, td:Number, tx:Number, ty:Number, ax:Number, ay:Number, az:Number, bx:Number, by:Number, bz:Number, cx:Number, cy:Number, cz:Number):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="BitmapMaterial.html#renderTriangle()">renderTriangle</a>(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number, v0x:Number, v0y:Number, v1x:Number, v1y:Number, v2x:Number, v2y:Number):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-</table>
-</div>
-<a name="constantSummary"></a><a name="protectedConstantSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Constants</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedConstant" id="hideInheritedProtectedConstant">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedConstant');" href="#protectedConstantSummary" class="showHideLink"><img src="../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Constants</a>
-</div>
-<div class="showInheritedProtectedConstant" id="showInheritedProtectedConstant">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedConstant');" href="#protectedConstantSummary" class="showHideLink"><img src="../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Constants</a>
-</div>
-</div>
-<table id="summaryTableProtectedConstant" class="summaryTable hideInheritedProtectedConstant" cellpadding="3" cellspacing="0">
+<div class="summaryTableTitle">Public Constants</div>
+<table id="summaryTableConstant" class="summaryTable " cellpadding="3" cellspacing="0">
 <tr>
 <th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
-<tr class="hideInheritedProtectedConstant">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oOffset">m_oOffset</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr class="hideInheritedProtectedConstant">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BitmapMaterial.html#m_oTiling">m_oTiling</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="BitmapMaterial.html">BitmapMaterial</a></td>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#DEFAULT_FILL_COLOR">DEFAULT_FILL_COLOR</a> : uint = 0<div class="summaryTableDescription">[static]
+   Default color used to draw the bitmapdata content.</div>
+</td><td class="summaryTableOwnerCol">MovieMaterial</td>
 </tr>
 </table>
 </div>
@@ -409,26 +276,15 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
-<a name="DEFAULT_FILL_COLOR"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">DEFAULT_FILL_COLOR</td><td class="detailHeaderType">property</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public static var DEFAULT_FILL_COLOR:uint = 0</code><p>
-   Default color used to draw the bitmapdata content with.
-   In case you need a specific color, change  this value at your application initialization
-   </p></div>
 <a name="movie"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">movie</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">movie</td><td class="detailHeaderType">property</td>
 </tr>
 </table>
 <div class="detailBody">
 <code>movie:Sprite</code>&nbsp;&nbsp;[read-only]<p>
-   Get the movieclip used for the material
+   Get the sprite used for the material.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get movie():Sprite</code>
@@ -451,101 +307,58 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oMovie</span>:Sprite</code> &mdash;  The Movieclip to be shown by this material
+<td width="20px"></td><td><code><span class="label">p_oMovie</span>:Sprite</code> &mdash;  The Movieclip to be shown by this material.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nUpdateMS</span>:uint</code> (default = <code>40</code>)<code></code> &mdash; The update interval
+<td width="20px"></td><td><code><span class="label">p_nUpdateMS</span>:uint</code> (default = <code>40</code>)<code></code> &mdash; The update interval.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash; The material attributes
+<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash;  The material attributes.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_bRemoveTransparentBorder</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Remove the transparent border
+<td width="20px"></td><td><code><span class="label">p_bRemoveTransparentBorder</span>:Boolean</code> (default = <code>false</code>)<code></code> &mdash; Remove the transparent border.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nHeight</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; desired width ( chunk the movieclip )
+<td width="20px"></td><td><code><span class="label">p_nHeight</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  Desired width ( chunk the movieclip )
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nWidth</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; desired height ( chunk the movieclip )
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nWidth</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  Desired height ( chunk the movieclip )
+      </td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html" target="">sandy.materials.attributes.MaterialAttributes</a>
+</div>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
-<a name="renderPolygon()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderPolygon</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function renderPolygon(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</code><p>
-   Renders this material on the face it dresses.
-      </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code> &mdash;  The current scene
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code> &mdash; The face to be rendered
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_mcContainer</span>:Sprite</code> &mdash; The container to draw on
-   </td>
-</tr>
-</table>
-</div>
-<a name="setTransparency()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">setTransparency</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function setTransparency(p_nValue:Number):void</code><p>
-   Changes the transparency of the texture.
-      </p><p>The passed value is the percentage of opacity.</p>
-      <span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_nValue</span>:Number</code> &mdash;  A value between 0 and 1. (automatically constrained)
-   </td>
-</tr>
-</table>
-</div>
 <a name="start()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">start</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">start</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
 </tr>
 </table>
 <div class="detailBody">
@@ -562,6 +375,19 @@ showHideInherited();
 <div class="detailBody">
 <code>public function stop():void</code><p>
    Call this method is case you would like to stop the automatic MovieMaterial texture update.
+   </p></div>
+<a name="constantDetail"></a>
+<div class="detailSectionHeader">Constant detail</div>
+<a name="DEFAULT_FILL_COLOR"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">DEFAULT_FILL_COLOR</td><td class="detailHeaderType">constant</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const DEFAULT_FILL_COLOR:uint = 0</code><p>
+   Default color used to draw the bitmapdata content.
+   In case you need a specific color, change this value at your application initialization.
    </p></div>
 <br>
 <br>

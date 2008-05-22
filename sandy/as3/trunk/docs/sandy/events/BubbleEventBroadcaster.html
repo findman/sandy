@@ -56,7 +56,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#parent">parent</a> : <a href="../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   The parent of this broadcaster.</div>
 </td><td class="summaryTableOwnerCol">BubbleEventBroadcaster</td>
 </tr>
 </table>
@@ -84,54 +85,52 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    Constructor.</div>
 </td><td class="summaryTableOwnerCol">BubbleEventBroadcaster</td>
 </tr>
-<tr class="hideInheritedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="EventBroadcaster.html#_broadcastEvent()">_broadcastEvent</a>(c:Dictionary, e:Event):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
-</tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#addChild()">addChild</a>(child:<a href="BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>):void</div>
 <div class="summaryTableDescription">
-   Starts receiving bubble events from passed-in child.</div>
+   Starts receiving bubble events from specified child.</div>
 </td><td class="summaryTableOwnerCol">BubbleEventBroadcaster</td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#addEventListener()">addEventListener</a>(type:String, listener:Object, ... rest):Boolean</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Adds a listener to the event broadcaster.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#broadcastEvent()">broadcastEvent</a>(e:Event):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Broadcasts an event.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#getListenerCollection()">getListenerCollection</a>(type:String = null):Dictionary</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns listeners in the event broadcaster of the given type.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#hasListenerCollection()">hasListenerCollection</a>(type:String):Boolean</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Determines whether the event broadcaster has a certain type of event registered to it.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#isRegistered()">isRegistered</a>(listener:Object, type:String = null):Boolean</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Determines whether a listener is registered to the event broadcaster.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="">
@@ -139,21 +138,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#removeChild()">removeChild</a>(child:<a href="BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>):void</div>
 <div class="summaryTableDescription">
-   Stops receiving bubble events from passed-in child.</div>
+   Stops receiving bubble events from specified child.</div>
 </td><td class="summaryTableOwnerCol">BubbleEventBroadcaster</td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#removeEventListener()">removeEventListener</a>(type:String, listener:Object):Boolean</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Removes a listener from the event broadcaster.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="EventBroadcaster.html#removeListenerCollection()">removeListenerCollection</a>(type:String):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Removes listeners from the event broadcaster of the given type.</div>
 </td><td class="summaryTableOwnerCol"><a href="EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 </table>
@@ -172,7 +173,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>parent:<a href="../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>parent:<a href="../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>&nbsp;&nbsp;[read-write]<p>
+   The parent of this broadcaster.
+      </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get parent():<a href="../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>
 <br>
@@ -201,7 +204,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function addChild(child:<a href="BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>):void</code><p>
-   Starts receiving bubble events from passed-in child.
+   Starts receiving bubble events from specified child.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -218,9 +221,9 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function removeChild(child:<a href="BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>):void</code><p>
-   Stops receiving bubble events from passed-in child.
-   FIXME : This method has very bad implementation and disabled for the moment
-      </p><span class="label">Parameters</span>
+   Stops receiving bubble events from specified child.
+   </p><p>[<strong>ToDo</strong>: This method has very bad implementation and disabled for the moment. ]</p>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">child</span>:<a href="BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code> &mdash; A BubbleEventBroadcaster instance that will stop sending bubble events.

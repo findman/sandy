@@ -39,8 +39,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   ATransformable object to tween
-   </td>
+   ATransformable object to tween.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html#OBJ_CAMERA">OBJ_CAMERA</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html">Parser3DSChunkTypes</a></td>
@@ -83,7 +82,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Offset to change the viewport center.</td>
+   A point representing the offset to change the view port center.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#event:onFailEVENT">onFailEVENT</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when parsing fails.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#event:onInitEVENT">onInitEVENT</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when parsing is complete.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#_onInteraction()">_onInteraction</a>(p_oEvt) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -104,6 +117,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
 <td width="20"></td><td></td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#event:onLoadEVENT">onLoadEVENT</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when the file starts loading.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html#onlySpecular">onlySpecular</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html">PhongAttributes</a></td>
 </tr>
 <tr>
@@ -111,18 +131,25 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
    Flag for rendering mode.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#event:onParsingEVENT">onParsingEVENT</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when a parser reads the next line of data in a file.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#ON_PLANE">ON_PLANE</a> &mdash; Constant static property in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Defines the numeric value 0
-   </td>
+   Specifies a vector is on a plane.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html#onProgress()">onProgress</a>(p_oEvt) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html">AParser</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#event:onProgressEVENT">onProgressEVENT</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+ Dispatched when data is received as the parsing progresses.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#_onTextureInteraction()">_onTextureInteraction</a>(p_oEvt) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -154,16 +181,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Initial "out" vector
-   </td>
+   Initial "out" vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/RotationUtil.html#out1">out1</a> &mdash; Property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/RotationUtil.html">RotationUtil</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Final "out" vector
-   </td>
+   Final "out" vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html#OUTLINE">OUTLINE</a> &mdash; Constant static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html">MaterialType</a></td>
@@ -192,13 +217,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("OÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   OUTSIDE means that the object is completely outside the frustum, and should not be rendered..</td>
+   Specifies that the object completely outside the frustum and should not be rendered.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#OUTSIDE">OUTSIDE</a> &mdash; Constant static property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  Alias of CullingState.OUTSIDE.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/interaction/class-list.html');" href="sandy/core/interaction/TextLink.html#owner">owner</a> &mdash; Property in class sandy.core.interaction.<a onclick="javascript:loadClassListFrame('sandy/core/interaction/class-list.html');" href="sandy/core/interaction/TextLink.html">TextLink</a></td>

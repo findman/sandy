@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="BitmapMaterial,sandy.materials.BitmapMaterial,graphics,m_oCmf,m_oOffset,m_oPoint,m_oPolygonMatrixMap,m_oTexture,m_oTiling,m_orgTexture,map,matrix,maxRecurssionDepth,polygon,precision,smooth,texture,alpha,_createTextureMatrix,_tesselatePolygon,init,renderPolygon,renderRec,renderTriangle,setTiling,setTransparency,toString,unlink" name="keywords">
+<meta content="BitmapMaterial,sandy.materials.BitmapMaterial,maxRecurssionDepth,precision,smooth,alpha,texture,init,setTiling,setTransparency,toString" name="keywords">
 <title>sandy.materials.BitmapMaterial</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 <td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/materials/BitmapMaterial.html&amp;sandy/materials/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;BitmapMaterial</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;BitmapMaterial</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,7 +27,7 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class BitmapMaterial"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class BitmapMaterial"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
@@ -48,7 +48,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  Displays a bitmap on the faces of a 3D shape..
+  Displays a bitmap on the faces of a 3D shape.
     <p></p>
 <br>
 <hr>
@@ -70,8 +70,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#alpha">alpha</a> : Number<div class="summaryTableDescription">
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</div>
+   Indicates the alpha transparency value of the material.</div>
 </td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -86,27 +85,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#flags">flags</a> : uint<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#flags">flags</a> : uint<div class="summaryTableDescription">
+   Contains specific material flags.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#graphics">graphics</a> : Graphics<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#id">id</a> : Number<div class="summaryTableDescription">
-   The unique id of this material
-   </div>
+   The unique id of this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#lightingEnable">lightingEnable</a> : Boolean = false<div class="summaryTableDescription">
-   Specify is the material can receive light and apply the light attributes if specified.</div>
+   Specifies if the material can receive light and have light attributes applied to it.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#map">map</a> : Matrix<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#maxRecurssionDepth">maxRecurssionDepth</a> : uint = 5<div class="summaryTableDescription">
@@ -117,11 +108,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#modified">modified</a> : Boolean<div class="summaryTableDescription">
    The modified state of this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#polygon">polygon</a> : <a href="../core/data/Polygon.html">Polygon</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#precision">precision</a> : uint = 0<div class="summaryTableDescription">
@@ -135,13 +121,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#smooth">smooth</a> : Boolean = false<div class="summaryTableDescription">
-   This property enable smooth bitmap rendering when set to true.</div>
+   This property enables smooth bitmap rendering when set to true.</div>
 </td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#texture">texture</a> : BitmapData<div class="summaryTableDescription">
-   The texture ( bitmap ) of this material
-   </div>
+   The texture ( bitmap ) of this material.</div>
 </td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -152,67 +137,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#useVertexNormal">useVertexNormal</a> : Boolean = false<div class="summaryTableDescription">
-   Specify if the material use the vertex normal information
-   Default value is set to false.</div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedProperty" id="hideInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Properties</a>
-</div>
-<div class="showInheritedProtectedProperty" id="showInheritedProtectedProperty">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedProperty');" href="#protectedPropertySummary" class="showHideLink"><img src="../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Properties</a>
-</div>
-</div>
-<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#matrix">matrix</a> : Matrix<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_bModified">m_bModified</a> : Boolean<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_nFlags">m_nFlags</a> : uint = 0<div class="summaryTableDescription">
-   DO NOT TOUCH THIS PROPERTY UNLESS YOU PERFECTLY KNOW WHAT YOU ARE DOING.</div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oCmf">m_oCmf</a> : ColorMatrixFilter<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oPoint">m_oPoint</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oPolygonMatrixMap">m_oPolygonMatrixMap</a> : Dictionary<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_orgTexture">m_orgTexture</a> : BitmapData<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oTexture">m_oTexture</a> : BitmapData<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#m_oType">m_oType</a> : <a href="../materials/MaterialType.html">MaterialType</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Material.html#_useLight">_useLight</a> : Boolean = false<div class="summaryTableDescription"></div>
+   Specify if the material use the vertex normal information.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 </table>
@@ -244,14 +169,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="Material.html#begin()">begin</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls begin method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="Material.html#finish()">finish</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Calls finish method of the MaterialAttributes associated with this material.</div>
 </td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="">
@@ -259,17 +186,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#init()">init</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
 <div class="summaryTableDescription">
-   Initiates this material.</div>
+   </div>
 </td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#renderPolygon()">renderPolygon</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</div>
+<a class="signatureLink" href="Material.html#renderPolygon()">renderPolygon</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</div>
 <div class="summaryTableDescription">
-   Renders this material on the face it dresses
-      </div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
+   Renders the polygon dress in this material.</div>
+</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -299,69 +225,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">BitmapMaterial</td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#unlink()">unlink</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-</table>
-</div>
-<a name="protectedMethodSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Methods</div>
-<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_createTextureMatrix()">_createTextureMatrix</a>(p_aUv:Array):Matrix</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_tesselatePolygon()">_tesselatePolygon</a>(p_aPoints:Array, p_aUv:Array):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#renderRec()">renderRec</a>(ta:Number, tb:Number, tc:Number, td:Number, tx:Number, ty:Number, ax:Number, ay:Number, az:Number, bx:Number, by:Number, bz:Number, cx:Number, cy:Number, cz:Number):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#renderTriangle()">renderTriangle</a>(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number, v0x:Number, v0y:Number, v1x:Number, v1y:Number, v2x:Number, v2y:Number):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-</table>
-</div>
-<a name="constantSummary"></a><a name="protectedConstantSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Constants</div>
-<table id="summaryTableProtectedConstant" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oOffset">m_oOffset</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oTiling">m_oTiling</a> : Point<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BitmapMaterial</td>
+<a class="signatureLink" href="Material.html#unlink()">unlink</a>(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</div>
+<div class="summaryTableDescription">
+   Calls unlink method of the MaterialAttributes associated with this material.</div>
+</td><td class="summaryTableOwnerCol"><a href="Material.html">Material</a></td>
 </tr>
 </table>
 </div>
@@ -380,41 +254,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>alpha:Number</code>&nbsp;&nbsp;[read-write]<p>
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.
-   </p><span class="label">Implementation</span>
+   Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+      </p><p>The default value is <code>1.0</code>.</p>
+<span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get alpha():Number</code>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set alpha(value:Number):void</code>
 <br>
-</div>
-<a name="graphics"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">graphics</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var graphics:Graphics</code>
-</div>
-<a name="map"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">map</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var map:Matrix</code>
-</div>
-<a name="matrix"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">matrix</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var matrix:Matrix</code>
 </div>
 <a name="maxRecurssionDepth"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -428,60 +275,6 @@ showHideInherited();
    The bigger the number is, the more accurate the result will be.
    Try to change this value to fits your needs to obtain the best performance.
    </p></div>
-<a name="m_oCmf"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oCmf</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oCmf:ColorMatrixFilter</code>
-</div>
-<a name="m_oPoint"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oPoint</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oPoint:Point</code>
-</div>
-<a name="m_oPolygonMatrixMap"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oPolygonMatrixMap</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oPolygonMatrixMap:Dictionary</code>
-</div>
-<a name="m_orgTexture"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_orgTexture</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_orgTexture:BitmapData</code>
-</div>
-<a name="m_oTexture"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oTexture</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oTexture:BitmapData</code>
-</div>
-<a name="polygon"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">polygon</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var polygon:<a href="../core/data/Polygon.html">Polygon</a></code>
-</div>
 <a name="precision"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -505,7 +298,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var smooth:Boolean = false</code><p>
-   This property enable smooth bitmap rendering when set to true.
+   This property enables smooth bitmap rendering when set to true.
    The default value is set to false to have the best performance first.
    Enable this property have a performance impact, use it warefully
    </p></div>
@@ -517,7 +310,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>texture:BitmapData</code>&nbsp;&nbsp;[read-write]<p>
-   The texture ( bitmap ) of this material
+   The texture ( bitmap ) of this material.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get texture():BitmapData</code>
@@ -538,17 +331,17 @@ showHideInherited();
    Creates a new BitmapMaterial.
    </p><p>Please note that we ue internally a copy of the constructor bitmapdata. Thatea mns in case you need to access this bitmapdata, you can't just use the same reference
    but you shall use the BitmapMaterial#texture getter property to make it work.</p>
-   <span class="label">Parameters</span>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oTexture</span>:BitmapData</code> (default = <code>null</code>)<code></code> &mdash;  The bitmapdata for this material
+<td width="20px"></td><td><code><span class="label">p_oTexture</span>:BitmapData</code> (default = <code>null</code>)<code></code> &mdash; The bitmapdata for this material.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash; The attributes for this material
+<td width="20px"></td><td><code><span class="label">p_oAttr</span>:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a></code> (default = <code>null</code>)<code></code> &mdash;  The attributes for this material.
    </td>
 </tr>
 <tr>
@@ -556,276 +349,31 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">p_nPrecision</span>:uint</code> (default = <code>0</code>)<code></code> &mdash; The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
-   </td>
+      </td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="attributes/MaterialAttributes.html" target="">sandy.materials.attributes.MaterialAttributes</a>
+</div>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
-<a name="_createTextureMatrix()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_createTextureMatrix</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _createTextureMatrix(p_aUv:Array):Matrix</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_aUv</span>:Array</code></td>
-</tr>
-</table>
-<p></p>
-<span class="label">Returns</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20"></td><td><code>Matrix</code></td>
-</tr>
-</table>
-</div>
-<a name="_tesselatePolygon()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_tesselatePolygon</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _tesselatePolygon(p_aPoints:Array, p_aUv:Array):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_aPoints</span>:Array</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_aUv</span>:Array</code></td>
-</tr>
-</table>
-</div>
 <a name="init()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">init</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">init</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
 </tr>
 </table>
 <div class="detailBody">
 <code>public override function init(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</code><p>
-   Initiates this material.
-      </p><span class="label">Parameters</span>
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code> &mdash; The face dressed by this material
    </td>
-</tr>
-</table>
-</div>
-<a name="renderPolygon()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderPolygon</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function renderPolygon(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_mcContainer:Sprite):void</code><p>
-   Renders this material on the face it dresses
-      </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../core/Scene3D.html">Scene3D</a></code> &mdash;  The current scene
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code> &mdash; The face to be rendered
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_mcContainer</span>:Sprite</code> &mdash; The container to draw on
-   </td>
-</tr>
-</table>
-</div>
-<a name="renderRec()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderRec</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function renderRec(ta:Number, tb:Number, tc:Number, td:Number, tx:Number, ty:Number, ax:Number, ay:Number, az:Number, bx:Number, by:Number, bz:Number, cx:Number, cy:Number, cz:Number):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">ta</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">tb</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">tc</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">td</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">tx</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">ty</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">ax</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">ay</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">az</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">bx</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">by</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">bz</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">cx</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">cy</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">cz</span>:Number</code></td>
-</tr>
-</table>
-</div>
-<a name="renderTriangle()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderTriangle</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function renderTriangle(a:Number, b:Number, c:Number, d:Number, tx:Number, ty:Number, v0x:Number, v0y:Number, v1x:Number, v1y:Number, v2x:Number, v2y:Number):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">a</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">b</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">c</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">d</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">tx</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">ty</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v0x</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v0y</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v1x</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v1y</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v2x</span>:Number</code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">v2y</span>:Number</code></td>
 </tr>
 </table>
 </div>
@@ -888,48 +436,16 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function toString():String</code>
-<p></p>
+<code>public function toString():String</code><p>
+   Returns a string representation of this object.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code></td>
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
+   </td>
 </tr>
 </table>
-</div>
-<a name="unlink()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">unlink</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function unlink(p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oPolygon</span>:<a href="../core/data/Polygon.html">Polygon</a></code></td>
-</tr>
-</table>
-</div>
-<a name="constantDetail"></a>
-<div class="detailSectionHeader">Constant detail</div>
-<a name="m_oOffset"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oOffset</td><td class="detailHeaderType">constant</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected const m_oOffset:Point</code>
-</div>
-<a name="m_oTiling"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oTiling</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected const m_oTiling:Point</code>
 </div>
 <br>
 <br>

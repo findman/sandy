@@ -57,7 +57,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#clear()">clear</a>(p_sStr:String, p_aExpand:Array):String</div>
 <div class="summaryTableDescription">[static]
-   Removes '\r' '\n' and replaces multiple spaces with a single space.</div>
+   Strips &quot;\r&quot; and &quot;\n&quot; characters from a string and removes consecutive spaces.</div>
 </td><td class="summaryTableOwnerCol">StringUtil</td>
 </tr>
 <tr class="">
@@ -89,7 +89,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#getBlockRange()">getBlockRange</a>(p_aPairs:Array, p_nIndex:Number):Array</div>
 <div class="summaryTableDescription">[static]
-   Returns The start and end indices for a substring, analyzed by findBlockIndex.</div>
+   Returns the start and end indices for a substring, analyzed by findBlockIndex.</div>
 </td><td class="summaryTableOwnerCol">StringUtil</td>
 </tr>
 <tr class="">
@@ -113,7 +113,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#indexTimes()">indexTimes</a>(p_sStr:String, p_sSubstr:String, p_nOccur:Number, p_nStart:Number):Number</div>
 <div class="summaryTableDescription">[static]
-   Returns the index of the N:th occurance of sub string.</div>
+   Returns the index of the Nth occurance of sub string.</div>
 </td><td class="summaryTableOwnerCol">StringUtil</td>
 </tr>
 <tr class="">
@@ -141,26 +141,27 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function clear(p_sStr:String, p_aExpand:Array):String</code><p>
-   Removes '\r' '\n' and replaces multiple spaces with a single space.
+   Strips &quot;\r&quot; and &quot;\n&quot; characters from a string and removes consecutive spaces.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The string to clean
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The string to modify.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aExpand</span>:Array</code> &mdash; Other strings you want to clear out
-   </td>
+<td width="20px"></td><td><code><span class="label">p_aExpand</span>:Array</code> &mdash; Other strings you want to clear out.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code></td>
+<td width="20"></td><td><code>String</code> &mdash;   The modified string.
+   </td>
 </tr>
 </table>
 </div>
@@ -177,7 +178,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The pattern to clear out
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The pattern to clear out.
    </td>
 </tr>
 <tr>
@@ -185,7 +186,7 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">p_sRepeat</span>:String</code> &mdash; Replace chars, default is a space.
-   </td>
+      </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
@@ -198,7 +199,8 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code></td>
+<td width="20"></td><td><code>String</code> &mdash;   The modified string.
+   </td>
 </tr>
 </table>
 </div>
@@ -213,38 +215,38 @@ showHideInherited();
    Returns pairs of start and end indices of a block in a source string.
       </p><p>The target string is searched for blocks of text between a start and and an end delimiter string.<br/>
    The start and end indices into the searched string, for each found block is stored in a two dimensional array.<br />
-   All inices are returned as an array opf index pairs.</p>
+   All inices are returned as an array of index pairs.</p>
       <p>array struct:</p>
    <p>array[0] = [Block_Start_String_Length, Block_End_String_Length]</p>
    <p>array[1] = [Start_Index_1, End_Index_1]</p>
    <p>array[x] = [Start_Index_x, End_Index_x]</p>
-      param p_sStr  The source string
-   param p_sStart Block start with
-   param p_sEnd  Block end with
-   return  An array containtng all the start and end indices
-   <span class="label">Parameters</span>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code></td>
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The string to search.
+   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStart</span>:String</code></td>
+<td width="20px"></td><td><code><span class="label">p_sStart</span>:String</code> &mdash;  Block start with.
+   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sEnd</span>:String</code></td>
+<td width="20px"></td><td><code><span class="label">p_sEnd</span>:String</code> &mdash;  Block end with.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code></td>
+<td width="20"></td><td><code>Array</code> &mdash;  An array containtng all the start and end indices.
+   </td>
 </tr>
 </table>
 </div>
@@ -260,29 +262,29 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; Source string
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The string to search.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash; Index pairs created by findBlockIndex
+<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash;  Index pairs created by findBlockIndex.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nIndex</span>:Number</code> &mdash; Start index into the string of the block to search for
+<td width="20px"></td><td><code><span class="label">p_nIndex</span>:Number</code> &mdash;  Start index into the string of the block to search for.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_bNoSymbol</span>:Boolean</code> &mdash; Do not include start and end symbols 
-   </td>
+<td width="20px"></td><td><code><span class="label">p_bNoSymbol</span>:Boolean</code> &mdash; Do not include start and end symbols.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -302,20 +304,20 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function getBlockRange(p_aPairs:Array, p_nIndex:Number):Array</code><p>
-   Returns The start and end indices for a substring, analyzed by findBlockIndex.
+   Returns the start and end indices for a substring, analyzed by findBlockIndex.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash; Index pairs created by findBlockIndex
+<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash; Index pairs created by findBlockIndex.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nIndex</span>:Number</code> &mdash; Start index into the string of the block of interest
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nIndex</span>:Number</code> &mdash; Start index into the string of the block of interest.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -341,29 +343,29 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  Source string
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The string to search.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash;  Index pairs created by findBlockIndex
+<td width="20px"></td><td><code><span class="label">p_aPairs</span>:Array</code> &mdash;  Index pairs created by findBlockIndex.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_bWithSymbol</span>:Boolean</code> &mdash;  Include start and end symbols if set to true
-   </td>
+<td width="20px"></td><td><code><span class="label">p_bWithSymbol</span>:Boolean</code> &mdash; Include start and end symbols if set to true.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code> &mdash;   All blocks between the start and end indices
+<td width="20"></td><td><code>Array</code> &mdash;   All blocks between the start and end indices.
    </td>
 </tr>
 </table>
@@ -382,22 +384,22 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The string we are going search for patterns.
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The string to search.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStart</span>:String</code> &mdash; The start delimiter
+<td width="20px"></td><td><code><span class="label">p_sStart</span>:String</code> &mdash; The start delimiter.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sEnd</span>:String</code> &mdash; The end delimiter
-   </td>
+<td width="20px"></td><td><code><span class="label">p_sEnd</span>:String</code> &mdash; The end delimiter.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -417,40 +419,40 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function indexTimes(p_sStr:String, p_sSubstr:String, p_nOccur:Number, p_nStart:Number):Number</code><p>
-   Returns the index of the N:th occurance of sub string.
+   Returns the index of the Nth occurance of sub string.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; Source string
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash; The string to search.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sSubstr</span>:String</code> &mdash; Sub string you want find
+<td width="20px"></td><td><code><span class="label">p_sSubstr</span>:String</code> &mdash; Sub string you want find.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nOccur</span>:Number</code> &mdash; The occurance of the substriong to find
+<td width="20px"></td><td><code><span class="label">p_nOccur</span>:Number</code> &mdash; The occurance of the sub string to find.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nStart</span>:Number</code> &mdash; Start index for the search
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nStart</span>:Number</code> &mdash; Start index for the search.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  Start index of the search sub string
+<td width="20"></td><td><code>Number</code> &mdash;  Start index of the search sub string.
    </td>
 </tr>
 </table>
@@ -467,29 +469,29 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The string to modify ( target )
+<td width="20px"></td><td><code><span class="label">p_sStr</span>:String</code> &mdash;  The string to modify.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sOld</span>:String</code> &mdash;  The old pattern to replace
+<td width="20px"></td><td><code><span class="label">p_sOld</span>:String</code> &mdash;  The pattern to replace.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sNew</span>:String</code> &mdash;  The new pattern you want to replace with
-   </td>
+<td width="20px"></td><td><code><span class="label">p_sNew</span>:String</code> &mdash;  What to replace the pattern with.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash;  The modified string.
+<td width="20"></td><td><code>String</code> &mdash;   The modified string.
    </td>
 </tr>
 </table>

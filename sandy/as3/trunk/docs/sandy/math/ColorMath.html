@@ -65,7 +65,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#calculateLitColour()">calculateLitColour</a>(col:Number, lightStrength:Number):Number</div>
 <div class="summaryTableDescription">[static]
-   Calculate the colour for a particular lighting strength.</div>
+   Calculate the color for a particular lighting strength.</div>
 </td><td class="summaryTableOwnerCol">ColorMath</td>
 </tr>
 <tr class="">
@@ -73,7 +73,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#hex2rgb()">hex2rgb</a>(hex:Number):Object</div>
 <div class="summaryTableDescription">[static]
-   Converts a hexadecimal color value to rgb components
+   Converts a hexadecimal color value to RGB components
    
    </div>
 </td><td class="summaryTableOwnerCol">ColorMath</td>
@@ -91,7 +91,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#rgb2hex()">rgb2hex</a>(r:Number, g:Number, b:Number):Number</div>
 <div class="summaryTableDescription">[static]
-   Converts color component values ( rgb ) to one hexadecimal value.</div>
+   Converts color component values ( RGB ) to one hexadecimal value.</div>
 </td><td class="summaryTableOwnerCol">ColorMath</td>
 </tr>
 </table>
@@ -123,15 +123,15 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">a</span>:Number</code> &mdash; New alpha.  ( 0 - 1 )
-   </td>
+<td width="20px"></td><td><code><span class="label">a</span>:Number</code> &mdash; New alpha ( 0 - 1 ).
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>uint</code> &mdash; The hexadecimal value
+<td width="20"></td><td><code>uint</code> &mdash; The hexadecimal value of the altered color.
    </td>
 </tr>
 </table>
@@ -144,11 +144,10 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function calculateLitColour(col:Number, lightStrength:Number):Number</code><p>
-   Calculate the colour for a particular lighting strength.
-   This converts the supplied pre-multiplied RGB colour into HSL
-   then modifies the L according to the light strength. 
-   The result is then mapped back into the RGB space.
-   </p><span class="label">Parameters</span>
+   Calculate the color for a particular lighting strength.
+   </p><p>This converts the supplied pre-multiplied RGB color into HSL then modifies the L according to the light strength. 
+   The result is then mapped back into the RGB space.</p>
+   <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">col</span>:Number</code></td>
@@ -176,20 +175,20 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function hex2rgb(hex:Number):Object</code><p>
-   Converts a hexadecimal color value to rgb components
+   Converts a hexadecimal color value to RGB components
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">hex</span>:Number</code> &mdash; hexadecimal color.
-   </td>
+<td width="20px"></td><td><code><span class="label">hex</span>:Number</code> &mdash; Hexadecimal color.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Object</code> &mdash; The rgb color of the hexadecimal given.
+<td width="20"></td><td><code>Object</code> &mdash; The RGB color of the hexadecimal.
    </td>
 </tr>
 </table>
@@ -215,7 +214,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Object</code> &mdash; The normalized rgb components ( 0 - 1.0 )
+<td width="20"></td><td><code>Object</code> &mdash; The normalized rgb components ( 0 - 1 ).
   </td>
 </tr>
 </table>
@@ -228,34 +227,34 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function rgb2hex(r:Number, g:Number, b:Number):Number</code><p>
-   Converts color component values ( rgb ) to one hexadecimal value.
+   Converts color component values ( RGB ) to one hexadecimal value.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">r</span>:Number</code> &mdash; Red Color.  ( 0 - 255 )
+<td width="20px"></td><td><code><span class="label">r</span>:Number</code> &mdash; Red color ( 0 - 255 ).
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">g</span>:Number</code> &mdash; Green Color.  ( 0 - 255 )
+<td width="20px"></td><td><code><span class="label">g</span>:Number</code> &mdash; Green color ( 0 - 255 ).
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">b</span>:Number</code> &mdash; Blue Color.  ( 0 - 255 )
-   </td>
+<td width="20px"></td><td><code><span class="label">b</span>:Number</code> &mdash; Blue color ( 0 - 255 ).
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash; The hexadecimal value
+<td width="20"></td><td><code>Number</code> &mdash; The hexadecimal value of the RGB color.
    </td>
 </tr>
 </table>

@@ -40,7 +40,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   Represents the appearance property of the visible objects.
-    <p>The appearance holds the front and back materials of the object</p>
+    <p>The appearance holds the front and back materials of the object.</p>
     <p></p>
 <br>
 <hr>
@@ -55,26 +55,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#backMaterial">backMaterial</a> : <a href="../materials/Material.html">Material</a>
 <div class="summaryTableDescription">
-   The back material held by this appearance
-      </div>
+   The back material held by this appearance.</div>
 </td><td class="summaryTableOwnerCol">Appearance</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flags">flags</a> : uint<div class="summaryTableDescription">[read-only]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flags">flags</a> : uint<div class="summaryTableDescription">[read-only]
+  Returns the flags for the front and back materials.</div>
 </td><td class="summaryTableOwnerCol">Appearance</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#frontMaterial">frontMaterial</a> : <a href="../materials/Material.html">Material</a>
 <div class="summaryTableDescription">
-   The front material held by this appearance
-      </div>
+   The front material held by this appearance.</div>
 </td><td class="summaryTableOwnerCol">Appearance</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#useVertexNormal">useVertexNormal</a> : Boolean<div class="summaryTableDescription">[read-only]
-   Get the use of vertex normal feature of the appearance
-      <p>true ONLY ONE of the materials is using this feature</p>
-   </div>
+   Get the use of vertex normal feature of the appearance.</div>
 </td><td class="summaryTableOwnerCol">Appearance</td>
 </tr>
 </table>
@@ -119,8 +116,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>backMaterial:<a href="../materials/Material.html">Material</a></code>&nbsp;&nbsp;[read-write]<p>
-   The back material held by this appearance
-      </p><span class="label">Implementation</span>
+   The back material held by this appearance.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get backMaterial():<a href="../materials/Material.html">Material</a></code>
 <br>
@@ -134,10 +131,18 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>flags:uint</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<code>flags:uint</code>&nbsp;&nbsp;[read-only]<p>
+  Returns the flags for the front and back materials.
+    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get flags():uint</code>
 <br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../core/SandyFlags.html" target="">sandy.core.SandyFlags</a>
+</div>
 </div>
 <a name="frontMaterial"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -147,8 +152,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>frontMaterial:<a href="../materials/Material.html">Material</a></code>&nbsp;&nbsp;[read-write]<p>
-   The front material held by this appearance
-      </p><span class="label">Implementation</span>
+   The front material held by this appearance.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get frontMaterial():<a href="../materials/Material.html">Material</a></code>
 <br>
@@ -163,8 +168,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>useVertexNormal:Boolean</code>&nbsp;&nbsp;[read-only]<p>
-   Get the use of vertex normal feature of the appearance
-      </p><p>true ONLY ONE of the materials is using this feature</p>
+   Get the use of vertex normal feature of the appearance.
+      </p><p><b>Note: Only one of the materials is using this feature.</p>
    <span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get useVertexNormal():Boolean</code>
@@ -181,7 +186,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public function Appearance(p_oFront:<a href="Material.html">Material</a> = null, p_oBack:<a href="Material.html">Material</a> = null)</code><p>
    Creates an appearance with front and back materials.
-      </p><p>If no material is passed, the default material for back and front is a default ColorMaterial.<br/>
+      </p><p>If no material is passed, the default material for back and front is a default ColorMaterial.<br />
    If only a front material is passed, it will be used as back material as well.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -194,9 +199,17 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oBack</span>:<a href="Material.html">Material</a></code> (default = <code>null</code>)<code></code> &mdash; The back material
-   </td>
+      </td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../materials/ColorMaterial.html" target="">sandy.materials.ColorMaterial</a>
+<br>
+<a href="../materials/Material.html" target="">sandy.materials.Material</a>
+</div>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
@@ -213,7 +226,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>

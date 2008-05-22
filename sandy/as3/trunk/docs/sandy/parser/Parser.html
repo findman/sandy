@@ -19,7 +19,7 @@
 <td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/parser/Parser.html&amp;sandy/parser/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Parser</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Parser</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,7 +27,7 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Parser"); titleBar_setSubNav(true,false,false,false,false,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Parser"); titleBar_setSubNav(true,false,false,false,true,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
@@ -72,6 +72,55 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 </div>
+<a name="eventSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Events</div>
+<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:onFailEVENT">onFailEVENT</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when parsing fails.</td><td class="summaryTableOwnerCol">Parser</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:onInitEVENT">onInitEVENT</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when parsing is complete.</td><td class="summaryTableOwnerCol">Parser</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:onLoadEVENT">onLoadEVENT</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when the file starts loading.</td><td class="summaryTableOwnerCol">Parser</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:onParsingEVENT">onParsingEVENT</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when a parser reads the next line of data in a file.</td><td class="summaryTableOwnerCol">Parser</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#event:onProgressEVENT">onProgressEVENT</a>
+</div>
+</td><td class="summaryTableDescription summaryTableCol">
+ Dispatched when data is received as the parsing progresses.</td><td class="summaryTableOwnerCol">Parser</td>
+</tr>
+</table>
+</div>
 <a name="constantSummary"></a>
 <div class="summarySection">
 <div class="summaryTableTitle">Public Constants</div>
@@ -81,23 +130,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#ASE">ASE</a> : String = "ASE"<div class="summaryTableDescription">[static]
-   Parameter that is used to specify that the ASE (ASCII Scene Export)
-   Parser should be used
-   </div>
+   Specifies that the ASE (ASCII Scene Export) parser should be used.</div>
 </td><td class="summaryTableOwnerCol">Parser</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#COLLADA">COLLADA</a> : String = "DAE"<div class="summaryTableDescription">[static]
-   Parameter that is used to specify that the COLLADA (COLLAborative 
-   Design Activity ) Parser should be used
-   </div>
+   Specifies that the COLLADA (COLLAborative Design Activity ) parser should be used.</div>
 </td><td class="summaryTableOwnerCol">Parser</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MAX_3DS">MAX_3DS</a> : String = "3DS"<div class="summaryTableDescription">[static]
-   Parameter that is used to specify that the 3DS (3D Studio) Parser 
-   should be used
-   </div>
+   Specifies that the 3DS (3D Studio) parser should be used.</div>
 </td><td class="summaryTableOwnerCol">Parser</td>
 </tr>
 </table>
@@ -163,6 +206,67 @@ showHideInherited();
    
    <p></p>
 </div>
+<div class="detailSectionHeader">Event detail</div>
+<a name="event:onFailEVENT"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onFailEVENT</td><td class="detailHeaderType">event&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../parser/ParserEvent.html"><code>sandy.parser.ParserEvent</code></a>
+<br>
+<p></p><p>
+ Dispatched when parsing fails.
+  </p></div>
+<a name="event:onInitEVENT"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onInitEVENT</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../parser/ParserEvent.html"><code>sandy.parser.ParserEvent</code></a>
+<br>
+<p></p><p>
+ Dispatched when parsing is complete.
+  </p></div>
+<a name="event:onLoadEVENT"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onLoadEVENT</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../parser/ParserEvent.html"><code>sandy.parser.ParserEvent</code></a>
+<br>
+<p></p><p>
+ Dispatched when the file starts loading.
+  </p></div>
+<a name="event:onParsingEVENT"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onParsingEVENT</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../parser/ParserEvent.html"><code>sandy.parser.ParserEvent</code></a>
+<br>
+<p></p><p>
+ Dispatched when a parser reads the next line of data in a file.
+  </p></div>
+<a name="event:onProgressEVENT"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">onProgressEVENT</td><td class="detailHeaderType">event&nbsp;</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<span class="label">Event object type: </span><a href="../parser/ParserEvent.html"><code>sandy.parser.ParserEvent</code></a>
+<br>
+<p></p><p>
+ Dispatched when data is received as the parsing progresses.
+  </p></div>
 <a name="constantDetail"></a>
 <div class="detailSectionHeader">Constant detail</div>
 <a name="ASE"></a>
@@ -173,8 +277,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const ASE:String = "ASE"</code><p>
-   Parameter that is used to specify that the ASE (ASCII Scene Export)
-   Parser should be used
+   Specifies that the ASE (ASCII Scene Export) parser should be used.
    </p></div>
 <a name="COLLADA"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -184,8 +287,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const COLLADA:String = "DAE"</code><p>
-   Parameter that is used to specify that the COLLADA (COLLAborative 
-   Design Activity ) Parser should be used
+   Specifies that the COLLADA (COLLAborative Design Activity ) parser should be used.
    </p></div>
 <a name="MAX_3DS"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -195,8 +297,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const MAX_3DS:String = "3DS"</code><p>
-   Parameter that is used to specify that the 3DS (3D Studio) Parser 
-   should be used
+   Specifies that the 3DS (3D Studio) parser should be used.
    </p></div>
 <br>
 <br>

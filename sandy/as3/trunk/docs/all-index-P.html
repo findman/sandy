@@ -58,7 +58,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html#parent">parent</a> &mdash; Property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   The parent of this broadcaster.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html#parse()">parse</a>() &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html">AParser</a></td>
@@ -73,38 +74,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 <tr>
 <td width="20"></td><td>
    This method starts the parsing process.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html#parseData()">parseData</a>(e) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html">AParser</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   This method is called when all files are loaded and initialized
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ASEParser.html#parseData()">parseData</a>(e) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ASEParser.html">ASEParser</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Starts the parsing process
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ColladaParser.html#parseData()">parseData</a>(e) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ColladaParser.html">ColladaParser</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Starts the parsing process
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html#parseData()">parseData</a>(e) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html">Parser3DS</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Starts the parsing process
-   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/package-detail.html">sandy.parser</a></td>
@@ -139,7 +108,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  Events that are used by the Parser classes.</td>
+  Events that are used by the parser classes.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html#ParserEvent()">ParserEvent</a>(p_sType) &mdash; Constructor in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html">ParserEvent</a></td>
@@ -155,28 +124,49 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-     ParserStack utility class
-     <p>An utility class that acts as a parser stack.</td>
+     ParserStack utility class.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#ParserStack()">ParserStack</a>() &mdash; Constructor in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Constructor.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#event:parserstack_complete">parserstack_complete</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when the parsing process is complete.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#event:parserstack_error">parserstack_error</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when an error occurs in the parsing process.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#event:parserstack_progress">parserstack_progress</a> &mdash; Event in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when data is received as the parsing progresses.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html#PARSING">PARSING</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html">ParserEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Parsing is in progress
-   </td>
+   Defines the value of the <code>type</code> property of a <code>onParsingEVENT</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html#percent">percent</a> &mdash; Property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html">ParserEvent</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   The percent of the loading that is complete.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#perform()">perform</a>(p_iOperation:<a href="sandy/core/scenegraph/INodeOperation.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:INodeOperation</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -222,16 +212,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  ???
-    </td>
+  A lightmap used for some of the shaders.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/NumberUtil.html#PI">PI</a> &mdash; Static property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/NumberUtil.html">NumberUtil</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Math constant pi
-   </td>
+   Math constant pi.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html#PIVOT">PIVOT</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html">Parser3DSChunkTypes</a></td>
@@ -303,12 +291,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
    Polygon that has been clicked.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/BitmapMaterial.html#polygon">polygon</a> &mdash; Property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/BitmapMaterial.html">BitmapMaterial</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/package-detail.html">sandy.core.data</a></td>
 </tr>
 <tr>
@@ -346,8 +328,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Defines the numeric value 1
-   </td>
+   Specifies a positive distance from a vector to a plane.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html#POS_TRACK_TAG">POS_TRACK_TAG</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html">Parser3DSChunkTypes</a></td>
@@ -387,19 +368,22 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html#PRECISION">PRECISION</a> &mdash; Constant static property in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html">FastMath</a></td>
 </tr>
 <tr>
-<td width="20"></td><td> Precission.</td>
+<td width="20"></td><td>
+  The precision of the lookup table.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html#PRECISION_DIV_2PI">PRECISION_DIV_2PI</a> &mdash; Constant static property in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html">FastMath</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   <code>PRECISION</code> / <code>TWO_PI</code>.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html#PRECISION_S">PRECISION_S</a> &mdash; Constant static property in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html">FastMath</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   <code>PRECISION</code> - 1.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#precompute()">precompute</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -449,21 +433,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Public progress percent var.</td>
+   The percent of the loading that is complete.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html#PROGRESS">PROGRESS</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserEvent.html">ParserEvent</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-    The load is in progress
-   </td>
+   Defines the value of the <code>type</code> property of a <code>onProgressEVENT</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#PROGRESS">PROGRESS</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Defines the value of the <code>type</code> property of a <code>parserstack_progress</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#projectArray()">projectArray</a>(p_oList) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>

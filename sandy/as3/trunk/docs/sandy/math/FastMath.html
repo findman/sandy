@@ -90,27 +90,33 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#HALF_PI">HALF_PI</a> : Number<div class="summaryTableDescription">[static]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#HALF_PI">HALF_PI</a> : Number<div class="summaryTableDescription">[static]
+   Math constant pi/2.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#initialized">initialized</a> : Boolean<div class="summaryTableDescription">[static]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#initialized">initialized</a> : Boolean<div class="summaryTableDescription">[static]
+   Whether this class has been initialized.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION">PRECISION</a> : int = 0x020000<div class="summaryTableDescription">[static] Precission.</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION">PRECISION</a> : int = 0x020000<div class="summaryTableDescription">[static]
+  The precision of the lookup table.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION_DIV_2PI">PRECISION_DIV_2PI</a> : Number<div class="summaryTableDescription">[static]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION_DIV_2PI">PRECISION_DIV_2PI</a> : Number<div class="summaryTableDescription">[static]
+   <code>PRECISION</code> / <code>TWO_PI</code>.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION_S">PRECISION_S</a> : int = 131071.0<div class="summaryTableDescription">[static]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#PRECISION_S">PRECISION_S</a> : int = 131071.0<div class="summaryTableDescription">[static]
+   <code>PRECISION</code> - 1.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TWO_PI">TWO_PI</a> : Number<div class="summaryTableDescription">[static]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TWO_PI">TWO_PI</a> : Number<div class="summaryTableDescription">[static]
+   Math constant pi&#42;2.</div>
 </td><td class="summaryTableOwnerCol">FastMath</td>
 </tr>
 </table>
@@ -132,11 +138,11 @@ showHideInherited();
 <code>public static function cos(radians:Number):Number</code><p>
    Returns the cosine of a given value, by looking up it's approximation in a
    precomputed table.
-   </p><span class="label">Parameters</span>
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">radians</span>:Number</code> &mdash; The value to cosine.
-   </td>
+      </td>
 </tr>
 </table>
 <p></p>
@@ -158,11 +164,11 @@ showHideInherited();
 <code>public static function sin(radians:Number):Number</code><p>
    Returns the sine of a given value, by looking up it's approximation in a
    precomputed table.
-   </p><span class="label">Parameters</span>
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">radians</span>:Number</code> &mdash; The value to sine.
-   </td>
+      </td>
 </tr>
 </table>
 <p></p>
@@ -184,11 +190,11 @@ showHideInherited();
 <code>public static function tan(radians:Number):Number</code><p>
    Returns the tangent of a given value, by looking up it's approximation in a
    precomputed table.
-   </p><span class="label">Parameters</span>
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">radians</span>:Number</code> &mdash; The value to tan.
-   </td>
+      </td>
 </tr>
 </table>
 <p></p>
@@ -209,8 +215,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const HALF_PI:Number</code>
-</div>
+<code>public static const HALF_PI:Number</code><p>
+   Math constant pi/2.
+   </p></div>
 <a name="initialized"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -218,8 +225,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const initialized:Boolean</code>
-</div>
+<code>public static const initialized:Boolean</code><p>
+   Whether this class has been initialized.
+   </p></div>
 <a name="PRECISION"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -227,7 +235,10 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const PRECISION:int = 0x020000</code><p> Precission. The bigger, the more entries in lookup table so the more accurate results. </p></div>
+<code>public static const PRECISION:int = 0x020000</code><p>
+  The precision of the lookup table.
+  </p><p>The bigger this number, the more entries there are in the lookup table, which gives more accurate results.</p>
+  </div>
 <a name="PRECISION_DIV_2PI"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -235,8 +246,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const PRECISION_DIV_2PI:Number</code>
-</div>
+<code>public static const PRECISION_DIV_2PI:Number</code><p>
+   <code>PRECISION</code> / <code>TWO_PI</code>.
+   </p></div>
 <a name="PRECISION_S"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -244,8 +256,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const PRECISION_S:int = 131071.0</code>
-</div>
+<code>public static const PRECISION_S:int = 131071.0</code><p>
+   <code>PRECISION</code> - 1.
+   </p></div>
 <a name="TWO_PI"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -253,8 +266,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static const TWO_PI:Number</code>
-</div>
+<code>public static const TWO_PI:Number</code><p>
+   Math constant pi&#42;2.
+   </p></div>
 <br>
 <br>
 <hr>

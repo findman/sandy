@@ -131,7 +131,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Starts receiving bubble events from passed-in child.</td>
+   Starts receiving bubble events from specified child.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#addEventListener()">addEventListener</a>(p_sEvent, oL) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -151,7 +151,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html#addEventListener()">addEventListener</a>(type, listener, ... rest) &mdash; Method in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html">EventBroadcaster</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Adds a listener to the event broadcaster.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html#addMatrix()">addMatrix</a>(m2:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html">Matrix4</a></td>
@@ -246,6 +247,20 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td width="20"></td><td> Array of faces composed from vertices </td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#event:afterRender">afterRender</a> &mdash; Event in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+ Dispatched when after BitmapData object is unlocked.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html#AFTER_RENDER">AFTER_RENDER</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Defines the value of the <code>type</code> property of a <code>afterRender</code> event object.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/package-detail.html">sandy.materials.attributes</a></td>
 </tr>
 <tr>
@@ -257,24 +272,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</td>
+   Indicates the alpha transparency value of the material.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/ColorMaterial.html#alpha">alpha</a> &mdash; Property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/ColorMaterial.html">ColorMaterial</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</td>
+   Indicates the alpha transparency value of the material.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/IAlphaMaterial.html#alpha">alpha</a> &mdash; Property in interface sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/IAlphaMaterial.html">IAlphaMaterial</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   The alpha value for this material ( 0 - 1 )
-      Alpha = 0 means fully transparent, alpha = 1 fully opaque.</td>
+   Indicates the alpha transparency value of the material.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LineAttributes.html#alpha">alpha</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/LineAttributes.html">LineAttributes</a></td>
@@ -288,15 +300,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Indicates the alpha transparency value of the line.</td>
+   Indicates the alpha transparency value of the outline.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributesLightMap.html#alphas">alphas</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributesLightMap.html">PhongAttributesLightMap</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   ???
-   </td>
+   An array of an array which contains the alphas of the strata.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#ambient">ambient</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>
@@ -337,13 +348,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#aPlanes">aPlanes</a> &mdash; Property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  An array of planes representing the frustum.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#aPoints">aPoints</a> &mdash; Property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  An array of points representing the frustum.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/PrimitiveFace.html#aPolygons">aPolygons</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/PrimitiveFace.html">PrimitiveFace</a></td>
@@ -414,16 +427,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Are the numbers close enough to be regarded as equal?.</td>
+   Compares two numbers and determines if they are equal.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#ASE">ASE</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Parameter that is used to specify that the ASE (ASCII Scene Export)
-   Parser should be used
-   </td>
+   Specifies that the ASE (ASCII Scene Export) parser should be used.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ASEParser.html">ASEParser</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/package-detail.html">sandy.parser</a></td>
@@ -471,7 +482,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html#attributes">attributes</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/MaterialAttributes.html">MaterialAttributes</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   List of attributes.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html#autoCenter">autoCenter</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a></td>
