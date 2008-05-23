@@ -13,13 +13,13 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-package sandy.materials 
+package sandy.materials
 {
 	/**
 	 * Represents the material types used in Sandy.
 	 * 
-	 * <p>Types are registered here as constant properties.<br/>
-	 * If new materials are added to the Sandy library, they should be refistered here.</p> 
+	 * <p>All materialy types used in Sandy are registered here as constant properties.<br/>
+	 * If new materials are added to the Sandy library, they should be registered here.</p> 
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
@@ -28,37 +28,37 @@ package sandy.materials
 	public class MaterialType
 	{
 		/**
-		 * Constant value representing the default material
+		 * Specifies the default material.
 		 */
 		public static const NONE:MaterialType = new MaterialType("default");
 
 		/**
-		 * Constant value representing the ColorMaterial
+		 * Specifies a ColorMaterial.
 		 */
 		public static const COLOR:MaterialType = new MaterialType("color");
 
 		/**
-		 * Constant value representing the WireFrameMaterial
+		 * Specifies a WireFrameMaterial.
 		 */
 		public static const WIREFRAME:MaterialType = new MaterialType("wireframe");
 
 		/**
-		 * Constant value representing the BitmapMaterial
+		 * Specifies a BitmapMaterial.
 		 */
 		public static const BITMAP:MaterialType = new MaterialType("bitmap");
 
 		/**
-		 * Constant value representing the MovieMaterial
+		 * Specifies a MovieMaterial.
 		 */
 		public static const MOVIE:MaterialType = new MaterialType("movie");
 
 		/**
-		 * Constant value representing the VideoMaterial
+		 * Specifies a VideoMaterial.
 		 */
 		public static const VIDEO:MaterialType = new MaterialType("video");
 
 		/**
-		 * Constant value representing the OutlineMaterial
+		 * Specifies a OutlineMaterial.
 		 */
 		public static const OUTLINE:MaterialType = new MaterialType("outline");
 		

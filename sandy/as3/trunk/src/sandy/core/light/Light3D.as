@@ -39,8 +39,8 @@ package sandy.core.light
 	 /**
 	 * The Light3D class is used for creating the light of the world.
 	 *
-	 * <p>The light in Sandy is a light source at infinity, emitting parallel colored light.<br/>
-	 * The direction of light and the intensity can be varied</p>
+	 * <p>The light in Sandy is a light source at infinity, emitting parallel colored light.
+	 * The direction, color, and intensity of the light can be changes.</p>
 	 *
 	 * @author	Thomas Pfeiffer - kiroukou
 	 * @version	3.0
@@ -49,16 +49,17 @@ package sandy.core.light
 	public class Light3D extends EventDispatcher
 	{
 		/**
-		* Maximum value accepted. If the default value (150) seems too big or too small for you, you can change it.
-		* But be aware that the actual lighting calculations are normalised i.e. 0 -> MAX_POWER becomes 0 -> 1
+		* Maximum value accepted for the power of the light.
+		* Be aware that even if this constant is changed, the actual lighting calculations are normalized
+		* (<code>0</code> - <code>MAX_POWER</code> becomes <code>0</code> -> <code>1</code>).
 		*/
-		public static var MAX_POWER:Number = 150;
+		public static const MAX_POWER:Number = 150;
 
 		/**
 		 * Creates a new light source.
 		 *
 		 * @param p_oD		The direction of the emitted light.
-		 * @param p_nPow	Intensity of the emitted light.
+		 * @param p_nPow	The intensity of the emitted light.
 		 *
 	     * @see sandy.core.data.Vector
 		 */
@@ -174,7 +175,7 @@ package sandy.core.light
 		}
 
 		/**
-		 * Color of the light.
+		 * The color of the light.
 		 */
 		public function get color():uint
 		{

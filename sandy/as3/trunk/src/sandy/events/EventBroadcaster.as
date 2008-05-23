@@ -41,7 +41,7 @@ package sandy.events
 	    }
 
 		/**
-		 * Determines whether a listener is registered to the event broadcaster.
+		 * Determines whether a listener is registered in the event broadcaster.
 		 *
 		 * @param listener	The listener function to check for.
 		 * @param type		The event type of the listener function.

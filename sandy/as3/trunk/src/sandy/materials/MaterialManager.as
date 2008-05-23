@@ -18,10 +18,15 @@ package sandy.materials
 	import sandy.core.Scene3D;
 	
 	/**
-	 * Could a dev please document this? :)
+	 * The MaterialManager class is used to keep track of all materials used in a scene.
+	 *
+	 * @see sandy.core.Scene3D
 	 **/
 	public final class MaterialManager
 	{
+		/**
+		 * Creates a new MaterialManager object.
+		 **/
 		public function MaterialManager()
 		{
 			super();
@@ -29,6 +34,13 @@ package sandy.materials
 
 		private const m_aList:Array = new Array();
 		
+		/**
+		 * Determines whether a material is registered in the material manager.
+		 *
+		 * @param p_oMaterial	The material to check for.
+		 *
+		 * @return Whether the material is registered.
+		 */
 		public function isRegistered( p_oMaterial:Material ):Boolean
 		{
 			var i:int = 0;
@@ -42,23 +54,43 @@ package sandy.materials
 			return false;
 		}
 		
+		/**
+		 * Calls the <code>begin()</code> method of all materials in the material manager.
+		 *
+		 * @param p_oScene	The scene.
+		 */
 		public function begin( p_oScene:Scene3D ):void
 		{
 			for each( var l_oMaterial:Material in m_aList )
 				l_oMaterial.begin( p_oScene );
 		}
 		
+		/**
+		 * Calls the <code>finish()</code> method of all materials in the material manager.
+		 *
+		 * @param p_oScene	The scene.
+		 */
 		public function finish( p_oScene:Scene3D ):void
 		{
 			for each( var l_oMaterial:Material in m_aList )
 				l_oMaterial.finish( p_oScene );
 		}
 		
+		/**
+		 * Registers a material with the material manager.
+		 *
+		 * @param p_oMaterial	The material to register.
+		 */
 		public function register( p_oMaterial:Material ):void
 		{
 			m_aList.push( p_oMaterial );
 		}
 		
+		/**
+		 * Removes a material from the material manager.
+		 *
+		 * @param p_oMaterial	The material to remove.
+		 */
 		public function unregister( p_oMaterial:Material ):void
 		{
 			var i:int=0;

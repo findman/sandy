@@ -827,9 +827,9 @@ package sandy.core.scenegraph
 		}
 		
 		/**
-		 * Returns a string representation of this object
+		 * Returns a string representation of this object.
 		 *
-		 * @return	The fully qualified name of this object and its geometry
+		 * @return	The fully qualified name of this object and its geometry.
 		 */
 		public override function toString ():String
 		{

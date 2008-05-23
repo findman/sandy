@@ -64,9 +64,11 @@ package sandy.core
 	/**
 	 * The Scene3D object is the central point of a Sandy world.
 	 *
-	 * <p>You can have multiple Scene3D objects in the same application.<br/>
-	 * The older World3D is a singleton special case of Scene3D.<br />
-	 * The scene contains the object tree with groups, a camera, a light source and a canvas to draw on.</p>
+	 * <p>A Scene3D object encompasses all the data needed to render a virtual 3D environment.
+	 * A scene contains objects in the 3D space (shapes, primitives, sprites, etc.), a camera, a light source, and a
+	 * container where its 2D representation will be drawn. Multiple
+	 * Scene3D objects can exist in a single application.</p>
+	 * <p>The older World3D is a singleton special case of Scene3D.</p>
 	 *
 	 * @example	To create a scene, you pass a container, a camera and a root group to its constructor.<br/>
 	 * The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
@@ -84,6 +86,8 @@ package sandy.core
 	 * @author	Thomas Pfeiffer - kiroukou
 	 * @version	3.0
 	 * @date 	07.09.2007
+	 *
+	 * @see World3D
 	 */
 	public class Scene3D extends EventDispatcher
 	{
@@ -102,7 +106,7 @@ package sandy.core
 		public var root:Group;
 
 		/**
-		 * The container that stores all displayabel objects for this scene.
+		 * The container that stores all displayable objects for this scene.
 		 */
 		public var container:Sprite;
 
@@ -112,16 +116,15 @@ package sandy.core
 		public var materialManager:MaterialManager = new MaterialManager();
 
 		/**
-		 * Creates a new Scene.
+		 * Creates a new 3D scene.
 		 *
-		 * <p>Each scene has its own container where its 2D representation will be drawn.<br />
-		 * The scene is automatically registered with the SceneLocator.</p>
-		 * <p>Remember to give the scenes different names if you want to use the SceneLocator registry</p>
+		 * <p>Each scene is automatically registered with the SceneLocator and must be given
+		 * a unique name to make proper use of the SceneLocator registry.</p>
 		 *
-		 * @param p_sName		The name of this scene
-		 * @param p_oContainer 	The container that will store all displayable objects for this scene
-		 * @param p_oCamera		The single camera for this scene
-		 * @param p_oRootNode	The root group of the object tree for this scene
+		 * @param p_sName		A unique name for this scene.
+		 * @param p_oContainer 	The container where the scene will be drawn.
+		 * @param p_oCamera		The camera for this scene.
+		 * @param p_oRootNode	The root group of the scene's object tree.
 		 *
 	     * @see sandy.core.scenegraph.Camera3D
 	     * @see sandy.core.scenegraph.Group
@@ -149,7 +152,7 @@ package sandy.core
 		}
 
 		/**
-		 * Renders this scene into its display object container.
+		 * Renders the scene in its container.
 		 *
 		 * @param p_oEvt	An eventual event - defaults to null. Not in use...
 		 *
@@ -176,9 +179,9 @@ package sandy.core
 		} // end method
 
 		/**
-		 * Dispose all the resources of this given scene.
+		 * Disposes of all the scene's resources.
 		 *
-		 * <p>Ressources will be free, and scene unregistered from SceneLocator</p>
+		 * <p>This method is used to clear memory and will free up all resources of the scene and unregister it from SceneLocator.</p>
 		 */
 		public function dispose():Boolean
 		{
@@ -202,7 +205,7 @@ package sandy.core
 		}
 
 		/**
-		 * The simple light of this scene.
+		 * The Light3D object associated with this this scene.
 		 *
 		 * @see sandy.core.light.Light3D
 		 */
@@ -226,8 +229,11 @@ package sandy.core
 		}
 
 		/**
-		 * Enable this property (default value is true!) to perfectly clip your 3D scene to the viewport dimension.
-		 * Once enabled, even if you don't have enableClipping set to true for each of your objects, nothing will be drawn outside
+		 * Enable this property to perfectly clip your 3D scene to the viewport's dimensions.
+		 * If set to <code>true</code>, the <code>enableClipping</code> property of any Shape3D
+		 * objects will be ignored and nothing will be drawn outside the viewport's dimensions.
+		 *
+		 * @default true
 		 */
 		public function get rectClipping():Boolean
 		{
@@ -248,7 +254,7 @@ package sandy.core
 		}
 
 		/**
-		 * Returns the scene's name as a string value.
+		 * The name of this scene.
 		 * This value can't be changed.
 		 */
 		public function get name():String

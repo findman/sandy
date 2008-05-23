@@ -24,6 +24,8 @@ package sandy.core
 	/**
 	 * The Sandy 3D world.
 	 *
+	 * <p><strong>Note:</strong> The World3D object is depricated, use Scene3D instead.</p>
+	 *
 	 * <p>The World3D object is the central point of a Sandy world.<br/>
 	 * World3D is a singleton class, which means that you can have only one World3D instance.<br/>
 	 * It contains the object tree with groups, a camera, a light source and a canvas to draw on</p>
@@ -90,7 +92,9 @@ package sandy.core
 		}
 		
 		/**
-		 * Returns the string representation of the World3D object.
+		 * Returns a string representation of this object.
+		 *
+		 * @return	The fully qualified name of this object.
 		 */
 		public override function toString():String
 		{

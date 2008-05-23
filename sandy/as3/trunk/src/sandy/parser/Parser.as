@@ -19,35 +19,35 @@ package sandy.parser
 	/**
 	* Dispatched when parsing fails.
 	*
-	* @eventType sandy.events.ParserEvent.FAIL
+	* @eventType sandy.parser.ParserEvent.FAIL
 	*/
 	[Event(name="onFailEVENT", type="sandy.parser.ParserEvent")]
 
 	/**
 	* Dispatched when parsing is complete.
 	*
-	* @eventType sandy.events.ParserEvent.INIT
+	* @eventType sandy.parser.ParserEvent.INIT
 	*/
 	[Event(name="onInitEVENT", type="sandy.parser.ParserEvent")]
 
 	/**
 	* Dispatched when the file starts loading.
 	*
-	* @eventType sandy.events.ParserEvent.LOAD
+	* @eventType sandy.parser.ParserEvent.LOAD
 	*/
 	[Event(name="onLoadEVENT", type="sandy.parser.ParserEvent")]
 
 	/**
 	* Dispatched when data is received as the parsing progresses.
 	*
-	* @eventType sandy.events.ParserEvent.PROGRESS
+	* @eventType sandy.parser.ParserEvent.PROGRESS
 	*/
 	[Event(name="onProgressEVENT", type="sandy.parser.ParserEvent")]
 
 	/**
 	* Dispatched when a parser reads the next line of data in a file.
 	*
-	* @eventType sandy.events.ParserEvent.PARSING
+	* @eventType sandy.parser.ParserEvent.PARSING
 	*/
 	[Event(name="onParsingEVENT", type="sandy.parser.ParserEvent")]
 

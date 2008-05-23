@@ -24,20 +24,21 @@ package sandy.materials
 	import sandy.materials.attributes.MaterialAttributes;
 	
 	/**
-	 * Blank material - base class for all materials.
+	 * The Material class is the base class for all materials.
 	 * 
-	 * <p>You can use this class to apply attributes without any material to object.</p>
+	 * <p>Since the Material object is essentially a blank material, this class can be used
+	 * to apply attributes without any material to a 3D object.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
 	 * @date 		26.07.2007
+	 *
+	 * @see Appearance
 	 */
 	public class Material
 	{
 		/**
 		 * The attributes of this material.
-		 *
-		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public var attributes:MaterialAttributes;
 		
@@ -59,8 +60,6 @@ package sandy.materials
 		 *
 		 * <p>This constructor is never called directly - but by sub class constructors.</p>
 		 * @param p_oAttr	The attributes for this material.
-		 *
-		 * @see sandy.materials.attributes.MaterialAttributes
 		 */
 		public function Material( p_oAttr:MaterialAttributes = null )
 		{
@@ -83,6 +82,8 @@ package sandy.materials
 		/**
 		 * Calls begin method of the MaterialAttributes associated with this material.
 		 *
+		 * @param p_oScene	The scene.
+		 *
 		 * @see sandy.materials.attributes.MaterialAttributes#begin()
 		 */
 		public function begin( p_oScene:Scene3D ):void
@@ -92,6 +93,8 @@ package sandy.materials
 		
 		/**
 		 * Calls finish method of the MaterialAttributes associated with this material.
+		 *
+		 * @param p_oScene	The scene.
 		 *
 		 * @see sandy.materials.attributes.MaterialAttributes#finish()
 		 */

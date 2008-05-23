@@ -19,8 +19,8 @@ package sandy.bounds
 	import sandy.core.data.Vector;
 	
 	/**
-	 * The <code>BBox</code> object is used to clip the object faster.
-	 * <p>It creates a bounding box that contains the whole object</p>
+	 * The BBox class is used to quickly and easily clip an object in a 3D scene.
+	 * <p>It creates a bounding box that contains the whole object.</p>
 	 * 
 	 * @example 	This example is taken from the Shape3D class. It is used in
 	 * 				the <code>updateBoundingVolumes()</code> method:
@@ -36,18 +36,18 @@ package sandy.bounds
 	public class BBox
 	{
 		/**
-		 * Specify if this object is up to date or not.
-		 * If false, you need to call its transform method to get its correct bounds in the desired frame.
+		 * Specifies if this object's boundaries are up to date with the object it is enclosing.
+		 * If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
 		 */
 		public var uptodate:Boolean = false;
 		
 		/**
-		 * Max vector, representing the upper point of the cube volume
+		 * A vector representing the highest point of the cube volume.
 		 */
 		public var max:Vector;		
 		
 		/**
-		 * Min vector, representing the lower point of the cube volume.
+		 * A vector representing the lowest point of the cube volume.
 		 */
 		public var min:Vector;		
 	
@@ -58,12 +58,11 @@ package sandy.bounds
 		public var aTCorners:Array;
 		
 		/**
-		 * Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-		 * to the <code>create</code> method in the form of an <code>Array</code>. Very useful 
-		 * for clipping and thus performance!
+		 * Creates a bounding box that encloses a 3D from an Array of the object's vertices.
 		 * 
-		 * @param p_aVertices		The vertices of the 3D object
-		 * @return 					A <code>BBox</code> instance
+		 * @param p_aVertices		The vertices of the 3D object the bounding box will contain.
+		 *
+		 * @return The BBox instance.
 		 */		
 		public static function create( p_aVertices:Array ):BBox
 		{
@@ -90,10 +89,10 @@ package sandy.bounds
 		}
 	
 		/**
-		 * Creates a new <code>BBox</code> instance by passing the min and the max <code>Vector</code>.
+		 * Creates a new BBox instance.
 		 * 
-		 * @param p_min		Min vector, representing the lower point of the cube volume
-		 * @param p_max		Max vector, representing the upper point of the cube volume
+		 * @param p_min		A vector representing the lowest point of the cube volume.
+		 * @param p_max		A vector representing the highest point of the cube volume.
 		 */		
 		public function BBox( p_min:Vector=null, p_max:Vector=null )
 		{
@@ -107,9 +106,9 @@ package sandy.bounds
 		}		
 		
 		/**
-		 * Returns the center of the Bounding Box volume in the form of a 3D vector.
+		 * Returns the center of the bounding box volume.
 		 * 
-		 * @return 		A <code>Vector</code> representing the center of the Bounding Box
+		 * @return A Vector representing the center of the bounding box.
 		 */
 		public function getCenter():Vector
 		{
@@ -119,9 +118,9 @@ package sandy.bounds
 		}
 	
 		/**
-		 * Return the size of the Bounding Box.
+		 * Returns the size of the bounding box.
 		 * 
-		 * @return 		A <code>Vector</code> representing the size of the volume in three dimensions.
+		 * @return A Vector object representing the size of the volume in three dimensions.
 		 */
 		public function getSize():Vector
 		{
@@ -135,7 +134,7 @@ package sandy.bounds
 		 * 
 		 * @param p_bRecalcVertices 	If set to true the vertices array will be recalculated.
 		 * 								Otherwise it will return the last calculated array.
-		 * @return 		The array containing eight vertices representing the Bounding Box corners.
+		 * @return The array containing eight vertices representing the Bounding Box corners.
 		 */
 		private function __computeCorners( p_bRecalcVertices:Boolean=false ):Array
 		{
@@ -165,9 +164,9 @@ package sandy.bounds
 		}	
 		
 	    /**
-	     * Applies the transformation that is specified in the <code>Matrix4</code> parameter.
+	     * Applies a transformation to the bounding box.
 	     * 
-	     * @param p_oMatrix		The transformation matrix
+	     * @param p_oMatrix		The transformation matrix.
 	     */		
 	    public function transform( p_oMatrix:Matrix4 ):void
 	    {
@@ -199,9 +198,9 @@ package sandy.bounds
 	    }
 	    
 		/**
-		 * Returns a <code>String</code> representation of the <code>BBox</code>.
-		 * 
-		 * @return 	A String representing the bounding box
+		 * Returns a string representation of this object.
+		 *
+		 * @return The fully qualified name of this object.
 		 */			
 		public function toString():String
 		{
@@ -209,9 +208,9 @@ package sandy.bounds
 		}
 		
 		/**
-		 * Clones the current bounding box. 
+		 * Returns a new BBox object that is a clone of the original instance. 
 		 * 
-		 * @return 		A cloned <code>BBox</code> instance
+		 * @return A new BBox object that is identical to the original. 
 		 */		
 		public function clone():BBox
 		{

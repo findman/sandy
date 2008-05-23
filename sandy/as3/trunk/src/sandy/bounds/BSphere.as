@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -20,8 +20,8 @@ package sandy.bounds
 	import sandy.core.data.Vertex;	
 	
 	/**
-	 * The <code>BSphere</code> object is used to clip the object faster.
-	 * <p>It Creates a bounding sphere that contains the whole object</p>
+	 * The BSphere class is used to quickly and easily clip an object in a 3D scene.
+	 * <p>It ceates a bounding sphere that contains the whole object</p>
 	 * 
 	 * @example 	This example is taken from the Shape3D class. It is used in
 	 * 				the <code>updateBoundingVolumes()</code> method:
@@ -37,24 +37,29 @@ package sandy.bounds
 	public final class BSphere
 	{
 		/**
-		 * Specify if this object is up to date or not.
-		 * If false, you need to call its transform method to get its correct bounds in the desired frame.
+		 * Specifies if this object's boundaries are up to date with the object it is enclosing.
+		 * If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
 		 */
 		public var uptodate:Boolean = false;
 		
+		/**
+		 * A Vector representing the center of the bounding sphere.
+		 */
 		public var center:Vector = new Vector();
+		
+		/**
+		 * The radius of the bounding sphere.
+		 */
 		public var radius:Number = 1;
 		// -----------------------------
 		//    [TRANSFORMED]  -----------
 		public var position:Vector = new Vector();
 		
 		/**
-		 * Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-		 * to the <code>create</code> method in the form of an <code>Array</code>. Very useful 
-		 * for clipping and thus performance!
+		 * Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.
 		 * 
-		 * @param p_aVertices		The vertices of the 3D object
-		 * @return 					A <code>BSphere</code> instance
+		 * @param p_aVertices		The vertices of the 3D object the bounding sphere will contain.
+		 * @return 					The BSphere instance.
 		 */	
 		public static function create( p_aVertices:Array ):BSphere
 		{
@@ -91,7 +96,7 @@ package sandy.bounds
 		}
 				
 		/**
-		 * <p>Create a new <code>BSphere</code> instance.</p>
+		 * Creates a new BSphere instance.</p>
 		 */ 	
 		public function BSphere()
 		{
@@ -99,9 +104,9 @@ package sandy.bounds
 		}
 		
 		/**
-	     * Applies the transformation that is specified in the <code>Matrix4</code> parameter.
+	     * Applies a transformation to the bounding sphere.
 	     * 
-	     * @param p_oMatrix		The transformation matrix
+	     * @param p_oMatrix		The transformation matrix.
 	     */	
 	    public function transform( p_oMatrix:Matrix4 ):void
 	    {
@@ -113,19 +118,19 @@ package sandy.bounds
 	    }
 	    
 		/**
-		* Returns a <code>String</code> represntation of the <code>BSphere</code>.
-		* 
-		* @return	A String representing the bounding sphere
-		*/ 	
+		 * Returns a string representation of this object.
+		 *
+		 * @return	The fully qualified name of this object.
+		 */
 		public function toString():String
 		{
 			return "sandy.bounds.BSphere (center : "+center+", radius : "+radius + ")";
 		}
 		
 		/**
-		 * Performs the actual computing of the bounding sphere's center and radius
+		 * Computes of the bounding sphere's center and radius.
 		 * 
-		 * @param p_aVertices		The vertices of the 3D object
+		 * @param p_aVertices		The vertices of the 3D object the bounding sphere will contain.
 		 */		
 		public function compute( p_aVertices:Array ):void
 		{
@@ -188,9 +193,11 @@ package sandy.bounds
 		}
 	  
 		/**
-		 * Returns the distance of a point from the surface.
+		 * Returns the distance of a Vector from the surface of the bounding sphere.
+		 * The number returned will be positive if the vector is outside the sphere,
+		 * negative if inside, or <code>0</code> if on the surface of the sphere.
 		 * 
-		 * @return 	>0 if position is outside the sphere, <0 if inside, =0 if on the surface of the sphere
+		 * @return The distance from the bounding sphere to the Vector.
 		 */
 		public function distance(p_oPoint:Vector):Number
 		{
@@ -201,10 +208,11 @@ package sandy.bounds
 		}
 		
 		/**
-		 * Computes the bounding sphere's radius
+		 * Computes the bounding sphere's radius.
 		 * 
-		 * @param p_aPoints		An array containing the sphere's points
-		 * @return 				The bounding sphere's radius
+		 * @param p_aPoints		An Array containing the bounding sphere's points.
+		 *
+		 * @return The bounding sphere's radius.
 		 */		
 		private function computeRadius(p_aPoints:Array):Number
 		{

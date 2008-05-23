@@ -25,6 +25,8 @@ package sandy.materials
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
 	 * @date 		26.07.2007
+	 *
+	 * @see 	sandy.core.scenegraph.Shape3D
 	 */
 	public class Appearance 
 	{
