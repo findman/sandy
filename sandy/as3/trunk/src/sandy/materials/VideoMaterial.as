@@ -99,7 +99,7 @@ package sandy.materials
 		 */
 		private function _update( p_eEvent:TimerEvent ):void
 		{
-			if ( m_bUpdate )
+			if ( m_bUpdate || forceUpdate )
 			{
 				m_oTexture.fillRect( m_oTexture.rect,
 					ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );

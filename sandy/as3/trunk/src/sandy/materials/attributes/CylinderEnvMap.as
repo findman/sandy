@@ -57,7 +57,7 @@ package sandy.materials.attributes
 		 */
 		public function CylinderEnvMap (p_oBitmapMaterial:BitmapMaterial)
 		{
-			mapMaterial = p_oBitmapMaterial;
+			mapMaterial = p_oBitmapMaterial; mapMaterial.forceUpdate = true;
 
 			m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 		}

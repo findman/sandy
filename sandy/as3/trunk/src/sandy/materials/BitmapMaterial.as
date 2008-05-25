@@ -551,5 +551,10 @@ package sandy.materials
 		 * @private
 		 */
 		protected const m_oOffset:Point = new Point( 0, 0 );
+
+		/**
+		 * @private
+		 */
+		public var forceUpdate:Boolean = false;
 	}
 }
