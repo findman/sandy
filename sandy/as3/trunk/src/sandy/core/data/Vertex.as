@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Sandy is a software supplied by Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,68 +13,91 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	import sandy.util.NumberUtil;
 
 	/**
-	 * A vertex of a 3D mesh or polygon.
-	 *
-	 * <p>A vertex is a point which can be represented in different coordinate systems.</p>
+	 * A vertex is the point of intersection of edges the of a polygon.
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @since		1.0
 	 * @version		3.0
 	 * @date 		24.08.2007
+	 *
+	 * @see sandy.core.data.Polygon
 	 */
 	public final class Vertex
 	{
 		private static var ID:uint = 0;
+		
+		/**
+		* The unique identifier for the vertex.
+		*/
 		public const id:uint = ID ++;
 
+		/**
+		* The x coordinate in the scene.
+		*/
 		public var x:Number;
+		
+		/**
+		* The y coordinate in the scene.
+		*/
 		public var y:Number;
+		
+		/**
+		* The z coordinate in the scene.
+		*/
 		public var z:Number;
 
 		/**
-		* properties used to store transformed positions in the World coordinates
+		* The transformed x coordinate in the scene.
 		*/
 		public var wx:Number;
+		
+		/**
+		* The transformed y coordinate in the scene.
+		*/
 		public var wy:Number;
+		
+		/**
+		* The transformed z coordinate in the scene.
+		*/
 		public var wz:Number;
 
 		/**
-		* properties used to store transformed coordinates in screen World.
+		* The transformed x coordinate on the screen.
 		*/
 		public var sx:Number;
+		
+		/**
+		* The transformed y coordinate on the screen.
+		*/
 		public var sy:Number;
 
 		/**
-		 * Number of polygons this vertex belongs to.
-		 * <p>Default value is 0.</p>
+		 * The number of polygons the vertex belongs to.
 		 */
 		public var nbFaces:uint = 0;
 
 		/**
-		 * An array of faces.
-		 *
-		 * <p>List of polygons that actually use that vertex</p>
+		 * An array of polygons that use the vertex</p>
 		 */
 		public var aFaces:Array = new Array();
 
         /**
-         *  State if that vertex has been projected or not. If not, we can consider that vertex to not be visible in the current rendering step.
+         * Specifies if the vertex has been projected (rendered).
          */
-        
         public var projected:Boolean;
+		
 		/**
 		* Creates a new vertex.
 		*
-		* @param p_nx 	The x position
-		* @param p_ny 	The y position
-		* @param p_nz 	The z position
-		* @param ...rest	optional values for wx, wy, wz
+		* @param p_nx		The x position.
+		* @param p_ny		The y position.
+		* @param p_nz		The z position.
+		* @param ...rest	Optional values for the <code>wx</code>, <code>wy</code>, and <code>wz</code> properties.
 		*/
 		public function Vertex( p_nx:Number=0, p_ny:Number=0, p_nz:Number=0, ...rest )
 		{
@@ -91,10 +114,10 @@ package sandy.core.data
 		
 		
 		/**
-		 * Returns the 2D position of this vertex.
-		 * This 2D position is the position on the screen after the camera projection.
-		 * WARNING: There's actually a third value (the z one) which correspond to the depth screen position.
-		 * @return Vector The 2D position of this vertex once projected.
+		 * Returns the 2D position of this vertex.  The function returns a vector with the x and y coordinates of the
+		 * vertex and the depth as the <code>z</code> property.
+		 *
+		 * @return The 2D position of this vertex once projected.
 		 */
 		public function getScreenPoint():Vector
 		{
@@ -102,9 +125,9 @@ package sandy.core.data
 		}
 
 		/**
-		* Returns the transformed vertex in world coordinates.
+		* Returns a vector of the transformed vertex.
 		*
-		* @return
+		* @return A vector of the transformed vertex.
 		*/
 		public final function getWorldVector():Vector
 		{
@@ -115,9 +138,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a vector representing the original x, y, z values.
+		 * Returns a vector representing the original x, y, z coordinates.
 		 *
-		 * @return 	The vector
+		 * @return A vector representing the original x, y, z coordinates.
 		 */
 		public final function getVector():Vector
 		{
@@ -128,10 +151,10 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a clone of this vertex.
-		 *
-		 * @return 	The clone
-		 */
+		 * Returns a new Vertex object that is a clone of the original instance. 
+		 * 
+		 * @return A new Vertex object that is identical to the original. 
+		 */		
 		public final function clone():Vertex
 		{
 		    var l_oV:Vertex = new Vertex( x, y, z );
@@ -146,11 +169,11 @@ package sandy.core.data
 		/**
 		 * Returns a new vertex build on the transformed values of this vertex.
 		 *
-		 * <p>A new vertex is created with this vertex's transformed coordinates as start position.<br />
-		 * So ( x, y, z ) of the new vertex is the ( wx, wy, wz ) of this vertex.</p>
+		 * <p>Returns a new Vertex object that is created with the vertex's transformed coordinates as the new vertex's start position.
+		 * The <code>x</code>, y</code>, and z</code> properties of the new vertex would be the <code>wx</code>, <code>wy</code>, <code>wz</code> properties of this vertex.</p>
 		 * <p>[<strong>ToDo</strong>: What can this one be used for? - Explain! ]</p>
 		 *
-		 * @return 	The new vertex
+		 * @return 	The new Vertex object.
 		 */
 		public final function clone2():Vertex
 		{
@@ -160,8 +183,9 @@ package sandy.core.data
 		/**
 		 * Creates and returns a new vertex from the specified vector.
 		 *
-		 * @param p_v	The vertex position vector
-		 * @return 	The new vertex
+		 * @param p_v	The vertex's position vector.
+		 *
+		 * @return 	The new vertex.
 		 */
 		static public function createFromVector( p_v:Vector ):Vertex
 		{
@@ -169,12 +193,12 @@ package sandy.core.data
 		}
 
 		/**
-		 * Is this vertex equal to the specified vertex?.
+		 * Determines if this vertex is equal to the specified vertex.
 		 *
-		 * <p>This vertex is compared to the argument vertex, component by component.<br />
-		 * If all components of the two vertices are equal, a true value is returned.
+		 * <p>This all properties of this vertex is compared to the properties of the specified vertex.
+		 * If all properties of the two vertices are equal, a value of <code>true</code> is returned.</p>
 		 *
-		 * @return 	true if the vertices are considered equal, false otherwise
+		 * @return Whether the two verticies are equal.
 		 */
 	 	public final function equals(p_vertex:Vertex):Boolean
 		{
@@ -184,11 +208,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this vertex equal to the specified vertex.
+		 * Makes this vertex a copy of the specified vertex.
 		 *
-		 * <p>All components of the argument vertex are copied to this vertex.</p>
+		 * <p>All components of the specified vertex are copied to this vertex.</p>
 		 *
-		 * @param 	The vertex to copy to this
+		 * @param p_oVector	The vertex to copy.
 		 */
 		public final function copy( p_oVector:Vertex ):void
 		{
@@ -205,10 +229,10 @@ package sandy.core.data
 		/**
 		 * Returns the norm of this vertex.
 		 *
-		 * <p>The norm of the vertex is calculated as the length of its position vector.<br />
-		 * That is sqrt( x*x + y*y + z*z )</p>
+		 * <p>The norm of the vertex is calculated as the length of its position vector.
+		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>.</p>
 		 *
-		 * @return 	The norm
+		 * @return 	The norm.
 		 */
 		public final function getNorm():Number
 		{
@@ -216,11 +240,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Return the invers of this vertex.
-		 *
-		 * <p>A new vertex is created with the negative of all values in this vertex.</p>
-		 *
-		 * @return 	The invers
+		 * Inverts the vertex.  All properties of the vertex become their nagative values.
 		 */
 		public final function negate( /*v:Vertex*/ ): void
 		{
@@ -235,9 +255,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Adds a specified vertex to this vertex.
+		 * Adds the specified vertex to this vertex.
 		 *
-		 * @param v 	The vertex to add to this vertex
+		 * @param v 	The vertex to add to this vertex.
 		 */
 		public final function add( v:Vertex ):void
 		{
@@ -251,9 +271,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Substracts a specified vertex from this vertex.
+		 * Substracts the specified vertex from this vertex.
 		 *
-		 * @param v 	The vertex to subtract from this vertex
+		 * @param v 	The vertex to subtract from this vertex.
 		 */
 		public function sub( v:Vertex ):void
 		{
@@ -268,9 +288,9 @@ package sandy.core.data
 		/**
 		 * Raises the vertex to the specified power.
 		 *
-		 * <p>All components of this vertex is raised to the power specified in the argument.</p>
+		 * <p>All components of the vertex are raised to the specified power.</p>
 		 *
-		 * @param {@code pow} a {@code Number}.
+		 * @param pow The power to raise the vertex to.
 		 */
 		public final function pow( pow:Number ):void
 		{
@@ -283,11 +303,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies this vertex by the specified scalar value.
+		 * Multiplies this vertex by the specified number.
 		 *
-		 * <p>All components of the vertex are multiplied by the specified value</p>
+		 * <p>All components of the vertex are multiplied by the specified number.</p>
 		 *
-		 * @param n 	The number to multiply with
+		 * @param n 	The number to multiply the vertex with.
 		 */
 		public final function scale( n:Number ):void
 		{
@@ -300,12 +320,13 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns the dot product between this vertex and a specified vertex.
+		 * Returns the dot product between this vertex and the specified vertex.
 		 *
 		 * <p>Only the original positions values are used for this dot product.</p>
 		 *
-		 * @param w 	The vertex to make a dot product with
-		 * @return 	The dot product
+		 * @param w 	The vertex to make a dot product with.
+		 *
+		 * @return The dot product.
 		 */
 		public final function dot( w: Vertex):Number
 		{
@@ -317,8 +338,9 @@ package sandy.core.data
 		 *
 		 * <p>Only the original positions values are used for this cross product.</p>
 		 *
-		 * @param v 	The vertex to make a cross product with
-		 * @return 	the resulting vertex of the cross product.
+		 * @param v 	The vertex to make a cross product with.
+		 *
+		 * @return The resulting vertex of the cross product.
 		 */
 		public final function cross( v:Vertex):Vertex
 		{
@@ -332,8 +354,8 @@ package sandy.core.data
 		/**
 		 * Normalizes this vertex.
 		 *
-		 * <p>Normalization means that all components of the vertex are divided by its norm.<br />
-		 * The norm is calculated as the sqrt(x*x + y*y + z*z), that is the length of the position vector.</p>
+		 * <p>A vertex is normalized when its components are divided by its norm.
+		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>, which is the length of the position vector.</p>
 		 */
 		public final function normalize():void
 		{
@@ -353,8 +375,9 @@ package sandy.core.data
 		/**
 		 * Returns the angle between this vertex and the specified vertex.
 		 *
-		 * @param w	The vertex making an angle with this one
-		 * @return 	The angle in radians
+		 * @param w	The vertex making an angle with this one.
+		 *
+		 * @return 	The angle in radians.
 		 */
 		public final function getAngle ( w:Vertex ):Number
 		{
@@ -372,10 +395,11 @@ package sandy.core.data
 
 
 		/**
-		 * Returns a string representing this vertex.
+		 * Returns a string representation of this object.
 		 *
-		 * @param decPlaces	Number of decimals
-		 * @return	The representation
+		 * @param decPlaces	The number of decimal places to round the vertex's components off to.
+		 *
+		 * @return	The fully qualified name of this object.
 		 */
 		public final function toString(decPlaces:Number=0):String
 		{
@@ -402,8 +426,8 @@ package sandy.core.data
 		 *
 		 * <p>[<strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
 		 *
-		 * @param decPlaces	Number of decimals
-		 * @return 		The specific serialize string
+		 * @param decPlaces	Number of decimals.
+		 * @return 		The specific serialize string.
 		 */
 		public final function serialize(decPlaces:Number=0):String
 		{
@@ -428,7 +452,7 @@ package sandy.core.data
 		 *
 		 * <p>[<strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
 		 *
-		 * @param 	A string representing the vertex ( specific serialize format )
+		 * @param 	A string representing the vertex ( specific serialize format ).
 		 */
 		public final function deserialize(convertFrom:String):void
 		{

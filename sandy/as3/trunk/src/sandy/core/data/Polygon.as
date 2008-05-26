@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	import flash.display.Sprite;
@@ -47,6 +46,8 @@ package sandy.core.data
 	 * @since		1.0
 	 * @version		3.0
 	 * @date 		24.08.2007
+	 *
+	 * @see sandy.core.scenegraph.Shape3D
 	 */
 	public final class Polygon implements IDisplayable
 	{
@@ -56,110 +57,104 @@ package sandy.core.data
 		
 		/**
 		 * This property lists all the polygons.
-		 * This is an helping property since it allows to retrieve a polygon instance from its unique ID.
-		 * Polygon objects have an unique ID with myPolygon.id.
-		 * Using : Polygon.POLYGON_MAP[myPolygon.id] returns myPolygon (for sure this example has no interesst except showing the use of the property.
+		 * This is a helper property since it allows all polygons of a scene to be retrieved from a single list by its unique identifier.
+		 * A polygon's unique identifier can be retrieved useing <code>myPolygon.id</code>.
+		 *
+		 * @example The examples below shows how to retrieve a ploygon from this property. 
+		 * <listing version="3.0">
+		 * var p:Polygon = Polygon.POLYGON_MAP[myPolygon.id];
+		 * </listing>
 		 */
 		public static var POLYGON_MAP:Dictionary = new Dictionary(true);
 	// ______
 	// PUBLIC________________________________________________________
 		/**
-		 * [READ-ONLY] property
-		 * Unique polygon ID Number.
+		 * The unique identifier for this polygon.
 		 */
 		public const id:uint = _ID_++;
 
 		/**
-		 * [READ-ONLY] property.
-		 * Link to the Shape3D instance this polygon is related too.
+		 * A reference to the Shape3D object this polygon belongs to.
 		 */
 		public var shape:Shape3D;
 		
 		/**
-		 * [READ-ONLY] property.
-		 * Refers to the Scene3D the shape is linked to.
+		 * A reference to the Scene3D object this polygon is in.
 		 */
 		public var scene:Scene3D;
 		
 		/**
-		 * [READ-ONLY] property.
-		 * Specify if the polygon has been clipped
+		 * Specifies if the polygon has been clipped.
 		 */
 		public var isClipped:Boolean = false;
+		
 		/**
-		 * [READ-ONLY] property.
-		 * Array of clipped vertices. Check isClipped property first to see if this array shall be containing the useful data or not.
+		 * An array of clipped vertices. Check the <code>isClipped</code> property first to see if this array will contain the useful data.
 		 */
 		public var cvertices:Array;
+		
 		/**
-		 * [READ-ONLY] property.
-		 * Array of original vertices.
+		 * An array of the polygon's original vertices.
 		 */
 		public var vertices:Array;
+		
 		/**
-		 * [READ-ONLY] property.
+		 * An array of the polygon's vertex normals.
 		 */
 		public var vertexNormals:Array;
-		/**
-		 * [READ-ONLY] property.
-		 */
+		
 		public var normal:Vertex;
-		/**
-		 * [READ-ONLY] property.
-		 */
+		
 		public var aUVCoord:Array;
 
 		/**
-		 * [READ-ONLY] property.
+		 * An array of the polygon's edges.
 		 */
 		public var aEdges:Array;
 
-		/**
-		 * [READ-ONLY] property.
-		 */
 		public var caUVCoord:Array;
 
 		/**
-		 * [READ-ONLY] property.
-		 * This property contains the texture bounds as a Rectangle.
+		 * The texture bounds.
 		 */
 		public var uvBounds:Rectangle;
 		
 		/**
-		 * [READ-ONLY] property
-		 * Array of polygons that share an edge with the current polygon.
+		 * An array of polygons that share an edge with this polygon.
 		 */
 		public var aNeighboors:Array = new Array();
+
 		/**
-		 * Is this face visible?.
-		 * The method returns the visibility value pre computed after precompute method call. This getter shall be called afer the precompute call.
-		 * @return 	true if this face is visible, false otherwise.
+		 * Specifies whether the face of the polygon is visible.
 		 */
 		public var visible:Boolean;
 		
 		public var minZ:Number;
-		public var m_nDepth:Number;
+		private var m_nDepth:Number;
 		
 		public var a:Vertex, b:Vertex, c:Vertex;
 		
+		/**
+		 * The depth sorter the polygon uses.
+		 */
 		public var depthSorter:IDepthSorter;
 		
 		/**
-		 * States if the appearance of the polygon has changed since the previous rendering.
-		 * Often used to update the scene material manager.
-		 * WARNING: Shall not be changed manually
+		 * Specifies if the appearance of the polygon has changed since the previous rendering.
+		 * This is primarily used to update the scene material manager.
+		 * WARNING: Do not change manually.
 		 */
 		public var hasAppearanceChanged:Boolean = false;
 		
 		/**
 		 * Creates a new polygon.
 		 *
-		 * @param p_oShape		    The shape this polygon belongs to
-		 * @param p_geometry		The geometry this polygon is part of
-		 * @param p_aVertexID		The vertexID array of this polygon
-		 * @param p_aUVCoordsID		The UVCoordsID array of this polygon
-		 * @param p_nFaceNormalID	The faceNormalID of this polygon
-		 * @param p_nEdgesID		The edgesID of this polygon
+		 * @param p_oShape			The shape the polygon belongs to.
+		 * @param p_geometry		The geometry the polygon belongs to.
+		 * @param p_aVertexID		An array of verticies of the polygon.
+		 * @param p_aUVCoordsID		An array of UV coordinates of this polygon.
+		 * @param p_nFaceNormalID	The faceNormalID of this polygon.
+		 * @param p_nEdgesID		The edgesID of this polygon.
 		 */
 		public function Polygon( p_oOwner:Shape3D, p_geometry:Geometry3D, p_aVertexID:Array, p_aUVCoordsID:Array=null, p_nFaceNormalID:Number=0, p_nEdgesID:uint=0 )
 		{
@@ -173,13 +168,24 @@ package sandy.core.data
 			POLYGON_MAP[id] = this;
 		}
 
-		public function get depth():Number{ return m_nDepth; }
-		public function set depth( p_nDepth:Number ):void{ m_nDepth = p_nDepth; }
+		/**
+		 * The depth of the polygon.
+		 */
+		public function get depth():Number
+		{
+			return m_nDepth;
+		}
 		
 		/**
-		 * The broadcaster property.
-		 *
-		 * <p>The broadcaster is the property used to send events to listeners.</p>
+		 * @private
+		 */
+		public function set depth( p_nDepth:Number ):void
+		{
+			m_nDepth = p_nDepth;
+		}
+		
+		/**
+		 * The broadcaster of the polygon that sends events to listeners.
 		 */
 		public function get broadcaster():BubbleEventBroadcaster
 		{
@@ -187,10 +193,10 @@ package sandy.core.data
 		}
 
 		/**
-		 * Adds a listener for specifical event.
+		 * Adds an event listener to the polygon.
 		 *
-		 * @param p_sEvent 	Name of the Event.
-		 * @param oL 		Listener object.
+		 * @param p_sEvent 	The name of the event to add.
+		 * @param oL 		The listener object.
 		 */
 		public function addEventListener(p_sEvent:String, oL:*) : void
 		{
@@ -198,24 +204,23 @@ package sandy.core.data
 		}
 
 		/**
-		 * Removes a listener for specifical event.
+		 * Removes an event listener to the polygon.
 		 *
-		 * @param p_sEvent 	Name of the Event.
-		 * @param oL 		Listener object.
+		 * @param p_sEvent 	The name of the event to remove.
+		 * @param oL 		The listener object.
 		 */
 		public function removeEventListener(p_sEvent:String, oL:*) : void
 		{
 			m_oEB.removeEventListener(p_sEvent, oL);
 		}
 
-		
 		/**
-		 * Pre-compute several properties of the polygon in the same time.
-		 * List of the computed properties :
+		 * Computes several properties of the polygon.
+		 * <p>The computed properties are listed below:</p>
 		 * <ul>
-		 *  <li>minZ</li>
-		 *  <li>visibility</li>
-		 *  <li>depth</li>
+		 *  <li><code>visible</code></li>
+		 *  <li><code>minZ</code></li>
+		 *  <li><code>depth</code></li>
 		 * </ul>
 		 */
 		public function precompute():void
@@ -230,16 +235,16 @@ package sandy.core.data
 			m_nDepth = depthSorter.getDepth(this);
 		}
 	
-
 		/**
-		 * Returns the real 3D position of the 2D screen position.
-		 * The 2D position is usually coming from :
+		 * Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.
+		 *
+		 * @example	Below is an example of how to get the 3D coordinate of the polygon under the position of the mouse:
 		 * <listing version="3.0">
-		 * var l_nClicX:Number = m_oScene.container.mouseX;
-         * var l_nClicY:Number = m_oScene.container.mouseY;
+		 * var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
+		 * var scenePosition:Vector = myPolygon.get3DFrom2D(screenPoint);
          * </listing>
          * 
-         * @return the real 3D position which correspond to the intersection onto that polygone
+         * @return A vector that corresponds to the specified point.
          */
 		public function get3DFrom2D( p_oScreenPoint:Point ):Vector
 		{      
@@ -269,14 +274,15 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Get the UVCoord under the 2D screen position after a mouse click or something
-		 * The 2D position is usually coming from :
+		 * Returns a UV coordinate elative to the specified point on the 2D screen.
+		 *
+		 * @example	Below is an example of how to get the UV coordinate under the position of the mouse:
 		 * <listing version="3.0">
-		 * var l_nClicX:Number = m_oScene.container.mouseX;
-         * var l_nClicY:Number = m_oScene.container.mouseY;
+		 * var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
+		 * var scenePosition:Vector = myPolygon.getUVFrom2D(screenPoint);
          * </listing>
          * 
-         * @return the UVCoord under the 2D screen point
+         * @return A the UV coordinate that corresponds to the specified point.
          */
 		public function getUVFrom2D( p_oScreenPoint:Point ):UVCoord
 		{
@@ -316,9 +322,9 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns an array containing the vertices, clipped by the camera frustum.
+		 * Clips the polygon.
 		 *
-		 * @return 	The array of clipped vertices
+		 * @return An array of vertices clipped by the camera frustum.
 		 */
 		public function clip( p_oFrustum:Frustum ):Array
 		{
@@ -342,9 +348,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Perform a clipping against the near frustum plane.
+		 * Perform a clipping against the camera frustum's front plane.
 		 *
-		 * @return 	The array of clipped vertices
+		 * @return An array of vertices clipped by the camera frustum's front plane.
 		 */
 		public function clipFrontPlane( p_oFrustum:Frustum ):Array
 		{
@@ -437,7 +443,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Clears the container of this polygon from graphics.
+		 * Clears the polygon's container.
 		 */
 		public function clear():void
 		{
@@ -445,10 +451,10 @@ package sandy.core.data
 		}
 
 		/**
-		 * Displays this polygon on its container if visible.
+		 * Draws the polygon on its container if visible.
 		 *
-		 * @param p_oScene The current scene this polygon is rendered into
-		 * @param p_oContainer	The container to draw on
+		 * @param p_oScene		The scene this polygon is rendered in.
+		 * @param p_oContainer	The container to draw on.
 		 */
 		public function display( p_oScene:Scene3D, p_oContainer:Sprite = null ):void
 		{
@@ -466,7 +472,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * The container for this polygon.
+		 * The polygon's container.
 		 */
 		public function get container():Sprite
 		{
@@ -474,9 +480,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a string representing of this polygon.
+		 * Returns a string representation of this object.
 		 *
-		 * @return	The string representation.
+		 * @return	The fully qualified name of this object.
 		 */
 		public function toString():String
 		{
@@ -484,12 +490,19 @@ package sandy.core.data
 		}
 
 		/**
-		 * Enables or disables object events for this polygon.
+		 * Specifies whether mouse events are enabled for this polygon.
 		 *
-		 * <p>If a value of true is passed, the object events onPress, onRollOver and onRollOut are enabled.<br />.
-		 * To use them, you have to add listeners for the events.</p>
+		 * <p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
 		 *
-		 * @param b 	Pass true to enable the events, false to disable.
+		 * @see #addEventListener()
+		 */
+		public function get enableEvents():Boolean
+		{
+			return mouseEvents;
+		}
+		
+		/**
+		 * @private
 		 */
 		public function set enableEvents( b:Boolean ):void
 		{
@@ -524,10 +537,10 @@ package sandy.core.data
 	    	}
 	    	mouseEvents = b;
 		}
-		
-		public function get enableEvents():Boolean
-		{ return mouseEvents; }
 
+		/**
+		 * @private
+		 */
 		protected function _onInteraction( p_oEvt:Event ):void
 		{ 
 			var l_oClick:Point = new Point( m_oContainer.mouseX, m_oContainer.mouseY );
@@ -536,6 +549,9 @@ package sandy.core.data
 			m_oEB.broadcastEvent( new Shape3DEvent( p_oEvt.type, shape, this, l_oUV, l_oPt3d, p_oEvt ) );
 		}
 		
+		/**
+		 * @private
+		 */
 		protected function _startMouseInteraction( e : MouseEvent = null ) : void
 		{
 			container.addEventListener(MouseEvent.CLICK, _onTextureInteraction);
@@ -554,6 +570,9 @@ package sandy.core.data
 			m_oContainer.addEventListener( Event.ENTER_FRAME, _onTextureInteraction );
 		}
 		
+		/**
+		 * @private
+		 */
 		protected function _stopMouseInteraction( e : MouseEvent = null ) : void
 		{
 			container.removeEventListener(MouseEvent.CLICK, _onTextureInteraction);
@@ -572,6 +591,21 @@ package sandy.core.data
 			
 		}
 		
+		/**
+		 * Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.
+		 *
+		 * <p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
+		 *
+		 * @see #addEventListener()
+		 */
+		public function get enableInteractivity():Boolean
+		{
+			return mouseInteractivity;
+		}
+		
+		/**
+		 * @private
+		 */
 		public function set enableInteractivity( p_bState:Boolean ):void
 		{
 			if( p_bState != mouseInteractivity )
@@ -590,10 +624,9 @@ package sandy.core.data
 			}
 		}
 		
-		public function get enableInteractivity():Boolean
-		{ return mouseInteractivity; }
-		
-		
+		/**
+		 * @private
+		 */
 		protected function _onTextureInteraction( p_oEvt:Event = null ) : void
 		{
 			if ( p_oEvt == null || !(p_oEvt is MouseEvent) ) p_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
@@ -605,11 +638,11 @@ package sandy.core.data
 			VirtualMouse.getInstance().interactWithTexture( this, uv, p_oEvt as MouseEvent );
 			_onInteraction( p_oEvt );
 		}
-				
+	
 		/**
-		 * Calculates and returns the normal vector of the polygon.
+		 * Returns the transformed normal vector of the polygon.
 		 *
-		 * @return	The normal vector
+		 * @return The transformed normal vector of the polygon.
 		 */
 		public function createTransformedNormal():Vector
 		{
@@ -632,6 +665,11 @@ package sandy.core.data
 			}
 		}
 
+		/**
+		 * Returns the normal vector of the polygon.
+		 *
+		 * @return The normal vector of the polygon.
+		 */
 		public function createNormal():Vector
 		{
 			if( vertices.length > 2 )
@@ -655,6 +693,14 @@ package sandy.core.data
 		
 		/**
 		 * The appearance of this polygon.
+		 */
+		public function get appearance():Appearance
+		{
+			return m_oAppearance;
+		}
+		
+		/**
+		 * @private
 		 */
 		public function set appearance( p_oApp:Appearance ):void
 		{
@@ -681,17 +727,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * @private
-		 */
-		public function get appearance():Appearance
-		{
-			return m_oAppearance;
-		}
-
-		/**
 		 * Changes which side is the "normal" culling side.
 		 *
-		 * <p>The method also swaps the front and back skins.</p>
+		 * <p>This method also swaps the front and back skins.</p>
 		 */
 		public function swapCulling():void
 		{
@@ -699,7 +737,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Destroys the sprite attache to this polygon.
+		 * Removes the polygon's container from the stage.
 		 */
 		public function destroy():void
 		{
@@ -725,8 +763,14 @@ package sandy.core.data
 		/** array of ID of uv coordinates in geometry object */
 		private var m_aUVCoords:Array;
 
+		/**
+		 * @private
+		 */
 		protected var m_oContainer:Sprite;
 
+		/**
+		 * @private
+		 */
 		protected var m_oEB:BubbleEventBroadcaster = new BubbleEventBroadcaster();
 
 		/** Boolean representing the state of the event activation */

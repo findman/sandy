@@ -201,7 +201,7 @@ package sandy.bounds
 		 * Returns a string representation of this object.
 		 *
 		 * @return The fully qualified name of this object.
-		 */			
+		 */
 		public function toString():String
 		{
 			return "sandy.bounds.BBox";
@@ -211,7 +211,7 @@ package sandy.bounds
 		 * Returns a new BBox object that is a clone of the original instance. 
 		 * 
 		 * @return A new BBox object that is identical to the original. 
-		 */		
+		 */
 		public function clone():BBox
 		{
 		    var l_oBBox:BBox = new BBox();

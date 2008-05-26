@@ -13,13 +13,12 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	import sandy.util.NumberUtil;
 
 	/**
-	 * A point in 3D world.
+	 * A 3D coordinate.
 	 *
 	 * <p>A representation of a position in a 3D space.</p>
 	 *
@@ -34,16 +33,25 @@ package sandy.core.data
 	 */
 	public final class Vector
 	{
+		/**
+		 * The x coordinate.
+		 */
 		public var x:Number;
+		/**
+		 * The y coordinate.
+		 */
 		public var y:Number;
+		/**
+		 * The z coordinate.
+		 */
 		public var z:Number;
 
 		/**
-		* Creates a new vector instance.
+		* Creates a new vector.
 		*
-		* @param	p_nX	the x coordinate
-		* @param	p_nY	the y coordinate
-		* @param	p_nZ	the z coordinate
+		* @param p_nX	The x coordinate.
+		* @param p_nY	The y coordinate.
+		* @param p_nZ	The z coordinate.
 		*/
 		public function Vector(p_nX:Number=0, p_nY:Number=0, p_nZ:Number=0)
 		{
@@ -53,8 +61,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Reset the vector components to 0
-		 * after calling this method, x, y and z will be set to 0
+		 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to <code>0</code>.
 		 */
 		public function reset( px:Number=0, py:Number=0, pz:Number=0):void
 		{
@@ -62,8 +69,7 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Reset the vector components to the minimal value Flash can handle
-		 * after calling this method, x, y and z will be set to Number.NEGATIVE_INFINITY;
+		 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).
 		 */
 		public function resetToNegativeInfinity():void
 		{
@@ -71,8 +77,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Reset the vector components to the maximal value Flash can handle
-		 * after calling this method, x, y and z will be set to Number.POSITIVE_INFINITY;
+		 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle (<code>Number.POSITIVE_INFINITY</code>).
 		 */
 		public function resetToPositiveInfinity():void
 		{
@@ -80,10 +85,10 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns a clone of thei vector.
-		 *
-		 * @return 	The clone
-		 */
+		 * Returns a new Vector object that is a clone of the original instance. 
+		 * 
+		 * @return A new Vector object that is identical to the original. 
+		 */	
 		public final function clone():Vector
 		{
 		    var l_oV:Vector = new Vector( x, y, z );
@@ -93,9 +98,9 @@ package sandy.core.data
 		/**
 		 * Makes this vector a copy of the specified vector.
 		 *
-		 * <p>All elements of this vector is set to those of the argument vector</p>
+		 * <p>All components of the specified vector are copied to this vector.</p>
 		 *
-		 * @param p_oVector	The vector to copy
+		 * @param p_oVector	The vector to copy.
 		 */
 		public final function copy( p_oVector:Vector ):void
 		{
@@ -105,11 +110,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Computes and returns the norm of this vector.
+		 * Returns the norm of this vector.
 		 *
-		 * <p>The norm of the vector is sqrt( x*x + y*y + z*z )</p>
+		 * <p>The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>.</p>
 		 *
-		 * @return 	The norm
+		 * @return 	The norm.
 		 */
 		public final function getNorm():Number
 		{
@@ -117,9 +122,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Compute and returns the invers of this vector.
+		 * Returns the inverse of this vector, will all properties as their negative values.
 		 *
-		 * @return 	The inverse
+		 * @return 	The inverse of the vector.
 		 */
 		public final function negate( /*v:Vector*/ ): Vector
 		{
@@ -128,9 +133,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Adds a specified vector to this vector.
+		 * Adds the specified vector to this vector.
 		 *
-		 * @param v 	The vector to add
+		 * @param v 	The vector to add.
 		 */
 		public final function add( v:Vector ):void
 		{
@@ -142,9 +147,7 @@ package sandy.core.data
 		/**
 		 * Substracts the specified vector from this vector.
 		 *
-		 * @param {@code v} a {@code Vector}.
-		 * @param {@code w} a {@code Vector}.
-		 * @return The resulting {@code Vector}.
+		 * @param v		The vector to subtract.
 		 */
 		public final function sub( v:Vector ):void
 		{
@@ -154,12 +157,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Raises this vector to the specified power.
+		 * Raises the vector to the specified power.
 		 *
-		 * <p>Each component of the vector is raised to the argument power.<br />
-		 * So x = Math.pow( x, pow ), y = Math.pow( y, pow ),z = Math.pow( z, pow )</p>
+		 * <p>All components of the vertex are raised to the specified power.</p>
 		 *
-		 * @param {@code pow} a {@code Number}.
+		 * @param pow The power to raise the vector to.
 		 */
 		public final function pow( pow:Number ):void
 		{
@@ -167,10 +169,13 @@ package sandy.core.data
 	        y = Math.pow( y, pow );
 	        z = Math.pow( z, pow );
 		}
+		
 		/**
-		 * Multiplies this vector by the specified scalar.
+		 * Multiplies this vector by the specified number.
 		 *
-		 * @param {@code n a {@code Number}.
+		 * <p>All components of the vector are multiplied by the specified number.</p>
+		 *
+		 * @param n 	The number to multiply the vector with.
 		 */
 		public final function scale( n:Number ):void
 		{
@@ -180,10 +185,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Computes and returns the dot product between this vector and the specified vector.
+		 * Returns the dot product between this vector and the specified vector.
 		 *
-		 * @param w 	The vector to multiply
-		 * @return 	The dot procuct
+		 * @param w 	The vector to make a dot product with.
+		 *
+		 * @return The dot product.
 		 */
 		public final function dot( w: Vector):Number
 		{
@@ -191,10 +197,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Computes and returns the cross between this vector and the specified vector.
+		 * Returns the cross product between this vector and the specified vector.
 		 *
-		 * @param v 	The vector to make the cross product with ( right side )
-		 * @return 	The cross product vector.
+		 * @param v 	The vector to make a cross product with (right side).
+		 *
+		 * @return The resulting vector of the cross product.
 		 */
 		public final function cross( v:Vector):Vector
 		{
@@ -207,9 +214,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Crosses this vector with specified one.
+		 * Crosses this vector with the specified vector.
 		 *
-		 * @param v 	The vector to make the cross product with ( right side )
+		 * @param v 	The vector to make the cross product with (right side).
 		 */
 		public final function crossWith( v:Vector):void
 		{
@@ -222,7 +229,9 @@ package sandy.core.data
 		/**
 		 * Normalizes this vector.
 		 *
-		 * <p>After normalizing the vector, the direction is the same, but the length is = 1.</p>
+		 * <p>A vector is normalized when its components are divided by its norm.
+		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>. After normalizing
+		 * the vector, the direction is the same, but the length is <code>1</code>.</p>
 		 */
 		public final function normalize():void
 		{
@@ -237,7 +246,9 @@ package sandy.core.data
 
 		/**
 		 * Gives the biggest component of the current vector.
-		 * Example : var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+		 * <listing version="3.0">
+		 *     var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+		 *  </listing>
 		 * 
 		 * @return The biggest component value of the vector
 		 */
@@ -248,7 +259,9 @@ package sandy.core.data
 		
 		/**
 		 * Gives the smallest component of the current vector.
-		 * Example : var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+		 * <listing version="3.0">
+		 *     var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+		 *  </listing>
 		 * 
 		 * @return The smallest component value of the vector
 		 */
@@ -260,8 +273,9 @@ package sandy.core.data
 		/**
 		 * Returns the angle between this vector and the specified vector.
 		 *
-		 * @param w	The vector making an angle with this one
-		 * @return 	The angle in radians
+		 * @param w		The vector making an angle with this one.
+		 *
+		 * @return The angle in radians.
 		 */
 		public final function getAngle ( w:Vector ):Number
 		{
@@ -289,10 +303,11 @@ package sandy.core.data
 
 
 		/**
-		 * Returns a string representing this vector.
+		 * Returns a string representation of this object.
 		 *
-		 * @param decPlaces	Number of decimals
-		 * @return	The string representatation
+		 * @param decPlaces	The number of decimal places to round the vector's components off to.
+		 *
+		 * @return	The fully qualified name of this object.
 		 */
 		public final function toString(decPlaces:Number=0):String
 		{
@@ -308,12 +323,12 @@ package sandy.core.data
 		}
 
 		/**
-		 * Is this vector equal to the specified vector?.
+		 * Determines if this vector is equal to the specified vector.
 		 *
-		 * <p>Compares this vector with the vector passed in the argument.<br />
-		 * If all components in the two vectors are equal a value of true is returned.</p>
+		 * <p>This all properties of this vector is compared to the properties of the specified vector.
+		 * If all properties of the two vectors are equal, a value of <code>true</code> is returned.</p>
 		 *
-		 * @return 	true if the the two vectors are equal, fals otherwise.
+		 * @return Whether the two vectors are equal.
 		 */
 		public final function equals(p_vector:Vector):Boolean
 		{

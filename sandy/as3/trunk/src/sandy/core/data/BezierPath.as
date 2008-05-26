@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	import sandy.util.BezierUtil;
@@ -21,7 +20,7 @@ package sandy.core.data
 	/**
 	 * A 3D Bézier path.
 	 *
-	 * <p>The Bezier path is built form an array of 3D points, by using Bezier equations<br />
+	 * <p>The Bézier path is built form an array of 3D points, by using Bézier equations<br />
 	 * With two points the path is degenereated to a straight line. To get a curved line, you need
 	 * at least three points. The mid point is used as a control point which gives the curvature.<br />
 	 * After that you will have to add three point segments</p>
@@ -51,8 +50,9 @@ package sandy.core.data
 		 * <p>The Bézier path is made up of a sequence of segments which are internally numbered.
 		 * This method returns the n:th segment, where n is the passed in number.</p>
 		 *
-		 * @param	p_nId The number of the segment to return
-		 * @return	An array containing the bezierCurve points [startPoint, controlPoint, endPoint]
+		 * @param p_nId	The index of the desired segment in the segments array.
+		 *
+		 * @return An array containing the Bézier curve points [startPoint, controlPoint, endPoint]
 		 */
 		public function getSegment( p_nId:uint ):Array
 		{
@@ -69,12 +69,12 @@ package sandy.core.data
 		/**
 		 * Returns the position in the 3D space at a specific portion of this path.
 		 *
-		 * If you regard the whole length of the path as 1.0 (100%),
-		 * and you need the position at 10% of the whole path,
-		 * you pass 0.1 as an argument.
+		 * If length of the path is regarded as <code>1.0</code> (100%) and the position at 10% of the path is desired
+		 * <code>0.1</code> is passed as the.
 		 *
-		 * @param	p_nP  The portion of the path length ( 0 - 1 )
-		 * @return	The 3D position on the path at
+		 * @param p_nP	The position of the path length as a percentage ( 0 - 1 ).
+		 *
+		 * @return The 3D position on the path at the desired position.
 		 */
 		public function getPosition( p_nP:Number ):Vector
 		{
@@ -92,14 +92,16 @@ package sandy.core.data
 		/**
 		 * Adds a 3D point to this path.
 		 *
-		 * <p>NOTE: You can't add a point to the path once it has been compiled.</p>
-		 * <p>Add at least three point for a a curved segment, then two new points for each segment,<br />
-		 * the first a control point, the second an end point.</p>
+		 * <p>At least three points are required for a a curved segment. The first point added must be the control point,
+		 * followed by segments added in sets of two points.
 		 *
-		 * @param	p_nX The x coordinate of the 3D point
-		 * @param	p_nY The y coordinate of the 3D point
-		 * @param	p_nZ The z coordinate of the 3D point
-		 * @return 	true if operation succeed, false otherwise.
+		 * <p><strong>Note:</strong> You can't add a point to the path once it has been compiled.</p>
+		 *
+		 * @param p_nX	The x coordinate of the 3D point.
+		 * @param p_nY	The y coordinate of the 3D point.
+		 * @param p_nZ	The z coordinate of the 3D point.
+		 *
+		 * @return Whether the point was added.
 		 */
 		public function addPoint( p_nX:Number, p_nY:Number, p_nZ:Number ):Boolean
 		{
@@ -115,10 +117,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Computes all the control points for this path.
+		 * Computes the control points for this path.
 		 *
-		 * <p>Must be called after the last point of the path has been added,
-		 * and before being used by Sandy's engine.</p>
+		 * <p>Must be called after all segments have been added and before the scene is rendered.</p>
 		 */
 		public function compile():void
 		{
@@ -154,7 +155,7 @@ package sandy.core.data
 		/**
 		 * Returns the number of segments for this path.
 		 *
-		 * @return The number of segments
+		 * @return The number of segments in this path.
 		 */
 		public function getNumberOfSegments():uint
 		{
@@ -162,9 +163,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a string represntation of the Bezier path.
+		 * Returns a string representation of this object.
 		 *
-		 * @return	A string representing the BezierPath.
+		 * @return	The fully qualified name of this object.
 		 */
 		public function toString():String
 		{

@@ -303,7 +303,7 @@ package sandy.core.scenegraph
 					 		if( l_oFace.cvertices.length > 2 )
 					 		{
 					 			p_oCamera.projectArray( l_oFace.cvertices );
-					 			if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
+					 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
                                 else l_oFace.depth = forcedDepth;
                                 // -- we manage the display list depending on the mode choosen
                                 m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
@@ -316,7 +316,7 @@ package sandy.core.scenegraph
 					 		if( l_oFace.cvertices.length > 2 )
 					 		{
 					 			p_oCamera.projectArray( l_oFace.cvertices );
-					 			if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
+					 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
                                 else l_oFace.depth = forcedDepth;
                                 // -- we manage the display list depending on the mode choosen
                                 m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
@@ -325,7 +325,7 @@ package sandy.core.scenegraph
 					 else if( l_nMinZ >= l_nZNear )
 					 {
 					 		p_oCamera.projectArray( l_oFace.vertices );
-					 		if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
+					 		if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
 					 		else l_oFace.depth = forcedDepth;
 					    	// -- we manage the display list depending on the mode choosen
 							m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;

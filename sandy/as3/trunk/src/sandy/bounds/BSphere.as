@@ -21,7 +21,7 @@ package sandy.bounds
 	
 	/**
 	 * The BSphere class is used to quickly and easily clip an object in a 3D scene.
-	 * <p>It ceates a bounding sphere that contains the whole object</p>
+	 * <p>It creates a bounding sphere that contains the whole object</p>
 	 * 
 	 * @example 	This example is taken from the Shape3D class. It is used in
 	 * 				the <code>updateBoundingVolumes()</code> method:

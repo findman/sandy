@@ -13,33 +13,49 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	/**
 	 * A plane in 3D space.
 	 *
-	 * <p>Used maily to represent the frustrum planes of the camera.</p>
+	 * <p>This class is used primarily to represent the frustrum planes of the camera.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @since		0.1
 	 * @version		3.0
 	 * @date 		24.08.2007
+	 *
+	 * @see sandy.view.Frustum
 	 */
 	final public class Plane
 	{
+		/**
+		* The coordinate of the first plane.
+		*/
 		public var a:Number;
+		
+		/**
+		* The coordinate of the second plane.
+		*/
 		public var b:Number;
+		
+		/**
+		* The coordinate of the third plane.
+		*/
 		public var c:Number;
+		
+		/**
+		* The coordinate of the fourth plane.
+		*/
 		public var d:Number;
 
 		/**
 		* Creates a new Plane instance.
 		*
-		* @param	p_nA	the first plane coordinate
-		* @param	p_nB	the second plane coordinate
-		* @param	p_nC	the third plane coordinate
-		* @param	p_nd	the forth plane coordinate
+		* @param p_nA	The coordinate of the first plane.
+		* @param p_nB	The coordinate of the second plane.
+		* @param p_nC	The coordinate of the third plane.
+		* @param p_nd	The coordinate of the forth plane.
 		*/
 		public function Plane( p_nA:Number=0, p_nB:Number=0, p_nC:Number=0, p_nd:Number=0 )
 		{
@@ -49,11 +65,10 @@ package sandy.core.data
 			this.d = p_nd;
 		}
 
-
 		/**
-		 * Returns a string represntation of this plane.
+		 * Returns a string representation of this object.
 		 *
-		 * @return	The string representing this plane.
+		 * @return	The fully qualified name of this object.
 		 */
 		public function toString():String
 		{

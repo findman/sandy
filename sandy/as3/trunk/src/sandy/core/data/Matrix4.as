@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	import sandy.math.FastMath;
@@ -29,177 +28,248 @@ package sandy.core.data
 	 */
 	public final class Matrix4
 	{
-
 		/**
-		 * Should we use fast math.
+		 * Specifies whether fast math should be used.
 		 */
-		public static var USE_FAST_MATH:Boolean = false;
+		public static const USE_FAST_MATH:Boolean = false;
 		
 		// we force initialization of the fast math table
 		private const _fastMathInitialized:Boolean = FastMath.initialized;
 		
 		/**
 		 * Matrix4 cell.
-		 * <p><code>1 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 1 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n11:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 1 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 1 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n12:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 1 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 1 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n13:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 1 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 1
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n14:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          1 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 1 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n21:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 1 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 1 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n22:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 1 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 1 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n23:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 1 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 1
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n24:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          1 0 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 1 0 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n31:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 1 0 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 1 0 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n32:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 1 0 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 1 0
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n33:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 1 <br>
-		 *          0 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 1
+		 * 0 0 0 0
+		 * </pre>
 		 */
 		public var n34:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          1 0 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 1 0 0 0
+		 * </pre>
 		 */
 		public var n41:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 1 0 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 1 0 0
+		 * </pre>
 		 */
 		public var n42:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 1 0 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 1 0
+		 * </pre>
 		 */
 		public var n43:Number;
 
 		/**
 		 * Matrix4 cell.
-		 * <p><code>0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 0 <br>
-		 *          0 0 0 1 </code></p>
+		 *
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 1
+		 * </pre>
 		 */
 		public var n44:Number;
 
 		/**
-		 * Creates a new Matrix4 matrix.
+		 * Creates a new 4x4 matrix. The default is an identity matrix.
 		 *
-		 * <p>If 16 arguments are passed to the constructor, it will
-		 * create a Matrix4 with the values. Otherwise an identity Matrix4 is created.</p>
-		 * <code>var m:Matrix4 = new Matrix4();</code><br>
-		 * <code>1 0 0 0 <br>
-		 *       0 1 0 0 <br>
-		 *       0 0 1 0 <br>
-		 *       0 0 0 1 </code><br><br>
-		 * <code>var m:Matrix4 = new Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-		 * 13, 14, 15, 16);</code><br>
-		 * <code>1  2  3  4 <br>
-		 *       5  6  7  8 <br>
-		 *       9  10 11 12 <br>
-		 *       13 14 15 16 </code>
+		 * @example The examples below shows the results of calling the constructor with and without parameters. 
+		 * <listing version="3.0">
+		 * var m:Matrix4 = new Matrix4();
+		 * </listing>
 		 *
-		 * @param pn11 - pn44	Element values to populate the matrix
+		 * <pre>
+		 * 1 0 0 0
+		 * 0 1 0 0
+		 * 0 0 1 0
+		 * 0 0 0 1
+		 * </pre>
+		 *
+		 * <listing version="3.0">
+		 * var m:Matrix4 = new Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+		 * </listing>
+		 *
+		 * <pre>
+		 * 1  2  3  4
+		 * 5  6  7  8
+		 * 9  10 11 12
+		 * 13 14 15 16
+		 * </pre>
+		 *
+		 * @param pn11	Matrix cell n11.
+		 * @param pn12	Matrix cell n12.
+		 * @param pn13	Matrix cell n13.
+		 * @param pn14	Matrix cell n14.
+		 * @param pn21	Matrix cell n21.
+		 * @param pn22	Matrix cell n22.
+		 * @param pn23	Matrix cell n23.
+		 * @param pn24	Matrix cell n24.
+		 * @param pn31	Matrix cell n31.
+		 * @param pn32	Matrix cell n32.
+		 * @param pn33	Matrix cell n33.
+		 * @param pn34	Matrix cell n34.
+		 * @param pn41	Matrix cell n41.
+		 * @param pn42	Matrix cell n42.
+		 * @param pn43	Matrix cell n43.
+		 * @param pn44	Matrix cell n44.
 		 */
 		public function Matrix4(pn11:Number=1, pn12:Number=0 , pn13:Number=0 , pn14:Number=0,
 					pn21:Number=0, pn22:Number=1 , pn23:Number=0 , pn24:Number=0,
@@ -215,13 +285,16 @@ package sandy.core.data
 		/**
 		 * Makes this matrix into a zero matrix.
 		 *
-		 * <p>A zero Matrix4 is represented like this :</p>
-		 * <code>0 0 0 0 <br>
-		 *       0 0 0 0 <br>
-		 *       0 0 0 0 <br>
-		 *       0 0 0 0 </code>
+		 * <p>Below is a representation of a zero matrix:</p>
 		 *
-		 * @return	The zero matrix
+		 * <pre>
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * 0 0 0 0
+		 * </pre>
+		 *
+		 * @return	The zero matrix.
 		 */
 		public final function zero():void
 		{
@@ -234,13 +307,16 @@ package sandy.core.data
 		/**
 		 * Makes this matrix into an identity matrix.
 		 *
-		 * <p>A zero Matrix4 is represented like this :</p>
-		 * <code>1 0 0 0 <br>
-		 *       0 1 0 0 <br>
-		 *       0 0 1 0 <br>
-		 *       0 0 0 1 </code>
+		 * <p>Below is a representation of a identity matrix:</p>
 		 *
-		 * @return	The identity matrix
+		 * <pre>
+		 * 1 0 0 0
+		 * 0 1 0 0
+		 * 0 0 1 0
+		 * 0 0 0 1
+		 * </pre>
+		 *
+		 * @return	The identity matrix.
 		 */
 		public final function identity():void
 		{
@@ -251,10 +327,10 @@ package sandy.core.data
 		}
 
 		/**
-		 * Compute a clonage {@code Matrix4}.
-		 *
-		 * @return The result of clonage : a {@code Matrix4}.
-		 */
+		 * Returns a new Matrix4 object that is a clone of the original instance. 
+		 * 
+		 * @return A new Matrix4 object that is identical to the original. 
+		 */	
 		public final function clone():Matrix4
 		{
 			return new Matrix4(	n11,n12,n13,n14,
@@ -268,7 +344,7 @@ package sandy.core.data
 		 *
 		 * <p>All elements of the argument matrix are copied into this matrix.</p>
 		 *
-		 * @param m1 	The matrix to copy.
+		 * @param m1	The matrix to copy.
 		 */
 		public final function copy(m:Matrix4):void
 		{
@@ -279,9 +355,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies this matrix by a passed in as if they were 3x3 matrices.
+		 * Multiplies this matrix by the matrix passed in as if they were 3x3 matrices.
 		 *
-		 * @param m2 	The matrix to multiply with.
+		 * @param m2	The matrix to multiply with.
 		 */
 		public final function multiply3x3( m2:Matrix4) : void
 		{
@@ -313,9 +389,9 @@ package sandy.core.data
 
 
 		/**
-		 * Multiplies the upper left 3x3 sub matrix of this matrix by a passed in matrix.
+		 * Multiplies the upper left 3x3 sub matrix of this matrix by the passed in matrix.
 		 *
-		 * @param m2 	The matrix to multiply with.
+		 * @param m2	The matrix to multiply with.
 		 */
 		public final function multiply4x3( m2:Matrix4 ):void
 		{
@@ -352,9 +428,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies this matrix by a passed in matrix.
+		 * Multiplies this matrix by the passed in matrix.
 		 *
-		 * @param m2 	The matrix to multiply with.
+		 * @param m2	The matrix to multiply with.
 		 */
 		public final function multiply( m2:Matrix4) : void
 		{
@@ -391,12 +467,14 @@ package sandy.core.data
 		}
 
 		/**
-		 * Adds this matrix to a passed in matrix.
+		 * Adds the passed in matrix to this matrix.
 		 *
-		 * <p>This matrix is added to the argument matrix, element by element:<br/>
-		 * n11 = n11 + m2.n11, etc</p>
+		 * <p>This passed in matrix is added to this matrix element by element:<br />
+		 * <code>n11 = n11 + m2.n11</code><br />
+		 * <code>n11 = n12 + m2.n12</code><br />
+		 * ...</p>
 		 *
-		 * @param m2 	Matrix to add to thei matrix.
+		 * @param m2	The matrix to add to this matrix.
 		 */
 		public final function addMatrix( m2:Matrix4): void
 		{
@@ -420,9 +498,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies a vertex with this matrix.
+		 * Multiplies a vector with this matrix.
 		 *
-		 * @param pv	The vertex to be mutliplied
+		 * @param pv	The vector to be mutliplied.
 		 */
 		public final function vectorMult( pv:Vector ):void
 		{
@@ -433,11 +511,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies a 3D vector with this matrix.
+		 * Multiplies a vector with the upper left 3x3 sub matrix of this matrix.
 		 *
-		 * <p>The vector is multiplied with te upper left 3x3 sub matrix</p>
-		 *
-		 * @param pv	The vector to be mutliplied
+		 * @param pv	The vector to be mutliplied.
 		 */
 		public final function vectorMult3x3( pv:Vector ):void
 		{
@@ -447,12 +523,10 @@ package sandy.core.data
 			pv.z = (x * n31 + y * n32 + z * n33);
 		}
 		
-		
 		/**
-		 * Makes this matrix a rotation matrix for the given angle of rotation.
+		 * Makes this matrix a rotation matrix for the given angle of rotation around the x axis.
 		 * 
-		 * @param angle Number angle of rotation in degrees
-		 * @return the computed matrix
+		 * @param angle	The angle of rotation around the x axis in degrees.
 		 */
 		public final function rotationX ( angle:Number ):void
 		{
@@ -469,11 +543,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a rotation matrix for the given angle of rotation.
-		 *
-		 * <p>The matrix is computed from the angle of rotation around the y axes.</p>
-		 *
-		 * @param angle 	Angle of rotation around y axis in degrees.
+		 * Makes this matrix a rotation matrix for the given angle of rotation around the y axis.
+		 * 
+		 * @param angle	The angle of rotation around the y axis in degrees.
 		 */
 		public final function rotationY ( angle:Number ):void
 		{
@@ -490,11 +562,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a rotation matrix for the given angle of rotation.
-		 *
-		 * <p>The matrix is computed from the angle of rotation around the z axes.</p>
-		 *
-		 * @param angle 	Angle of rotation around z axis in degrees.
+		 * Makes this matrix a rotation matrix for the given angle of rotation around the z axis.
+		 * 
+		 * @param angle	The angle of rotation around the z axis in degrees.
 		 */
 		public final function rotationZ ( angle:Number ):void
 		{
@@ -513,11 +583,8 @@ package sandy.core.data
 		/**
 		 * Makes this matrix a rotation matrix for a rotation around a given axis.
 		 *
-		 * <p>The matrix is computed from the angle of rotation around the given axes of rotation.<br />
-		 * The axis is given as a 3D vector.</p>
-		 *
-		 * @param v 	The axis of rotation
-		 * @param angle	The angle of rotation in degrees
+		 * @param v 	The axis of rotation.
+		 * @param angle	The angle of rotation in degrees.
 		 */
 		public final function axisRotationVector ( v:Vector, angle:Number ) : void
 		{
@@ -526,18 +593,18 @@ package sandy.core.data
 		
 		
 		/**
-		 * Makes this matrix a translation matrix from translation components.
+		 * Makes this matrix a translation matrix from coordinates.
 		 * 
 		 * <pre>
-		 * |1  0  0  0|
-		 * |0  1  0  0|
-		 * |0  0  1  0|
-		 * |Tx Ty Tz 1|
+		 * 1  0  0  0
+		 * 0  1  0  0
+		 * 0  0  1  0
+		 * Tx Ty Tz 1
 		 * </pre>
 		 *
-		 * @param nTx 	Translation in the x direction.
-		 * @param nTy 	Translation in the y direction.
-		 * @param nTz 	Translation in the z direction.
+		 * @param nTx	Translation in the x direction.
+		 * @param nTy	Translation in the y direction.
+		 * @param nTz	Translation in the z direction.
 		 */
 		public final function translation(nTx:Number, nTy:Number, nTz:Number) : void
 		{
@@ -549,16 +616,16 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a translation matrix from a translation vector.
+		 * Makes this matrix a translation matrix from a vector.
 		 *
 		 * <pre>
-		 * |1  0  0  0|
-		 * |0  1  0  0|
-		 * |0  0  1  0|
-		 * |v.x v.y v.z 1|
+		 * 1   0   0   0
+		 * 0   1   0   0
+		 * 0   0   1   0
+		 * v.x v.y v.z 1
 		 * </pre>
 		 *
-		 * @param v 	The translation Vector.
+		 * @param v 	The translation vector.
 		 */
 		public final function translationVector( v:Vector ) : void
 		{
@@ -570,13 +637,13 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a scale matrix from scale components.
+		 * Makes this matrix a scale matrix from coordinates.
 		 *
 		 * <pre>
-		 * |Sx 0  0  0|
-		 * |0  Sy 0  0|
-		 * |0  0  Sz 0|
-		 * |0  0  0  1|
+		 * Sx 0  0  0
+		 * 0  Sy 0  0
+		 * 0  0  Sz 0
+		 * 0  0  0  1
 		 * </pre>
 		 *
 		 * @param nXScale 	x-scale.
@@ -593,13 +660,13 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a scale matrix from a scale vector.
+		 * Makes this matrix a scale matrix from a vector.
 		 *
 		 * <pre>
-		 * |Sx 0  0  0|
-		 * |0  Sy 0  0|
-		 * |0  0  Sz 0|
-		 * |0  0  0  1|
+		 * Sx 0  0  0
+		 * 0  Sy 0  0
+		 * 0  0  Sz 0
+		 * 0  0  0  1
 		 * </pre>
 		 *
 		 * @param v	The scale vector.
@@ -614,9 +681,9 @@ package sandy.core.data
 		}
 
 		/**
-		* Returns the determinant of this 4x4 matrix.
+		* Returns the determinant of this matrix.
 		*
-		* @return 	The determinant
+		* @return The determinant.
 		*/
 		public final function det():Number
 		{
@@ -629,7 +696,7 @@ package sandy.core.data
 		/**
 		* Returns the determinant of the upper left 3x3 sub matrix of this matrix.
 		*
-		* @return 	The determinant
+		* @return The determinant.
 		*/
 		public final function det3x3():Number
 		{
@@ -639,9 +706,9 @@ package sandy.core.data
 		/**
 		 * Returns the trace of the matrix.
 		 *
-		 * <p>The trace value is the sum of the element on the diagonal of the matrix</p>
+		 * <p>The trace value is the sum of the elements on the corners of the matrix.</p>
 		 *
-		 * @return 	The trace value
+		 * @return The trace value.
 		 */
 		public final function getTrace():Number
 		{
@@ -649,9 +716,9 @@ package sandy.core.data
 		}
 		
 		/**
-		* Return the inverse of the matrix passed in parameter.
-		* @param m The matrix4 to inverse
-		* @return Matrix4 The inverse Matrix4
+		* Returns the inverse of this matrix.
+		*
+		* @return The inverse matrix.
 		*/
 		public final function inverse():void
 		{
@@ -690,10 +757,10 @@ package sandy.core.data
 		/**
 		 * Realize a rotation around a specific axis through a specified point.
 		 *
-		 * <p>a rotation by a specified angle around a specified axis through a specific position, the reference point,
+		 * <p>A rotation by a specified angle around a specified axis through a specific position (the reference point),
 		 * is applied to this matrix.</p>
 		 *
-		 * @param pAxis 	A 3D Vector representing the axis of rtation. Must be normalized!
+		 * @param pAxis 	A vector representing the axis of the rotation.
 		 * @param ref 		The reference point.
 		 * @param pAngle	The angle of rotation in degrees.
 		 */
@@ -710,9 +777,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a string representation of this matrix.
+		 * Returns a string representation of this object.
 		 *
-		 * @return	The string representing this matrix
+		 * @return	The fully qualified name of this object.
 		 */
 		public final function toString(): String
 		{
@@ -727,7 +794,7 @@ package sandy.core.data
 		/**
 		 * Returns a vector that containes the 3D position information.
 		 * 
-		 * @return A vector
+		 * @return A vector.
 		 */
 		public final function getTranslation():Vector
 		{
@@ -735,13 +802,12 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Compute a Rotation around an axis{@code Matrix4}.
+		 * Computes a rotation around an axis.
 		 *
-		 * @param {@code nRotX} rotation X.
-		 * @param {@code nRotY} rotation Y.
-		 * @param {@code nRotZ} rotation Z.
-		 * @param The angle of rotation in degree
-		 * @return The result of computation : a {@code Matrix4}.
+		 * @param u		X rotation.
+		 * @param v		Y rotation.
+		 * @param w		Z rotation.
+		 * @param angle	The angle of rotation in degrees.
 		 */
 		public final function axisRotation ( u:Number, v:Number, w:Number, angle:Number ) : void
 		{
@@ -776,12 +842,11 @@ package sandy.core.data
 		
 	        
 		/**
-		 * Compute a Rotation {@code Matrix4} from the Euler angle in degrees unit.
+		 * Computes a rotation from the Euler angle in degrees.
 		 *
-		 * @param {@code ax} angle of rotation around X axis in degree.
-		 * @param {@code ay} angle of rotation around Y axis in degree.
-		 * @param {@code az} angle of rotation around Z axis in degree.
-		 * @return The result of computation : a {@code Matrix4}.
+		 * @param ax	The angle of rotation around the X axis in degrees.
+		 * @param ay	The angle of rotation around the Y axis in degrees.
+		 * @param az	The angle of rotation around the Z axis in degrees.
 		 */
 		public final function eulerRotation ( ax:Number, ay:Number, az:Number ) : void
 		{
@@ -812,10 +877,11 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Get the eulers angles from the rotation matrix
-		 * @param t The Matrix4 instance from which t extract these angles
+		 * Get the Euler angles from the rotation matrix.
+		 *
+		 * @param t The Matrix4 instance from which to extract these angles.
 		 * 
-		 * @return A vector that represent the Euler angles in the 3D space (X, Y and Z)
+		 * @return A vector representing the Euler angles.
 		 */
 		public static function getEulerAngles( t:Matrix4 ):Vector
 		{

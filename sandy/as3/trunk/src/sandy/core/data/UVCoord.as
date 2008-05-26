@@ -13,19 +13,20 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 package sandy.core.data
 {
 	/**
-	 * A 2D coordinate point on a texture that corresponds to a vertex of a polygon in 3D space.
+	 * A 2D coordinate point on a texture that corresponds to a vertex of a polygon.
 	 *
-	 * <p>The UVCoord represents the position of a vertex on the Bitmap used to dress the polygon.<br />
-	 * It is the 2D texture coordinates, used in the BitmapMaterial and VideoMaterial.</p>
+	 * <p>The UVCoord represents the position of a vertex on the Bitmap used to &quot;dress&quot; a polygon.<br />
+	 * It is the 2D texture coordinate, used in the BitmapMaterial and VideoMaterial.</p>
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @since		0.3
 	 * @version		3.0
 	 * @date 		24.08.2007
+	 *
+	 * @see http://en.wikipedia.org/wiki/UV_mapping
 	 */
 	public final class UVCoord
 	{
@@ -42,8 +43,8 @@ package sandy.core.data
 		/**
 		* Creates a new UV coordinate.
 		*
-		* @param p_nU Number the x texture position  in the bitmap
-		* @param p_nV Number the y texture position in the bitmap.
+		* @param p_nU	Number the x texture position on the bitmap.
+		* @param p_nV	Number the y texture position on the bitmap.
 		*/
 		public function UVCoord( p_nU: Number=0, p_nV: Number=0 )
 		{
@@ -51,11 +52,20 @@ package sandy.core.data
 			v = p_nV;
 		}
 
+		/**
+		 * The length.
+		 */
 		public function length():Number
 		{
 			return Math.sqrt( u*u + v*v );
 		}
 		
+		/**
+		 * Normalizes this UV coordinate.
+		 *
+		 * <p>A UV coordinate is normalized when its components are divided by its length.
+		 * The length is calculated by <code>Math.sqrt( u*u + v*v )</code>.</p>
+		 */
 		public function normalize():void
 		{
 			var l_nLength:Number = length();
@@ -64,8 +74,9 @@ package sandy.core.data
 		}
 
 		/**
-		 * Substract the UVCoord passed as parameter to the current UVCoord.
-		 * @param p_oUVCoord The UVCoord to substract
+		 * Subtracts the specified UV coordinate from this UV coordinate.
+		 *
+		 * @param p_oUV The UV coordinate to substract.
 		 */ 
 		public function sub( p_oUV:UVCoord ):void
 		{
@@ -74,8 +85,9 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Add the UVCoord passed as parameter with the current UVCoord.
-		 * @param p_oUVCoord The UVCoord to add
+		 * Adds the specified UV coordinate from this UV coordinate.
+		 *
+		 * @param p_oUV The UVCoord to add.
 		 */ 
 		public function add( p_oUV:UVCoord ):void
 		{
@@ -83,8 +95,9 @@ package sandy.core.data
 			v += p_oUV.v;
 		}
 		/**
-		 * Scale the texture coords values by a factor.
-		 * @param p_nFactor The factor
+		 * Scales the texture coordinates by a factor.
+		 *
+		 * @param p_nFactor The factor.
 		 */
 		public function scale( p_nFactor:Number ):void
 		{
@@ -93,27 +106,31 @@ package sandy.core.data
 		}
 		
 		/**
-		* Returns a string representing this UVCoord.
-		*
-		* @return	The string representation
-		*/
+		 * Returns a string representation of this object.
+		 *
+		 * @return The fully qualified name of this object.
+		 */
 		public function toString(): String
 		{
 			return "sandy.core.data.UVCoord" + "(u:" + u+", v:" + v + ")";
 		}
 
 		/**
-		 * Return a clone of this UVCoord.
-		 *
-		 * @return 	The clone
-		 */
+		 * Returns a new UVCoord object that is a clone of the original instance. 
+		 * 
+		 * @return A new UVCoord object that is identical to the original. 
+		 */	
 		public function clone():UVCoord
 		{
 			return new UVCoord(u, v);
 		}
 		
 		/**
-		 * Realize a copy of the UVCoord object passed in parameter to the local object.
+		 * Makes this UV coordinate a copy of the specified UV coordinate.
+		 *
+		 * <p>All components of the specified UV coordinate are copied to this UV coordinate.</p>
+		 *
+		 * @param p_oUV	The vertex to copy.
 		 */
 		public function copy( p_oUV:UVCoord ):void
 		{
