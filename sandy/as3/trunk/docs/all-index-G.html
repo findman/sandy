@@ -149,7 +149,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns the real 3D position of the 2D screen position.</td>
+   Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#getAngle()">getAngle</a>(w:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
@@ -223,7 +223,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns the center of the Bounding Box volume in the form of a 3D vector.</td>
+   Returns the center of the bounding box volume.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#getChildByName()">getChildByName</a>(p_sName, p_bRecurs) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -287,8 +287,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Get the eulers angles from the rotation matrix
-   </td>
+   Get the Euler angles from the rotation matrix.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#getFace()">getFace</a>(p_nFace) &mdash; Method in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
@@ -316,7 +315,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a SceneLocator.</td>
+   Returns the instance of this SceneLocator object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/World3D.html#getInstance()">getInstance</a>() &mdash; Static method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/World3D.html">World3D</a></td>
@@ -419,7 +418,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes and returns the norm of this vector.</td>
+   Returns the norm of this vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#getNorm()">getNorm</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -538,7 +537,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Return the size of the Bounding Box.</td>
+   Returns the size of the bounding box.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/StringUtil.html#getTextBetween()">getTextBetween</a>(p_sStr, p_sStart, p_sEnd) &mdash; Static method in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/StringUtil.html">StringUtil</a></td>
@@ -588,21 +587,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Get the UVCoord under the 2D screen position after a mouse click or something
-   The 2D position is usually coming from :
-   <div class='listing'><pre>
-   var l_nClicX:Number = m_oScene.container.mouseX;
-         var l_nClicY:Number = m_oScene.container.mouseY;
-         </pre></div>
-         
-         </td>
+   Returns a UV coordinate elative to the specified point on the 2D screen.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#getVector()">getVector</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a vector representing the original x, y, z values.</td>
+   Returns a vector representing the original x, y, z coordinates.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/QuaternionMath.html#getVector()">getVector</a>(q:<a href="sandy/core/data/Quaternion.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Quaternion</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/QuaternionMath.html">QuaternionMath</a></td>
@@ -622,7 +614,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("GÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  Returns the transformed vertex in world coordinates.</td>
+  Returns a vector of the transformed vertex.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html#gloss">gloss</a> &mdash; Property in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/ALightAttributes.html">ALightAttributes</a></td>

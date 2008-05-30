@@ -52,14 +52,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  A point in 3D world.</td>
+  A 3D coordinate.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#Vector()">Vector</a>(p_nX, p_nY, p_nZ) &mdash; Constructor in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-  Creates a new vector instance.</td>
+  Creates a new vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VectorMath.html">VectorMath</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/package-detail.html">sandy.math</a></td>
@@ -73,7 +73,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Multiplies a vertex with this matrix.</td>
+   Multiplies a vector with this matrix.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#vectorMult()">vectorMult</a>(m:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, pv:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>
@@ -87,7 +87,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Multiplies a 3D vector with this matrix.</td>
+   Multiplies a vector with the upper left 3x3 sub matrix of this matrix.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#vectorMult3x3()">vectorMult3x3</a>(m:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, pv:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>
@@ -101,7 +101,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  A vertex of a 3D mesh or polygon.</td>
+  A vertex is the point of intersection of edges the of a polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#Vertex()">Vertex</a>(p_nx, p_ny, p_nz, ... rest) &mdash; Constructor in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -115,32 +115,28 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY]
-   First vertex which compose the EDGE.</td>
+   First vertex of the edge (not in use?).</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html#vertex2">vertex2</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html">Edge3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY]
-   Second vertex which compose the EDGE.</td>
+   Second vertex of the edge (not in use?).</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html#vertexId1">vertexId1</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html">Edge3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY]
-   First ID of the vertex which compose the EDGE.</td>
+   The index of the first vertex of the edge in the Geometry3D <code>aVertex</code> array.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html#vertexId2">vertexId2</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html">Edge3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY]
-   Second ID of the vertex which compose the EDGE.</td>
+   The index of the second vertex of the edge in the Geometry3D <code>aVertex</code> array.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html">VertexMath</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/package-detail.html">sandy.math</a></td>
@@ -175,7 +171,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY] property.</td>
+   An array of the polygon's vertex normals.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html#VERTEX_NORMAL_WORLD">VERTEX_NORMAL_WORLD</a> &mdash; Constant static property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html">SandyFlags</a></td>
@@ -188,15 +184,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY] property.</td>
+   An array of the polygon's original vertices.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html#VIDEO">VIDEO</a> &mdash; Constant static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html">MaterialType</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Constant value representing the VideoMaterial
-   </td>
+   Specifies a VideoMaterial.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/VideoMaterial.html">VideoMaterial</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/package-detail.html">sandy.materials</a></td>
@@ -262,7 +257,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("VÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Is this face visible?.</td>
+   Specifies whether the face of the polygon is visible.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#visible">visible</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>

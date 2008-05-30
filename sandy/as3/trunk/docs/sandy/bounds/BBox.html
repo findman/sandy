@@ -39,8 +39,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  The <code>BBox</code> object is used to clip the object faster.
-  <p>It creates a bounding box that contains the whole object</p>
+  The BBox class is used to quickly and easily clip an object in a 3D scene.
+  <p>It creates a bounding box that contains the whole object.</p>
   
   <p></p>
 <br>
@@ -72,14 +72,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#max">max</a> : <a href="../core/data/Vector.html">Vector</a>
 <div class="summaryTableDescription">
-   Max vector, representing the upper point of the cube volume
-   </div>
+   A vector representing the highest point of the cube volume.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#min">min</a> : <a href="../core/data/Vector.html">Vector</a>
 <div class="summaryTableDescription">
-   Min vector, representing the lower point of the cube volume.</div>
+   A vector representing the lowest point of the cube volume.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -94,7 +93,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#uptodate">uptodate</a> : Boolean = false<div class="summaryTableDescription">
-   Specify if this object is up to date or not.</div>
+   Specifies if this object's boundaries are up to date with the object it is enclosing.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 </table>
@@ -111,7 +110,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#BBox()">BBox</a>(p_min:<a href="../core/data/Vector.html">Vector</a> = null, p_max:<a href="../core/data/Vector.html">Vector</a> = null)</div>
 <div class="summaryTableDescription">
-   Creates a new <code>BBox</code> instance by passing the min and the max <code>Vector</code>.</div>
+   Creates a new BBox instance.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -120,7 +119,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#clone()">clone</a>():<a href="../bounds/BBox.html">BBox</a>
 </div>
 <div class="summaryTableDescription">
-   Clones the current bounding box.</div>
+   Returns a new BBox object that is a clone of the original instance.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -129,7 +128,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#create()">create</a>(p_aVertices:Array):<a href="../bounds/BBox.html">BBox</a>
 </div>
 <div class="summaryTableDescription">[static]
-   Creates a bounding sphere that encloses a 3D object.</div>
+   Creates a bounding box that encloses a 3D from an Array of the object's vertices.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -138,7 +137,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getCenter()">getCenter</a>():<a href="../core/data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Returns the center of the Bounding Box volume in the form of a 3D vector.</div>
+   Returns the center of the bounding box volume.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -147,7 +146,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getSize()">getSize</a>():<a href="../core/data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Return the size of the Bounding Box.</div>
+   Returns the size of the bounding box.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -155,7 +154,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   Returns a <code>String</code> representation of the <code>BBox</code>.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -163,7 +162,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#transform()">transform</a>(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</div>
 <div class="summaryTableDescription">
-      Applies the transformation that is specified in the <code>Matrix4</code> parameter.</div>
+      Applies a transformation to the bounding box.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 </table>
@@ -201,7 +200,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var max:<a href="../core/data/Vector.html">Vector</a></code><p>
-   Max vector, representing the upper point of the cube volume
+   A vector representing the highest point of the cube volume.
    </p></div>
 <a name="min"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -211,7 +210,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var min:<a href="../core/data/Vector.html">Vector</a></code><p>
-   Min vector, representing the lower point of the cube volume.
+   A vector representing the lowest point of the cube volume.
    </p></div>
 <a name="tmax"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -239,8 +238,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var uptodate:Boolean = false</code><p>
-   Specify if this object is up to date or not.
-   If false, you need to call its transform method to get its correct bounds in the desired frame.
+   Specifies if this object's boundaries are up to date with the object it is enclosing.
+   If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
    </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
@@ -252,19 +251,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function BBox(p_min:<a href="../core/data/Vector.html">Vector</a> = null, p_max:<a href="../core/data/Vector.html">Vector</a> = null)</code><p>
-   Creates a new <code>BBox</code> instance by passing the min and the max <code>Vector</code>.
+   Creates a new BBox instance.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_min</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  Min vector, representing the lower point of the cube volume
+<td width="20px"></td><td><code><span class="label">p_min</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  A vector representing the lowest point of the cube volume.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_max</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  Max vector, representing the upper point of the cube volume
+<td width="20px"></td><td><code><span class="label">p_max</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  A vector representing the highest point of the cube volume.
    </td>
 </tr>
 </table>
@@ -279,14 +278,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function clone():<a href="../bounds/BBox.html">BBox</a></code><p>
-   Clones the current bounding box. 
+   Returns a new BBox object that is a clone of the original instance. 
    
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../bounds/BBox.html">BBox</a></code> &mdash; 
-                          A cloned <code>BBox</code> instance
+                        A new BBox object that is identical to the original. 
    
                         
                      </td>
@@ -301,15 +300,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function create(p_aVertices:Array):<a href="../bounds/BBox.html">BBox</a></code><p>
-   Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-   to the <code>create</code> method in the form of an <code>Array</code>. Very useful 
-   for clipping and thus performance!
+   Creates a bounding box that encloses a 3D from an Array of the object's vertices.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object
-   </td>
+<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object the bounding box will contain.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -317,7 +314,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../bounds/BBox.html">BBox</a></code> &mdash; 
-                             A <code>BBox</code> instance
+                        The BBox instance.
    
                         
                      </td>
@@ -332,14 +329,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function getCenter():<a href="../core/data/Vector.html">Vector</a></code><p>
-   Returns the center of the Bounding Box volume in the form of a 3D vector.
+   Returns the center of the bounding box volume.
    
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/data/Vector.html">Vector</a></code> &mdash; 
-                          A <code>Vector</code> representing the center of the Bounding Box
+                        A Vector representing the center of the bounding box.
    
                         
                      </td>
@@ -354,14 +351,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function getSize():<a href="../core/data/Vector.html">Vector</a></code><p>
-   Return the size of the Bounding Box.
+   Returns the size of the bounding box.
    
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/data/Vector.html">Vector</a></code> &mdash; 
-                          A <code>Vector</code> representing the size of the volume in three dimensions.
+                        A Vector object representing the size of the volume in three dimensions.
    
                         
                      </td>
@@ -376,13 +373,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-   Returns a <code>String</code> representation of the <code>BBox</code>.
-   
-   </p><p></p>
+   Returns a string representation of this object.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash;  A String representing the bounding box
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>
@@ -395,12 +391,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function transform(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</code><p>
-      Applies the transformation that is specified in the <code>Matrix4</code> parameter.
+      Applies a transformation to the bounding box.
       
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oMatrix</span>:<a href="../core/data/Matrix4.html">Matrix4</a></code> &mdash;  The transformation matrix
+<td width="20px"></td><td><code><span class="label">p_oMatrix</span>:<a href="../core/data/Matrix4.html">Matrix4</a></code> &mdash;  The transformation matrix.
       </td>
 </tr>
 </table>

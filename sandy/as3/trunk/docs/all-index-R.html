@@ -38,7 +38,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html#radius">radius</a> &mdash; Property in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   The radius of the bounding sphere.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/ViewPort.html#ratio">ratio</a> &mdash; Property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/ViewPort.html">ViewPort</a></td>
@@ -59,13 +60,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Enable this property (default value is true!) to perfectly clip your 3D scene to the viewport dimension.</td>
+   Enable this property to perfectly clip your 3D scene to the viewport's dimensions.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html#register()">register</a>(p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html">MaterialManager</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Registers a material with the material manager.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html#registerScene()">registerScene</a>(key, o:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html">SceneLocator</a></td>
@@ -121,7 +123,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Removes a listener for specifical event.</td>
+   Removes an event listener to the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#removeEventListener()">removeEventListener</a>(p_sEvt, p_oL) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -149,7 +151,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Renders this scene into its display object container.</td>
+   Renders the scene in its container.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
@@ -251,9 +253,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Reset the vector components to 0
-   after calling this method, x, y and z will be set to 0
-   </td>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to <code>0</code>.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/RotationUtil.html#reset()">reset</a>() &mdash; Method in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/RotationUtil.html">RotationUtil</a></td>
@@ -267,18 +267,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Reset the vector components to the minimal value Flash can handle
-   after calling this method, x, y and z will be set to Number.NEGATIVE_INFINITY;
-   </td>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#resetToPositiveInfinity()">resetToPositiveInfinity</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Reset the vector components to the maximal value Flash can handle
-   after calling this method, x, y and z will be set to Number.POSITIVE_INFINITY;
-   </td>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle (<code>Number.POSITIVE_INFINITY</code>).</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/ColorMath.html#rgb2hex()">rgb2hex</a>(r, g, b) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/ColorMath.html">ColorMath</a></td>
@@ -375,7 +371,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Makes this matrix a rotation matrix for the given angle of rotation.</td>
+   Makes this matrix a rotation matrix for the given angle of rotation around the x axis.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#rotationX()">rotationX</a>(angle) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>
@@ -389,7 +385,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Makes this matrix a rotation matrix for the given angle of rotation.</td>
+   Makes this matrix a rotation matrix for the given angle of rotation around the y axis.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#rotationY()">rotationY</a>(angle) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>
@@ -403,7 +399,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Makes this matrix a rotation matrix for the given angle of rotation.</td>
+   Makes this matrix a rotation matrix for the given angle of rotation around the z axis.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#rotationZ()">rotationZ</a>(angle) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>

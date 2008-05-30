@@ -39,8 +39,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  The <code>BSphere</code> object is used to clip the object faster.
-  <p>It Creates a bounding sphere that contains the whole object</p>
+  The BSphere class is used to quickly and easily clip an object in a 3D scene.
+  <p>It creates a bounding sphere that contains the whole object</p>
   
   <p></p>
 <br>
@@ -63,7 +63,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#center">center</a> : <a href="../core/data/Vector.html">Vector</a>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   A Vector representing the center of the bounding sphere.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -72,12 +73,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#radius">radius</a> : Number = 1<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#radius">radius</a> : Number = 1<div class="summaryTableDescription">
+   The radius of the bounding sphere.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#uptodate">uptodate</a> : Boolean = false<div class="summaryTableDescription">
-   Specify if this object is up to date or not.</div>
+   Specifies if this object's boundaries are up to date with the object it is enclosing.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 </table>
@@ -94,7 +96,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#BSphere()">BSphere</a>()</div>
 <div class="summaryTableDescription">
-   <p>Create a new <code>BSphere</code> instance.</p>
+   Creates a new BSphere instance.</p>
    </div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
@@ -103,9 +105,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#compute()">compute</a>(p_aVertices:Array):void</div>
 <div class="summaryTableDescription">
-   Performs the actual computing of the bounding sphere's center and radius
-   
-   </div>
+   Computes of the bounding sphere's center and radius.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -114,7 +114,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#create()">create</a>(p_aVertices:Array):<a href="../bounds/BSphere.html">BSphere</a>
 </div>
 <div class="summaryTableDescription">[static]
-   Creates a bounding sphere that encloses a 3D object.</div>
+   Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -122,7 +122,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#distance()">distance</a>(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</div>
 <div class="summaryTableDescription">
-   Returns the distance of a point from the surface.</div>
+   Returns the distance of a Vector from the surface of the bounding sphere.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -130,7 +130,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-  Returns a <code>String</code> represntation of the <code>BSphere</code>.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -138,7 +138,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#transform()">transform</a>(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</div>
 <div class="summaryTableDescription">
-      Applies the transformation that is specified in the <code>Matrix4</code> parameter.</div>
+      Applies a transformation to the bounding sphere.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 </table>
@@ -157,8 +157,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var center:<a href="../core/data/Vector.html">Vector</a></code>
-</div>
+<code>public var center:<a href="../core/data/Vector.html">Vector</a></code><p>
+   A Vector representing the center of the bounding sphere.
+   </p></div>
 <a name="position"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -175,8 +176,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var radius:Number = 1</code>
-</div>
+<code>public var radius:Number = 1</code><p>
+   The radius of the bounding sphere.
+   </p></div>
 <a name="uptodate"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -185,8 +187,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var uptodate:Boolean = false</code><p>
-   Specify if this object is up to date or not.
-   If false, you need to call its transform method to get its correct bounds in the desired frame.
+   Specifies if this object's boundaries are up to date with the object it is enclosing.
+   If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
    </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
@@ -198,8 +200,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function BSphere()</code><p>
-   </p><p>Create a new <code>BSphere</code> instance.</p>
-   </div>
+   Creates a new BSphere instance.</p>
+   </p></div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
 <a name="compute()"></a>
@@ -210,12 +212,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function compute(p_aVertices:Array):void</code><p>
-   Performs the actual computing of the bounding sphere's center and radius
+   Computes of the bounding sphere's center and radius.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object
+<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object the bounding sphere will contain.
    </td>
 </tr>
 </table>
@@ -228,14 +230,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function create(p_aVertices:Array):<a href="../bounds/BSphere.html">BSphere</a></code><p>
-   Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-   to the <code>create</code> method in the form of an <code>Array</code>. Very useful 
-   for clipping and thus performance!
+   Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object
+<td width="20px"></td><td><code><span class="label">p_aVertices</span>:Array</code> &mdash;  The vertices of the 3D object the bounding sphere will contain.
    </td>
 </tr>
 </table>
@@ -244,7 +244,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../bounds/BSphere.html">BSphere</a></code> &mdash; 
-                             A <code>BSphere</code> instance
+                             The BSphere instance.
    
                         
                      </td>
@@ -259,7 +259,9 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function distance(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
-   Returns the distance of a point from the surface.
+   Returns the distance of a Vector from the surface of the bounding sphere.
+   The number returned will be positive if the vector is outside the sphere,
+   negative if inside, or <code>0</code> if on the surface of the sphere.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -271,7 +273,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  >0 if position is outside the sphere, <0 if inside, =0 if on the surface of the sphere
+<td width="20"></td><td><code>Number</code> &mdash; The distance from the bounding sphere to the Vector.
    </td>
 </tr>
 </table>
@@ -284,14 +286,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-  Returns a <code>String</code> represntation of the <code>BSphere</code>.
-  
-  </p><p></p>
+   Returns a string representation of this object.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; A String representing the bounding sphere
-  </td>
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
+   </td>
 </tr>
 </table>
 </div>
@@ -303,12 +304,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function transform(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</code><p>
-      Applies the transformation that is specified in the <code>Matrix4</code> parameter.
+      Applies a transformation to the bounding sphere.
       
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oMatrix</span>:<a href="../core/data/Matrix4.html">Matrix4</a></code> &mdash;  The transformation matrix
+<td width="20px"></td><td><code><span class="label">p_oMatrix</span>:<a href="../core/data/Matrix4.html">Matrix4</a></code> &mdash;  The transformation matrix.
       </td>
 </tr>
 </table>

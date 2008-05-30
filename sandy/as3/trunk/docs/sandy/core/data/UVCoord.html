@@ -39,10 +39,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  A 2D coordinate point on a texture that corresponds to a vertex of a polygon in 3D space.
-    <p>The UVCoord represents the position of a vertex on the Bitmap used to dress the polygon.<br />
-  It is the 2D texture coordinates, used in the BitmapMaterial and VideoMaterial.</p>
+  A 2D coordinate point on a texture that corresponds to a vertex of a polygon.
+    <p>The UVCoord represents the position of a vertex on the Bitmap used to &quot;dress&quot; a polygon.<br />
+  It is the 2D texture coordinate, used in the BitmapMaterial and VideoMaterial.</p>
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="http://en.wikipedia.org/wiki/UV_mapping" target="mm_external">http://en.wikipedia.org/wiki/UV_mapping</a>
+</div>
 <br>
 <hr>
 </div>
@@ -85,7 +91,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#add()">add</a>(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</div>
 <div class="summaryTableDescription">
-   Add the UVCoord passed as parameter with the current UVCoord.</div>
+   Adds the specified UV coordinate from this UV coordinate.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
@@ -94,7 +100,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#clone()">clone</a>():<a href="../data/UVCoord.html">UVCoord</a>
 </div>
 <div class="summaryTableDescription">
-   Return a clone of this UVCoord.</div>
+   Returns a new UVCoord object that is a clone of the original instance.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
@@ -102,21 +108,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#copy()">copy</a>(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</div>
 <div class="summaryTableDescription">
-   Realize a copy of the UVCoord object passed in parameter to the local object.</div>
+   Makes this UV coordinate a copy of the specified UV coordinate.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#length()">length</a>():Number</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   The length.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#normalize()">normalize</a>():void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Normalizes this UV coordinate.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
@@ -124,7 +132,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#scale()">scale</a>(p_nFactor:Number):void</div>
 <div class="summaryTableDescription">
-   Scale the texture coords values by a factor.</div>
+   Scales the texture coordinates by a factor.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
@@ -132,7 +140,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#sub()">sub</a>(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</div>
 <div class="summaryTableDescription">
-   Substract the UVCoord passed as parameter to the current UVCoord.</div>
+   Subtracts the specified UV coordinate from this UV coordinate.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 <tr class="">
@@ -140,7 +148,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-  Returns a string representing this UVCoord.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">UVCoord</td>
 </tr>
 </table>
@@ -186,14 +194,14 @@ showHideInherited();
     </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nU</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number the x texture position  in the bitmap
+<td width="20px"></td><td><code><span class="label">p_nU</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number the x texture position on the bitmap.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nV</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number the y texture position in the bitmap.
+<td width="20px"></td><td><code><span class="label">p_nV</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number the y texture position on the bitmap.
   </td>
 </tr>
 </table>
@@ -208,11 +216,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function add(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</code><p>
-   Add the UVCoord passed as parameter with the current UVCoord.
-   </p><span class="label">Parameters</span>
+   Adds the specified UV coordinate from this UV coordinate.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code> &mdash; The UVCoord to add
+<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code> &mdash; The UVCoord to add.
    </td>
 </tr>
 </table>
@@ -225,13 +233,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function clone():<a href="../data/UVCoord.html">UVCoord</a></code><p>
-   Return a clone of this UVCoord.
-      </p><p></p>
+   Returns a new UVCoord object that is a clone of the original instance. 
+   
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/UVCoord.html">UVCoord</a></code> &mdash; 
-                         The clone
+                        A new UVCoord object that is identical to the original. 
    
                         
                      </td>
@@ -246,11 +255,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function copy(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</code><p>
-   Realize a copy of the UVCoord object passed in parameter to the local object.
-   </p><span class="label">Parameters</span>
+   Makes this UV coordinate a copy of the specified UV coordinate.
+      </p><p>All components of the specified UV coordinate are copied to this UV coordinate.</p>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code></td>
+<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code> &mdash; The vertex to copy.
+   </td>
 </tr>
 </table>
 </div>
@@ -261,8 +272,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function length():Number</code>
-<p></p>
+<code>public function length():Number</code><p>
+   The length.
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -277,8 +289,11 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function normalize():void</code>
-</div>
+<code>public function normalize():void</code><p>
+   Normalizes this UV coordinate.
+      </p><p>A UV coordinate is normalized when its components are divided by its length.
+   The length is calculated by <code>Math.sqrt( u + v )</code>.</p>
+   </div>
 <a name="scale()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -287,11 +302,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function scale(p_nFactor:Number):void</code><p>
-   Scale the texture coords values by a factor.
-   </p><span class="label">Parameters</span>
+   Scales the texture coordinates by a factor.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nFactor</span>:Number</code> &mdash; The factor
+<td width="20px"></td><td><code><span class="label">p_nFactor</span>:Number</code> &mdash; The factor.
    </td>
 </tr>
 </table>
@@ -304,11 +319,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function sub(p_oUV:<a href="UVCoord.html">UVCoord</a>):void</code><p>
-   Substract the UVCoord passed as parameter to the current UVCoord.
-   </p><span class="label">Parameters</span>
+   Subtracts the specified UV coordinate from this UV coordinate.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code> &mdash; The UVCoord to substract
+<td width="20px"></td><td><code><span class="label">p_oUV</span>:<a href="UVCoord.html">UVCoord</a></code> &mdash; The UV coordinate to substract.
    </td>
 </tr>
 </table>
@@ -321,13 +336,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-  Returns a string representing this UVCoord.
-    </p><p></p>
+   Returns a string representation of this object.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The string representation
-  </td>
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
+   </td>
 </tr>
 </table>
 </div>

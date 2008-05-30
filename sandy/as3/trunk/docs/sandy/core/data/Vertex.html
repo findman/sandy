@@ -39,9 +39,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  A vertex of a 3D mesh or polygon.
-    <p>A vertex is a point which can be represented in different coordinate systems.</p>
+  A vertex is the point of intersection of edges the of a polygon.
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../data/Polygon.html" target="">sandy.core.data.Polygon</a>
+</div>
 <br>
 <hr>
 </div>
@@ -54,52 +59,58 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aFaces">aFaces</a> : Array<div class="summaryTableDescription">
-   An array of faces.</div>
+   An array of polygons that use the vertex</p>
+   </div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#nbFaces">nbFaces</a> : uint = 0<div class="summaryTableDescription">
-   Number of polygons this vertex belongs to.</div>
+   The number of polygons the vertex belongs to.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#projected">projected</a> : Boolean<div class="summaryTableDescription">
-          State if that vertex has been projected or not.</div>
+         Specifies if the vertex has been projected (rendered).</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sx">sx</a> : Number<div class="summaryTableDescription">
-  properties used to store transformed coordinates in screen World.</div>
+  The transformed x coordinate on the screen.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sy">sy</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sy">sy</a> : Number<div class="summaryTableDescription">
+  The transformed y coordinate on the screen.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wx">wx</a> : Number<div class="summaryTableDescription">
-  properties used to store transformed positions in the World coordinates
-  </div>
+  The transformed x coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wy">wy</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wy">wy</a> : Number<div class="summaryTableDescription">
+  The transformed y coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wz">wz</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#wz">wz</a> : Number<div class="summaryTableDescription">
+  The transformed z coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#x">x</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#x">x</a> : Number<div class="summaryTableDescription">
+  The x coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#y">y</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#y">y</a> : Number<div class="summaryTableDescription">
+  The y coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#z">z</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#z">z</a> : Number<div class="summaryTableDescription">
+  The z coordinate in the scene.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 </table>
@@ -124,7 +135,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#add()">add</a>(v:<a href="Vertex.html">Vertex</a>):void</div>
 <div class="summaryTableDescription">
-   Adds a specified vertex to this vertex.</div>
+   Adds the specified vertex to this vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -133,7 +144,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#clone()">clone</a>():<a href="../data/Vertex.html">Vertex</a>
 </div>
 <div class="summaryTableDescription">
-   Returns a clone of this vertex.</div>
+   Returns a new Vertex object that is a clone of the original instance.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -150,7 +161,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#copy()">copy</a>(p_oVector:<a href="Vertex.html">Vertex</a>):void</div>
 <div class="summaryTableDescription">
-   Makes this vertex equal to the specified vertex.</div>
+   Makes this vertex a copy of the specified vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -184,7 +195,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#dot()">dot</a>(w:<a href="Vertex.html">Vertex</a>):Number</div>
 <div class="summaryTableDescription">
-   Returns the dot product between this vertex and a specified vertex.</div>
+   Returns the dot product between this vertex and the specified vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -192,7 +203,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#equals()">equals</a>(p_vertex:<a href="Vertex.html">Vertex</a>):Boolean</div>
 <div class="summaryTableDescription">
-   Is this vertex equal to the specified vertex?.</div>
+   Determines if this vertex is equal to the specified vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -226,7 +237,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getVector()">getVector</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Returns a vector representing the original x, y, z values.</div>
+   Returns a vector representing the original x, y, z coordinates.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -235,7 +246,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getWorldVector()">getWorldVector</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-  Returns the transformed vertex in world coordinates.</div>
+  Returns a vector of the transformed vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -243,7 +254,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#negate()">negate</a>():void</div>
 <div class="summaryTableDescription">
-   Return the invers of this vertex.</div>
+   Inverts the vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -267,7 +278,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#scale()">scale</a>(n:Number):void</div>
 <div class="summaryTableDescription">
-   Multiplies this vertex by the specified scalar value.</div>
+   Multiplies this vertex by the specified number.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -283,7 +294,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#sub()">sub</a>(v:<a href="Vertex.html">Vertex</a>):void</div>
 <div class="summaryTableDescription">
-   Substracts a specified vertex from this vertex.</div>
+   Substracts the specified vertex from this vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -291,7 +302,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>(decPlaces:Number = 0):String</div>
 <div class="summaryTableDescription">
-   Returns a string representing this vertex.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 </table>
@@ -304,7 +315,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#id">id</a> : uint<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#id">id</a> : uint<div class="summaryTableDescription">
+  The unique identifier for the vertex.</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 </table>
@@ -324,9 +336,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var aFaces:Array</code><p>
-   An array of faces.
-      </p><p>List of polygons that actually use that vertex</p>
-   </div>
+   An array of polygons that use the vertex</p>
+   </p></div>
 <a name="nbFaces"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -335,9 +346,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var nbFaces:uint = 0</code><p>
-   Number of polygons this vertex belongs to.
-   </p><p>Default value is 0.</p>
-   </div>
+   The number of polygons the vertex belongs to.
+   </p></div>
 <a name="projected"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -346,7 +356,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var projected:Boolean</code><p>
-          State if that vertex has been projected or not. If not, we can consider that vertex to not be visible in the current rendering step.
+         Specifies if the vertex has been projected (rendered).
          </p></div>
 <a name="sx"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -356,7 +366,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var sx:Number</code><p>
-  properties used to store transformed coordinates in screen World.
+  The transformed x coordinate on the screen.
   </p></div>
 <a name="sy"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -365,8 +375,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var sy:Number</code>
-</div>
+<code>public var sy:Number</code><p>
+  The transformed y coordinate on the screen.
+  </p></div>
 <a name="wx"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -375,7 +386,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var wx:Number</code><p>
-  properties used to store transformed positions in the World coordinates
+  The transformed x coordinate in the scene.
   </p></div>
 <a name="wy"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -384,8 +395,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var wy:Number</code>
-</div>
+<code>public var wy:Number</code><p>
+  The transformed y coordinate in the scene.
+  </p></div>
 <a name="wz"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -393,8 +405,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var wz:Number</code>
-</div>
+<code>public var wz:Number</code><p>
+  The transformed z coordinate in the scene.
+  </p></div>
 <a name="x"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -402,8 +415,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var x:Number</code>
-</div>
+<code>public var x:Number</code><p>
+  The x coordinate in the scene.
+  </p></div>
 <a name="y"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -411,8 +425,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var y:Number</code>
-</div>
+<code>public var y:Number</code><p>
+  The y coordinate in the scene.
+  </p></div>
 <a name="z"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -420,8 +435,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var z:Number</code>
-</div>
+<code>public var z:Number</code><p>
+  The z coordinate in the scene.
+  </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Vertex()"></a>
@@ -436,28 +452,28 @@ showHideInherited();
     </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nx</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The x position
+<td width="20px"></td><td><code><span class="label">p_nx</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The x position.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_ny</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The y position
+<td width="20px"></td><td><code><span class="label">p_ny</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The y position.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nz</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The z position
+<td width="20px"></td><td><code><span class="label">p_nz</span>:Number</code> (default = <code>0</code>)<code></code> &mdash;  The z position.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code>... <span class="label">rest</span></code> &mdash; optional values for wx, wy, wz
+<td width="20px"></td><td><code>... <span class="label">rest</span></code> &mdash; Optional values for the <code>wx</code>, <code>wy</code>, and <code>wz</code> properties.
   </td>
 </tr>
 </table>
@@ -472,11 +488,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function add(v:<a href="Vertex.html">Vertex</a>):void</code><p>
-   Adds a specified vertex to this vertex.
+   Adds the specified vertex to this vertex.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to add to this vertex
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to add to this vertex.
    </td>
 </tr>
 </table>
@@ -489,13 +505,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function clone():<a href="../data/Vertex.html">Vertex</a></code><p>
-   Returns a clone of this vertex.
-      </p><p></p>
+   Returns a new Vertex object that is a clone of the original instance. 
+   
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vertex.html">Vertex</a></code> &mdash; 
-                         The clone
+                        A new Vertex object that is identical to the original. 
    
                         
                      </td>
@@ -511,15 +528,15 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function clone2():<a href="../data/Vertex.html">Vertex</a></code><p>
    Returns a new vertex build on the transformed values of this vertex.
-      </p><p>A new vertex is created with this vertex's transformed coordinates as start position.<br />
-   So ( x, y, z ) of the new vertex is the ( wx, wy, wz ) of this vertex.</p>
+      </p><p>Returns a new Vertex object that is created with the vertex's transformed coordinates as the new vertex's start position.
+   The <code>x</code>, y</code>, and z</code> properties of the new vertex would be the <code>wx</code>, <code>wy</code>, <code>wz</code> properties of this vertex.</p>
    <p>[<strong>ToDo</strong>: What can this one be used for? - Explain! ]</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vertex.html">Vertex</a></code> &mdash; 
-                         The new vertex
+                         The new Vertex object.
    
                         
                      </td>
@@ -534,12 +551,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function copy(p_oVector:<a href="Vertex.html">Vertex</a>):void</code><p>
-   Makes this vertex equal to the specified vertex.
-      </p><p>All components of the argument vertex are copied to this vertex.</p>
+   Makes this vertex a copy of the specified vertex.
+      </p><p>All components of the specified vertex are copied to this vertex.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="Vertex.html">Vertex</a></code> &mdash; The vertex to copy to this
+<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="Vertex.html">Vertex</a></code> &mdash; The vertex to copy.
    </td>
 </tr>
 </table>
@@ -556,8 +573,8 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_v</span>:<a href="Vector.html">Vector</a></code> &mdash; The vertex position vector
-   </td>
+<td width="20px"></td><td><code><span class="label">p_v</span>:<a href="Vector.html">Vector</a></code> &mdash; The vertex's position vector.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -565,7 +582,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vertex.html">Vertex</a></code> &mdash; 
-                         The new vertex
+                         The new vertex.
    
                         
                      </td>
@@ -585,8 +602,8 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to make a cross product with
-   </td>
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to make a cross product with.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -594,7 +611,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vertex.html">Vertex</a></code> &mdash; 
-                         the resulting vertex of the cross product.
+                        The resulting vertex of the cross product.
    
                         
                      </td>
@@ -614,7 +631,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">convertFrom</span>:String</code> &mdash; A string representing the vertex ( specific serialize format )
+<td width="20px"></td><td><code><span class="label">convertFrom</span>:String</code> &mdash; A string representing the vertex ( specific serialize format ).
    </td>
 </tr>
 </table>
@@ -627,20 +644,20 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function dot(w:<a href="Vertex.html">Vertex</a>):Number</code><p>
-   Returns the dot product between this vertex and a specified vertex.
+   Returns the dot product between this vertex and the specified vertex.
       </p><p>Only the original positions values are used for this dot product.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to make a dot product with
-   </td>
+<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to make a dot product with.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The dot product
+<td width="20"></td><td><code>Number</code> &mdash; The dot product.
    </td>
 </tr>
 </table>
@@ -653,9 +670,9 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function equals(p_vertex:<a href="Vertex.html">Vertex</a>):Boolean</code><p>
-   Is this vertex equal to the specified vertex?.
-      </p><p>This vertex is compared to the argument vertex, component by component.<br />
-   If all components of the two vertices are equal, a true value is returned.
+   Determines if this vertex is equal to the specified vertex.
+      </p><p>This all properties of this vertex is compared to the properties of the specified vertex.
+   If all properties of the two vertices are equal, a value of <code>true</code> is returned.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -666,7 +683,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash;  true if the vertices are considered equal, false otherwise
+<td width="20"></td><td><code>Boolean</code> &mdash; Whether the two verticies are equal.
    </td>
 </tr>
 </table>
@@ -683,15 +700,15 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vertex.html">Vertex</a></code> &mdash; The vertex making an angle with this one
-   </td>
+<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vertex.html">Vertex</a></code> &mdash; The vertex making an angle with this one.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The angle in radians
+<td width="20"></td><td><code>Number</code> &mdash;  The angle in radians.
    </td>
 </tr>
 </table>
@@ -705,13 +722,13 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function getNorm():Number</code><p>
    Returns the norm of this vertex.
-      </p><p>The norm of the vertex is calculated as the length of its position vector.<br />
-   That is sqrt( x + y + z )</p>
+      </p><p>The norm of the vertex is calculated as the length of its position vector.
+   The norm is calculated by <code>Math.sqrt( x + y + z )</code>.</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The norm
+<td width="20"></td><td><code>Number</code> &mdash;  The norm.
    </td>
 </tr>
 </table>
@@ -724,15 +741,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function getScreenPoint():<a href="../data/Vector.html">Vector</a></code><p>
-   Returns the 2D position of this vertex.
-   This 2D position is the position on the screen after the camera projection.
-   WARNING: There's actually a third value (the z one) which correspond to the depth screen position.
-   </p><p></p>
+   Returns the 2D position of this vertex.  The function returns a vector with the x and y coordinates of the
+   vertex and the depth as the <code>z</code> property.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        Vector The 2D position of this vertex once projected.
+                        The 2D position of this vertex once projected.
    
                         
                      </td>
@@ -747,13 +763,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function getVector():<a href="../data/Vector.html">Vector</a></code><p>
-   Returns a vector representing the original x, y, z values.
+   Returns a vector representing the original x, y, z coordinates.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                         The vector
+                        A vector representing the original x, y, z coordinates.
    
                         
                      </td>
@@ -768,12 +784,16 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function getWorldVector():<a href="../data/Vector.html">Vector</a></code><p>
-  Returns the transformed vertex in world coordinates.
+  Returns a vector of the transformed vertex.
     </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code></td>
+<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
+                        A vector of the transformed vertex.
+  
+                        
+                     </td>
 </tr>
 </table>
 </div>
@@ -785,9 +805,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function negate():void</code><p>
-   Return the invers of this vertex.
-      </p><p>A new vertex is created with the negative of all values in this vertex.</p>
-      </div>
+   Inverts the vertex.  All properties of the vertex become their nagative values.
+   </p></div>
 <a name="normalize()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -797,8 +816,8 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function normalize():void</code><p>
    Normalizes this vertex.
-      </p><p>Normalization means that all components of the vertex are divided by its norm.<br />
-   The norm is calculated as the sqrt(x + y + z), that is the length of the position vector.</p>
+      </p><p>A vertex is normalized when its components are divided by its norm.
+   The norm is calculated by <code>Math.sqrt( x + y + z )</code>, which is the length of the position vector.</p>
    </div>
 <a name="pow()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -809,11 +828,12 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function pow(pow:Number):void</code><p>
    Raises the vertex to the specified power.
-      </p><p>All components of this vertex is raised to the power specified in the argument.</p>
+      </p><p>All components of the vertex are raised to the specified power.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">pow</span>:Number</code> &mdash; {</td>
+<td width="20px"></td><td><code><span class="label">pow</span>:Number</code> &mdash; The power to raise the vertex to.
+   </td>
 </tr>
 </table>
 </div>
@@ -825,12 +845,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function scale(n:Number):void</code><p>
-   Multiplies this vertex by the specified scalar value.
-      </p><p>All components of the vertex are multiplied by the specified value</p>
+   Multiplies this vertex by the specified number.
+      </p><p>All components of the vertex are multiplied by the specified number.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">n</span>:Number</code> &mdash;  The number to multiply with
+<td width="20px"></td><td><code><span class="label">n</span>:Number</code> &mdash;  The number to multiply the vertex with.
    </td>
 </tr>
 </table>
@@ -848,7 +868,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number of decimals
+<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number of decimals.
    </td>
 </tr>
 </table>
@@ -856,7 +876,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash;   The specific serialize string
+<td width="20"></td><td><code>String</code> &mdash;   The specific serialize string.
    </td>
 </tr>
 </table>
@@ -869,11 +889,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function sub(v:<a href="Vertex.html">Vertex</a>):void</code><p>
-   Substracts a specified vertex from this vertex.
+   Substracts the specified vertex from this vertex.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to subtract from this vertex
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vertex.html">Vertex</a></code> &mdash;  The vertex to subtract from this vertex.
    </td>
 </tr>
 </table>
@@ -886,19 +906,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function toString(decPlaces:Number = 0):String</code><p>
-   Returns a string representing this vertex.
+   Returns a string representation of this object.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number of decimals
-   </td>
+<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The number of decimal places to round the vertex's components off to.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The representation
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>
@@ -912,8 +932,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public const id:uint</code>
-</div>
+<code>public const id:uint</code><p>
+  The unique identifier for the vertex.
+  </p></div>
 <br>
 <br>
 <hr>

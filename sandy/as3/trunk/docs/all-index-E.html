@@ -39,14 +39,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  <p>The Edge3D represent a shape3D.</td>
+  <p>The Edge3D class stores two related Vertex objects that make an edge.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html#Edge3D()">Edge3D</a>(p_nVertexId1, p_nVertexId2) &mdash; Constructor in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html">Edge3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates an Edge3D from two vertices.</td>
+   Creates an edge from two vertices.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html#EDIT3DS">EDIT3DS</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DSChunkTypes.html">Parser3DSChunkTypes</a></td>
@@ -225,7 +225,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#enableEvents">enableEvents</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Specifies whether mouse events are enabled for this polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#enableEvents">enableEvents</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -266,7 +267,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#enableInteractivity">enableInteractivity</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#enableInteractivity">enableInteractivity</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -314,14 +316,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Is this vector equal to the specified vector?.</td>
+   Determines if this vector is equal to the specified vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#equals()">equals</a>(p_vertex:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Is this vertex equal to the specified vertex?.</td>
+   Determines if this vertex is equal to the specified vertex.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#ERROR">ERROR</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
@@ -335,7 +337,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("EÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Compute a Rotation {</td>
+   Computes a rotation from the Euler angle in degrees.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#eulerRotation()">eulerRotation</a>(ax, ay, az) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>

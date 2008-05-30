@@ -38,7 +38,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Plane.html#c">c</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Plane.html">Plane</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  The coordinate of the third plane.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#calculate()">calculate</a>(normal:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
@@ -124,8 +125,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#caUVCoord">caUVCoord</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
-<td width="20"></td><td>
-   [READ-ONLY] property.</td>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/CelShadeAttributes.html">CelShadeAttributes</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/package-detail.html">sandy.materials.attributes</a></td>
@@ -145,7 +145,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html#center">center</a> &mdash; Property in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   A Vector representing the center of the bounding sphere.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#changed">changed</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -173,7 +174,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Clears the container of this polygon from graphics.</td>
+   Clears the polygon's container.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html#clear()">clear</a>() &mdash; Method in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html">IDisplayable</a></td>
@@ -235,14 +236,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns an array containing the vertices, clipped by the camera frustum.</td>
+   Clips the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#clipFrontPlane()">clipFrontPlane</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Perform a clipping against the near frustum plane.</td>
+   Perform a clipping against the camera frustum's front plane.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#clipFrontPlane()">clipFrontPlane</a>(p_aCvert, p_aUVCoords) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
@@ -277,41 +278,42 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Clones the current bounding box.</td>
+   Returns a new BBox object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Edge3D.html">Edge3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Returns a new Edge3D object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html">Matrix4</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Compute a clonage {</td>
+   Returns a new Matrix4 object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html">UVCoord</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Return a clone of this UVCoord.</td>
+   Returns a new UVCoord object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a clone of thei vector.</td>
+   Returns a new Vector object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a clone of this vertex.</td>
+   Returns a new Vertex object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html#clone()">clone</a>() &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html">Geometry3D</a></td>
@@ -405,7 +407,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Color of the light.</td>
+   The color of the light.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/ColorMaterial.html#color">color</a> &mdash; Property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/ColorMaterial.html">ColorMaterial</a></td>
@@ -440,8 +442,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Constant value representing the ColorMaterial
-   </td>
+   Specifies a ColorMaterial.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/ColorMaterial.html">ColorMaterial</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/package-detail.html">sandy.materials</a></td>
@@ -503,7 +504,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes all the control points for this path.</td>
+   Computes the control points for this path.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#COMPLETE">COMPLETE</a> &mdash; Constant static property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
@@ -517,9 +518,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Performs the actual computing of the bounding sphere's center and radius
-   
-   </td>
+   Computes of the bounding sphere's center and radius.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html#computeLightMap()">computeLightMap</a>(p_oLight:<a href="sandy/core/light/Light3D.html" onclick="javascript:loadClassListFrame('sandy/core/light./class-list.html');">sandy.core.light:Light3D</a>, p_nQuality, p_nSamples) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/PhongAttributes.html">PhongAttributes</a></td>
@@ -581,14 +580,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   The container that stores all displayabel objects for this scene.</td>
+   The container that stores all displayable objects for this scene.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#container">container</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   The container for this polygon.</td>
+   The polygon's container.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html#container">container</a> &mdash; Property in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html">IDisplayable</a></td>
@@ -652,7 +651,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Realize a copy of the UVCoord object passed in parameter to the local object.</td>
+   Makes this UV coordinate a copy of the specified UV coordinate.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#copy()">copy</a>(p_oVector:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
@@ -666,7 +665,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Makes this vertex equal to the specified vertex.</td>
+   Makes this vertex a copy of the specified vertex.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html#cos()">cos</a>(radians) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/FastMath.html">FastMath</a></td>
@@ -681,14 +680,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates a bounding sphere that encloses a 3D object.</td>
+   Creates a bounding box that encloses a 3D from an Array of the object's vertices.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html#create()">create</a>(p_aVertices) &mdash; Static method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates a bounding sphere that encloses a 3D object.</td>
+   Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html#create()">create</a>(method, ... rest) &mdash; Static method in class sandy.commands.<a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html">Delegate</a></td>
@@ -721,21 +720,22 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#createNormal()">createNormal</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Returns the normal vector of the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#createTransformedNormal()">createTransformedNormal</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Calculates and returns the normal vector of the polygon.</td>
+   Returns the transformed normal vector of the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#cross()">cross</a>(v:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes and returns the cross between this vector and the specified vector.</td>
+   Returns the cross product between this vector and the specified vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#cross()">cross</a>(v:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -763,7 +763,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Crosses this vector with specified one.</td>
+   Crosses this vector with the specified vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
@@ -865,7 +865,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY] property.</td>
+   An array of clipped vertices.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Cylinder.html">Cylinder</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/package-detail.html">sandy.primitive</a></td>

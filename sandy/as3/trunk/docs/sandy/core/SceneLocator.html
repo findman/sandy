@@ -41,7 +41,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <p></p>
   The SceneLocator serves as a registry of all scenes in the application.
     <p>An application can only have one SceneLocator. Using the SceneLocator, scenes can be located, registered, and unregistered.</p>
-  <p>When scenes are created in an application, they aoutomatically
+  <p>When scenes are created in an application, they automatically
   register with the SceneLocator registry.</p>
     <p></p>
 <p>
@@ -74,7 +74,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getInstance()">getInstance</a>():<a href="../core/SceneLocator.html">SceneLocator</a>
 </div>
 <div class="summaryTableDescription">[static]
-   Returns a SceneLocator.</div>
+   Returns the instance of this SceneLocator object.</div>
 </td><td class="summaryTableOwnerCol">SceneLocator</td>
 </tr>
 <tr class="">
@@ -91,7 +91,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#isRegistered()">isRegistered</a>(key:String):Boolean</div>
 <div class="summaryTableDescription">
-   Check if a scene with the specified name is registered.</div>
+   Checks if a scene with the specified name is registered.</div>
 </td><td class="summaryTableOwnerCol">SceneLocator</td>
 </tr>
 <tr class="">
@@ -128,7 +128,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public function SceneLocator(access:PrivateConstructorAccess)</code><p>
    Creates the SceneLocator registry.
-      </p><p>This constructor is never called directly. Instead you get the registry instance by calling SceneLocator.getInstance().</p>
+      </p><p>This constructor is never called directly. Instead the registry instance is retrieved by calling SceneLocator.getInstance().</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -147,13 +147,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static function getInstance():<a href="../core/SceneLocator.html">SceneLocator</a></code><p>
-   Returns a SceneLocator.
+   Returns the instance of this SceneLocator object.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../core/SceneLocator.html">SceneLocator</a></code> &mdash; 
-                         The single locator.
+                        This instance.
    
                         
                      </td>
@@ -173,7 +173,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash;  The name of the scene.
-   </td>
+      </td>
 </tr>
 </table>
 <p></p>
@@ -196,12 +196,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function isRegistered(key:String):Boolean</code><p>
-   Check if a scene with the specified name is registered.
+   Checks if a scene with the specified name is registered.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; key The Name of the scene to check.
-   </td>
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; key The name of the scene to check.
+      </td>
 </tr>
 </table>
 <p></p>
@@ -225,22 +225,22 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; : String, name of the scene to register.
+<td width="20px"></td><td><code><span class="label">key</span>:String</code> &mdash; The name of the scene.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">o</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash; : Scene3D, object to register.
-   </td>
+<td width="20px"></td><td><code><span class="label">o</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash;  The Scene3D object.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash; true if the registration was successful, false otherwise.
+<td width="20"></td><td><code>Boolean</code> &mdash; Whether the scene was successfully registered.
    </td>
 </tr>
 </table>

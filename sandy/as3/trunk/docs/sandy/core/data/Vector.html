@@ -39,7 +39,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  A point in 3D world.
+  A 3D coordinate.
     <p>A representation of a position in a 3D space.</p>
     <p></p>
 <br>
@@ -53,15 +53,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#x">x</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#x">x</a> : Number<div class="summaryTableDescription">
+   The x coordinate.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#y">y</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#y">y</a> : Number<div class="summaryTableDescription">
+   The y coordinate.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#z">z</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#z">z</a> : Number<div class="summaryTableDescription">
+   The z coordinate.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 </table>
@@ -78,7 +81,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#Vector()">Vector</a>(p_nX:Number = 0, p_nY:Number = 0, p_nZ:Number = 0)</div>
 <div class="summaryTableDescription">
-  Creates a new vector instance.</div>
+  Creates a new vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -86,7 +89,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#add()">add</a>(v:<a href="Vector.html">Vector</a>):void</div>
 <div class="summaryTableDescription">
-   Adds a specified vector to this vector.</div>
+   Adds the specified vector to this vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -95,7 +98,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#clone()">clone</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Returns a clone of thei vector.</div>
+   Returns a new Vector object that is a clone of the original instance.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -112,7 +115,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#cross()">cross</a>(v:<a href="Vector.html">Vector</a>):<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Computes and returns the cross between this vector and the specified vector.</div>
+   Returns the cross product between this vector and the specified vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -120,7 +123,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#crossWith()">crossWith</a>(v:<a href="Vector.html">Vector</a>):void</div>
 <div class="summaryTableDescription">
-   Crosses this vector with specified one.</div>
+   Crosses this vector with the specified vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -128,7 +131,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#dot()">dot</a>(w:<a href="Vector.html">Vector</a>):Number</div>
 <div class="summaryTableDescription">
-   Computes and returns the dot product between this vector and the specified vector.</div>
+   Returns the dot product between this vector and the specified vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -136,7 +139,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#equals()">equals</a>(p_vector:<a href="Vector.html">Vector</a>):Boolean</div>
 <div class="summaryTableDescription">
-   Is this vector equal to the specified vector?.</div>
+   Determines if this vector is equal to the specified vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -168,7 +171,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#getNorm()">getNorm</a>():Number</div>
 <div class="summaryTableDescription">
-   Computes and returns the norm of this vector.</div>
+   Returns the norm of this vector.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -177,7 +180,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#negate()">negate</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Compute and returns the invers of this vector.</div>
+   Returns the inverse of this vector, will all properties as their negative values.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -193,7 +196,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#pow()">pow</a>(pow:Number):void</div>
 <div class="summaryTableDescription">
-   Raises this vector to the specified power.</div>
+   Raises the vector to the specified power.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -201,9 +204,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#reset()">reset</a>(px:Number = 0, py:Number = 0, pz:Number = 0):void</div>
 <div class="summaryTableDescription">
-   Reset the vector components to 0
-   after calling this method, x, y and z will be set to 0
-   </div>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to <code>0</code>.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -211,9 +212,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#resetToNegativeInfinity()">resetToNegativeInfinity</a>():void</div>
 <div class="summaryTableDescription">
-   Reset the vector components to the minimal value Flash can handle
-   after calling this method, x, y and z will be set to Number.NEGATIVE_INFINITY;
-   </div>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -221,9 +220,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#resetToPositiveInfinity()">resetToPositiveInfinity</a>():void</div>
 <div class="summaryTableDescription">
-   Reset the vector components to the maximal value Flash can handle
-   after calling this method, x, y and z will be set to Number.POSITIVE_INFINITY;
-   </div>
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle (<code>Number.POSITIVE_INFINITY</code>).</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -231,7 +228,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#scale()">scale</a>(n:Number):void</div>
 <div class="summaryTableDescription">
-   Multiplies this vector by the specified scalar.</div>
+   Multiplies this vector by the specified number.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 <tr class="">
@@ -247,7 +244,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>(decPlaces:Number = 0):String</div>
 <div class="summaryTableDescription">
-   Returns a string representing this vector.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">Vector</td>
 </tr>
 </table>
@@ -266,8 +263,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var x:Number</code>
-</div>
+<code>public var x:Number</code><p>
+   The x coordinate.
+   </p></div>
 <a name="y"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -275,8 +273,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var y:Number</code>
-</div>
+<code>public var y:Number</code><p>
+   The y coordinate.
+   </p></div>
 <a name="z"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -284,8 +283,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var z:Number</code>
-</div>
+<code>public var z:Number</code><p>
+   The z coordinate.
+   </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Vector()"></a>
@@ -296,25 +296,25 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function Vector(p_nX:Number = 0, p_nY:Number = 0, p_nZ:Number = 0)</code><p>
-  Creates a new vector instance.
+  Creates a new vector.
     </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nX</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the x coordinate
+<td width="20px"></td><td><code><span class="label">p_nX</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The x coordinate.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nY</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the y coordinate
+<td width="20px"></td><td><code><span class="label">p_nY</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The y coordinate.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nZ</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the z coordinate
+<td width="20px"></td><td><code><span class="label">p_nZ</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The z coordinate.
   </td>
 </tr>
 </table>
@@ -329,11 +329,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function add(v:<a href="Vector.html">Vector</a>):void</code><p>
-   Adds a specified vector to this vector.
+   Adds the specified vector to this vector.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to add
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to add.
    </td>
 </tr>
 </table>
@@ -346,13 +346,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function clone():<a href="../data/Vector.html">Vector</a></code><p>
-   Returns a clone of thei vector.
-      </p><p></p>
+   Returns a new Vector object that is a clone of the original instance. 
+   
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                         The clone
+                        A new Vector object that is identical to the original. 
    
                         
                      </td>
@@ -368,11 +369,11 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function copy(p_oVector:<a href="Vector.html">Vector</a>):void</code><p>
    Makes this vector a copy of the specified vector.
-      </p><p>All elements of this vector is set to those of the argument vector</p>
+      </p><p>All components of the specified vector are copied to this vector.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="Vector.html">Vector</a></code> &mdash; The vector to copy
+<td width="20px"></td><td><code><span class="label">p_oVector</span>:<a href="Vector.html">Vector</a></code> &mdash; The vector to copy.
    </td>
 </tr>
 </table>
@@ -385,12 +386,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function cross(v:<a href="Vector.html">Vector</a>):<a href="../data/Vector.html">Vector</a></code><p>
-   Computes and returns the cross between this vector and the specified vector.
+   Returns the cross product between this vector and the specified vector.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to make the cross product with ( right side )
-   </td>
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to make a cross product with (right side).
+      </td>
 </tr>
 </table>
 <p></p>
@@ -398,7 +399,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                         The cross product vector.
+                        The resulting vector of the cross product.
    
                         
                      </td>
@@ -413,11 +414,11 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function crossWith(v:<a href="Vector.html">Vector</a>):void</code><p>
-   Crosses this vector with specified one.
+   Crosses this vector with the specified vector.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to make the cross product with ( right side )
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to make the cross product with (right side).
    </td>
 </tr>
 </table>
@@ -430,19 +431,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function dot(w:<a href="Vector.html">Vector</a>):Number</code><p>
-   Computes and returns the dot product between this vector and the specified vector.
+   Returns the dot product between this vector and the specified vector.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to multiply
-   </td>
+<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to make a dot product with.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The dot procuct
+<td width="20"></td><td><code>Number</code> &mdash; The dot product.
    </td>
 </tr>
 </table>
@@ -455,9 +456,9 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function equals(p_vector:<a href="Vector.html">Vector</a>):Boolean</code><p>
-   Is this vector equal to the specified vector?.
-      </p><p>Compares this vector with the vector passed in the argument.<br />
-   If all components in the two vectors are equal a value of true is returned.</p>
+   Determines if this vector is equal to the specified vector.
+      </p><p>This all properties of this vector is compared to the properties of the specified vector.
+   If all properties of the two vectors are equal, a value of <code>true</code> is returned.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -468,7 +469,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash;  true if the the two vectors are equal, fals otherwise.
+<td width="20"></td><td><code>Boolean</code> &mdash; Whether the two vectors are equal.
    </td>
 </tr>
 </table>
@@ -485,15 +486,15 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vector.html">Vector</a></code> &mdash; The vector making an angle with this one
-   </td>
+<td width="20px"></td><td><code><span class="label">w</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector making an angle with this one.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The angle in radians
+<td width="20"></td><td><code>Number</code> &mdash; The angle in radians.
    </td>
 </tr>
 </table>
@@ -507,7 +508,9 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function getMaxComponent():Number</code><p>
    Gives the biggest component of the current vector.
-   Example : var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+   <div class='listing'><pre>
+       var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+    </pre></div>
    
    </p><p></p>
 <span class="label">Returns</span>
@@ -527,7 +530,9 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function getMinComponent():Number</code><p>
    Gives the smallest component of the current vector.
-   Example : var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+   <div class='listing'><pre>
+       var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+    </pre></div>
    
    </p><p></p>
 <span class="label">Returns</span>
@@ -546,13 +551,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function getNorm():Number</code><p>
-   Computes and returns the norm of this vector.
-      </p><p>The norm of the vector is sqrt( x + y + z )</p>
+   Returns the norm of this vector.
+      </p><p>The norm is calculated by <code>Math.sqrt( x + y + z )</code>.</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The norm
+<td width="20"></td><td><code>Number</code> &mdash;  The norm.
    </td>
 </tr>
 </table>
@@ -565,13 +570,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function negate():<a href="../data/Vector.html">Vector</a></code><p>
-   Compute and returns the invers of this vector.
+   Returns the inverse of this vector, will all properties as their negative values.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                         The inverse
+                         The inverse of the vector.
    
                         
                      </td>
@@ -587,7 +592,9 @@ showHideInherited();
 <div class="detailBody">
 <code>public final function normalize():void</code><p>
    Normalizes this vector.
-      </p><p>After normalizing the vector, the direction is the same, but the length is = 1.</p>
+      </p><p>A vector is normalized when its components are divided by its norm.
+   The norm is calculated by <code>Math.sqrt( x + y + z )</code>. After normalizing
+   the vector, the direction is the same, but the length is <code>1</code>.</p>
    </div>
 <a name="pow()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -597,13 +604,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function pow(pow:Number):void</code><p>
-   Raises this vector to the specified power.
-      </p><p>Each component of the vector is raised to the argument power.<br />
-   So x = Math.pow( x, pow ), y = Math.pow( y, pow ),z = Math.pow( z, pow )</p>
+   Raises the vector to the specified power.
+      </p><p>All components of the vertex are raised to the specified power.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">pow</span>:Number</code> &mdash; {</td>
+<td width="20px"></td><td><code><span class="label">pow</span>:Number</code> &mdash; The power to raise the vector to.
+   </td>
 </tr>
 </table>
 </div>
@@ -615,8 +622,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function reset(px:Number = 0, py:Number = 0, pz:Number = 0):void</code><p>
-   Reset the vector components to 0
-   after calling this method, x, y and z will be set to 0
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to <code>0</code>.
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -644,8 +650,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function resetToNegativeInfinity():void</code><p>
-   Reset the vector components to the minimal value Flash can handle
-   after calling this method, x, y and z will be set to Number.NEGATIVE_INFINITY;
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).
    </p></div>
 <a name="resetToPositiveInfinity()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -655,8 +660,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function resetToPositiveInfinity():void</code><p>
-   Reset the vector components to the maximal value Flash can handle
-   after calling this method, x, y and z will be set to Number.POSITIVE_INFINITY;
+   Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle (<code>Number.POSITIVE_INFINITY</code>).
    </p></div>
 <a name="scale()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -666,11 +670,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function scale(n:Number):void</code><p>
-   Multiplies this vector by the specified scalar.
-      </p><span class="label">Parameters</span>
+   Multiplies this vector by the specified number.
+      </p><p>All components of the vector are multiplied by the specified number.</p>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">n</span>:Number</code> &mdash; {</td>
+<td width="20px"></td><td><code><span class="label">n</span>:Number</code> &mdash;  The number to multiply the vector with.
+   </td>
 </tr>
 </table>
 </div>
@@ -686,7 +692,8 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash; {</td>
+<td width="20px"></td><td><code><span class="label">v</span>:<a href="Vector.html">Vector</a></code> &mdash;  The vector to subtract.
+   </td>
 </tr>
 </table>
 </div>
@@ -698,19 +705,19 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public final function toString(decPlaces:Number = 0):String</code><p>
-   Returns a string representing this vector.
+   Returns a string representation of this object.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; Number of decimals
-   </td>
+<td width="20px"></td><td><code><span class="label">decPlaces</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The number of decimal places to round the vector's components off to.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The string representatation
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>

@@ -38,7 +38,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Plane.html#a">a</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Plane.html">Plane</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  The coordinate of the first plane.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#a">a</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -70,21 +71,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Add the UVCoord passed as parameter with the current UVCoord.</td>
+   Adds the specified UV coordinate from this UV coordinate.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#add()">add</a>(v:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Adds a specified vector to this vector.</td>
+   Adds the specified vector to this vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#add()">add</a>(v:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Adds a specified vertex to this vertex.</td>
+   Adds the specified vertex to this vertex.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html#add()">add</a>(p_sName, p_oParser:<a href="sandy/parser/IParser.html" onclick="javascript:loadClassListFrame('sandy/parser./class-list.html');">sandy.parser:IParser</a>) &mdash; Method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ParserStack.html">ParserStack</a></td>
@@ -138,7 +139,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Adds a listener for specifical event.</td>
+   Adds an event listener to the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#addEventListener()">addEventListener</a>(p_sEvt, p_oL) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -159,7 +160,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Adds this matrix to a passed in matrix.</td>
+   Adds the passed in matrix to this matrix.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#addMatrix4()">addMatrix4</a>(m1:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, m2:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>
@@ -207,7 +208,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY] property.</td>
+   An array of the polygon's edges.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html#aEdges">aEdges</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html">Geometry3D</a></td>
@@ -226,7 +227,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   An array of faces.</td>
+   An array of polygons that use the vertex</p>
+   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html#aFacesNormals">aFacesNormals</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html">Geometry3D</a></td>
@@ -321,8 +323,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   [READ-ONLY] property
-   Array of polygons that share an edge with the current polygon.</td>
+   An array of polygons that share an edge with this polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#aNormals">aNormals</a> &mdash; Property in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
@@ -496,8 +497,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#aUVCoord">aUVCoord</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
-<td width="20"></td><td>
-   [READ-ONLY] property.</td>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html#aUVCoords">aUVCoords</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Geometry3D.html">Geometry3D</a></td>
@@ -522,7 +522,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("AÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Compute a Rotation around an axis{</td>
+   Computes a rotation around an axis.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html#axisRotation()">axisRotation</a>(u, v, w, angle) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Matrix4Math.html">Matrix4Math</a></td>

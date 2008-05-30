@@ -40,8 +40,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   A plane in 3D space.
-    <p>Used maily to represent the frustrum planes of the camera.</p>
+    <p>This class is used primarily to represent the frustrum planes of the camera.</p>
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../../view/Frustum.html" target="">sandy.view.Frustum</a>
+</div>
 <br>
 <hr>
 </div>
@@ -53,19 +59,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#a">a</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#a">a</a> : Number<div class="summaryTableDescription">
+  The coordinate of the first plane.</div>
 </td><td class="summaryTableOwnerCol">Plane</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#b">b</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#b">b</a> : Number<div class="summaryTableDescription">
+  The coordinate of the second plane.</div>
 </td><td class="summaryTableOwnerCol">Plane</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#c">c</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#c">c</a> : Number<div class="summaryTableDescription">
+  The coordinate of the third plane.</div>
 </td><td class="summaryTableOwnerCol">Plane</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#d">d</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#d">d</a> : Number<div class="summaryTableDescription">
+  The coordinate of the fourth plane.</div>
 </td><td class="summaryTableOwnerCol">Plane</td>
 </tr>
 </table>
@@ -90,7 +100,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   Returns a string represntation of this plane.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">Plane</td>
 </tr>
 </table>
@@ -109,8 +119,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var a:Number</code>
-</div>
+<code>public var a:Number</code><p>
+  The coordinate of the first plane.
+  </p></div>
 <a name="b"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -118,8 +129,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var b:Number</code>
-</div>
+<code>public var b:Number</code><p>
+  The coordinate of the second plane.
+  </p></div>
 <a name="c"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -127,8 +139,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var c:Number</code>
-</div>
+<code>public var c:Number</code><p>
+  The coordinate of the third plane.
+  </p></div>
 <a name="d"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -136,8 +149,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var d:Number</code>
-</div>
+<code>public var d:Number</code><p>
+  The coordinate of the fourth plane.
+  </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Plane()"></a>
@@ -152,28 +166,28 @@ showHideInherited();
     </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nA</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the first plane coordinate
+<td width="20px"></td><td><code><span class="label">p_nA</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The coordinate of the first plane.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nB</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the second plane coordinate
+<td width="20px"></td><td><code><span class="label">p_nB</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The coordinate of the second plane.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nC</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the third plane coordinate
+<td width="20px"></td><td><code><span class="label">p_nC</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The coordinate of the third plane.
   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nd</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; the forth plane coordinate
+<td width="20px"></td><td><code><span class="label">p_nd</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The coordinate of the forth plane.
   </td>
 </tr>
 </table>
@@ -188,12 +202,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-   Returns a string represntation of this plane.
+   Returns a string representation of this object.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The string representing this plane.
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>

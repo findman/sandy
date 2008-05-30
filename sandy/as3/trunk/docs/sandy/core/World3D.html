@@ -43,6 +43,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   The Sandy 3D world.
+    <p><strong>Note:</strong> The World3D object is depricated, use Scene3D instead.</p>
     <p>The World3D object is the central point of a Sandy world.<br/>
   World3D is a singleton class, which means that you can have only one World3D instance.<br/>
   It contains the object tree with groups, a camera, a light source and a canvas to draw on</p>
@@ -90,13 +91,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Scene3D.html#container">container</a> : Sprite<div class="summaryTableDescription">
-   The container that stores all displayabel objects for this scene.</div>
+   The container that stores all displayable objects for this scene.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Scene3D.html#light">light</a> : <a href="light/Light3D.html">Light3D</a>
 <div class="summaryTableDescription">
-   The simple light of this scene.</div>
+   The Light3D object associated with this this scene.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -107,12 +108,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Scene3D.html#name">name</a> : String<div class="summaryTableDescription">
-   Returns the scene's name as a string value.</div>
+   The name of this scene.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Scene3D.html#rectClipping">rectClipping</a> : Boolean<div class="summaryTableDescription">
-   Enable this property (default value is true!) to perfectly clip your 3D scene to the viewport dimension.</div>
+   Enable this property to perfectly clip your 3D scene to the viewport's dimensions.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -151,7 +152,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="Scene3D.html#dispose()">dispose</a>():Boolean</div>
 <div class="summaryTableDescription">
-   Dispose all the resources of this given scene.</div>
+   Disposes of all the scene's resources.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="">
@@ -168,7 +169,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="Scene3D.html#render()">render</a>(p_oEvt:<a href="../events/SandyEvent.html">SandyEvent</a> = null):void</div>
 <div class="summaryTableDescription">
-   Renders this scene into its display object container.</div>
+   Renders the scene in its container.</div>
 </td><td class="summaryTableOwnerCol"><a href="Scene3D.html">Scene3D</a></td>
 </tr>
 <tr class="">
@@ -176,7 +177,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   Returns the string representation of the World3D object.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">World3D</td>
 </tr>
 </table>
@@ -289,12 +290,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public override function toString():String</code><p>
-   Returns the string representation of the World3D object.
-   </p><p></p>
+   Returns a string representation of this object.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code></td>
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
+   </td>
 </tr>
 </table>
 </div>

@@ -39,10 +39,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  <p>The Edge3D represent a shape3D.
-  It stores information concerning related 2 Vertex.
-  A polygon is defined by some vertex, but also by some edges. Polygons are sharing edges between them.</p>
+  <p>The Edge3D class stores two related Vertex objects that make an edge.
+  Multiple polygons can share similar vertices, which are considered edges.</p>
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../data/Polygon.html" target="">sandy.core.data.Polygon</a>
+<br>
+<a href="../scenegraph/Geometry3D.html" target="">sandy.core.scenegraph.Geometry3D</a>
+</div>
 <br>
 <hr>
 </div>
@@ -56,27 +63,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertex1">vertex1</a> : <a href="../data/Vertex.html">Vertex</a>
 <div class="summaryTableDescription">
-   [READ-ONLY]
-   First vertex which compose the EDGE.</div>
+   First vertex of the edge (not in use?).</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertex2">vertex2</a> : <a href="../data/Vertex.html">Vertex</a>
 <div class="summaryTableDescription">
-   [READ-ONLY]
-   Second vertex which compose the EDGE.</div>
+   Second vertex of the edge (not in use?).</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertexId1">vertexId1</a> : uint<div class="summaryTableDescription">
-   [READ-ONLY]
-   First ID of the vertex which compose the EDGE.</div>
+   The index of the first vertex of the edge in the Geometry3D <code>aVertex</code> array.</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertexId2">vertexId2</a> : uint<div class="summaryTableDescription">
-   [READ-ONLY]
-   Second ID of the vertex which compose the EDGE.</div>
+   The index of the second vertex of the edge in the Geometry3D <code>aVertex</code> array.</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 </table>
@@ -93,7 +96,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#Edge3D()">Edge3D</a>(p_nVertexId1:uint, p_nVertexId2:uint)</div>
 <div class="summaryTableDescription">
-   Creates an Edge3D from two vertices.</div>
+   Creates an edge from two vertices.</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 <tr class="">
@@ -101,7 +104,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#clone()">clone</a>():<a href="../data/Edge3D.html">Edge3D</a>
 </div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns a new Edge3D object that is a clone of the original instance.</div>
 </td><td class="summaryTableOwnerCol">Edge3D</td>
 </tr>
 </table>
@@ -121,8 +125,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertex1:<a href="../data/Vertex.html">Vertex</a></code><p>
-   [READ-ONLY]
-   First vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
+   First vertex of the edge (not in use?).
    </p></div>
 <a name="vertex2"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -132,8 +135,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertex2:<a href="../data/Vertex.html">Vertex</a></code><p>
-   [READ-ONLY]
-   Second vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
+   Second vertex of the edge (not in use?).
    </p></div>
 <a name="vertexId1"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -143,8 +145,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertexId1:uint</code><p>
-   [READ-ONLY]
-   First ID of the vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
+   The index of the first vertex of the edge in the Geometry3D <code>aVertex</code> array.
    </p></div>
 <a name="vertexId2"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -154,8 +155,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertexId2:uint</code><p>
-   [READ-ONLY]
-   Second ID of the vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
+   The index of the second vertex of the edge in the Geometry3D <code>aVertex</code> array.
    </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
@@ -167,8 +167,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function Edge3D(p_nVertexId1:uint, p_nVertexId2:uint)</code><p>
-   Creates an Edge3D from two vertices.
-      </p><span class="label">Parameters</span>
+   Creates an edge from two vertices.
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_nVertexId1</span>:uint</code></td>
@@ -190,12 +190,18 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clone():<a href="../data/Edge3D.html">Edge3D</a></code>
-<p></p>
+<code>public function clone():<a href="../data/Edge3D.html">Edge3D</a></code><p>
+   Returns a new Edge3D object that is a clone of the original instance. 
+   
+   </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Edge3D.html">Edge3D</a></code></td>
+<td width="20"></td><td><code><a href="../data/Edge3D.html">Edge3D</a></code> &mdash; 
+                        A new Edge3D object that is identical to the original. 
+   
+                        
+                     </td>
 </tr>
 </table>
 </div>

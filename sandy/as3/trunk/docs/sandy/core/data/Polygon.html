@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,depthSorter,hasAppearanceChanged,id,isClipped,m_nDepth,m_oContainer,m_oEB,minZ,normal,scene,shape,uvBounds,vertexNormals,vertices,visible,broadcaster,container,depth,enableEvents,enableInteractivity,appearance,_onInteraction,_onTextureInteraction,_startMouseInteraction,_stopMouseInteraction,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString" name="keywords">
+<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,depthSorter,hasAppearanceChanged,id,isClipped,minZ,normal,scene,shape,uvBounds,vertexNormals,vertices,visible,appearance,broadcaster,container,depth,enableEvents,enableInteractivity,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString" name="keywords">
 <title>sandy.core.data.Polygon</title>
 </head>
 <body>
@@ -44,6 +44,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <p></p>
   Polygon's are the building blocks of visible 3D shapes.
     <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../scenegraph/Shape3D.html" target="">sandy.core.scenegraph.Shape3D</a>
+</div>
 <br>
 <hr>
 </div>
@@ -61,13 +67,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aEdges">aEdges</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   An array of the polygon's edges.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aNeighboors">aNeighboors</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property
-   Array of polygons that share an edge with the current polygon.</div>
+   An array of polygons that share an edge with this polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -77,56 +82,58 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aUVCoord">aUVCoord</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aUVCoord">aUVCoord</a> : Array<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#broadcaster">broadcaster</a> : <a href="../../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>
 <div class="summaryTableDescription">[read-only]
-   The broadcaster property.</div>
+   The broadcaster of the polygon that sends events to listeners.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#caUVCoord">caUVCoord</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#caUVCoord">caUVCoord</a> : Array<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#container">container</a> : Sprite<div class="summaryTableDescription">[read-only]
-   The container for this polygon.</div>
+   The polygon's container.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#cvertices">cvertices</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   An array of clipped vertices.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#depth">depth</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#depth">depth</a> : Number<div class="summaryTableDescription">
+   The depth of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#depthSorter">depthSorter</a> : <a href="../sorters/IDepthSorter.html">IDepthSorter</a>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   The depth sorter the polygon uses.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableEvents">enableEvents</a> : Boolean<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableEvents">enableEvents</a> : Boolean<div class="summaryTableDescription">
+   Specifies whether mouse events are enabled for this polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableInteractivity">enableInteractivity</a> : Boolean<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableInteractivity">enableInteractivity</a> : Boolean<div class="summaryTableDescription">
+   Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#hasAppearanceChanged">hasAppearanceChanged</a> : Boolean = false<div class="summaryTableDescription">
-   States if the appearance of the polygon has changed since the previous rendering.</div>
+   Specifies if the appearance of the polygon has changed since the previous rendering.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#isClipped">isClipped</a> : Boolean = false<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   Specifies if the polygon has been clipped.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -134,13 +141,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_nDepth">m_nDepth</a> : Number<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#normal">normal</a> : <a href="../data/Vertex.html">Vertex</a>
-<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -151,51 +153,33 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scene">scene</a> : <a href="../../core/Scene3D.html">Scene3D</a>
 <div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   A reference to the Scene3D object this polygon is in.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#shape">shape</a> : <a href="../scenegraph/Shape3D.html">Shape3D</a>
 <div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   A reference to the Shape3D object this polygon belongs to.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#uvBounds">uvBounds</a> : Rectangle<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   The texture bounds.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertexNormals">vertexNormals</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   An array of the polygon's vertex normals.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#vertices">vertices</a> : Array<div class="summaryTableDescription">
-   [READ-ONLY] property.</div>
+   An array of the polygon's original vertices.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#visible">visible</a> : Boolean<div class="summaryTableDescription">
-   Is this face visible?.</div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oContainer">m_oContainer</a> : Sprite<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#m_oEB">m_oEB</a> : <a href="../../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>
-<div class="summaryTableDescription"></div>
+   Specifies whether the face of the polygon is visible.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 </table>
@@ -220,7 +204,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#addEventListener()">addEventListener</a>(p_sEvent:String, oL:*):void</div>
 <div class="summaryTableDescription">
-   Adds a listener for specifical event.</div>
+   Adds an event listener to the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -228,7 +212,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#clear()">clear</a>():void</div>
 <div class="summaryTableDescription">
-   Clears the container of this polygon from graphics.</div>
+   Clears the polygon's container.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -236,7 +220,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#clip()">clip</a>(p_oFrustum:<a href="../../view/Frustum.html">Frustum</a>):Array</div>
 <div class="summaryTableDescription">
-   Returns an array containing the vertices, clipped by the camera frustum.</div>
+   Clips the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -244,7 +228,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#clipFrontPlane()">clipFrontPlane</a>(p_oFrustum:<a href="../../view/Frustum.html">Frustum</a>):Array</div>
 <div class="summaryTableDescription">
-   Perform a clipping against the near frustum plane.</div>
+   Perform a clipping against the camera frustum's front plane.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -252,7 +236,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#createNormal()">createNormal</a>():<a href="../data/Vector.html">Vector</a>
 </div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Returns the normal vector of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -261,7 +246,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#createTransformedNormal()">createTransformedNormal</a>():<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Calculates and returns the normal vector of the polygon.</div>
+   Returns the transformed normal vector of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -269,7 +254,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#destroy()">destroy</a>():void</div>
 <div class="summaryTableDescription">
-   Destroys the sprite attache to this polygon.</div>
+   Removes the polygon's container from the stage.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -277,7 +262,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#display()">display</a>(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oContainer:Sprite = null):void</div>
 <div class="summaryTableDescription">
-   Displays this polygon on its container if visible.</div>
+   Draws the polygon on its container if visible.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -286,7 +271,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#get3DFrom2D()">get3DFrom2D</a>(p_oScreenPoint:Point):<a href="../data/Vector.html">Vector</a>
 </div>
 <div class="summaryTableDescription">
-   Returns the real 3D position of the 2D screen position.</div>
+   Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -295,14 +280,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#getUVFrom2D()">getUVFrom2D</a>(p_oScreenPoint:Point):<a href="../data/UVCoord.html">UVCoord</a>
 </div>
 <div class="summaryTableDescription">
-   Get the UVCoord under the 2D screen position after a mouse click or something
-   The 2D position is usually coming from :
-   <div class='listing'><pre>
-   var l_nClicX:Number = m_oScene.container.mouseX;
-         var l_nClicY:Number = m_oScene.container.mouseY;
-         </pre></div>
-         
-         </div>
+   Returns a UV coordinate elative to the specified point on the 2D screen.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -310,7 +288,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#precompute()">precompute</a>():void</div>
 <div class="summaryTableDescription">
-   Pre-compute several properties of the polygon in the same time.</div>
+   Computes several properties of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -318,7 +296,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#removeEventListener()">removeEventListener</a>(p_sEvent:String, oL:*):void</div>
 <div class="summaryTableDescription">
-   Removes a listener for specifical event.</div>
+   Removes an event listener to the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -334,44 +312,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   Returns a string representing of this polygon.</div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-</table>
-</div>
-<a name="protectedMethodSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Methods</div>
-<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_onInteraction()">_onInteraction</a>(p_oEvt:Event):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_onTextureInteraction()">_onTextureInteraction</a>(p_oEvt:Event = null):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_startMouseInteraction()">_startMouseInteraction</a>(e:MouseEvent = null):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#_stopMouseInteraction()">_stopMouseInteraction</a>(e:MouseEvent = null):void</div>
-<div class="summaryTableDescription"></div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 </table>
@@ -385,8 +326,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#id">id</a> : uint<div class="summaryTableDescription">
-   [READ-ONLY] property
-   Unique polygon ID Number.</div>
+   The unique identifier for this polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 </table>
@@ -415,7 +355,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var aEdges:Array</code><p>
-   [READ-ONLY] property.
+   An array of the polygon's edges.
    </p></div>
 <a name="aNeighboors"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -425,8 +365,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var aNeighboors:Array</code><p>
-   [READ-ONLY] property
-   Array of polygons that share an edge with the current polygon.
+   An array of polygons that share an edge with this polygon.
    </p></div>
 <a name="appearance"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -451,9 +390,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var aUVCoord:Array</code><p>
-   [READ-ONLY] property.
-   </p></div>
+<code>public var aUVCoord:Array</code>
+</div>
 <a name="broadcaster"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -462,9 +400,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>broadcaster:<a href="../../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>&nbsp;&nbsp;[read-only]<p>
-   The broadcaster property.
-      </p><p>The broadcaster is the property used to send events to listeners.</p>
-   <span class="label">Implementation</span>
+   The broadcaster of the polygon that sends events to listeners.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get broadcaster():<a href="../../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>
 <br>
@@ -476,9 +413,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var caUVCoord:Array</code><p>
-   [READ-ONLY] property.
-   </p></div>
+<code>public var caUVCoord:Array</code>
+</div>
 <a name="container"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -487,7 +423,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>container:Sprite</code>&nbsp;&nbsp;[read-only]<p>
-   The container for this polygon.
+   The polygon's container.
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get container():Sprite</code>
@@ -501,8 +437,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var cvertices:Array</code><p>
-   [READ-ONLY] property.
-   Array of clipped vertices. Check isClipped property first to see if this array shall be containing the useful data or not.
+   An array of clipped vertices. Check the <code>isClipped</code> property first to see if this array will contain the useful data.
    </p></div>
 <a name="depth"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -511,7 +446,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>depth:Number</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>depth:Number</code>&nbsp;&nbsp;[read-write]<p>
+   The depth of the polygon.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get depth():Number</code>
 <br>
@@ -525,8 +462,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var depthSorter:<a href="../sorters/IDepthSorter.html">IDepthSorter</a></code>
-</div>
+<code>public var depthSorter:<a href="../sorters/IDepthSorter.html">IDepthSorter</a></code><p>
+   The depth sorter the polygon uses.
+   </p></div>
 <a name="enableEvents"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -534,12 +472,21 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>enableEvents:Boolean</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>enableEvents:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+   Specifies whether mouse events are enabled for this polygon.
+      </p><p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
+      <span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get enableEvents():Boolean</code>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set enableEvents(value:Boolean):void</code>
 <br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../data/Polygon.html#addEventListener()" target="">addEventListener()</a>
+</div>
 </div>
 <a name="enableInteractivity"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -548,12 +495,21 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>enableInteractivity:Boolean</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>enableInteractivity:Boolean</code>&nbsp;&nbsp;[read-write]<p>
+   Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.
+      </p><p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
+      <span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get enableInteractivity():Boolean</code>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set enableInteractivity(value:Boolean):void</code>
 <br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../data/Polygon.html#addEventListener()" target="">addEventListener()</a>
+</div>
 </div>
 <a name="hasAppearanceChanged"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -563,9 +519,9 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var hasAppearanceChanged:Boolean = false</code><p>
-   States if the appearance of the polygon has changed since the previous rendering.
-   Often used to update the scene material manager.
-   WARNING: Shall not be changed manually
+   Specifies if the appearance of the polygon has changed since the previous rendering.
+   This is primarily used to update the scene material manager.
+   WARNING: Do not change manually.
    </p></div>
 <a name="isClipped"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -575,8 +531,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var isClipped:Boolean = false</code><p>
-   [READ-ONLY] property.
-   Specify if the polygon has been clipped
+   Specifies if the polygon has been clipped.
    </p></div>
 <a name="minZ"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -587,33 +542,6 @@ showHideInherited();
 <div class="detailBody">
 <code>public var minZ:Number</code>
 </div>
-<a name="m_nDepth"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_nDepth</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var m_nDepth:Number</code>
-</div>
-<a name="m_oContainer"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oContainer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oContainer:Sprite</code>
-</div>
-<a name="m_oEB"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">m_oEB</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected var m_oEB:<a href="../../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></code>
-</div>
 <a name="normal"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -621,9 +549,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var normal:<a href="../data/Vertex.html">Vertex</a></code><p>
-   [READ-ONLY] property.
-   </p></div>
+<code>public var normal:<a href="../data/Vertex.html">Vertex</a></code>
+</div>
 <a name="POLYGON_MAP"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -633,10 +560,16 @@ showHideInherited();
 <div class="detailBody">
 <code>public static var POLYGON_MAP:Dictionary</code><p>
    This property lists all the polygons.
-   This is an helping property since it allows to retrieve a polygon instance from its unique ID.
-   Polygon objects have an unique ID with myPolygon.id.
-   Using : Polygon.POLYGON_MAP[myPolygon.id] returns myPolygon (for sure this example has no interesst except showing the use of the property.
-   </p></div>
+   This is a helper property since it allows all polygons of a scene to be retrieved from a single list by its unique identifier.
+   A polygon's unique identifier can be retrieved useing <code>myPolygon.id</code>.
+      </p><br>
+<span class="label">Example</span>
+<br>The examples below shows how to retrieve a ploygon from this property. 
+   <div class='listing'><pre>
+   var p:Polygon = Polygon.POLYGON_MAP[myPolygon.id];
+   </pre></div>
+   <p></p>
+</div>
 <a name="scene"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -645,8 +578,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var scene:<a href="../../core/Scene3D.html">Scene3D</a></code><p>
-   [READ-ONLY] property.
-   Refers to the Scene3D the shape is linked to.
+   A reference to the Scene3D object this polygon is in.
    </p></div>
 <a name="shape"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -656,8 +588,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var shape:<a href="../scenegraph/Shape3D.html">Shape3D</a></code><p>
-   [READ-ONLY] property.
-   Link to the Shape3D instance this polygon is related too.
+   A reference to the Shape3D object this polygon belongs to.
    </p></div>
 <a name="uvBounds"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -667,8 +598,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var uvBounds:Rectangle</code><p>
-   [READ-ONLY] property.
-   This property contains the texture bounds as a Rectangle.
+   The texture bounds.
    </p></div>
 <a name="vertexNormals"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -678,7 +608,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertexNormals:Array</code><p>
-   [READ-ONLY] property.
+   An array of the polygon's vertex normals.
    </p></div>
 <a name="vertices"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -688,8 +618,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var vertices:Array</code><p>
-   [READ-ONLY] property.
-   Array of original vertices.
+   An array of the polygon's original vertices.
    </p></div>
 <a name="visible"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -699,8 +628,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public var visible:Boolean</code><p>
-   Is this face visible?.
-   The method returns the visibility value pre computed after precompute method call. This getter shall be called afer the precompute call.
+   Specifies whether the face of the polygon is visible.
    </p></div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
@@ -716,124 +644,68 @@ showHideInherited();
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oOwner</span>:<a href="../scenegraph/Shape3D.html">Shape3D</a></code> &mdash;      The shape this polygon belongs to
+<td width="20px"></td><td><code><span class="label">p_oOwner</span>:<a href="../scenegraph/Shape3D.html">Shape3D</a></code> &mdash;   The shape the polygon belongs to.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_geometry</span>:<a href="../scenegraph/Geometry3D.html">Geometry3D</a></code> &mdash;  The geometry this polygon is part of
+<td width="20px"></td><td><code><span class="label">p_geometry</span>:<a href="../scenegraph/Geometry3D.html">Geometry3D</a></code> &mdash;  The geometry the polygon belongs to.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aVertexID</span>:Array</code> &mdash;  The vertexID array of this polygon
+<td width="20px"></td><td><code><span class="label">p_aVertexID</span>:Array</code> &mdash;  An array of verticies of the polygon.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aUVCoordsID</span>:Array</code> (default = <code>null</code>)<code></code> &mdash;  The UVCoordsID array of this polygon
+<td width="20px"></td><td><code><span class="label">p_aUVCoordsID</span>:Array</code> (default = <code>null</code>)<code></code> &mdash;  An array of UV coordinates of this polygon.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nFaceNormalID</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The faceNormalID of this polygon
+<td width="20px"></td><td><code><span class="label">p_nFaceNormalID</span>:Number</code> (default = <code>0</code>)<code></code> &mdash; The faceNormalID of this polygon.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nEdgesID</span>:uint</code> (default = <code>0</code>)<code></code> &mdash;  The edgesID of this polygon
+<td width="20px"></td><td><code><span class="label">p_nEdgesID</span>:uint</code> (default = <code>0</code>)<code></code> &mdash;  The edgesID of this polygon.
    </td>
 </tr>
 </table>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
-<a name="_onInteraction()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_onInteraction</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _onInteraction(p_oEvt:Event):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oEvt</span>:Event</code></td>
-</tr>
-</table>
-</div>
-<a name="_onTextureInteraction()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_onTextureInteraction</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _onTextureInteraction(p_oEvt:Event = null):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oEvt</span>:Event</code> (default = <code>null</code>)<code></code></td>
-</tr>
-</table>
-</div>
-<a name="_startMouseInteraction()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_startMouseInteraction</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _startMouseInteraction(e:MouseEvent = null):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">e</span>:MouseEvent</code> (default = <code>null</code>)<code></code></td>
-</tr>
-</table>
-</div>
-<a name="_stopMouseInteraction()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">_stopMouseInteraction</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>protected function _stopMouseInteraction(e:MouseEvent = null):void</code><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">e</span>:MouseEvent</code> (default = <code>null</code>)<code></code></td>
-</tr>
-</table>
-</div>
 <a name="addEventListener()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">addEventListener</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">addEventListener</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
 </tr>
 </table>
 <div class="detailBody">
 <code>public function addEventListener(p_sEvent:String, oL:*):void</code><p>
-   Adds a listener for specifical event.
+   Adds an event listener to the polygon.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sEvent</span>:String</code> &mdash;  Name of the Event.
+<td width="20px"></td><td><code><span class="label">p_sEvent</span>:String</code> &mdash;  The name of the event to add.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">oL</span>:*</code> &mdash;   Listener object.
+<td width="20px"></td><td><code><span class="label">oL</span>:*</code> &mdash;   The listener object.
    </td>
 </tr>
 </table>
@@ -846,7 +718,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function clear():void</code><p>
-   Clears the container of this polygon from graphics.
+   Clears the polygon's container.
    </p></div>
 <a name="clip()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -856,7 +728,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function clip(p_oFrustum:<a href="../../view/Frustum.html">Frustum</a>):Array</code><p>
-   Returns an array containing the vertices, clipped by the camera frustum.
+   Clips the polygon.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -867,7 +739,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code> &mdash;  The array of clipped vertices
+<td width="20"></td><td><code>Array</code> &mdash; An array of vertices clipped by the camera frustum.
    </td>
 </tr>
 </table>
@@ -880,7 +752,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function clipFrontPlane(p_oFrustum:<a href="../../view/Frustum.html">Frustum</a>):Array</code><p>
-   Perform a clipping against the near frustum plane.
+   Perform a clipping against the camera frustum's front plane.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -891,7 +763,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code> &mdash;  The array of clipped vertices
+<td width="20"></td><td><code>Array</code> &mdash; An array of vertices clipped by the camera frustum's front plane.
    </td>
 </tr>
 </table>
@@ -903,12 +775,17 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function createNormal():<a href="../data/Vector.html">Vector</a></code>
-<p></p>
+<code>public function createNormal():<a href="../data/Vector.html">Vector</a></code><p>
+   Returns the normal vector of the polygon.
+      </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code></td>
+<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
+                        The normal vector of the polygon.
+   
+                        
+                     </td>
 </tr>
 </table>
 </div>
@@ -920,13 +797,13 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function createTransformedNormal():<a href="../data/Vector.html">Vector</a></code><p>
-   Calculates and returns the normal vector of the polygon.
+   Returns the transformed normal vector of the polygon.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        The normal vector
+                        The transformed normal vector of the polygon.
    
                         
                      </td>
@@ -941,7 +818,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function destroy():void</code><p>
-   Destroys the sprite attache to this polygon.
+   Removes the polygon's container from the stage.
    </p></div>
 <a name="display()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -951,18 +828,18 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function display(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oContainer:Sprite = null):void</code><p>
-   Displays this polygon on its container if visible.
+   Draws the polygon on its container if visible.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../Scene3D.html">Scene3D</a></code> &mdash; The current scene this polygon is rendered into
+<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../Scene3D.html">Scene3D</a></code> &mdash;  The scene this polygon is rendered in.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oContainer</span>:Sprite</code> (default = <code>null</code>)<code></code> &mdash; The container to draw on
+<td width="20px"></td><td><code><span class="label">p_oContainer</span>:Sprite</code> (default = <code>null</code>)<code></code> &mdash; The container to draw on.
    </td>
 </tr>
 </table>
@@ -975,14 +852,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function get3DFrom2D(p_oScreenPoint:Point):<a href="../data/Vector.html">Vector</a></code><p>
-   Returns the real 3D position of the 2D screen position.
-   The 2D position is usually coming from :
-   <div class='listing'><pre>
-   var l_nClicX:Number = m_oScene.container.mouseX;
-         var l_nClicY:Number = m_oScene.container.mouseY;
-         </pre></div>
-         
-         </p><span class="label">Parameters</span>
+   Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScreenPoint</span>:Point</code></td>
@@ -993,12 +864,21 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        the real 3D position which correspond to the intersection onto that polygone
+                        A vector that corresponds to the specified point.
          
                         
                      </td>
 </tr>
 </table>
+<br>
+<span class="label">Example</span>
+<br>Below is an example of how to get the 3D coordinate of the polygon under the position of the mouse:
+   <div class='listing'><pre>
+   var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
+   var scenePosition:Vector = myPolygon.get3DFrom2D(screenPoint);
+         </pre></div>
+         
+         <p></p>
 </div>
 <a name="getUVFrom2D()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -1008,14 +888,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function getUVFrom2D(p_oScreenPoint:Point):<a href="../data/UVCoord.html">UVCoord</a></code><p>
-   Get the UVCoord under the 2D screen position after a mouse click or something
-   The 2D position is usually coming from :
-   <div class='listing'><pre>
-   var l_nClicX:Number = m_oScene.container.mouseX;
-         var l_nClicY:Number = m_oScene.container.mouseY;
-         </pre></div>
-         
-         </p><span class="label">Parameters</span>
+   Returns a UV coordinate elative to the specified point on the 2D screen.
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScreenPoint</span>:Point</code></td>
@@ -1026,12 +900,21 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/UVCoord.html">UVCoord</a></code> &mdash; 
-                        the UVCoord under the 2D screen point
+                        A the UV coordinate that corresponds to the specified point.
          
                         
                      </td>
 </tr>
 </table>
+<br>
+<span class="label">Example</span>
+<br>Below is an example of how to get the UV coordinate under the position of the mouse:
+   <div class='listing'><pre>
+   var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
+   var scenePosition:Vector = myPolygon.getUVFrom2D(screenPoint);
+         </pre></div>
+         
+         <p></p>
 </div>
 <a name="precompute()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -1041,14 +924,14 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function precompute():void</code><p>
-   Pre-compute several properties of the polygon in the same time.
-   List of the computed properties :
+   Computes several properties of the polygon.
+   </p><p>The computed properties are listed below:</p>
    <ul>
-    <li>minZ</li>
-    <li>visibility</li>
-    <li>depth</li>
+    <li><code>visible</code></li>
+    <li><code>minZ</code></li>
+    <li><code>depth</code></li>
    </ul>
-   </p></div>
+   </div>
 <a name="removeEventListener()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -1057,18 +940,18 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function removeEventListener(p_sEvent:String, oL:*):void</code><p>
-   Removes a listener for specifical event.
+   Removes an event listener to the polygon.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sEvent</span>:String</code> &mdash;  Name of the Event.
+<td width="20px"></td><td><code><span class="label">p_sEvent</span>:String</code> &mdash;  The name of the event to remove.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">oL</span>:*</code> &mdash;   Listener object.
+<td width="20px"></td><td><code><span class="label">oL</span>:*</code> &mdash;   The listener object.
    </td>
 </tr>
 </table>
@@ -1082,7 +965,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public function swapCulling():void</code><p>
    Changes which side is the "normal" culling side.
-      </p><p>The method also swaps the front and back skins.</p>
+      </p><p>This method also swaps the front and back skins.</p>
    </div>
 <a name="toString()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -1092,12 +975,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-   Returns a string representing of this polygon.
+   Returns a string representation of this object.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; The string representation.
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>
@@ -1112,8 +995,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public const id:uint</code><p>
-   [READ-ONLY] property
-   Unique polygon ID Number.
+   The unique identifier for this polygon.
    </p></div>
 <br>
 <br>

@@ -40,7 +40,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   A 3D Bézier path.
-    <p>The Bezier path is built form an array of 3D points, by using Bezier equations<br />
+    <p>The Bézier path is built form an array of 3D points, by using Bézier equations<br />
   With two points the path is degenereated to a straight line. To get a curved line, you need
   at least three points. The mid point is used as a control point which gives the curvature.<br />
   After that you will have to add three point segments</p>
@@ -76,7 +76,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#compile()">compile</a>():void</div>
 <div class="summaryTableDescription">
-   Computes all the control points for this path.</div>
+   Computes the control points for this path.</div>
 </td><td class="summaryTableOwnerCol">BezierPath</td>
 </tr>
 <tr class="">
@@ -109,7 +109,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   Returns a string represntation of the Bezier path.</div>
+   Returns a string representation of this object.</div>
 </td><td class="summaryTableOwnerCol">BezierPath</td>
 </tr>
 </table>
@@ -142,35 +142,35 @@ showHideInherited();
 <div class="detailBody">
 <code>public function addPoint(p_nX:Number, p_nY:Number, p_nZ:Number):Boolean</code><p>
    Adds a 3D point to this path.
-      </p><p>NOTE: You can't add a point to the path once it has been compiled.</p>
-   <p>Add at least three point for a a curved segment, then two new points for each segment,<br />
-   the first a control point, the second an end point.</p>
+      </p><p>At least three points are required for a a curved segment. The first point added must be the control point,
+   followed by segments added in sets of two points.
+      <p><strong>Note:</strong> You can't add a point to the path once it has been compiled.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nX</span>:Number</code> &mdash; The x coordinate of the 3D point
+<td width="20px"></td><td><code><span class="label">p_nX</span>:Number</code> &mdash; The x coordinate of the 3D point.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nY</span>:Number</code> &mdash; The y coordinate of the 3D point
+<td width="20px"></td><td><code><span class="label">p_nY</span>:Number</code> &mdash; The y coordinate of the 3D point.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nZ</span>:Number</code> &mdash; The z coordinate of the 3D point
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nZ</span>:Number</code> &mdash; The z coordinate of the 3D point.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Boolean</code> &mdash;  true if operation succeed, false otherwise.
+<td width="20"></td><td><code>Boolean</code> &mdash; Whether the point was added.
    </td>
 </tr>
 </table>
@@ -183,9 +183,8 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function compile():void</code><p>
-   Computes all the control points for this path.
-      </p><p>Must be called after the last point of the path has been added,
-   and before being used by Sandy's engine.</p>
+   Computes the control points for this path.
+      </p><p>Must be called after all segments have been added and before the scene is rendered.</p>
    </div>
 <a name="getNumberOfSegments()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -200,7 +199,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>uint</code> &mdash; The number of segments
+<td width="20"></td><td><code>uint</code> &mdash; The number of segments in this path.
    </td>
 </tr>
 </table>
@@ -214,14 +213,13 @@ showHideInherited();
 <div class="detailBody">
 <code>public function getPosition(p_nP:Number):<a href="../data/Vector.html">Vector</a></code><p>
    Returns the position in the 3D space at a specific portion of this path.
-      If you regard the whole length of the path as 1.0 (100%),
-   and you need the position at 10% of the whole path,
-   you pass 0.1 as an argument.
+      If length of the path is regarded as <code>1.0</code> (100%) and the position at 10% of the path is desired
+   <code>0.1</code> is passed as the.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nP</span>:Number</code> &mdash;  The portion of the path length ( 0 - 1 )
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nP</span>:Number</code> &mdash; The position of the path length as a percentage ( 0 - 1 ).
+      </td>
 </tr>
 </table>
 <p></p>
@@ -229,7 +227,7 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        The 3D position on the path at
+                        The 3D position on the path at the desired position.
    
                         
                      </td>
@@ -250,15 +248,15 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nId</span>:uint</code> &mdash; The number of the segment to return
-   </td>
+<td width="20px"></td><td><code><span class="label">p_nId</span>:uint</code> &mdash; The index of the desired segment in the segments array.
+      </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code> &mdash; An array containing the bezierCurve points [startPoint, controlPoint, endPoint]
+<td width="20"></td><td><code>Array</code> &mdash; An array containing the Bézier curve points [startPoint, controlPoint, endPoint]
    </td>
 </tr>
 </table>
@@ -271,12 +269,12 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-   Returns a string represntation of the Bezier path.
+   Returns a string representation of this object.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>String</code> &mdash; A string representing the BezierPath.
+<td width="20"></td><td><code>String</code> &mdash; The fully qualified name of this object.
    </td>
 </tr>
 </table>
