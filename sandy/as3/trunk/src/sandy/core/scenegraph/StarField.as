@@ -250,6 +250,14 @@ package sandy.core.scenegraph
 				m_oContainer.parent.removeChild( m_oContainer );
 			super.remove();
 		}
+
+		/**
+		 * @inheritDoc
+		 */
+		public override function destroy():void
+		{
+			remove (); super.destroy ();
+		}
 		
 		/**
 		 * Displays the starfield.

@@ -273,7 +273,15 @@ package sandy.core.scenegraph
 			}
 			super.remove();
 		}
-		
+
+		/**
+		 * @inheritDoc
+		 */
+		public override function destroy():void
+		{
+			remove (); super.destroy ();
+		}
+
 		/**
 		 * Displays this sprite.
 		 *
