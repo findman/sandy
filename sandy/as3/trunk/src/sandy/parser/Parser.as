@@ -74,6 +74,10 @@ package sandy.parser
 		 */
 		public static const ASE:String = "ASE";
 		/**
+		 * Specifies that the MD2 (Quake II model) parser should be used.
+		 */
+		public static const MD2:String = "MD2";
+		/**
 		 * Specifies that the 3DS (3D Studio) parser should be used.
 		 */
 		public static const MAX_3DS:String = "3DS";
@@ -116,6 +120,9 @@ package sandy.parser
 			{
 				case "ASE":
 					l_iParser = new ASEParser( p_sFile, p_nScale );
+					break;
+				case "MD2":
+					l_iParser = new MD2Parser( p_sFile, p_nScale );
 					break;
 				case "OBJ":
 					break;
