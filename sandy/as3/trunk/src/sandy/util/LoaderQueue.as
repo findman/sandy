@@ -21,7 +21,9 @@ package sandy.util
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-	import flash.utils.Dictionary;
+	import flash.utils.*;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	
 	import sandy.events.QueueEvent;
 	import sandy.events.SandyEvent;
@@ -45,12 +47,26 @@ package sandy.util
 	 *
 	 * <p>A LoaderQueue allows you to queue up requests for loading external resources.</p>
 	 * 
-	 * @author		Thomas Pfeiffer - kiroukou
+	 * @author		Thomas Pfeiffer - kiroukou /Max Pellizzaro 
 	 * @version		3.0
-	 * @date 		26.07.2007
+	 * @date 		06.06.2008
 	 */
 	public class LoaderQueue extends EventDispatcher
 	{
+		
+		/**
+		* Specifies the Image type of object to load
+		*/
+		public static const IMG:String = "IMG";
+		/**
+		* Specifies the SWF type of object to load
+		*/
+		public static const SWF:String = "SWF";
+		/**
+		* Specifies the Binary type of object to load
+		*/
+		public static const BIN:String = "BIN";
+		
 		private var m_oLoaders : Object;
 		private var m_nLoaders : int;
 		private var m_oQueueEvent : QueueEvent;
@@ -78,18 +94,36 @@ package sandy.util
 		 * @param p_sID		A string identifier for this request
 		 * @param p_oURLRequest	The request
 		 */
-		public function add( p_sID : String, p_oURLRequest : URLRequest ) : void
+		public function add( p_sID : String, p_oURLRequest : URLRequest, type:String = "IMG" ) : void
 		{
-			m_oLoaders[ p_sID ] = new QueueElement( p_sID, new Loader(), p_oURLRequest );
+			if(type == "BIN"){
+				var tmpLoader:URLLoader = new URLLoader ();
+			    tmpLoader.dataFormat = URLLoaderDataFormat.BINARY;
+			    m_oLoaders[ p_sID ] = new QueueElement( p_sID, null ,tmpLoader, p_oURLRequest );
+			} 
+			else
+			 m_oLoaders[ p_sID ] = new QueueElement( p_sID, new Loader(),null , p_oURLRequest );
 			// --
 			m_nLoaders++;
 		}
 		
-		private function getIDFromLoader( p_oLoader:Loader ):String
+		private function getIDFromLoader( p_oLoader:Loader):String
 		{
 			for each( var l_oElement:QueueElement in m_oLoaders )
 			{
-				if( p_oLoader == l_oElement.loader )
+				 if( p_oLoader == l_oElement.loader)
+				 {
+				  return l_oElement.name;
+				 }
+			}
+			return null;
+		}
+		
+		private function getIDFromURLLoader( p_oLoader:URLLoader ):String
+		{
+			for each( var l_oElement:QueueElement in m_oLoaders )
+			{
+				if( p_oLoader == l_oElement.urlLoader )
 				{
 					return l_oElement.name;
 				}
@@ -106,9 +140,15 @@ package sandy.util
 		{
 			for each( var l_oLoader:QueueElement in m_oLoaders )
 			{
-				l_oLoader.loader.load( l_oLoader.urlRequest );
-				l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
-	            l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				if (l_oLoader.loader != null) {
+				 l_oLoader.loader.load( l_oLoader.urlRequest );
+				 l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
+	             l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				} else {
+				 l_oLoader.urlLoader.load( l_oLoader.urlRequest );	
+				 l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
+	             l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				}
 			}
 		}
 		
@@ -118,12 +158,17 @@ package sandy.util
 		 */
 		private function completeHandler( p_oEvent:Event ) : void
 		{		
+			var l_sName:String;
 			var l_oLoaderInfos:LoaderInfo = p_oEvent.target as LoaderInfo;
-			var l_oLoader:Loader = l_oLoaderInfos.loader;
-			
-			var l_sName:String = getIDFromLoader( l_oLoader );
-			data[ l_sName ] = l_oLoaderInfos.content;
-			// --
+			if (getQualifiedClassName(p_oEvent.target) == "flash.net::URLLoader"){
+				var l_oLoader:URLLoader = URLLoader(p_oEvent.target);
+				l_sName = getIDFromURLLoader(l_oLoader );
+				data[ l_sName ] = l_oLoader.data;
+		    } else{
+				var l_oLoader01:Loader = l_oLoaderInfos.loader;
+				l_sName = getIDFromLoader( l_oLoader01 );
+				data[ l_sName ] = l_oLoaderInfos.content;
+		    }
 			m_nLoaders--;
 			// --
 			if( m_nLoaders == 0 ) 
@@ -131,6 +176,7 @@ package sandy.util
 				m_oQueueEvent.loaders = m_oLoaders;
 				dispatchEvent( m_oQueueEvent );
 			}
+			
 		}
 		
 		/**
@@ -140,9 +186,7 @@ package sandy.util
 		private function ioErrorHandler( p_oEvent : IOErrorEvent ) : void
 		{	
 			trace( p_oEvent.text );
-
 			m_nLoaders--;
-			
 			if( m_nLoaders == 0 ) 
 			{
 				m_oQueueEvent.loaders = m_oLoaders;
@@ -154,17 +198,21 @@ package sandy.util
 
 import flash.display.Loader;
 import flash.net.URLRequest;
+import flash.net.URLLoader;
+
 
 internal class QueueElement
 {
 	public var name:String;
 	public var loader:Loader;
+	public var urlLoader:URLLoader;
 	public var urlRequest:URLRequest;
 	// --
-	public function QueueElement( p_sName:String, p_oLoader:Loader, p_oURLRequest : URLRequest )
+	public function QueueElement( p_sName:String, p_oLoader:Loader, u_oLoader:URLLoader ,p_oURLRequest : URLRequest )
 	{
 		name = p_sName;
 		loader = p_oLoader;
 		urlRequest = p_oURLRequest;
+		urlLoader = u_oLoader;
 	}
 }
