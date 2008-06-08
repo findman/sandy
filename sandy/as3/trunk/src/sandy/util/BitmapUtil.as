@@ -17,7 +17,10 @@ package sandy.util
 {
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
-	import flash.geom.*;
+	import flash.geom.Matrix;
+
+	import sandy.core.scenegraph.Shape3D;
+	import sandy.core.data.Polygon;
 	
 	/**
 	 * Utility class for Bitmap calculations.
@@ -103,5 +106,27 @@ package sandy.util
 			// --
 			return r;
 		}
+
+		/**
+		 * Creates shape texture map template. This is useful for 3rd party models texturing :)
+		 *
+		 * @param obj	Shape to rip texture template from.
+		 * @param size	Template size (will be size x size pixels).
+		 *
+		 * @return 		Sprite with texture map template drawn in.
+		 */
+		public static function ripShapeTexture (obj:Shape3D, size:Number = 256):Sprite {
+			var tex:Sprite = new Sprite ();
+			tex.graphics.beginFill (0); tex.graphics.drawRect (0, 0, size, size); tex.graphics.endFill ();
+			tex.graphics.lineStyle (1, 0xFF0000);
+			for each (var p:Polygon in obj.aPolygons) {
+				var i:int = p.vertices.length -1;
+				tex.graphics.moveTo (size * p.aUVCoord [i].u, size * p.aUVCoord [i].v);
+				for (i = 0; i < p.vertices.length; i++)
+					tex.graphics.lineTo (size * p.aUVCoord [i].u, size * p.aUVCoord [i].v);
+			}
+			return tex;
+		}
+
 	}
 }
