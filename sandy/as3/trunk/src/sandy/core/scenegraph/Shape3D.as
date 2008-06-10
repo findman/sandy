@@ -16,15 +16,14 @@ limitations under the License.
 
 package sandy.core.scenegraph 
 {
-	import flash.utils.Dictionary;    
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	import sandy.bounds.BBox;
 	import sandy.bounds.BSphere;
-	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
@@ -258,7 +257,7 @@ package sandy.core.scenegraph
 					
 			var  	l_nZNear:Number = p_oCamera.near,
 	        		l_oMatrix:Matrix4 = viewMatrix, l_oFrustum:Frustum = p_oCamera.frustrum, 
-					l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_oCamPos:Vector, cache:Dictionary = new Dictionary(false);
+					l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_oCamPos:Vector = new Vector(), cache:Dictionary = new Dictionary(false);
 			
 			// -- fast camera model matrix inverssion
 			invModelMatrix.n11 = modelMatrix.n11;
@@ -275,6 +274,7 @@ package sandy.core.scenegraph
 			invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
 			
 			l_oCamPos.reset(p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34);
+			//l_oCamPos.reset(p_oCamera.x, p_oCamera.y, p_oCamera.z);
 			invModelMatrix.vectorMult( l_oCamPos );
 			
 			// -- Now we can transform the objet vertices into the camera coordinates
@@ -293,19 +293,13 @@ package sandy.core.scenegraph
             {
                 l_oFace.isClipped = false;
                 // -- visibility test
-                /*
                 if( m_bBackFaceCulling )
                 {
-	                x =  l_oFace.normal.x ; y = l_oFace.normal.y ; z = l_oFace.normal.z ;
 	                // -- visibility computation
-	                x = l_oFace.a.x*( l_oCamPos.x - x) + l_oFace.a.y*( l_oCamPos.y - y) + l_oFace.a.z*( l_oCamPos.z - z);
-	                l_oFace.visible = x < 0;
+	                l_oFace.visible = (l_oFace.normal.x*( l_oCamPos.x - l_oFace.a.x) + l_oFace.normal.y*( l_oCamPos.y - l_oFace.a.y) + l_oFace.normal.z*( l_oCamPos.z - l_oFace.a.z)) > 0;
 	                if( l_oFace.visible == false )
 	                	continue;
                 }
-                */ 
-                l_oFace.visible = true;
-                m_bClipped = false;
                 // --
                 if( cache[ l_oFace.a ] == null )
                 {

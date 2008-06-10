@@ -197,13 +197,13 @@ package sandy.core.scenegraph
 			var l_nCste:Number;
 			for each( var l_oVertex:Vertex in p_oList )
 			{
-				//if( m_oCache[ l_oVertex ] != null ) continue;
+				if( m_oCache[ l_oVertex ] != null ) continue;
 				// --
 				l_nCste = 	1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
 				l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
 				l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;
 				//nbVertices += 1;
-				//m_oCache[ l_oVertex ] = l_oVertex;
+				m_oCache[ l_oVertex ] = l_oVertex;
 			}
 		}
 				
