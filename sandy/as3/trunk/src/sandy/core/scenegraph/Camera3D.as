@@ -206,6 +206,28 @@ package sandy.core.scenegraph
 				m_oCache[ l_oVertex ] = l_oVertex;
 			}
 		}
+		
+		/**
+		 * <p>Does the same thing as projectArray but allows the use of a dictionnary object to store reference to Vertex instances.
+		 * As a performance note, looping through a Dictionnary may be faster than an array.
+		 * </p>
+		 */
+		public function projectDico( p_oList:Dictionary ):void
+		{
+			const l_nX:Number = viewport.offset.x + m_nOffx;
+			const l_nY:Number = viewport.offset.y + m_nOffy;
+			var l_nCste:Number;
+			for each( var l_oVertex:Vertex in p_oList )
+			{
+				if( m_oCache[ l_oVertex ] != null ) continue;
+				// --
+				l_nCste = 	1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
+				l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
+				l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;
+				//nbVertices += 1;
+				m_oCache[ l_oVertex ] = l_oVertex;
+			}
+		}
 				
 		/**
 		 * <p>Project the vertex passed as parameter.

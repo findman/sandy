@@ -25,6 +25,7 @@ package sandy.primitive
 		public function MD2 ( p_sName:String, data:ByteArray, scale:Number = 1 )
 		{
 			super (p_sName); scaling = scale; geometry = generate (data); frame = 0;
+			animated = true;
 		}
 
 		/**
@@ -174,15 +175,6 @@ package sandy.primitive
 				v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
 				v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
 			}
-
-			// update face normals
-			for each (var l_oPoly:Polygon in aPolygons)
-			{
-				v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
-				w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-				w.crossWith (v); w.normalize ();
-				l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
-			}
 		}
 
 		// animation "time" (frame number)
@@ -192,7 +184,7 @@ package sandy.primitive
 		private var vertices:Array = [];
 
 		// vars for quick normal computation
-		private var v:Vector = new Vector (), w:Vector = new Vector ();
+		//private var v:Vector = new Vector (), w:Vector = new Vector ();
 
 		// original Philippe vars
 		private var ident:int;

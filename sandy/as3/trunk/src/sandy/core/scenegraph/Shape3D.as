@@ -112,6 +112,15 @@ package sandy.core.scenegraph
 		 * The higher the depth is, the sooner the more far the object will be represented.</p>
 		 */
 		public var forcedDepth:Number = 0;	
+		
+		/**
+		 * Animated flag. 
+		 * <p>If the geometry vertices are dynamically modified by some animation engine or mathematic function, some polygon may disapear with no reason.
+		 * The normal vector is used to compute the polygon visibility, and if you don't update the normal vector after the vertices modifications, there's an error.
+		 * To fix that problem, Sandy3D offers that new property appeared in 3.0.3 release, which once set to true, automatically update the normal vectors for you.
+		 * As a performance warning, don't set this value to true if your model geometry isn't animated.</p>
+		 */
+		public var animated:Boolean = false;
 
 		/**
 		 * Creates a 3D object
@@ -258,7 +267,7 @@ package sandy.core.scenegraph
 					
 			var  	l_nZNear:Number = p_oCamera.near,
 	        		l_oMatrix:Matrix4 = viewMatrix, l_oFrustum:Frustum = p_oCamera.frustrum, 
-					l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_oCamPos:Vector = new Vector(), cache:Dictionary = new Dictionary(false);
+					l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_nFlags:int;//, cache:Dictionary = new Dictionary(false);
 			
 			// -- fast camera model matrix inverssion
 			invModelMatrix.n11 = modelMatrix.n11;
@@ -274,9 +283,9 @@ package sandy.core.scenegraph
 			invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
 			invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
 			
-			l_oCamPos.reset(p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34);
+			m_oCamPos.reset(p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34);
 			//l_oCamPos.reset(p_oCamera.x, p_oCamera.y, p_oCamera.z);
-			invModelMatrix.vectorMult( l_oCamPos );
+			invModelMatrix.vectorMult( m_oCamPos );
 			
 			// -- Now we can transform the objet vertices into the camera coordinates
 			l_oMatrix = viewMatrix;
@@ -289,46 +298,48 @@ package sandy.core.scenegraph
 			m_aVisiblePoly = [];
 			m_nVisiblePoly = 0;
 			m_nDepth = 0;
-			
+			l_nFlags = appearance.flags;
+			m_oCache = new Dictionary(false);
+			// --
 			var polyFlags:uint = 0;
-			
 			for each( l_oFace in aPolygons )
             {
-                l_oFace.isClipped = false;
+				if( animated )
+					l_oFace.updateNormal();
                 // -- visibility test
                 if( m_bBackFaceCulling )
                 {
-	                // -- visibility computation
-	                l_oFace.visible = (l_oFace.normal.x*( l_oCamPos.x - l_oFace.a.x) + l_oFace.normal.y*( l_oCamPos.y - l_oFace.a.y) + l_oFace.normal.z*( l_oCamPos.z - l_oFace.a.z)) > 0;
+	                l_oVertex = l_oFace.normal;
+	                l_oFace.visible = (l_oVertex.x*( m_oCamPos.x - l_oFace.a.x) + l_oVertex.y*( m_oCamPos.y - l_oFace.a.y) + l_oVertex.z*( m_oCamPos.z - l_oFace.a.z)) > 0;
 	                if( l_oFace.visible == false )
 	                	continue;
                 }
                 // --
-                if( cache[ l_oFace.a ] == null )
+                if( m_oCache[ l_oFace.a ] == null )
                 {
                 	l_oVertex = l_oFace.a;
 					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-					cache[ l_oVertex ] = l_oVertex;
+					m_oCache[ l_oVertex ] = l_oVertex;
                 }
-                if( cache[ l_oFace.b ] == null )
+                if( m_oCache[ l_oFace.b ] == null )
                 {
                 	l_oVertex = l_oFace.b;
 					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-					cache[ l_oVertex ] = l_oVertex;
+					m_oCache[ l_oVertex ] = l_oVertex;
                 }
                 if( l_oFace.c )
                 {
-	                if( cache[ l_oFace.c ] == null )
+	                if( m_oCache[ l_oFace.c ] == null )
 	                {
 	                	l_oVertex = l_oFace.c;
 						l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 						l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 						l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-						cache[ l_oVertex ] = l_oVertex;
+						m_oCache[ l_oVertex ] = l_oVertex;
 	                }
                 }
                 // --               	
@@ -363,7 +374,6 @@ package sandy.core.scenegraph
 				 }
 				 else if( l_nMinZ >= l_nZNear )
 				 {
-			 		p_oCamera.projectArray( l_oFace.vertices );
 			 		if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
 			 		else l_oFace.depth = forcedDepth;
 			    	// -- we manage the display list depending on the mode choosen
@@ -388,12 +398,13 @@ package sandy.core.scenegraph
 						}
 					}
 					l_oFace.hasAppearanceChanged = false;
-					polyFlags |= l_oFace.appearance.flags;
+					polyFlags |= l_nFlags;
 				}
-				
 			}
-			// -- free memory
-            cache = null;	 
+			
+			// -- project to screen
+			p_oCamera.projectDico( m_oCache );
+			
 			// --
 			if( m_bUseSingleContainer )
 			{
@@ -406,20 +417,16 @@ package sandy.core.scenegraph
 			    p_oCamera.addArrayToDisplayList( m_aVisiblePoly );
 			}
 			
-			
-			var l_nFlags:int = appearance.flags;
-			
+
 			if( l_nFlags == 0 && polyFlags == 0 ) return;
 			
-			// DEPRECATED
-			var i:int;
-			l_oMatrix = modelMatrix;
-            m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-            m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-            m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
 			
 			if( (l_nFlags | polyFlags) & SandyFlags.POLYGON_NORMAL_WORLD )
             {
+            	l_oMatrix = modelMatrix;
+           		m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
+            	m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
+            	m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
                 // -- Now we transform the normals.
                 for each( var l_oPoly:Polygon in m_aVisiblePoly )
                 {
@@ -431,7 +438,10 @@ package sandy.core.scenegraph
             }          
 		}
 		
-		
+		/**
+		 * <p>Returns the number of visible polygons of that shape</p>
+		 * @return A unsigned int value which represents the amount of visible polygons of that shape
+		 */
 		public function get visiblePolygonsCount():uint
 		{
 			return m_nVisiblePoly;
@@ -544,7 +554,9 @@ package sandy.core.scenegraph
     	}
     	
 		/**
-		 * The appearance of this object.
+		 * Set the appearance of this object.
+		 * NOTE: Please mind that Sandy3D allows to set an appearance at a polygon level.
+		 * @param p_oApp The appearance object which stores the front material and -if set- the back material which represents that shape.
 		 */
 		override public function set appearance( p_oApp:Appearance ):void
 		{
@@ -871,7 +883,7 @@ package sandy.core.scenegraph
 		
 		private function __generatePolygons( p_oGeometry:Geometry3D ):void
 		{
-			var i:int = 0, j:int = 0, l:int = p_oGeometry.aFacesVertexID.length;
+			var i:int = 0, l:int = p_oGeometry.aFacesVertexID.length;
 			aPolygons = new Array( l );
 			// --
 			for( i=0; i < l; i += 1 )
@@ -896,8 +908,8 @@ package sandy.core.scenegraph
 		protected var m_bUseSingleContainer:Boolean = true;
 		protected var m_nDepth:Number = 0;
 		protected var m_oContainer:Sprite;
-
-		private var m_aToProject:Array = new Array();
+		protected var m_oCache:Dictionary;// = new Array();
+		private var m_oCamPos:Vector = new Vector();
 		private var m_aVisiblePoly:Array = new Array();	
 		private var m_nVisiblePoly:int;	
 		

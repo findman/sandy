@@ -107,6 +107,22 @@ package sandy.core.data
 			sy = sx = 0;
 		}
 		
+		/**
+		 * Reset the values of that vertex.
+		 * This allows to change all the values of that vertex in one method call instead of acessing to each public property.
+		 *  @param p_nX Value for x and wx properties
+		 *  @param p_nY Value for y and wy properties
+		 *  @param p_nZ Value for z and wz properties
+		 */
+		public function reset( p_nX:Number, p_nY:Number, p_nZ:Number ):void
+		{
+			x = p_nX;
+			y = p_nY;
+			z = p_nZ;
+			wx = x;
+			wy = y;
+			wz = z;
+		}
 		
 		/**
 		 * Returns the 2D position of this vertex.  The function returns a vector with the x and y coordinates of the

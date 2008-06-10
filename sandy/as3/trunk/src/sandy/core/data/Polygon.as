@@ -103,8 +103,6 @@ package sandy.core.data
 		 */
 		public var vertexNormals:Array;
 		
-		public var normal:Vertex;
-		
 		public var aUVCoord:Array;
 
 		/**
@@ -129,8 +127,11 @@ package sandy.core.data
 		 */
 		public var visible:Boolean;
 		
+		/**
+		 * Minimum depth value of that polygon in the camera space
+		 */
 		public var minZ:Number;
-		private var m_nDepth:Number;
+		
 		
 		public var a:Vertex, b:Vertex, c:Vertex;
 		
@@ -168,6 +169,24 @@ package sandy.core.data
 			POLYGON_MAP[id] = this;
 		}
 
+		public function get normal():Vertex
+		{
+			return m_oGeometry.aFacesNormals[ m_nNormalId ];
+		}
+		
+		public function set normal( p_oVertex:Vertex ):void
+		{
+			m_oGeometry.aFacesNormals[ m_nNormalId ].copy( p_oVertex );
+		}
+		
+		public function updateNormal():void
+		{
+			var x:Number = 	((b.y - a.y) * (c.z - a.z)) - ((b.z - a.z) * (c.y - a.y)) ;
+			var y:Number =	((b.z - a.z) * (c.x - a.x)) - ((b.x - a.x) * (c.z - a.z)) ;
+			var z:Number = 	((b.x - a.x) * (c.y - a.y)) - ((b.y - a.y) * (c.x - a.x)) ;
+			m_oGeometry.aFacesNormals[ m_nNormalId ].reset( x, y, z );
+		}
+		
 		/**
 		 * The depth of the polygon.
 		 */
@@ -225,6 +244,8 @@ package sandy.core.data
 		 */
 		public function precompute():void
 		{
+			isClipped = false;
+			// --
 			minZ = a.wz;
 			if (b.wz < minZ) minZ = b.wz;
 			// --
@@ -423,13 +444,13 @@ package sandy.core.data
 				uvBounds = new Rectangle( l_nMinU, l_nMinV, l_nMaxU-l_nMinU, l_nMaxV-l_nMinV );
 			}
 			// --
+			m_nNormalId = p_nFaceNormalID;
 			normal = Vertex( m_oGeometry.aFacesNormals[ p_nFaceNormalID ] );
 			// If no normal has been given, we create it ourself.
 			if( normal == null )
 			{
 				var l_oNormal:Vector = createNormal();
-				var l_nID:Number = m_oGeometry.setFaceNormal( m_oGeometry.getNextFaceNormalID(), l_oNormal.x, l_oNormal.y, l_oNormal.z );
-				normal = Vertex( m_oGeometry.aFacesNormals[ l_nID ] );
+				m_nNormalId = m_oGeometry.setFaceNormal( m_oGeometry.getNextFaceNormalID(), l_oNormal.x, l_oNormal.y, l_oNormal.z );
 			}
 			// --
 			aEdges = new Array();
@@ -745,10 +766,15 @@ package sandy.core.data
 			// --
 			if( m_oContainer.parent ) m_oContainer.parent.removeChild( m_oContainer );
 			if( m_oContainer ) m_oContainer = null;
+			if( appearance.backMaterial ) appearance.backMaterial.unlink( this );
+			if( appearance.frontMaterial ) appearance.frontMaterial.unlink( this );
+			appearance = null;
 			// --
 			cvertices = null;
 			vertices = null;
 			m_oEB = null;
+			m_oGeometry = null;
+			shape = null;
 			// -- memory leak fix from nopmb on mediabox forums
 			delete POLYGON_MAP[id];
 		}
@@ -760,9 +786,8 @@ package sandy.core.data
 		/** Reference to its owner geometry */
 		private var m_oGeometry:Geometry3D;
 		private var m_oAppearance:Appearance;
-		/** array of ID of uv coordinates in geometry object */
-		private var m_aUVCoords:Array;
-
+		private var m_nNormalId:uint;
+		private var m_nDepth:Number;
 		/**
 		 * @private
 		 */
