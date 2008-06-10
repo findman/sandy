@@ -205,5 +205,10 @@ package sandy.primitive
 		private var offset_glcmds:int;
 		private var offset_end:int;
 		private var scaling:Number;
+
+		/**
+		 * Number of frames in MD2.
+		 */
+		public function get nFrames():Number { return num_frames }
 	}
 }
