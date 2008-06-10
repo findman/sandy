@@ -30,7 +30,7 @@ package sandy.primitive
 	* @date 		26.07.2007
 	*
 	* @example To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
-	* in 'tri' mode and a with a quality of 2, use the following statement:
+	* with a quality of 2, use the following statement:
 	*
 	* <listing version="3.0">
 	*     var myBox:Box = new Box( "theBox", 50, 100, 150, 2 );
