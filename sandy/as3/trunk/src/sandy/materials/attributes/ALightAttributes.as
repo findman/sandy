@@ -308,7 +308,7 @@ package sandy.materials.attributes
 		/**
 		* @private
 		*/
-		protected var m_nFlags:uint = SandyFlags.INVERT_MODEL_MATRIX;
+		protected var m_nFlags:uint = 0;//SandyFlags.INVERT_MODEL_MATRIX;
 
 		// --
 		private var _ambient:Number = 0.3;

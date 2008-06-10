@@ -24,6 +24,7 @@ package sandy.core.scenegraph
 	
 	import sandy.bounds.BBox;
 	import sandy.bounds.BSphere;
+	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
@@ -289,6 +290,8 @@ package sandy.core.scenegraph
 			m_nVisiblePoly = 0;
 			m_nDepth = 0;
 			
+			var polyFlags:uint = 0;
+			
 			for each( l_oFace in aPolygons )
             {
                 l_oFace.isClipped = false;
@@ -385,6 +388,7 @@ package sandy.core.scenegraph
 						}
 					}
 					l_oFace.hasAppearanceChanged = false;
+					polyFlags |= l_oFace.appearance.flags;
 				}
 				
 			}
@@ -402,10 +406,10 @@ package sandy.core.scenegraph
 			    p_oCamera.addArrayToDisplayList( m_aVisiblePoly );
 			}
 			
-			/*
+			
 			var l_nFlags:int = appearance.flags;
 			
-			if( l_nFlags == 0 ) return;
+			if( l_nFlags == 0 && polyFlags == 0 ) return;
 			
 			// DEPRECATED
 			var i:int;
@@ -413,7 +417,8 @@ package sandy.core.scenegraph
             m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
             m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
             m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-			if( appearance.flags & SandyFlags.POLYGON_NORMAL_WORLD )
+			
+			if( (l_nFlags | polyFlags) & SandyFlags.POLYGON_NORMAL_WORLD )
             {
                 // -- Now we transform the normals.
                 for each( var l_oPoly:Polygon in m_aVisiblePoly )
@@ -423,23 +428,7 @@ package sandy.core.scenegraph
                     l_oVertex.wy  = x * m21 + y * m22 + z * m23;
                     l_oVertex.wz  = x * m31 + y * m32 + z * m33;
                 }
-            }
-            if( appearance.flags & SandyFlags.VERTEX_NORMAL_WORLD )
-            {
-                // -- Now we transform the normals.
-                i = m_oGeometry.aVertexNormals.length;
-                while( --i > -1 )
-                {
-                    if( m_oGeometry.aVertex[int(i)].projected )
-                    {
-	                    l_oVertex = m_oGeometry.aVertexNormals[int(i)];
-	                    l_oVertex.wx  = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13;
-	                    l_oVertex.wy  = x * m21 + y * m22 + z * m23;
-	                    l_oVertex.wz  = x * m31 + y * m32 + z * m33;
-                    }
-                }
-            }
-            */
+            }          
 		}
 		
 		
