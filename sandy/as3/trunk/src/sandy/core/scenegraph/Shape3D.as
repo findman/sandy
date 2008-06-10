@@ -15,7 +15,8 @@ limitations under the License.
 */
 
 package sandy.core.scenegraph 
-{    
+{
+	import flash.utils.Dictionary;    
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -71,7 +72,7 @@ package sandy.core.scenegraph
 		 * This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
 		 * In that case, that property will return the invert model matrix on that node
 		 */
-		public var invModelMatrix:Matrix4;
+		public var invModelMatrix:Matrix4 = new Matrix4 ();
 
 		/**
 		 * <p>
@@ -115,7 +116,7 @@ package sandy.core.scenegraph
 		/**
 		 * Creates a 3D object
 		 *
-		 * <p>[<b>Todo</b>: some more explanations]</p>
+		 * <p>This creates a new 3D geometry object. That object will handle the rendering of a static Geometry3D object into a real 3D object and finally to the 2D camera representation.</p>
 		 *
 		 * @param p_sName		A string identifier for this object
 		 * @param p_oGeometry		The geometry of this object
@@ -253,12 +254,28 @@ package sandy.core.scenegraph
 					m12:Number, m22:Number, m32:Number,
 					m13:Number, m23:Number, m33:Number,
 					m14:Number, m24:Number, m34:Number,
-					x:Number, y:Number, z:Number, tx:Number, ty:Number, tz:Number;
+					x:Number, y:Number, z:Number;
 					
-			var  	l_nZNear:Number = p_oCamera.near, l_aPoints:Array = m_oGeometry.aVertex,
+			var  	l_nZNear:Number = p_oCamera.near,
 	        		l_oMatrix:Matrix4 = viewMatrix, l_oFrustum:Frustum = p_oCamera.frustrum, 
-					l_aVertexNormals:Array = m_oGeometry.aVertexNormals,
-					l_oVertexNormal:Vertex, l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number;
+					l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_oCamPos:Vector, cache:Dictionary = new Dictionary(false);
+			
+			// -- fast camera model matrix inverssion
+			invModelMatrix.n11 = modelMatrix.n11;
+			invModelMatrix.n12 = modelMatrix.n21;
+			invModelMatrix.n13 = modelMatrix.n31;
+			invModelMatrix.n21 = modelMatrix.n12;
+			invModelMatrix.n22 = modelMatrix.n22;
+			invModelMatrix.n23 = modelMatrix.n32;
+			invModelMatrix.n31 = modelMatrix.n13;
+			invModelMatrix.n32 = modelMatrix.n23;
+			invModelMatrix.n33 = modelMatrix.n33;
+			invModelMatrix.n14 = -(modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34);
+			invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
+			invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
+			
+			l_oCamPos.reset(p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34);
+			invModelMatrix.vectorMult( l_oCamPos );
 			
 			// -- Now we can transform the objet vertices into the camera coordinates
 			l_oMatrix = viewMatrix;
@@ -266,13 +283,7 @@ package sandy.core.scenegraph
 			m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
 			m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
 			m14 = l_oMatrix.n14; m24 = l_oMatrix.n24; m34 = l_oMatrix.n34;
-			for each( l_oVertex in l_aPoints )
-			{				
-				l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
-				l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-				l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-				l_oVertex.projected = false;
-			}
+			
 			// -- The polygons will be clipped, we shall allocate a new array container the clipped vertex.
 			m_aVisiblePoly = [];
 			m_nVisiblePoly = 0;
@@ -281,76 +292,110 @@ package sandy.core.scenegraph
 			for each( l_oFace in aPolygons )
             {
                 l_oFace.isClipped = false;
-                // --
-                x =  l_oFace.normal.x ; y =  l_oFace.normal.y ; z =  l_oFace.normal.z ;
-                // --
-                tx = x * m11+ y * m12+ z * m13;
-                ty = x * m21+ y * m22+ z * m23;
-                tz = x * m31+ y * m32+ z * m33;
-                // -- visibility computation
-                x = l_oFace.a.wx*tx + l_oFace.a.wy*ty + l_oFace.a.wz*tz;
-                l_oFace.visible = x < 0;
-                // --
-                if( l_oFace.visible || !m_bBackFaceCulling) 
+                // -- visibility test
+                /*
+                if( m_bBackFaceCulling )
                 {
-                    l_oFace.precompute();
-                    l_nMinZ = l_oFace.minZ;
-                    // --
-                    if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
-                    {
-                            l_oFace.clip( l_oFrustum );
-							// -- We project the vertices
-					 		if( l_oFace.cvertices.length > 2 )
-					 		{
-					 			p_oCamera.projectArray( l_oFace.cvertices );
-					 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                                else l_oFace.depth = forcedDepth;
-                                // -- we manage the display list depending on the mode choosen
-                                m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-					 		}
-					 }
-					 else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
-					 {
-					 		l_oFace.clipFrontPlane( l_oFrustum );
-							// -- We project the vertices
-					 		if( l_oFace.cvertices.length > 2 )
-					 		{
-					 			p_oCamera.projectArray( l_oFace.cvertices );
-					 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                                else l_oFace.depth = forcedDepth;
-                                // -- we manage the display list depending on the mode choosen
-                                m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-					 		}
-					 }
-					 else if( l_nMinZ >= l_nZNear )
-					 {
-					 		p_oCamera.projectArray( l_oFace.vertices );
-					 		if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-					 		else l_oFace.depth = forcedDepth;
-					    	// -- we manage the display list depending on the mode choosen
-							m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-					}
-					else
-					   continue;
-					
-					if( l_oFace.hasAppearanceChanged )
+	                x =  l_oFace.normal.x ; y = l_oFace.normal.y ; z = l_oFace.normal.z ;
+	                // -- visibility computation
+	                x = l_oFace.a.x*( l_oCamPos.x - x) + l_oFace.a.y*( l_oCamPos.y - y) + l_oFace.a.z*( l_oCamPos.z - z);
+	                l_oFace.visible = x < 0;
+	                if( l_oFace.visible == false )
+	                	continue;
+                }
+                */ 
+                l_oFace.visible = true;
+                m_bClipped = false;
+                // --
+                if( cache[ l_oFace.a ] == null )
+                {
+                	l_oVertex = l_oFace.a;
+					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
+					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
+					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
+					cache[ l_oVertex ] = l_oVertex;
+                }
+                if( cache[ l_oFace.b ] == null )
+                {
+                	l_oVertex = l_oFace.b;
+					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
+					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
+					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
+					cache[ l_oVertex ] = l_oVertex;
+                }
+                if( l_oFace.c )
+                {
+	                if( cache[ l_oFace.c ] == null )
+	                {
+	                	l_oVertex = l_oFace.c;
+						l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
+						l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
+						l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
+						cache[ l_oVertex ] = l_oVertex;
+	                }
+                }
+                // --               	
+				l_oFace.precompute();
+                l_nMinZ = l_oFace.minZ;
+                // --
+                if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
+                {
+                    l_oFace.clip( l_oFrustum );
+					// -- We project the vertices
+			 		if( l_oFace.cvertices.length > 2 )
+			 		{
+			 			p_oCamera.projectArray( l_oFace.cvertices );
+			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
+                        else l_oFace.depth = forcedDepth;
+                        // -- we manage the display list depending on the mode choosen
+                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+			 		}
+				 }
+				 else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
+				 {
+			 		l_oFace.clipFrontPlane( l_oFrustum );
+					// -- We project the vertices
+			 		if( l_oFace.cvertices.length > 2 )
+			 		{
+			 			p_oCamera.projectArray( l_oFace.cvertices );
+			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
+                        else l_oFace.depth = forcedDepth;
+                        // -- we manage the display list depending on the mode choosen
+                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+			 		}
+				 }
+				 else if( l_nMinZ >= l_nZNear )
+				 {
+			 		p_oCamera.projectArray( l_oFace.vertices );
+			 		if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
+			 		else l_oFace.depth = forcedDepth;
+			    	// -- we manage the display list depending on the mode choosen
+					m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+				}
+				else
+				{
+				   continue;
+				}
+				
+				if( l_oFace.hasAppearanceChanged )
+				{
+					if( p_oScene.materialManager.isRegistered( l_oFace.appearance.frontMaterial ) == false )
 					{
-						if( p_oScene.materialManager.isRegistered( l_oFace.appearance.frontMaterial ) == false )
-						{
-							p_oScene.materialManager.register( l_oFace.appearance.frontMaterial );
-						}
-						if( l_oFace.appearance.frontMaterial != l_oFace.appearance.backMaterial )
-						{
-							if( p_oScene.materialManager.isRegistered( l_oFace.appearance.backMaterial ) == false )
-							{
-								p_oScene.materialManager.register( l_oFace.appearance.backMaterial );
-							}
-						}
-						l_oFace.hasAppearanceChanged = false;
+						p_oScene.materialManager.register( l_oFace.appearance.frontMaterial );
 					}
-					
-				}	 
-		    }
+					if( l_oFace.appearance.frontMaterial != l_oFace.appearance.backMaterial )
+					{
+						if( p_oScene.materialManager.isRegistered( l_oFace.appearance.backMaterial ) == false )
+						{
+							p_oScene.materialManager.register( l_oFace.appearance.backMaterial );
+						}
+					}
+					l_oFace.hasAppearanceChanged = false;
+				}
+				
+			}
+			// -- free memory
+            cache = null;	 
 			// --
 			if( m_bUseSingleContainer )
 			{
@@ -363,29 +408,10 @@ package sandy.core.scenegraph
 			    p_oCamera.addArrayToDisplayList( m_aVisiblePoly );
 			}
 			
+			/*
 			var l_nFlags:int = appearance.flags;
 			
 			if( l_nFlags == 0 ) return;
-			
-			
-			if( appearance.flags & SandyFlags.INVERT_MODEL_MATRIX )
-			{
-				if (invModelMatrix == null)
-					invModelMatrix = new Matrix4 ();
-				// -- fast camera model matrix inverssion
-				invModelMatrix.n11 = modelMatrix.n11;
-				invModelMatrix.n12 = modelMatrix.n21;
-				invModelMatrix.n13 = modelMatrix.n31;
-				invModelMatrix.n21 = modelMatrix.n12;
-				invModelMatrix.n22 = modelMatrix.n22;
-				invModelMatrix.n23 = modelMatrix.n32;
-				invModelMatrix.n31 = modelMatrix.n13;
-				invModelMatrix.n32 = modelMatrix.n23;
-				invModelMatrix.n33 = modelMatrix.n33;
-				invModelMatrix.n14 = -(modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34);
-				invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
-				invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
-			}
 			
 			// DEPRECATED
 			var i:int;
@@ -419,6 +445,7 @@ package sandy.core.scenegraph
                     }
                 }
             }
+            */
 		}
 		
 		

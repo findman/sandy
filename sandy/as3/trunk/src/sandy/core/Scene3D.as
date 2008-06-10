@@ -153,7 +153,11 @@ package sandy.core
 
 		/**
 		 * Renders the scene in its container.
-		 *
+		 * Several events are dispatched by the scene to allows you to control the rendering pipeline
+		 * SandyEvent.SCENE_UPDATE is broadcasted before the update phasis of the scenegraph. During this phasis each node updates its information and creates its local matrix if any
+		 * SandyEvent.SCENE_CULL is bradcasted before the scene cull phasis. This phasis corresponds to the frustum vs nodes bounding objects visibility test. Nodes that aren't in the camera field of view, are removed from the render phasis.
+		 * SandyEvent.SCENE_RENDER process the render call of the visible nodes. During this process, visible polygons/sprites are registering for the camera display to the screen.
+		 * SandyEvent.SCENE_RENDER_DISPLAYLIST render the visible polygons to the screen
 		 * @param p_oEvt	An eventual event - defaults to null. Not in use...
 		 *
 	     * @see sandy.events.SandyEvent

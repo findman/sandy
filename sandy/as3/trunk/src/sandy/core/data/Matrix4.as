@@ -462,7 +462,7 @@ package sandy.core.data
 			n41 = m141 * m211 + m142 * m221 + m143 * m231 + m144 * m241;
 			n42 = m141 * m212 + m142 * m222 + m143 * m232 + m144 * m242;
 			n43 = m141 * m213 + m142 * m223 + m143 * m233 + m144 * m243;
-			n44 = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244
+			n44 = m141 * m214 + m142 * m224 + m143 * m234 + m144 * m244;
 
 		}
 
@@ -608,7 +608,7 @@ package sandy.core.data
 		 */
 		public final function translation(nTx:Number, nTy:Number, nTz:Number) : void
 		{
-			identity()
+			identity();
 			//
 			n14 = nTx;
 			n24 = nTy;
@@ -629,7 +629,7 @@ package sandy.core.data
 		 */
 		public final function translationVector( v:Vector ) : void
 		{
-			identity()
+			identity();
 			//
 			n14 = v.x;
 			n24 = v.y;
@@ -652,7 +652,7 @@ package sandy.core.data
 		 */
 		public final function scale(nXScale:Number, nYScale:Number, nZScale:Number) : void
 		{
-			identity()
+			identity();
 			//
 			n11 = nXScale;
 			n22 = nYScale;
@@ -673,7 +673,7 @@ package sandy.core.data
 		 */
 		public final function scaleVector( v:Vector) : void
 		{
-			identity()
+			identity();
 			//
 			n11 = v.x;
 			n22 = v.y;
@@ -723,7 +723,7 @@ package sandy.core.data
 		public final function inverse():void
 		{
 			//take the determinant
-			var d:Number = det()
+			var d:Number = det();
 			if( Math.abs(d) < 0.001 )
 			{
 				//We cannot invert a matrix with a null determinant
@@ -769,9 +769,9 @@ package sandy.core.data
 			var tmp:Matrix4 = new Matrix4();
 			var angle:Number = ( pAngle + 360 ) % 360;
 			translation ( ref.x, ref.y, ref.z );
-			tmp.axisRotation( axis.x, axis.y, axis.z, angle )
+			tmp.axisRotation( axis.x, axis.y, axis.z, angle );
 			multiply ( tmp );
-			tmp.translation ( -ref.x, -ref.y, -ref.z )
+			tmp.translation ( -ref.x, -ref.y, -ref.z );
 			multiply ( tmp );
 			tmp = null;
 		}
@@ -811,7 +811,7 @@ package sandy.core.data
 		 */
 		public final function axisRotation ( u:Number, v:Number, w:Number, angle:Number ) : void
 		{
-			identity()
+			identity();
 			//
 			angle = NumberUtil.toRadian( angle );
 			// -- modification pour verifier qu'il n'y ai pas un probleme de precision avec la camera

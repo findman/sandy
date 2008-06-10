@@ -86,11 +86,6 @@ package sandy.core.data
 		 */
 		public var aFaces:Array = new Array();
 
-        /**
-         * Specifies if the vertex has been projected (rendered).
-         */
-        public var projected:Boolean;
-		
 		/**
 		* Creates a new vertex.
 		*
@@ -433,7 +428,7 @@ package sandy.core.data
 		{
 			if (decPlaces == 0)
 			{
-				decPlaces = .01
+				decPlaces = .01;
 			}
 			//returns x,y,x
 			return  (NumberUtil.roundTo(x, decPlaces) + "," +

@@ -385,7 +385,7 @@ package sandy.core.data
 		 */
 		private function __update( p_aVertexID:Array, p_aUVCoordsID:Array, p_nFaceNormalID:uint, p_nEdgeListID:uint ):void
 		{
-			var i:int=0, l:int;
+			var i:int=0;
 			// --
 			vertexNormals = new Array();
 			vertices = new Array();

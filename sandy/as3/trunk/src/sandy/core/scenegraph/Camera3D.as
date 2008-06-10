@@ -16,6 +16,7 @@ limitations under the License.
 
 package sandy.core.scenegraph 
 {
+	import flash.utils.Dictionary;	
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 	
@@ -185,6 +186,8 @@ package sandy.core.scenegraph
 		/**
 		 * <p>Project the vertices list given in parameter.
 		 * The vertices are projected to the screen, as a 2D position.
+		 * A cache system is used here to prevent multiple projection of the same vertex.
+		 * In case you want to redo a projection, prefer projectVertex method which doesn't use a cache system.
 		 * </p>
 		 */
 		public function projectArray( p_oList:Array ):void
@@ -194,14 +197,13 @@ package sandy.core.scenegraph
 			var l_nCste:Number;
 			for each( var l_oVertex:Vertex in p_oList )
 			{
-				if( !l_oVertex.projected )
-				{
-					l_nCste = 	1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
-					l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
-					l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;
-					//nbVertices += 1;
-					l_oVertex.projected = true;
-				}
+				//if( m_oCache[ l_oVertex ] != null ) continue;
+				// --
+				l_nCste = 	1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
+				l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
+				l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;
+				//nbVertices += 1;
+				//m_oCache[ l_oVertex ] = l_oVertex;
 			}
 		}
 				
@@ -264,8 +266,11 @@ package sandy.core.scenegraph
 			invModelMatrix.n14 = -(modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34);
 			invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
 			invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
+			// --
+			if( m_oCache )	m_oCache = null;
+			m_oCache = new Dictionary(false);
 		}
-		
+
 		/**
 		 * Nothing to do - the camera can't be culled
 		 */
@@ -386,7 +391,7 @@ package sandy.core.scenegraph
 		private var _nFov:Number;
 		private var _nFar:Number;
 		private var _nNear:Number;
-		
+		private var m_oCache:Dictionary;
 		private var mp11:Number, mp21:Number,mp31:Number,mp41:Number,
 					mp12:Number,mp22:Number,mp32:Number,mp42:Number,
 					mp13:Number,mp23:Number,mp33:Number,mp43:Number,

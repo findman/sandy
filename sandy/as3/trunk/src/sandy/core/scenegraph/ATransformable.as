@@ -657,6 +657,10 @@ package sandy.core.scenegraph
 				m_oMatrix.n33 = _vOut.z * _oScale.z;
 				m_oMatrix.n34 = _p.z;
 
+				// -- normalization of the frame to make sure the rotation error will not become too big.
+				_vOut.normalize();
+				_vSide.normalize();
+				_vUp.normalize();
 				//m_oMatrix.n41 = m_oMatrix.n42 = m_oMatrix.n43 = 0;
 				//m_oMatrix.n44 = 1;
 			}
