@@ -22,6 +22,7 @@ package sandy.materials.attributes
 	import sandy.core.Scene3D;
 	import sandy.core.data.Edge3D;
 	import sandy.core.data.Polygon;
+	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Sprite2D;
 	import sandy.materials.Material;
 	
@@ -42,6 +43,8 @@ package sandy.materials.attributes
 		private var m_nThickness:Number;
 		private var m_nColor:Number;
 		private var m_nAlpha:Number;
+		// --
+		private var m_nAngleThreshold:Number = 181;
 		// --
 		/**
 		 * Whether the attribute has been modified since it's last render.
@@ -91,6 +94,14 @@ package sandy.materials.attributes
 		}
 		
 		/**
+		 * The angle threshold. Attribute will additionally draw edges between faces that form greater angle than this value.
+		 */	
+		public function get angleThreshold():Number
+		{
+			return m_nAngleThreshold;
+		}
+
+		/**
 		 * @private
 		 */
 		public function set alpha(p_nValue:Number):void
@@ -116,7 +127,15 @@ package sandy.materials.attributes
 			m_nThickness = p_nValue; 
 			modified = true;
 		}
-		
+
+		/**
+		 * @private
+		 */
+		public function set angleThreshold(p_nValue:Number):void
+		{
+			m_nAngleThreshold = p_nValue;
+		}
+
 		/**
 		 * @private
 		 */
@@ -174,7 +193,9 @@ package sandy.materials.attributes
 			var l_oEdge:Edge3D;
 			var l_oPolygon:Polygon;
 			var l_bFound:Boolean;
-			var l_bVisible = p_oPolygon.visible;
+			var l_bVisible:Boolean = p_oPolygon.visible;
+			var l_oNormal:Vertex = p_oPolygon.normal;
+			var l_nDotThreshold:Number = Math.cos (m_nAngleThreshold * 0.017453292519943295769236907684886 /* Math.PI / 180 */ );
 			// --
 			p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 			p_oGraphics.beginFill(0);
@@ -189,7 +210,7 @@ package sandy.materials.attributes
 					// if so, we draw it
 					if( l_oPolygon.aEdges.indexOf( l_oEdge ) > -1 )
 	        		{
-						if( l_oPolygon.visible != l_bVisible )
+						if(( l_oPolygon.visible != l_bVisible ) || (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold))
 						{
 							p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 							p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
