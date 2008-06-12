@@ -194,8 +194,14 @@ package sandy.materials.attributes
 			var l_oPolygon:Polygon;
 			var l_bFound:Boolean;
 			var l_bVisible:Boolean = p_oPolygon.visible;
-			var l_oNormal:Vertex = p_oPolygon.normal;
-			var l_nDotThreshold:Number = Math.cos (m_nAngleThreshold * 0.017453292519943295769236907684886 /* Math.PI / 180 */ );
+			// --
+			var l_oNormal:Vertex;
+			var l_nDotThreshold:Number;
+			if (m_nAngleThreshold < 180)
+			{
+				l_oNormal = p_oPolygon.normal;
+				l_nDotThreshold = Math.cos (m_nAngleThreshold * 0.017453292519943295769236907684886 /* Math.PI / 180 */ );
+			}
 			// --
 			p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 			p_oGraphics.beginFill(0);
@@ -210,7 +216,8 @@ package sandy.materials.attributes
 					// if so, we draw it
 					if( l_oPolygon.aEdges.indexOf( l_oEdge ) > -1 )
 	        		{
-						if(( l_oPolygon.visible != l_bVisible ) || (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold))
+						if(( l_oPolygon.visible != l_bVisible ) ||
+							((m_nAngleThreshold < 180) && (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold )) )
 						{
 							p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 							p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
