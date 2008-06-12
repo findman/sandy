@@ -84,6 +84,7 @@ package sandy.parser
 			var l_oAppearance:Appearance = null;
 			var l_oGeometry:Geometry3D = null;
 			var l_oShape:Shape3D = null;
+			var l_sLastNodeName:String = null;
 			// --
 			while( lines.length )
 			{
@@ -101,18 +102,29 @@ package sandy.parser
 				//--
 				switch( chunk )
 				{
-					case 'MESH_NUMFACES':
+					case 'GEOMOBJECT':
 					{
-						//var num: Number =  Number(line.split( ' ' )[1]);
+						// we need to catch this before NODE_NAME
 						if( l_oGeometry )
 						{
-							l_oShape = new Shape3D( null, l_oGeometry, m_oStandardAppearance );
+							l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
 							m_oGroup.addChild( l_oShape );
 						}
 						// -
 						l_oGeometry = new Geometry3D();
 						break;
 					}
+					case 'NODE_NAME':
+					{
+						// TODO: NODE_NAME is repeated in NODE_TM - find out why (if there can be multiple nodes, this code will break :)
+						l_sLastNodeName = line.split( '"' )[1];
+						break;
+					}
+/*					case 'MESH_NUMFACES':
+					{
+						//var num: Number =  Number(line.split( ' ' )[1]);
+						break;
+					}*/
 					case 'MESH_VERTEX_LIST':
 					{
 						while( ( content = (lines.shift() as String )).indexOf( '}' ) < 0 )
@@ -177,7 +189,7 @@ package sandy.parser
 				}
 			}
 			// --
-			l_oShape = new Shape3D( null, l_oGeometry, m_oStandardAppearance );
+			l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
 			m_oGroup.addChild( l_oShape );
 			// -- Parsing is finished
 			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
