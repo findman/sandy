@@ -174,6 +174,7 @@ package sandy.materials.attributes
 			var l_oEdge:Edge3D;
 			var l_oPolygon:Polygon;
 			var l_bFound:Boolean;
+			var l_bVisible = p_oPolygon.visible;
 			// --
 			p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 			p_oGraphics.beginFill(0);
@@ -188,7 +189,7 @@ package sandy.materials.attributes
 					// if so, we draw it
 					if( l_oPolygon.aEdges.indexOf( l_oEdge ) > -1 )
 	        		{
-						if( l_oPolygon.visible == false )
+						if( l_oPolygon.visible != l_bVisible )
 						{
 							p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 							p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
