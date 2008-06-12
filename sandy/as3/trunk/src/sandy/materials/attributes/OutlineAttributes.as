@@ -145,31 +145,41 @@ package sandy.materials.attributes
 			// -- attempt to create the neighboors relation between polygons
 			if( SHAPE_MAP[p_oPolygon.shape.id] == null )
 			{
-		        // if this shape hasn't been registered yet, we compute its polygon relation to be able
-		        // to draw the outline.
-		        var l_aPoly:Array = p_oPolygon.shape.aPolygons;
-		        var a:int = l_aPoly.length, lCount:uint = 0, i:int, j:int;
-		        var lP1:Polygon, lP2:Polygon;
-		        var l_aEdges:Array;
-		        for( i = 0; i < a-1; i+=1 )
-		        {
-		        	lP1 = l_aPoly[int(i)];
-		        	for( j=i+1; j < a; j+=1 )
-			        {
-			        	lP2 = l_aPoly[int(j)];
-			        	l_aEdges = lP2.aEdges;
-			        	// --
-			        	lCount = 0;
-			        	// -- check if they share at least 2 vertices
-			        	for each( var l_oEdge:Edge3D in lP1.aEdges )
-			        		if( l_aEdges.indexOf( l_oEdge ) > -1 ) lCount += 1;
-			        	// --
-			        	if( lCount > 0 )
-			        	{
-			        		lP1.aNeighboors.push( lP2 );
-			        		lP2.aNeighboors.push( lP1 );
-			        	}
-			        }
+				// if this shape hasn't been registered yet, we compute its polygon relation to be able
+				// to draw the outline.
+				var l_aPoly:Array = p_oPolygon.shape.aPolygons;
+				var a:int = l_aPoly.length, lCount:uint = 0, i:int, j:int;
+				var lP1:Polygon, lP2:Polygon;
+				var l_aEdges:Array;
+				// if any of polygons of this shape have neighbour information, do not re-calculate it
+				var l_bNoInfo = true;
+				for( i = 0; i < a; i++ )
+				{
+					if ( l_aPoly[i].aNeighboors.length > 0 )
+						l_bNoInfo = false;
+				}
+				if ( l_bNoInfo )
+				{
+					for( i = 0; i < a-1; i+=1 )
+					{
+						lP1 = l_aPoly[int(i)];
+						for( j=i+1; j < a; j+=1 )
+						{
+							lP2 = l_aPoly[int(j)];
+							l_aEdges = lP2.aEdges;
+							// --
+							lCount = 0;
+							// -- check if they share at least 2 vertices
+							for each( var l_oEdge:Edge3D in lP1.aEdges )
+								if( l_aEdges.indexOf( l_oEdge ) > -1 ) lCount += 1;
+							// --
+							if( lCount > 0 )
+							{
+								lP1.aNeighboors.push( lP2 );
+								lP2.aNeighboors.push( lP1 );
+							}
+						}
+					}
 				}
 				// --
 				SHAPE_MAP[p_oPolygon.shape.id] = true;
@@ -207,15 +217,15 @@ package sandy.materials.attributes
 			p_oGraphics.beginFill(0);
 			// --
 			for each( l_oEdge in p_oPolygon.aEdges )
-        	{
-        		l_bFound = false;
-        		// --
-        		for each( l_oPolygon in p_oPolygon.aNeighboors )
+			{
+				l_bFound = false;
+				// --
+				for each( l_oPolygon in p_oPolygon.aNeighboors )
 				{
-	        		// aNeighboor not visible, does it share an edge?
+					// aNeighboor not visible, does it share an edge?
 					// if so, we draw it
 					if( l_oPolygon.aEdges.indexOf( l_oEdge ) > -1 )
-	        		{
+					{
 						if(( l_oPolygon.visible != l_bVisible ) ||
 							((m_nAngleThreshold < 180) && (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold )) )
 						{
@@ -224,15 +234,15 @@ package sandy.materials.attributes
 						}
 						l_bFound = true;
 					}
-	   			}
-	   			// -- if not shared with any neighboor, it is an extremity edge that shall be drawn
-	   			if( l_bFound == false )
-	   			{
-		   			p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
+				}
+				// -- if not shared with any neighboor, it is an extremity edge that shall be drawn
+				if( l_bFound == false )
+				{
+					p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 					p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
-	   			}
+				}
 			}
-
+			
 			p_oGraphics.endFill();
 		}
 
