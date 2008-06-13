@@ -468,7 +468,7 @@ package sandy.core.data
 		 */
 		public function clear():void
 		{
-			m_oContainer.graphics.clear();
+			if (m_oContainer != null) m_oContainer.graphics.clear();
 		}
 
 		/**
