@@ -145,22 +145,23 @@ package sandy.core.scenegraph
 			{
 				l_oShape.clear();
 			}
-		    // --
-		    const l_mcContainer:Sprite = p_oScene.container;
-		    // we go high quality for drawing part
-		   	//l_mcContainer.stage.quality = StageQuality.HIGH;
-		    // --
-		    m_aDisplayList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
-		    // --
-			for each( l_oShape in m_aDisplayList )
+			
+			if( m_aDisplayList )
 			{
-				l_oShape.display( p_oScene );
-				l_mcContainer.addChild( l_oShape.container );
+			    // --
+			    const l_mcContainer:Sprite = p_oScene.container;
+			   
+			    // --
+			    m_aDisplayList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
+			    // --
+				for each( l_oShape in m_aDisplayList )
+				{
+					l_oShape.display( p_oScene );
+					l_mcContainer.addChild( l_oShape.container );
+				}
+				// --
+				m_aDisplayedList = m_aDisplayList.splice(0);
 			}
-			// -- back to low quality
-			//l_mcContainer.stage.quality = StageQuality.LOW;
-			// --
-			m_aDisplayedList = m_aDisplayList.splice(0);
 		}
 
 		/**

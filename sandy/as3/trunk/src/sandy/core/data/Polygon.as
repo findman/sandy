@@ -169,6 +169,87 @@ package sandy.core.data
 			POLYGON_MAP[id] = this;
 		}
 
+		/**
+		 * Updates the vertices and normals for this polygon.
+		 *
+		 * <p>Calling this method make the polygon gets its vertice and normals by reference
+		 * instead of accessing them by their ID.<br/>
+		 * This method shall be called once the geometry created.</p>
+		 *
+		 * @param p_aVertexID		The vertexID array of this polygon
+		 * @param p_aUVCoordsID		The UVCoordsID array of this polygon
+		 * @param p_nFaceNormalID	The faceNormalID of this polygon
+		 * @param p_nEdgesID		The edgesID of this polygon
+		 */
+		private function __update( p_aVertexID:Array, p_aUVCoordsID:Array, p_nFaceNormalID:uint, p_nEdgeListID:uint ):void
+		{
+			var i:int=0;
+			// --
+			vertexNormals = new Array();
+			vertices = new Array();
+			for each( var o:* in p_aVertexID )
+			{
+				vertices[i] = Vertex( m_oGeometry.aVertex[ p_aVertexID[i] ] );
+				vertexNormals[i] = m_oGeometry.aVertexNormals[ p_aVertexID[i] ];
+				i++;
+			}
+			// --
+			a = vertices[0];
+			b = vertices[1];
+			c = vertices[2];
+			// -- every polygon does not have some texture coordinates
+			if( p_aUVCoordsID )
+			{
+				var l_nMinU:Number = Number.POSITIVE_INFINITY, l_nMinV:Number = Number.POSITIVE_INFINITY,
+									l_nMaxU:Number = Number.NEGATIVE_INFINITY, l_nMaxV:Number = Number.NEGATIVE_INFINITY;
+				// --
+				aUVCoord = new Array();
+				i = 0;
+				if( p_aUVCoordsID )
+				{
+					for each( var p:* in p_aUVCoordsID )
+					{
+						var l_oUV:UVCoord = ( m_oGeometry.aUVCoords[ p_aUVCoordsID[i] ] as UVCoord);
+						if( l_oUV == null ) l_oUV = new UVCoord(0,0);
+						// --
+						aUVCoord[i] = l_oUV;
+						if( l_oUV.u < l_nMinU ) l_nMinU = l_oUV.u;
+						else if( l_oUV.u > l_nMaxU ) l_nMaxU = l_oUV.u;
+						// --
+						if( l_oUV.v < l_nMinV ) l_nMinV = l_oUV.v;
+						else if( l_oUV.v > l_nMaxV ) l_nMaxV = l_oUV.v;
+						// --
+						i++;
+					}
+					// --
+					uvBounds = new Rectangle( l_nMinU, l_nMinV, l_nMaxU-l_nMinU, l_nMaxV-l_nMinV );
+				}
+				else
+				{
+					aUVCoord = [new UVCoord(), new UVCoord(), new UVCoord()];
+					uvBounds = new Rectangle(0,0,0,0);
+				}
+			}
+			// --
+			m_nNormalId = p_nFaceNormalID;
+			normal = Vertex( m_oGeometry.aFacesNormals[ p_nFaceNormalID ] );
+			// If no normal has been given, we create it ourself.
+			if( normal == null )
+			{
+				var l_oNormal:Vector = createNormal();
+				m_nNormalId = m_oGeometry.setFaceNormal( m_oGeometry.getNextFaceNormalID(), l_oNormal.x, l_oNormal.y, l_oNormal.z );
+			}
+			// --
+			aEdges = new Array();
+			for each( var l_nEdgeId:uint in  m_oGeometry.aFaceEdges[p_nEdgeListID] )
+			{
+				var l_oEdge:Edge3D = m_oGeometry.aEdges[ l_nEdgeId ];
+				l_oEdge.vertex1 = m_oGeometry.aVertex[ l_oEdge.vertexId1 ];
+				l_oEdge.vertex2 = m_oGeometry.aVertex[ l_oEdge.vertexId2 ];
+				aEdges.push( l_oEdge );
+			}
+		}
+		
 		public function get normal():Vertex
 		{
 			return m_oGeometry.aFacesNormals[ m_nNormalId ];
@@ -176,7 +257,8 @@ package sandy.core.data
 		
 		public function set normal( p_oVertex:Vertex ):void
 		{
-			m_oGeometry.aFacesNormals[ m_nNormalId ].copy( p_oVertex );
+			if( p_oVertex != null )
+				m_oGeometry.aFacesNormals[ m_nNormalId ].copy( p_oVertex );
 		}
 		
 		public function updateNormal():void
@@ -360,8 +442,8 @@ package sandy.core.data
 				cvertices = null;
 				caUVCoord = null;
 				// --	
-				cvertices = vertices.concat();
-				caUVCoord = aUVCoord.concat();
+				cvertices = vertices.slice();
+				caUVCoord = aUVCoord.slice();
 				// --
 				p_oFrustum.clipFrustum( cvertices, caUVCoord );
 			}
@@ -377,7 +459,7 @@ package sandy.core.data
 		{
 			isClipped = true;
 			cvertices = null;
-			cvertices = vertices.concat();
+			cvertices = vertices.slice();
 			// If line
 			if( vertices.length < 3 ) 
 			{
@@ -386,81 +468,10 @@ package sandy.core.data
 			else
 			{
 				caUVCoord = null;
-				caUVCoord = aUVCoord.concat();
+				caUVCoord = aUVCoord.slice();
 				p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 			}
 			return cvertices;
-		}
-		
-		/**
-		 * Updates the vertices and normals for this polygon.
-		 *
-		 * <p>Calling this method make the polygon gets its vertice and normals by reference
-		 * instead of accessing them by their ID.<br/>
-		 * This method shall be called once the geometry created.</p>
-		 *
-		 * @param p_aVertexID		The vertexID array of this polygon
-		 * @param p_aUVCoordsID		The UVCoordsID array of this polygon
-		 * @param p_nFaceNormalID	The faceNormalID of this polygon
-		 * @param p_nEdgesID		The edgesID of this polygon
-		 */
-		private function __update( p_aVertexID:Array, p_aUVCoordsID:Array, p_nFaceNormalID:uint, p_nEdgeListID:uint ):void
-		{
-			var i:int=0;
-			// --
-			vertexNormals = new Array();
-			vertices = new Array();
-			for each( var o:* in p_aVertexID )
-			{
-				vertices[i] = Vertex( m_oGeometry.aVertex[ p_aVertexID[i] ] );
-				vertexNormals[i] = m_oGeometry.aVertexNormals[ p_aVertexID[i] ];
-				i++;
-			}
-			// --
-			a = vertices[0];
-			b = vertices[1];
-			c = vertices[2];
-			// -- every polygon does not have some texture coordinates
-			if( p_aUVCoordsID )
-			{
-				var l_nMinU:Number = Number.POSITIVE_INFINITY, l_nMinV:Number = Number.POSITIVE_INFINITY,
-									l_nMaxU:Number = Number.NEGATIVE_INFINITY, l_nMaxV:Number = Number.NEGATIVE_INFINITY;
-				// --
-				aUVCoord = new Array();
-				i = 0;
-				for each( var p:* in p_aUVCoordsID )
-				{
-					var l_oUV:UVCoord = UVCoord( m_oGeometry.aUVCoords[ p_aUVCoordsID[i] ] );
-					aUVCoord[i] = l_oUV;
-					if( l_oUV.u < l_nMinU ) l_nMinU = l_oUV.u;
-					else if( l_oUV.u > l_nMaxU ) l_nMaxU = l_oUV.u;
-					// --
-					if( l_oUV.v < l_nMinV ) l_nMinV = l_oUV.v;
-					else if( l_oUV.v > l_nMaxV ) l_nMaxV = l_oUV.v;
-					// --
-					i++;
-				}
-				// --
-				uvBounds = new Rectangle( l_nMinU, l_nMinV, l_nMaxU-l_nMinU, l_nMaxV-l_nMinV );
-			}
-			// --
-			m_nNormalId = p_nFaceNormalID;
-			normal = Vertex( m_oGeometry.aFacesNormals[ p_nFaceNormalID ] );
-			// If no normal has been given, we create it ourself.
-			if( normal == null )
-			{
-				var l_oNormal:Vector = createNormal();
-				m_nNormalId = m_oGeometry.setFaceNormal( m_oGeometry.getNextFaceNormalID(), l_oNormal.x, l_oNormal.y, l_oNormal.z );
-			}
-			// --
-			aEdges = new Array();
-			for each( var l_nEdgeId:uint in  m_oGeometry.aFaceEdges[p_nEdgeListID] )
-			{
-				var l_oEdge:Edge3D = m_oGeometry.aEdges[ l_nEdgeId ];
-				l_oEdge.vertex1 = m_oGeometry.aVertex[ l_oEdge.vertexId1 ];
-				l_oEdge.vertex2 = m_oGeometry.aVertex[ l_oEdge.vertexId2 ];
-				aEdges.push( l_oEdge );
-			}
 		}
 
 		/**
@@ -734,17 +745,20 @@ package sandy.core.data
 			} 
 			if( m_oAppearance )
 			{
-				p_oApp.frontMaterial.unlink( this );
-				if( p_oApp.backMaterial != p_oApp.frontMaterial ) 
-					p_oApp.backMaterial.unlink( this );
+				m_oAppearance.frontMaterial.unlink( this );
+				if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+					m_oAppearance.backMaterial.unlink( this );
 			}
-			m_oAppearance = p_oApp;
-			// --
-			p_oApp.frontMaterial.init( this );
-			if( p_oApp.backMaterial != p_oApp.frontMaterial ) 
-				p_oApp.backMaterial.init( this );
-			// --
-			hasAppearanceChanged = true;
+			if( p_oApp != null )
+			{
+				m_oAppearance = p_oApp;
+				// --
+				m_oAppearance.frontMaterial.init( this );
+				if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+					m_oAppearance.backMaterial.init( this );
+				// --
+				hasAppearanceChanged = true;
+			}
 		}
 
 		/**
@@ -764,11 +778,13 @@ package sandy.core.data
 		{
 			clear();
 			// --
-			if( m_oContainer.parent ) m_oContainer.parent.removeChild( m_oContainer );
-			if( m_oContainer ) m_oContainer = null;
+			enableEvents = false;
+			enableInteractivity = false;
 			if( appearance.backMaterial ) appearance.backMaterial.unlink( this );
 			if( appearance.frontMaterial ) appearance.frontMaterial.unlink( this );
 			appearance = null;
+			if( m_oContainer.parent ) m_oContainer.parent.removeChild( m_oContainer );
+			if( m_oContainer ) m_oContainer = null;
 			// --
 			cvertices = null;
 			vertices = null;
