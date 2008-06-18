@@ -152,7 +152,7 @@ package sandy.materials.attributes
 				var lP1:Polygon, lP2:Polygon;
 				var l_aEdges:Array;
 				// if any of polygons of this shape have neighbour information, do not re-calculate it
-				var l_bNoInfo = true;
+				var l_bNoInfo:Boolean = true;
 				for( i = 0; i < a; i++ )
 				{
 					if ( l_aPoly[i].aNeighboors.length > 0 )
