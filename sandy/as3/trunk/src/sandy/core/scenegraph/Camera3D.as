@@ -148,9 +148,7 @@ package sandy.core.scenegraph
 			
 			if( m_aDisplayList )
 			{
-			    // --
 			    const l_mcContainer:Sprite = p_oScene.container;
-			   
 			    // --
 			    m_aDisplayList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
 			    // --

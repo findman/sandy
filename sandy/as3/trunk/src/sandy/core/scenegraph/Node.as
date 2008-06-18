@@ -106,8 +106,17 @@ package sandy.core.scenegraph
 		{
 			parent = null;
 			// --
-			if( p_sName )	name = p_sName;
-			else name = (id).toString();
+			if( p_sName )
+			{
+				if( p_sName != "" )
+					name = p_sName;
+				else 
+					name = (id).toString();
+			}
+			else
+			{
+				name = (id).toString();
+			}
 			// --
 			changed = true;
 			m_oEB = new BubbleEventBroadcaster();
@@ -259,7 +268,7 @@ package sandy.core.scenegraph
 		 */
 		public function addChild( p_oChild:Node ):void
 		{
-			if( p_oChild.parent )
+			if( p_oChild.hasParent() )
 			{
 				p_oChild.parent.removeChildByName( p_oChild.name );	
 			}
@@ -280,7 +289,7 @@ package sandy.core.scenegraph
 		 */
 		public function getChildByName( p_sName:String, p_bRecurs:Boolean=false ):Node
 		{
-			var l_oNode:Node, l_oNode2:Node;
+			var l_oNode:Node;
 			for each( l_oNode in children )
 			{
 				if( l_oNode.name == p_sName )
@@ -432,10 +441,10 @@ package sandy.core.scenegraph
 		 * precise culling.</p>
 		 * <p><b>[MANDATORY] The update method must be called first!</b></p>
 		 *
-		 * @param p_oScene	The current scene
-		 * @param p_oFrustum	The frustum of the current camera
-		 * @param p_oViewMatrix	<b>[ToDo: explain]</b>
-		 * @param p_bChanged	<b>[ToDo: explain]</b>
+		 * @param p_oScene	The current scene which is rendered
+		 * @param p_oFrustum	The frustum of the current camera.
+		 * @param p_oViewMatrix	The matrix which maps object local coordinates into camera coordinates.
+		 * @param p_bChanged	Flag which specifies if parent transformation have changed to enable the matrix cache system when set to false.
 		 *
 		 */
 		public function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
