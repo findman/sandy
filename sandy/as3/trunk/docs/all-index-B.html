@@ -9,7 +9,7 @@
 <body>
 <script type="text/javascript" language="javascript" src="asdoc.js"></script><script type="text/javascript" language="javascript" src="cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'B Index - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'B Index - Sandy 3.x API Documentation';
 				var baseRef = '';
 				window.onload = configPage;
 			--></script>
@@ -139,6 +139,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   Utility class for BÃ©zier calculations.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html#BIN">BIN</a> &mdash; Constant static property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  Specifies the Binary type of object to load
+  </td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html#BITMAP">BITMAP</a> &mdash; Constant static property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialType.html">MaterialType</a></td>
 </tr>
 <tr>
@@ -232,11 +240,29 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
  The Box class is used for creating a cube or box primitive ( cuboid ).</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#Box()">Box</a>(p_sName, p_nWidth, p_nHeight, p_nDepth, p_sMode, p_nQuality) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#Box()">Box</a>(p_sName, p_nWidth, p_nHeight, p_nDepth, p_nQuality) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
   Creates a Box primitive.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxDepth">boxDepth</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   READ-ONLY
+   This getter allows to retrieve the original box depth specified at the geometry creation
+   IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxHeight">boxHeight</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   READ-ONLY
+   This getter allows to retrieve the original box height specified at the geometry creation
+   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#boxInFrustum()">boxInFrustum</a>(box:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
@@ -244,6 +270,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Returns the culling state for the passed bounding box.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxWidth">boxWidth</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   READ-ONLY
+   This getter allows to retrieve the original box width specified at the geometry creation
+   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#broadcaster">broadcaster</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>

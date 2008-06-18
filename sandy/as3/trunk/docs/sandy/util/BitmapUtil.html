@@ -4,13 +4,13 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="BitmapUtil,sandy.util.BitmapUtil,concatBitmapMatrix,getScaledBitmap,movieToBitmap" name="keywords">
+<meta content="BitmapUtil,sandy.util.BitmapUtil,concatBitmapMatrix,getScaledBitmap,movieToBitmap,ripShapeTexture" name="keywords">
 <title>sandy.util.BitmapUtil</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'BitmapUtil - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'BitmapUtil - Sandy 3.x API Documentation';
 				var baseRef = '../../';
 				window.onload = configPage;
 			--></script>
@@ -74,6 +74,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#movieToBitmap()">movieToBitmap</a>(p_oSprite:Sprite, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</div>
 <div class="summaryTableDescription">[static]
    Converts a sprite to a bitmap respecting the sprite position.</div>
+</td><td class="summaryTableOwnerCol">BitmapUtil</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#ripShapeTexture()">ripShapeTexture</a>(obj:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, size:Number = 256):Sprite</div>
+<div class="summaryTableDescription">[static]
+   Creates shape texture map template.</div>
 </td><td class="summaryTableOwnerCol">BitmapUtil</td>
 </tr>
 </table>
@@ -201,6 +209,38 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20"></td><td><code>BitmapData</code> &mdash;    The converted bitmap.
+   </td>
+</tr>
+</table>
+</div>
+<a name="ripShapeTexture()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">ripShapeTexture</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function ripShapeTexture(obj:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, size:Number = 256):Sprite</code><p>
+   Creates shape texture map template. This is useful for 3rd party models texturing :)
+      </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:<a href="../core/scenegraph/Shape3D.html">Shape3D</a></code> &mdash; Shape to rip texture template from.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">size</span>:Number</code> (default = <code>256</code>)<code></code> &mdash; Template size (will be size x size pixels).
+      </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Sprite</code> &mdash;   Sprite with texture map template drawn in.
    </td>
 </tr>
 </table>

@@ -4,13 +4,13 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="OutlineAttributes,sandy.materials.attributes.OutlineAttributes,modified,alpha,color,thickness" name="keywords">
+<meta content="OutlineAttributes,sandy.materials.attributes.OutlineAttributes,modified,alpha,angleThreshold,color,thickness" name="keywords">
 <title>sandy.materials.attributes.OutlineAttributes</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'OutlineAttributes - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'OutlineAttributes - Sandy 3.x API Documentation';
 				var baseRef = '../../../';
 				window.onload = configPage;
 			--></script>
@@ -68,6 +68,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#alpha">alpha</a> : Number<div class="summaryTableDescription">
    Indicates the alpha transparency value of the outline.</div>
+</td><td class="summaryTableOwnerCol">OutlineAttributes</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#angleThreshold">angleThreshold</a> : Number<div class="summaryTableDescription">
+   The angle threshold.</div>
 </td><td class="summaryTableOwnerCol">OutlineAttributes</td>
 </tr>
 <tr class="">
@@ -187,6 +192,22 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get alpha():Number</code>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set alpha(value:Number):void</code>
+<br>
+</div>
+<a name="angleThreshold"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">angleThreshold</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>angleThreshold:Number</code>&nbsp;&nbsp;[read-write]<p>
+   The angle threshold. Attribute will additionally draw edges between faces that form greater angle than this value.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get angleThreshold():Number</code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set angleThreshold(value:Number):void</code>
 <br>
 </div>
 <a name="color"></a>

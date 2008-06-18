@@ -4,13 +4,13 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Vertex,sandy.core.data.Vertex,aFaces,id,nbFaces,projected,sx,sy,wx,wy,wz,x,y,z,add,clone,clone2,copy,createFromVector,cross,deserialize,dot,equals,getAngle,getNorm,getScreenPoint,getVector,getWorldVector,negate,normalize,pow,scale,serialize,sub,toString" name="keywords">
+<meta content="Vertex,sandy.core.data.Vertex,aFaces,id,nbFaces,sx,sy,wx,wy,wz,x,y,z,add,clone,clone2,copy,createFromVector,cross,deserialize,dot,equals,getAngle,getNorm,getScreenPoint,getVector,getWorldVector,negate,normalize,pow,reset,scale,serialize,sub,toString" name="keywords">
 <title>sandy.core.data.Vertex</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'Vertex - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'Vertex - Sandy 3.x API Documentation';
 				var baseRef = '../../../';
 				window.onload = configPage;
 			--></script>
@@ -66,11 +66,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#nbFaces">nbFaces</a> : uint = 0<div class="summaryTableDescription">
    The number of polygons the vertex belongs to.</div>
-</td><td class="summaryTableOwnerCol">Vertex</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#projected">projected</a> : Boolean<div class="summaryTableDescription">
-         Specifies if the vertex has been projected (rendered).</div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -276,6 +271,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
+<a class="signatureLink" href="#reset()">reset</a>(p_nX:Number, p_nY:Number, p_nZ:Number):void</div>
+<div class="summaryTableDescription">
+   Reset the values of that vertex.</div>
+</td><td class="summaryTableOwnerCol">Vertex</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
 <a class="signatureLink" href="#scale()">scale</a>(n:Number):void</div>
 <div class="summaryTableDescription">
    Multiplies this vertex by the specified number.</div>
@@ -348,16 +351,6 @@ showHideInherited();
 <code>public var nbFaces:uint = 0</code><p>
    The number of polygons the vertex belongs to.
    </p></div>
-<a name="projected"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">projected</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var projected:Boolean</code><p>
-         Specifies if the vertex has been projected (rendered).
-         </p></div>
 <a name="sx"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -833,6 +826,38 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">pow</span>:Number</code> &mdash; The power to raise the vertex to.
+   </td>
+</tr>
+</table>
+</div>
+<a name="reset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reset(p_nX:Number, p_nY:Number, p_nZ:Number):void</code><p>
+   Reset the values of that vertex.
+   This allows to change all the values of that vertex in one method call instead of acessing to each public property.
+    </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">p_nX</span>:Number</code> &mdash; Value for x and wx properties
+    </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_nY</span>:Number</code> &mdash; Value for y and wy properties
+    </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_nZ</span>:Number</code> &mdash; Value for z and wz properties
    </td>
 </tr>
 </table>

@@ -4,22 +4,22 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Parser3DS,sandy.parser.Parser3DS" name="keywords">
-<title>sandy.parser.Parser3DS</title>
+<meta content="MD2Parser,sandy.parser.MD2Parser" name="keywords">
+<title>sandy.parser.MD2Parser</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'Parser3DS - Sandy 3.x API Documentation';
+				asdocTitle = 'MD2Parser - Sandy 3.x API Documentation';
 				var baseRef = '../../';
 				window.onload = configPage;
 			--></script>
 <table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
 <tr>
-<td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/parser/Parser3DS.html&amp;sandy/parser/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
+<td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/parser/MD2Parser.html&amp;sandy/parser/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Parser3DS</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;MD2Parser</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,7 +27,7 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Parser3DS"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class MD2Parser"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
@@ -35,26 +35,33 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">sandy.parser</a></td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class Parser3DS</td>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public final  class MD2Parser</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Parser3DS <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> <a href="AParser.html">AParser</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">MD2Parser <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> <a href="AParser.html">AParser</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../images/inherit-arrow.gif"> flash.events.EventDispatcher</td>
 </tr>
 <tr>
 <td class="classHeaderTableLabel">Implements</td><td><a href="IParser.html">IParser</a></td>
 </tr>
 </table>
 <p></p>
-  Transforms a 3DS file into Sandy geometries.
-  <p>Creates a Group as rootnode which appends all geometries it finds.
+  Transforms an MD2 file into Sandy MD2 primitive.
+  <p>Creates a Group as rootnode with MD2 primitive as its only child.
     <p></p>
 <br>
 <span class="label">Example</span>
-<br>To parse a 3DS file at runtime:
+<br>To parse an MD2 file at runtime:
     <div class='listing'><pre>
-      var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.3DS );
+      var parser:IParser = Parser.create( "/path/to/my/md2file.md2", Parser.MD2 );
   </pre></div>
-    <p></p>
+    <p></p>To parse an embedded MD2 object:
+    <div class='listing'><pre>
+      [Embed( source="/path/to/my/md2file.md2", mimeType="application/octet-stream" )]
+      private var MyMD2:Class;
+        ...
+        var parser:IParser = Parser.create( new MyMD2(), Parser.MD2 );
+  </pre></div>
+  <p></p>
 <br>
 <hr>
 </div>
@@ -99,10 +106,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Parser3DS()">Parser3DS</a>(p_sUrl:String, p_nScale:Number)</div>
+<a class="signatureLink" href="#MD2Parser()">MD2Parser</a>(p_sUrl:*, p_nScale:Number)</div>
 <div class="summaryTableDescription">
-   Creates a new Parser3DS instance.</div>
-</td><td class="summaryTableOwnerCol">Parser3DS</td>
+   Creates a new MD2Parser instance
+      </div>
+</td><td class="summaryTableOwnerCol">MD2Parser</td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -121,19 +129,20 @@ showHideInherited();
 <div class="MainContent">
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
-<a name="Parser3DS()"></a>
+<a name="MD2Parser()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">Parser3DS</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+<td class="detailHeaderName">MD2Parser</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Parser3DS(p_sUrl:String, p_nScale:Number)</code><p>
-   Creates a new Parser3DS instance.
+<code>public function MD2Parser(p_sUrl:*, p_nScale:Number)</code><p>
+   Creates a new MD2Parser instance
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_sUrl</span>:String</code> &mdash;  A String pointing to the location of the 3DS file
+<td width="20px"></td><td><code><span class="label">p_sUrl</span>:*</code> &mdash;  This can be either a String containing an URL or a
+         an embedded object
    </td>
 </tr>
 <tr>

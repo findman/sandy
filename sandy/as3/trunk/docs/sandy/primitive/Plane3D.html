@@ -10,7 +10,7 @@
 <body>
 <script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'Plane3D - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'Plane3D - Sandy 3.x API Documentation';
 				var baseRef = '../../';
 				window.onload = configPage;
 			--></script>
@@ -77,6 +77,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#animated">animated</a> : Boolean = false<div class="summaryTableDescription">
+   Animated flag.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#aPolygons">aPolygons</a> : Array<div class="summaryTableDescription">
    The array of polygons building this object.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
@@ -84,7 +89,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#appearance">appearance</a> : <a href="../materials/Appearance.html">Appearance</a>
 <div class="summaryTableDescription">
-   The appearance of this object.</div>
+   Set the appearance of this object.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -315,7 +320,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#visiblePolygonsCount">visiblePolygonsCount</a> : uint<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#visiblePolygonsCount">visiblePolygonsCount</a> : uint<div class="summaryTableDescription">
+   <p>Returns the number of visible polygons of that shape</p>
+   </div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -356,6 +363,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProtectedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_nDepth">m_nDepth</a> : Number = 0<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr class="hideInheritedProtectedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_oCache">m_oCache</a> : Dictionary<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProtectedProperty">
@@ -427,7 +438,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Plane3D()">Plane3D</a>(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1, p_sType:String, p_sMode:String = null)</div>
+<a class="signatureLink" href="#Plane3D()">Plane3D</a>(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1, p_sType:String)</div>
 <div class="summaryTableDescription">
   Creates a Plane primitive.</div>
 </td><td class="summaryTableOwnerCol">Plane3D</td>
@@ -805,7 +816,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Plane3D(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1, p_sType:String, p_sMode:String = null)</code><p>
+<code>public function Plane3D(p_sName:String = null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nQualityH:uint = 1, p_nQualityV:uint = 1, p_sType:String)</code><p>
   Creates a Plane primitive.
     </p><p>The plane is created with its center in the origin of the global coordinate system.
   It will be parallel to one of the global coordinate planes in accordance with the alignment parameter.</p>
@@ -848,13 +859,6 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">p_sType</span>:String</code> &mdash;  Alignment of the plane, one of XY_ALIGNED ( default ), YZ_ALIGNED or ZX_ALIGNED.
-  </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_sMode</span>:String</code> (default = <code>null</code>)<code></code> &mdash;  The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
     </td>
 </tr>
 </table>

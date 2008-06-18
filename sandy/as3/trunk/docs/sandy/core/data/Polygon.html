@@ -4,13 +4,13 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,depthSorter,hasAppearanceChanged,id,isClipped,minZ,normal,scene,shape,uvBounds,vertexNormals,vertices,visible,appearance,broadcaster,container,depth,enableEvents,enableInteractivity,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString" name="keywords">
+<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,depthSorter,hasAppearanceChanged,id,isClipped,minZ,scene,shape,uvBounds,vertexNormals,vertices,visible,appearance,broadcaster,container,depth,enableEvents,enableInteractivity,normal,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString,updateNormal" name="keywords">
 <title>sandy.core.data.Polygon</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'Polygon - Sandy 3.0(+) API Documentation';
+				asdocTitle = 'Polygon - Sandy 3.x API Documentation';
 				var baseRef = '../../../';
 				window.onload = configPage;
 			--></script>
@@ -137,7 +137,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#minZ">minZ</a> : Number<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#minZ">minZ</a> : Number<div class="summaryTableDescription">
+   Minimum depth value of that polygon in the camera space
+   </div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -313,6 +315,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
    Returns a string representation of this object.</div>
+</td><td class="summaryTableOwnerCol">Polygon</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#updateNormal()">updateNormal</a>():void</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 </table>
@@ -540,8 +549,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var minZ:Number</code>
-</div>
+<code>public var minZ:Number</code><p>
+   Minimum depth value of that polygon in the camera space
+   </p></div>
 <a name="normal"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -549,7 +559,12 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var normal:<a href="../data/Vertex.html">Vertex</a></code>
+<code>normal:<a href="../data/Vertex.html">Vertex</a></code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get normal():<a href="../data/Vertex.html">Vertex</a></code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set normal(value:<a href="../data/Vertex.html">Vertex</a>):void</code>
+<br>
 </div>
 <a name="POLYGON_MAP"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -984,6 +999,15 @@ showHideInherited();
    </td>
 </tr>
 </table>
+</div>
+<a name="updateNormal()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">updateNormal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function updateNormal():void</code>
 </div>
 <a name="constantDetail"></a>
 <div class="detailSectionHeader">Constant detail</div>
