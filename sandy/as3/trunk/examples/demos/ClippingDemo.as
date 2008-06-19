@@ -3,13 +3,11 @@ package demos
 	import flash.display.Bitmap;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.display.StageScaleMode;
 	import flash.events.*;
 	import flash.text.TextField;
-	import flash.ui.Keyboard;
+	import flash.utils.getTimer;
 	
 	import sandy.core.World3D;
-	import sandy.core.data.Vector;
 	import sandy.core.scenegraph.Camera3D;
 	import sandy.core.scenegraph.Group;
 	import sandy.core.scenegraph.Shape3D;
@@ -20,12 +18,11 @@ package demos
 	import sandy.primitive.Box;
 	import sandy.primitive.Cylinder;
 	import sandy.primitive.Plane3D;
-	import sandy.primitive.PrimitiveMode;
 
    	public class ClippingDemo extends Sprite
 	{
-		internal static const SCREEN_WIDTH:int = 800;
-		internal static const SCREEN_HEIGHT:int = 700;
+		internal static const SCREEN_WIDTH:int = 640;
+		internal static const SCREEN_HEIGHT:int = 450;
 		
 		public const radius:uint = 800;
 		public const innerRadius:uint = 700;
@@ -35,11 +32,16 @@ package demos
 		private var camera : Camera3D;
 		private var keyPressed:Array;
 		
-		[Embed(source="../assets/textures/ouem_el-ma_lake.jpg")]
+		[Embed(source="assets/textures/ouem_el-ma_lake.jpg")]
 		private var Texture:Class;
 		
-		[Embed(source="../assets/textures/may.jpg")]
+		[Embed(source="assets/textures/may.jpg")]
 		private var Texture2:Class;
+		
+		private var debug:TextField = new TextField();
+		private var frame:uint = 0;
+		private var m_nWay:int = 1;
+		private var t:uint;
 		
 		public function ClippingDemo()
 		{
@@ -48,6 +50,11 @@ package demos
 		
 		public function init():void
 		{
+			debug.y = 450;
+			debug.width = 630;
+			debug.height = 25;
+			debug.border = true;
+			addChild( debug );
 			// -- INIT
 			keyPressed = [];
 			// -- User interface
@@ -64,11 +71,11 @@ package demos
 			// --
 			world.camera = new Camera3D( SCREEN_WIDTH, SCREEN_HEIGHT );
 			world.camera.y = 80;
-			world.camera.z = -innerRadius;
+			//world.camera.z = -innerRadius;
 			// -- create scen
 			var g:Group = new Group("root");
 
-			var lPlane:Plane3D = new Plane3D( "myPlane", 1500, 1500, 2, 2, Plane3D.ZX_ALIGNED, PrimitiveMode.TRI );
+			var lPlane:Plane3D = new Plane3D( "myPlane", 1500, 1500, 2, 2, Plane3D.ZX_ALIGNED );
 			//lPlane.swapCulling();
 			//lPlane.enableBackFaceCulling = false;
 			lPlane.enableClipping = true;
@@ -82,7 +89,7 @@ package demos
 			cylinder.useSingleContainer = false;
 			cylinder.y = 200;
 			
-			box = new Box( "box", 150, 150, 150, "tri", 2 );
+			box = new Box( "box", 150, 150, 150, 4 );
 			box.y = 100;
 			box.enableBackFaceCulling = false;
 			box.enableClipping = true;
@@ -108,6 +115,7 @@ package demos
 			world.root = g;
 			world.root.addChild( world.camera );
 			// --
+			t = getTimer();
 			addEventListener( Event.ENTER_FRAME, enterFrameHandler );
 			
 			return;
@@ -127,8 +135,9 @@ package demos
 		private function enterFrameHandler( event : Event ) : void
 		{
 			var cam:Camera3D = world.camera;
-			var oldPos:Vector = cam.getPosition();
+			//var oldPos:Vector = cam.getPosition();
 			// --
+			/*
 			if( keyPressed[Keyboard.RIGHT] ) 
 			{   
 			    cam.rotateY -= 5;
@@ -145,13 +154,22 @@ package demos
 			{ 
 			    cam.moveForward( -15 );
 			}
-
+			*/
+			cam.moveForward( m_nWay * 15 );
 			if( cam.getPosition().getNorm() > innerRadius )
-				cam.setPosition( oldPos.x, oldPos.y, oldPos.z );
+				m_nWay = -m_nWay;
 			
 			box.rotateX += 1;
+			box.rotateZ += 2;
 			world.render();
 	
+			frame++;
+			if( frame == 1000 )
+			{
+				var elapsed:int = (getTimer() - t);
+				debug.text = "Rendering time for 1000 frames = "+(elapsed)+" ms";
+				removeEventListener( Event.ENTER_FRAME, enterFrameHandler );
+			}
 		}
 	}
 }
