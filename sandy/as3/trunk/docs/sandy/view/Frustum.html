@@ -103,7 +103,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#clipFrontPlane()">clipFrontPlane</a>(p_aCvert:Array, p_aUVCoords:Array):void</div>
+<a class="signatureLink" href="#clipFrontPlane()">clipFrontPlane</a>(p_aCvert:Array, p_aUVCoords:Array):Boolean</div>
 <div class="summaryTableDescription">
    Clips a polygon against the front frustum plane.</div>
 </td><td class="summaryTableOwnerCol">Frustum</td>
@@ -111,7 +111,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#clipFrustum()">clipFrustum</a>(p_aCvert:Array, p_aUVCoords:Array):void</div>
+<a class="signatureLink" href="#clipFrustum()">clipFrustum</a>(p_aCvert:Array, p_aUVCoords:Array):Boolean</div>
 <div class="summaryTableDescription">
    Clips a polygon against the frustum planes.</div>
 </td><td class="summaryTableOwnerCol">Frustum</td>
@@ -119,7 +119,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#clipLineFrontPlane()">clipLineFrontPlane</a>(p_aCvert:Array):void</div>
+<a class="signatureLink" href="#clipLineFrontPlane()">clipLineFrontPlane</a>(p_aCvert:Array):Boolean</div>
 <div class="summaryTableDescription">
    Clip the given vertex and UVCoords arrays against the frustum front plane.</div>
 </td><td class="summaryTableOwnerCol">Frustum</td>
@@ -127,7 +127,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#clipPolygon()">clipPolygon</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):void</div>
+<a class="signatureLink" href="#clipPolygon()">clipPolygon</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):Boolean</div>
 <div class="summaryTableDescription">
    Clips a polygon against one the frustum planes.</div>
 </td><td class="summaryTableOwnerCol">Frustum</td>
@@ -327,7 +327,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clipFrontPlane(p_aCvert:Array, p_aUVCoords:Array):void</code><p>
+<code>public function clipFrontPlane(p_aCvert:Array, p_aUVCoords:Array):Boolean</code><p>
    Clips a polygon against the front frustum plane.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -343,6 +343,13 @@ showHideInherited();
    </td>
 </tr>
 </table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
 </div>
 <a name="clipFrustum()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -351,7 +358,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clipFrustum(p_aCvert:Array, p_aUVCoords:Array):void</code><p>
+<code>public function clipFrustum(p_aCvert:Array, p_aUVCoords:Array):Boolean</code><p>
    Clips a polygon against the frustum planes.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -367,6 +374,13 @@ showHideInherited();
    </td>
 </tr>
 </table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
 </div>
 <a name="clipLineFrontPlane()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -375,13 +389,20 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clipLineFrontPlane(p_aCvert:Array):void</code><p>
+<code>public function clipLineFrontPlane(p_aCvert:Array):Boolean</code><p>
    Clip the given vertex and UVCoords arrays against the frustum front plane.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_aCvert</span>:Array</code> &mdash; Vertices of the line.
    </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
 </tr>
 </table>
 </div>
@@ -392,7 +413,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clipPolygon(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):void</code><p>
+<code>public function clipPolygon(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):Boolean</code><p>
    Clips a polygon against one the frustum planes.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -413,6 +434,13 @@ showHideInherited();
 <tr>
 <td width="20px"></td><td><code><span class="label">p_aUVCoords</span>:Array</code> &mdash; UV coordiantes of the polygon.
    </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
 </tr>
 </table>
 </div>
