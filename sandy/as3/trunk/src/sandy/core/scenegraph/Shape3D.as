@@ -307,10 +307,11 @@ package sandy.core.scenegraph
 				if( animated )
 					l_oFace.updateNormal();
                 // -- visibility test
+                l_oVertex = l_oFace.normal;
+	            l_oFace.visible = (l_oVertex.x*( m_oCamPos.x - l_oFace.a.x) + l_oVertex.y*( m_oCamPos.y - l_oFace.a.y) + l_oVertex.z*( m_oCamPos.z - l_oFace.a.z)) > 0;
+	            // -- 
                 if( m_bBackFaceCulling )
                 {
-	                l_oVertex = l_oFace.normal;
-	                l_oFace.visible = (l_oVertex.x*( m_oCamPos.x - l_oFace.a.x) + l_oVertex.y*( m_oCamPos.y - l_oFace.a.y) + l_oVertex.z*( m_oCamPos.z - l_oFace.a.z)) > 0;
 	                if( l_oFace.visible == false )
 	                	continue;
                 }
@@ -350,27 +351,27 @@ package sandy.core.scenegraph
                 {
                     l_oFace.clip( l_oFrustum );
 					// -- We project the vertices
-			 		if( l_oFace.cvertices.length > 2 )
+			 		if( l_oFace.isClipped == true && l_oFace.cvertices.length > 2 )
 			 		{
 			 			p_oCamera.projectArray( l_oFace.cvertices );
 			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                        else l_oFace.depth = forcedDepth;
-                        // -- we manage the display list depending on the mode choosen
-                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+                        else l_oFace.depth = forcedDepth;    
 			 		}
+			 		if( l_oFace.cvertices.length > 2 )
+                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
 				 }
 				 else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
 				 {
 			 		l_oFace.clipFrontPlane( l_oFrustum );
 					// -- We project the vertices
-			 		if( l_oFace.cvertices.length > 2 )
+			 		if( l_oFace.isClipped == true && l_oFace.cvertices.length > 2 )
 			 		{
 			 			p_oCamera.projectArray( l_oFace.cvertices );
 			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                        else l_oFace.depth = forcedDepth;
-                        // -- we manage the display list depending on the mode choosen
-                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+                        else l_oFace.depth = forcedDepth;    
 			 		}
+			 		if( l_oFace.cvertices.length > 2 )
+                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
 				 }
 				 else if( l_nMinZ >= l_nZNear )
 				 {
@@ -431,6 +432,20 @@ package sandy.core.scenegraph
                 for each( var l_oPoly:Polygon in m_aVisiblePoly )
                 {
                     l_oVertex = l_oPoly.normal;
+                    l_oVertex.wx  = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13;
+                    l_oVertex.wy  = x * m21 + y * m22 + z * m23;
+                    l_oVertex.wz  = x * m31 + y * m32 + z * m33;
+                }
+            }
+            if( (l_nFlags | polyFlags) & SandyFlags.VERTEX_NORMAL_WORLD )
+            {
+            	l_oMatrix = modelMatrix;
+           		m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
+            	m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
+            	m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
+                // -- Now we transform the normals.
+                for each( l_oVertex in  m_oGeometry.aVertexNormals )
+                {
                     l_oVertex.wx  = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13;
                     l_oVertex.wy  = x * m21 + y * m22 + z * m23;
                     l_oVertex.wz  = x * m31 + y * m32 + z * m33;

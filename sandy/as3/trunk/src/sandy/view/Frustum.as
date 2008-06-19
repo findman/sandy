@@ -334,18 +334,25 @@ package sandy.view
 		 * @param p_aCvert		Vertices of the polygon.
 		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
-		public function clipFrustum( p_aCvert: Array, p_aUVCoords:Array ):void
+		public function clipFrustum( p_aCvert: Array, p_aUVCoords:Array ):Boolean
 		{
 	        if ( p_aCvert.length <= 2 )
 			{
-				return;
+				return true;
 			}
 			
-			clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
-			clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
-			clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
-	        clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
-		    clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom	
+			var l_bResult:Boolean, l_bClipped:Boolean;
+			l_bResult = clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
+			l_bClipped = clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
+			l_bResult ||= l_bClipped;
+			l_bClipped = clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
+			l_bResult ||= l_bClipped;
+	        l_bClipped = clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
+	        l_bResult ||= l_bClipped;
+		    l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom	
+		    l_bResult ||= l_bClipped;
+
+		    return l_bResult;
 		}
 	
 	
@@ -355,14 +362,14 @@ package sandy.view
 		 * @param p_aCvert		Vertices of the polygon.
 		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
-		public function clipFrontPlane( p_aCvert: Array, p_aUVCoords:Array ):void
+		public function clipFrontPlane( p_aCvert: Array, p_aUVCoords:Array ):Boolean
 		{
 			if ( p_aCvert.length <= 2 )
 			{
-				return;
+				return true;
 			}
 			
-			clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near;
+			return clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near;
 		}
 		
 
@@ -371,7 +378,7 @@ package sandy.view
 		 *
 		 * @param p_aCvert	Vertices of the line.
 		 */
-		public function clipLineFrontPlane( p_aCvert: Array ):void
+		public function clipLineFrontPlane( p_aCvert: Array ):Boolean
 		{
 			var l_oPlane:Plane = aPlanes[NEAR];
 			var tmp:Array = p_aCvert.splice(0);
@@ -394,6 +401,7 @@ package sandy.view
 				//
 				p_aCvert.push( t );
 				p_aCvert.push( v1 );
+				return true;
 			} 
 			else if ( l_nDist1 < 0 && l_nDist0 >=0 ) // Going out
 			{	
@@ -405,16 +413,20 @@ package sandy.view
 				
 				p_aCvert.push( v0 );
 				p_aCvert.push( t );
+				return true;
 			} 
 			else if( l_nDist1 < 0 && l_nDist0 < 0 ) // ALL OUT
 			{
 				p_aCvert = null;
+				return true;
 			}
 			else if( l_nDist1 > 0 && l_nDist0 > 0 ) // ALL IN
 			{
 				p_aCvert.push( v0 );
 				p_aCvert.push( v1 );
+				return false;
 			}
+			return true;
 		}
 		
    
@@ -425,7 +437,7 @@ package sandy.view
 		 * @param p_aCvert	Vertices of the polygon. 
 		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
-		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):void
+		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):Boolean
 		{	
 			var allin:Boolean = true, allout:Boolean = true;
 			var v:Vertex;
@@ -443,14 +455,14 @@ package sandy.view
 			
 			if (allin)
 			{
-				return;
+				return false;
 			}
 			else if (allout)
 			{
 				// we return an empty array
 				p_aCvert.splice(0);
 				p_aUVCoords.splice(0);
-				return;
+				return true;
 			}
 			// Clip a polygon against a plane
 			var tmp:Array = p_aCvert.splice(0);
@@ -522,6 +534,7 @@ package sandy.view
 			}
 			// we free the distance array
 			aDist = null;
+			return true;
 		}
 	}
 }

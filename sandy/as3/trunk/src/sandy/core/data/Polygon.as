@@ -431,7 +431,6 @@ package sandy.core.data
 		 */
 		public function clip( p_oFrustum:Frustum ):Array
 		{
-			isClipped = true;
 			// For lines we only apply front plane clipping
 			if( vertices.length < 3 )
 			{
@@ -445,7 +444,7 @@ package sandy.core.data
 				cvertices = vertices.slice();
 				caUVCoord = aUVCoord.slice();
 				// --
-				p_oFrustum.clipFrustum( cvertices, caUVCoord );
+				isClipped = p_oFrustum.clipFrustum( cvertices, caUVCoord );
 			}
 			return cvertices;
 		}
@@ -457,19 +456,18 @@ package sandy.core.data
 		 */
 		public function clipFrontPlane( p_oFrustum:Frustum ):Array
 		{
-			isClipped = true;
 			cvertices = null;
 			cvertices = vertices.slice();
 			// If line
 			if( vertices.length < 3 ) 
 			{
-				p_oFrustum.clipLineFrontPlane( cvertices );
+				isClipped = p_oFrustum.clipLineFrontPlane( cvertices );
 			}
 			else
 			{
 				caUVCoord = null;
 				caUVCoord = aUVCoord.slice();
-				p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
+				isClipped = p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 			}
 			return cvertices;
 		}
