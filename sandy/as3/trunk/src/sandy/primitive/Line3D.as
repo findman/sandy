@@ -50,9 +50,15 @@ package sandy.primitive
 		public function Line3D ( p_sName:String=null, ...rest )
 		{
 			super ( p_sName );
-			if( rest.length < 2 )
+			// "rest" can be a two-or-more-element array of vectors. Or the first element can itself be an array
+			if (rest.length == 1 && rest[0] is Array) {
+				rest = rest[0];
+			}
+			
+			if( rest.length < 2)
 			{
 				trace('Line3D::Too few arguments');
+				// Should throw an exception, frankly
 			}
 			else
 			{
