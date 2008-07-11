@@ -34,7 +34,7 @@ package sandy.events
 	public class Shape3DEvent extends BubbleEvent
 	{
 		/**
-		 * A reference to the object which has bene clicked.
+		 * A reference to the object which has been clicked.
 		 *
 	     * @see sandy.core.scenegraph.Scene3D
 		 */
@@ -79,6 +79,7 @@ package sandy.events
 		 * @param p_oPolygon	The Polygon object reference
 		 * @param p_oUV			The UVCoord object which corresponds to the UVCoord under mouse position
 		 * @param p_oPoint3d	The Vector object which is the real 3D position under the mouse position
+		 * @param p_oEvent		The original Flash event instance
 		 *
 	     * @see sandy.core.scenegraph.Scene3D
 	     * @see sandy.core.data.Polygon
