@@ -311,15 +311,32 @@ package sandy.core.data
 		 */
 		public final function toString(decPlaces:Number=0):String
 		{
-			if (decPlaces == 0)
-			{
-				decPlaces = 0.01;
-			}
-			// Round display to two decimals places
+			
+			// Round display to the specified number of decimals places
 			// Returns "{x, y, z}"
-			return "{" + NumberUtil.roundTo(x, decPlaces) + ", " +
-						 NumberUtil.roundTo(y, decPlaces) + ", " +
-						 NumberUtil.roundTo(z, decPlaces) + "}";
+			return "{" + serialize(decPlaces) + "}";
+		}
+		
+		// Useful for XML output
+		public function serialize(decPlaces:Number=0.1):String
+		{
+			//returns x,y,x
+			return  (NumberUtil.roundTo(x, decPlaces) + "," + 
+					 NumberUtil.roundTo(y, decPlaces) + "," + 
+					 NumberUtil.roundTo(z, decPlaces));
+		}
+		
+		// Useful for XML input
+		public static function deserialize(convertFrom:String):Vector
+		{
+			var tmp:Array = convertFrom.split(",");
+			if (tmp.length != 3) {
+				trace ("Unexpected length of string to deserialize into a vector " + convertFrom);
+			}
+			for (var i:Number = 0; i < tmp.length; i++) {
+				tmp[i] = Number(tmp[i]);
+			}
+			return new Vector (tmp[0], tmp[1], tmp[2]);
 		}
 
 		/**
@@ -334,6 +351,7 @@ package sandy.core.data
 		{
 			return (p_vector.x == x && p_vector.y == y && p_vector.z == z);
 		}
+		
 
 	}
 }
