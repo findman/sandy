@@ -1,10 +1,11 @@
-package sandy.commands
+﻿package sandy.commands
 {
 
 	/**
 	 * From LowRa library
 	 * @author Francis Bourre
-	 * @version 1.0
+	 * @author Bruce Epstein - modified create() for backward compatibility, and renamed existing version to createAppend()
+	 * @version 1.0.1
 	 */
 	import flash.events.Event;
 	
@@ -14,11 +15,20 @@ package sandy.commands
 		private var _f : Function;
 		private var _a : Array;
 		
-		public static function create( method : Function, ... args ) : Function 
+		public static function createAppend( method : Function, ... args ) : Function 
 		{
 			return function( ... rest ) : *
 			{
 				return method.apply( null, rest.length>0? (args.length>0?args.concat(rest):rest) : (args.length>0?args:null) );
+			};
+		} 
+		
+		// Put the extra args at the beginning of the arguments list, as did com.bourre.commands.Delegate.create(), instead of at the end.
+		public static function create( method : Function, ... args ) : Function 
+		{
+			return function( ... rest ) : *
+			{
+				return method.apply( null, rest.length>0? (args.length>0?rest.concat(args):rest) : (args.length>0?args:null) );
 			};
 		} 
 		
