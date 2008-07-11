@@ -45,7 +45,7 @@ package sandy.core.scenegraph
 
 		/**
 		 * Name of this node.
-		 * Of no name is specified, the unique ID of the node will be used
+		 * If no name is specified, the unique ID of the node will be used
 		 */
 		public var name:String;
 		
@@ -106,12 +106,9 @@ package sandy.core.scenegraph
 		{
 			parent = null;
 			// --
-			if( p_sName )
+			if( p_sName && p_sName != "" ) 
 			{
-				if( p_sName != "" )
-					name = p_sName;
-				else 
-					name = (id).toString();
+				name = p_sName;
 			}
 			else
 			{
@@ -143,9 +140,9 @@ package sandy.core.scenegraph
 		 * @param p_sEvt Name of the Event.
 		 * @param p_oL Listener object.
 		 */
-		public function addEventListener(p_sEvt:String, p_oL:*) : void
+		public function addEventListener(p_sEvt:String, p_oL:*) : Boolean
 		{
-			m_oEB.addEventListener.apply(p_sEvt, arguments);
+			return m_oEB.addEventListener.apply(p_sEvt, arguments);
 		}
 
 		/**
