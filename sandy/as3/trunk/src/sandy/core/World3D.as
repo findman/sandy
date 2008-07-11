@@ -24,7 +24,7 @@ package sandy.core
 	/**
 	 * The Sandy 3D world.
 	 *
-	 * <p><strong>Note:</strong> The World3D object is depricated, use Scene3D instead.</p>
+	 * <p><strong>Note:</strong> The World3D object is deprecated, use Scene3D instead.</p>
 	 *
 	 * <p>The World3D object is the central point of a Sandy world.<br/>
 	 * World3D is a singleton class, which means that you can have only one World3D instance.<br/>
@@ -36,7 +36,7 @@ package sandy.core
 	 *
 	 * <listing version="3.0">
 	 *     	var world:World3D = World3D.getInstance();
-	 *	world.container = this; // The document calss is a Sprite or MovieClip
+	 *	world.container = this; // The document class is a Sprite or MovieClip
 	 *	world.camera = new Camera3D( 200, 200 );
 	 *	world.root.addChild( world.camera );
 	 *	// Go on to create the 3D objects and transforms
@@ -90,6 +90,15 @@ package sandy.core
 
 			return instance;
 		}
+
+		/**
+		 * Returns a version string ("3.0.3"), useful for conditional code
+		 */	
+		public static function getVersion( ) : String
+		{
+			return _version;
+		}
+
 		
 		/**
 		 * Returns a string representation of this object.
@@ -108,5 +117,6 @@ package sandy.core
 		private var _light : Light3D; //the unique light instance of the world
 		private static var instance:World3D;
 		private static var create:Boolean;
+		private static var _version:String = "3.0.3";
 	}
 }
