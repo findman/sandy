@@ -55,6 +55,13 @@ package sandy.core.scenegraph
 		public function ATransformable ( p_sName:String="" )
 		{
 			super( p_sName );
+			resetCoords();
+		}
+		
+		/**
+		 * Resets the coordinate system for this object. Useful for returning to known state.
+		 */
+		public function resetCoords (): void {
 			// --
 			initFrame();
 			// --
@@ -71,6 +78,7 @@ package sandy.core.scenegraph
 			m_tmpMt = new Matrix4();
 			m_oMatrix = new Matrix4();
 		}
+		
 		/**
 		 * Initiates the local coordinate system for this object.
 		 *
@@ -165,6 +173,13 @@ package sandy.core.scenegraph
 			return _p.z;
 		}
 
+		/**
+		 * getLookAt - obtain last value set via lookAt() method; may not be valid if other camera movement has occurred since then.
+		 */
+		public function getLookAt():Vector
+		{
+			return _vLookAt;
+		}
 		/**
 		 * Forward direction ( local z ) in parent coordinates.
 		 */
@@ -328,7 +343,7 @@ package sandy.core.scenegraph
 		/**
 		 * Translates this object laterally in its parent frame.
 		 *
-		 * <p>This is a translation in the parents x direction.</p>
+		 * <p>This is a translation in the parent's x direction.</p>
 		 *
 		 * @param p_nD	How far to move
 		 */
@@ -401,6 +416,8 @@ package sandy.core.scenegraph
 		public function lookAt( p_nX:Number, p_nY:Number, p_nZ:Number ):void
 		{
 			changed = true;
+			_vLookAt = new Vector (p_nX, p_nY, p_nZ);
+			
 			//
 			_vOut.x = p_nX; _vOut.y = p_nY; _vOut.z = p_nZ;
 			//
@@ -417,7 +434,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Rotates this object around an axis parallel to the parents x axis.
+		 * Rotates this object around an axis parallel to the parent's x axis.
 		 *
 		 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 		 * objects reference point, paralell to the x axis of the parent frame.</p>
@@ -445,7 +462,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Rotates this object around an axis parallel to the parents y axis.
+		 * Rotates this object around an axis parallel to the parent's y axis.
 		 *
 		 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 		 * objects reference point, parallel to the y axis of the parent frame.</p>
@@ -473,7 +490,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Rotates this object around an axis paralell to the parents z axis.
+		 * Rotates this object around an axis paralell to the parent's z axis.
 		 *
 		 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 		 * objects reference point, paralell to the z axis of the parent frame.</p>
@@ -716,6 +733,7 @@ package sandy.core.scenegraph
 		private var _nRoll:Number;
 		private var _vRotation:Vector;
 		private var _vLookatDown:Vector; // Private absolute down vector
+		private var _vLookAt:Vector; // Last set value via lookAt() method; may not be valid if other camera movement has occurred since then.
 		protected var _p:Vector;
 		protected var _oScale:Vector;
 		protected var m_tmpMt:Matrix4; // temporary transform matrix used at updateTransform
