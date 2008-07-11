@@ -716,9 +716,7 @@ package sandy.core.data
 		}
 		
 		/**
-		* Returns the inverse of this matrix.
-		*
-		* @return The inverse matrix.
+		* Inverts this matrix.
 		*/
 		public final function inverse():void
 		{
@@ -726,7 +724,7 @@ package sandy.core.data
 			var d:Number = det();
 			if( Math.abs(d) < 0.001 )
 			{
-				//We cannot invert a matrix with a null determinant
+				trace ("Warning: cannot invert a matrix with a null determinant");
 				return;
 			}
 			//We use Cramer formula, so we need to devide by the determinant. We prefer multiply by the inverse
@@ -792,7 +790,7 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns a vector that containes the 3D position information.
+		 * Returns a vector that contains the 3D position information.
 		 * 
 		 * @return A vector.
 		 */
@@ -917,6 +915,43 @@ package sandy.core.data
 			if( lAngleZ < 0 ) lAngleZ += 360;
 			
 			return new Vector( lAngleX, lAngleY, lAngleZ );
+		}
+		/**
+		 * Get a string representation of the {@code Matrix4} in a format useful for XML output
+		 *
+		 * @return	A serialized String representing the {@code Matrix4}.
+		 */
+		public function serialize(d:Number = .000001):String
+		{
+			var round:Function = NumberUtil.roundTo;
+			var s:String =  new String("");
+			s += round(n11, d) + "," + round(n12, d) + "," + round(n13, d) + "," + round(n14, d) + ",";
+			s += round(n21, d) + "," + round(n22, d) + "," + round(n23, d) + "," + round(n24, d) + ",";
+			s += round(n31, d) + "," + round(n32, d) + "," + round(n33, d) + "," + round(n34, d) + ",";
+			s += round(n41, d) + "," + round(n42, d) + "," + round(n43, d) + "," + round(n44, d);
+			return s;
+		}
+		
+		/**
+		 * Convert a string representation in a {@code Matrix4}; useful for XML input
+		 *
+		 * @return	A {@code Matrix4} equivalent to the input string
+		 */
+		public static function deserialize(convertFrom:String):Matrix4
+		{
+			//trace ("Matrix4.Deserialize convertFrom " + convertFrom);
+					
+			var tmp:Array = convertFrom.split(",");
+			if (tmp.length != 16) {
+				trace ("Unexpected length of string to deserialize into a matrix4 " + convertFrom);
+			}
+			for (var i:Number = 0; i < tmp.length; i++) {
+				tmp[i] = Number(tmp[i]);
+			}
+			var temp2:Matrix4 = new Matrix4 (tmp[0], tmp[1], tmp[2], tmp[3], tmp[4], tmp[5], tmp[6], tmp[7],
+											tmp[8], tmp[9], tmp[10], tmp[11], tmp[12], tmp[13], tmp[14], tmp[15]);
+			//trace ("temp2 in Matrix4.deserialize is " + temp2);
+			return temp2;
 		}
 	}
 }
