@@ -285,10 +285,10 @@ showHideInherited();
 <code>public var precision:uint = 0</code><p>
    Precision of the bitmap mapping.
    This material uses an affine linear mapping. It results in a lack of accuracy at rendering time when the surface to draw is too big.
-   An usual solution is to augment the number of polygon, but the performance cost can be quite big.
-   An other solution is to change this property value. The lower to more accurate the perspective correction is.
+   One usual solution is to augment the number of polygon, but the performance cost can be quite big.
+   Another solution is to change the precision property value. The lower the value, the more accurate the perspective correction is.
    To disable the perspective correction, set this property to zero, which is also the default value
-   If you use the precision to solve the distortion issue, you can reduce the primitives quality (execpt if you are experimenting some sorting issues)
+   If you use the precision to solve the distortion issue, you can reduce the primitives quality (except if you are experiencing some sorting issues)
    </p></div>
 <a name="smooth"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -329,7 +329,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public function BitmapMaterial(p_oTexture:BitmapData = null, p_oAttr:<a href="attributes/MaterialAttributes.html">MaterialAttributes</a> = null, p_nPrecision:uint = 0)</code><p>
    Creates a new BitmapMaterial.
-   </p><p>Please note that we ue internally a copy of the constructor bitmapdata. Thatea mns in case you need to access this bitmapdata, you can't just use the same reference
+   </p><p>Please note that we use internally a copy of the constructor bitmapdata. That means in case you need to access this bitmapdata, you can't just use the same reference
    but you shall use the BitmapMaterial#texture getter property to make it work.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">

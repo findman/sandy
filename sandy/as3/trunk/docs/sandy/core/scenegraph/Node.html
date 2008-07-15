@@ -185,7 +185,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#addEventListener()">addEventListener</a>(p_sEvt:String, p_oL:*):void</div>
+<a class="signatureLink" href="#addEventListener()">addEventListener</a>(p_sEvt:String, p_oL:*):Boolean</div>
 <div class="summaryTableDescription">
    Adds a listener for the specified event.</div>
 </td><td class="summaryTableOwnerCol">Node</td>
@@ -472,7 +472,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public var name:String</code><p>
    Name of this node.
-   Of no name is specified, the unique ID of the node will be used
+   If no name is specified, the unique ID of the node will be used
    </p></div>
 <a name="parent"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -575,7 +575,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function addEventListener(p_sEvt:String, p_oL:*):void</code><p>
+<code>public function addEventListener(p_sEvt:String, p_oL:*):Boolean</code><p>
    Adds a listener for the specified event.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -589,6 +589,13 @@ showHideInherited();
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oL</span>:*</code> &mdash; Listener object.
    </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
 </tr>
 </table>
 </div>
