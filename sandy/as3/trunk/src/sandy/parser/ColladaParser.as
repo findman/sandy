@@ -70,7 +70,7 @@ package sandy.parser
 		 * Default path for COLLADA images.
 		 * <p>Can this be done without??</p>
 		 */
-		public var RELATIVE_TEXTURE_PATH : String;
+		public var RELATIVE_TEXTURE_PATH : String = ".";
 
 		/**
 		 * Creates a new COLLADA parser instance.
@@ -289,6 +289,24 @@ package sandy.parser
 				if( l_oChildNode != null )
 					l_oNode.addChild( l_oChildNode );
 			}
+
+			// quick hack to get url-ed nodes parsed
+			if( p_oNode.child( "instance_node" ).length() != 0 )
+			{
+				var l_sNodeId:String = p_oNode.instance_node.@url;
+				if ((l_sNodeId != "") && (l_sNodeId.charAt(0) == "#"))
+				{
+					l_sNodeId = l_sNodeId.substr(1);
+					var l_oMatchingNodes:XMLList = m_oCollada.library_nodes.node.( @id == l_sNodeId );
+					for each ( var l_oMatchingNode:XML in l_oMatchingNodes ) {
+						var l_oNode3D:Node = parseNode( l_oMatchingNode );
+						// -- add the shape to the group node
+						if( l_oNode3D != null )
+							l_oNode.addChild( l_oNode3D );
+					}
+				}
+			}
+
 			//l_oShape.matrix = l_oMatrix;
 			return l_oNode;
 		}
@@ -409,7 +427,7 @@ package sandy.parser
 		 */
 		private function getFloatArray( p_sSourceID : String, p_oGeometry : XMLList ) : Array
 		{
-			var l_aFloatArray : Array = p_oGeometry..source.( @id == p_sSourceID ).float_array.split(" ");
+			var l_aFloatArray : Array = p_oGeometry..source.( @id == p_sSourceID ).float_array.split(/\s+/);
 			var l_nCount:uint = p_oGeometry..source.( @id == p_sSourceID ).technique_common.accessor.@count;
 			var l_nOffset:uint = p_oGeometry..source.( @id == p_sSourceID ).technique_common.accessor.@stride;
 
@@ -497,7 +515,7 @@ package sandy.parser
 		 */
 		private function stringToArray( p_sValues : String ) : Array
 		{
-			var l_aValues : Array = p_sValues.split(" ");
+			var l_aValues : Array = p_sValues.split(/\s+/);
 			var l_nValues : int = l_aValues.length;
 
 			for( var i:int = 0; i < l_nValues; i++ )
@@ -516,7 +534,7 @@ package sandy.parser
 		 */
 		private function stringToVector( p_sValues : String ) : Vector
 		{
-			var l_aValues : Array = p_sValues.split(" ");
+			var l_aValues : Array = p_sValues.split(/\s+/);
 			var l_nValues : int = l_aValues.length;
 			// --
 			if( l_nValues != 3 )
@@ -533,7 +551,7 @@ package sandy.parser
 		 */
 		private function stringToMatrix( p_sValues : String ) : Matrix4
 		{
-			var l_aValues : Array = p_sValues.split(" ");
+			var l_aValues : Array = p_sValues.split(/\s+/);
 			var l_nValues : int = l_aValues.length;
 
 			if( l_nValues != 16 )
