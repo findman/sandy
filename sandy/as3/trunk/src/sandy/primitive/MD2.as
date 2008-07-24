@@ -177,6 +177,22 @@ package sandy.primitive
 			}
 		}
 
+		/**
+		* Appends frame copy to animation.
+		* You can use this to rearrange an animation at runtime, create transitions, etc.
+		*
+		* @return number of created frame.
+		*/
+		public function appendFrameCopy (frameNumber:int):int
+		{
+			var f:Array = vertices [frameNumber] as Array;
+			if (f == null) {
+				return -1;
+			} else {
+				return vertices.push (f.slice ()) -1;
+			}
+		}
+
 		// animation "time" (frame number)
 		private var t:Number;		
 
