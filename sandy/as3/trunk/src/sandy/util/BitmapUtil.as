@@ -20,7 +20,12 @@ package sandy.util
 	import flash.geom.Matrix;
 
 	import sandy.core.scenegraph.Shape3D;
+	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
+	import sandy.core.data.Vector;
+	import sandy.core.data.Vertex;
+	import sandy.core.data.UVCoord;
+	import sandy.core.Scene3D;
 	
 	/**
 	 * Utility class for Bitmap calculations.
@@ -128,5 +133,132 @@ package sandy.util
 			return tex;
 		}
 
+		/**
+		 * Computes shape texture map pre-lit with Phong directional light source. Shape must be made of triangles.
+		 *
+		 * @param obj	Shape for texture to be applied to.
+		 * @param light	Scene you are going to render shape in.
+		 * @param srcTexture	Source texture.
+		 * @param dstTexture	Destination texture.
+		 * @param ambient	Ambient reflection factor.
+		 * @param diffuse	Diffuse reflection factor.
+		 * @param specular	Specular reflection factor.
+		 * @param gloss	Specular exponent.
+		 *
+		 * @return 		Pre-lit texture map.
+		 * @example The following CS3 code does sphere per-pixel lighting: <listing version="3.0" >
+import sandy.core.Scene3D;
+import sandy.core.scenegraph.*;
+import sandy.primitive.*;
+import sandy.materials.*;
+import sandy.util.*;
+ 
+var tex:BitmapData = new Texture (0, 0); // tex.fillRect (tex.rect, 0xFFFFFF00);
+
+// code from "simplest sandy tutorial"
+var scene:Scene3D = new Scene3D( "myScene", this, new Camera3D( 550, 400 ), new Group("root") );
+var sphere:Sphere = new Sphere("mySphere");
+var mat:BitmapMaterial = new BitmapMaterial( tex.clone () ); mat.smooth = true;
+sphere.appearance = new Appearance( mat );
+scene.root.addChild( sphere );
+scene.render();
+
+// apply lighting
+function click (e:*) {
+	scene.light.setDirection(stage.stageWidth / 2 - stage.mouseX, stage.mouseY - stage.stageHeight / 2, 100);
+	BitmapUtil.burnShapeTexture (sphere, scene, tex, mat.texture, 0.3, 1.0, 2, 15.0);
+}
+
+stage.addEventListener ("click", click);
+</listing>
+		 */
+		public static function burnShapeTexture (obj:Shape3D, scene:Scene3D, srcTexture:BitmapData, dstTexture:BitmapData, ambient:Number = 0.3, diffuse:Number = 1.0, specular:Number = 0.0, gloss:Number = 5.0):void {
+			var m1:Matrix= new Matrix;
+			var vn:Vector= new Vector;
+			// get light data (code borrowed from ALightAttributes)
+			var m_nI:Number = scene.light.getNormalizedPower ();
+			var m_oL:Vector = scene.light.getDirectionVector ();
+			var m_oV:Vector = scene.camera.getPosition ("absolute"); m_oV.scale (-1); m_oV.normalize ();
+			var m_oH:Vector = new Vector(); m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
+			// FIXME: currently shape needs to be rendered in order to have invModelMatrix calculated
+			const invModelMatrix:Matrix4 = obj.invModelMatrix;
+			var m_oCurrentL:Vector = new Vector (); m_oCurrentL.copy (m_oL); invModelMatrix.vectorMult3x3 (m_oCurrentL);
+			var m_oCurrentV:Vector = new Vector (); m_oCurrentV.copy (m_oV); invModelMatrix.vectorMult3x3 (m_oCurrentV);
+			var m_oCurrentH:Vector = new Vector (); m_oCurrentH.copy (m_oH); invModelMatrix.vectorMult3x3 (m_oCurrentH);
+			// compute color factors as in ALightAttributes.applyColorToDisplayObject with b = 1 argument
+			var c:Number = scene.light.color; if (c < 1) c = 0xFFFFFF;
+			var r:Number = (0xFF0000 & c) >> 16;
+			var g:Number = (0x00FF00 & c) >> 8;
+			var b:Number = (0x0000FF & c);
+			const bY:Number = 255 * 1.7321 /*Math.sqrt (3)*/ / Math.sqrt (r * r + g * g + b * b);
+			r *= bY; g *= bY; b *= bY;
+			// lock destination texture
+			dstTexture.lock ();
+			// loop through every destination texture pixel
+			for (var i:int = 0; i < dstTexture.width;  i++)
+			for (var j:int = 0; j < dstTexture.height; j++) {
+				var u:Number = i / dstTexture.width;
+				var v:Number = j / dstTexture.width;
+				// loop through every polygon
+				for each (var p:Polygon in obj.aPolygons) {
+/*					// see if we're inside
+					// http://board.flashkit.com/board/showpost.php?p=4037392&postcount=5
+					var crossing:int = 0;
+					for (var k:int = 0; k < p.aUVCoord.length; k++) {
+						var Vi:UVCoord = UVCoord (p.aUVCoord [k]);
+						var Vi1:UVCoord = (k + 1 < p.aUVCoord.length) ? UVCoord (p.aUVCoord [k + 1]) : UVCoord (p.aUVCoord [0]);
+						if (((Vi.v <= v) && (Vi1.v > v)) || ((Vi.v > v) && (Vi1.v <= v))) {
+							var vt:Number = (v - Vi.v) / (Vi1.v - Vi.v);
+							if (u < Vi.u + vt * (Vi1.u - Vi.u)) {
+								crossing++;
+							}
+						}
+					}
+					if (crossing % 2) {
+						// we're inside
+					}*/
+					var uv0:UVCoord = UVCoord (p.aUVCoord[0]);
+					var uv1:UVCoord = UVCoord (p.aUVCoord[1]);
+					var uv2:UVCoord = UVCoord (p.aUVCoord[2]);
+					m1.a = uv1.u - uv0.u;
+					m1.b = uv2.u - uv0.u;
+					m1.c = uv1.v - uv0.v;
+					m1.d = uv2.v - uv0.v;
+					m1.tx = 0; m1.ty = 0;
+					m1.invert ();
+					var A:Number = m1.a * (u - uv0.u) + m1.b * (v - uv0.v);
+					var B:Number = m1.c * (u - uv0.u) + m1.d * (v - uv0.v);
+					if ((A >= 0) && (B >= 0) && (A + B <= 1)) {
+						// we're inside
+						// interpolate normal vector from vertex normals
+						var vn0:Vertex = Vertex (p.vertexNormals[0]);
+						var vn1:Vertex = Vertex (p.vertexNormals[1]);
+						var vn2:Vertex = Vertex (p.vertexNormals[2]);
+						vn.x = vn0.x + A * (vn1.x - vn0.x) + B * (vn2.x - vn0.x);
+						vn.y = vn0.y + A * (vn1.y - vn0.y) + B * (vn2.y - vn0.y);
+						vn.z = vn0.z + A * (vn1.z - vn0.z) + B * (vn2.z - vn0.z);
+						// calculate lighting as in ALightAttributes.calculate
+						var l_n:Number = -1;
+						var l_k:Number = l_n * m_oCurrentL.dot (vn); if (l_k < 0) l_k = 0; l_k = ambient + diffuse * l_k;
+						if (specular > 0) {
+							var l_s:Number = l_n * m_oCurrentH.dot (vn); if (l_s < 0) l_s = 0;
+							l_k += specular * Math.pow (l_s, gloss);
+						}
+						l_k *= m_nI; if (l_k > 1) l_k = 1;
+						// set resulting pixel and break out of polygon loop
+						dstTexture.setPixel (i, j,
+							int (r * l_k) * 65536 +
+							int (g * l_k) * 256 +
+							int (b * l_k)
+						);
+						break;
+					}
+				}
+			}
+			// unlock destination texture
+			dstTexture.unlock ();
+			// overlay by source texture
+			dstTexture.draw (srcTexture, null, null, "overlay");
+		}
 	}
 }
