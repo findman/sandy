@@ -19,8 +19,8 @@ package sandy.util
 	 * Utility class for string manipulation.
 	 *  
 	 * @author		Thomas Pfeiffer - kiroukou
-	 * @version		3.0
-	 * @date 		26.07.2007
+	 * @version		3.0.3
+	 * @date 		13.08.2008
 	 */
 	public class StringUtil
 	{
@@ -36,7 +36,7 @@ package sandy.util
 		public static function replace( p_sStr:String, p_sOld:String, p_sNew:String ):String
 		{
 			// we do the replacement if the element is present at least once.
-			if( p_sStr.lastIndexOf( p_sOld ) )
+			if( p_sStr.lastIndexOf( p_sOld ) >= 0)
 			{
 				return p_sStr.split( p_sOld ).join( p_sNew );
 			}
