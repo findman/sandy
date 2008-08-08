@@ -76,7 +76,15 @@ package sandy.view
 		 * The height of the view port.
 		 **/
 		public function get height():int { return m_nH; }
+		
+		 /**
+		 * Half the width of the view port. Used to center Camera3D.
+		 **/
 		public function get width2():int { return m_nW2; }
+		
+		/**
+		 * Half the height of the view port. Used to center Camera3D.
+		 **/
 		public function get height2():int { return m_nH2; }
 		
 	    /**
