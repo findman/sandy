@@ -1,4 +1,4 @@
-/*
+﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -140,7 +140,7 @@ package sandy.core.scenegraph
 		public function renderDisplayList( p_oScene:Scene3D ):void
 		{
 			var l_oShape:IDisplayable;
-			// --
+			// -- Note, this is the displayed list from the previous iteration!
 			for each( l_oShape in m_aDisplayedList )
 			{
 				l_oShape.clear();
@@ -151,13 +151,13 @@ package sandy.core.scenegraph
 			    const l_mcContainer:Sprite = p_oScene.container;
 			    // --
 			    m_aDisplayList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
-			    // --
+			    // -- This is the new list to be displayed.
 				for each( l_oShape in m_aDisplayList )
 				{
 					l_oShape.display( p_oScene );
 					l_mcContainer.addChild( l_oShape.container );
 				}
-				// --
+				// -- m_aDisplayedList is a list of all the elements, which are deleted from m_aDisplayList
 				m_aDisplayedList = m_aDisplayList.splice(0);
 			}
 		}
@@ -169,6 +169,7 @@ package sandy.core.scenegraph
 		 */
 		public function addToDisplayList( p_oShape:IDisplayable ):void
 		{
+			// Why not use "push()"? Maybe this is faster?
 			if( p_oShape != null ) m_aDisplayList[m_aDisplayList.length] = ( p_oShape );
 		}
 
@@ -181,6 +182,38 @@ package sandy.core.scenegraph
         {
             m_aDisplayList = m_aDisplayList.concat( p_aShapeArray );
         }
+		
+		/**
+		 * Removes a displayable object from the display list.
+		 *
+		 * @param p_oShape	The object to remove
+		 */
+		public function removeFromDisplayList( p_oShape:IDisplayable ):void
+		{
+			trace ("WARNING: Camera3D.removeFromDisplayList() has never been tested. Seems sufficient to invoke Camera3D.clearDisplayList() instead");
+			if( p_oShape != null ) {
+				var foundLoc:Number = m_aDisplayList.indexOf(p_oShape);
+				if (foundLoc >= 0) {
+					m_aDisplayList.splice(foundLoc, 1)
+					trace ("Successfully emoved p_oShape from m_aDisplayList " + p_oShape);
+				} else {
+					trace ("WARNING: Couldn't remove p_oShape from m_aDisplayList because it wasn't found " + p_oShape);
+				}
+			}
+		}
+		
+		
+		/**
+		 * Clears the camera's display list. Useful when destroying things in mid-render. The rendering engine will repopulate m_aDisplayList in the next iteration, so 
+		 *  removing everything in the list seems fine (no noticeable flicker).
+		 *
+		 */
+		public function clearDisplayList():void
+		{
+			m_aDisplayedList.splice(0);
+			m_aDisplayList.splice(0);
+		}
+			
         
 		/**
 		 * <p>Project the vertices list given in parameter.
