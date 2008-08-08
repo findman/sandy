@@ -38,6 +38,13 @@ package sandy.events
 		public static const QUEUE_COMPLETE:String = "queueComplete";
 
 	    /**
+		 * Defines the value of the <code>type</code> property of a <code>queueResourceLoaded</code> event object.
+	     *
+	     * @eventType queueResourceLoaded
+	     */
+		public static const QUEUE_RESOURCE_LOADED:String = "queueResourceLoaded";
+
+	    /**
 		 * Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
 	     *
 	     * @eventType queueLoaderError

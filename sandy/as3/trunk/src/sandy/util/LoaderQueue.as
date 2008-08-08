@@ -21,7 +21,8 @@ package sandy.util
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-	import flash.utils.*;
+	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	
@@ -29,11 +30,18 @@ package sandy.util
 	import sandy.events.SandyEvent;
 
 	/**
-	* Dispatched when a resource has been loaded.
+	* Dispatched when all resources have been loaded.
 	*
 	* @eventType sandy.events.QueueEvent.QUEUE_COMPLETE
 	*/
 	[Event(name="queueComplete", type="sandy.events.QueueEvent")]
+
+	/**
+	* Dispatched when a resource has been loaded.
+	*
+	* @eventType sandy.events.QueueEvent.QUEUE_RESOURCE_LOADED
+	*/
+	[Event(name="queueResourceLoaded", type="sandy.events.QueueEvent")]
 
 	/**
 	* Dispatched when an error is encountered while loading a resource.
@@ -48,8 +56,8 @@ package sandy.util
 	 * <p>A LoaderQueue allows you to queue up requests for loading external resources.</p>
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou /Max Pellizzaro 
-	 * @version		3.0
-	 * @date 		06.06.2008
+	 * @version		3.0.1
+	 * @date 		07.16.2008
 	 */
 	public class LoaderQueue extends EventDispatcher
 	{
@@ -69,12 +77,15 @@ package sandy.util
 		
 		private var m_oLoaders : Object;
 		private var m_nLoaders : int;
-		private var m_oQueueEvent : QueueEvent;
+		private var m_oQueueCompleteEvent : QueueEvent;
+		private var m_oQueueResourceLoadedEvent : QueueEvent;
+		private var m_oQueueLoaderError : QueueEvent;
 		
 		/**
 		 * A list of all resources indexed by their names.
 		 */
 		public var data:Dictionary = new Dictionary( true );
+		public var clips:Dictionary = new Dictionary( true );
 		
 		/**
 		 * Creates a new loader queue.
@@ -82,14 +93,16 @@ package sandy.util
 		public function LoaderQueue()
 		{
 			m_oLoaders = new Object();
-			m_oQueueEvent = new QueueEvent( QueueEvent.QUEUE_COMPLETE );
+			m_oQueueCompleteEvent 		= new QueueEvent ( QueueEvent.QUEUE_COMPLETE );
+			m_oQueueResourceLoadedEvent = new QueueEvent ( QueueEvent.QUEUE_RESOURCE_LOADED );
+			m_oQueueLoaderError 		= new QueueEvent ( QueueEvent.QUEUE_LOADER_ERROR );
 		}
 		
 		/**
 		 * Adds a new request to this loader queue.
 		 *
 		 * <p>The request is given its own loader and is added to a loader queue<br/>
-		 * The loding is postponed until the start method of the queue is called.</p>
+		 * The loading is postponed until the start method of the queue is called.</p>
 		 * 
 		 * @param p_sID		A string identifier for this request
 		 * @param p_oURLRequest	The request
@@ -99,10 +112,11 @@ package sandy.util
 			if(type == "BIN"){
 				var tmpLoader:URLLoader = new URLLoader ();
 			    tmpLoader.dataFormat = URLLoaderDataFormat.BINARY;
-			    m_oLoaders[ p_sID ] = new QueueElement( p_sID, null ,tmpLoader, p_oURLRequest );
+			    m_oLoaders[ p_sID ] = new QueueElement( p_sID, null, tmpLoader, p_oURLRequest );
 			} 
-			else
-			 m_oLoaders[ p_sID ] = new QueueElement( p_sID, new Loader(),null , p_oURLRequest );
+			else {
+			 	m_oLoaders[ p_sID ] = new QueueElement( p_sID, new Loader(), null, p_oURLRequest );
+			}
 			// --
 			m_nLoaders++;
 		}
@@ -141,40 +155,47 @@ package sandy.util
 			for each( var l_oLoader:QueueElement in m_oLoaders )
 			{
 				if (l_oLoader.loader != null) {
-				 l_oLoader.loader.load( l_oLoader.urlRequest );
-				 l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
-	             l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+					l_oLoader.loader.load( l_oLoader.urlRequest );
+					l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
+	            	l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 				} else {
-				 l_oLoader.urlLoader.load( l_oLoader.urlRequest );	
-				 l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
-	             l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+					l_oLoader.urlLoader.load( l_oLoader.urlRequest );	
+					l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
+	            	l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 				}
 			}
 		}
 		
 		/**
-		 * Fires a QueueEvent, once all requested resources are loaded.
+		 * Fires a QUEUE_RESOURCE_LOADED, for each resources that is loaded.
+		 * Fires a single QUEUE_COMPLETE, after the last resources is loaded.
 		 * Type QUEUE_COMPLETE
 		 */
 		private function completeHandler( p_oEvent:Event ) : void
 		{		
 			var l_sName:String;
 			var l_oLoaderInfos:LoaderInfo = p_oEvent.target as LoaderInfo;
+			
+			// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
+			dispatchEvent( m_oQueueResourceLoadedEvent ); 
+			
 			if (getQualifiedClassName(p_oEvent.target) == "flash.net::URLLoader"){
 				var l_oLoader:URLLoader = URLLoader(p_oEvent.target);
 				l_sName = getIDFromURLLoader(l_oLoader );
 				data[ l_sName ] = l_oLoader.data;
+				clips[ l_sName ] = l_oLoaderInfos;
 		    } else{
 				var l_oLoader01:Loader = l_oLoaderInfos.loader;
 				l_sName = getIDFromLoader( l_oLoader01 );
 				data[ l_sName ] = l_oLoaderInfos.content;
+				clips[ l_sName ] = l_oLoaderInfos;
 		    }
 			m_nLoaders--;
 			// --
 			if( m_nLoaders == 0 ) 
 			{
-				m_oQueueEvent.loaders = m_oLoaders;
-				dispatchEvent( m_oQueueEvent );
+				m_oQueueCompleteEvent.loaders = m_oLoaders;
+				dispatchEvent( m_oQueueCompleteEvent );
 			}
 			
 		}
@@ -186,11 +207,14 @@ package sandy.util
 		private function ioErrorHandler( p_oEvent : IOErrorEvent ) : void
 		{	
 			trace( p_oEvent.text );
+			// Fire an event to indicate that a single resource loading failed (needs to be enhanced to provide more info)
+			dispatchEvent( m_oQueueLoaderError );
+			
 			m_nLoaders--;
 			if( m_nLoaders == 0 ) 
 			{
-				m_oQueueEvent.loaders = m_oLoaders;
-				dispatchEvent( m_oQueueEvent );
+				m_oQueueCompleteEvent.loaders = m_oLoaders;
+				dispatchEvent( m_oQueueCompleteEvent );
 			}
 		}
 	}
