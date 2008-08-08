@@ -67,6 +67,11 @@ package sandy.materials
 		{
 			m_sType = p_sType;
 		}
+		
+		public function typeString( ):String
+		{
+			return m_sType;
+		}
 		private var m_sType:String;
 	}
 }
