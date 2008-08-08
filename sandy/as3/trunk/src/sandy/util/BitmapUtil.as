@@ -16,6 +16,7 @@ limitations under the License.
 package sandy.util 
 {
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
 
@@ -42,13 +43,14 @@ package sandy.util
 		 * <p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
 		 * This method does.</p>
 		 * 
-		 * @param p_oSprite 		The sprite to convert.
+		 * @param p_oSprite 		The sprite or other DisplayObject to convert to BitmapData. (DisplayObject allows support for AVM1Movie)
 		 * @param p_bTransparent	Whether to allow transparency.
 		 * @param p_nColor			Background color (32 bit).
 		 *
 		 * @return 			The converted bitmap.
 		 */
-		public static function movieToBitmap( p_oSprite:Sprite, p_bTransparent:Boolean=true, p_nColor:Number=0x00FF00CC /* a random color, needed tby the bitmapData constructor to apply transparency */ ):BitmapData
+		//public static function movieToBitmap( p_oSprite:Sprite, p_bTransparent:Boolean=true, p_nColor:Number=0x00FF00CC /* a random color, needed by the bitmapData constructor to apply transparency */ ):BitmapData
+		public static function movieToBitmap( p_oSprite:DisplayObject, p_bTransparent:Boolean=true, p_nColor:Number=0x00FF00CC /* a random color, needed by the bitmapData constructor to apply transparency */ ):BitmapData
 		{
 			var bmp:BitmapData;
 			// --
