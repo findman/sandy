@@ -393,8 +393,8 @@ package sandy.materials
 			m_oTiling.x = p_nW;
 			m_oTiling.y = p_nH;
 			// --
-			m_oOffset.x = p_nU;
-			m_oOffset.y = p_nV;
+			m_oOffset.x = p_nU - Math.floor (p_nU);
+			m_oOffset.y = p_nV - Math.floor (p_nV);
 			// --
 			for( var l_sID:String in m_oPolygonMatrixMap )
 			{
