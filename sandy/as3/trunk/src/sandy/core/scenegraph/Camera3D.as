@@ -69,7 +69,7 @@ package sandy.core.scenegraph
 		 * @param p_nNear	The distance from the camera to the near clipping plane - Default 50
 		 * @param p_nFar	The distance from the camera to the far clipping plane - Default 10000
 		 */
-		public function Camera3D( p_nWidth:Number, p_nHeight:Number, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000 )
+		public function Camera3D( p_nWidth:Number = 550, p_nHeight:Number = 400, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000 )
 		{
 			super( null );
 			viewport.width = p_nWidth;
