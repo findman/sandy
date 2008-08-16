@@ -724,7 +724,7 @@ package sandy.core.data
 			var d:Number = det();
 			if( Math.abs(d) < 0.001 )
 			{
-				trace ("Warning: cannot invert a matrix with a null determinant");
+				throw "cannot invert a matrix with a null determinant";
 				return;
 			}
 			//We use Cramer formula, so we need to devide by the determinant. We prefer multiply by the inverse
