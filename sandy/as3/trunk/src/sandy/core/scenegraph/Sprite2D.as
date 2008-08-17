@@ -90,7 +90,7 @@ package sandy.core.scenegraph
 			_nScale = p_nScale;
 			// --
 			if( p_oContent ) content = p_oContent;
-			setBoundingSphereRadius( Math.max (30, Math.max (content.width, content.height)) );
+			setBoundingSphereRadius( Math.max (30, Math.abs (_nScale) * Math.max (content.width, content.height)) );
 		}
 
 		/**
