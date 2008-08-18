@@ -130,7 +130,7 @@ package sandy.parser
 						while( ( content = (lines.shift() as String )).indexOf( '}' ) < 0 )
 						{
 							content = content.substr( content.indexOf( '*' ) + 1 );
-							var vertexReg:RegExp = /MESH_VERTEX\s*(\d+)\s*([\d-.]+)\s*([\d-.]+)\s*([\d-.]+)/
+							var vertexReg:RegExp = /MESH_VERTEX\s*(\d+)\s*([\d-\.]+)\s*([\d-\.]+)\s*([\d-\.]+)/
 							id = uint(content.replace(vertexReg, "$1"));
 							var v1:Number = Number(content.replace(vertexReg, "$2"));
 							var v2:Number = Number(content.replace(vertexReg, "$4"));
@@ -145,9 +145,10 @@ package sandy.parser
 						while( ( content = (lines.shift() as String )).indexOf( '}'  ) < 0 )
 						{
 							content = content.substr( content.indexOf( '*' ) + 1 );
-							var mfl:String = content.split(  '*' )[0]; // ignore: [MESH_SMOOTHING,MESH_MTLID]
-							//"MESH_FACE    0:    A:    777 B:    221 C:    122 AB:    1 BC:    1 CA:    1"
-							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)\s*AB:\s*(\d+)\s*BC:\s*(\d+)\s*CA:\s*(\d+)\s*/
+							var mfl:String = content.split(  '*' )[0];
+							//"MESH_FACE    0:    A:    777 B:    221 C:    122 AB:    1 BC:    1 CA:    1 *MESH_SMOOTHING 1   *MESH_MTLID 0"
+							//"MESH_FACE   10: A:  325 B:  155 C:  327	 *MESH_SMOOTHING 0 	*MESH_MTLID 0"
+							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)/
 							id = uint(mfl.replace(faceReg, "$1"));
 							var p1:uint = uint(mfl.replace(faceReg, "$2"));
 							var p2:uint = uint(mfl.replace(faceReg, "$3"));
@@ -162,7 +163,7 @@ package sandy.parser
 						while( ( content = (lines.shift() as String )).indexOf( '}' ) < 0 )
 						{
 							content = content.substr( content.indexOf( '*' ) + 1 );
-							vertexReg = /MESH_TVERT\s*(\d+)\s*([\d-.]+)\s*([\d-.]+)\s*([\d-.]+)/
+							vertexReg = /MESH_TVERT\s*(\d+)\s*([\d-.]+)\s*([\d-\.]+)\s*([\d-\.]+)/
 							id = uint(content.replace(vertexReg, "$1"));
 							v1 = Number(content.replace(vertexReg, "$2"));
 							v2 = Number(content.replace(vertexReg, "$3"));
