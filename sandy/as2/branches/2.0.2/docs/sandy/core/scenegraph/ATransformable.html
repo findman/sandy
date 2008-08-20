@@ -1,0 +1,168 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.core.scenegraph.ATransformable - Sandy 3D Library version 2.0</title><script src="../../../quicknav.js" type="text/javascript"></script><script><!--
+document.quicknavBasePath="../../../index-files";
+//--></script><link href="../../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../../unnatural.css" title="Unnatural" rel="alternate stylesheet" type="text/css"/><link href="../../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.core.scenegraph" rel="up"/><link href="../../../sandy/core/scenegraph/Camera3D.html" title="Class sandy.core.scenegraph.Camera3D" rel="prev"/><link href="../../../sandy/core/Scene3D.html" title="Class sandy.core.Scene3D" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><h1>Class sandy.core.scenegraph.ATransformable</h1><div class="type_hierachy"><ul><li><a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">sandy.core.scenegraph.Node</a><ul><li><strong>sandy.core.scenegraph.ATransformable</strong></li></ul></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ ABSTRACT CLASS - super class for all movable objects in the object tree.
+
+ <p> This class should not be directly instatiated, but sub classed.<br/>
+ The Atransformable class is resposible for scaling, rotation and translation of objects in 3D space.</p>
+
+ <p>Rotations and translations are performed in one of three coordinate systems or reference frames:<br/>
+ - The local frame which is the objects own coordinate system<br />
+ - The parent frame which is the coordinate system of the object's parent, normally a TransformGroup<br/>
+ - The world frame which is the coordinate system of the world, the global system.</p>
+ <p>Positions, directions, translations and rotations of an ATransformable object are performed in its parent frame.<br />
+ Tilt, pan and roll, are rotations around the local axes, and moveForward, moveUpwards and moveSideways are translations along local axes.</p>
+
+
+ </p></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><a href="#disable" title="public disable:Boolean">disable</a>, <a href="#matrix" title="public matrix:Matrix4">matrix</a>, <a href="#out" title="public out:Vector">out</a>, <a href="#pan" title="public pan:Number">pan</a>, <a href="#roll" title="public roll:Number">roll</a>, <a href="#rotateX" title="public rotateX:Number">rotateX</a>, <a href="#rotateY" title="public rotateY:Number">rotateY</a>, <a href="#rotateZ" title="public rotateZ:Number">rotateZ</a>, <a href="#scaleX" title="public scaleX:Number">scaleX</a>, <a href="#scaleY" title="public scaleY:Number">scaleY</a>, <a href="#scaleZ" title="public scaleZ:Number">scaleZ</a>, <a href="#side" title="public side:Vector">side</a>, <a href="#target" title="public target:Vector">target</a>, <a href="#tilt" title="public tilt:Number">tilt</a>, <a href="#up" title="public up:Vector">up</a>, <a href="#x" title="public x:Number">x</a>, <a href="#y" title="public y:Number">y</a>, <a href="#z" title="public z:Number">z</a><h4>Inherited from <a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a></h4><div class="extra_info"><a href="../../../sandy/core/scenegraph/Node.html#appearance" title="public appearance:Appearance">appearance</a>, <a href="../../../sandy/core/scenegraph/Node.html#boundingBox" title="public boundingBox:BBox">boundingBox</a>, <a href="../../../sandy/core/scenegraph/Node.html#boundingSphere" title="public boundingSphere:BSphere">boundingSphere</a>, <a href="../../../sandy/core/scenegraph/Node.html#broadcaster" title="public broadcaster:BubbleEventBroadcaster">broadcaster</a>, <a href="../../../sandy/core/scenegraph/Node.html#changed" title="public changed:Boolean">changed</a>, <a href="../../../sandy/core/scenegraph/Node.html#children" title="public children:Array">children</a>, <a href="../../../sandy/core/scenegraph/Node.html#culled" title="public culled:CullingState">culled</a>, <a href="../../../sandy/core/scenegraph/Node.html#enableBackFaceCulling" title="public enableBackFaceCulling:Boolean">enableBackFaceCulling</a>, <a href="../../../sandy/core/scenegraph/Node.html#enableEvents" title="public enableEvents:Boolean">enableEvents</a>, <a href="../../../sandy/core/scenegraph/Node.html#enableInteractivity" title="public enableInteractivity:Boolean">enableInteractivity</a>, <a href="../../../sandy/core/scenegraph/Node.html#id" title="public id:Number">id</a>, <a href="../../../sandy/core/scenegraph/Node.html#modelMatrix" title="public modelMatrix:Matrix4">modelMatrix</a>, <a href="../../../sandy/core/scenegraph/Node.html#name" title="public name:String">name</a>, <a href="../../../sandy/core/scenegraph/Node.html#parent" title="public parent:Node">parent</a>, <a href="../../../sandy/core/scenegraph/Node.html#scene" title="public scene:Scene3D">scene</a>, <a href="../../../sandy/core/scenegraph/Node.html#useSingleContainer" title="public useSingleContainer:Boolean">useSingleContainer</a>, <a href="../../../sandy/core/scenegraph/Node.html#viewMatrix" title="public viewMatrix:Matrix4">viewMatrix</a>, <a href="../../../sandy/core/scenegraph/Node.html#visible" title="public visible:Boolean">visible</a></div></div><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#ATransformable" title="public function ATransformable(p_sName:String)">ATransformable()</a></code></div><a href="#getPosition" title="public function getPosition(p_sMode:String):Vector">getPosition()</a>, <a href="#initFrame" title="public function initFrame():Void">initFrame()</a>, <a href="#lookAt" title="public function lookAt(p_nX:Number, p_nY:Number, p_nZ:Number):Void">lookAt()</a>, <a href="#moveForward" title="public function moveForward(p_nD:Number):Void">moveForward()</a>, <a href="#moveHorizontally" title="public function moveHorizontally(p_nD:Number):Void">moveHorizontally()</a>, <a href="#moveLateraly" title="public function moveLateraly(p_nD:Number):Void">moveLateraly()</a>, <a href="#moveSideways" title="public function moveSideways(p_nD:Number):Void">moveSideways()</a>, <a href="#moveUpwards" title="public function moveUpwards(p_nD:Number):Void">moveUpwards()</a>, <a href="#moveVertically" title="public function moveVertically(p_nD:Number):Void">moveVertically()</a>, <a href="#resetCoords" title="public function resetCoords():Void">resetCoords()</a>, <a href="#rotateAxis" title="public function rotateAxis(p_nX:Number, p_nY:Number, p_nZ:Number, p_nAngle:Number):Void">rotateAxis()</a>, <a href="#setPosition" title="public function setPosition(p_nX:Number, p_nY:Number, p_nZ:Number):Void">setPosition()</a>, <a href="#toString" title="public function toString():String">toString()</a>, <a href="#translate" title="public function translate(p_nX:Number, p_nY:Number, p_nZ:Number):Void">translate()</a>, <a href="#update" title="public function update(p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean):Void">update()</a>, <a href="#updateTransform" title="public function updateTransform():Void">updateTransform()</a><h4>Inherited from <a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a></h4><div class="extra_info"><a href="../../../sandy/core/scenegraph/Node.html#addChild" title="public function addChild(p_oChild:Node):Void">addChild()</a>, <a href="../../../sandy/core/scenegraph/Node.html#addEventListener" title="public function addEventListener(p_sEvt:EventType, p_oL):Boolean">addEventListener()</a>, <a href="../../../sandy/core/scenegraph/Node.html#cull" title="public function cull(p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean):Void">cull()</a>, <a href="../../../sandy/core/scenegraph/Node.html#destroy" title="public function destroy():Void">destroy()</a>, <a href="../../../sandy/core/scenegraph/Node.html#getChildByName" title="public function getChildByName(p_sName:String, p_bRecurs:Boolean):Node">getChildByName()</a>, <a href="../../../sandy/core/scenegraph/Node.html#hasParent" title="public function hasParent():Boolean">hasParent()</a>, <a href="../../../sandy/core/scenegraph/Node.html#isParent" title="public function isParent(p_oNode:Node):Boolean">isParent()</a>, <a href="../../../sandy/core/scenegraph/Node.html#perform" title="public function perform(p_iOperation:INodeOperation):Void">perform()</a>, <a href="../../../sandy/core/scenegraph/Node.html#remove" title="public function remove():Void">remove()</a>, <a href="../../../sandy/core/scenegraph/Node.html#removeChildByName" title="public function removeChildByName(p_sName:String):Boolean">removeChildByName()</a>, <a href="../../../sandy/core/scenegraph/Node.html#removeEventListener" title="public function removeEventListener(p_sEvt:EventType, p_oL):Void">removeEventListener()</a>, <a href="../../../sandy/core/scenegraph/Node.html#render" title="public function render(p_oScene:Scene3D, p_oCamera:Camera3D):Void">render()</a>, <a href="../../../sandy/core/scenegraph/Node.html#swapParent" title="public function swapParent(p_oNewParent:Node):Void">swapParent()</a></div></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="ATransformable"></a><h3>ATransformable</h3><code class="method_synopsis">public function <strong class="method_name">ATransformable</strong>(p_sName:<span class="unresolved_type_name">String</span>)</code><div class="method_info"><p>
+ Creates a transformable node in the object tree of the world.
+
+ <p>This constructor should normally not be called directly, but from a sub class.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sName</code></td><td>A string identifier for this object
+	 </td></tr></table></div></div></div><div class="field_detail_list"><h2>Field Detail</h2><a name="disable"></a><h3>disable</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">disable</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info">
+ Disable the local transformations applied to this Node if set to false.
+ They will be applied back once et back to true.
+	 </div></div><a name="matrix"></a><h3>matrix</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">matrix</strong>:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code></div><a name="x"></a><h3>x</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">x</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ x position of this object in its parent frame.
+	 </div></div><a name="y"></a><h3>y</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">y</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ y position of this object in its parent frame.
+	 </div></div><a name="z"></a><h3>z</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">z</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ z position of the node in its parent frame.
+	 </div></div><a name="out"></a><h3>out</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">out</strong>:<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Forward direction ( local z ) in parent coordinates.
+	 </div></div><a name="side"></a><h3>side</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">side</strong>:<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Side direction ( local x ) in parent coordinates.
+	 </div></div><a name="up"></a><h3>up</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">up</strong>:<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Up direction ( local y ) in parent coordinates.
+	 </div></div><a name="scaleX"></a><h3>scaleX</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">scaleX</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ x scale of this object.
+
+ <p>A value of 1 scales to the original x scale, a value of 2 doubles the x scale.<br/>
+ NOTE : This value does not affect the camera object.</p>
+	 </div></div><a name="scaleY"></a><h3>scaleY</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">scaleY</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ y scale of this object.
+
+ <p>A value of 1 scales to the original y scale, a value of 2 doubles the y scale.<br/>
+ NOTE : This value does not affect the camera object.</p>
+	 </div></div><a name="scaleZ"></a><h3>scaleZ</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">scaleZ</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ z scale of this object.
+
+ <p>A value of 1 scales to the original z scale, a value of 2 doubles the z scale.<br/>
+ NOTE : This value does not affect the camera object.</p>
+	 </div></div><a name="target"></a><h3>target</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">target</strong>:<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ The position in the parent frame this object should "look at".
+
+ <p>Useful for following a moving object or a static object while this object is moving.<br/>
+ Normally used when this object is a camera</p>
+	 </div></div><a name="rotateX"></a><h3>rotateX</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">rotateX</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ </div></div><a name="rotateY"></a><h3>rotateY</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">rotateY</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ </div></div><a name="rotateZ"></a><h3>rotateZ</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">rotateZ</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ </div></div><a name="roll"></a><h3>roll</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">roll</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ </div></div><a name="tilt"></a><h3>tilt</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">tilt</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ Getter for the tilt value
+	 </div></div><a name="pan"></a><h3>pan</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">pan</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ </div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="resetCoords"></a><h3>resetCoords</h3><code class="method_synopsis">public function <strong class="method_name">resetCoords</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Resets the coordinate system for this object. Useful for returning to known state.
+	 </p></div></div><div class="method_details"><a name="initFrame"></a><h3>initFrame</h3><code class="method_synopsis">public function <strong class="method_name">initFrame</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Initiates the local coordinate system for this object.
+
+ <p>The local coordinate system for this object is set parallell the parent system.</p>
+	 </p></div></div><div class="method_details alt_row"><a name="moveSideways"></a><h3>moveSideways</h3><code class="method_synopsis">public function <strong class="method_name">moveSideways</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object along its side vector ( local x ) in the parent frame.
+
+ <p>If you imagine yourself in the world, it would be a step to your right or to your left</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details"><a name="moveUpwards"></a><h3>moveUpwards</h3><code class="method_synopsis">public function <strong class="method_name">moveUpwards</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object along its up vector ( local y ) in the parent frame.
+
+ <p>If you imagine yourself in the world, it would be a step up or down<br/>
+ in the direction of your body, not always vertically!</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="moveForward"></a><h3>moveForward</h3><code class="method_synopsis">public function <strong class="method_name">moveForward</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object along its forward vector ( local z ) in the parent frame.
+
+ <p>If you imagine yourself in the world, it would be a step forward<br/>
+ in the direction you look, not always horizontally!</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details"><a name="moveHorizontally"></a><h3>moveHorizontally</h3><code class="method_synopsis">public function <strong class="method_name">moveHorizontally</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object parallel to its parent zx plane and in its forward direction.
+
+ <p>If you imagine yourself in the world, it would be a step in the forward direction,
+ but without changing your altitude ( constant global z ).</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="moveVertically"></a><h3>moveVertically</h3><code class="method_synopsis">public function <strong class="method_name">moveVertically</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object vertically in ots parent frame.
+
+ <p>If you imagine yourself in the world, it would be a strictly vertical step,
+ ( in the global y direction )</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details"><a name="moveLateraly"></a><h3>moveLateraly</h3><code class="method_synopsis">public function <strong class="method_name">moveLateraly</strong>(p_nD:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translates this object laterally in its parent frame.
+
+ <p>This is a translation in the parents x direction.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nD</code></td><td>How far to move
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="translate"></a><h3>translate</h3><code class="method_synopsis">public function <strong class="method_name">translate</strong>(p_nX:<span class="unresolved_type_name">Number</span>, p_nY:<span class="unresolved_type_name">Number</span>, p_nZ:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Translate this object from it's current position with the specified offsets.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nX</code></td><td>Offset that will be added to the x coordinate of the object
+ </td></tr><tr><td><code>p_nY</code></td><td>Offset that will be added to the y coordinate of the object
+ </td></tr><tr><td><code>p_nZ</code></td><td>Offset that will be added to the z coordinate of the object
+	 </td></tr></table></div></div><div class="method_details"><a name="rotateAxis"></a><h3>rotateAxis</h3><code class="method_synopsis">public function <strong class="method_name">rotateAxis</strong>(p_nX:<span class="unresolved_type_name">Number</span>, p_nY:<span class="unresolved_type_name">Number</span>, p_nZ:<span class="unresolved_type_name">Number</span>, p_nAngle:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Rotate this object around the specified axis in the parent frame by the specified angle.
+
+ <p>NOTE : The axis will be normalized automatically.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nX</code></td><td>The x coordinate of the axis
+ </td></tr><tr><td><code>p_nY</code></td><td>The y coordinate of the axis
+ </td></tr><tr><td><code>p_nZ</code></td><td>The z coordinate of the axis
+ </td></tr><tr><td><code>p_nAngle</code></td><td>The angle of rotation in degrees.
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="lookAt"></a><h3>lookAt</h3><code class="method_synopsis">public function <strong class="method_name">lookAt</strong>(p_nX:<span class="unresolved_type_name">Number</span>, p_nY:<span class="unresolved_type_name">Number</span>, p_nZ:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Makes this object "look at" the specified position in the parent frame.
+
+ <p>Useful for following a moving object or a static object while this object is moving.<br/>
+ Normally used when this object is a camera</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nX</code></td><td>Number	The x position to look at
+ </td></tr><tr><td><code>p_nY</code></td><td>Number	The y position to look at
+ </td></tr><tr><td><code>p_nZ</code></td><td>Number	The z position to look at
+	 </td></tr></table></div></div><div class="method_details"><a name="setPosition"></a><h3>setPosition</h3><code class="method_synopsis">public function <strong class="method_name">setPosition</strong>(p_nX:<span class="unresolved_type_name">Number</span>, p_nY:<span class="unresolved_type_name">Number</span>, p_nZ:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Sets the position of this object in coordinates of its parent frame.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nX</code></td><td>The x coordinate
+ </td></tr><tr><td><code>p_nY</code></td><td>The y coordiante
+ </td></tr><tr><td><code>p_nZ</code></td><td>The z coordiante
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="update"></a><h3>update</h3><code class="method_synopsis">public function <strong class="method_name">update</strong>(p_oScene:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oModelMatrix:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, p_bChanged:<span class="unresolved_type_name">Boolean</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Updates this node or object.
+
+ <p>For node's with transformation, this method updates the transformation taking into account the matrix cache system.<br/>
+ <b>FIXME<b>: Transformable nodes shall upate their transform if necessary before calling this method.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The current scene
+ </td></tr><tr><td><code>p_oModelMatrix</code></td><td>The matrix which represents the parent model matrix. Basically it stores the rotation/translation/scale of all the nodes above the current one.
+ </td></tr><tr><td><code>p_bChanged</code></td><td>A boolean value which specify if the state has changed since the previous rendering. If false, we save some matrix multiplication process.
+	 </td></tr></table><h4>Overrides</h4><p class="extra_info"><a href="../../../sandy/core/scenegraph/Node.html#update" title="public function update(p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean):Void">update()</a> in <a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">sandy.core.scenegraph.Node</a></p></div></div><div class="method_details"><a name="updateTransform"></a><h3>updateTransform</h3><code class="method_synopsis">public function <strong class="method_name">updateTransform</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Updates the transform matrix of the current object/node before it is rendered.
+	 </p></div></div><div class="method_details alt_row"><a name="getPosition"></a><h3>getPosition</h3><code class="method_synopsis">public function <strong class="method_name">getPosition</strong>(p_sMode:<span class="unresolved_type_name">String</span>):<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Returns the position of this group or object.
+
+ <p>Choose which coordinate system the returned position refers to, by passing a mode string:<br/>
+ The position is returned as a vector in one of the following:<br/>
+ If "local", the position is coordinates of the parent frame.
+ If "absolute" the position is in world coordinates
+ If "camera" the position is relative to the camera's coordinate system.
+ Default value is "local"
+
+ </p><h4>Return</h4><p class="extra_info"> 	The position of the group or object
+	 </p></div></div><div class="method_details"><a name="toString"></a><h3>toString</h3><code class="method_synopsis">public function <strong class="method_name">toString</strong>():<span class="unresolved_type_name">String</span></code><div class="method_info"><p>
+ Returns a string representation of this object
+
+ </p><h4>Return</h4><p class="extra_info">	The fully qualified name of this class
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../../sandy/core/scenegraph/Node.html#toString" title="public function toString():String">toString()</a> in <a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">sandy.core.scenegraph.Node</a></p></div></div></div></div><ul class="main_nav" id="main_nav"><li><a href="../../../overview-summary.html" title="Overview of Sandy 3D Library version 2.0" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.core.scenegraph" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../../index-files/index.html" title="Alpabetical index of types and members" class="button">Index</a></li></ul><div class="footer"><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator">as2api</a></div></body></html>

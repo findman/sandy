@@ -1,0 +1,197 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.math.Matrix4Math - Sandy 3D Library version 2.0</title><script src="../../quicknav.js" type="text/javascript"></script><script><!--
+document.quicknavBasePath="../../index-files";
+//--></script><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../unnatural.css" title="Unnatural" rel="alternate stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.math" rel="up"/><link href="../../sandy/math/PlaneMath.html" title="Class sandy.math.PlaneMath" rel="prev"/><link href="../../sandy/math/IntersectionMath.html" title="Class sandy.math.IntersectionMath" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><h1>Class sandy.math.Matrix4Math</h1><div class="type_hierachy"><ul><li><strong>sandy.math.Matrix4Math</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Math functions for Matrix4 calculations.
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></li></ul></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><a href="#USE_FAST_MATH" title="static public USE_FAST_MATH:Boolean">USE_FAST_MATH</a></div><div class="method_index"><h2>Method Index</h2><a href="#addMatrix4" title="static public function addMatrix4(m1:Matrix4, m2:Matrix4):Matrix4">addMatrix4()</a>, <a href="#axisRotation" title="static public function axisRotation(u:Number, v:Number, w:Number, angle:Number):Matrix4">axisRotation()</a>, <a href="#axisRotationVector" title="static public function axisRotationVector(v:Vector, angle:Number):Matrix4">axisRotationVector()</a>, <a href="#axisRotationWithReference" title="static public function axisRotationWithReference(axis:Vector, ref:Vector, pAngle:Number):Matrix4">axisRotationWithReference()</a>, <a href="#clone" title="static public function clone(m:Matrix4):Matrix4">clone()</a>, <a href="#det" title="static public function det(m:Matrix4):Number">det()</a>, <a href="#det3x3" title="static public function det3x3(m:Matrix4):Number">det3x3()</a>, <a href="#eulerRotation" title="static public function eulerRotation(ax:Number, ay:Number, az:Number):Matrix4">eulerRotation()</a>, <a href="#getInverse" title="static public function getInverse(m:Matrix4):Matrix4">getInverse()</a>, <a href="#getTrace" title="static public function getTrace(m:Matrix4):Number">getTrace()</a>, <a href="#multiply" title="static public function multiply(m1:Matrix4, m2:Matrix4):Matrix4">multiply()</a>, <a href="#multiply3x3" title="static public function multiply3x3(m1:Matrix4, m2:Matrix4):Matrix4">multiply3x3()</a>, <a href="#multiply4x3" title="static public function multiply4x3(m1:Matrix4, m2:Matrix4):Matrix4">multiply4x3()</a>, <a href="#rotationX" title="static public function rotationX(angle:Number):Matrix4">rotationX()</a>, <a href="#rotationY" title="static public function rotationY(angle:Number):Matrix4">rotationY()</a>, <a href="#rotationZ" title="static public function rotationZ(angle:Number):Matrix4">rotationZ()</a>, <a href="#scale" title="static public function scale(nXScale:Number, nYScale:Number, nZScale:Number):Matrix4">scale()</a>, <a href="#scaleVector" title="static public function scaleVector(v:Vector):Matrix4">scaleVector()</a>, <a href="#translation" title="static public function translation(nTx:Number, nTy:Number, nTz:Number):Matrix4">translation()</a>, <a href="#translationVector" title="static public function translationVector(v:Vector):Matrix4">translationVector()</a>, <a href="#vectorMult" title="static public function vectorMult(m:Matrix4, pv:Vector):Vector">vectorMult()</a>, <a href="#vectorMult3x3" title="static public function vectorMult3x3(m:Matrix4, pv:Vector):Vector">vectorMult3x3()</a></div></div><div class="type_details"><div class="field_detail_list"><h2>Field Detail</h2><a name="USE_FAST_MATH"></a><h3>USE_FAST_MATH</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">USE_FAST_MATH</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info">
+ Specifies whether to use fast math calculations.
+	 </div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="multiply3x3"></a><h3>multiply3x3</h3><code class="method_synopsis">static public function <strong class="method_name">multiply3x3</strong>(m1:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, m2:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes the multiplication of two Matrix4 matrices, as if they were 3x3.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m1</code></td><td>The first matrix.
+ </td></tr><tr><td><code>m2</code></td><td>The second matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="multiply4x3"></a><h3>multiply4x3</h3><code class="method_synopsis">static public function <strong class="method_name">multiply4x3</strong>(m1:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, m2:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes the multiplication of two Matrix4 matrices.
+
+ <p>[<strong>ToDo</strong>: Explain this multiplication ]</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m1</code></td><td>The first matrix.
+ </td></tr><tr><td><code>m2</code></td><td>The second matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="multiply"></a><h3>multiply</h3><code class="method_synopsis">static public function <strong class="method_name">multiply</strong>(m1:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, m2:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes the multiplication of two Matrix4 matrices.
+
+ <p>[<strong>ToDo</strong>: Explain this multiplication ]</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m1</code></td><td>The first matrix.
+ </td></tr><tr><td><code>m2</code></td><td>The second matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="addMatrix4"></a><h3>addMatrix4</h3><code class="method_synopsis">static public function <strong class="method_name">addMatrix4</strong>(m1:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, m2:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes the addition of two Matrix4 matrices.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m1</code></td><td>The first matrix.
+ </td></tr><tr><td><code>m2</code></td><td>The second matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="clone"></a><h3>clone</h3><code class="method_synopsis">static public function <strong class="method_name">clone</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Returns the clone of a Matrix4 matrix.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="vectorMult"></a><h3>vectorMult</h3><code class="method_synopsis">static public function <strong class="method_name">vectorMult</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, pv:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Multiplies a 3D vertex by a Matrix4 matrix.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix.
+ </td></tr><tr><td><code>pv</code></td><td>The vertex.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details alt_row"><a name="vectorMult3x3"></a><h3>vectorMult3x3</h3><code class="method_synopsis">static public function <strong class="method_name">vectorMult3x3</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, pv:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Multiplies a 3D vector by a Matrix4 matrix as a 3x3 matrix.
+
+ <p>Uses the upper left 3 by 3 elements</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix.
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details"><a name="eulerRotation"></a><h3>eulerRotation</h3><code class="method_synopsis">static public function <strong class="method_name">eulerRotation</strong>(ax:<span class="unresolved_type_name">Number</span>, ay:<span class="unresolved_type_name">Number</span>, az:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix from the Euler angle in degrees.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>ax</code></td><td>Angle of rotation around X axis in degrees.
+ </td></tr><tr><td><code>ay</code></td><td>Angle of rotation around Y axis in degrees.
+ </td></tr><tr><td><code>az</code></td><td>Angle of rotation around Z axis in degrees.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="rotationX"></a><h3>rotationX</h3><code class="method_synopsis">static public function <strong class="method_name">rotationX</strong>(angle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix for an x axis rotation.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>angle</code></td><td>Angle of rotation.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="rotationY"></a><h3>rotationY</h3><code class="method_synopsis">static public function <strong class="method_name">rotationY</strong>(angle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix for an y axis rotation.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>angle</code></td><td>Angle of rotation.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="rotationZ"></a><h3>rotationZ</h3><code class="method_synopsis">static public function <strong class="method_name">rotationZ</strong>(angle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix for an z axis rotation.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>angle</code></td><td>Angle of rotation.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="axisRotationVector"></a><h3>axisRotationVector</h3><code class="method_synopsis">static public function <strong class="method_name">axisRotationVector</strong>(v:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, angle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix for a general axis of rotation.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>v</code></td><td>The axis of rotation.
+ </td></tr><tr><td><code>angle</code></td><td>The angle of rotation in degrees.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="axisRotation"></a><h3>axisRotation</h3><code class="method_synopsis">static public function <strong class="method_name">axisRotation</strong>(u:<span class="unresolved_type_name">Number</span>, v:<span class="unresolved_type_name">Number</span>, w:<span class="unresolved_type_name">Number</span>, angle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a rotation Matrix4 matrix for a general axis of rotation.
+
+ <p>[<strong>ToDo</strong>: My gosh! Explain this Thomas ;-) ]</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>u</code></td><td>rotation X.
+ </td></tr><tr><td><code>v</code></td><td>rotation Y.
+ </td></tr><tr><td><code>w</code></td><td>rotation Z.
+ </td></tr><tr><td><code>angle</code></td><td>The angle of rotation in degrees.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="translation"></a><h3>translation</h3><code class="method_synopsis">static public function <strong class="method_name">translation</strong>(nTx:<span class="unresolved_type_name">Number</span>, nTy:<span class="unresolved_type_name">Number</span>, nTz:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a translation Matrix4 matrix.
+ 
+ <pre>
+ |1  0  0  0|
+ |0  1  0  0|
+ |0  0  1  0|
+ |Tx Ty Tz 1|
+ </pre>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>nTx</code></td><td>Translation in the x direction.
+ </td></tr><tr><td><code>nTy</code></td><td>Translation in the y direction.
+ </td></tr><tr><td><code>nTz</code></td><td>Translation in the z direction.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="translationVector"></a><h3>translationVector</h3><code class="method_synopsis">static public function <strong class="method_name">translationVector</strong>(v:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a translation Matrix4 matrix from a vector.
+ 
+ <pre>
+ |1  0  0  0|
+ |0  1  0  0|
+ |0  0  1  0|
+ |Tx Ty Tz 1|
+ </pre>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>v</code></td><td>Translation Vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="scale"></a><h3>scale</h3><code class="method_synopsis">static public function <strong class="method_name">scale</strong>(nXScale:<span class="unresolved_type_name">Number</span>, nYScale:<span class="unresolved_type_name">Number</span>, nZScale:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a scale Matrix4 matrix.
+ 
+ <pre>
+ |Sx 0  0  0|
+ |0  Sy 0  0|
+ |0  0  Sz 0|
+ |0  0  0  1|
+ </pre>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>nXScale</code></td><td>Scale factor in the x direction.
+ </td></tr><tr><td><code>nYScale</code></td><td>Scale factor in the y direction.
+ </td></tr><tr><td><code>nZScale</code></td><td>Scale factor in the z direction.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details alt_row"><a name="scaleVector"></a><h3>scaleVector</h3><code class="method_synopsis">static public function <strong class="method_name">scaleVector</strong>(v:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a scale Matrix4 matrix from a scale vector.
+ 
+ <pre>
+ |Sx 0  0  0|
+ |0  Sy 0  0|
+ |0  0  Sz 0|
+ |0  0  0  1|
+ </pre>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>v</code></td><td>The vector containing the scale values.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="det"></a><h3>det</h3><code class="method_synopsis">static public function <strong class="method_name">det</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the determinant of a Matrix4 matrix.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The determinant.
+	 </p></div></div><div class="method_details alt_row"><a name="det3x3"></a><h3>det3x3</h3><code class="method_synopsis">static public function <strong class="method_name">det3x3</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the 3x3 determinant of a Matrix4 matrix.
+
+ <p>Uses the upper left 3 by 3 elements.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The determinant.
+	 </p></div></div><div class="method_details"><a name="getTrace"></a><h3>getTrace</h3><code class="method_synopsis">static public function <strong class="method_name">getTrace</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the trace of a Matrix4 matrix.
+
+ <p>The trace value is the sum of the element on the diagonal of the matrix.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix we want to compute the trace.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The trace value.
+	 </p></div></div><div class="method_details alt_row"><a name="getInverse"></a><h3>getInverse</h3><code class="method_synopsis">static public function <strong class="method_name">getInverse</strong>(m:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Returns the inverse of a Matrix4 matrix.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>m</code></td><td>The matrix to invert.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	The inverse Matrix4 matrix.
+	</p></div></div><div class="method_details"><a name="axisRotationWithReference"></a><h3>axisRotationWithReference</h3><code class="method_synopsis">static public function <strong class="method_name">axisRotationWithReference</strong>(axis:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, ref:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, pAngle:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="method_info"><p>
+ Computes a Matrix4 matrix for a rotation around a specific axis through a specific point.
+ 
+ <p>NOTE - The axis must be normalized!</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>axis</code></td><td>A vector representing the axis of rotation.
+ </td></tr><tr><td><code>ref</code></td><td>The center of rotation.
+ </td></tr><tr><td><code>pAngle</code></td><td>The angle of rotation in degrees.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting matrix.
+	 </p></div></div></div></div><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 3D Library version 2.0" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.math" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alpabetical index of types and members" class="button">Index</a></li></ul><div class="footer"><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator">as2api</a></div></body></html>

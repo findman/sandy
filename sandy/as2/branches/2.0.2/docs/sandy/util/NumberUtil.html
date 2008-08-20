@@ -1,0 +1,66 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.util.NumberUtil - Sandy 3D Library version 2.0</title><script src="../../quicknav.js" type="text/javascript"></script><script><!--
+document.quicknavBasePath="../../index-files";
+//--></script><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../unnatural.css" title="Unnatural" rel="alternate stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.util" rel="up"/><link href="../../sandy/view/CullingState.html" title="Class sandy.view.CullingState" rel="prev"/><link href="../../sandy/util/BitmapUtil.html" title="Class sandy.util.BitmapUtil" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><h1>Class sandy.util.NumberUtil</h1><div class="type_hierachy"><ul><li><strong>sandy.util.NumberUtil</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Utility class for useful numeric constants and number manipulation.
+  
+ </p></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><a href="#HALF_PI" title="static public HALF_PI:Number">HALF_PI</a>, <a href="#PI" title="static public PI:Number">PI</a>, <a href="#TO_DEGREE" title="static public TO_DEGREE:Number">TO_DEGREE</a>, <a href="#TO_RADIAN" title="static public TO_RADIAN:Number">TO_RADIAN</a>, <a href="#TOL" title="static public TOL:Number">TOL</a>, <a href="#TWO_PI" title="static public TWO_PI:Number">TWO_PI</a></div><div class="method_index"><h2>Method Index</h2><a href="#areEqual" title="static public function areEqual(p_nN:Number, p_nM:Number):Boolean">areEqual()</a>, <a href="#constrain" title="static public function constrain(p_nN:Number, p_nMin:Number, p_nMax:Number):Number">constrain()</a>, <a href="#isZero" title="static public function isZero(p_nN:Number):Boolean">isZero()</a>, <a href="#roundTo" title="static public function roundTo(p_nN:Number, p_nRoundToInterval:Number):Number">roundTo()</a>, <a href="#toDegree" title="static public function toDegree(p_nRad:Number):Number">toDegree()</a>, <a href="#toRadian" title="static public function toRadian(p_nDeg:Number):Number">toRadian()</a></div></div><div class="type_details"><div class="field_detail_list"><h2>Field Detail</h2><a name="TWO_PI"></a><h3>TWO_PI</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">TWO_PI</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Math constant pi&#42;2.
+	 </div></div><a name="PI"></a><h3>PI</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">PI</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Math constant pi.
+	 </div></div><a name="HALF_PI"></a><h3>HALF_PI</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">HALF_PI</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Math constant pi/2.
+	 </div></div><a name="TO_DEGREE"></a><h3>TO_DEGREE</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">TO_DEGREE</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Constant used to convert angle from radians to degrees.
+	 </div></div><a name="TO_RADIAN"></a><h3>TO_RADIAN</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">TO_RADIAN</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ Constant used to convert degrees to radians.
+	 </div></div><a name="TOL"></a><h3>TOL</h3><div class="field_details"><code class="field_synopsis">static public <strong class="field_name">TOL</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ Value used to compare numbers with. 
+ 
+ <p>Basically used to say if a number is zero or not.<br />
+ Adjust this number with regard to the precision of your application</p>
+	 </div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="isZero"></a><h3>isZero</h3><code class="method_synopsis">static public function <strong class="method_name">isZero</strong>(p_nN:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Determines if a number is regarded as zero.
+
+ <p>Adjust the TOL property depending on the precision of your application.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nN</code></td><td>The number to compare to zero.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	Whether the number is to be regarded as zero.
+	 </p></div></div><div class="method_details"><a name="areEqual"></a><h3>areEqual</h3><code class="method_synopsis">static public function <strong class="method_name">areEqual</strong>(p_nN:<span class="unresolved_type_name">Number</span>, p_nM:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Compares two numbers and determines if they are equal.
+ 
+ <p>Adjust the TOL property depending on the precision of your application.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nN</code></td><td>The first number.
+ </td></tr><tr><td><code>p_nM</code></td><td>The second number.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	Whether the numbers are regarded as equal.
+	 </p></div></div><div class="method_details alt_row"><a name="toDegree"></a><h3>toDegree</h3><code class="method_synopsis">static public function <strong class="method_name">toDegree</strong>(p_nRad:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Converts an angle from radians to degrees
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nRad</code></td><td>A number representing the angle in radians.
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		The angle in degrees.
+	 </p></div></div><div class="method_details"><a name="toRadian"></a><h3>toRadian</h3><code class="method_synopsis">static public function <strong class="method_name">toRadian</strong>(p_nDeg:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Converts an angle from degrees to radians.
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nDeg</code></td><td>A number representing the angle in dregrees.
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		The angle in radians.
+	 </p></div></div><div class="method_details alt_row"><a name="constrain"></a><h3>constrain</h3><code class="method_synopsis">static public function <strong class="method_name">constrain</strong>(p_nN:<span class="unresolved_type_name">Number</span>, p_nMin:<span class="unresolved_type_name">Number</span>, p_nMax:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Constrains a number to a given interval.
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nN</code></td><td>The number to constrain.
+ </td></tr><tr><td><code>p_nMin</code></td><td>The minimal valid value.
+ </td></tr><tr><td><code>p_nMax</code></td><td>The maximal valid value.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		The constrained number.
+	 </p></div></div><div class="method_details"><a name="roundTo"></a><h3>roundTo</h3><code class="method_synopsis">static public function <strong class="method_name">roundTo</strong>(p_nN:<span class="unresolved_type_name">Number</span>, p_nRoundToInterval:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Rounds a number to specified accuracy.
+
+ <p>To round off the number to 2 decimals, set the the accuracy to 0.01</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nN</code></td><td>The number to round.
+ </td></tr><tr><td><code>p_nRoundToInterval</code></td><td>The accuracy to which to round.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 			The rounded number.
+	 </p></div></div></div></div><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 3D Library version 2.0" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.util" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alpabetical index of types and members" class="button">Index</a></li></ul><div class="footer"><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator">as2api</a></div></body></html>

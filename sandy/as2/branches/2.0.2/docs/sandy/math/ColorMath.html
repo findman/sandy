@@ -1,0 +1,37 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.math.ColorMath - Sandy 3D Library version 2.0</title><script src="../../quicknav.js" type="text/javascript"></script><script><!--
+document.quicknavBasePath="../../index-files";
+//--></script><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../unnatural.css" title="Unnatural" rel="alternate stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.math" rel="up"/><link href="../../sandy/math/FastMath.html" title="Class sandy.math.FastMath" rel="prev"/><link href="../../sandy/materials/ZShaderMaterial.html" title="Class sandy.materials.ZShaderMaterial" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><h1>Class sandy.math.ColorMath</h1><div class="type_hierachy"><ul><li><strong>sandy.math.ColorMath</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Math functions for colors.
+  
+ </p></div><div class="type_indexes"><div class="method_index"><h2>Method Index</h2><a href="#applyAlpha" title="static public function applyAlpha(c:Number, a:Number):Number">applyAlpha()</a>, <a href="#calculateLitColour" title="static public function calculateLitColour(col:Number, lightStrength:Number):Number">calculateLitColour()</a>, <a href="#hex2rgb" title="static public function hex2rgb(hex:Number):Object">hex2rgb()</a>, <a href="#hex2rgbn" title="static public function hex2rgbn(hex:Number):Object">hex2rgbn()</a>, <a href="#rgb2hex" title="static public function rgb2hex(r:Number, g:Number, b:Number):Number">rgb2hex()</a></div></div><div class="type_details"><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="applyAlpha"></a><h3>applyAlpha</h3><code class="method_synopsis">static public function <strong class="method_name">applyAlpha</strong>(c:<span class="unresolved_type_name">Number</span>, a:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Returns the color with altered alpha value.
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>c</code></td><td>32-bit color.
+ </td></tr><tr><td><code>a</code></td><td>New alpha ( 0 - 1 ).
+
+ </td></tr></table><h4>Return</h4><p class="extra_info">	The hexadecimal value of the altered color.
+	 </p></div></div><div class="method_details"><a name="rgb2hex"></a><h3>rgb2hex</h3><code class="method_synopsis">static public function <strong class="method_name">rgb2hex</strong>(r:<span class="unresolved_type_name">Number</span>, g:<span class="unresolved_type_name">Number</span>, b:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Converts color component values ( RGB ) to one hexadecimal value.
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>r</code></td><td>Red color ( 0 - 255 ).
+ </td></tr><tr><td><code>g</code></td><td>Green color ( 0 - 255 ).
+ </td></tr><tr><td><code>b</code></td><td>Blue color ( 0 - 255 ).
+
+ </td></tr></table><h4>Return</h4><p class="extra_info">	The hexadecimal value of the RGB color.
+	 </p></div></div><div class="method_details alt_row"><a name="hex2rgb"></a><h3>hex2rgb</h3><code class="method_synopsis">static public function <strong class="method_name">hex2rgb</strong>(hex:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Object</span></code><div class="method_info"><p>
+ Converts a hexadecimal color value to RGB components
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>hex</code></td><td>Hexadecimal color.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info">	The RGB color of the hexadecimal.
+	 </p></div></div><div class="method_details"><a name="hex2rgbn"></a><h3>hex2rgbn</h3><code class="method_synopsis">static public function <strong class="method_name">hex2rgbn</strong>(hex:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Object</span></code><div class="method_info"><p>
+ Converts hexadecimal color value to normalized rgb components ( 0 - 1 ).
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>hex</code></td><td>hexadecimal color value.
+ </td></tr></table><h4>Return</h4><p class="extra_info">	The normalized rgb components ( 0 - 1 ).
+	</p></div></div><div class="method_details alt_row"><a name="calculateLitColour"></a><h3>calculateLitColour</h3><code class="method_synopsis">static public function <strong class="method_name">calculateLitColour</strong>(col:<span class="unresolved_type_name">Number</span>, lightStrength:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Calculate the color for a particular lighting strength.
+ <p>This converts the supplied pre-multiplied RGB color into HSL then modifies the L according to the light strength. 
+ The result is then mapped back into the RGB space.</p>
+	 </p></div></div></div></div><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 3D Library version 2.0" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.math" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alpabetical index of types and members" class="button">Index</a></li></ul><div class="footer"><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator">as2api</a></div></body></html>

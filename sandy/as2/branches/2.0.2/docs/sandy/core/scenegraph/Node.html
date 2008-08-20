@@ -1,0 +1,170 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.core.scenegraph.Node - Sandy 3D Library version 2.0</title><script src="../../../quicknav.js" type="text/javascript"></script><script><!--
+document.quicknavBasePath="../../../index-files";
+//--></script><link href="../../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../../unnatural.css" title="Unnatural" rel="alternate stylesheet" type="text/css"/><link href="../../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.core.scenegraph" rel="up"/><link href="../../../sandy/core/scenegraph/Shape3D.html" title="Class sandy.core.scenegraph.Shape3D" rel="prev"/><link href="../../../sandy/core/scenegraph/INodeOperation.html" title="Interface sandy.core.scenegraph.INodeOperation" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><h1>Class sandy.core.scenegraph.Node</h1><div class="type_hierachy"><ul><li><strong>sandy.core.scenegraph.Node</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ ABSTRACT CLASS - Base class for all nodes in the object tree.
+
+ <p>The base class for all Group and object nodes,
+ that handles all basic operations on a tree node.</p>
+
+ </p></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><a href="#appearance" title="public appearance:Appearance">appearance</a>, <a href="#boundingBox" title="public boundingBox:BBox">boundingBox</a>, <a href="#boundingSphere" title="public boundingSphere:BSphere">boundingSphere</a>, <a href="#broadcaster" title="public broadcaster:BubbleEventBroadcaster">broadcaster</a>, <a href="#changed" title="public changed:Boolean">changed</a>, <a href="#children" title="public children:Array">children</a>, <a href="#culled" title="public culled:CullingState">culled</a>, <a href="#enableBackFaceCulling" title="public enableBackFaceCulling:Boolean">enableBackFaceCulling</a>, <a href="#enableEvents" title="public enableEvents:Boolean">enableEvents</a>, <a href="#enableInteractivity" title="public enableInteractivity:Boolean">enableInteractivity</a>, <a href="#id" title="public id:Number">id</a>, <a href="#modelMatrix" title="public modelMatrix:Matrix4">modelMatrix</a>, <a href="#name" title="public name:String">name</a>, <a href="#parent" title="public parent:Node">parent</a>, <a href="#scene" title="public scene:Scene3D">scene</a>, <a href="#useSingleContainer" title="public useSingleContainer:Boolean">useSingleContainer</a>, <a href="#viewMatrix" title="public viewMatrix:Matrix4">viewMatrix</a>, <a href="#visible" title="public visible:Boolean">visible</a></div><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#Node" title="public function Node(p_sName:String)">Node()</a></code></div><a href="#addChild" title="public function addChild(p_oChild:Node):Void">addChild()</a>, <a href="#addEventListener" title="public function addEventListener(p_sEvt:EventType, p_oL):Boolean">addEventListener()</a>, <a href="#cull" title="public function cull(p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean):Void">cull()</a>, <a href="#destroy" title="public function destroy():Void">destroy()</a>, <a href="#getChildByName" title="public function getChildByName(p_sName:String, p_bRecurs:Boolean):Node">getChildByName()</a>, <a href="#hasParent" title="public function hasParent():Boolean">hasParent()</a>, <a href="#isParent" title="public function isParent(p_oNode:Node):Boolean">isParent()</a>, <a href="#perform" title="public function perform(p_iOperation:INodeOperation):Void">perform()</a>, <a href="#remove" title="public function remove():Void">remove()</a>, <a href="#removeChildByName" title="public function removeChildByName(p_sName:String):Boolean">removeChildByName()</a>, <a href="#removeEventListener" title="public function removeEventListener(p_sEvt:EventType, p_oL):Void">removeEventListener()</a>, <a href="#render" title="public function render(p_oScene:Scene3D, p_oCamera:Camera3D):Void">render()</a>, <a href="#swapParent" title="public function swapParent(p_oNewParent:Node):Void">swapParent()</a>, <a href="#toString" title="public function toString():String">toString()</a>, <a href="#update" title="public function update(p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean):Void">update()</a></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="Node"></a><h3>Node</h3><code class="method_synopsis">public function <strong class="method_name">Node</strong>(p_sName:<span class="unresolved_type_name">String</span>)</code><div class="method_info"><p>
+ Creates a node in the object tree of the world.
+
+ <p>This constructor should normally not be called directly, only from a sub class.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sName</code></td><td>A string identifier for this object.
+	 </td></tr></table></div></div></div><div class="field_detail_list"><h2>Field Detail</h2><a name="culled"></a><h3>culled</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">culled</strong>:<a href="../../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="field_info">
+ This property represent the culling state of the current node.
+ This state is defined during the culling phasis as it refers to the position of the object against the viewing frustum.
+	 </div></div><a name="name"></a><h3>name</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">name</strong>:<span class="unresolved_type_name">String</span></code><div class="field_info">
+ Name of this node.
+ Of no name is specified, the unique ID of the node will be used
+	 </div></div><a name="children"></a><h3>children</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">children</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info">
+ The children of this node are stored inside this array.
+ IMPORTANT: Use this property mainly as READ ONLY. To add, delete or search a specific child, you can use the specific method to do that
+	 </div></div><a name="modelMatrix"></a><h3>modelMatrix</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">modelMatrix</strong>:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="field_info">
+  Cached matrix corresponding to the transformation to the 0,0,0 frame system
+	 </div></div><a name="viewMatrix"></a><h3>viewMatrix</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">viewMatrix</strong>:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a></code><div class="field_info">
+ Cached matrix corresponding to the transformation to the camera frame system
+	 </div></div><a name="boundingBox"></a><h3>boundingBox</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">boundingBox</strong>:<a href="../../../sandy/bounds/BBox.html" class="class_name" title="Class sandy.bounds.BBox">BBox</a></code><div class="field_info">
+ The bounding box of this node
+ IMPORTANT: Do not modify it unless you perfectly know what you are doing
+	 </div></div><a name="boundingSphere"></a><h3>boundingSphere</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">boundingSphere</strong>:<a href="../../../sandy/bounds/BSphere.html" class="class_name" title="Class sandy.bounds.BSphere">BSphere</a></code><div class="field_info">
+ The bounding sphere of this node
+ IMPORTANT: Do not modify it unless you perfectly know what you are doing
+	 </div></div><a name="id"></a><h3>id</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">id</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info">
+ The unique id of this node in the node graph.
+ <p>This value is very useful to retrieve a specific node.</p>
+	 </div></div><a name="visible"></a><h3>visible</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">visible</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info">
+ Specify the visibility of this node.
+ If true, the node is visible, if fase, it will not be displayed.
+	 </div></div><a name="scene"></a><h3>scene</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">scene</strong>:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a></code><div class="field_info">
+ Reference to the scene is it linked to.
+ Initialized at null.
+	 </div></div><a name="broadcaster"></a><h3>broadcaster</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">broadcaster</strong>:<span class="unresolved_type_name">BubbleEventBroadcaster</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info">
+ The broadcaster
+
+ <p>The broadcaster is used to send events to listeners.<br />
+ This property is a BubbleEventBroadcaster.</p>
+
+ </div></div><a name="useSingleContainer"></a><h3>useSingleContainer</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">useSingleContainer</strong>:<span class="unresolved_type_name">Boolean</span> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ Make all the Shape3D and descendants children react to this value.
+ </div></div><a name="enableBackFaceCulling"></a><h3>enableBackFaceCulling</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">enableBackFaceCulling</strong>:<span class="unresolved_type_name">Boolean</span> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ Change the backface culling state to all the shapes objects in the children list
+	 </div></div><a name="enableInteractivity"></a><h3>enableInteractivity</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">enableInteractivity</strong>:<span class="unresolved_type_name">Boolean</span> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ Change the interactivity of all the children
+	 </div></div><a name="enableEvents"></a><h3>enableEvents</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">enableEvents</strong>:<span class="unresolved_type_name">Boolean</span> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ Enable event handling to all the children objects that can broadcast bubbling events
+	 </div></div><a name="appearance"></a><h3>appearance</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">appearance</strong>:<a href="../../../sandy/materials/Appearance.html" class="class_name" title="Class sandy.materials.Appearance">Appearance</a> <em class="read_write_only">[Write Only]</em></code><div class="field_info">
+ Set that appearance to all the children of that node
+	 </div></div><a name="parent"></a><h3>parent</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">parent</strong>:<a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a></code><div class="field_info">
+ The parent node of this node.
+
+ <p>The reference is null if this nod has no parent (for example for a root node).</p>
+	 </div></div><a name="changed"></a><h3>changed</h3><div class="field_details"><code class="field_synopsis">public <strong class="field_name">changed</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info">
+ This property set the cache status of the current node.
+ IMPORTANT Currently this property isn't used!
+	 </div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="addEventListener"></a><h3>addEventListener</h3><code class="method_synopsis">public function <strong class="method_name">addEventListener</strong>(p_sEvt:<span class="unresolved_type_name">EventType</span>, p_oL):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Adds a listener for the specified event.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sEvt</code></td><td>Name of the Event.
+ </td></tr><tr><td><code>p_oL</code></td><td>Listener object.
+	 </td></tr></table></div></div><div class="method_details"><a name="removeEventListener"></a><h3>removeEventListener</h3><code class="method_synopsis">public function <strong class="method_name">removeEventListener</strong>(p_sEvt:<span class="unresolved_type_name">EventType</span>, p_oL):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Removes a listener for the specified event.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sEvt</code></td><td>Name of the Event.
+ </td></tr></table></div></div><div class="method_details alt_row"><a name="isParent"></a><h3>isParent</h3><code class="method_synopsis">public function <strong class="method_name">isParent</strong>(p_oNode:<a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Tests if the node passed in the argument is parent of this node.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oNode</code></td><td>The node you are testing
+ </td></tr></table><h4>Return</h4><p class="extra_info">		true if the node in the argument is the parent of this node, false otherwise.
+	 </p></div></div><div class="method_details"><a name="hasParent"></a><h3>hasParent</h3><code class="method_synopsis">public function <strong class="method_name">hasParent</strong>():<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Tests if this node has a parent.
+
+ </p><h4>Return</h4><p class="extra_info"> 	true if this node has a parent, false otherwise.
+	 </p></div></div><div class="method_details alt_row"><a name="addChild"></a><h3>addChild</h3><code class="method_synopsis">public function <strong class="method_name">addChild</strong>(p_oChild:<a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Adds a new child to this node.
+
+ <p>A node can have several children, and when you add a child to a node,
+ it is automatically connected to the parent node through its parent property.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oChild</code></td><td>The child node to add
+	 </td></tr></table></div></div><div class="method_details"><a name="getChildByName"></a><h3>getChildByName</h3><code class="method_synopsis">public function <strong class="method_name">getChildByName</strong>(p_sName:<span class="unresolved_type_name">String</span>, p_bRecurs:<span class="unresolved_type_name">Boolean</span>):<a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a></code><div class="method_info"><p>
+ Returns the child node with the specified name.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sName</code></td><td>The name of the child you want to retrieve
+ </td></tr><tr><td><code>p_bRecurs</code></td><td>Set to true if you want to search the the children for the requested node
+
+ </td></tr></table><h4>Return</h4><p class="extra_info">		The requested node or null if no child with this name was found
+	 </p></div></div><div class="method_details alt_row"><a name="swapParent"></a><h3>swapParent</h3><code class="method_synopsis">public function <strong class="method_name">swapParent</strong>(p_oNewParent:<a href="../../../sandy/core/scenegraph/Node.html" class="class_name" title="Class sandy.core.scenegraph.Node">Node</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Moves this node to another parent node.
+
+ <p>This node is removed from its current parent node, and added as a child of the specified node</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oNewParent</code></td><td>The node to become parent of this node
+	 </td></tr></table></div></div><div class="method_details"><a name="removeChildByName"></a><h3>removeChildByName</h3><code class="method_synopsis">public function <strong class="method_name">removeChildByName</strong>(p_sName:<span class="unresolved_type_name">String</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Removes the child node with the specified name.
+
+ <p>All children of the node you want to remove are lost.<br/>
+ The link between them and the rest of the tree is broken, and they will not be rendered anymore!</p>
+ <p>The object itself and its children are still in memory!<br/>
+ If you want to free them completely, call child.destroy()</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sName</code></td><td>The name of the node you want to remove.
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 			true if the node was removed from node tree, false otherwise.
+	 </p></div></div><div class="method_details alt_row"><a name="destroy"></a><h3>destroy</h3><code class="method_synopsis">public function <strong class="method_name">destroy</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Delete this node and all its child nodes.
+
+ <p>This node nad all its child nodes are deleted, including all data they are storing.<br/>
+ The method makes recursive calls to the destroy method of the child nodes.
+	 </p></div></div><div class="method_details"><a name="remove"></a><h3>remove</h3><code class="method_synopsis">public function <strong class="method_name">remove</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Removes this node from the node tree, saving its child nodes.
+
+ <p>NOTE that remove method only remove the current node and NOT its children!<br />
+ To remove the current node and all its children please refer to the destroy method.</p>
+ <p>The child nodes of this node becomes child nodes of this node's parent.</p>
+	 </p></div></div><div class="method_details alt_row"><a name="update"></a><h3>update</h3><code class="method_synopsis">public function <strong class="method_name">update</strong>(p_oScene:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oModelMatrix:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, p_bChanged:<span class="unresolved_type_name">Boolean</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Updates this node.
+
+ <p>For a node with transformation, this method update the transformation taking into account the matrix cache system.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The current scene
+ </td></tr><tr><td><code>p_oModelMatrix</code></td><td></td></tr><tr><td><code>p_bChanged</code></td><td></td></tr></table></div></div><div class="method_details"><a name="cull"></a><h3>cull</h3><code class="method_synopsis">public function <strong class="method_name">cull</strong>(p_oScene:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oFrustum:<a href="../../../sandy/view/Frustum.html" class="class_name" title="Class sandy.view.Frustum">Frustum</a>, p_oViewMatrix:<a href="../../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, p_bChanged:<span class="unresolved_type_name">Boolean</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Tests this node against the frustum volume to get its visibility.
+
+ <p>If the node and its children aren't in the frustum, the node is set to cull
+ and will not be displayed.<br/>
+ <p>The method also updates the bounding volumes, to make a more accurate culling system possible.<br/>
+ First the bounding sphere is updated, and if intersecting, the bounding box is updated to perform a more
+ precise culling.</p>
+ <p><b>[MANDATORY] The update method must be called first!</b></p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The current scene
+ </td></tr><tr><td><code>p_oFrustum</code></td><td>The frustum of the current camera
+ </td></tr><tr><td><code>p_oViewMatrix</code></td><td><b>[ToDo: explain]</b>
+ </td></tr><tr><td><code>p_bChanged</code></td><td><b>[ToDo: explain]</b>
+
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="render"></a><h3>render</h3><code class="method_synopsis">public function <strong class="method_name">render</strong>(p_oScene:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oCamera:<a href="../../../sandy/core/scenegraph/Camera3D.html" class="class_name" title="Class sandy.core.scenegraph.Camera3D">Camera3D</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Renders this node.
+
+ <p>Overridden in sub classes</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The current scene
+ </td></tr><tr><td><code>p_oCamera</code></td><td>The camera of the world
+	 </td></tr></table></div></div><div class="method_details"><a name="perform"></a><h3>perform</h3><code class="method_synopsis">public function <strong class="method_name">perform</strong>(p_iOperation:<a href="../../../sandy/core/scenegraph/INodeOperation.html" class="interface_name" title="Interface sandy.core.scenegraph.INodeOperation">INodeOperation</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Performs an operation on this node and all of its children.
+ 
+ <p>Traverses the subtree made up of this node and all of its children.
+ While traversing the subtree, individual operations are performed 
+ on entry and exit of each node of the subtree.</p>
+ <p>Implements the visitor design pattern: 
+ Using the visitor design pattern, you can define a new operation on Node
+ and its subclasses without having to change the classes and without having
+ to take care of traversing the node tree.</p>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_iOperation</code></td><td>The operation to be performed on the node subtree
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="toString"></a><h3>toString</h3><code class="method_synopsis">public function <strong class="method_name">toString</strong>():<span class="unresolved_type_name">String</span></code><div class="method_info"><p>
+ Returns a string representation of this object
+
+ </p><h4>Return</h4><p class="extra_info">	The fully qualified name of this class
+	 </p></div></div></div></div><ul class="main_nav" id="main_nav"><li><a href="../../../overview-summary.html" title="Overview of Sandy 3D Library version 2.0" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.core.scenegraph" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../../index-files/index.html" title="Alpabetical index of types and members" class="button">Index</a></li></ul><div class="footer"><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator">as2api</a></div></body></html>
