@@ -253,9 +253,9 @@ package sandy.math
 		public static function eulerRotation ( ax:Number, ay:Number, az:Number ) : Matrix4
 		{
 			var m:Matrix4 = new Matrix4();
-			ax = NumberUtil.toRadian(ax);
-			ay = NumberUtil.toRadian(ay);
-			az = NumberUtil.toRadian(az);
+			ax = - NumberUtil.toRadian(ax);
+			ay =   NumberUtil.toRadian(ay);
+			az = - NumberUtil.toRadian(az);
 			// --
 			const a:Number = ( USE_FAST_MATH == false ) ? Math.cos( ax ) : FastMath.cos(ax);
 			const b:Number = ( USE_FAST_MATH == false ) ? Math.sin( ax ) : FastMath.sin(ax);
@@ -267,13 +267,13 @@ package sandy.math
 			const bd:Number = b * d	;
 	
 			m.n11 =   c  * e         ;
-			m.n12 = - c  * f         ;
-			m.n13 =   d              ;
-			m.n21 =   bd * e + a * f ;
-			m.n22 = - bd * f + a * e ;
-			m.n23 = - b  * c 	 ;
-			m.n31 = - ad * e + b * f ;
-			m.n32 =   ad * f + b * e ;
+			m.n12 =   c  * f         ;
+			m.n13 = - d              ;
+			m.n21 =   bd * e - a * f ;
+			m.n22 =   bd * f + a * e ;
+			m.n23 =   b  * c 	 ;
+			m.n31 =   ad * e + b * f ;
+			m.n32 =   ad * f - b * e ;
 			m.n33 =   a  * c         ;
 		
 			return m;
