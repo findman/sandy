@@ -877,38 +877,28 @@ package sandy.core.data
 		/**
 		 * Get the Euler angles from the rotation matrix.
 		 *
-		 * @param t The Matrix4 instance from which to extract these angles.
-		 * 
 		 * @return A vector representing the Euler angles.
 		 */
-		public static function getEulerAngles( t:Matrix4 ):Vector
+		public final function getEulerAngles():Vector
 		{
-			var lAngleY:Number = Math.asin( t.n13 );
-			var lCos:Number = Math.cos( lAngleY );
-			
-			//lAngleY *= NumberUtil.TO_DEGREE;
-			var lTrx:Number, lTry:Number, lAngleX:Number, lAngleZ:Number;
-			
-			if( Math.abs( lCos ) > 0.005 )
+			// is there any point in NumberUtil.TO_DEGREE ?
+			var lToDegree:Number = 57.295779513;
+
+			// we cannot know real sign of lAngleY from n13 alone
+			var lAngleY:Number = Math.asin( -this.n13 ) * lToDegree;
+
+			var lAngleX:Number, lAngleZ:Number;
+
+			if( !NumberUtil.isZero( Math.abs( this.n13 ) -1) )
 			{
-				lTrx = t.n33 / lCos;
-				lTry = -t.n22 / lCos;
-				lAngleX = Math.atan2( lTry, lTrx );
-				// --
-				lTrx = t.n11 / lCos;
-				lTry = -t.n12 / lCos;
-				lAngleZ = Math.atan2( lTry, lTrx );
+				lAngleX = -Math.atan2( this.n23, this.n33 ) * lToDegree;
+				lAngleZ = -Math.atan2( this.n12, this.n11 ) * lToDegree;
 			}
 			else
 			{
 				lAngleX = 0;
-				lTrx = t.n22;
-				lTry = t.n21;
-				lAngleZ = Math.atan2( lTry, lTrx );
+				lAngleZ = Math.atan2( -this.n21, this.n22 );
 			}
-			
-			//lAngleX *= NumberUtil.TO_DEGREE;
-			//lAngleZ *= NumberUtil.TO_DEGREE;
 			
 			if( lAngleX < 0 ) lAngleX += 360;
 			if( lAngleY < 0 ) lAngleY += 360;
@@ -916,6 +906,7 @@ package sandy.core.data
 			
 			return new Vector( lAngleX, lAngleY, lAngleZ );
 		}
+
 		/**
 		 * Get a string representation of the {@code Matrix4} in a format useful for XML output
 		 *
