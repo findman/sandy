@@ -48,8 +48,8 @@ package sandy.core
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @author		Xavier Martin - zeflasher - http://dev.webbymx.net
-	 * @version		3.1
-	 * @date 		07.09.2007
+	 * @version		3.0.3
+	 * @date 		25.08.2008
 	 */
 	public class World3D extends Scene3D
 	{
@@ -91,15 +91,7 @@ package sandy.core
 			return instance;
 		}
 
-		/**
-		 * Returns a version string ("3.0.3"), useful for conditional code
-		 */	
-		public static function getVersion( ) : String
-		{
-			return _version;
-		}
-
-		
+	
 		/**
 		 * Returns a string representation of this object.
 		 *
@@ -117,6 +109,5 @@ package sandy.core
 		private var _light : Light3D; //the unique light instance of the world
 		private static var instance:World3D;
 		private static var create:Boolean;
-		private static var _version:String = "3.0.3";
 	}
 }
