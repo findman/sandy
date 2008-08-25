@@ -849,10 +849,10 @@ package sandy.core.data
 		public final function eulerRotation ( ax:Number, ay:Number, az:Number ) : void
 		{
 			identity();
-			//
-			ax = NumberUtil.toRadian(ax);
-			ay = NumberUtil.toRadian(ay);
-			az = NumberUtil.toRadian(az);
+			// signs are changed due to left coordinate system
+			ax = - NumberUtil.toRadian(ax);
+			ay =   NumberUtil.toRadian(ay);
+			az = - NumberUtil.toRadian(az);
 			// --
 			const a:Number = ( USE_FAST_MATH == false ) ? Math.cos( ax ) : FastMath.cos(ax);
 			const b:Number = ( USE_FAST_MATH == false ) ? Math.sin( ax ) : FastMath.sin(ax);
@@ -862,15 +862,15 @@ package sandy.core.data
 			const f:Number = ( USE_FAST_MATH == false ) ? Math.sin( az ) : FastMath.sin(az);
 			const ad:Number = a * d	;
 			const bd:Number = b * d	;
-			//
+			// signs are changed to match formulas 46 to 54 at http://mathworld.wolfram.com/EulerAngles.html
 			n11 =   c  * e         ;
-			n12 = - c  * f         ;
+			n12 =   c  * f         ;
 			n13 = - d              ;
-			n21 = - bd * e + a * f ;
-			n22 = - bd * f + a * e ;
-			n23 = - b  * c 	 ;
+			n21 =   bd * e - a * f ;
+			n22 =   bd * f + a * e ;
+			n23 =   b  * c 	 ;
 			n31 =   ad * e + b * f ;
-			n32 = - ad * f + b * e ;
+			n32 =   ad * f - b * e ;
 			n33 =   a  * c         ;
 		}
 		
