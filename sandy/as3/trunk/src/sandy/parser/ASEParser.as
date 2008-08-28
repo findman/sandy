@@ -148,7 +148,7 @@ package sandy.parser
 							var mfl:String = content.split(  '*' )[0];
 							//"MESH_FACE    0:    A:    777 B:    221 C:    122 AB:    1 BC:    1 CA:    1 *MESH_SMOOTHING 1   *MESH_MTLID 0"
 							//"MESH_FACE   10: A:  325 B:  155 C:  327	 *MESH_SMOOTHING 0 	*MESH_MTLID 0"
-							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)/
+							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)\s+.*/
 							id = uint(mfl.replace(faceReg, "$1"));
 							var p1:uint = uint(mfl.replace(faceReg, "$2"));
 							var p2:uint = uint(mfl.replace(faceReg, "$3"));
