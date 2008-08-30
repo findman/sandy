@@ -56,7 +56,7 @@ package sandy.parser
 		private var endFrame:uint;
 		private var lastRotation:Quaternion;
 
-		private var textureFileName:String;
+		private var textureFileNames:Array;
 
 		/**
 		 * Creates a new Parser3DS instance.
@@ -69,7 +69,7 @@ package sandy.parser
 		public function Parser3DS( p_sUrl:String, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
 			super( p_sUrl, p_nScale, p_sTextureExtension );
-			m_sDataFormat = URLLoaderDataFormat.BINARY;
+			m_sDataFormat = URLLoaderDataFormat.BINARY; textureFileNames = [];
 		}
 
 		/**
@@ -131,7 +131,7 @@ package sandy.parser
 						break;
 					case Parser3DSChunkTypes.MAT_TEXFLNM:
 						// texture file name
-						textureFileName = readString ();
+						textureFileNames.push (readString ());
 						break;
 
 				    case Parser3DSChunkTypes.EDIT_OBJECT:
@@ -143,8 +143,8 @@ package sandy.parser
 					        if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 							m_oGroup.addChild( l_oShape );
 						// untested, may not work... but should
-						if (textureFileName != null)
-							applyTextureToShape (l_oShape, textureFileName);
+						if (textureFileNames.length > 0)
+							applyTextureToShape (l_oShape, textureFileNames.shift ());
 					    }
 					    // --
 					    var str:String = readString();
@@ -504,8 +504,8 @@ package sandy.parser
 			if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 			m_oGroup.addChild( l_oShape );
 			// -- Parsing is finished
-			if (textureFileName != null)
-				applyTextureToShape (l_oShape, textureFileName);
+			if (textureFileNames.length > 0)
+				applyTextureToShape (l_oShape, textureFileNames.shift ());
 			dispatchInitEvent ();
 		}
 
