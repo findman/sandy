@@ -495,7 +495,7 @@ package sandy.parser
 			            data.position += l_chunk_length-6;
 					// if this points backwards, we have some parsing error :(
 					// if we're lucky, some valid geometry may be already parsed
-					if (l_chunk_length-6 < 1)
+					if (l_chunk_length-6 < 0)
 						data.position += data.bytesAvailable;
 			 	}
 			}
