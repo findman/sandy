@@ -101,9 +101,10 @@ package sandy.parser
 		 * 							file or an instance of an embedded file
 		 * @param p_sParserType		The parser type string
 		 * @param p_nScale			The scale factor
+		 * @param p_sTextureExtension	Overrides texture extension.
 		 * @return					The parser to be used
 		 */		
-		public static function create( p_sFile:*, p_sParserType:String=null, p_nScale:Number=1 ):IParser
+		public static function create( p_sFile:*, p_sParserType:String=null, p_nScale:Number=1, p_sTextureExtension:String = null ):IParser
 		{
 			var l_sExt:String,l_iParser:IParser = null;
 			// --
@@ -119,16 +120,16 @@ package sandy.parser
 			switch( l_sExt.toUpperCase() )
 			{
 				case ASE:
-					l_iParser = new ASEParser( p_sFile, p_nScale );
+					l_iParser = new ASEParser( p_sFile, p_nScale, p_sTextureExtension );
 					break;
 				case MD2:
-					l_iParser = new MD2Parser( p_sFile, p_nScale );
+					l_iParser = new MD2Parser( p_sFile, p_nScale, p_sTextureExtension );
 					break;
 				case COLLADA:
-					l_iParser = new ColladaParser( p_sFile, p_nScale );
+					l_iParser = new ColladaParser( p_sFile, p_nScale, p_sTextureExtension );
 					break;
 				case MAX_3DS:
-					l_iParser = new Parser3DS( p_sFile, p_nScale );
+					l_iParser = new Parser3DS( p_sFile, p_nScale, p_sTextureExtension );
 					break;
 				default:
 					break;

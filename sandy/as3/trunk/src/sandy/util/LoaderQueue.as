@@ -206,7 +206,7 @@ package sandy.util
 		 */
 		private function ioErrorHandler( p_oEvent : IOErrorEvent ) : void
 		{	
-			trace( p_oEvent.text );
+			trace( "LoaderQueue.ioErrorHandler: " + p_oEvent.text );
 			// Fire an event to indicate that a single resource loading failed (needs to be enhanced to provide more info)
 			dispatchEvent( m_oQueueLoaderError );
 			

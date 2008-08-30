@@ -58,10 +58,12 @@ package sandy.parser
 		 * @param p_sUrl		This can be either a String containing an URL or a
 		 * 						an embedded object
 		 * @param p_nScale		The scale factor
+		 * @param p_sTextureExtension	Overrides texture extension. You might want to use it for models that
+		 * specify PSD or TGA textures.
 		 */
-		public function ASEParser( p_sUrl:*, p_nScale:Number )
+		public function ASEParser( p_sUrl:*, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
-			super( p_sUrl, p_nScale );
+			super( p_sUrl, p_nScale, p_sTextureExtension );
 		}
 
 		/**
@@ -86,6 +88,9 @@ package sandy.parser
 			var l_oShape:Shape3D = null;
 			var l_sLastNodeName:String = null;
 			// --
+			var recToGet2:Array = [];
+			var m_textureNames:Array = [];
+			// --
 			while( lines.length )
 			{
 				var event:ParserEvent = new ParserEvent( ParserEvent.PARSING );
@@ -102,6 +107,17 @@ package sandy.parser
 				//--
 				switch( chunk )
 				{
+					case 'BITMAP':
+					{
+						// ideally, we need to load these only from *MAP_DIFFUSE { ... }
+
+						// *BITMAP "f:\models\mapobjects\kt_barge\kt_barge_grey.tga"
+						// *BITMAP "F:\my_stuff\3d\studentCap\workfiles\textures\studentCap_color_002.psd"
+						var texReg:RegExp = /BITMAP.+[\"\\]([^\"\\]+)\"\s*/
+						m_textureNames.push (line.replace (texReg, "$1"));
+						break;
+					}
+
 					case 'GEOMOBJECT':
 					{
 						// we need to catch this before NODE_NAME
@@ -187,11 +203,26 @@ package sandy.parser
 						}
 						break;
 					}
+
+					case 'MATERIAL_REF':
+					{
+						// *MATERIAL_REF 0
+						var refReg:RegExp = /MATERIAL_REF\s+(\d+)\s*/
+						recToGet2.push (parseInt (line.replace (refReg, "$1")));
+						
+						break;
+					}
 				}
 			}
 			// --
 			l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
 			m_oGroup.addChild( l_oShape );
+
+			for(var i:int = 0; i<m_oGroup.children.length; i++)
+			{
+				applyTextureToShape (Shape3D (m_oGroup.children[i]), m_textureNames[recToGet2[i]]);
+			}
+
 			// -- Parsing is finished
 			dispatchInitEvent ();
 		}

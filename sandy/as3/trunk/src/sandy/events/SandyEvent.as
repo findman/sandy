@@ -103,7 +103,7 @@ package sandy.events
 
 	    /**
 		 * Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
-	     * Uneeded? Also in QueueEvent class...
+	     * Deprecated, use QueueEvent.QUEUE_COMPLETE instead.
 	     *
 	     * @eventType queueComplete
 	     *
@@ -113,7 +113,7 @@ package sandy.events
 
 	    /**
 		 * Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
-	     * Uneeded? Also in QueueEvent class...
+	     * Deprecated, use QueueEvent.QUEUE_LOADER_ERROR instead.
 	     *
 	     * @eventType queueLoaderError
 	     *

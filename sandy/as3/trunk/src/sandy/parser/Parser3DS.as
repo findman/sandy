@@ -56,15 +56,19 @@ package sandy.parser
 		private var endFrame:uint;
 		private var lastRotation:Quaternion;
 
+		private var textureFileName:String;
+
 		/**
 		 * Creates a new Parser3DS instance.
 		 *
 		 * @param p_sUrl		A String pointing to the location of the 3DS file
 		 * @param p_nScale		The scale factor
+		 * @param p_sTextureExtension	Overrides texture extension. You might want to use it for models that
+		 * specify BMP textures.
 		 */
-		public function Parser3DS( p_sUrl:String, p_nScale:Number )
+		public function Parser3DS( p_sUrl:String, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
-			super( p_sUrl, p_nScale );
+			super( p_sUrl, p_nScale, p_sTextureExtension );
 			m_sDataFormat = URLLoaderDataFormat.BINARY;
 		}
 
@@ -118,6 +122,17 @@ package sandy.parser
 				   	case Parser3DSChunkTypes.KEYF3DS:
 				   		//trace("0xB000 KEYF3DS");
 				   		break;
+
+					case Parser3DSChunkTypes.EDIT_MATERIAL:
+						// wait for Parser3DSChunkTypes.MAT_TEXMAP
+						break;
+					case Parser3DSChunkTypes.MAT_TEXMAP:
+						// wait for Parser3DSChunkTypes.MAT_TEXFLNM
+						break;
+					case Parser3DSChunkTypes.MAT_TEXFLNM:
+						// texture file name
+						textureFileName = readString ();
+						break;
 
 				    case Parser3DSChunkTypes.EDIT_OBJECT:
 
@@ -482,6 +497,8 @@ package sandy.parser
 			if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 			m_oGroup.addChild( l_oShape );
 			// -- Parsing is finished
+			if (textureFileName != null)
+				applyTextureToShape (l_oShape, textureFileName);
 			dispatchInitEvent ();
 		}
 

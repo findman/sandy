@@ -18,15 +18,19 @@ package sandy.parser
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	
 	import sandy.core.scenegraph.Group;
+	import sandy.core.scenegraph.Shape3D;
+	import sandy.events.QueueEvent;
 	import sandy.materials.Appearance;
 	import sandy.materials.ColorMaterial;
+	import sandy.materials.BitmapMaterial;
 	import sandy.materials.attributes.*;
-	import flash.events.ProgressEvent;
+	import sandy.util.LoaderQueue;
 
 	/**
 	 * ABSTRACT CLASS - super class for all parser objects.
@@ -87,17 +91,23 @@ package sandy.parser
 		 * @param p_sFile		Must be either a text string containing the location
 		 * 						to a file or an embedded object.
 		 * @param p_nScale		The scale amount.
+		 * @param p_sTextureExtension	Overrides texture extension.
 		 */
-		public function AParser( p_sFile:*, p_nScale:Number )
+		public function AParser( p_sFile:*, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
 			super( this );
 			m_oGroup = new Group('parser');
 			m_nScale = p_nScale;
+			m_sTextureExtension = p_sTextureExtension;
 			if( p_sFile is String )
 			{
 				m_sUrl = p_sFile;
 				m_oFileLoader = new URLLoader();
 				m_sDataFormat = URLLoaderDataFormat.TEXT;
+
+				// assume that textures are in same folder with model itself
+				if (m_sUrl.match (/[\/\\]/))
+					RELATIVE_TEXTURE_PATH = m_sUrl.replace (/(.*)[\/\\][^\/\\]+/, "$1");
 			}
 			else
 			{
@@ -158,12 +168,79 @@ package sandy.parser
 		 */
 		protected function dispatchInitEvent ():void
 		{
-			// -- Parsing is finished
-			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
-			l_eOnInit.group = m_oGroup;
-			dispatchEvent( l_eOnInit );
+			// -- load textures, if any
+			if (m_aTextures != null) {
+				m_oQueue = new LoaderQueue();
+				for (var i:int = 0; i < m_aTextures.length; i++) {
+					m_oQueue.add( i.toString (), new URLRequest (RELATIVE_TEXTURE_PATH + "/" + m_aTextures [i]) );
+				}
+				m_oQueue.addEventListener (QueueEvent.QUEUE_COMPLETE, onTexturesloadComplete);
+				m_oQueue.start();
+			} else {
+				var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
+				l_eOnInit.group = m_oGroup;
+				dispatchEvent( l_eOnInit );
+			}
+		}
+
+		private function onTexturesloadComplete (e:QueueEvent):void
+		{
+			for (var i:int = 0; i < m_aShapes.length; i++) {
+				// set successfully loaded materials
+				if (m_oQueue.data [i.toString ()]) {
+					Shape3D (m_aShapes [i.toString ()]).appearance =
+						new Appearance (new BitmapMaterial (m_oQueue.data [i].bitmapData ));
+				}
+			}
+
+			m_oQueue.removeEventListener (QueueEvent.QUEUE_COMPLETE, onTexturesloadComplete);
+
+			// this is called even if there were errors loading textures... perfect!
+			m_aShapes = m_aTextures = null; dispatchInitEvent ();
+		}
+
+		/**
+		 * @private used internally to load textures
+		 */
+		protected function applyTextureToShape (shape:Shape3D, texture:String)
+		{
+			if (m_aShapes == null) {
+				m_aShapes = []; m_aTextures = [];
+			}
+
+			m_aShapes.push (shape);
+			m_aTextures.push (changeExt (texture));
 		}
 		
+		/**
+		 * @private Collada parser already loads textures on its own, so it needs this protected
+		 */
+		protected function changeExt (s:String):String
+		{
+			if (m_sTextureExtension != null) {
+				var tmp:Array = s.split (".");
+				if (tmp.length > 1) {
+					tmp [tmp.length -1] = m_sTextureExtension;
+					s = tmp.join (".");
+				} else {
+					// leave as is?
+					s += "." + m_sTextureExtension;
+				}
+			}
+			return s;
+		}
+
+		private var m_sTextureExtension:String;
+		private var m_aShapes:Array;
+		private var m_aTextures:Array;
+		private var m_oQueue:LoaderQueue;
+
+		/**
+		 * Default path for images.
+		 */
+		public var RELATIVE_TEXTURE_PATH : String = ".";
+
+
 	    /**
 	     * Load the file that needs to be parsed. When done, call the parseData method.
 	     */

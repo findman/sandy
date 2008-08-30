@@ -68,6 +68,10 @@ package sandy.parser
 		 public static const OBJ_UNKNWN01  :uint = 0x4010;
 		 public static const OBJ_UNKNWN02  :uint = 0x4012; //>>---- Could be shadow
 
+		 // MAP_TEXFLNM is part of MAT_TEXMAP, MAT_TEXMAP is part of EDIT_MATERIAL
+		 public static const MAT_TEXMAP    :uint = 0xA200;
+		 public static const MAT_TEXFLNM   :uint = 0xA300;
+
 		 //>------ sub defines of OBJ_CAMERA
 		 public static const CAM_UNKNWN01  :uint = 0x4710;
 		 public static const CAM_UNKNWN02  :uint = 0x4720;

@@ -57,10 +57,12 @@ package sandy.parser
 		 * @param p_sUrl		This can be either a String containing an URL or a
 		 * 						an embedded object
 		 * @param p_nScale		The scale factor
+		 * @param p_sTextureExtension	Overrides texture extension. You might want to use it for models that
+		 * specify PCX textures.
 		 */
-		public function MD2Parser( p_sUrl:*, p_nScale:Number )
+		public function MD2Parser( p_sUrl:*, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
-			super( p_sUrl, p_nScale );
+			super( p_sUrl, p_nScale, p_sTextureExtension );
 			m_sDataFormat = URLLoaderDataFormat.BINARY;
 		}
 
@@ -80,6 +82,7 @@ package sandy.parser
 			// --
 			md2.appearance = m_oStandardAppearance; m_oGroup.addChild( md2 );
 			// -- Parsing is finished
+			applyTextureToShape (md2, md2.textureFileName);
 			dispatchInitEvent ();
 		}
 	}
