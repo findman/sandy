@@ -69,6 +69,7 @@ package sandy.parser
 		 public static const OBJ_UNKNWN02  :uint = 0x4012; //>>---- Could be shadow
 
 		 // MAP_TEXFLNM is part of MAT_TEXMAP, MAT_TEXMAP is part of EDIT_MATERIAL
+		 public static const MAT_NAME      :uint = 0xA000;
 		 public static const MAT_TEXMAP    :uint = 0xA200;
 		 public static const MAT_TEXFLNM   :uint = 0xA300;
 
@@ -85,6 +86,7 @@ package sandy.parser
 		 public static const TRI_VERTEXL   :uint = 0x4110;
 		 public static const TRI_FACEL2    :uint = 0x4111;
 		 public static const TRI_FACEL1    :uint = 0x4120;
+		 public static const TRI_MATERIAL  :uint = 0x4130;
 		 public static const TRI_TEXCOORD  :uint = 0x4140;	// DAS 11-26-04
 		 public static const TRI_SMOOTH    :uint = 0x4150;
 		 public static const TRI_LOCAL     :uint = 0x4160;

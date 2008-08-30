@@ -57,6 +57,8 @@ package sandy.parser
 		private var lastRotation:Quaternion;
 
 		private var textureFileNames:Array;
+		private var currentMaterialName:String;
+		private var currentMeshMaterialName:String;
 
 		/**
 		 * Creates a new Parser3DS instance.
@@ -129,9 +131,27 @@ package sandy.parser
 					case Parser3DSChunkTypes.MAT_TEXMAP:
 						// wait for Parser3DSChunkTypes.MAT_TEXFLNM
 						break;
+					case Parser3DSChunkTypes.MAT_NAME:
+						// material name
+						currentMaterialName = readString ();
+trace ("currentMaterialName <- " + currentMaterialName);
+						break;
 					case Parser3DSChunkTypes.MAT_TEXFLNM:
 						// texture file name
-						textureFileNames.push (readString ());
+						textureFileNames [currentMaterialName] = readString ();
+trace ("texture (currentMaterialName = " + currentMaterialName + ") " + textureFileNames [currentMaterialName]);
+						break;
+
+					case Parser3DSChunkTypes.TRI_MATERIAL:
+						// what material to use
+						currentMeshMaterialName = readString ();
+trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
+						// this chunk actually has face list
+						// sandy potentially can handle this, but let's just skip it
+						var numFaces:int = data.readUnsignedShort();
+						for (var f:int = 0; f < numFaces; f++) {
+							data.readUnsignedShort();
+						}
 						break;
 
 				    case Parser3DSChunkTypes.EDIT_OBJECT:
@@ -143,8 +163,9 @@ package sandy.parser
 					        if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 							m_oGroup.addChild( l_oShape );
 						// untested, may not work... but should
-						if (textureFileNames.length > 0)
-							applyTextureToShape (l_oShape, textureFileNames.shift ());
+trace ("making shape, currentMeshMaterialName = " + currentMeshMaterialName);
+						if (textureFileNames [currentMeshMaterialName])
+							applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
 					    }
 					    // --
 					    var str:String = readString();
@@ -495,17 +516,22 @@ package sandy.parser
 			            data.position += l_chunk_length-6;
 					// if this points backwards, we have some parsing error :(
 					// if we're lucky, some valid geometry may be already parsed
-					if (l_chunk_length-6 < 0)
+					if (l_chunk_length-6 < 0) {
 						data.position += data.bytesAvailable;
+						trace ("Parser3DS.parseData(): WARNING! There were errors parsing your file.");
+					}
 			 	}
 			}
-			// --
-			l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance);
-			if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
-			m_oGroup.addChild( l_oShape );
+			// occasionally parser creates empty shapes here
+			if (l_oGeometry.aFacesVertexID.length > 0) {
+				l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance);
+				if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
+				m_oGroup.addChild( l_oShape );
+trace ("making shape (2), currentMeshMaterialName = " + currentMeshMaterialName);
+				if (textureFileNames [currentMeshMaterialName])
+					applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
+			}
 			// -- Parsing is finished
-			if (textureFileNames.length > 0)
-				applyTextureToShape (l_oShape, textureFileNames.shift ());
 			dispatchInitEvent ();
 		}
 
