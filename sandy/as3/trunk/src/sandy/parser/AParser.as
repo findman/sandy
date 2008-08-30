@@ -152,6 +152,17 @@ package sandy.parser
 			event.percent = 100 * p_oEvt.bytesLoaded / p_oEvt.bytesTotal;
 			dispatchEvent( event );
 		}
+
+		/**
+		 * @private
+		 */
+		protected function dispatchInitEvent ():void
+		{
+			// -- Parsing is finished
+			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
+			l_eOnInit.group = m_oGroup;
+			dispatchEvent( l_eOnInit );
+		}
 		
 	    /**
 	     * Load the file that needs to be parsed. When done, call the parseData method.

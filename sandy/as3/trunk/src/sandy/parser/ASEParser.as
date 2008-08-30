@@ -193,9 +193,7 @@ package sandy.parser
 			l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
 			m_oGroup.addChild( l_oShape );
 			// -- Parsing is finished
-			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
-			l_eOnInit.group = m_oGroup;
-			dispatchEvent( l_eOnInit );
+			dispatchInitEvent ();
 		}
 	}// -- end AseParser
 }

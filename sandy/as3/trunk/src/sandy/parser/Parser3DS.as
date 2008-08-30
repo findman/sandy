@@ -482,9 +482,7 @@ package sandy.parser
 			if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 			m_oGroup.addChild( l_oShape );
 			// -- Parsing is finished
-			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
-			l_eOnInit.group = m_oGroup;
-			dispatchEvent( l_eOnInit );
+			dispatchInitEvent ();
 		}
 
 		private function _applyMatrixToShape( p_oShape:Shape3D, p_oMatrix:Matrix4 ):void

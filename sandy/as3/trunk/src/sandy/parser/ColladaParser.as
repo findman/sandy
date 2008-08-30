@@ -127,9 +127,7 @@ package sandy.parser
 			}
 
 			// -- Parsing is finished
-			var l_eOnInit : ParserEvent = new ParserEvent( ParserEvent.INIT );
-			l_eOnInit.group = m_oGroup;
-			dispatchEvent( l_eOnInit );
+			dispatchInitEvent ();
 		}
 
 		/**
