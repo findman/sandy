@@ -118,18 +118,16 @@ package sandy.parser
 			// --
 			switch( l_sExt.toUpperCase() )
 			{
-				case "ASE":
+				case ASE:
 					l_iParser = new ASEParser( p_sFile, p_nScale );
 					break;
-				case "MD2":
+				case MD2:
 					l_iParser = new MD2Parser( p_sFile, p_nScale );
 					break;
-				case "OBJ":
-					break;
-				case "DAE":
+				case COLLADA:
 					l_iParser = new ColladaParser( p_sFile, p_nScale );
 					break;
-				case "3DS":
+				case MAX_3DS:
 					l_iParser = new Parser3DS( p_sFile, p_nScale );
 					break;
 				default:
