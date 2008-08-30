@@ -142,6 +142,9 @@ package sandy.parser
 					        l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance );
 					        if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 							m_oGroup.addChild( l_oShape );
+						// untested, may not work... but should
+						if (textureFileName != null)
+							applyTextureToShape (l_oShape, textureFileName);
 					    }
 					    // --
 					    var str:String = readString();
@@ -490,6 +493,10 @@ package sandy.parser
 			         default:
 				        //trace("default");
 			            data.position += l_chunk_length-6;
+					// if this points backwards, we have some parsing error :(
+					// if we're lucky, some valid geometry may be already parsed
+					if (l_chunk_length-6 < 1)
+						data.position += data.bytesAvailable;
 			 	}
 			}
 			// --
