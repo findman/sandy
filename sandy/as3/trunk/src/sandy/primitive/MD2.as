@@ -36,7 +36,7 @@ package sandy.primitive
 		*/
 		public function generate (... arguments):Geometry3D
 		{
-			var i:int, j:int;
+			var i:int, j:int, char:int;
 			var uvs:Array = [];
 			var mesh:Geometry3D = new Geometry3D ();
 
@@ -65,6 +65,15 @@ package sandy.primitive
 			offset_frames = data.readInt();
 			offset_glcmds = data.readInt();
 			offset_end = data.readInt();
+
+			// texture name
+			data.position = offset_skins;
+			texture = "";
+			for (i = 0; i < 64; i++)
+			{
+				char = data.readUnsignedByte ();
+				if (char == 0) break; else texture += String.fromCharCode (char);
+			}
 
 			// UV coordinates
 			data.position = offset_st;
@@ -110,7 +119,7 @@ package sandy.primitive
 				var name:String = "", wasNotZero:Boolean = true;
 				for (j = 0; j < 16; j++)
 				{
-					var char:int = data.readUnsignedByte ();
+					char = data.readUnsignedByte ();
 					wasNotZero &&= (char != 0);
 					if (wasNotZero)
 						name += String.fromCharCode (char);
@@ -199,9 +208,6 @@ package sandy.primitive
 		// vertices list for every frame
 		private var vertices:Array = [];
 
-		// vars for quick normal computation
-		//private var v:Vector = new Vector (), w:Vector = new Vector ();
-
 		// original Philippe vars
 		private var ident:int;
 		private var version:int;
@@ -222,9 +228,16 @@ package sandy.primitive
 		private var offset_end:int;
 		private var scaling:Number;
 
+		private var texture:String;
+
 		/**
 		 * Number of frames in MD2.
 		 */
 		public function get nFrames():Number { return num_frames }
+
+		/**
+		* Texture file name.
+		*/
+		public function get textureFileName():String { return texture; }
 	}
 }
