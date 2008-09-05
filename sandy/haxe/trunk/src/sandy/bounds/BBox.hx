@@ -40,7 +40,7 @@ class BBox
 	 * Specify if this object is up to date or not.
 	 * If false, you need to call its transform method to get its correct bounds in the desired frame.
 	 */
-	public var uptodate:Null<Bool>;
+	public var uptodate:Bool;
 	
 	/**
 	 * Max vector, representing the upper point of the cube volume
@@ -70,7 +70,7 @@ class BBox
 	{
 		if(p_aVertices.length == 0) return null;
 	   
-	    var l:Null<Float> = p_aVertices.length;
+	    var l:Float = p_aVertices.length;
 	    var l_min:Vector = new Vector();
 	    var l_max:Vector = new Vector();
 		
@@ -140,11 +140,11 @@ class BBox
 	 * 								Otherwise it will return the last calculated array.
 	 * @return 		The array containing eight vertices representing the Bounding Box corners.
 	 */
-	private function __computeCorners( ?p_bRecalcVertices:Null<Bool> ):Array<Vector>
+	private function __computeCorners( ?p_bRecalcVertices:Bool ):Array<Vector>
 	{
 		p_bRecalcVertices = (p_bRecalcVertices != null)?p_bRecalcVertices:false;
 
-		var minx:Null<Float>,miny:Null<Float>,minz:Null<Float>,maxx:Null<Float>,maxy:Null<Float>,maxz:Null<Float>;
+		var minx:Float,miny:Float,minz:Float,maxx:Float,maxy:Float,maxz:Float;
 		
 		if( p_bRecalcVertices == true )
 		{

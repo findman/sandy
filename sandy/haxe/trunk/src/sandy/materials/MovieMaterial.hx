@@ -124,10 +124,10 @@ class MovieMaterial extends BitmapMaterial
 	 * @param p_nWidth	desired width ( chunk the movieclip )
 	 * @param p_nHeight	desired height ( chunk the movieclip )
 	 */
-	public function new( p_oMovie:Sprite, ?p_nUpdateMS:Null<Int>, ?p_oAttr:MaterialAttributes, ?p_bRemoveTransparentBorder:Null<Bool>, ?p_nHeight:Null<Float>, ?p_nWidth:Null<Float> )
+	public function new( p_oMovie:Sprite, ?p_nUpdateMS:Int, ?p_oAttr:MaterialAttributes, ?p_bRemoveTransparentBorder:Bool, ?p_nHeight:Float, ?p_nWidth:Float )
 	{
-		var w : Null<Float>;
-		var h : Null<Float>;
+		var w : Float;
+		var h : Float;
 
 		if ( p_nUpdateMS == null ) p_nUpdateMS = 40;
 		if ( p_bRemoveTransparentBorder == null ) p_bRemoveTransparentBorder = false;
@@ -166,8 +166,8 @@ class MovieMaterial extends BitmapMaterial
 			tmpBmp.dispose();tmpBmp = null;
 		}
 		rect = null;
-		w = null;
-		h = null;
+		//w = null;
+		//h = null;
 	}
 
 	/**

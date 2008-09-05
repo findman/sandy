@@ -36,14 +36,14 @@ class QueueEvent extends Event
      *
      * @eventType queueComplete
      */
-	public static inline var QUEUE_COMPLETE:String = "queueComplete";
+	public static var QUEUE_COMPLETE:String = "queueComplete";
 
     /**
      * Indicates an error was encountered while loading a resource.
      *
      * @eventType queueLoaderError
      */
-	public static inline var QUEUE_LOADER_ERROR:String = "queueLoaderError";
+	public static var QUEUE_LOADER_ERROR:String = "queueLoaderError";
 
  	/**
 	 * Constructor.

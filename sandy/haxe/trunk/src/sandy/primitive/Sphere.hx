@@ -50,32 +50,32 @@ class Sphere extends Shape3D, implements Primitive3D
 	/**
 	* The default radius for a sphere.
 	*/
-	static public inline var DEFAULT_RADIUS :Float = 100;
+	static public var DEFAULT_RADIUS :Float = 100;
 
 	/**
 	* The default scale for a sphere texture.
 	*/
-	static public inline var DEFAULT_SCALE :Float = 1;
+	static public var DEFAULT_SCALE :Float = 1;
 
 	/**
 	* The default number of horizontal segments for a sphere.
 	*/
-	static public inline var DEFAULT_SEGMENTSW :Float = 8;
+	static public var DEFAULT_SEGMENTSW :Float = 8;
 
 	/**
 	* The default number of vertical segments for a sphere.
 	*/
-	static public inline var DEFAULT_SEGMENTSH :Float = 6;
+	static public var DEFAULT_SEGMENTSH :Float = 6;
 
 	/**
 	* The minimum number of horizontal segments for a sphere.
 	*/
-	static public inline var MIN_SEGMENTSW :Float = 3;
+	static public var MIN_SEGMENTSW :Float = 3;
 
 	/**
 	* The minimum number of vertical segments for a sphere.
 	*/
-	static public inline var MIN_SEGMENTSH :Float = 2;
+	static public var MIN_SEGMENTSH :Float = 2;
 
 	/**
 	* Creates a Sphere primitive.

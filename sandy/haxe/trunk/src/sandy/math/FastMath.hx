@@ -29,12 +29,12 @@ import haxe.FastList;
 class FastMath
 {
 	/** Precission. The bigger, the more entries in lookup table so the more accurate results. */
-	public static inline var PRECISION:Int = 0x020000;
-	public static inline var TWO_PI:Float = 2*Math.PI;
-	public static inline var HALF_PI:Float = Math.PI/2;
+	public static var PRECISION:Int = 0x020000;
+	public static var TWO_PI:Float = 2*Math.PI;
+	public static var HALF_PI:Float = Math.PI/2;
 	// OPTIMIZATION CONSTANTS
-	public static inline var PRECISION_S:Int = PRECISION - 1;
-	public static inline var PRECISION_DIV_2PI:Float = PRECISION / TWO_PI;
+	public static var PRECISION_S:Int = PRECISION - 1;
+	public static var PRECISION_DIV_2PI:Float = PRECISION / TWO_PI;
 	/** Precalculated values with given precision */
 	private var sinTable:Array<Float>;
 	private var tanTable:Array<Float>;
@@ -43,7 +43,7 @@ class FastMath
 	
 	private static var _initialized:FastMath;
 	// do this at the end of declarations
-	public static inline function initialized():Bool { 
+	public static function initialized():Bool { 
 			if ( _initialized == null ) _initialized = initialize(); 
 			return true;
 	}
@@ -54,7 +54,7 @@ class FastMath
 		RAD_SLICE = TWO_PI / PRECISION;
 	}
 	
-	private static inline function initialize():FastMath
+	private static function initialize():FastMath
 	{
 		var rad:Float = 0;
 		var inst:FastMath = new FastMath();
@@ -69,7 +69,7 @@ class FastMath
 		return inst;
 	}
 
-	private static inline function radToIndex(radians:Float):Int 
+	private static function radToIndex(radians:Float):Int 
 	{
 		return Std.int(Std.int(radians * PRECISION_DIV_2PI ) & (PRECISION_S));
 	}
@@ -80,7 +80,7 @@ class FastMath
 	 * @param radians The value to sine.
 	 * @return The approximation of the value's sine.
 	 */
-	public static inline function sin(radians:Float):Float 
+	public static function sin(radians:Float):Float 
 	{
 		return _initialized.sinTable[ Std.int( radToIndex(radians) ) ];
 	}
@@ -91,7 +91,7 @@ class FastMath
 	 * @param radians The value to cosine.
 	 * @return The approximation of the value's cosine.
 	 */
-	public static inline function cos(radians:Float ):Float 
+	public static function cos(radians:Float ):Float 
 	{
 		return _initialized.sinTable[ Std.int( radToIndex(HALF_PI-radians) ) ];
 	}
@@ -102,7 +102,7 @@ class FastMath
 	 * @param radians The value to tan.
 	 * @return The approximation of the value's tangent.
 	 */
-	public static inline function tan(radians:Float):Float 
+	public static function tan(radians:Float):Float 
 	{
 		return _initialized.tanTable[( radToIndex(radians) )];
 	}

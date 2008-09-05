@@ -63,7 +63,7 @@ class TransformGroup extends ATransformable
 	 * @param p_oViewMatrix	The view martix of the curren camera
 	 * @param p_bChanged
 	 */
-	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		// TODO
 		// Parse the children, take their bounding volume and merge it with the current node recurssively.
@@ -74,7 +74,7 @@ class TransformGroup extends ATransformable
 		}
 		else
 		{
-		    var lChanged:Null<Bool> = p_bChanged || changed;
+		    var lChanged:Bool = p_bChanged || changed;
 		    for ( l_oNode in children )
 		        l_oNode.cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
 		}

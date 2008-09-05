@@ -29,10 +29,10 @@ package sandy.core.data;
  */
 class Plane
 {
-	public var a:Null<Float>;
-	public var b:Null<Float>;
-	public var c:Null<Float>;
-	public var d:Null<Float>;
+	public var a:Float;
+	public var b:Float;
+	public var c:Float;
+	public var d:Float;
 
 	/**
 	* Creates a new Plane instance.
@@ -42,7 +42,7 @@ class Plane
 	* @param	p_nC	the third plane coordinate
 	* @param	p_nd	the forth plane coordinate
 	*/
-	public function new( ?p_nA:Null<Float>, ?p_nB:Null<Float>, ?p_nC:Null<Float>, ?p_nd:Null<Float> )
+	public function new( ?p_nA:Float, ?p_nB:Float, ?p_nC:Float, ?p_nd:Float )
 	{
 		p_nA = (p_nA != null)?p_nA:0;
 		p_nB = (p_nB != null)?p_nB:0;

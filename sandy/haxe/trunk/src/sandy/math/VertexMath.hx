@@ -67,7 +67,7 @@ class VertexMath extends VectorMath
 	 * @param p_oV 	The vertex.
 	 * @return 	The opposite vertex.
 	 */
-	public static inline function negate( p_oV:Vertex ): Vertex
+	public static function negate( p_oV:Vertex ): Vertex
 	{
 		return new Vertex (	
 					- p_oV.x,
@@ -83,7 +83,7 @@ class VertexMath extends VectorMath
 	 * @param p_oW 	The second vertex
 	 * @return 	The dot procuct
 	 */
-	public static inline function dot( p_oV: Vertex, p_oW: Vertex):Float
+	public static function dot( p_oV: Vertex, p_oW: Vertex):Float
 	{
 		return ( p_oV.wx * p_oW.wx + p_oV.wy * p_oW.wy + p_oW.wz * p_oV.wz );
 	}
@@ -97,7 +97,7 @@ class VertexMath extends VectorMath
 	 * @param p_oW 	The second vertex
 	 * @return 	The resulting vertex
 	 */
-	public static inline function addVertex( p_oV:Vertex, p_oW:Vertex ): Vertex
+	public static function addVertex( p_oV:Vertex, p_oW:Vertex ): Vertex
 	{
 		return new Vertex(	p_oV.x + p_oW.x ,
                 	        p_oV.y + p_oW.y ,
@@ -114,7 +114,7 @@ class VertexMath extends VectorMath
 	 * @param p_oW	The vertex to subtract
 	 * @return 	The resulting vertex
 	 */
-	public static inline function sub( p_oV:Vertex, p_oW:Vertex ): Vertex
+	public static function sub( p_oV:Vertex, p_oW:Vertex ): Vertex
 	{
 		return new Vertex(	 
 					p_oV.x - p_oW.x ,
@@ -133,7 +133,7 @@ class VertexMath extends VectorMath
 	 * @param p_oW 	The second vertex
 	 * @return 	The resulting cross product
 	 */
-	public static inline function cross(p_oW:Vertex, p_oV:Vertex):Vertex
+	public static function cross(p_oW:Vertex, p_oV:Vertex):Vertex
 	{
 		// cross product vector that will be returned
 		return new Vertex (	(p_oW.y * p_oV.z) - (p_oW.z * p_oV.y) ,
@@ -148,7 +148,7 @@ class VertexMath extends VectorMath
 	 * @param p_oV	A vertex to clone.
 	 * @return 	The clone
 	 */	
-	public static inline function clone( p_oV:Vertex ): Vertex
+	public static function clone( p_oV:Vertex ): Vertex
 	{
 		return new Vertex( p_oV.x, p_oV.y, p_oV.z );
 	}
@@ -169,7 +169,7 @@ class VertexMath extends VectorMath
 	 * @param p_oMatrix (Optional) matrix object to use.
 	 * @return 	The matrix to use with beginGradientFill, GradientType.LINEAR.
 	 */
-	public static inline function linearGradientMatrix (p_oV0:Vertex, p_oV1:Vertex, p_oV2:Vertex,
+	public static function linearGradientMatrix (p_oV0:Vertex, p_oV1:Vertex, p_oV2:Vertex,
 		p_nR0:Float, p_nR1:Float, p_nR2:Float, ?p_oMatrix:Matrix):Matrix
 	{
 		var coef:Float = (p_nR1 - p_nR0) / (p_nR2 - p_nR0);

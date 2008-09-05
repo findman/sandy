@@ -81,7 +81,7 @@ class Node
 	 * The unique id of this node in the node graph.
 	 * <p>This value is very useful to retrieve a specific node.</p>
 	 */
-	public var id:Null<Int>;
+	public var id:Int;
 	
 	/**
 	 * Specify the visibility of this node.
@@ -172,7 +172,7 @@ class Node
 	 * @param p_oNode 	The node you are testing
 	 * @return		true if the node in the argument is the parent of this node, false otherwise.
 	 */
-	public function isParent( p_oNode:Node ):Null<Bool>
+	public function isParent( p_oNode:Node ):Bool
 	{
 		return (_parent == p_oNode && p_oNode != null);
 	}
@@ -181,12 +181,12 @@ class Node
 	 * Make all the Shape3D and descendants children react to this value.
 	 * @param p_bUseSingleContainer if true, the whole objects will use a container to display the geometry into, otherwise, a specific container will be given to each polygon 
 	 */
- public var useSingleContainer( __getUseSingleContainer,__setUseSingleContainer ):Null<Bool>;
+ public var useSingleContainer( __getUseSingleContainer,__setUseSingleContainer ):Bool;
 
-	private function __getUseSingleContainer ():Null<Bool>
-	{return null;}
+	private function __getUseSingleContainer ():Bool
+	{return false;}
 
-	private function __setUseSingleContainer( p_bUseSingleContainer:Null<Bool> ):Null<Bool>
+	private function __setUseSingleContainer( p_bUseSingleContainer:Bool ):Bool
 	{
 		for ( l_oNode in children )
 		{
@@ -198,14 +198,14 @@ class Node
 	/**
 	 * Change the backface culling state to all the shapes objects in the children list
 	 */
-	public var enableBackFaceCulling(__getEnableBackFaceCulling,__setEnableBackFaceCulling):Null<Bool>;
+	public var enableBackFaceCulling(__getEnableBackFaceCulling,__setEnableBackFaceCulling):Bool;
 
-	private function __getEnableBackFaceCulling():Null<Bool>
+	private function __getEnableBackFaceCulling( ):Bool
 	{
-		return null;
+		return false;
 	}
 
-	private function __setEnableBackFaceCulling( b:Null<Bool> ):Null<Bool>
+	private function __setEnableBackFaceCulling( b:Bool ):Bool
 	{
 		for ( l_onode in children )
 		{
@@ -217,12 +217,12 @@ class Node
 	/**
 	 * Change the interactivity of all the children
 	 */
-	public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Null<Bool>;
+	public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Bool;
 
-	private function __getEnableInteractivity():Null<Bool>
-	{ return null; }
+	private function __getEnableInteractivity():Bool
+	{ return false; }
 
-	private function __setEnableInteractivity( p_bState:Null<Bool> ):Null<Bool>
+	private function __setEnableInteractivity( p_bState:Bool ):Bool
 	{
 		for ( l_oNode in children )
 		{
@@ -234,14 +234,14 @@ class Node
 	/**
 	 * Enable event handling to all the children objects that can broadcast bubbling events
 	 */
-	public var enableEvents( __getEnableEvents, __setEnableEvents ):Null<Bool>;
+	public var enableEvents( __getEnableEvents, __setEnableEvents ):Bool;
 
-	private function __getEnableEvents():Null<Bool>
+	private function __getEnableEvents():Bool
 	{
-		return null;
+		return false;
 	}
 
-	private function __setEnableEvents( b:Null<Bool> ):Null<Bool>
+	private function __setEnableEvents( b:Bool ):Bool
 	{
 		for ( l_oNode in children )
 		{
@@ -298,7 +298,7 @@ class Node
 	 *
 	 * @return 	true if this node has a parent, false otherwise.
 	 */
-	public function hasParent():Null<Bool>
+	public function hasParent():Bool
 	{
 		return ( _parent != null );
 	}
@@ -332,7 +332,7 @@ class Node
 	 *
 	 * @return		The requested node or null if no child with this name was found
 	 */
-	public function getChildByName( p_sName:String, ?p_bRecurs:Null<Bool> ):Node
+	public function getChildByName( p_sName:String, ?p_bRecurs:Bool ):Node
 	{
 		var l_oNode:Node, l_oNode2:Node;
 
@@ -385,11 +385,11 @@ class Node
 	 * @param p_sName	The name of the node you want to remove.
 	 * @return 		true if the node was removed from node tree, false otherwise.
 	 */
-	public function removeChildByName( p_sName:String ):Null<Bool>
+	public function removeChildByName( p_sName:String ):Bool
 	{
-		var found:Null<Bool> = false;
-		var i:Null<Int> = 0;
-		var l:Null<Int> = children.length;
+		var found:Bool = false;
+		var i:Int = 0;
+		var l:Int = children.length;
 		while( i < l && !found )
 		{
 			if( children[i].name == p_sName  )
@@ -462,7 +462,7 @@ class Node
 	 * @param p_oModelMatrix
 	 * @param p_bChanged
 	 */
-	public function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		scene = p_oScene;
 		// --
@@ -498,7 +498,7 @@ class Node
 	 * @param p_bChanged	<b>[ToDo: explain]</b>
 	 *
 	 */
-	public function cull( p_oScene:Scene3D, p_oFrustum:Null<Frustum>, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public function cull( p_oScene:Scene3D, p_oFrustum:Null<Frustum>, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		if( visible == false )
 		{
@@ -540,13 +540,13 @@ class Node
 	////////////////////
 	//// PRIVATE PART
 	////////////////////
-	private static var _ID_:Null<Int> = 0;
+	private static var _ID_:Int = 0;
 	private var _parent:Node;
 	private var m_oEB:BubbleEventBroadcaster;
 	/**
 	 * This property set the cache status of the current node.
 	 * IMPORTANT Currently this property isn't used!
 	 */
-	public var changed:Null<Bool>;
+	public var changed:Bool;
 }
 

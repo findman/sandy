@@ -37,9 +37,9 @@ interface IDisplayable
 	var container(__getContainer, null):Sprite;	
 	private function __getContainer():Sprite;	
 	// The depth of this object
-	public var depth(__getDepth, __setDepth):Null<Float>;
-	private function __getDepth():Null<Float>;
-	private function __setDepth( p_nDepth:Null<Float> ):Null<Float>;
+	public var depth(__getDepth, __setDepth):Float;
+	private function __getDepth():Float;
+	private function __setDepth( p_nDepth:Float ):Float;
 	// Called only if the useSignelContainer property is enabled!
 	function display( p_oScene:Scene3D, ?p_oContainer:Sprite ):Void;
 }

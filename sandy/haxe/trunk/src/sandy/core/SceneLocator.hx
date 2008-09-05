@@ -28,8 +28,6 @@ import flash.utils.Dictionary;
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
- * 
- * 
  */
 class SceneLocator
 {
@@ -71,7 +69,7 @@ class SceneLocator
 	public function getScene( key : String ) : Scene3D
 	{
 		if ( !(isRegistered( key )) ) trace( "Can't locate scene instance with '" + key + "' name in " + this );
-		return cast(_m.get( key ), Scene3D);
+		return _m.get( key );
 	}
 
 	/**

@@ -81,7 +81,6 @@ class Line3D extends Shape3D, implements Primitive3D
 		while( i < l )
 		{
 			l_oGeometry.setVertex( i, l_aPoints[i].x, l_aPoints[i].y, l_aPoints[i].z );
-			//l_oGeometry.setVertex( i, cast( l_aPoints[i], Vector ).x, cast( l_aPoints[i], Vector ).y, cast( l_aPoints[i], Vector ).z );
 			i++;
 		}
 		// -- initialisation

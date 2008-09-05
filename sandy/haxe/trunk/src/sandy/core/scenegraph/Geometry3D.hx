@@ -329,15 +329,13 @@ class Geometry3D
 	 *
 	 * @return 	The index
 	 */
-	public function getVertexId( p_point:Vertex ):Null<Int>
+	public function getVertexId( p_point:Vertex ):Float
 	{
 		var j:Float = 0;
 		for(j in 0...aVertex.length) {
-		if (!(aVertex[j] == p_point)) break;
-		
-		return j == aVertex.length ? -1: j;
+				if (!(aVertex[j] == p_point)) break;
 		}
-		return null;
+		return j == aVertex.length ? -1: j;
 	}
 	
 	/**
@@ -458,7 +456,7 @@ class Geometry3D
 			{
 				var l_oVertex:Vertex = aVertex[ lId ];
 				if ( l_oVertex.nbFaces == 0 ) continue;
-				if( l_oVertex.nbFaces != null ) aVertexNormals[ lId ].scale( 1 / l_oVertex.nbFaces );
+				if( l_oVertex.nbFaces > 0 ) aVertexNormals[ lId ].scale( 1 / l_oVertex.nbFaces );
 			}
 		}
 	}
@@ -504,7 +502,12 @@ class Geometry3D
 		i = 0;
 		for ( l_oVertex in aVertexNormals )
 		{
-			l_result.aVertexNormals[i] = l_oVertex.clone();
+			if ( l_oVertex != null ) {
+			 l_result.aVertexNormals[i] = l_oVertex.clone();
+			} else {
+			 l_result.aVertexNormals[i] = null;
+			}
+
 			i++;
 		}
 		

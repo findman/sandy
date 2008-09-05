@@ -51,10 +51,10 @@ class Appearance
 	 *
 	 * <p>true ONLY ONE of the materials is using this feature</p>
 	 */		
-	public var useVertexNormal(__getUseVertexNormal,null):Null<Bool>;
-	private function __getUseVertexNormal():Null<Bool>
+	public var useVertexNormal(__getUseVertexNormal,null):Bool;
+	private function __getUseVertexNormal():Bool
 	{ 
-		return (m_oBackMaterial.useVertexNormal != null && m_oFrontMaterial.useVertexNormal != null); 
+		return (m_oBackMaterial.useVertexNormal && m_oFrontMaterial.useVertexNormal ); 
 	}
 	
 	
@@ -99,10 +99,10 @@ class Appearance
 	}
 	
 	
-	public var flags(__getFlags,null):Null<Int>;
-	private function __getFlags():Null<Int>
+	public var flags(__getFlags,null):Int;
+	private function __getFlags():Int
 	{
-		var l_nFlag:Null<Int> =  m_oFrontMaterial.flags;
+		var l_nFlag:Int =  m_oFrontMaterial.flags;
 		if( m_oFrontMaterial != m_oBackMaterial ) l_nFlag |= m_oBackMaterial.flags;
 		return l_nFlag;
 	}

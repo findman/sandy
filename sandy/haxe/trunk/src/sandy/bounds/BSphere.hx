@@ -41,10 +41,10 @@ class BSphere
 	 * Specify if this object is up to date or not.
 	 * If false, you need to call its transform method to get its correct bounds in the desired frame.
 	 */
-	public var uptodate:Null<Bool>;
+	public var uptodate:Bool;
 	
 	public var center:Vector;
-	public var radius:Null<Float>;
+	public var radius:Float;
 	// -----------------------------
 	//    [TRANSFORMED]  -----------
 	public var position:Vector;
@@ -111,7 +111,7 @@ class BSphere
     {
         position.copy( center );
         p_oMatrix.vectorMult( position );
-        //var l_ncale:Null<Float> = Math.sqrt( p_oMatrix.n11 * p_oMatrix.n11 + p_oMatrix.n22 * p_oMatrix.n22 + p_oMatrix.n33 * p_oMatrix.n33 );
+        //var l_ncale:Float = Math.sqrt( p_oMatrix.n11 * p_oMatrix.n11 + p_oMatrix.n22 * p_oMatrix.n22 + p_oMatrix.n33 * p_oMatrix.n33 );
         //tRadius = radius;// * l_ncale;
         uptodate = true;
     }
@@ -134,11 +134,11 @@ class BSphere
 	public function compute( p_aVertices:Array<Dynamic> ):Void
 	{
 		if(p_aVertices.length == 0) return;
-		var x:Null<Float>, y:Null<Float>, z:Null<Float>, d:Null<Float>, i:Null<Int> = 0, j:Null<Int> = 0, l:Null<Int> = p_aVertices.length;
+		var x:Float, y:Float, z:Float, d:Float, i:Int = 0, j:Int = 0, l:Int = p_aVertices.length;
 		var p1:Vertex = p_aVertices[0].clone();
 		var p2:Vertex = p_aVertices[0].clone();
 		// find the farthest couple of points
-		var dmax:Null<Float> = 0;			
+		var dmax:Float = 0;			
 		var pA:Vertex, pB:Vertex;
 		while( i < l )
 		{
@@ -196,11 +196,11 @@ class BSphere
 	 * 
 	 * @return 	>0 if position is outside the sphere, <0 if inside, =0 if on the surface of the sphere
 	 */
-	public function distance(p_oPoint:Vector):Null<Float>
+	public function distance(p_oPoint:Vector):Float
 	{
-		var x:Null<Float> = p_oPoint.x - center.x;
-		var y:Null<Float> = p_oPoint.y - center.y;
-		var z:Null<Float> = p_oPoint.z - center.z;
+		var x:Float = p_oPoint.x - center.x;
+		var y:Float = p_oPoint.y - center.y;
+		var z:Float = p_oPoint.z - center.z;
 		return  Math.sqrt(x * x + y * y + z * z) - radius;
 	}
 	

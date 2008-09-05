@@ -34,24 +34,24 @@ class ParserEvent extends Event
 	/**
      * The load has failed
      */
-    static public inline var FAIL:String = 'onFailEVENT';
+    static public var FAIL:String = 'onFailEVENT';
     /**
      * The OBject3D object is initialized
      */
-    static public inline var INIT:String = 'onInitEVENT';
+    static public var INIT:String = 'onInitEVENT';
     /**
      * The load has started
      */
-    static public inline var LOAD:String = 'onLoadEVENT';
+    static public var LOAD:String = 'onLoadEVENT';
 	/**
 	 *  The load is in progress
 	 */
-	public static inline var PROGRESS:String = 'onProgressEVENT';
+	public static var PROGRESS:String = 'onProgressEVENT';
 	
 	/**
 	 * Parsing is in progress
 	 */
-	public static inline var PARSING:String = 'onParsingEVENT';
+	public static var PARSING:String = 'onParsingEVENT';
 	
 	public var percent:Float;
 	public var group:Group;

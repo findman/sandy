@@ -16,6 +16,6 @@ limitations under the License.
 package sandy.core;
 class SandyFlags
 {
-	public static inline var POLYGON_NORMAL_WORLD:Null<Int> = 0x1;
-	public static inline var VERTEX_NORMAL_WORLD:Null<Int> = 0x2;
+	public static var POLYGON_NORMAL_WORLD:Int = 0x1;
+	public static var VERTEX_NORMAL_WORLD:Int = 0x2;
 }

@@ -38,9 +38,9 @@ class Hedra extends Shape3D, implements Primitive3D
 	//////////////////
 	///PRIVATE VARS///
 	//////////////////
-	private var _h:Null<Float>;
-	private var _lg:Null<Float>;
-	private var _radius:Null<Float> ;
+	private var _h:Float;
+	private var _lg:Float;
+	private var _radius:Float ;
 
 	/**
 	* Creates a Hedra primitive.
@@ -78,9 +78,9 @@ class Hedra extends Shape3D, implements Primitive3D
 		var l_oGeometry3D:Geometry3D = new Geometry3D();
 		//Creation des points
 		_h = -_h;
-		var r2:Null<Float> = _radius / 2;
-		var l2:Null<Float> = _lg / 2;
-		var h2:Null<Float> = _h / 2;
+		var r2:Float = _radius / 2;
+		var l2:Float = _lg / 2;
+		var h2:Float = _h / 2;
 		/*
 		3-----2
 		 \ 4&5 \

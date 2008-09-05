@@ -152,7 +152,7 @@ class Scene3D extends EventDispatcher
 	 *
 	 * <p>Ressources will be free, and scene unregistered from SceneLocator</p>
 	 */
-	public function dispose():Null<Bool>
+	public function dispose():Bool
 	{
 		SceneLocator.getInstance().unregisterScene(m_sName);
 		root.destroy();
@@ -203,8 +203,8 @@ class Scene3D extends EventDispatcher
 	 * Enable this property (default value is true!) to perfectly clip your 3D scene to the viewport dimension.
 	 * Once enabled, even if you don't have enableClipping set to true for each of your objects, nothing will be drawn outside
 	 */
-	public var rectClipping(__getRectClipping, __setRectClipping):Null<Bool>;
-	public function __getRectClipping():Null<Bool>
+	public var rectClipping(__getRectClipping, __setRectClipping):Bool;
+	public function __getRectClipping():Bool
 	{
 		return m_bRectClipped;
 	}
@@ -212,7 +212,7 @@ class Scene3D extends EventDispatcher
 	/**
 	 * @private
 	 */
-	private function __setRectClipping(p_bEnableClipping:Null<Bool>):Null<Bool>
+	private function __setRectClipping(p_bEnableClipping:Bool):Bool
 	{
 		m_bRectClipped = p_bEnableClipping;
 		// -- we force the new state of the rectClipping property to be applied
@@ -234,6 +234,6 @@ class Scene3D extends EventDispatcher
 	}
 
 	private var m_sName:String;
-	private var m_bRectClipped:Null<Bool>;
+	private var m_bRectClipped:Bool;
 	private var _light:Light3D; 	//the unique light instance of the world
 }

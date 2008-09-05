@@ -65,7 +65,7 @@ class StarFieldRenderEvent extends BubbleEvent
 	 *
 	 * @see sandy.core.scenegraph.StarField
 	 */
-	public static inline var BEFORE_RENDER:String = "beforeRender";
+	public static var BEFORE_RENDER:String = "beforeRender";
 
 	/**
 	 * Defines the value of the <code>type</code> property of a <code>afterRender</code> event object.
@@ -74,5 +74,5 @@ class StarFieldRenderEvent extends BubbleEvent
 	 *
 	 * @see sandy.core.scenegraph.StarField
 	 */
-	public static inline var AFTER_RENDER:String = "afterRender";
+	public static var AFTER_RENDER:String = "afterRender";
 }

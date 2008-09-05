@@ -29,44 +29,44 @@ import sandy.util.NumberUtil;
  */
 class Vertex
 {
-	private static var ID:Null<Int>;
-	public var id:Null<Int>;
+	private static var ID:Int;
+	public var id:Int;
 
-	public var x:Null<Float>;
-	public var y:Null<Float>;
-	public var z:Null<Float>;
+	public var x:Float;
+	public var y:Float;
+	public var z:Float;
 
 	/**
 	* properties used to store transformed positions in the World coordinates
 	*/
-	public var wx:Null<Float>;
-	public var wy:Null<Float>;
-	public var wz:Null<Float>;
+	public var wx:Float;
+	public var wy:Float;
+	public var wz:Float;
 
 	/**
 	* properties used to store transformed coordinates in screen World.
 	*/
-	public var sx:Null<Float>;
-	public var sy:Null<Float>;
+	public var sx:Float;
+	public var sy:Float;
 
 	/**
 	 * Float of polygons this vertex belongs to.
 	 * <p>Default value is 0.</p>
 	 */
-	public var nbFaces:Null<Int>;
+	public var nbFaces:Int;
 
 	/**
 	 * An array of faces.
 	 *
 	 * <p>List of polygons that actually use that vertex</p>
 	 */
-	public var aFaces:Array<Dynamic>;
+	public var aFaces:Array<Int>;
 
        /**
         *  State if that vertex has been projected or not. If not, we can consider that vertex to not be visible in the current rendering step.
         */
        
-       public var projected:Null<Bool>;
+       public var projected:Bool;
 	/**
 	* Creates a new vertex.
 	*
@@ -75,7 +75,7 @@ class Vertex
 	* @param p_nz 	The z position
 	* @param ...rest	optional values for wx, wy, wz
 	*/
-	public function new( ?p_nx:Null<Float>, ?p_ny:Null<Float>, ?p_nz:Null<Float>, ?restx, ?resty, ?restz )
+	public function new( ?p_nx:Float, ?p_ny:Float, ?p_nz:Float, ?restx, ?resty, ?restz )
 	{
 	 ID = 0;
 		id = ID ++;
@@ -182,7 +182,7 @@ class Vertex
 	 *
 	 * @return 	true if the vertices are considered equal, false otherwise
 	 */
- 	public function equals(p_vertex:Vertex):Null<Bool>
+ 	public function equals(p_vertex:Vertex):Bool
 	{
 		return ( p_vertex.x  ==  x && p_vertex.y  ==  y && p_vertex.z  ==  z &&
 				p_vertex.wx == wx && p_vertex.wy == wy && p_vertex.wz == wz &&
@@ -216,7 +216,7 @@ class Vertex
 	 *
 	 * @return 	The norm
 	 */
-	public function getNorm():Null<Float>
+	public function getNorm():Float
 	{
 		return Math.sqrt( x*x + y*y + z*z );
 	}
@@ -278,7 +278,7 @@ class Vertex
 	 *
 	 * @param {@code pow} a {@code Float}.
 	 */
-	public function pow( pow:Null<Float> ):Void
+	public function pow( pow:Float ):Void
 	{
 		x = Math.pow( x, pow );
        	y = Math.pow( y, pow );
@@ -295,7 +295,7 @@ class Vertex
 	 *
 	 * @param n 	The number to multiply with
 	 */
-	public function scale( n:Null<Float> ):Void
+	public function scale( n:Float ):Void
 	{
 		x *= n;
 		y *= n;
@@ -313,7 +313,7 @@ class Vertex
 	 * @param w 	The vertex to make a dot product with
 	 * @return 	The dot product
 	 */
-	public function dot( w: Vertex):Null<Float>
+	public function dot( w: Vertex):Float
 	{
 		return ( x * w.x + y * w.y + z * w.z );
 	}
@@ -344,7 +344,7 @@ class Vertex
 	public function normalize():Void
 	{
 		// -- We get the norm of the vector
-		var norm:Null<Float> = getNorm();
+		var norm:Float = getNorm();
 		// -- We escape the process is norm is null or equal to 1
 		if( norm == 0 || norm == 1) return;
 		x /= norm;
@@ -362,10 +362,10 @@ class Vertex
 	 * @param w	The vertex making an angle with this one
 	 * @return 	The angle in radians
 	 */
-	public function getAngle ( w:Vertex ):Null<Float>
+	public function getAngle ( w:Vertex ):Float
 	{
-		var ncos:Null<Float> = dot( w ) / ( getNorm() * w.getNorm() );
-		var sin2:Null<Float> = 1 - ncos * ncos;
+		var ncos:Float = dot( w ) / ( getNorm() * w.getNorm() );
+		var sin2:Float = 1 - ncos * ncos;
 		if (sin2<0)
 		{
 			trace(" wrong "+ncos);
@@ -383,7 +383,7 @@ class Vertex
 	 * @param decPlaces	Float of decimals
 	 * @return	The representation
 	 */
-	public function toString(?decPlaces:Null<Float>):String
+	public function toString(?decPlaces:Float):String
 	{
 		decPlaces = (decPlaces != null)?decPlaces:0;
 
@@ -413,7 +413,7 @@ class Vertex
 	 * @param decPlaces	Float of decimals
 	 * @return 		The specific serialize string
 	 */
-	public function serialize(?decPlaces:Null<Float>):String
+	public function serialize(?decPlaces:Float):String
 	{
 		decPlaces = (decPlaces != null)?decPlaces:0;
 

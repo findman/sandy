@@ -41,33 +41,33 @@ class Sound3D extends ATransformable
 	public static var CULL_PLAY:String = "cullPlay";
 	public static var CULL_STOP:String = "cullStop";
 	// type
-	public static inline var SPEECH:String = "speech";
-	public static inline var NOISE:String = "noise";
+	public static var SPEECH:String = "speech";
+	public static var NOISE:String = "noise";
 	
 	/**
 	 * Max volume of the sound if camera position is at sound position
 	 */
-	public var soundVolume:Null<Float>;
+	public var soundVolume:Float;
 	/**
 	 * The radius of the sound
 	 */
-	public var soundRadius:Null<Float>;
+	public var soundRadius:Float;
 	/**
 	* If pan is true the panning of the sound is relative to the camera rotation
 	 */
-	public var soundPan:Null<Bool>;
+	public var soundPan:Bool;
 	/**
 	 * Maximal pan is a positive Number from 0-1 or higher
 	 */
-	public var maxPan:Null<Float>;
+	public var maxPan:Float;
 	/**
 	 * If the sound contains two channels, stereo have to be set to true in order to mix left and right channels correctly
 	 */
-	public var stereo:Null<Bool>;
+	public var stereo:Bool;
 	/**
 	 * If flipPan is true the left and right channels of the sound are mirrored if the camera is facing away from the sound
 	 */
-	public var flipPan:Null<Bool>;
+	public var flipPan:Bool;
 	/**
 	 * Type is either SPEECH or NOISE, SPEECH will start the sound at the last position if the camera enters the sphere of the sound
 	 */
@@ -75,34 +75,34 @@ class Sound3D extends ATransformable
 	/**
 	 * The start time to play the audio from
 	 */
-	public var startTime:Null<Float>;
+	public var startTime:Float;
 	/**
 	 * Number of loops before the sound stops
 	 */
-	public var loops:Null<Int>;
+	public var loops:Int;
 	/**
 	 * Start time to play the audio from if the sound loops
 	 */
-	public var loopStartTime:Null<Float>;
+	public var loopStartTime:Float;
 	/**
 	 * Returns true if the stereo panorama is mirrored, flipPan have to be true to enable stereo flipping
 	 */
-	public var isFlipped (__getIsFlipped,null):Null<Bool>;
-	private function __getIsFlipped ():Null<Bool>{return _isFlipped;}
+	public var isFlipped (__getIsFlipped,null):Bool;
+	private function __getIsFlipped ():Bool{return _isFlipped;}
 	
-	private var _isFlipped:Null<Bool>;
-	private var _isPlaying:Null<Bool>;
-	private var soundCulled:Null<Bool>;
+	private var _isFlipped:Bool;
+	private var _isPlaying:Bool;
+	private var soundCulled:Bool;
 	private var m_oSoundTransform:SoundTransform;
 	private var sMode:String;
 	private var urlReq:URLRequest;
 	private var channelRef:SoundChannel;
 	private var soundRef:Sound;
-	private var lastPosition:Null<Float>;
-	private var lastStopTime:Null<Float>;
-	private var cPlaying:Null<Bool>;
-	private var duration:Null<Float>;
-	private var cLoop:Null<Int>;
+	private var lastPosition:Float;
+	private var lastStopTime:Float;
+	private var cPlaying:Bool;
+	private var duration:Float;
+	private var cLoop:Int;
 	
 	/**
 	 *  Cached matrix corresponding to the transformation to the 0,0,0 frame system
@@ -121,8 +121,8 @@ class Sound3D extends ATransformable
 	 * @param	p_nRadius			Radius of the sound in 3d units
 	 * @param	p_bStereo			If the sound contains two different channels
 	 */
-	public function new( ?p_sName:String, ?p_oSoundSource:Dynamic, ?p_nVolume:Null<Float>, 
-							?p_nMaxPan:Null<Float>, ?p_nRadius:Null<Float>, ?p_bStereo:Null<Bool> ) 
+	public function new( ?p_sName:String, ?p_oSoundSource:Dynamic, ?p_nVolume:Float, 
+							?p_nMaxPan:Float, ?p_nRadius:Float, ?p_bStereo:Bool ) 
 	{
 
 	 _isFlipped=false;
@@ -175,7 +175,7 @@ class Sound3D extends ATransformable
 	 * @param	p_nStartTime
 	 * @param	p_iLoops
 	 */
-	public function play (?p_nStartTime:Null<Float>, ?p_iLoops:Null<Int>, ?p_nLoopStartTime:Null<Float>, ?p_bResume:Null<Bool>) :Void 
+	public function play (?p_nStartTime:Float, ?p_iLoops:Int, ?p_nLoopStartTime:Float, ?p_bResume:Bool) :Void 
 	{
 		if ( p_nStartTime == null ) p_nStartTime = -1;
 		if ( p_iLoops == null ) p_iLoops = -1;
@@ -213,8 +213,8 @@ class Sound3D extends ATransformable
 		}
 	}
 	
-	public var currentLoop (__getCurrentLoop,null) :Null<Int>;
-	private function __getCurrentLoop () :Null<Int> 
+	public var currentLoop (__getCurrentLoop,null) :Int;
+	private function __getCurrentLoop () :Int 
 	{
 		return cLoop;
 	}
@@ -227,14 +227,14 @@ class Sound3D extends ATransformable
 		if(Std.is(s, Sound)) 
 		{
 			sMode = "sound";
-			soundRef = cast(s, Sound);
+			soundRef = s;
 			if(soundRef.length > 0) duration = soundRef.length;
 		}
 		else if(Std.is(s, SoundChannel))
 		{
 			sMode = "channel";
 			_isPlaying = true;
-			channelRef = cast(s, SoundChannel);
+			channelRef = s;
 		}
 		else if(Std.is(s, String))
 		{
@@ -244,7 +244,7 @@ class Sound3D extends ATransformable
 		else
 		{
 			sMode = "url";
-			urlReq = cast(s, URLRequest);
+			urlReq = s;
 		}
 	}
 	
@@ -277,10 +277,10 @@ class Sound3D extends ATransformable
 	{
 		var gv:Matrix4 = modelMatrix;
 		var rv:Matrix4 = p_oScene.camera.modelMatrix;
-		var dx:Null<Float> = gv.n14 - rv.n14;
-		var dy:Null<Float> = gv.n24 - rv.n24;
-		var dz:Null<Float> = gv.n34 - rv.n34;
-		var dist:Null<Float> = Math.sqrt(dx*dx + dy*dy + dz*dz);
+		var dx:Float = gv.n14 - rv.n14;
+		var dy:Float = gv.n24 - rv.n24;
+		var dz:Float = gv.n34 - rv.n34;
+		var dist:Float = Math.sqrt(dx*dx + dy*dy + dz*dz);
 		
 		if(dist <= 0.001) 
 		{
@@ -290,11 +290,11 @@ class Sound3D extends ATransformable
 		}
 		else if(dist <= soundRadius) 
 		{
-			var pa:Null<Float> = 0;
+			var pa:Float = 0;
 			if(soundPan) 
 			{
-				var d:Null<Float> = dx*rv.n11 + dy*rv.n21 + dz*rv.n31;
-				var ang:Null<Float> = Math.acos(d/dist) - Math.PI/2;
+				var d:Float = dx*rv.n11 + dy*rv.n21 + dz*rv.n31;
+				var ang:Float = Math.acos(d/dist) - Math.PI/2;
 				pa = - (ang/100 * (100/(Math.PI/2))) * maxPan;
 				if(pa < -1) pa = -1;
 				else if(pa > 1) pa = 1;
@@ -321,8 +321,8 @@ class Sound3D extends ATransformable
 		if(stereo) 
 		{
 			
-			var span:Null<Float> = m_oSoundTransform.pan;
-			var pa:Null<Float>;
+			var span:Float = m_oSoundTransform.pan;
+			var pa:Float;
 			
 			if(span<0) 
 			{
@@ -344,20 +344,20 @@ class Sound3D extends ATransformable
 			if(flipPan) 
 			{
 				
-				var x2:Null<Float> = modelMatrix.n11;
-				var y2:Null<Float> = modelMatrix.n21;
-				var z2:Null<Float> = modelMatrix.n31;
+				var x2:Float = modelMatrix.n11;
+				var y2:Float = modelMatrix.n21;
+				var z2:Float = modelMatrix.n31;
 				
 				var gv:Matrix4 = p_oScene.camera.modelMatrix;
-				var mz:Null<Float> = -(x2*gv.n11 + y2*gv.n21 + z2*gv.n31);
+				var mz:Float = -(x2*gv.n11 + y2*gv.n21 + z2*gv.n31);
 				
 				if(mz > 0) 
 				{
 					
-					var l2l:Null<Float> = m_oSoundTransform.leftToLeft;
-					var l2r:Null<Float> = m_oSoundTransform.leftToRight;
-					var r2l:Null<Float> = m_oSoundTransform.rightToLeft;
-					var r2r:Null<Float> = m_oSoundTransform.rightToRight;
+					var l2l:Float = m_oSoundTransform.leftToLeft;
+					var l2r:Float = m_oSoundTransform.leftToRight;
+					var r2l:Float = m_oSoundTransform.rightToLeft;
+					var r2r:Float = m_oSoundTransform.rightToRight;
 					
 					m_oSoundTransform.leftToLeft = l2l+(l2r-l2l)*mz;
 					m_oSoundTransform.leftToRight = l2r+(l2l-l2r)*mz;
@@ -408,7 +408,7 @@ class Sound3D extends ATransformable
 	 * 
 	 * @param	isUrl true if thr urlReq should be loaded
 	 */
-	private function cPlay (?isUrl:Null<Bool>) :Void 
+	private function cPlay (?isUrl:Bool) :Void 
 	{
 		if (isUrl == null) isUrl = false;
 
@@ -428,16 +428,16 @@ class Sound3D extends ATransformable
 			
 			if(type == SPEECH) 
 			{
-				var len:Null<Float> = duration;
-				var time:Null<Float> = startTime;
+				var len:Float = duration;
+				var time:Float = startTime;
 				
 				if(len > 0) 
 				{
 					time = lastPosition + (flash.Lib.getTimer()-lastStopTime);
 					if(time > len) 
 					{
-						var fn:Null<Float> = time/len;
-						var f:Null<Int> = Std.int(fn);
+						var fn:Float = time/len;
+						var f:Int = Std.int(fn);
 						cLoop += f;
 						if(cLoop>loops) 
 						{
@@ -458,7 +458,7 @@ class Sound3D extends ATransformable
 		}
 	}
 	
-	private function cStop (?isUrl:Null<Bool>) :Void 
+	private function cStop (?isUrl:Bool) :Void 
 	{
 		if (isUrl == null) isUrl = false;
 
@@ -475,7 +475,7 @@ class Sound3D extends ATransformable
 		}
 	}
 	
-	public override function cull (p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool>) :Void 
+	public override function cull (p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool) :Void 
 	{
 		
 		if(_isPlaying) 
@@ -483,7 +483,7 @@ class Sound3D extends ATransformable
 			
 			updateSoundTransform(p_oScene);
 			
-			var isUrl:Null<Bool> = sMode == "url";
+			var isUrl:Bool = sMode == "url";
 			
 			if(isUrl || sMode == "sound") 
 			{

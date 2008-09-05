@@ -44,7 +44,7 @@ class Light3D extends EventDispatcher
 	* Maximum value accepted. If the default value (150) seems too big or too small for you, you can change it.
 	* But be aware that the actual lighting calculations are normalised i.e. 0 -> MAX_POWER becomes 0 -> 1
 	*/
-	public static var MAX_POWER:Null<Float> = 150;
+	public static var MAX_POWER:Float = 150;
 
 	/**
 	 * Creates a new light source.
@@ -54,7 +54,7 @@ class Light3D extends EventDispatcher
 	 *
      * @see sandy.core.data.Vector
 	 */
-	public function new(p_oD:Vector, p_nPow:Null<Float>)
+	public function new(p_oD:Vector, p_nPow:Float)
 	{
 		_dir = p_oD;
 		_dir.normalize();
@@ -70,7 +70,7 @@ class Light3D extends EventDispatcher
 	 *
 	 * @param n	Float a Float between 0 and MAX_POWER. This number is the light intensity.
 	 */
-	public function setPower(p_nPow:Null<Float>):Void
+	public function setPower(p_nPow:Float):Void
 	{
 		_power =  NumberUtil.constrain(p_nPow, 0, Light3D.MAX_POWER);
 		_nPower = _power / Light3D.MAX_POWER;
@@ -82,7 +82,7 @@ class Light3D extends EventDispatcher
 	 *
 	 * @return The intensity as a number between 0 - MAX_POWER.
 	 */
-	public function getPower():Null<Float>
+	public function getPower():Float
 	{
 		return _power;
 	}
@@ -92,7 +92,7 @@ class Light3D extends EventDispatcher
 	 *
 	 * @return Float a number between 0 and 1
 	 */
-	public function getNormalizedPower():Null<Float>
+	public function getNormalizedPower():Float
 	{
 		return _nPower;
 	}
@@ -116,7 +116,7 @@ class Light3D extends EventDispatcher
 	 * @param y	The y coordinate
 	 * @param z	The z coordinate
 	 */
-	public function setDirection(x:Null<Float>, y:Null<Float>, z:Null<Float>):Void
+	public function setDirection(x:Float, y:Float, z:Float):Void
 	{
 		_dir.x = x; _dir.y = y; _dir.z = z;
 		_dir.normalize();
@@ -144,9 +144,9 @@ class Light3D extends EventDispatcher
 	 *
      * @see sandy.core.data.Vector
 	 */
-	public function calculate(normal:Vector):Null<Float>
+	public function calculate(normal:Vector):Float
 	{
-		var DP:Null<Float> = _dir.dot(normal);
+		var DP:Float = _dir.dot(normal);
 		DP = -DP;
 
 		// if DP is less than 0 then the face is facing away from the light
@@ -171,8 +171,8 @@ class Light3D extends EventDispatcher
 	/**
 	 * Color of the light.
 	 */
-	public var color(__getColor, __setColor):Null<Int>;
-	public function __getColor():Null<Int>
+	public var color(__getColor, __setColor):Int;
+	public function __getColor():Int
 	{
 		return _color;
 	}
@@ -180,7 +180,7 @@ class Light3D extends EventDispatcher
 	/**
 	 * @private
 	 */
-	private function __setColor(p_nColor:Null<Int>):Null<Int>
+	private function __setColor(p_nColor:Int):Int
 	{
 		_color = p_nColor;
 
@@ -193,8 +193,8 @@ class Light3D extends EventDispatcher
 	// Direction of the light. It is 3D vector.
 	//Please refer to the Light tutorial to learn more about Sandy's lights.
 	private var _dir:Vector;
-	private var _power:Null<Float>;
-	private var _nPower:Null<Float>;
-	private var _color:Null<Int>;
+	private var _power:Float;
+	private var _nPower:Float;
+	private var _color:Int;
 }
 

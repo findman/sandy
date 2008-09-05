@@ -69,7 +69,7 @@ class Camera3D extends ATransformable
 	 * @param p_nNear	The distance from the camera to the near clipping plane - Default 50
 	 * @param p_nFar	The distance from the camera to the far clipping plane - Default 10000
 	 */
-	public function new( p_nWidth:Null<Int>, p_nHeight:Null<Int>, ?p_nFov:Null<Float>, ?p_nNear:Null<Float>, ?p_nFar:Null<Float> )
+	public function new( p_nWidth:Int, p_nHeight:Int, ?p_nFov:Float, ?p_nNear:Float, ?p_nFar:Float )
 	{
 		if (p_nFov == null) p_nFov = 45;
 		if (p_nNear == null) p_nNear = 50;
@@ -106,7 +106,7 @@ class Camera3D extends ATransformable
 	/**
 	 * The angle of view of this camera in degrees.
 	 */
-	public function __setFov( p_nFov:Null<Float> ):Null<Float>
+	public function __setFov( p_nFov:Float ):Float
 	{
 		_nFov = p_nFov;
 		_perspectiveChanged = true;
@@ -116,34 +116,34 @@ class Camera3D extends ATransformable
 	/**
 	 * @private
 	 */
-	public var fov(__getFov, __setFov):Null<Float>;
-	private function __getFov():Null<Float>
+	public var fov(__getFov, __setFov):Float;
+	private function __getFov():Float
 	{return _nFov;}
 	
 	/**
 	 * Near plane distance for culling/clipping.
 	 */
-	public function __setNear( pNear:Null<Float> ):Null<Float>
+	public function __setNear( pNear:Float ):Float
 	{_nNear = pNear; _perspectiveChanged = true; return pNear;}
 	
 	/**
 	 * @private
 	 */
-	public var near(__getNear, __setNear):Null<Float>;
-	private function __getNear():Null<Float>
+	public var near(__getNear, __setNear):Float;
+	private function __getNear():Float
 	{return _nNear;}
 			
 	/**
 	 * Far plane distance for culling/clipping.
 	 */
-	public function __setFar( pFar:Null<Float> ):Null<Float>
+	public function __setFar( pFar:Float ):Float
 	{_nFar = pFar;_perspectiveChanged = true; return pFar;}
 	
 	/**
 	 * @private
 	 */
-	public var far(__getFar, __setFar):Null<Float>;
-	private function __getFar():Null<Float>
+	public var far(__getFar, __setFar):Float;
+	private function __getFar():Float
 	{return _nFar;}
 
 	///////////////////////////////////////
@@ -158,6 +158,7 @@ class Camera3D extends ATransformable
 	 */
 	public function renderDisplayList( p_oScene:Scene3D ):Void
 	{
+
 		var l_oShape:IDisplayable;
 		// --
 		if ( m_aDisplayedList != null ) 
@@ -214,9 +215,9 @@ class Camera3D extends ATransformable
 	 */
 	public function projectArray( p_oList:Array<Vertex> ):Void
 	{
-		var l_nX:Null<Float> = viewport.offset.x + m_nOffx;
-		var l_nY:Null<Float> = viewport.offset.y + m_nOffy;
-		var l_nCste:Null<Float>;
+		var l_nX:Float = viewport.offset.x + m_nOffx;
+		var l_nY:Float = viewport.offset.y + m_nOffy;
+		var l_nCste:Float;
 		for ( l_oVertex in p_oList )
 		{
 			if( !l_oVertex.projected )
@@ -237,9 +238,9 @@ class Camera3D extends ATransformable
 	 */
 	public function projectVertex( p_oVertex:Vertex ):Void
 	{
-		var l_nX:Null<Float> = (viewport.offset.x + m_nOffx);
-		var l_nY:Null<Float> = (viewport.offset.y + m_nOffy);
-		var l_nCste:Null<Float> = 	1 / ( p_oVertex.wx * mp41 + p_oVertex.wy * mp42 + p_oVertex.wz * mp43 + mp44 );
+		var l_nX:Float = (viewport.offset.x + m_nOffx);
+		var l_nY:Float = (viewport.offset.y + m_nOffy);
+		var l_nCste:Float = 	1 / ( p_oVertex.wx * mp41 + p_oVertex.wy * mp42 + p_oVertex.wz * mp43 + mp44 );
 		p_oVertex.sx =  l_nCste * ( p_oVertex.wx * mp11 + p_oVertex.wy * mp12 + p_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
 		p_oVertex.sy = -l_nCste * ( p_oVertex.wx * mp21 + p_oVertex.wy * mp22 + p_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;
 	}
@@ -259,7 +260,7 @@ class Camera3D extends ATransformable
 	 * @param p_oModelMatrix The matrix which represents the parent model matrix. Basically it stores the rotation/translation/scale of all the nodes above the current one.
 	 * @param p_bChanged	A boolean value which specify if the state has changed since the previous rendering. If false, we save some matrix multiplication process.
 	 */
-	public override function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		if( viewport.hasChanged )
 		{
@@ -294,7 +295,7 @@ class Camera3D extends ATransformable
 	/**
 	 * Nothing to do - the camera can't be culled
 	 */
-	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		return;
 	}
@@ -331,9 +332,9 @@ class Camera3D extends ATransformable
 	* @param p_nZNear 	The distance betweeen the camera and the near plane - Default 10.
 	* @param p_nZFar 	The distance betweeen the camera position and the far plane. Default 10 000.
 	*/
-	private function setPerspectiveProjection(p_nFovY:Null<Float>, p_nAspectRatio:Null<Float>, p_nZNear:Null<Float>, p_nZFar:Null<Float>):Void
+	private function setPerspectiveProjection(p_nFovY:Float, p_nAspectRatio:Float, p_nZNear:Float, p_nZFar:Float):Void
 	{
-		var cotan:Null<Float>, Q:Null<Float>;
+		var cotan:Float, Q:Float;
 		// --
 		frustrum.computePlanes(p_nAspectRatio, p_nZNear, p_nZFar, p_nFovY );
 		// --
@@ -403,34 +404,34 @@ class Camera3D extends ATransformable
 	//////////////////////////
 	/// PRIVATE PROPERTIES ///
 	//////////////////////////
-	private var _perspectiveChanged:Null<Bool>;
+	private var _perspectiveChanged:Bool;
 	private var _mp:Matrix4;
 	private var _mpInv:Matrix4;
 
 	private var m_aDisplayList:Array<IDisplayable>;
 	private var m_aDisplayedList:Array<IDisplayable>;
 	
-	private var _nFov:Null<Float>;
-	private var _nFar:Null<Float>;
-	private var _nNear:Null<Float>;
+	private var _nFov:Float;
+	private var _nFar:Float;
+	private var _nNear:Float;
 	
-	private var mp11:Null<Float>;
- private var mp21:Null<Float>;
- private var mp31:Null<Float>;
-	private var mp41:Null<Float>;
-	private var mp12:Null<Float>;
-	private var mp22:Null<Float>;
-	private var mp32:Null<Float>;
-	private var mp42:Null<Float>;
-	private var mp13:Null<Float>;
-	private var mp23:Null<Float>;
-	private var mp33:Null<Float>;
-	private var mp43:Null<Float>;
-	private var mp14:Null<Float>;
-	private var mp24:Null<Float>;
-	private var mp34:Null<Float>;
-	private var mp44:Null<Float>;
-	private var m_nOffx:Null<Float>;
-	private var m_nOffy:Null<Float>;
+	private var mp11:Float;
+ private var mp21:Float;
+ private var mp31:Float;
+	private var mp41:Float;
+	private var mp12:Float;
+	private var mp22:Float;
+	private var mp32:Float;
+	private var mp42:Float;
+	private var mp13:Float;
+	private var mp23:Float;
+	private var mp33:Float;
+	private var mp43:Float;
+	private var mp14:Float;
+	private var mp24:Float;
+	private var mp34:Float;
+	private var mp44:Float;
+	private var m_nOffx:Float;
+	private var m_nOffy:Float;
 }
 

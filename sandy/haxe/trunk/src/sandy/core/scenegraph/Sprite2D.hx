@@ -52,15 +52,15 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	/**
 	 * Set this to true if you want this sprite to rotate with camera.
 	 */
-	public var fixedAngle:Null<Bool>;
+	public var fixedAngle:Bool;
 
 	/**
 	 * When enabled, the sprite will be displayed at its graphical center.
 	 * Otherwise its top left corner will be set at the computed screen position
 	 */
-	public var autoCenter:Null<Bool>;
+	public var autoCenter:Bool;
 	
-	public var floorCenter:Null<Bool>;
+	public var floorCenter:Bool;
 	
 	/**
 	 * Creates a Sprite2D.
@@ -73,7 +73,7 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 *			Default value is 1.0 which means unchanged. 
 	 * 			A value of 2.0 will make the object will double the size
 	 */	
-	public function new( ?p_sName:String, ?p_oContent:DisplayObject, ?p_nScale:Null<Float>) 
+	public function new( ?p_sName:String, ?p_oContent:DisplayObject, ?p_nScale:Float) 
 	{
 	 fixedAngle = false;
 	 autoCenter = true;
@@ -143,7 +143,7 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 *
 	 * @param p_nRadius	The radius
 	 */
-	public function setBoundingSphereRadius( p_nRadius:Null<Float> ):Void
+	public function setBoundingSphereRadius( p_nRadius:Float ):Void
 	{
 		boundingSphere.radius = p_nRadius;
 	}
@@ -153,8 +153,8 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 *
 	 * <p>Using scale, you can change the dimension of the sprite rapidly.</p>
 	 */
-	public var scale(__getScale,__setScale):Null<Float>;
-	private function __getScale():Null<Float>
+	public var scale(__getScale,__setScale):Float;
+	private function __getScale():Float
 	{ 
 		return _nScale; 
 	}
@@ -162,9 +162,9 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	/**
 	 * @private
 	 */
-	private function __setScale( n:Null<Float> ):Null<Float>
+	private function __setScale( n:Float ):Float
 	{
-		if( n != null )	_nScale = n; 
+		_nScale = n; 
 		return n;
 	}
 	
@@ -172,15 +172,15 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 * The depth to draw this sprite at.
 	 * <p>[<b>ToDo</b>: Explain ]</p>
 	 */
-	public var depth(__getDepth,__setDepth):Null<Float>;
-	private function __getDepth():Null<Float>
+	public var depth(__getDepth,__setDepth):Float;
+	private function __getDepth():Float
 	{
 		return m_nDepth;
 	}
 
-	private function __setDepth( p_nDepth:Null<Float> ):Null<Float>
+	private function __setDepth( p_nDepth:Float ):Float
 	{
-		return null;
+		return p_nDepth;
 	}
 	  
 	/**
@@ -198,7 +198,7 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 * @param p_oViewMatrix	The view martix of the curren camera
 	 * @param p_bChanged
 	 */
-	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );
 		// --
@@ -325,7 +325,7 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 * if false the normal Z-sorting algorithm is applied.</p>
 	 * <p>When correctly used, this feature allows you to aVoid some Z-sorting problems.</p>
 	 */
-	public var enableForcedDepth:Null<Bool>;
+	public var enableForcedDepth:Bool;
 	
 	/**
 	 * The forced depth for this object.
@@ -333,15 +333,15 @@ class Sprite2D extends ATransformable, implements IDisplayable
 	 * <p>To make this feature work, you must enable the ForcedDepth system too.<br/>
 	 * The higher the depth is, the sooner the more far the object will be represented.</p>
 	 */
-	public var forcedDepth:Null<Float>;
+	public var forcedDepth:Float;
 
-	override public var enableEvents(__getEnableEvents,__setEnableEvents):Null<Bool>;
-	override private function __getEnableEvents():Null<Bool>
+	override public var enableEvents(__getEnableEvents,__setEnableEvents):Bool;
+	override private function __getEnableEvents():Bool
 	{
 		return m_bEv;
 	}
 	
-	override private function __setEnableEvents( b:Null<Bool> ):Null<Bool>
+	override private function __setEnableEvents( b:Bool ):Bool
 	{
 		if( b &&!m_bEv )
 		{
@@ -379,21 +379,21 @@ class Sprite2D extends ATransformable, implements IDisplayable
 		m_oEB.broadcastEvent( new BubbleEvent( p_oEvt.type, this ) );
 	}
 	
-	private var m_bEv:Null<Bool>; // The event system state (enable or not)
+	private var m_bEv:Bool; // The event system state (enable or not)
 	
-	private var m_nW2:Null<Float>;
-	private var m_nH2:Null<Float>;
+	private var m_nW2:Float;
+	private var m_nH2:Float;
 	private var m_oContainer:Sprite;
-	private var m_bLightingEnabled:Null<Bool>;
+	private var m_bLightingEnabled:Bool;
 
-	private var m_nPerspScaleX:Null<Float>;
- private var m_nPerspScaleY:Null<Float>;
-	private var m_nRotation:Null<Float>;
+	private var m_nPerspScaleX:Float;
+ private var m_nPerspScaleY:Float;
+	private var m_nRotation:Float;
 	private var _v:Vertex; 
  private var _vx:Vertex; 
  private var _vy:Vertex;
-	public var m_nDepth:Null<Float>;
-	private var _nScale:Null<Float>;
+	public var m_nDepth:Float;
+	private var _nScale:Float;
 	private var m_oContent:DisplayObject;
 	private var m_oMaterial:Null<Material>;
 }

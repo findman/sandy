@@ -41,17 +41,17 @@ class Plane3D extends Shape3D, implements Primitive3D
 	/**
 	* Specifies plane will be parallel to the xy-plane.
 	*/
-	public static inline var XY_ALIGNED:String = "xy_aligned";
+	public static var XY_ALIGNED:String = "xy_aligned";
 
 	/**
 	* Specifies plane will be parallel to the yz-plane.
 	*/
-	public static inline var YZ_ALIGNED:String = "yz_aligned";
+	public static var YZ_ALIGNED:String = "yz_aligned";
 
 	/**
 	* Specifies plane will be parallel to the zx-plane.
 	*/
-	public static inline var ZX_ALIGNED:String = "zx_aligned";
+	public static var ZX_ALIGNED:String = "zx_aligned";
 
 	//////////////////
 	///PRIVATE VARS///
@@ -114,11 +114,11 @@ class Plane3D extends Shape3D, implements Primitive3D
 		var l2:Float = _lg/2;
 		var pasH:Float = _h/_qV;
 		var pasL:Float = _lg/_qH;
-		var iH:Float = -h2, iL:Float, iTH:Float = 0, iTL:Float;
+		var iH:Float = 0 - h2, iL:Float, iTH:Float = 0, iTL:Float;
 
 		for( i in 0...(_qV + 1) )
 		{
-			iL = -l2;
+			iL = 0 - l2;
 			iTL = 0;
 			for( j in 0...(_qH + 1) )
 			{

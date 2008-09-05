@@ -36,9 +36,9 @@ import sandy.parser.ParserEvent;
     */
 class ParserStack extends EventDispatcher
 {
-	public static inline var PROGRESS:String = "parserstack_progress";
-	public static inline var ERROR:String = "parserstack_error";
-	public static inline var COMPLETE:String = "parserstack_complete";
+	public static var PROGRESS:String = "parserstack_progress";
+	public static var ERROR:String = "parserstack_error";
+	public static var COMPLETE:String = "parserstack_complete";
 	
 	private var m_oMap:Hash<IParser>;
 	private var m_oNameMap:Dictionary;

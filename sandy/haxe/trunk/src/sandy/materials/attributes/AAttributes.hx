@@ -96,10 +96,10 @@ class AAttributes implements IAttributes
 	/**
 	 * Returns the specific flags of this attribute.
 	 */
-	public var flags(__getFlags,null):Null<Int>;
-	private function __getFlags():Null<Int>
+	public var flags(__getFlags,null):UInt;
+	private function __getFlags():UInt
 	{ return m_nFlags; }
 	
-	private var m_nFlags:Null<Int>;
+	private var m_nFlags:UInt;
 }
 

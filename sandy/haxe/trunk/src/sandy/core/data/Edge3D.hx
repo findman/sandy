@@ -34,12 +34,12 @@ class Edge3D
 	 * [READ-ONLY]
 	 * First ID of the vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
 	 */
-	public var vertexId1:Null<Int>;
+	public var vertexId1:Int;
 	/**
 	 * [READ-ONLY]
 	 * Second ID of the vertex which compose the EDGE. The ID correspond to the Geometry3D aVertex list
 	 */
-	public var vertexId2:Null<Int>;
+	public var vertexId2:Int;
 
 	/**
 	 * [READ-ONLY]
@@ -57,7 +57,7 @@ class Edge3D
 	 * Creates an Edge3D from two vertices.
 	 *
 	 */
-	public function new( p_nVertexId1:Null<Int>, p_nVertexId2:Null<Int> )
+	public function new( p_nVertexId1:Int, p_nVertexId2:Int )
 	{
 		vertexId1 = p_nVertexId1;
 		vertexId2 = p_nVertexId2;

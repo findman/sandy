@@ -32,17 +32,17 @@ class PlaneMath
 	/**
 	 * Defines the numeric value -1
 	 */
-	public static inline var NEGATIVE:Int = -1;
+	public static var NEGATIVE:Int = -1;
 	
 	/**
 	 * Defines the numeric value 0
 	 */
-	public static inline var ON_PLANE:Int = 0;
+	public static var ON_PLANE:Int = 0;
 	
 	/**
 	 * Defines the numeric value 1
 	 */
-	public static inline var POSITIVE:Int = 1;
+	public static var POSITIVE:Int = 1;
 	
 	/**
 	 * Normalizes the plane. 
@@ -51,7 +51,7 @@ class PlaneMath
 	 *
 	 * @param p_oPlane 	The plane to normalize.
 	 */
-	public static inline function normalizePlane( p_oPlane:Plane ):Void
+	public static function normalizePlane( p_oPlane:Plane ):Void
 	{
 		var mag:Float;
 		mag = Math.sqrt( p_oPlane.a * p_oPlane.a + p_oPlane.b * p_oPlane.b + p_oPlane.c * p_oPlane.c );
@@ -68,7 +68,7 @@ class PlaneMath
 	 * @param pt 	The point in space
 	 * @return 	The distance between the point and the plane.
 	 */
-	public static inline function distanceToPoint( p_oPlane:Plane, p_oPoint:Vector ):Float
+	public static function distanceToPoint( p_oPlane:Plane, p_oPoint:Vector ):Float
 	{
 		return p_oPlane.a * p_oPoint.x + p_oPlane.b * p_oPoint.y + p_oPlane.c * p_oPoint.z + p_oPlane.d ;
 	}
@@ -99,7 +99,7 @@ class PlaneMath
 	 * @param p_oPointC	The third point
 	 * @return 	The Plane object		 
 	 */
-	public static inline function computePlaneFromPoints( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector ):Plane
+	public static function computePlaneFromPoints( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector ):Plane
 	{
 		var n:Vector = VectorMath.cross( VectorMath.sub( p_oPointA, p_oPointB), VectorMath.sub( p_oPointA, p_oPointC) );
 		VectorMath.normalize( n );
@@ -114,7 +114,7 @@ class PlaneMath
 	 * @param p_nPoint		The point
 	 * @return 		The Plane object
 	 */		
-	public static inline function createFromNormalAndPoint( p_oNormal:Vector, p_nPoint:Float ):Plane
+	public static function createFromNormalAndPoint( p_oNormal:Vector, p_nPoint:Float ):Plane
 	{
 		var p:Plane = new Plane();
 		VectorMath.normalize(p_oNormal);

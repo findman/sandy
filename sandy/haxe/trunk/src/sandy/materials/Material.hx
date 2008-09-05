@@ -44,7 +44,7 @@ class Material
 	 * Specify if the material use the vertex normal information
 	 * Default value is set to false.
 	 */
-	public var useVertexNormal:Null<Bool>;
+	public var useVertexNormal:Bool;
 	
 	/**
 	 * Specify is the material can receive light and apply the light attributes if specified.
@@ -156,10 +156,10 @@ class Material
 		return a;
 	}
 	
-	public var flags(__getFlags,null):Null<Int>;
-	public function __getFlags():Null<Int>
+	public var flags(__getFlags,null):Int;
+	public function __getFlags():Int
 	{
-		var l_nFlags:Null<Int> = m_nFlags;
+		var l_nFlags:Int = m_nFlags;
 		l_nFlags |= attributes.flags;
 		return l_nFlags;
 	}
@@ -197,7 +197,7 @@ class Material
 	 * DO NOT TOUCH THIS PROPERTY UNLESS YOU PERFECTLY KNOW WHAT YOU ARE DOING.
 	 * this flag property contains the specific material flags.
 	 */
-	private var m_nFlags:Null<Int>;
+	private var m_nFlags:Int;
 	private var m_bModified:Bool;
 	private var _filters:Array<Dynamic>;
 	private var _useLight : Bool;

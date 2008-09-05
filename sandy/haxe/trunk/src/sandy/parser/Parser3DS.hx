@@ -296,8 +296,8 @@ class Parser3DS extends AParser, implements IParser
 	private function readString():String
 	{
 			var name:String = "";
-			var ch:Null<UInt>;
-			while((ch = readChar()) != null)
+			var ch:UInt;
+			while((ch = readChar()) != 0)
 			{
 				if (ch == 0)
 				{

@@ -59,37 +59,37 @@ class Cylinder extends Shape3D, implements Primitive3D
 	/**
 	* The default radius for a cylinder.
 	*/
-	static public inline var DEFAULT_RADIUS :Float = 100;
+	static public var DEFAULT_RADIUS :Float = 100;
 
 	/**
 	* The default height for a cylinder.
 	*/
-	static public inline var DEFAULT_HEIGHT :Float = 100;
+	static public var DEFAULT_HEIGHT :Float = 100;
 
 	/**
 	* The default scale for a cylinder texture.
 	*/
-	static public inline var DEFAULT_SCALE :Float = 1;
+	static public var DEFAULT_SCALE :Float = 1;
 
 	/**
 	* The default number of horizontal segments for a cylinder.
 	*/
-	static public inline var DEFAULT_SEGMENTSW :Float = 8;
+	static public var DEFAULT_SEGMENTSW :Float = 8;
 
 	/**
 	* The default number of vertical segments for a cylinder.
 	*/
-	static public inline var DEFAULT_SEGMENTSH :Float = 6;
+	static public var DEFAULT_SEGMENTSH :Float = 6;
 
 	/**
 	* The minimum number of horizontal segments for a cylinder.
 	*/
-	static public inline var MIN_SEGMENTSW :Float = 3;
+	static public var MIN_SEGMENTSW :Float = 3;
 
 	/**
 	* The minimum number of vertical segments for a cylinder.
 	*/
-	static public inline var MIN_SEGMENTSH :Float = 2;
+	static public var MIN_SEGMENTSH :Float = 2;
 
 
 	private var topRadius:Float;
@@ -97,7 +97,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 	private var height:Float;
 
 	private var m_bIsTopExcluded:Bool;
-	private var m_bIsBottomExcluded:Null<Bool>;
+	private var m_bIsBottomExcluded:Bool;
 
 	private var m_bIsWholeMappingEnabled:Bool;
 
@@ -148,7 +148,12 @@ class Cylinder extends Shape3D, implements Primitive3D
 		if (p_nSegmentsW == null) p_nSegmentsW = 8;
 		if (p_nSegmentsH == null) p_nSegmentsH = 6;
 		if (p_nTopRadius == null) p_nTopRadius = Math.NaN;
-		if (p_bExcludeBottom == null) p_bExcludeBottom = false;
+		if (p_bExcludeBottom == null) {
+				p_bExcludeBottom = false;
+				m_nPolBase = this.segmentsW - 2;
+		} else {
+				m_nPolBase = 0;
+		}
 		if (p_bExludeTop == null) p_bExludeTop = false;
 		if (p_bWholeMapping == null) p_bWholeMapping = true;
 
@@ -166,7 +171,6 @@ class Cylinder extends Shape3D, implements Primitive3D
 		m_bIsWholeMappingEnabled = p_bWholeMapping;
 
 		/**/
-		m_nPolBase = m_bIsBottomExcluded == null? this.segmentsW - 2 : 0;
 		m_nNextPolFace = this.segmentsW * 2;
 
 		geometry = generate();
@@ -306,7 +310,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 			m_aFaces[ 0 ] = new PrimitiveFace( this );
 			for ( ib in 0...m_nPolBase )
 			{
-				cast( m_aFaces[ 0 ], PrimitiveFace ).addPolygon( ib );
+				m_aFaces[ 0 ].addPolygon( ib );
 			}
 		}
 		else m_aFaces[ 0 ] = null;
@@ -316,7 +320,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 			m_aFaces[ 1 ] = new PrimitiveFace( this );
 			for ( it in 0...m_nPolBase )
 			{
-				cast( m_aFaces[ 1 ], PrimitiveFace ).addPolygon( it + ( m_nPolBase ) + ( m_nNextPolFace * this.segmentsH ) );
+				 m_aFaces[ 1 ].addPolygon( it + ( m_nPolBase ) + ( m_nNextPolFace * this.segmentsH ) );
 			}
 		}
 		else m_aFaces[ 1 ] = null;
@@ -326,8 +330,8 @@ class Cylinder extends Shape3D, implements Primitive3D
 			m_aFaces[ i + 2 ] = new PrimitiveFace( this );
 			for ( j in 0...this.segmentsH )
 			{
-				cast( m_aFaces[ i + 2 ], PrimitiveFace ).addPolygon( m_nPolBase + ( i * 2 ) + ( j * m_nNextPolFace ) );
-				cast( m_aFaces[ i + 2 ], PrimitiveFace ).addPolygon( m_nPolBase + ( i * 2 ) + ( j * m_nNextPolFace ) + 1 );
+				m_aFaces[ i + 2 ].addPolygon( m_nPolBase + ( i * 2 ) + ( j * m_nNextPolFace ) );
+				m_aFaces[ i + 2 ].addPolygon( m_nPolBase + ( i * 2 ) + ( j * m_nNextPolFace ) + 1 );
 			}
 		}
 	}

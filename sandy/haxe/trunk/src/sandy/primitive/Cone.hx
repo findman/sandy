@@ -52,7 +52,7 @@ class Cone extends Cylinder, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new(?p_sName : String, ?p_nRadius:Null<Float>, ?p_nHeight:Null<Float>, ?p_nSegmentsW:Null<Float>, ?p_nSegmentsH:Null<Float>)
+	public function new(?p_sName : String, ?p_nRadius:Float, ?p_nHeight:Float, ?p_nSegmentsW:Float, ?p_nSegmentsH:Float)
 	{
 			if (p_nRadius == null) p_nRadius = 100;
 			if (p_nHeight == null) p_nHeight = 100;

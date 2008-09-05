@@ -44,7 +44,7 @@ class BezierUtil
 	 * @param p3 	Third point
 	 * @return 	The resulting position vector
 	 */
-	public static inline function getPointsOnQuadCurve(p:Float, p1:Vector, p2:Vector, p3:Vector):Vector 
+	public static function getPointsOnQuadCurve(p:Float, p1:Vector, p2:Vector, p3:Vector):Vector 
 	{
 		var ip2:Float = 2 * ( 1 - p );
 		return new Vector(
@@ -66,7 +66,7 @@ class BezierUtil
 	 * @param p4 	Fourth point
 	 * @return 	The resulting position vector
 	 */	
-	public static inline function getPointsOnCubicCurve(p:Float, p1:Vector, p2:Vector, p3:Vector, p4:Vector):Vector 
+	public static function getPointsOnCubicCurve(p:Float, p1:Vector, p2:Vector, p3:Vector, p4:Vector):Vector 
 	{
 		var a:Float,b:Float,c:Float,d:Float,e:Float;	
 		d = p * p;
@@ -91,7 +91,7 @@ class BezierUtil
 	 * @param end	 	The end point
 	 * @return		The control point
 	 */
-	public static inline function getQuadControlPoints(start:Vector, middle:Vector,end:Vector):Vector
+	public static function getQuadControlPoints(start:Vector, middle:Vector,end:Vector):Vector
 	{						        
 		return new Vector(
 			(2 * middle.x) - .5 * (start.x + end.x),
@@ -113,7 +113,7 @@ class BezierUtil
 	 * @param end	 	The end point
 	 * @return 		A two dimensional array containing the two controls points.
 	 */	
-	public static inline function getCubicControlPoints(start:Vector, through1:Vector, through2:Vector, end:Vector):Array<Vector>
+	public static function getCubicControlPoints(start:Vector, through1:Vector, through2:Vector, end:Vector):Array<Vector>
 	{
 		return [
 			new Vector( 
@@ -137,7 +137,7 @@ class BezierUtil
 	 * @param plist	The list of control points of the Bézier curve.
 	 * @return	The position on the Bézier curve at the fraction p of the curve.
 	 */
-	public static inline function casteljau( p:Float, plist:Array<Vector> ):Vector
+	public static function casteljau( p:Float, plist:Array<Vector> ):Vector
 	{
 		var list:Array<Vector> = plist.slice(0);
 		var aNewList:Array<Vector> = [];
@@ -176,7 +176,7 @@ class BezierUtil
 	 * @param	pfin
 	 * @return	The position on the Bézier curve at the fraction p of the curve.
 	 */
-	public static inline function casteljau_interval( p:Float, plist:Array<Vector>, pdeb:Int, pfin:Int ):Vector
+	public static function casteljau_interval( p:Float, plist:Array<Vector>, pdeb:Int, pfin:Int ):Vector
 	{
 		var aNewList:Array<Vector> = plist.slice(0);
 		// --

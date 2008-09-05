@@ -41,6 +41,7 @@ import sandy.view.Frustum;
  *
  * @author		makc
  * @author		pedromoraes - haXe port 
+ * @author		Niel Drummond - tweaks
  * @version		3.0.3
  * @date 		03.03.2008
  */
@@ -115,14 +116,14 @@ class StarField extends ATransformable, implements IDisplayable
 	 */
 	public var depthIndex:Int;
 
-	public var depth(__getDepth, __setDepth):Null<Float>;
+	public var depth(__getDepth, __setDepth):Float;
 	/**
 	 * The depth to draw the starfield at. If depthIndex is set to valid value,
 	 * depth returns distance to that star, otherwise value set by user (default: 1e10).
 	 */
-	public function __getDepth ():Null<Float>
+	public function __getDepth ():Float
 	{
-		var v:Vertex = cast(stars[depthIndex], Vertex);
+		var v:Vertex = stars[depthIndex];
 		if (v != null)
 			return v.wz;
 
@@ -132,7 +133,7 @@ class StarField extends ATransformable, implements IDisplayable
 	/**
 	 * @private
 	 */
-	public function __setDepth (p_nDepth:Null<Float>):Null<Float>
+	public function __setDepth (p_nDepth:Float):Float
 	{
 		return m_nDepth = p_nDepth;
 	}
@@ -145,7 +146,7 @@ class StarField extends ATransformable, implements IDisplayable
 	 * @param p_oViewMatrix	The view martix of the curren camera
 	 * @param p_bChanged
 	 */
-	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		//super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );
 		if( visible == false )
@@ -231,7 +232,7 @@ class StarField extends ATransformable, implements IDisplayable
 						var star : IBitmapDrawable = starSprites [i];
 						if ( Std.is( star, DisplayObject ) )
 						{
-							m_sBlendMode = cast( star, DisplayObject ).blendMode;
+							m_sBlendMode = untyped star.blendMode;
 						}
 						else
 						{

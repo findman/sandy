@@ -76,7 +76,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * 
 	 * <p>Important: Enable the clipping makes process a bit slower, especially with big scenes.</p>
 	 */ 
-	public var enableNearClipping:Null<Bool>;
+	public var enableNearClipping:Bool;
 	
 	/**
 	 * <p>
@@ -88,7 +88,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 *
 	 * <p>Specify if this object polygons should be clipped against the camera frustum planes.</p>
 	 */
-	public var enableClipping:Null<Bool>;
+	public var enableClipping:Bool;
 
 	/**
 	 * Should forced depth be enable for this object?.
@@ -97,7 +97,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * if false the normal Z-sorting algorithm is applied.</p>
 	 * <p>When correctly used, this feature allows you to aVoid some Z-sorting problems.</p>
 	 */
-	public var enableForcedDepth:Null<Bool>;
+	public var enableForcedDepth:Bool;
 	
 	/**
 	 * The forced depth for this object.
@@ -105,7 +105,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * <p>To make this feature work, you must enable the ForcedDepth system too.<br/>
 	 * The higher the depth is, the sooner the more far the object will be represented.</p>
 	 */
-	public var forcedDepth:Null<Float>;
+	public var forcedDepth:Float;
 
 	/**
 	 * Creates a 3D object
@@ -117,7 +117,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * @param p_oAppearance		The appearance of this object. If no apperance is given, the DEFAULT_APPEARANCE will be applied.
 	 * @param p_bUseSingleContainer	Whether tis object should use a single container to draw on
 	 */	
-	public function new( ?p_sName:String, ?p_oGeometry:Geometry3D, ?p_oAppearance:Appearance, ?p_bUseSingleContainer:Null<Bool> )
+	public function new( ?p_sName:String, ?p_oGeometry:Geometry3D, ?p_oAppearance:Appearance, ?p_bUseSingleContainer:Bool )
 	{
 	 aPolygons = new Array();
 	 enableNearClipping = false;
@@ -161,12 +161,12 @@ class Shape3D extends ATransformable, implements IDisplayable
    	 * <p>If true, this object renders itself on a single container ( Sprite ),<br/>
    	 * if false, each polygon is rendered on its own container.</p>
    	 */
-   	override public var useSingleContainer( __getUseSingleContainer,__setUseSingleContainer ):Null<Bool>;
-   	override private function __setUseSingleContainer( p_bUseSingleContainer:Null<Bool> ):Null<Bool>
+   	override public var useSingleContainer( __getUseSingleContainer,__setUseSingleContainer ):Bool;
+   	override private function __setUseSingleContainer( p_bUseSingleContainer:Bool ):Bool
    	{
    		var l_oFace:Polygon;
    		// --
-   		if( p_bUseSingleContainer == m_bUseSingleContainer ) return null;
+   		if( p_bUseSingleContainer == m_bUseSingleContainer ) return p_bUseSingleContainer;
    		// --
    		if( p_bUseSingleContainer )
    		{
@@ -202,7 +202,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	/**
 	 * @private
 	 */
-	override private function __getUseSingleContainer ():Null<Bool>
+	override private function __getUseSingleContainer ():Bool
 	{return m_bUseSingleContainer;}
 
 	/**
@@ -232,7 +232,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * @param p_oViewMatrix	The view martix of the curren camera
 	 * @param p_bChanged
 	 */
-	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );
 		if( culled == Frustum.OUTSIDE ) return;
@@ -379,11 +379,11 @@ class Shape3D extends ATransformable, implements IDisplayable
 		    p_oCamera.addArrayToDisplayList( untyped( m_aVisiblePoly ) );
 		}
 		
-		var l_nFlags:Null<Int> = appearance.flags;
+		var l_nFlags:Int = appearance.flags;
 		
 		if( l_nFlags == 0 ) return;
 		
-		var i:Null<Int>;
+		var i:Int;
 		l_oMatrix = modelMatrix;
            m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
            m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
@@ -417,7 +417,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	}
 	
 	
-	public function __getVisiblePolygonsCount():Null<Int>
+	public function __getVisiblePolygonsCount():Int
 	{
 		return m_nVisiblePoly;
 	}
@@ -445,27 +445,12 @@ class Shape3D extends ATransformable, implements IDisplayable
 	public function display(  p_oScene:Scene3D, ?p_oContainer:Sprite  ):Void
 	{
 		untyped m_aVisiblePoly.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
-		/*
-		m_aVisiblePoly.sort( function (a,b) { 
-			if (a.depth < b.depth ) return 1;
-			if (a.depth > b.depth ) return -1;
-			return 0;
-		});
-		*/
 
 		for ( l_oPoly in m_aVisiblePoly )
 		{
 			l_oPoly.display( p_oScene, m_oContainer );
 		}
-			/*
-			var l_oVisiblePolyIndex:Array<Int> = untyped m_aVisiblePoly.sortOn( "depth", Array.NUMERIC | Array.DESCENDING | Array.RETURNINDEXEDARRAY );
-	    // --
-		for ( l_oId in l_oVisiblePolyIndex )
-		{
-		 var l_oPoly:Polygon = m_aVisiblePoly[l_oId];
-			l_oPoly.display( p_oScene, m_oContainer );
-		}
-		*/
+
 	}
 
 	/**
@@ -482,10 +467,10 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * In case the useSingleContainer mode is enabled (default mode), this value returns the means depth of the Shape in the camera frame.
 	 * This value is mainly used as a z-sorting value.
 	 */
-	public var depth(__getDepth,__setDepth):Null<Float>;
-	private function __getDepth():Null<Float>
+	public var depth(__getDepth,__setDepth):Float;
+	private function __getDepth():Float
 	{return m_nDepth;}
-	private function __setDepth( p_nDepth:Null<Float> ):Null<Float> { 
+	private function __setDepth( p_nDepth:Float ):Float { 
 		return p_nDepth; 
 	}
 	
@@ -599,7 +584,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * <p>If set to false all faces of this object are drawn.<br/>
 	 * A true value enables the back face culling algorithm - Default true</p>
 	 */
-	override private function __setEnableBackFaceCulling( b:Null<Bool> ):Null<Bool>
+	override private function __setEnableBackFaceCulling( b:Bool ):Bool
 	{
 		if( b != m_bBackFaceCulling )
 		{
@@ -612,8 +597,8 @@ class Shape3D extends ATransformable, implements IDisplayable
 	/**
 	 * @private
 	 */
-	override public var enableBackFaceCulling(__getEnableBackFaceCulling,__setEnableBackFaceCulling):Null<Bool>;
-	override private function __getEnableBackFaceCulling():Null<Bool>
+	override public var enableBackFaceCulling(__getEnableBackFaceCulling,__setEnableBackFaceCulling):Bool;
+	override private function __getEnableBackFaceCulling():Bool
 	{
 		return m_bBackFaceCulling;
 	}
@@ -626,7 +611,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * 
 	 * The original settings are back to their  original state when the mode is disabled
 	 */
-	override private function __setEnableInteractivity( p_bState:Null<Bool> ):Null<Bool>
+	override private function __setEnableInteractivity( p_bState:Bool ):Bool
 	{
 		if( p_bState != m_bMouseInteractivity )
 		{
@@ -657,8 +642,8 @@ class Shape3D extends ATransformable, implements IDisplayable
 		return p_bState;
 	}	
 	
-	override public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Null<Bool>;
-	override private function __getEnableInteractivity():Null<Bool>
+	override public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Bool;
+	override private function __getEnableInteractivity():Bool
 	{ return m_bMouseInteractivity; }
 	
 	/**
@@ -687,14 +672,14 @@ class Shape3D extends ATransformable, implements IDisplayable
         * 	}
         * </code>
 	 */
-	override public var enableEvents(__getEnableEvents,__setEnableEvents):Null<Bool>;
+	override public var enableEvents(__getEnableEvents,__setEnableEvents):Bool;
 
-	override private function __getEnableEvents():Null<Bool>
+	override private function __getEnableEvents():Bool
 	{
-		return null;
+		return false;
 	}
 
-	override private function __setEnableEvents( b:Null<Bool> ):Null<Bool>
+	override private function __setEnableEvents( b:Bool ):Bool
 	{
 		// To use only when use Single container is disabled 
 		var v:Polygon = null;
@@ -761,7 +746,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 		var l_oA:Point = new Point(), l_oB:Point = new Point(), l_oC:Point = new Point();
 		var l_oPoly:Polygon;
 		var l_aSId:Array<Int> = untyped aPolygons.sortOn( 'm_nDepth', Array.NUMERIC | Array.RETURNINDEXEDARRAY );
-		var l:Null<Int> = aPolygons.length, j:Null<Int>;
+		var l:Int = aPolygons.length, j:Int;
 		for( j in 0...l )
 		//j = l;
 		//while( --j > -1 )
@@ -769,8 +754,8 @@ class Shape3D extends ATransformable, implements IDisplayable
 			l_oPoly = aPolygons[ l_aSId[ j ] ];
 			if( !l_oPoly.visible && m_bBackFaceCulling ) continue;
 			// --
-			var l_nSize:Null<Int> = l_oPoly.vertices.length;
-			var l_nTriangles:Null<Int> = l_nSize - 2;
+			var l_nSize:Int = l_oPoly.vertices.length;
+			var l_nTriangles:Int = l_nSize - 2;
 			for( i in 0...l_nTriangles )
 			{
 				l_oA.x = l_oPoly.vertices[i].sx; l_oA.y = l_oPoly.vertices[i].sy;
@@ -840,7 +825,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 *
 	 * @return 	The clone
 	 */
-	public function clone( ?p_sName:String, ?p_bKeepTransform:Null<Bool> ):Shape3D
+	public function clone( ?p_sName:String, ?p_bKeepTransform:Bool ):Shape3D
 	{
 		if ( p_sName == null ) p_sName = "";
 		if ( p_bKeepTransform == null ) p_bKeepTransform = false;
@@ -874,7 +859,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 			while( i<l )
 			{
 				if( broadcaster != null ) broadcaster.removeChild( aPolygons[i].broadcaster );
-				if( aPolygons[i] != null ) cast( aPolygons[i], Polygon ).destroy();
+				if( aPolygons[i] != null ) aPolygons[i].destroy();
 				// --
 				aPolygons[i] = null;
 				// --
@@ -901,23 +886,23 @@ class Shape3D extends ATransformable, implements IDisplayable
 	// ______________
 	// [PRIVATE] DATA________________________________________________				
 	private var m_oAppearance:Appearance ; // The Appearance of this Shape3D		
-    private var m_bEv:Null<Bool>; // The event system state (enable or not)
+    private var m_bEv:Bool; // The event system state (enable or not)
 	private var m_oGeomCenter:Vector;
-	private var m_bBackFaceCulling:Null<Bool>;
-	private var m_bClipped:Null<Bool>;
+	private var m_bBackFaceCulling:Bool;
+	private var m_bClipped:Bool;
 
 	/** Geometry of this object */
 	private var m_oGeometry:Geometry3D;
 	
-	private var m_bUseSingleContainer:Null<Bool>;
-	public var m_nDepth:Null<Float>;
+	private var m_bUseSingleContainer:Bool;
+	public var m_nDepth:Float;
 	private var m_oContainer:Sprite;
 
 	private var m_aToProject:Array<Dynamic>;
 	private var m_aVisiblePoly:Array<Polygon>;	
-	private var m_nVisiblePoly:Null<Int>;	
+	private var m_nVisiblePoly:Int;	
 	
-	private var m_bMouseInteractivity:Null<Bool>;
-	private var m_bForcedSingleContainer:Null<Bool>;
+	private var m_bMouseInteractivity:Bool;
+	private var m_bForcedSingleContainer:Bool;
 }
 

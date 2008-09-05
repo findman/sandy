@@ -55,14 +55,14 @@ class UVCoord
 		v = p_nV;
 	}
 
-	public function length():Null<Float>
+	public function length():Float
 	{
 		return Math.sqrt( u*u + v*v );
 	}
 	
 	public function normalize():Void
 	{
-		var l_nLength:Null<Float> = length();
+		var l_nLength:Float = length();
 		u /= l_nLength;
 		v /= l_nLength;
 	}
@@ -90,7 +90,7 @@ class UVCoord
 	 * Scale the texture coords values by a factor.
 	 * @param p_nFactor The factor
 	 */
-	public function scale( p_nFactor:Null<Float> ):Void
+	public function scale( p_nFactor:Float ):Void
 	{
 		u *= p_nFactor;
 		v *= p_nFactor;

@@ -72,31 +72,31 @@ class ViewPort
 		m_nW2 = m_nW >> 1;
            m_nH2 = m_nH >> 1;
            // --
-           m_nRatio = (m_nH != null)? m_nW / m_nH : 0;
+           m_nRatio = (m_nH != 0)? m_nW / m_nH : 0;
            // --
            hasChanged = true;
 	}
 	
 	
-	public var width(__getWidth,__setWidth):Null<Int>;
-	public function __getWidth():Null<Int> { return m_nW; }
-	public var height(__getHeight,__setHeight):Null<Int>;
-	public function __getHeight():Null<Int> { return m_nH; }
-	public var width2(__getWidth2,null):Null<Int>;
-	public function __getWidth2():Null<Int> { return m_nW2; }
-	public var height2(__getHeight2,null):Null<Int>;
-	public function __getHeight2():Null<Int> { return m_nH2; }
-	public var ratio(__getRatio,null):Null<Float>;
-	public function __getRatio():Null<Float> { return m_nRatio; }
+	public var width(__getWidth,__setWidth):Int;
+	public function __getWidth():Int { return m_nW; }
+	public var height(__getHeight,__setHeight):Int;
+	public function __getHeight():Int { return m_nH; }
+	public var width2(__getWidth2,null):Int;
+	public function __getWidth2():Int { return m_nW2; }
+	public var height2(__getHeight2,null):Int;
+	public function __getHeight2():Int { return m_nH2; }
+	public var ratio(__getRatio,null):Float;
+	public function __getRatio():Float { return m_nRatio; }
 	
-	private function __setWidth( p_nValue:Null<Int> ):Null<Int> { m_nW = p_nValue; update(); return p_nValue; }
-	private function __setHeight( p_nValue:Null<Int> ):Null<Int> { m_nH = p_nValue; update(); return p_nValue; }
+	private function __setWidth( p_nValue:Int ):Int { m_nW = p_nValue; update(); return p_nValue; }
+	private function __setHeight( p_nValue:Int ):Int { m_nH = p_nValue; update(); return p_nValue; }
 
 	
-	private var m_nW:Null<Int>;
-	private var m_nW2:Null<Int>;
-	private var m_nH:Null<Int>;
-	private var m_nH2:Null<Int>;
-	private var m_nRatio:Null<Float>;
+	private var m_nW:Int;
+	private var m_nW2:Int;
+	private var m_nH:Int;
+	private var m_nH2:Int;
+	private var m_nRatio:Float;
 }
 

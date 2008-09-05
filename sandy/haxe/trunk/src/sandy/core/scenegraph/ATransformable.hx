@@ -44,7 +44,7 @@ class ATransformable extends Node
 	 * Disable the local transformations applied to this Node if set to false.
 	 * They will be applied back once et back to true.
 	 */
-	public var disable:Null<Bool>;
+	public var disable:Bool;
 	
 	/**
 	 * Creates a transformable node in the object tree of the world.
@@ -126,7 +126,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	private function __setX( p_nX:Null<Float> ):Null<Float>
+	private function __setX( p_nX:Float ):Float
 	{
 		_p.x = p_nX;
 		changed = true;
@@ -135,8 +135,8 @@ class ATransformable extends Node
 	/**
 	 * x position of this object in its parent frame.
 	 */
-	public var x(__getX,__setX):Null<Float>;
-	private function __getX():Null<Float>
+	public var x(__getX,__setX):Float;
+	private function __getX():Float
 	{
 		return _p.x;
 	}
@@ -144,7 +144,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	private function __setY( p_nY:Null<Float> ):Null<Float>
+	private function __setY( p_nY:Float ):Float
 	{
 		_p.y = p_nY;
 		changed = true;
@@ -154,8 +154,8 @@ class ATransformable extends Node
 	/**
 	 * y position of this object in its parent frame.
 	 */
-	public var y(__getY,__setY):Null<Float>;
-	private function __getY():Null<Float>
+	public var y(__getY,__setY):Float;
+	private function __getY():Float
 	{
 		return _p.y;
 	}
@@ -163,7 +163,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	private function __setZ( p_nZ:Null<Float> ):Null<Float>
+	private function __setZ( p_nZ:Float ):Float
 	{
 		_p.z = p_nZ;
 		changed = true;
@@ -173,8 +173,8 @@ class ATransformable extends Node
 	/**
 	 * z position of the node in its parent frame.
 	 */
-	public var z(__getZ,__setZ):Null<Float>;
-	private function __getZ():Null<Float>
+	public var z(__getZ,__setZ):Float;
+	private function __getZ():Float
 	{
 		return _p.z;
 	}
@@ -209,7 +209,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	private function __setScaleX( p_nScaleX:Null<Float> ):Null<Float>
+	private function __setScaleX( p_nScaleX:Float ):Float
 	{
 		_oScale.x = p_nScaleX;
 		changed = true;
@@ -222,8 +222,8 @@ class ATransformable extends Node
 	 * <p>A value of 1 scales to the original x scale, a value of 2 doubles the x scale.<br/>
 	 * NOTE : This value does not affect the camera object.</p>
 	 */
-	public var scaleX(__getScaleX,__setScaleX):Null<Float>;
-	private function __getScaleX():Null<Float>
+	public var scaleX(__getScaleX,__setScaleX):Float;
+	private function __getScaleX():Float
 	{
 		return _oScale.x;
 	}
@@ -231,7 +231,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	private function __setScaleY( p_scaleY:Null<Float> ):Null<Float>
+	private function __setScaleY( p_scaleY:Float ):Float
 	{
 		_oScale.y = p_scaleY;
 		changed = true;
@@ -244,8 +244,8 @@ class ATransformable extends Node
 	 * <p>A value of 1 scales to the original y scale, a value of 2 doubles the y scale.<br/>
 	 * NOTE : This value does not affect the camera object.</p>
 	 */
-	public var scaleY(__getScaleY,__setScaleY):Null<Float>;
-	private function __getScaleY():Null<Float>
+	public var scaleY(__getScaleY,__setScaleY):Float;
+	private function __getScaleY():Float
 	{
 		return _oScale.y;
 	}
@@ -253,7 +253,7 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public function __setScaleZ( p_scaleZ:Null<Float> ):Null<Float>
+	public function __setScaleZ( p_scaleZ:Float ):Float
 	{
 		_oScale.z = p_scaleZ;
 		changed = true;
@@ -266,8 +266,8 @@ class ATransformable extends Node
 	 * <p>A value of 1 scales to the original z scale, a value of 2 doubles the z scale.<br/>
 	 * NOTE : This value does not affect the camera object.</p>
 	 */
-	public var scaleZ(__getScaleZ,__setScaleZ):Null<Float>;
-	public function __getScaleZ():Null<Float>
+	public var scaleZ(__getScaleZ,__setScaleZ):Float;
+	public function __getScaleZ():Float
 	{
 		return _oScale.z;
 	}
@@ -327,7 +327,7 @@ class ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveHorizontally( p_nD:Null<Float> ) : Void
+	public function moveHorizontally( p_nD:Float ) : Void
 	{
 		changed = true;
 		_p.x += _vOut.x * p_nD;
@@ -342,7 +342,7 @@ class ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveVertically( p_nD:Null<Float> ) : Void
+	public function moveVertically( p_nD:Float ) : Void
 	{
 		changed = true;
 		_p.y += p_nD;
@@ -355,7 +355,7 @@ class ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveLateraly( p_nD:Null<Float> ) : Void
+	public function moveLateraly( p_nD:Float ) : Void
 	{
 		changed = true;
 		_p.x += p_nD;
@@ -368,7 +368,7 @@ class ATransformable extends Node
 	 * @param p_nY 	Offset that will be added to the y coordinate of the object
 	 * @param p_nZ 	Offset that will be added to the z coordinate of the object
 	 */
-	public function translate( p_nX:Null<Float>, p_nY:Null<Float>, p_nZ:Null<Float> ) : Void
+	public function translate( p_nX:Float, p_nY:Float, p_nZ:Float ) : Void
 	{
 		changed = true;
 		_p.x += p_nX;
@@ -391,7 +391,7 @@ class ATransformable extends Node
 	{
 		changed = true;
 		p_nAngle = (p_nAngle + 360)%360;
-		var n:Null<Float> = Math.sqrt( p_nX*p_nX + p_nY*p_nY + p_nZ*p_nZ );
+		var n:Float = Math.sqrt( p_nX*p_nX + p_nY*p_nY + p_nZ*p_nZ );
 		// --
 		m_tmpMt.axisRotation( p_nX/n, p_nY/n, p_nZ/n, p_nAngle );
 		// --
@@ -423,7 +423,7 @@ class ATransformable extends Node
 	 * @param	p_nY	Number	The y position to look at
 	 * @param	p_nZ	Number	The z position to look at
 	 */
-	public function lookAt( p_nX:Null<Float>, p_nY:Null<Float>, p_nZ:Null<Float> ):Void
+	public function lookAt( p_nX:Float, p_nY:Float, p_nZ:Float ):Void
 	{
 		changed = true;
 		//
@@ -447,10 +447,10 @@ class ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, paralell to the x axis of the parent frame.</p>
 	 */
-	private function __setRotateX ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setRotateX ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _vRotation.x);
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _vRotation.x);
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.rotationX( l_nAngle );
@@ -465,8 +465,8 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public var rotateX(__getRotateX,__setRotateX):Null<Float>;
-	private function __getRotateX():Null<Float>
+	public var rotateX(__getRotateX,__setRotateX):Float;
+	private function __getRotateX():Float
 	{
 		return _vRotation.x;
 	}
@@ -477,10 +477,10 @@ class ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, parallel to the y axis of the parent frame.</p>
 	 */
-	private function __setRotateY ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setRotateY ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _vRotation.y);
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _vRotation.y);
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.rotationY( l_nAngle );
@@ -495,8 +495,8 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public var rotateY(__getRotateY,__setRotateY):Null<Float>;
-	private function __getRotateY():Null<Float>
+	public var rotateY(__getRotateY,__setRotateY):Float;
+	private function __getRotateY():Float
 	{
 		return _vRotation.y;
 	}
@@ -507,10 +507,10 @@ class ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, paralell to the z axis of the parent frame.</p>
 	 */
-	private function __setRotateZ ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setRotateZ ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _vRotation.z );
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _vRotation.z );
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.rotationZ( l_nAngle );
@@ -525,8 +525,8 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public var rotateZ(__getRotateZ,__setRotateZ):Null<Float>;
-	private function __getRotateZ():Null<Float>
+	public var rotateZ(__getRotateZ,__setRotateZ):Float;
+	private function __getRotateZ():Float
 	{
 		return _vRotation.z;
 	}
@@ -540,10 +540,10 @@ class ATransformable extends Node
 	 *
 	 * @param p_nAngle 	The roll angle in degrees.
 	 */
-	private function __setRoll ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setRoll ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _nRoll);
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _nRoll);
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.axisRotation ( _vOut.x, _vOut.y, _vOut.z, l_nAngle );
@@ -557,8 +557,8 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public var roll(__getRoll,__setRoll):Null<Float>;
-	private function __getRoll():Null<Float>
+	public var roll(__getRoll,__setRoll):Float;
+	private function __getRoll():Float
 	{
 		return _nRoll;
 	}
@@ -572,10 +572,10 @@ class ATransformable extends Node
 	 *
 	 * @param p_nAngle 	The tilt angle in degrees.
 	 */
-	private function __setTilt ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setTilt ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _nTilt);
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _nTilt);
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.axisRotation ( _vSide.x, _vSide.y, _vSide.z, l_nAngle );
@@ -589,8 +589,8 @@ class ATransformable extends Node
 	/**
 	 * Getter for the tilt value
 	 */
-	public var tilt(__getTilt,__setTilt):Null<Float>;
-	private function __getTilt():Null<Float>
+	public var tilt(__getTilt,__setTilt):Float;
+	private function __getTilt():Float
 	{
 		return _nTilt;
 	}
@@ -603,10 +603,10 @@ class ATransformable extends Node
 	 *
 	 * @param p_nAngle 	The pan angle in degrees.
 	 */
-	private function __setPan ( p_nAngle:Null<Float> ):Null<Float>
+	private function __setPan ( p_nAngle:Float ):Float
 	{
-		var l_nAngle:Null<Float> = (p_nAngle - _nYaw);
-		if(l_nAngle == 0 ) return null;
+		var l_nAngle:Float = (p_nAngle - _nYaw);
+		if(l_nAngle == 0 ) return p_nAngle;
 		changed = true;
 		// --
 		m_tmpMt.axisRotation ( _vUp.x, _vUp.y, _vUp.z, l_nAngle );
@@ -620,8 +620,8 @@ class ATransformable extends Node
 	/**
 	 * @private
 	 */
-	public var pan(__getPan,__setPan):Null<Float>;
-	private function __getPan():Null<Float>
+	public var pan(__getPan,__setPan):Float;
+	private function __getPan():Float
 	{
 		return _nYaw;
 	}
@@ -633,7 +633,7 @@ class ATransformable extends Node
 	 * @param p_nY 	The y coordiante
 	 * @param p_nZ 	The z coordiante
 	 */
-	public function setPosition( p_nX:Null<Float>, p_nY:Null<Float>, p_nZ:Null<Float> ):Void
+	public function setPosition( p_nX:Float, p_nY:Float, p_nZ:Float ):Void
 	{
 		changed = true;
 		// we must consider the screen y-axis inversion
@@ -652,7 +652,7 @@ class ATransformable extends Node
 	 * @param p_oModelMatrix The matrix which represents the parent model matrix. Basically it stores the rotation/translation/scale of all the nodes above the current one.
 	 * @param p_bChanged	A boolean value which specify if the state has changed since the previous rendering. If false, we save some matrix multiplication process.
 	 */
-	public override function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Null<Bool> ):Void
+	public override function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		updateTransform();
 		// --
@@ -745,11 +745,11 @@ class ATransformable extends Node
 	// up Orientation Vector
 	private var _vUp:Vector;
 	// current tilt value
-	private var _nTilt:Null<Float>;
+	private var _nTilt:Float;
 	// current yaw value
-	private var _nYaw:Null<Float>;
+	private var _nYaw:Float;
 	// current roll value
-	private var _nRoll:Null<Float>;
+	private var _nRoll:Float;
 	private var _vRotation:Vector;
 	private var _vLookatDown:Vector; // Private absolute down vector
 	private var _p:Vector;

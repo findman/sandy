@@ -26,7 +26,7 @@ class MaterialManager
 
 	private var m_aList:Array<Material>;
 	
-	public function isRegistered( p_oMaterial:Material ):Null<Bool>
+	public function isRegistered( p_oMaterial:Material ):Bool
 	{
 		for(i in 0...m_aList.length )
 		{

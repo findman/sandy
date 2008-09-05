@@ -41,7 +41,7 @@ class IntersectionMath
 	 * Provide an intersection test between 2 bounding boxes.
 	 * @return Boolean true is their are intersection, false otherwise
 	 */
-	public static inline function intersectionBSphere( p_oBSphereA:BSphere, p_oBSphereB:BSphere ):Null<Bool>
+	public static function intersectionBSphere( p_oBSphereA:BSphere, p_oBSphereB:BSphere ):Bool
 	{
    		var l_oVec:Vector = p_oBSphereA.position.clone();
    		l_oVec.sub( p_oBSphereB.position );
@@ -57,7 +57,7 @@ class IntersectionMath
 	 * As 3D lines can be not intersecting, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.
 	 * The 2 points define a segment which length represents hte shortest distance between these 2 lines.
 	 */
-	public static inline function intersectionLine3D( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector, p_oPointD:Vector ):Array<Vector>
+	public static function intersectionLine3D( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector, p_oPointD:Vector ):Array<Vector>
 	{
            var res:Array<Vector> = [
                new Vector (0.5 * (p_oPointA.x + p_oPointB.x), 0.5 * (p_oPointA.y + p_oPointB.y), 0.5 * (p_oPointA.z + p_oPointB.z)),
@@ -122,7 +122,8 @@ class IntersectionMath
 		
 		var denom:Float = ( ( yD - yC )*( xB - xA ) - ( xD - xC )*( yB - yA ) );
 		// -- if lines are parallel
-		if( denom == 0 ) return null;
+		var retflag:Bool = false;
+		if( denom == 0 ) retflag = true;
 		
 		var uA:Float =  ( ( xD - xC )*( yA - yC ) - ( yD - yC )*( xA - xC ) );
 		uA /= denom;
@@ -132,7 +133,7 @@ class IntersectionMath
 		uB =  ( ( xB - xA )*( yA - yC ) - ( yB - yA )*( xA - xC ) );
 		uB /= denom;
 		*/
-		return new Point( xA + uA * ( xB - xA ), yA + uA*( yB - yA ) );
+		return retflag ? null : new Point( xA + uA * ( xB - xA ), yA + uA*( yB - yA ) );
 	}
 	
 	/*
@@ -140,7 +141,7 @@ class IntersectionMath
      	** Points right on the perimeter are NOT treated as in.
      	** AS3 implementation : tcorbet
      	*/
-	public static inline function isPointInTriangle2D ( p_oPoint:Point, p_oA:Point, p_oB:Point, p_oC:Point ):Bool
+	public static function isPointInTriangle2D ( p_oPoint:Point, p_oA:Point, p_oB:Point, p_oC:Point ):Bool
     {
 	    var oneOverDenom:Float = (1 /
 	        (((p_oA.y - p_oC.y) * (p_oB.x - p_oC.x)) +

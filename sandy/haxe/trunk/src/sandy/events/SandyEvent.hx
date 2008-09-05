@@ -36,7 +36,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static inline var LIGHT_ADDED:String = "lightAdded";
+	public static var LIGHT_ADDED:String = "lightAdded";
 
     /**
      * Indicates that the Light3D object of the scene has been updated.
@@ -45,7 +45,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.light.Light3D
      */
-	public static inline var LIGHT_UPDATED:String = "lightUpdated";
+	public static var LIGHT_UPDATED:String = "lightUpdated";
 
     /**
      * Indicates that the color of the light has changed.
@@ -54,7 +54,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.light.Light3D
      */
-	public static inline var LIGHT_COLOR_CHANGED:String = "lightColorChanged";
+	public static var LIGHT_COLOR_CHANGED:String = "lightColorChanged";
 
     /**
      * Indicates the scene has been rendered.
@@ -63,7 +63,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static inline var SCENE_RENDER:String = "scene_render";
+	public static var SCENE_RENDER:String = "scene_render";
 
     /**
      * Indicates the scene has been culled.
@@ -72,7 +72,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static inline var SCENE_CULL:String = "scene_cull";
+	public static var SCENE_CULL:String = "scene_cull";
 
     /**
      * Indicates the scene has been updated.
@@ -81,7 +81,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static inline var SCENE_UPDATE:String = "scene_update";
+	public static var SCENE_UPDATE:String = "scene_update";
 
     /**
      * Indicates the display list has been rendered.
@@ -90,7 +90,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static inline var SCENE_RENDER_DISPLAYLIST:String = "scene_render_display_list";
+	public static var SCENE_RENDER_DISPLAYLIST:String = "scene_render_display_list";
 
     /**
      * Not in use?
@@ -99,7 +99,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.World3D
      */
-	public static inline var CONTAINER_CREATED:String = "containerCreated";
+	public static var CONTAINER_CREATED:String = "containerCreated";
 
     /**
      * Uneeded? Also in QueueEvent class...
@@ -108,7 +108,7 @@ class SandyEvent extends Event
      *
      * @see sandy.util.LoaderQueue
      */
-	public static inline var QUEUE_COMPLETE:String = "queueComplete";
+	public static var QUEUE_COMPLETE:String = "queueComplete";
 
     /**
      * Uneeded? Also in QueueEvent class...
@@ -117,7 +117,7 @@ class SandyEvent extends Event
      *
      * @see sandy.util.LoaderQueue
      */
-	public static inline var QUEUE_LOADER_ERROR:String = "queueLoaderError";
+	public static var QUEUE_LOADER_ERROR:String = "queueLoaderError";
 
  	/**
 	 * Constructor.
@@ -126,7 +126,7 @@ class SandyEvent extends Event
 	 * @param bubbles Specifies whether the event can bubble up the display list hierarchy.
 	 * @param cancelable Specifies whether the behavior associated with the event can be prevented.
      */
-	public function new(type:String, ?bubbles:Null<Bool>, ?cancelable:Null<Bool>)
+	public function new(type:String, ?bubbles:Bool, ?cancelable:Bool)
 	{
 		if (bubbles == null) bubbles = false;
 		if (cancelable == null) cancelable = false;

@@ -43,32 +43,32 @@ class Box extends Shape3D, implements Primitive3D
 	/**
 	* The index of the top face of the box.
 	*/
-	public static inline var FACE_TOP	: Int	= 3;
+	public static var FACE_TOP	: Int	= 3;
 
 	/**
 	* The index of the bottom face of the box.
 	*/
-	public static inline var FACE_BOTTOM	: Int	= 2;
+	public static var FACE_BOTTOM	: Int	= 2;
 
 	/**
 	* The index of the back face of the box.
 	*/
-	public static inline var FACE_BACK	: Int	= 0; //ok
+	public static var FACE_BACK	: Int	= 0; //ok
 
 	/**
 	* The index of the front face of the box.
 	*/
-	public static inline var FACE_FRONT	: Int	= 1; //ok
+	public static var FACE_FRONT	: Int	= 1; //ok
 
 	/**
 	* The index of the right face of the box.
 	*/
-	public static inline var FACE_RIGHT	: Int	= 5; //ok
+	public static var FACE_RIGHT	: Int	= 5; //ok
 
 	/**
 	* The index of the left face of the box.
 	*/
-	public static inline var FACE_LEFT	: Int	= 4; //ok
+	public static var FACE_LEFT	: Int	= 4; //ok
 
 	/**
 	* height of the Box
@@ -85,7 +85,7 @@ class Box extends Shape3D, implements Primitive3D
 	/**
 	* creation quality
 	*/
-	private var _q:Null<Float>;
+	private var _q:Float;
 	/**
 	* creation mode - number of vertices per face
 	*/
@@ -112,7 +112,7 @@ class Box extends Shape3D, implements Primitive3D
 	*
 	* @see PrimitiveMode
 	*/
-	public function new ( ?p_sName:String, ?p_nWidth:Null<Float>, ?p_nHeight:Null<Float>, ?p_nDepth:Null<Float>, ?p_sMode:String, ?p_nQuality:Null<Float>)
+	public function new ( ?p_sName:String, ?p_nWidth:Float, ?p_nHeight:Float, ?p_nDepth:Float, ?p_sMode:String, ?p_nQuality:Float)
 	{
 		if (p_nWidth == null) p_nWidth = 6;
 		if (p_nHeight == null) p_nHeight = 6;
@@ -149,28 +149,28 @@ class Box extends Shape3D, implements Primitive3D
 		var l2 : Float = _lg / 2;
 
 
-		var l_nID0:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID0:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID0, -r2, -h2, l2 );
 
-		var l_nID1:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID1:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID1, r2, -h2, l2 );
 
-		var l_nID2:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID2:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID2, r2, h2, l2 );
 
-		var l_nID3:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID3:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID3, -r2, h2, l2 );
 
-		var l_nID4:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID4:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID4, -r2, -h2, -l2 );
 
-		var l_nID5:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID5:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID5, r2, -h2, -l2 );
 
-		var l_nID6:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID6:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID6, r2, h2, -l2 );
 
-		var l_nID7:Null<Int> = l_geometry.getNextVertexID();
+		var l_nID7:Int = l_geometry.getNextVertexID();
 		l_geometry.setVertex( l_nID7, -r2, h2, -l2 );
 
 		// -- we setup texture coordinates
@@ -216,9 +216,9 @@ class Box extends Shape3D, implements Primitive3D
 	}
 
 	private function __tesselate( 	p_geometry:Geometry3D,
-					p0:Null<Int>, p1:Null<Int>, p2:Null<Int>, p3:Null<Int>,
-					uv0:Null<Int>, uv1:Null<Int>, uv2:Null<Int>, uv3:Null<Int>,
-					level:Null<Float>):Void
+					p0:Int, p1:Int, p2:Int, p3:Int,
+					uv0:Int, uv1:Int, uv2:Int, uv3:Int,
+					level:Float):Void
 	{
 		var l_geometry:Geometry3D = p_geometry;
 
@@ -253,24 +253,24 @@ class Box extends Shape3D, implements Primitive3D
 			var l_oVertex2:Vertex = l_geometry.aVertex[p2];
 			var l_oVertex3:Vertex = l_geometry.aVertex[p3];
 			//milieu de p0, p1;
-			var l_nID01:Null<Int> = l_geometry.getNextVertexID();
+			var l_nID01:Int = l_geometry.getNextVertexID();
 			l_geometry.setVertex( l_nID01, (l_oVertex0.x+l_oVertex1.x)/2, (l_oVertex0.y+l_oVertex1.y)/2, (l_oVertex0.z+l_oVertex1.z)/2 );
 			// milieu de p1 p2
-			var l_nID12:Null<Int> = l_geometry.getNextVertexID();
+			var l_nID12:Int = l_geometry.getNextVertexID();
 			l_geometry.setVertex( l_nID12, (l_oVertex1.x+l_oVertex2.x)/2, (l_oVertex1.y+l_oVertex2.y)/2, (l_oVertex1.z+l_oVertex2.z)/2 );
 			//var m12:Vertex = new Vertex( (l_oVertex1.x+l_oVertex2.x)/2, (l_oVertex1.y+l_oVertex2.y)/2, (l_oVertex1.z+l_oVertex2.z)/2 );
 			// milieu de p2 p3
-			var l_nID23:Null<Int> = l_geometry.getNextVertexID();
+			var l_nID23:Int = l_geometry.getNextVertexID();
 			l_geometry.setVertex( l_nID23, (l_oVertex2.x+l_oVertex3.x)/2, (l_oVertex2.y+l_oVertex3.y)/2, (l_oVertex2.z+l_oVertex3.z)/2 );
 			//var m23:Vertex = new Vertex( (l_oVertex2.x+l_oVertex3.x)/2, (l_oVertex2.y+l_oVertex3.y)/2, (l_oVertex2.z+l_oVertex3.z)/2 );
 			//l_geometry.addPoint(m23);
 			// milieu de p3 p0
-			var l_nID30:Null<Int> = l_geometry.getNextVertexID();
+			var l_nID30:Int = l_geometry.getNextVertexID();
 			l_geometry.setVertex( l_nID30, (l_oVertex3.x+l_oVertex0.x)/2, (l_oVertex3.y+l_oVertex0.y)/2, (l_oVertex3.z+l_oVertex0.z)/2 );
 			//var m30:Vertex = new Vertex( (l_oVertex3.x+l_oVertex0.x)/2, (l_oVertex3.y+l_oVertex0.y)/2, (l_oVertex3.z+l_oVertex0.z)/2 );
 			//l_geometry.addPoint(m30);
 			// milieu tout court
-			var l_nIDMiddle:Null<Int> = l_geometry.getNextVertexID();
+			var l_nIDMiddle:Int = l_geometry.getNextVertexID();
 			l_geometry.setVertex( l_nIDMiddle, (l_oVertex0.x+l_oVertex1.x+l_oVertex2.x+l_oVertex3.x)/4, (l_oVertex0.y+l_oVertex1.y+l_oVertex2.y+l_oVertex3.y)/4, (l_oVertex0.z+l_oVertex1.z+l_oVertex2.z+l_oVertex3.z)/4 );
 			//var center:Vertex = new Vertex( (l_oVertex0.x+l_oVertex1.x+l_oVertex2.x+l_oVertex3.x)/4, (l_oVertex0.y+l_oVertex1.y+l_oVertex2.y+l_oVertex3.y)/4, (l_oVertex0.z+l_oVertex1.z+l_oVertex2.z+l_oVertex3.z)/4 );
 			//l_geometry.addPoint(center);
@@ -324,7 +324,7 @@ class Box extends Shape3D, implements Primitive3D
 			m_aFaces[ i ] = new PrimitiveFace( this );
 			var l : Int = ( i+1 ) * multi;
 			for ( j in i * multi...l )
-				cast( m_aFaces[ i ], PrimitiveFace ).addPolygon( j );
+				m_aFaces[ i ].addPolygon( j );
 		}
 	}
 

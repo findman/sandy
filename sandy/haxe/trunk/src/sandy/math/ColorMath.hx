@@ -35,7 +35,7 @@ class ColorMath
 	 * @param a	New alpha. 	( 0 - 1 )
 	 * @return	The hexadecimal value
 	 */
-	public static inline function applyAlpha (c:Int, a:Float):Int
+	public static function applyAlpha (c:Int, a:Float):Int
 	{
 		var a0:Int = Std.int(c / 0x1000000); 
 		return (c & 0xFFFFFF) + Math.floor(a * a0) * 0x1000000;
@@ -49,7 +49,7 @@ class ColorMath
 	 * @param b	Blue Color. 	( 0 - 255 )
 	 * @return	The hexadecimal value
 	 */
-	public static inline function rgb2hex(r:Int, g:Int, b:Int):Int  
+	public static function rgb2hex(r:Int, g:Int, b:Int):Int  
 	{
 		return ((r << 16) | (g << 8) | b);
 	}
@@ -60,7 +60,7 @@ class ColorMath
 	 * @param	hex	hexadecimal color.
 	 * @return	The rgb color of the hexadecimal given.
 	 */   
-	public static inline function hex2rgb(hex:Int):Dynamic 
+	public static function hex2rgb(hex:Int):Dynamic 
 	{
 		var r:Float;
 		var g:Float;
@@ -77,7 +77,7 @@ class ColorMath
 	* @param	hex	hexadecimal color value.
 	* @return	The normalized rgb components ( 0 - 1.0 )
 	*/   
-	public static inline function hex2rgbn(hex:Int):Dynamic 
+	public static function hex2rgbn(hex:Int):Dynamic 
 	{
 		var r:Float;
 		var g:Float;
@@ -94,7 +94,7 @@ class ColorMath
 	 * then modifies the L according to the light strength. 
 	 * The result is then mapped back into the RGB space.
 	 */	
-	public static inline function calculateLitColour(col:Int, lightStrength:Float):Float
+	public static function calculateLitColour(col:Int, lightStrength:Float):Float
 	{
 		var r:Float = ( col >> 16 )& 0xFF;
 		var g:Float = ( col >> 8 ) & 0xFF;

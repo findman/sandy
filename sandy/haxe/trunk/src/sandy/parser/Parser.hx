@@ -39,17 +39,17 @@ class Parser
 	 * Parameter that is used to specify that the ASE (ASCII Scene Export)
 	 * Parser should be used
 	 */
-	public static inline var ASE:String = "ASE";
+	public static var ASE:String = "ASE";
 	/**
 	 * Parameter that is used to specify that the 3DS (3D Studio) Parser 
 	 * should be used
 	 */
-	public static inline var MAX_3DS:String = "3DS";
+	public static var MAX_3DS:String = "3DS";
 	/**
 	 * Parameter that is used to specify that the COLLADA (COLLAborative 
 	 * Design Activity ) Parser should be used
 	 */
-	public static inline var COLLADA:String = "DAE";
+	public static var COLLADA:String = "DAE";
 	
 	/**
 	 * The create method chooses which parser to use. This can be done automatically

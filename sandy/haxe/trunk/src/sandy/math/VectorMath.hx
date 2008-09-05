@@ -36,7 +36,7 @@ class VectorMath
 	 * @param p_oV 	The vector.
 	 * @return 	The norm of the vector.
 	 */
-	public static function getNorm( p_oV:Vector ):Null<Float>
+	public static function getNorm( p_oV:Vector ):Float
 	{
 		return Math.sqrt( p_oV.x*p_oV.x + p_oV.y*p_oV.y + p_oV.z*p_oV.z );
 	}
@@ -91,7 +91,7 @@ class VectorMath
 	 * @param p_nExp	The exponent
 	 * @return 		The resulting vector.
 	 */
-	public static function pow( p_oV:Vector, p_nExp:Null<Float> ): Vector
+	public static function pow( p_oV:Vector, p_nExp:Float ): Vector
 	{
 		return new Vector(	Math.pow( p_oV.x, p_nExp ) ,
                             Math.pow( p_oV.y, p_nExp ) ,
@@ -104,7 +104,7 @@ class VectorMath
 	 * @param n 	The scaler to multiply
 	 * @return 	The resulting vector
 	 */
-	public static function scale( p_oV:Vector, n:Null<Float> ): Vector
+	public static function scale( p_oV:Vector, n:Float ): Vector
 	{
 		return new Vector(	p_oV.x * n ,
                             		p_oV.y * n ,
@@ -119,7 +119,7 @@ class VectorMath
 	 * @param p_oW 	The second vector
 	 * @return 	The dot procuct
 	 */
-	public static function dot( p_oV: Vector, p_oW: Vector):Null<Float>
+	public static function dot( p_oV: Vector, p_oW: Vector):Float
 	{
 		return ( p_oV.x * p_oW.x + p_oV.y * p_oW.y + p_oW.z * p_oV.z );
 	}
@@ -150,7 +150,7 @@ class VectorMath
 	public static function normalize( p_oV:Vector ): Bool
 	{
 		// -- We get the norm of the vector
-		var norm:Null<Float> = VectorMath.getNorm( p_oV );
+		var norm:Float = VectorMath.getNorm( p_oV );
 		// -- We escape the process is norm is null or equal to 1
 		if( norm == 0 || norm == 1) return false;
 		p_oV.x /= norm;
@@ -167,10 +167,10 @@ class VectorMath
 	 * @param p_oW	The second vector
 	 * @return	The angle in radians between the two vectors.
 	 */
-	public static function getAngle ( p_oV:Vector, p_oW:Vector ):Null<Float>
+	public static function getAngle ( p_oV:Vector, p_oW:Vector ):Float
 	{
-		var ncos:Null<Float> = VectorMath.dot( p_oV, p_oW ) / ( VectorMath.getNorm(p_oV) * VectorMath.getNorm(p_oW) );
-		var sin2:Null<Float> = 1 - ncos * ncos;
+		var ncos:Float = VectorMath.dot( p_oV, p_oW ) / ( VectorMath.getNorm(p_oV) * VectorMath.getNorm(p_oW) );
+		var sin2:Float = 1 - ncos * ncos;
 		if (sin2<0)
 		{
 			trace(" wrong "+ncos);
@@ -184,7 +184,7 @@ class VectorMath
 	/**
 	 * Returns a random vector contained betweeen the first and second values
 	 */
-	public static function sphrand( inner:Null<Float>, outer:Null<Float> ):Vector
+	public static function sphrand( inner:Float, outer:Float ):Vector
 	{
 		//create and normalize a vector
 		var v:Vector = new Vector(Math.random()-.5, Math.random()-.5,
@@ -192,7 +192,7 @@ class VectorMath
 		v.normalize();
 	
 		//find a random position between the inner and outer radii
-		var r:Null<Float> = Math.random();
+		var r:Float = Math.random();
 		r = (outer - inner)*r + inner;
 	
 		//set the normalized vector to the new radius

@@ -40,7 +40,7 @@ class LineAttributes extends AAttributes
 	private var m_nColor:UInt;
 	private var m_nAlpha:Float;
 	// --
-	public var modified:Null<Bool>;
+	public var modified:Bool;
 	
 	/**
 	 * Creates a new LineAttributes object.
@@ -138,7 +138,7 @@ class LineAttributes extends AAttributes
 		p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 		// --
 		p_oGraphics.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
-		var lId:Null<Int> = l_aPoints.length;
+		var lId:Int = l_aPoints.length;
 		while( (l_oVertex = l_aPoints[ --lId ]) != null ) {
 			p_oGraphics.lineTo( l_oVertex.sx, l_oVertex.sy );
 		}

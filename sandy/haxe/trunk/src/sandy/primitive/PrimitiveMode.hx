@@ -32,11 +32,11 @@ class PrimitiveMode
 	/**
 	* Specifies the surfaces of the primitive is built up by rectangular polygons.
 	*/
-	public static inline var QUAD:String = "quad";
+	public static var QUAD:String = "quad";
 
 	/**
 	* Specifies the surfaces of the primitive is built up by triangles.
 	*/
- 	public static inline var TRI:String = "tri";
+ 	public static var TRI:String = "tri";
 }
 

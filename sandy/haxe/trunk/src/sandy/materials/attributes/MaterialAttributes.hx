@@ -85,10 +85,10 @@ class MaterialAttributes
 			l_oAttr.drawOnSprite( p_oSprite, p_oMaterial, p_oScene );
 	}
 
-	public var flags(__getFlags,null):Null<Int>;
-	private function __getFlags():Null<Int>
+	public var flags(__getFlags,null):Int;
+	private function __getFlags():Int
 	{
-		var l_nFlags:Null<Int> = 0;
+		var l_nFlags:Int = 0;
 		for( l_oAttr in attributes )
 			l_nFlags |= l_oAttr.flags;
 		return l_nFlags;

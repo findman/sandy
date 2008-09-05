@@ -47,7 +47,7 @@ interface IAttributes
 	
 	function finish( p_oScene:Scene3D ):Void;	
 	
-	var flags(__getFlags,null):Null<UInt>;	
-	private function __getFlags():Null<UInt>;	
+	var flags(__getFlags,null):UInt;	
+	private function __getFlags():UInt;	
 }
 

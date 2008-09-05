@@ -50,7 +50,7 @@ class Sprite3D extends Sprite2D
 {
 	// FIXME Create a Sprite as the spriteD container,
 	// and offer a method to attach a visual content as a child of the sprite
-	public var offset:Null<Int>;
+	public var offset:Int;
 	
 	// Reference to sprite2D
 	private var m_oSuper:Sprite2D;
@@ -67,7 +67,7 @@ class Sprite3D extends Sprite2D
 	 *
 	 * @param p_nOffset 	A number between [0-360] to give a frame offset into the clip.
 	 */
-	public function new( ?p_sName:String, ?p_oContent:DisplayObject, ?p_nScale:Null<Float>, ?p_nOffset:Null<Int> )
+	public function new( ?p_sName:String, ?p_oContent:DisplayObject, ?p_nScale:Float, ?p_nOffset:Int )
 	{
 	 offset = 0;
 
@@ -109,7 +109,7 @@ class Sprite3D extends Sprite2D
 			m_nH2 = m_oContainer.height / 2;
 
 			// --
-			m_nAutoOffset = cast(m_oContent, MovieClip).totalFrames / 360;
+			m_nAutoOffset = untyped m_oContent.totalFrames / 360;
 		}
 		return p_content;
 	}
@@ -128,10 +128,10 @@ class Sprite3D extends Sprite2D
 		}
 
 		var l_oMatrix:Matrix4 = viewMatrix,
-			m11:Null<Float> = l_oMatrix.n11, m21:Null<Float> = l_oMatrix.n21, m31:Null<Float> = l_oMatrix.n31,
-			m12:Null<Float> = l_oMatrix.n12, m22:Null<Float> = l_oMatrix.n22, m32:Null<Float> = l_oMatrix.n32,
-			m13:Null<Float> = l_oMatrix.n13, m23:Null<Float> = l_oMatrix.n23, m33:Null<Float> = l_oMatrix.n33,
-			m14:Null<Float> = l_oMatrix.n14, m24:Null<Float> = l_oMatrix.n24, m34:Null<Float> = l_oMatrix.n34;
+			m11:Float = l_oMatrix.n11, m21:Float = l_oMatrix.n21, m31:Float = l_oMatrix.n31,
+			m12:Float = l_oMatrix.n12, m22:Float = l_oMatrix.n22, m32:Float = l_oMatrix.n32,
+			m13:Float = l_oMatrix.n13, m23:Float = l_oMatrix.n23, m33:Float = l_oMatrix.n33,
+			m14:Float = l_oMatrix.n14, m24:Float = l_oMatrix.n24, m34:Float = l_oMatrix.n34;
 
 		_dir.wx = _dir.x * m11 + _dir.y * m12 + _dir.z * m13 + m14;
 		_dir.wy = _dir.x * m21 + _dir.y * m22 + _dir.z * m23 + m24;
@@ -161,16 +161,16 @@ class Sprite3D extends Sprite2D
 		if( m_oNormale.x < 0 ) m_nAngle = 2*Math.PI - m_nAngle;
 
 			// FIXME problem around 180 frame. A big jump occurs. Problem of precision ?
-			cast(m_oContent, MovieClip).gotoAndStop( __frameFromAngle( m_nAngle ) );
+			untyped m_oContent.gotoAndStop( __frameFromAngle( m_nAngle ) );
 	}
 
 	// Returns the frame to show at the current camera angle
-	private function __frameFromAngle(a:Null<Float>):Null<Int>
+	private function __frameFromAngle(a:Float):Int
 	{
 		a = NumberUtil.toDegree( a );
 		a = (( a + offset )+360) % 360;
 		// -- we have a frame for a 360 content, let's make it fit the current one
-		var b:Null<Int> = Std.int( a * m_nAutoOffset ) << 0;
+		var b:Int = Std.int( a * m_nAutoOffset ) << 0;
 		return b;
 	}
 
@@ -178,7 +178,7 @@ class Sprite3D extends Sprite2D
 	private var _vView:Vector;
 	private var _dir:Vertex;
 	private var m_oNormale:Vector;
-	private var m_nAutoOffset:Null<Float>;
-	private var m_nAngle:Null<Float>;
+	private var m_nAutoOffset:Float;
+	private var m_nAngle:Float;
 }
 

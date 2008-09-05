@@ -62,7 +62,7 @@ class SkyBox extends TransformGroup
 	* @param p_nQualityV	Number of vertical segments of the planes of the skybox. (WARNING: Some faces are rotated, and so, the quality isn't representative. To fix!)
 	*
 	*/
-	public function new(?p_sName:String, ?p_nDim:Null<Float>, ?p_nQualityH:Null<Int>, ?p_nQualityV:Null<Int> )
+	public function new(?p_sName:String, ?p_nDim:Float, ?p_nQualityH:Int, ?p_nQualityV:Int )
 	{
 	 m_aPlanes = new Array();
 

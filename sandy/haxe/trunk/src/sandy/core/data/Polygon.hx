@@ -67,7 +67,7 @@ class Polygon implements IDisplayable
 	 * [READ-ONLY] property
 	 * Unique polygon ID Number.
 	 */
-	public var id:Null<Int>;
+	public var id:Int;
 
 	/**
 	 * [READ-ONLY] property.
@@ -85,7 +85,7 @@ class Polygon implements IDisplayable
 	 * [READ-ONLY] property.
 	 * Specify if the polygon has been clipped
 	 */
-	public var isClipped:Null<Bool>;
+	public var isClipped:Bool;
 	/**
 	 * [READ-ONLY] property.
 	 * Array of clipped vertices. Check isClipped property first to see if this array shall be containing the useful data or not.
@@ -161,7 +161,7 @@ class Polygon implements IDisplayable
 	 * @param p_nFaceNormalID	The faceNormalID of this polygon
 	 * @param p_nEdgesID		The edgesID of this polygon
 	 */
-	public function new( p_oOwner:Shape3D, p_geometry:Geometry3D, p_aVertexID:Array<Int>, ?p_aUVCoordsID:Array<Int>, ?p_nFaceNormalID:Null<Int>, ?p_nEdgesID:Null<Int> )
+	public function new( p_oOwner:Shape3D, p_geometry:Geometry3D, p_aVertexID:Array<Int>, ?p_aUVCoordsID:Array<Int>, ?p_nFaceNormalID:Int, ?p_nEdgesID:Int )
 	{
 
 		id = _ID_++;
@@ -186,9 +186,9 @@ class Polygon implements IDisplayable
 		POLYGON_MAP.set( id, this );
 	}
 
-	public var depth(__getDepth,__setDepth):Null<Float>;
-	private function __getDepth():Null<Float>{ return m_nDepth; }
-	private function __setDepth( p_nDepth:Null<Float> ):Null<Float>{ m_nDepth = p_nDepth; return p_nDepth; }
+	public var depth(__getDepth,__setDepth):Float;
+	private function __getDepth():Float{ return m_nDepth; }
+	private function __setDepth( p_nDepth:Float ):Float{ m_nDepth = p_nDepth; return p_nDepth; }
 	
 	/**
 	 * The broadcaster property.
@@ -253,8 +253,8 @@ class Polygon implements IDisplayable
 	 * Returns the real 3D position of the 2D screen position.
 	 * The 2D position is usually coming from :
 	 * <listing version="3.0">
-	 * var l_nClicX:Null<Float> = m_oScene.container.mouseX;
-        * var l_nClicY:Null<Float> = m_oScene.container.mouseY;
+	 * var l_nClicX:Float = m_oScene.container.mouseX;
+        * var l_nClicY:Float = m_oScene.container.mouseY;
         * </listing>
         * 
         * @return the real 3D position which correspond to the intersection onto that polygone
@@ -290,8 +290,8 @@ class Polygon implements IDisplayable
 	 * Get the UVCoord under the 2D screen position after a mouse click or something
 	 * The 2D position is usually coming from :
 	 * <listing version="3.0">
-	 * var l_nClicX:Null<Float> = m_oScene.container.mouseX;
-        * var l_nClicY:Null<Float> = m_oScene.container.mouseY;
+	 * var l_nClicX:Float = m_oScene.container.mouseX;
+        * var l_nClicY:Float = m_oScene.container.mouseY;
         * </listing>
         * 
         * @return the UVCoord under the 2D screen point
@@ -325,8 +325,8 @@ class Polygon implements IDisplayable
            var vi01:Point = new Point( p_oScreenPoint.x - l_oInter.x , p_oScreenPoint.y - l_oInter.y );
 
            // interpolation coeffs
-           var d1:Null<Float> = vi01.length / v01.length ;
-           var d2:Null<Float> = vi02.length / v02.length;
+           var d1:Float = vi01.length / v01.length ;
+           var d2:Float = vi02.length / v02.length;
                     
            // -- on interpole linéairement pour trouver la position du point dans repere de la texture (normalisé)
            return new UVCoord( u0.u + d1*(u1.u - u0.u) + d2*(u2.u - u0.u),
@@ -514,7 +514,7 @@ class Polygon implements IDisplayable
 	 *
 	 * @param b 	Pass true to enable the events, false to disable.
 	 */
-	private function __setEnableEvents( b:Null<Bool> ):Null<Bool>
+	private function __setEnableEvents( b:Bool ):Bool
 	{
         if( b && !mouseEvents )
         {
@@ -549,8 +549,8 @@ class Polygon implements IDisplayable
 					return b;
 	}
 	
-	public var enableEvents(__getEnableEvents,__setEnableEvents):Null<Bool>;
-	private function __getEnableEvents():Null<Bool>
+	public var enableEvents(__getEnableEvents,__setEnableEvents):Bool;
+	private function __getEnableEvents():Bool
 	{ return mouseEvents; }
 
 	private function _onInteraction( p_oEvt:Event ):Void
@@ -597,7 +597,7 @@ class Polygon implements IDisplayable
 		
 	}
 	
-	private function __setEnableInteractivity( p_bState:Null<Bool> ):Null<Bool>
+	private function __setEnableInteractivity( p_bState:Bool ):Bool
 	{
 		if( p_bState != mouseInteractivity )
 		{
@@ -616,8 +616,8 @@ class Polygon implements IDisplayable
 		return p_bState;
 	}
 	
-	public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Null<Bool>;
-	private function __getEnableInteractivity():Null<Bool>
+	public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Bool;
+	private function __getEnableInteractivity():Bool
 	{ return mouseInteractivity; }
 	
 	

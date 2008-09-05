@@ -42,7 +42,7 @@ class EventBroadcaster
      m_oDelegateDico = new Hash();
     }
 
-    public function isRegistered(listener:Dynamic, ?type:String):Null<Bool>
+    public function isRegistered(listener:Dynamic, ?type:String):Bool
 	{
 		if (type == null)
 		{
@@ -79,7 +79,7 @@ class EventBroadcaster
 		return (type != null) ? m_oType.get(type) : m_oAll;
 	}
 
-	public function addEventListener(type:String, listener:Dynamic, ?rest:Array<Event>):Null<Bool>
+	public function addEventListener(type:String, listener:Dynamic, ?rest:Array<Event>):Bool
 	{
 
 		if (Reflect.isFunction(listener))
@@ -130,12 +130,12 @@ class EventBroadcaster
 		return false;
 	}
 
-	public function hasListenerCollection(type:String):Null<Bool>
+	public function hasListenerCollection(type:String):Bool
 	{
 		return (m_oType.get(type) != null);
 	}
 
-	public function removeEventListener(type:String, listener:Dynamic):Null<Bool>
+	public function removeEventListener(type:String, listener:Dynamic):Bool
 	{
 		if (hasListenerCollection(type))
 		{
@@ -187,9 +187,10 @@ class EventBroadcaster
 
 		for (listener in c)
 		{
-			if (listener.hasOwnProperty(type) && Reflect.isFunction(listener.get(type)))
+			var f = listener.get(type);
+			if (listener.hasOwnProperty(type) && Reflect.isFunction(f))
 			{
-				listener.get(type)(e);
+				f(e);
 
 			}
 			else if (listener.hasOwnProperty("handleEvent") && Reflect.isFunction(listener.handleEvent))
@@ -224,9 +225,9 @@ class EventBroadcaster
 		m_oEventListener.get(Std.string(listener)).set(type, listener);
 	}
 
-	private function isDicoEmpty(pDico:Hash<Dynamic>):Null<Bool>
+	private function isDicoEmpty(pDico:Hash<Dynamic>):Bool
 	{
-		var i:Null<Int> = 0;
+		var i:Int = 0;
 		for (lElt in pDico)
 		{
 			i++;

@@ -25,8 +25,6 @@ import sandy.util.NumberUtil;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 
  */
 class Matrix4
 {
@@ -202,7 +200,7 @@ class Matrix4
 	 *
 	 * @param pn11 - pn44	Element values to populate the matrix
 	 */
-	public inline function new(?pn11:Float, ?pn12:Float , ?pn13:Float , ?pn14:Float,
+	public function new(?pn11:Float, ?pn12:Float , ?pn13:Float , ?pn14:Float,
 				?pn21:Float, ?pn22:Float , ?pn23:Float , ?pn24:Float,
 				?pn31:Float, ?pn32:Float , ?pn33:Float , ?pn34:Float,
 				?pn41:Float, ?pn42:Float , ?pn43:Float , ?pn44:Float )
@@ -232,7 +230,7 @@ class Matrix4
 	 *
 	 * @return	The zero matrix
 	 */
-	public inline function zero():Void
+	public function zero():Void
 	{
 		n11 = 0 ; n12 = 0 ; n13 = 0 ; n14 = 0;
 		n21 = 0 ; n22 = 0 ; n23 = 0 ; n24 = 0;
@@ -251,7 +249,7 @@ class Matrix4
 	 *
 	 * @return	The identity matrix
 	 */
-	public inline function identity():Void
+	public function identity():Void
 	{
 		n11 = 1 ; n12 = 0 ; n13 = 0 ; n14 = 0;
 		n21 = 0 ; n22 = 1 ; n23 = 0 ; n24 = 0;
@@ -264,7 +262,7 @@ class Matrix4
 	 *
 	 * @return The result of clonage : a {@code Matrix4}.
 	 */
-	public inline function clone():Matrix4
+	public function clone():Matrix4
 	{
 		return new Matrix4(	n11,n12,n13,n14,
                             n21,n22,n23,n24,
@@ -279,7 +277,7 @@ class Matrix4
 	 *
 	 * @param m1 	The matrix to copy.
 	 */
-	public inline function copy(m:Matrix4):Void
+	public function copy(m:Matrix4):Void
 	{
 		n11 = m.n11 ; n12 = m.n12 ; n13 = m.n13 ; n14 = m.n14 ;
 		n21 = m.n21 ; n22 = m.n22 ; n23 = m.n23 ; n24 = m.n24 ;
@@ -292,7 +290,7 @@ class Matrix4
 	 *
 	 * @param m2 	The matrix to multiply with.
 	 */
-	public inline function multiply3x3( m2:Matrix4) : Void
+	public function multiply3x3( m2:Matrix4) : Void
 	{
 		var m111:Float = n11, m211:Float = m2.n11,
 		m121:Float = n21, m221:Float = m2.n21,
@@ -326,7 +324,7 @@ class Matrix4
 	 *
 	 * @param m2 	The matrix to multiply with.
 	 */
-	public inline function multiply4x3( m2:Matrix4 ):Void
+	public function multiply4x3( m2:Matrix4 ):Void
 	{
 		var 	m111:Float = n11, 	m211:Float = m2.n11,
 			m121:Float = n21, 	m221:Float = m2.n21,
@@ -365,7 +363,7 @@ class Matrix4
 	 *
 	 * @param m2 	The matrix to multiply with.
 	 */
-	public inline function multiply( m2:Matrix4) : Void
+	public function multiply( m2:Matrix4) : Void
 	{
 		var m111:Float = n11, m121:Float = n21, m131:Float = n31, m141:Float = n41,
 			m112:Float = n12, m122:Float = n22, m132:Float = n32, m142:Float = n42,
@@ -407,7 +405,7 @@ class Matrix4
 	 *
 	 * @param m2 	Matrix to add to thei matrix.
 	 */
-	public inline function addMatrix( m2:Matrix4): Void
+	public function addMatrix( m2:Matrix4): Void
 	{
 		n11 += m2.n11; 
 		n12 += m2.n12; 
@@ -433,7 +431,7 @@ class Matrix4
 	 *
 	 * @param pv	The vertex to be mutliplied
 	 */
-	public inline function vectorMult( pv:Vector ):Void
+	public function vectorMult( pv:Vector ):Void
 	{
 		var x:Float=pv.x, y:Float=pv.y, z:Float=pv.z;
 		pv.x = (x * n11 + y * n12 + z * n13 + n14);
@@ -448,7 +446,7 @@ class Matrix4
 	 *
 	 * @param pv	The vector to be mutliplied
 	 */
-	public inline function vectorMult3x3( pv:Vector ):Void
+	public function vectorMult3x3( pv:Vector ):Void
 	{
 		var x:Float=pv.x, y:Float=pv.y, z:Float=pv.z;
 		pv.x = (x * n11 + y * n12 + z * n13);
@@ -463,7 +461,7 @@ class Matrix4
 	 * @param angle Float angle of rotation in degrees
 	 * @return the computed matrix
 	 */
-	public inline function rotationX ( angle:Float ):Void
+	public function rotationX ( angle:Float ):Void
 	{
 		identity();
 		//
@@ -484,7 +482,7 @@ class Matrix4
 	 *
 	 * @param angle 	Angle of rotation around y axis in degrees.
 	 */
-	public inline function rotationY ( angle:Float ):Void
+	public function rotationY ( angle:Float ):Void
 	{
 		identity();
 		//
@@ -505,7 +503,7 @@ class Matrix4
 	 *
 	 * @param angle 	Angle of rotation around z axis in degrees.
 	 */
-	public inline function rotationZ ( angle:Float ):Void
+	public function rotationZ ( angle:Float ):Void
 	{
 		identity();
 		//
@@ -528,7 +526,7 @@ class Matrix4
 	 * @param v 	The axis of rotation
 	 * @param angle	The angle of rotation in degrees
 	 */
-	public inline function axisRotationVector ( v:Vector, angle:Float ) : Void
+	public function axisRotationVector ( v:Vector, angle:Float ) : Void
 	{
 		axisRotation( v.x, v.y, v.z, angle );
 	}
@@ -548,7 +546,7 @@ class Matrix4
 	 * @param nTy 	Translation in the y direction.
 	 * @param nTz 	Translation in the z direction.
 	 */
-	public inline function translation(nTx:Float, nTy:Float, nTz:Float) : Void
+	public function translation(nTx:Float, nTy:Float, nTz:Float) : Void
 	{
 		identity();
 		//
@@ -569,7 +567,7 @@ class Matrix4
 	 *
 	 * @param v 	The translation Vector.
 	 */
-	public inline function translationVector( v:Vector ) : Void
+	public function translationVector( v:Vector ) : Void
 	{
 		identity();
 		//
@@ -592,7 +590,7 @@ class Matrix4
 	 * @param nYScale 	y-scale.
 	 * @param nZScale	z-scale.
 	 */
-	public inline function scale(nXScale:Float, nYScale:Float, nZScale:Float) : Void
+	public function scale(nXScale:Float, nYScale:Float, nZScale:Float) : Void
 	{
 		identity();
 		//
@@ -613,7 +611,7 @@ class Matrix4
 	 *
 	 * @param v	The scale vector.
 	 */
-	public inline function scaleVector( v:Vector) : Void
+	public function scaleVector( v:Vector) : Void
 	{
 		identity();
 		//
@@ -627,7 +625,7 @@ class Matrix4
 	*
 	* @return 	The determinant
 	*/
-	public inline function det():Float
+	public function det():Float
 	{
 		return		(n11 * n22 - n21 * n12) * (n33 * n44 - n43 * n34)- (n11 * n32 - n31 * n12) * (n23 * n44 - n43 * n24)
 				 + 	(n11 * n42 - n41 * n12) * (n23 * n34 - n33 * n24)+ (n21 * n32 - n31 * n22) * (n13 * n44 - n43 * n14)
@@ -640,7 +638,7 @@ class Matrix4
 	*
 	* @return 	The determinant
 	*/
-	public inline function det3x3():Float
+	public function det3x3():Float
 	{
 		return n11 * ( n22 * n33 - n23 * n32 ) + n21 * ( n32 * n13 - n12 * n33 ) + n31 * ( n12 * n23 - n22 * n13 );
 	}
@@ -652,7 +650,7 @@ class Matrix4
 	 *
 	 * @return 	The trace value
 	 */
-	public inline function getTrace():Float
+	public function getTrace():Float
 	{
 		return n11 + n22 + n33 + n44;
 	}
@@ -662,7 +660,7 @@ class Matrix4
 	* @param m The matrix4 to inverse
 	* @return Matrix4 The inverse Matrix4
 	*/
-	public inline function inverse():Void
+	public function inverse():Void
 	{
 		//take the determinant
 		var d:Float = det();
@@ -704,7 +702,7 @@ class Matrix4
 	 * @param ref 		The reference point.
 	 * @param pAngle	The angle of rotation in degrees.
 	 */
-	public inline function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Float ):Void
+	public function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Float ):Void
 	{
 		var tmp:Matrix4 = new Matrix4();
 		var angle:Float = ( pAngle + 360 ) % 360;
@@ -721,7 +719,7 @@ class Matrix4
 	 *
 	 * @return	The string representing this matrix
 	 */
-	public inline function toString(): String
+	public function toString(): String
 	{
 		var s:String =  "sandy.core.data.Matrix4" + "\n (";
 		s += n11+"\t"+n12+"\t"+n13+"\t"+n14+"\n";
@@ -736,7 +734,7 @@ class Matrix4
 	 * 
 	 * @return A vector
 	 */
-	public inline function getTranslation():Vector
+	public function getTranslation():Vector
 	{
 		return new Vector( n14, n24, n34 );
 	}
@@ -750,7 +748,7 @@ class Matrix4
 	 * @param The angle of rotation in degree
 	 * @return The result of computation : a {@code Matrix4}.
 	 */
-	public inline function axisRotation ( u:Float, v:Float, w:Float, angle:Float ) : Void
+	public function axisRotation ( u:Float, v:Float, w:Float, angle:Float ) : Void
 	{
 		identity();
 		//
@@ -790,7 +788,7 @@ class Matrix4
 	 * @param {@code az} angle of rotation around Z axis in degree.
 	 * @return The result of computation : a {@code Matrix4}.
 	 */
-	public inline function eulerRotation ( ax:Float, ay:Float, az:Float ) : Void
+	public function eulerRotation ( ax:Float, ay:Float, az:Float ) : Void
 	{
 		identity();
 		//
@@ -824,7 +822,7 @@ class Matrix4
 	 * 
 	 * @return A vector that represent the Euler angles in the 3D space (X, Y and Z)
 	 */
-	public static inline function getEulerAngles( t:Matrix4 ):Vector
+	public static function getEulerAngles( t:Matrix4 ):Vector
 	{
 		var lAngleY:Float = Math.asin( t.n13 );
 		var lCos:Float = Math.cos( lAngleY );

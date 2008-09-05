@@ -141,7 +141,7 @@ class Frustum
 	 * @param comboMatrix
 	 * @param normalize
 	 */
-	public function extractPlanes( comboMatrix:Matrix4, normalize:Null<Bool> ):Void
+	public function extractPlanes( comboMatrix:Matrix4, normalize:Bool ):Void
 	{
 		// Left clipping plane
 		aPlanes[0].a = comboMatrix.n14 + comboMatrix.n11;
@@ -375,7 +375,7 @@ class Frustum
 	 */
 	public function clipPolygon( p_oPlane:Plane, p_aCvert:Array<Vertex>, p_aUVCoords:Array<UVCoord> ):Void
 	{	
-		var allin:Null<Bool> = true, allout:Null<Bool> = true;
+		var allin:Bool = true, allout:Bool = true;
 		var v:Vertex;
 		var i:Int, l:Int = p_aCvert.length, lDist:Float;
 		// -- If no points, we return null
@@ -407,7 +407,7 @@ class Frustum
 		var v1:Vertex = tmp[0], v2:Vertex = null,  t:Vertex = null;
 		//
 		var d:Float, dist2:Float, dist1:Float = aDist[0];
-		var clipped:Null<Bool> = false, inside:Null<Bool> = (dist1 >= 0);
+		var clipped:Bool = false, inside:Bool = (dist1 >= 0);
 		var curv:Float = 0;
 		for (i in 1...(l+1))
 		{	 

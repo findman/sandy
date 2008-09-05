@@ -43,7 +43,7 @@ class WireFrameMaterial extends Material
 	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
 	 * @param p_oAttr	The attributes for this material
 	 */
-	public function new( ?p_nThickness:Null<Int>, ?p_nColor:Null<Int>, ?p_nAlpha: Float, ?p_oAttr:MaterialAttributes )
+	public function new( ?p_nThickness:Int, ?p_nColor:Int, ?p_nAlpha: Float, ?p_oAttr:MaterialAttributes )
 	{
 
   if ( p_nThickness == null ) p_nThickness = 1;

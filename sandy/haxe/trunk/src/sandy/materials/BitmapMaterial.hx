@@ -51,7 +51,7 @@ class BitmapMaterial extends Material
 	 * The default value is set to false to have the best performance first.
 	 * Enable this property have a performance impact, use it warefully
 	 */
-	public var smooth:Null<Bool>;
+	public var smooth:Bool;
 
 	/**
 	 * Precision of the bitmap mapping.
@@ -61,14 +61,14 @@ class BitmapMaterial extends Material
 	 * To disable the perspective correction, set this property to zero, which is also the default value
 	 * If you use the precision to solve the distortion issue, you can reduce the primitives quality (execpt if you are experimenting some sorting issues)
 	 */
-	public var precision:Null<Int>;
+	public var precision:Int;
 
 	/**
 	 * Maximum  recurssion depth when using precision > 1 (which enables the perspective correction).
 	 * The bigger the number is, the more accurate the result will be.
 	 * Try to change this value to fits your needs to obtain the best performance.
 	 */
-	public var maxRecurssionDepth:Null<Int>;
+	public var maxRecurssionDepth:Int;
 	
 	/**
 	 * Creates a new BitmapMaterial.
@@ -78,7 +78,7 @@ class BitmapMaterial extends Material
 	 * @param p_oAttr	The attributes for this material
 	 * @param p_nPrecision The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
 	 */
-	public function new( ?p_oTexture:BitmapData, ?p_oAttr:MaterialAttributes, ?p_nPrecision:Null<Int> )
+	public function new( ?p_oTexture:BitmapData, ?p_oAttr:MaterialAttributes, ?p_nPrecision:Int )
 	{
 	 smooth = false;
 	 precision = 0;
@@ -115,6 +115,7 @@ class BitmapMaterial extends Material
 	 */
 	public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void
 	{
+
        	if( m_oTexture == null ) return;
        	// --
 		var l_points:Array<Vertex>, l_uv:Array<UVCoord>;
@@ -141,7 +142,7 @@ class BitmapMaterial extends Material
 			l_points = p_oPolygon.vertices;
 			l_uv = p_oPolygon.aUVCoord;
 			// --
-			map = cast( m_oPolygonMatrixMap[polygon.id], Matrix );
+			map = m_oPolygonMatrixMap[polygon.id];
 			var v0:Vertex = l_points[0];
         	var v1:Vertex = l_points[1];
         	var v2:Vertex = l_points[2];
@@ -163,6 +164,7 @@ class BitmapMaterial extends Material
 		// --
 		l_points = null;
 		l_uv = null;
+
 	}
 
 	private function _tesselatePolygon ( p_aPoints:Array<Vertex>, p_aUv:Array<UVCoord> ):Void
@@ -298,7 +300,7 @@ class BitmapMaterial extends Material
        }
        
 
-	private inline function renderTriangle(a:Float, b:Float, c:Float, d:Float, tx:Float, ty:Float,
+	private function renderTriangle(a:Float, b:Float, c:Float, d:Float, tx:Float, ty:Float,
 		v0x:Float, v0y:Float, v1x:Float, v1y:Float, v2x:Float, v2y:Float):Void
 	{
 		var a2:Float = v1x - v0x;
@@ -322,7 +324,7 @@ class BitmapMaterial extends Material
 	}
 
 
-	private inline function _createTextureMatrix( p_aUv:Array<Dynamic> ):Matrix
+	private function _createTextureMatrix( p_aUv:Array<Dynamic> ):Matrix
 	{
 		var u0: Float = (Std.parseFloat(p_aUv[0].u) * m_oTiling.x + m_oOffset.x) * m_nWidth,
 			v0: Float = (Std.parseFloat(p_aUv[0].v) * m_oTiling.y + m_oOffset.y) * m_nHeight,
@@ -371,7 +373,7 @@ class BitmapMaterial extends Material
 			if( m_orgTexture != null ) m_orgTexture.dispose();
 		}
 		// --
-		var l_bReWrap:Null<Bool> = false;
+		var l_bReWrap:Bool = false;
 		if( m_nHeight != p_oTexture.height) l_bReWrap = true;
 		else if( m_nWidth != p_oTexture.width) l_bReWrap = true;
 		// --
@@ -387,8 +389,9 @@ class BitmapMaterial extends Material
 		{
 			for( l_sID in m_oPolygonMatrixMap )
 			{
-				var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( l_sID ) ;
-				init( l_oPoly );
+				//throw "Bad Transformation";
+				//var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( Std.int(l_sID) ) ;
+				//init( l_oPoly );
 			}
 		}
 		return p_oTexture;
@@ -411,8 +414,9 @@ class BitmapMaterial extends Material
 
 		for( l_sID in m_oPolygonMatrixMap )
 		{
-			var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( l_sID );
-			init( l_oPoly );
+			//throw "Bad Transformation";
+			//var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( Std.parseInt( l_sID ) );
+			//init( l_oPoly );
 		}
 	}
 	
@@ -481,13 +485,13 @@ class BitmapMaterial extends Material
 
 	private var m_oTexture:BitmapData;
 	private var m_orgTexture:BitmapData;
-	private var m_nHeight:Null<Float>;
-	private var m_nWidth:Null<Float>;
-	private var m_nInvHeight:Null<Float>;
-	private var m_nInvWidth:Null<Float>;
+	private var m_nHeight:Float;
+	private var m_nWidth:Float;
+	private var m_nInvHeight:Float;
+	private var m_nInvWidth:Float;
 
-	private var m_nRecLevel:Null<Int>;
-	private var m_oPolygonMatrixMap:Array<Dynamic>;
+	private var m_nRecLevel:Int;
+	private var m_oPolygonMatrixMap:Array<Matrix>;
 	private var m_oPoint:Point;
 	private var m_oCmf:ColorMatrixFilter;
 	private var matrix:Matrix;

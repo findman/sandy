@@ -67,7 +67,7 @@ class VirtualMouse
 	public function interactWithTexture(  p_oPoly : Polygon, p_uvTexture : UVCoord, p_event : Event ) : Void
 	{
 		// -- recuperation du material applique sur le polygone
-		var l_oMaterial:MovieMaterial = cast((p_oPoly.visible ? p_oPoly.appearance.frontMaterial : p_oPoly.appearance.backMaterial), MovieMaterial);
+		var l_oMaterial:MovieMaterial = untyped p_oPoly.visible ? p_oPoly.appearance.frontMaterial : p_oPoly.appearance.backMaterial;
 		if( l_oMaterial == null ) return;
 
 		m_ioTarget = l_oMaterial.movie;
@@ -81,7 +81,7 @@ class VirtualMouse
 		var currentTarget:Sprite = null;
 		var currentParent:DisplayObject;
 		
-		var i:Null<Int> = objectsUnderPoint.length;
+		var i:Int = objectsUnderPoint.length;
 		while ( --i > -1 ) 
 		{
 			currentParent = objectsUnderPoint[i];
@@ -137,7 +137,7 @@ class VirtualMouse
 		// move event
 		if (lastLocation.x != location.x || lastLocation.y != location.y) 
 		{	
-			var withinStage:Null<Bool> = (location.x >= 0 && location.y >= 0 && location.x <= p_oPoly.container.stage.stageWidth && location.y <= p_oPoly.container.stage.stageHeight);
+			var withinStage:Bool = (location.x >= 0 && location.y >= 0 && location.x <= p_oPoly.container.stage.stageWidth && location.y <= p_oPoly.container.stage.stageHeight);
 			// mouse leave if left stage
 			if ( !withinStage && lastWithinStage )
 			{

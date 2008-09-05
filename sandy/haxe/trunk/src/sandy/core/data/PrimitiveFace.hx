@@ -56,7 +56,7 @@ class PrimitiveFace
 		return m_iPrimitive;
 	}
 	
-	public function addPolygon( p_oPolyId:Null<Int> ):Void
+	public function addPolygon( p_oPolyId:Int ):Void
 	{
 		aPolygons.push( m_iPrimitive.aPolygons[p_oPolyId] );
 	}
