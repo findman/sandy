@@ -350,6 +350,9 @@ package sandy.core.scenegraph
 		 */
 		public function get invProjectionMatrix():Matrix4
 		{
+			_mpInv.copy( _mp );
+			_mpInv.inverse();
+
 			return _mpInv;
 		}
 		
@@ -385,9 +388,6 @@ package sandy.core.scenegraph
 			mp12 = _mp.n12; mp22 = _mp.n22; mp32 = _mp.n32; mp42 = _mp.n42;
 			mp13 = _mp.n13; mp23 = _mp.n23; mp33 = _mp.n33; mp43 = _mp.n43;
 			mp14 = _mp.n14; mp24 = _mp.n24; mp34 = _mp.n34; mp44 = _mp.n44;			
-			
-			_mpInv.copy( _mp );
-			_mpInv.inverse();
 			
 			changed = true;	
 		}
