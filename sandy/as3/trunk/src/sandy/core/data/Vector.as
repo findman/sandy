@@ -314,7 +314,7 @@ package sandy.core.data
 			
 			// Round display to the specified number of decimals places
 			// Returns "{x, y, z}"
-			return "{" + serialize(decPlaces) + "}";
+			return "{" + serialize(Math.pow (10, -decPlaces)) + "}";
 		}
 		
 		// Useful for XML output
