@@ -18,6 +18,7 @@ package sandy.core
 {
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
+	import flash.utils.getTimer;
 
 	import sandy.core.data.Vector;
 	import sandy.core.light.Light3D;
@@ -197,6 +198,8 @@ package sandy.core
 		{
 			if (root && camera && container)
 			{
+				lastRenderTime = Math.max (lastRenderTime + 1, getTimer ());
+				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_UPDATE));
 				root.update(this, null, false);
 				// --
@@ -312,5 +315,9 @@ package sandy.core
 		private var m_bRectClipped:Boolean = true;
 		private var _light:Light3D; 	//the unique light instance of the world
 		private static var _version:String = "3.0.3";
+		/**
+		 * Value returned by getTimer() in the last render() call, or greater one.
+		 */
+		public var lastRenderTime:int;
 	}
 }

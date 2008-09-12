@@ -487,5 +487,8 @@ package sandy.core.data
 		
 		private const m_oWorld:Vector = new Vector();
 		private const m_oLocal:Vector = new Vector();
+
+		public var lastTimeSCoordsComputed:int;
+		public var lastTimeWCoordsComputed:int;
 	}
 }
