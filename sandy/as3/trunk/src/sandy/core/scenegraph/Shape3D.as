@@ -299,7 +299,7 @@ package sandy.core.scenegraph
 			m_nVisiblePoly = 0;
 			m_nDepth = 0;
 			l_nFlags = appearance.flags;
-			m_oCache = new Dictionary(false);
+			var l_lastRenderTime:int = p_oScene.lastRenderTime;
 			// --
 			var polyFlags:uint = 0;
 			for each( l_oFace in aPolygons )
@@ -316,74 +316,86 @@ package sandy.core.scenegraph
 	                	continue;
                 }
                 // --
-                if( m_oCache[ l_oFace.a ] == null )
+		l_oVertex = l_oFace.a;
+		if (l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime)
                 {
-                	l_oVertex = l_oFace.a;
 					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-					m_oCache[ l_oVertex ] = l_oVertex;
+					l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
                 }
-                if( m_oCache[ l_oFace.b ] == null )
+		l_oVertex = l_oFace.b;
+		if (l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime)
                 {
-                	l_oVertex = l_oFace.b;
 					l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 					l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 					l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-					m_oCache[ l_oVertex ] = l_oVertex;
+					l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
                 }
-                if( l_oFace.c )
+		l_oVertex = l_oFace.c;
+		if ((l_oVertex != null) && (l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime))
                 {
-	                if( m_oCache[ l_oFace.c ] == null )
-	                {
-	                	l_oVertex = l_oFace.c;
 						l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
 						l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
 						l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-						m_oCache[ l_oVertex ] = l_oVertex;
-	                }
+					l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
                 }
                 // --               	
 				l_oFace.precompute();
                 l_nMinZ = l_oFace.minZ;
                 // --
-                if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
-                {
-                    l_oFace.clip( l_oFrustum );
-					// -- We project the vertices
-			 		if( l_oFace.isClipped == true && l_oFace.cvertices.length > 2 )
-			 		{
-			 			p_oCamera.projectArray( l_oFace.cvertices );
-			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                        else l_oFace.depth = forcedDepth;    
-			 		}
-			 		if( l_oFace.cvertices.length > 2 )
-                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-				 }
-				 else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
-				 {
-			 		l_oFace.clipFrontPlane( l_oFrustum );
-					// -- We project the vertices
-			 		if( l_oFace.isClipped == true && l_oFace.cvertices.length > 2 )
-			 		{
-			 			p_oCamera.projectArray( l_oFace.cvertices );
-			 			if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-                        else l_oFace.depth = forcedDepth;    
-			 		}
-			 		if( l_oFace.cvertices.length > 2 )
-                        m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-				 }
-				 else if( l_nMinZ >= l_nZNear )
-				 {
-			 		if( !enableForcedDepth ) m_nDepth += l_oFace.depth;
-			 		else l_oFace.depth = forcedDepth;
-			    	// -- we manage the display list depending on the mode choosen
-					m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
-				}
-				else
-				{
-				   continue;
-				}
+		if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
+		{
+			l_oFace.clip( l_oFrustum );
+
+			if (l_oFace.cvertices.length > 2)
+			{
+				// cvertices are either new vertices, or references to old ones
+				p_oCamera.projectArray( l_oFace.cvertices );
+
+	 			if( !enableForcedDepth )
+					m_nDepth += l_oFace.depth;
+	                        else
+					l_oFace.depth = forcedDepth;    
+
+				m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+	 		}
+		}
+
+		else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
+		{
+			l_oFace.clipFrontPlane( l_oFrustum );
+
+			if (l_oFace.cvertices.length > 2)
+			{
+				// cvertices are either new vertices, or references to old ones
+				p_oCamera.projectArray( l_oFace.cvertices );
+
+	 			if( !enableForcedDepth )
+					m_nDepth += l_oFace.depth;
+	                        else
+					l_oFace.depth = forcedDepth;    
+
+				m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+	 		}
+		}
+
+		else if( l_nMinZ >= l_nZNear )
+		{
+			p_oCamera.projectArray( l_oFace.vertices );
+
+			if( !enableForcedDepth )
+				m_nDepth += l_oFace.depth;
+			else
+				l_oFace.depth = forcedDepth;
+
+			m_aVisiblePoly[int(m_nVisiblePoly++)] = l_oFace;
+		}
+
+		else
+		{
+			continue;
+		}
 				
 				if( l_oFace.hasAppearanceChanged )
 				{
@@ -403,14 +415,14 @@ package sandy.core.scenegraph
 				}
 			}
 			
-			// -- project to screen
-			p_oCamera.projectDico( m_oCache );
-			
 			// --
 			if( m_bUseSingleContainer )
 			{
-				if(enableForcedDepth) 	m_nDepth = forcedDepth;
-				else 					m_nDepth /= m_aVisiblePoly.length;
+				if(enableForcedDepth)
+					m_nDepth = forcedDepth;
+				else
+					m_nDepth /= m_aVisiblePoly.length;
+
 				p_oCamera.addToDisplayList( this );
 			}
 			else
@@ -923,7 +935,6 @@ package sandy.core.scenegraph
 		protected var m_bUseSingleContainer:Boolean = true;
 		protected var m_nDepth:Number = 0;
 		protected var m_oContainer:Sprite;
-		protected var m_oCache:Dictionary;// = new Array();
 		private var m_oCamPos:Vector = new Vector();
 		private var m_aVisiblePoly:Array = new Array();	
 		private var m_nVisiblePoly:int;	
