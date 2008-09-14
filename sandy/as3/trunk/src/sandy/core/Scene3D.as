@@ -224,10 +224,10 @@ package sandy.core
 		public function dispose():Boolean
 		{
 			SceneLocator.getInstance().unregisterScene(m_sName);
-			root.destroy();
 			// --
 			if (root)
 			{
+				root.destroy();
 				root = null;
 			}
 			if (camera)
