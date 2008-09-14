@@ -1,0 +1,48 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.math.PlaneMath - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.math" rel="up"/><link href="../../sandy/math/QuaternionMath.html" title="Class sandy.math.QuaternionMath" rel="prev"/><link href="../../sandy/math/Matrix4Math.html" title="Class sandy.math.Matrix4Math" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.math" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.math.PlaneMath</h1><div class="type_hierachy"><ul><li><strong>sandy.math.PlaneMath</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Math functions for planes.
+  
+ </p></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><p><a href="#NEGATIVE" title="static public NEGATIVE:Number">NEGATIVE</a>, <a href="#ON_PLANE" title="static public ON_PLANE:Number">ON_PLANE</a>, <a href="#POSITIVE" title="static public POSITIVE:Number">POSITIVE</a></p></div><div class="method_index"><h2>Method Index</h2><p><a href="#classifyPoint" title="static public function classifyPoint(p_oPlane:Plane, p_oVector:Vector):Number">classifyPoint()</a>, <a href="#computePlaneFromPoints" title="static public function computePlaneFromPoints(p_oVectorA:Vector, p_oVectorB:Vector, p_oVectorC:Vector):Plane">computePlaneFromPoints()</a>, <a href="#createFromNormalAndPoint" title="static public function createFromNormalAndPoint(p_oNormal:Vector, p_nPoint:Number):Plane">createFromNormalAndPoint()</a>, <a href="#distanceToPoint" title="static public function distanceToPoint(p_oPlane:Plane, p_oVector:Vector):Number">distanceToPoint()</a>, <a href="#normalizePlane" title="static public function normalizePlane(p_oPlane:Plane):Void">normalizePlane()</a></p></div></div><div class="type_details"><div class="field_detail_list"><h2>Field Detail</h2><div class="field_details alt_row"><a name="NEGATIVE"></a><h3>NEGATIVE</h3><code class="field_synopsis">static public <strong class="field_name">NEGATIVE</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies a negative distance from a vector to a plane.
+	 </p></div></div><div class="field_details"><a name="ON_PLANE"></a><h3>ON_PLANE</h3><code class="field_synopsis">static public <strong class="field_name">ON_PLANE</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies a vector is on a plane.
+	 </p></div></div><div class="field_details alt_row"><a name="POSITIVE"></a><h3>POSITIVE</h3><code class="field_synopsis">static public <strong class="field_name">POSITIVE</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies a positive distance from a vector to a plane.
+	 </p></div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="normalizePlane"></a><h3>normalizePlane</h3><code class="method_synopsis">static public function <strong class="method_name">normalizePlane</strong>(p_oPlane:<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Normalizes the plane. 
+ 
+ <p>Often before making some calculations with a plane you have to normalize it.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oPlane</code></td><td>The plane to normalize.
+	 </td></tr></table></div></div><div class="method_details"><a name="distanceToPoint"></a><h3>distanceToPoint</h3><code class="method_synopsis">static public function <strong class="method_name">distanceToPoint</strong>(p_oPlane:<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a>, p_oVector:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the distance between a plane and a vector.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oPlane</code></td><td>The plane.
+ </td></tr><tr><td><code>p_oVector</code></td><td>The vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	The distance between the vector and the plane.
+	 </p></div></div><div class="method_details alt_row"><a name="classifyPoint"></a><h3>classifyPoint</h3><code class="method_synopsis">static public function <strong class="method_name">classifyPoint</strong>(p_oPlane:<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a>, p_oVector:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Returns a classification constant depending on a vector's position relative to a plane.
+ 
+ <p>The classification is one of PlaneMath.NEGATIVE, PlaneMath.POSITIVE, and PlaneMath.ON_PLANE.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oPlane</code></td><td>The reference plane.
+ </td></tr><tr><td><code>p_oVector</code></td><td>The vector we want to classify.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The classification of the vector.
+	 </p></div></div><div class="method_details"><a name="computePlaneFromPoints"></a><h3>computePlaneFromPoints</h3><code class="method_synopsis">static public function <strong class="method_name">computePlaneFromPoints</strong>(p_oVectorA:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oVectorB:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oVectorC:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a></code><div class="method_info"><p>
+ Computes a plane from three vectors.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oVectorA</code></td><td>The first vector.
+ </td></tr><tr><td><code>p_oVectorB</code></td><td>The second vector.
+ </td></tr><tr><td><code>p_oVectorC</code></td><td>The third vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	The computed plane.
+	 </p></div></div><div class="method_details alt_row"><a name="createFromNormalAndPoint"></a><h3>createFromNormalAndPoint</h3><code class="method_synopsis">static public function <strong class="method_name">createFromNormalAndPoint</strong>(p_oNormal:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_nPoint:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a></code><div class="method_info"><p>
+ Computes a plane from a normal vector and a specified point.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oNormal</code></td><td>The normal vector.
+ </td></tr><tr><td><code>p_nPoint</code></td><td>The point.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	The computed plane.
+	 </p></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

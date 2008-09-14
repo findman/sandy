@@ -1,0 +1,92 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.view.Frustum - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.view" rel="up"/><link href="../../sandy/view/ViewPort.html" title="Class sandy.view.ViewPort" rel="prev"/><link href="../../sandy/view/CullingState.html" title="Class sandy.view.CullingState" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.view" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.view.Frustum</h1><div class="type_hierachy"><ul><li><strong>sandy.view.Frustum</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Used to create the frustum of the camera.
+ 
+ <p>The frustum is volume used to control a geometrical object, such as a box, a sphere, or a point
+ can be seen by the camera, and thus should be rendered.</p> 
+ <p>Clipping of objects and polygons is performed against the frustum surfaces, as well as the near and far planes.</p>
+ 
+ </p></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><p><a href="#aConstants" title="public aConstants:Array">aConstants</a>, <a href="#aNormals" title="public aNormals:Array">aNormals</a>, <a href="#aPlanes" title="public aPlanes:Array">aPlanes</a>, <a href="#aPoints" title="public aPoints:Array">aPoints</a>, <a href="#BOTTOM" title="static public BOTTOM:Number">BOTTOM</a>, <a href="#EPSILON" title="static public EPSILON:Number">EPSILON</a>, <a href="#FAR" title="static public FAR:Number">FAR</a>, <a href="#INSIDE" title="static public INSIDE:CullingState">INSIDE</a>, <a href="#INTERSECT" title="static public INTERSECT:CullingState">INTERSECT</a>, <a href="#LEFT" title="static public LEFT:Number">LEFT</a>, <a href="#NEAR" title="static public NEAR:Number">NEAR</a>, <a href="#OUTSIDE" title="static public OUTSIDE:CullingState">OUTSIDE</a>, <a href="#RIGHT" title="static public RIGHT:Number">RIGHT</a>, <a href="#TOP" title="static public TOP:Number">TOP</a></p></div><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#Frustum" title="public function Frustum()">Frustum()</a></code></div><p><a href="#boxInFrustum" title="public function boxInFrustum(box:BBox):CullingState">boxInFrustum()</a>, <a href="#clipFrontPlane" title="public function clipFrontPlane(p_aCvert:Array, p_aUVCoords:Array):Boolean">clipFrontPlane()</a>, <a href="#clipFrustum" title="public function clipFrustum(p_aCvert:Array, p_aUVCoords:Array):Boolean">clipFrustum()</a>, <a href="#clipLineFrontPlane" title="public function clipLineFrontPlane(p_aCvert:Array):Boolean">clipLineFrontPlane()</a>, <a href="#clipPolygon" title="public function clipPolygon(p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array):Boolean">clipPolygon()</a>, <a href="#computePlanes" title="public function computePlanes(p_nAspect:Number, p_nNear:Number, p_nFar:Number, p_nFov:Number):Void">computePlanes()</a>, <a href="#extractPlanes" title="public function extractPlanes(comboMatrix:Matrix4, normalize:Boolean):Void">extractPlanes()</a>, <a href="#pointInFrustum" title="public function pointInFrustum(p_oPoint:Vector):CullingState">pointInFrustum()</a>, <a href="#sphereInFrustum" title="public function sphereInFrustum(p_oS:BSphere):CullingState">sphereInFrustum()</a></p></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="Frustum"></a><h3>Frustum</h3><code class="method_synopsis">public function <strong class="method_name">Frustum</strong>()</code><div class="method_info"><p>
+ Creates a frustum for the camera.
+
+ <p>This constructor only creates the necessay data structures</p>
+	 </p></div></div></div><div class="field_detail_list"><h2>Field Detail</h2><div class="field_details alt_row"><a name="aPlanes"></a><h3>aPlanes</h3><code class="field_synopsis">public <strong class="field_name">aPlanes</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of planes representing the frustum.
+	 </p></div></div><div class="field_details"><a name="aPoints"></a><h3>aPoints</h3><code class="field_synopsis">public <strong class="field_name">aPoints</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of points representing the frustum.
+	</p></div></div><div class="field_details alt_row"><a name="aNormals"></a><h3>aNormals</h3><code class="field_synopsis">public <strong class="field_name">aNormals</strong>:<span class="unresolved_type_name">Array</span></code></div><div class="field_details"><a name="aConstants"></a><h3>aConstants</h3><code class="field_synopsis">public <strong class="field_name">aConstants</strong>:<span class="unresolved_type_name">Array</span></code></div><div class="field_details alt_row"><a name="FAR"></a><h3>FAR</h3><code class="field_synopsis">static public <strong class="field_name">FAR</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the far plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details"><a name="NEAR"></a><h3>NEAR</h3><code class="field_synopsis">static public <strong class="field_name">NEAR</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the near plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details alt_row"><a name="RIGHT"></a><h3>RIGHT</h3><code class="field_synopsis">static public <strong class="field_name">RIGHT</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the right plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details"><a name="LEFT"></a><h3>LEFT</h3><code class="field_synopsis">static public <strong class="field_name">LEFT</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the left plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details alt_row"><a name="TOP"></a><h3>TOP</h3><code class="field_synopsis">static public <strong class="field_name">TOP</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the top plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details"><a name="BOTTOM"></a><h3>BOTTOM</h3><code class="field_synopsis">static public <strong class="field_name">BOTTOM</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Specifies the index of the bottom plane of the frustum in the aPlanes array.
+	</p></div></div><div class="field_details alt_row"><a name="INSIDE"></a><h3>INSIDE</h3><code class="field_synopsis">static public <strong class="field_name">INSIDE</strong>:<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="field_info"><p>
+ Alias of CullingState.INSIDE.
+	</p></div></div><div class="field_details"><a name="OUTSIDE"></a><h3>OUTSIDE</h3><code class="field_synopsis">static public <strong class="field_name">OUTSIDE</strong>:<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="field_info"><p>
+ Alias of CullingState.OUTSIDE.
+	</p></div></div><div class="field_details alt_row"><a name="INTERSECT"></a><h3>INTERSECT</h3><code class="field_synopsis">static public <strong class="field_name">INTERSECT</strong>:<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="field_info"><p>
+ Alias of CullingState.INTERSECT.
+	</p></div></div><div class="field_details"><a name="EPSILON"></a><h3>EPSILON</h3><code class="field_synopsis">static public <strong class="field_name">EPSILON</strong>:<span class="unresolved_type_name">Number</span></code></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="computePlanes"></a><h3>computePlanes</h3><code class="method_synopsis">public function <strong class="method_name">computePlanes</strong>(p_nAspect:<span class="unresolved_type_name">Number</span>, p_nNear:<span class="unresolved_type_name">Number</span>, p_nFar:<span class="unresolved_type_name">Number</span>, p_nFov:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Computes the frustum planes.
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_nAspect</code></td><td>Aspect ration of the camera.
+ </td></tr><tr><td><code>p_nNear</code></td><td>The distance from the camera to the near clipping plane.
+ </td></tr><tr><td><code>p_nFar</code></td><td>The distance from the camera to the far clipping plane.
+ </td></tr><tr><td><code>p_nFov</code></td><td>Vertical field of view of the camera.
+	 </td></tr></table></div></div><div class="method_details"><a name="extractPlanes"></a><h3>extractPlanes</h3><code class="method_synopsis">public function <strong class="method_name">extractPlanes</strong>(comboMatrix:<a href="../../sandy/core/data/Matrix4.html" class="class_name" title="Class sandy.core.data.Matrix4">Matrix4</a>, normalize:<span class="unresolved_type_name">Boolean</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Extracts the clipping planes.
+
+ <p>[<strong>ToDo</strong>: Expalain this ]</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>comboMatrix</code></td><td></td></tr><tr><td><code>normalize</code></td><td></td></tr></table></div></div><div class="method_details alt_row"><a name="pointInFrustum"></a><h3>pointInFrustum</h3><code class="method_synopsis">public function <strong class="method_name">pointInFrustum</strong>(p_oPoint:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="method_info"><p>
+ Returns the culling state for the passed point.
+ 
+ <p>The method tests if the passed point is within the frustum volume or not.
+ The returned culling state is either Frustum.INSIDE or Frustum.OUTSIDE.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oPoint</code></td><td>The point to test.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The culling state of the point.
+	 </p></div></div><div class="method_details"><a name="sphereInFrustum"></a><h3>sphereInFrustum</h3><code class="method_synopsis">public function <strong class="method_name">sphereInFrustum</strong>(p_oS:<a href="../../sandy/bounds/BSphere.html" class="class_name" title="Class sandy.bounds.BSphere">BSphere</a>):<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="method_info"><p>
+ Returns the culling state for the passed bounding sphere.
+ 
+ <p>The method tests if the bounding sphere is within the frustum volume or not.
+ The returned culling state is either Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oS</code></td><td>The sphere to test.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The culling state of the sphere.
+	 </p></div></div><div class="method_details alt_row"><a name="boxInFrustum"></a><h3>boxInFrustum</h3><code class="method_synopsis">public function <strong class="method_name">boxInFrustum</strong>(box:<a href="../../sandy/bounds/BBox.html" class="class_name" title="Class sandy.bounds.BBox">BBox</a>):<a href="../../sandy/view/CullingState.html" class="class_name" title="Class sandy.view.CullingState">CullingState</a></code><div class="method_info"><p>
+ Returns the culling state for the passed bounding box.
+ 
+ <p>The method tests if the bounding box is within the frustum volume or not.
+ The returned culling state is either Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""></table><h4>Return</h4><p class="extra_info"> The culling state of the box.
+	 </p></div></div><div class="method_details"><a name="clipFrustum"></a><h3>clipFrustum</h3><code class="method_synopsis">public function <strong class="method_name">clipFrustum</strong>(p_aCvert:<span class="unresolved_type_name">Array</span>, p_aUVCoords:<span class="unresolved_type_name">Array</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Clips a polygon against the frustum planes.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_aCvert</code></td><td>Vertices of the polygon.
+ </td></tr><tr><td><code>p_aUVCoords</code></td><td>UV coordiantes of the polygon.
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="clipFrontPlane"></a><h3>clipFrontPlane</h3><code class="method_synopsis">public function <strong class="method_name">clipFrontPlane</strong>(p_aCvert:<span class="unresolved_type_name">Array</span>, p_aUVCoords:<span class="unresolved_type_name">Array</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Clips a polygon against the front frustum plane.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_aCvert</code></td><td>Vertices of the polygon.
+ </td></tr><tr><td><code>p_aUVCoords</code></td><td>UV coordiantes of the polygon.
+	 </td></tr></table></div></div><div class="method_details"><a name="clipLineFrontPlane"></a><h3>clipLineFrontPlane</h3><code class="method_synopsis">public function <strong class="method_name">clipLineFrontPlane</strong>(p_aCvert:<span class="unresolved_type_name">Array</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Clip the given vertex and UVCoords arrays against the frustum front plane.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_aCvert</code></td><td>Vertices of the line.
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="clipPolygon"></a><h3>clipPolygon</h3><code class="method_synopsis">public function <strong class="method_name">clipPolygon</strong>(p_oPlane:<a href="../../sandy/core/data/Plane.html" class="class_name" title="Class sandy.core.data.Plane">Plane</a>, p_aCvert:<span class="unresolved_type_name">Array</span>, p_aUVCoords:<span class="unresolved_type_name">Array</span>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Clips a polygon against one the frustum planes.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oPlane</code></td><td>The plane to clip against.
+ </td></tr><tr><td><code>p_aCvert</code></td><td>Vertices of the polygon. 
+ </td></tr><tr><td><code>p_aUVCoords</code></td><td>UV coordiantes of the polygon.
+	 </td></tr></table></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

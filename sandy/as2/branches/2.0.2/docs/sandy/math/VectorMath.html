@@ -1,0 +1,84 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.math.VectorMath - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.math" rel="up"/><link href="../../sandy/math/VertexMath.html" title="Class sandy.math.VertexMath" rel="prev"/><link href="../../sandy/math/QuaternionMath.html" title="Class sandy.math.QuaternionMath" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.math" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.math.VectorMath</h1><div class="type_hierachy"><ul><li><strong>sandy.math.VectorMath</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Math functions for vector manipulations.
+  
+ </p></div><div class="type_indexes"><div class="method_index"><h2>Method Index</h2><p><a href="#addVector" title="static public function addVector(p_oV:Vector, p_oW:Vector):Vector">addVector()</a>, <a href="#clone" title="static public function clone(p_oV:Vector):Vector">clone()</a>, <a href="#cross" title="static public function cross(p_oW:Vector, p_oV:Vector):Vector">cross()</a>, <a href="#dot" title="static public function dot(p_oV:Vector, p_oW:Vector):Number">dot()</a>, <a href="#getAngle" title="static public function getAngle(p_oV:Vector, p_oW:Vector):Number">getAngle()</a>, <a href="#getNorm" title="static public function getNorm(p_oV:Vector):Number">getNorm()</a>, <a href="#negate" title="static public function negate(p_oV:Vector):Vector">negate()</a>, <a href="#normalize" title="static public function normalize(p_oV:Vector):Boolean">normalize()</a>, <a href="#pow" title="static public function pow(p_oV:Vector, p_nExp:Number):Vector">pow()</a>, <a href="#scale" title="static public function scale(p_oV:Vector, n:Number):Vector">scale()</a>, <a href="#sphrand" title="static public function sphrand(inner:Number, outer:Number):Vector">sphrand()</a>, <a href="#sub" title="static public function sub(p_oV:Vector, p_oW:Vector):Vector">sub()</a></p></div></div><div class="type_details"><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="getNorm"></a><h3>getNorm</h3><code class="method_synopsis">static public function <strong class="method_name">getNorm</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the norm of a 3D vector.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The norm of the vector.
+	 </p></div></div><div class="method_details"><a name="negate"></a><h3>negate</h3><code class="method_synopsis">static public function <strong class="method_name">negate</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Computes the oposite vector of a specified 3D vector.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The opposed vector.
+	 </p></div></div><div class="method_details alt_row"><a name="addVector"></a><h3>addVector</h3><code class="method_synopsis">static public function <strong class="method_name">addVector</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oW:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Adds two 3D vectors.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The first vector.
+ </td></tr><tr><td><code>p_oW</code></td><td>The second vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details"><a name="sub"></a><h3>sub</h3><code class="method_synopsis">static public function <strong class="method_name">sub</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oW:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Substracts one 3D vector from another.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector to subtract from.
+ </td></tr><tr><td><code>p_oW</code></td><td>The vector to subtract.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details alt_row"><a name="pow"></a><h3>pow</h3><code class="method_synopsis">static public function <strong class="method_name">pow</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_nExp:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Computes the power of a 3D vector.
+
+ <p>Here the meaning of the power of a vector is a new vector
+ where each element is the the n:th power of the corresponding element.</p>
+ <p>Ex: A^n = ( A.x^n, A.y^n, A.z^n )</p>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector.
+ </td></tr><tr><td><code>p_nExp</code></td><td>The exponent.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details"><a name="scale"></a><h3>scale</h3><code class="method_synopsis">static public function <strong class="method_name">scale</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, n:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Multiplies a 3D vector by specified scalar.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector to multiply.
+ </td></tr><tr><td><code>n</code></td><td>The scaler to multiply.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vector.
+	 </p></div></div><div class="method_details alt_row"><a name="dot"></a><h3>dot</h3><code class="method_synopsis">static public function <strong class="method_name">dot</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oW:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the dot product the two 3D vectors.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The first vector.
+ </td></tr><tr><td><code>p_oW</code></td><td>The second vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The dot procuct.
+	 </p></div></div><div class="method_details"><a name="cross"></a><h3>cross</h3><code class="method_synopsis">static public function <strong class="method_name">cross</strong>(p_oW:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Computes the cross product of two 3D vectors.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oW</code></td><td>The first vector.
+ </td></tr><tr><td><code>p_oV</code></td><td>The second vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting cross product.
+	 </p></div></div><div class="method_details alt_row"><a name="normalize"></a><h3>normalize</h3><code class="method_synopsis">static public function <strong class="method_name">normalize</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Boolean</span></code><div class="method_info"><p>
+ Normalizes a 3d vector.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector to normalize.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> Whether the normalization was successful.
+	 </p></div></div><div class="method_details"><a name="getAngle"></a><h3>getAngle</h3><code class="method_synopsis">static public function <strong class="method_name">getAngle</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>, p_oW:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Calculates the angle between two 3D vectors. 
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The first vector.
+ </td></tr><tr><td><code>p_oW</code></td><td>The second vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The angle in radians between the two vectors.
+	 </p></div></div><div class="method_details alt_row"><a name="sphrand"></a><h3>sphrand</h3><code class="method_synopsis">static public function <strong class="method_name">sphrand</strong>(inner:<span class="unresolved_type_name">Number</span>, outer:<span class="unresolved_type_name">Number</span>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Returns a random vector contained betweeen the first and second values.
+	 </p></div></div><div class="method_details"><a name="clone"></a><h3>clone</h3><code class="method_synopsis">static public function <strong class="method_name">clone</strong>(p_oV:<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a>):<a href="../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Clones a 3D vector.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vector.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The clone.
+	 </p></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

@@ -1,0 +1,124 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.core.data.Polygon - Sandy 2.0.2 API Documentation</title><link href="../../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.core.data" rel="up"/><link href="../../../sandy/core/data/PrimitiveFace.html" title="Class sandy.core.data.PrimitiveFace" rel="prev"/><link href="../../../sandy/core/data/Plane.html" title="Class sandy.core.data.Plane" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.core.data" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.core.data.Polygon</h1><div class="type_hierachy"><ul><li><strong>sandy.core.data.Polygon</strong></li></ul></div><div class="interfaces"><h2>Implemented Interfaces</h2><code><a href="../../../sandy/core/scenegraph/IDisplayable.html" class="interface_name" title="Interface sandy.core.scenegraph.IDisplayable">IDisplayable</a></code> </div><div class="type_description"><h2>Description</h2><p>
+ Polygon's are the building blocks of visible 3D shapes.
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../../sandy/core/scenegraph/Shape3D.html" class="class_name" title="Class sandy.core.scenegraph.Shape3D">Shape3D</a></li></ul></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><p><a href="#a" title="public a:Vertex">a</a>, <a href="#aEdges" title="public aEdges:Array">aEdges</a>, <a href="#aNeighboors" title="public aNeighboors:Array">aNeighboors</a>, <a href="#appearance" title="public appearance:Appearance">appearance</a>, <a href="#aUVCoord" title="public aUVCoord:Array">aUVCoord</a>, <a href="#b" title="public b:Vertex">b</a>, <a href="#broadcaster" title="public broadcaster:BubbleEventBroadcaster">broadcaster</a>, <a href="#c" title="public c:Vertex">c</a>, <a href="#caUVCoord" title="public caUVCoord:Array">caUVCoord</a>, <a href="#container" title="public container:MovieClip">container</a>, <a href="#cvertices" title="public cvertices:Array">cvertices</a>, <a href="#depth" title="public depth:Number">depth</a>, <a href="#depthSorter" title="public depthSorter:IDepthSorter">depthSorter</a>, <a href="#enableEvents" title="public enableEvents:Boolean">enableEvents</a>, <a href="#enableInteractivity" title="public enableInteractivity:Boolean">enableInteractivity</a>, <a href="#hasAppearanceChanged" title="public hasAppearanceChanged:Boolean">hasAppearanceChanged</a>, <a href="#id" title="public id:Number">id</a>, <a href="#isClipped" title="public isClipped:Boolean">isClipped</a>, <a href="#minZ" title="public minZ:Number">minZ</a>, <a href="#normal" title="public normal:Vertex">normal</a>, <a href="#POLYGON_MAP" title="static public POLYGON_MAP:Map">POLYGON_MAP</a>, <a href="#scene" title="public scene:Scene3D">scene</a>, <a href="#shape" title="public shape:Shape3D">shape</a>, <a href="#uvBounds" title="public uvBounds:Rectangle">uvBounds</a>, <a href="#vertexNormals" title="public vertexNormals:Array">vertexNormals</a>, <a href="#vertices" title="public vertices:Array">vertices</a>, <a href="#visible" title="public visible:Boolean">visible</a></p></div><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#Polygon" title="public function Polygon(p_oOwner:Shape3D, p_geometry:Geometry3D, p_aVertexID:Array, p_aUVCoordsID:Array, p_nFaceNormalID:Number, p_nEdgesID:Number)">Polygon()</a></code></div><p><a href="#addEventListener" title="public function addEventListener(p_sEvent:EventType, oL):Void">addEventListener()</a>, <a href="#clear" title="public function clear():Void">clear()</a>, <a href="#clip" title="public function clip(p_oFrustum:Frustum):Array">clip()</a>, <a href="#clipFrontPlane" title="public function clipFrontPlane(p_oFrustum:Frustum):Array">clipFrontPlane()</a>, <a href="#createNormal" title="public function createNormal():Vector">createNormal()</a>, <a href="#createTransformedNormal" title="public function createTransformedNormal():Vector">createTransformedNormal()</a>, <a href="#destroy" title="public function destroy():Void">destroy()</a>, <a href="#display" title="public function display(p_oScene:Scene3D, p_oContainer:MovieClip):Void">display()</a>, <a href="#get3DFrom2D" title="public function get3DFrom2D(p_oScreenPoint:Point):Vector">get3DFrom2D()</a>, <a href="#getUVFrom2D" title="public function getUVFrom2D(p_oScreenPoint:Point):UVCoord">getUVFrom2D()</a>, <a href="#precompute" title="public function precompute():Void">precompute()</a>, <a href="#removeEventListener" title="public function removeEventListener(p_sEvent:EventType, oL):Void">removeEventListener()</a>, <a href="#swapCulling" title="public function swapCulling():Void">swapCulling()</a>, <a href="#toString" title="public function toString():String">toString()</a>, <a href="#updateNormal" title="public function updateNormal():Void">updateNormal()</a></p></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="Polygon"></a><h3>Polygon</h3><code class="method_synopsis">public function <strong class="method_name">Polygon</strong>(p_oOwner:<a href="../../../sandy/core/scenegraph/Shape3D.html" class="class_name" title="Class sandy.core.scenegraph.Shape3D">Shape3D</a>, p_geometry:<a href="../../../sandy/core/scenegraph/Geometry3D.html" class="class_name" title="Class sandy.core.scenegraph.Geometry3D">Geometry3D</a>, p_aVertexID:<span class="unresolved_type_name">Array</span>, p_aUVCoordsID:<span class="unresolved_type_name">Array</span>, p_nFaceNormalID:<span class="unresolved_type_name">Number</span>, p_nEdgesID:<span class="unresolved_type_name">Number</span>)</code><div class="method_info"><p>
+ Creates a new polygon.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_geometry</code></td><td>The geometry the polygon belongs to.
+ </td></tr><tr><td><code>p_aVertexID</code></td><td>An array of verticies of the polygon.
+ </td></tr><tr><td><code>p_aUVCoordsID</code></td><td>An array of UV coordinates of this polygon.
+ </td></tr><tr><td><code>p_nFaceNormalID</code></td><td>The faceNormalID of this polygon.
+ </td></tr><tr><td><code>p_nEdgesID</code></td><td>The edgesID of this polygon.
+	 </td></tr></table></div></div></div><div class="field_detail_list"><h2>Field Detail</h2><div class="field_details"><a name="POLYGON_MAP"></a><h3>POLYGON_MAP</h3><code class="field_synopsis">static public <strong class="field_name">POLYGON_MAP</strong>:<span class="unresolved_type_name">Map</span></code><div class="field_info"><p>
+ This property lists all the polygons.
+ This is a helper property since it allows all polygons of a scene to be retrieved from a single list by its unique identifier.
+ A polygon's unique identifier can be retrieved useing <code>myPolygon.id</code>.
+
+ </p></div></div><div class="field_details alt_row"><a name="id"></a><h3>id</h3><code class="field_synopsis">public <strong class="field_name">id</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ The unique identifier for this polygon.
+	 </p></div></div><div class="field_details"><a name="shape"></a><h3>shape</h3><code class="field_synopsis">public <strong class="field_name">shape</strong>:<a href="../../../sandy/core/scenegraph/Shape3D.html" class="class_name" title="Class sandy.core.scenegraph.Shape3D">Shape3D</a></code><div class="field_info"><p>
+ A reference to the Shape3D object this polygon belongs to.
+	 </p></div></div><div class="field_details alt_row"><a name="scene"></a><h3>scene</h3><code class="field_synopsis">public <strong class="field_name">scene</strong>:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a></code><div class="field_info"><p>
+ A reference to the Scene3D object this polygon is in.
+	 </p></div></div><div class="field_details"><a name="isClipped"></a><h3>isClipped</h3><code class="field_synopsis">public <strong class="field_name">isClipped</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies if the polygon has been clipped.
+	 </p></div></div><div class="field_details alt_row"><a name="cvertices"></a><h3>cvertices</h3><code class="field_synopsis">public <strong class="field_name">cvertices</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of clipped vertices. Check the <code>isClipped</code> property first to see if this array will contain the useful data.
+	 </p></div></div><div class="field_details"><a name="vertices"></a><h3>vertices</h3><code class="field_synopsis">public <strong class="field_name">vertices</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of the polygon's original vertices.
+	 </p></div></div><div class="field_details alt_row"><a name="vertexNormals"></a><h3>vertexNormals</h3><code class="field_synopsis">public <strong class="field_name">vertexNormals</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of the polygon's vertex normals.
+	 </p></div></div><div class="field_details"><a name="aUVCoord"></a><h3>aUVCoord</h3><code class="field_synopsis">public <strong class="field_name">aUVCoord</strong>:<span class="unresolved_type_name">Array</span></code></div><div class="field_details alt_row"><a name="aEdges"></a><h3>aEdges</h3><code class="field_synopsis">public <strong class="field_name">aEdges</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of the polygon's edges.
+	 </p></div></div><div class="field_details"><a name="caUVCoord"></a><h3>caUVCoord</h3><code class="field_synopsis">public <strong class="field_name">caUVCoord</strong>:<span class="unresolved_type_name">Array</span></code></div><div class="field_details alt_row"><a name="uvBounds"></a><h3>uvBounds</h3><code class="field_synopsis">public <strong class="field_name">uvBounds</strong>:<span class="unresolved_type_name">Rectangle</span></code><div class="field_info"><p>
+ The texture bounds.
+	 </p></div></div><div class="field_details"><a name="aNeighboors"></a><h3>aNeighboors</h3><code class="field_synopsis">public <strong class="field_name">aNeighboors</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ An array of polygons that share an edge with this polygon.
+	 </p></div></div><div class="field_details alt_row"><a name="visible"></a><h3>visible</h3><code class="field_synopsis">public <strong class="field_name">visible</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies whether the face of the polygon is visible.
+	 </p></div></div><div class="field_details"><a name="minZ"></a><h3>minZ</h3><code class="field_synopsis">public <strong class="field_name">minZ</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ Minimum depth value of that polygon in the camera space
+	 </p></div></div><div class="field_details alt_row"><a name="a"></a><h3>a</h3><code class="field_synopsis">public <strong class="field_name">a</strong>:<a href="../../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code></div><div class="field_details"><a name="b"></a><h3>b</h3><code class="field_synopsis">public <strong class="field_name">b</strong>:<a href="../../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code></div><div class="field_details alt_row"><a name="c"></a><h3>c</h3><code class="field_synopsis">public <strong class="field_name">c</strong>:<a href="../../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code></div><div class="field_details"><a name="depthSorter"></a><h3>depthSorter</h3><code class="field_synopsis">public <strong class="field_name">depthSorter</strong>:<a href="../../../sandy/core/sorters/IDepthSorter.html" class="interface_name" title="Interface sandy.core.sorters.IDepthSorter">IDepthSorter</a></code><div class="field_info"><p>
+ The depth sorter the polygon uses.
+	 </p></div></div><div class="field_details alt_row"><a name="hasAppearanceChanged"></a><h3>hasAppearanceChanged</h3><code class="field_synopsis">public <strong class="field_name">hasAppearanceChanged</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies if the appearance of the polygon has changed since the previous rendering.
+ This is primarily used to update the scene material manager.
+ WARNING: Do not change manually.
+	 </p></div></div><div class="field_details"><a name="normal"></a><h3>normal</h3><code class="field_synopsis">public <strong class="field_name">normal</strong>:<a href="../../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code></div><div class="field_details alt_row"><a name="depth"></a><h3>depth</h3><code class="field_synopsis">public <strong class="field_name">depth</strong>:<span class="unresolved_type_name">Number</span></code><div class="field_info"><p>
+ The depth of the polygon.
+	 </p></div></div><div class="field_details"><a name="broadcaster"></a><h3>broadcaster</h3><code class="field_synopsis">public <strong class="field_name">broadcaster</strong>:<span class="unresolved_type_name">BubbleEventBroadcaster</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ The broadcaster of the polygon that sends events to listeners.
+	 </p></div></div><div class="field_details alt_row"><a name="container"></a><h3>container</h3><code class="field_synopsis">public <strong class="field_name">container</strong>:<span class="unresolved_type_name">MovieClip</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ The polygon's container.
+	 </p></div></div><div class="field_details"><a name="enableEvents"></a><h3>enableEvents</h3><code class="field_synopsis">public <strong class="field_name">enableEvents</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies whether mouse events are enabled for this polygon.
+
+ <p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="#addEventListener">addEventListener()</a></li></ul></div></div><div class="field_details alt_row"><a name="enableInteractivity"></a><h3>enableInteractivity</h3><code class="field_synopsis">public <strong class="field_name">enableInteractivity</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.
+
+ <p>To apply events to a polygon, listeners must be added with the <code>addEventListener()</code> method.</p>
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="#addEventListener">addEventListener()</a></li></ul></div></div><div class="field_details"><a name="appearance"></a><h3>appearance</h3><code class="field_synopsis">public <strong class="field_name">appearance</strong>:<a href="../../../sandy/materials/Appearance.html" class="class_name" title="Class sandy.materials.Appearance">Appearance</a></code><div class="field_info"><p>
+ </p></div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="updateNormal"></a><h3>updateNormal</h3><code class="method_synopsis">public function <strong class="method_name">updateNormal</strong>():<span class="void_name">Void</span></code><div class="method_info"></div></div><div class="method_details"><a name="addEventListener"></a><h3>addEventListener</h3><code class="method_synopsis">public function <strong class="method_name">addEventListener</strong>(p_sEvent:<span class="unresolved_type_name">EventType</span>, oL):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Adds an event listener to the polygon.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sEvent</code></td><td>The name of the event to add.
+ </td></tr><tr><td><code>oL</code></td><td>The listener object.
+	 </td></tr></table></div></div><div class="method_details alt_row"><a name="removeEventListener"></a><h3>removeEventListener</h3><code class="method_synopsis">public function <strong class="method_name">removeEventListener</strong>(p_sEvent:<span class="unresolved_type_name">EventType</span>, oL):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Removes an event listener to the polygon.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_sEvent</code></td><td>The name of the event to remove.
+ </td></tr><tr><td><code>oL</code></td><td>The listener object.
+	 </td></tr></table></div></div><div class="method_details"><a name="precompute"></a><h3>precompute</h3><code class="method_synopsis">public function <strong class="method_name">precompute</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Computes several properties of the polygon.
+ <p>The computed properties are listed below:</p>
+ <ul>
+  <li><code>visible</code></li>
+  <li><code>minZ</code></li>
+  <li><code>depth</code></li>
+ </ul>
+	 </p></div></div><div class="method_details alt_row"><a name="get3DFrom2D"></a><h3>get3DFrom2D</h3><code class="method_synopsis">public function <strong class="method_name">get3DFrom2D</strong>(p_oScreenPoint:<span class="unresolved_type_name">Point</span>):<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Returns a vector ( 3D position ) on the polygon relative to the specified point on the 2D screen.
+
+ </p><h4>Return</h4><p class="extra_info"> A vector that corresponds to the specified point.
+     </p></div></div><div class="method_details"><a name="getUVFrom2D"></a><h3>getUVFrom2D</h3><code class="method_synopsis">public function <strong class="method_name">getUVFrom2D</strong>(p_oScreenPoint:<span class="unresolved_type_name">Point</span>):<a href="../../../sandy/core/data/UVCoord.html" class="class_name" title="Class sandy.core.data.UVCoord">UVCoord</a></code><div class="method_info"><p>
+ Returns a UV coordinate elative to the specified point on the 2D screen.
+
+ </p><h4>Return</h4><p class="extra_info"> A the UV coordinate that corresponds to the specified point.
+     </p></div></div><div class="method_details alt_row"><a name="clip"></a><h3>clip</h3><code class="method_synopsis">public function <strong class="method_name">clip</strong>(p_oFrustum:<a href="../../../sandy/view/Frustum.html" class="class_name" title="Class sandy.view.Frustum">Frustum</a>):<span class="unresolved_type_name">Array</span></code><div class="method_info"><p>
+ Clips the polygon.
+
+ </p><h4>Return</h4><p class="extra_info"> An array of vertices clipped by the camera frustum.
+	 </p></div></div><div class="method_details"><a name="clipFrontPlane"></a><h3>clipFrontPlane</h3><code class="method_synopsis">public function <strong class="method_name">clipFrontPlane</strong>(p_oFrustum:<a href="../../../sandy/view/Frustum.html" class="class_name" title="Class sandy.view.Frustum">Frustum</a>):<span class="unresolved_type_name">Array</span></code><div class="method_info"><p>
+ Perform a clipping against the camera frustum's front plane.
+
+ </p><h4>Return</h4><p class="extra_info"> An array of vertices clipped by the camera frustum's front plane.
+	 </p></div></div><div class="method_details alt_row"><a name="clear"></a><h3>clear</h3><code class="method_synopsis">public function <strong class="method_name">clear</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Clears the polygon's container.
+	 </p><h4>Specified By</h4><p class="extra_info"><a href="../../../sandy/core/scenegraph/IDisplayable.html#clear" title="function clear():Void">clear()</a> in <a href="../../../sandy/core/scenegraph/IDisplayable.html" class="interface_name" title="Interface sandy.core.scenegraph.IDisplayable">sandy.core.scenegraph.IDisplayable</a></p></div></div><div class="method_details"><a name="display"></a><h3>display</h3><code class="method_synopsis">public function <strong class="method_name">display</strong>(p_oScene:<a href="../../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oContainer:<span class="unresolved_type_name">MovieClip</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Draws the polygon on its container if visible.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The scene this polygon is rendered in.
+ </td></tr><tr><td><code>p_oContainer</code></td><td>The container to draw on.
+	 </td></tr></table><h4>Specified By</h4><p class="extra_info"><a href="../../../sandy/core/scenegraph/IDisplayable.html#display" title="function display(p_oScene:Scene3D, p_oContainer:MovieClip):Void">display()</a> in <a href="../../../sandy/core/scenegraph/IDisplayable.html" class="interface_name" title="Interface sandy.core.scenegraph.IDisplayable">sandy.core.scenegraph.IDisplayable</a></p></div></div><div class="method_details alt_row"><a name="toString"></a><h3>toString</h3><code class="method_synopsis">public function <strong class="method_name">toString</strong>():<span class="unresolved_type_name">String</span></code><div class="method_info"><p>
+ Returns a string representation of this object.
+
+ </p><h4>Return</h4><p class="extra_info">	The fully qualified name of this object.
+	 </p></div></div><div class="method_details"><a name="createTransformedNormal"></a><h3>createTransformedNormal</h3><code class="method_synopsis">public function <strong class="method_name">createTransformedNormal</strong>():<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Returns the transformed normal vector of the polygon.
+
+ </p><h4>Return</h4><p class="extra_info"> The transformed normal vector of the polygon.
+	 </p></div></div><div class="method_details alt_row"><a name="createNormal"></a><h3>createNormal</h3><code class="method_synopsis">public function <strong class="method_name">createNormal</strong>():<a href="../../../sandy/core/data/Vector.html" class="class_name" title="Class sandy.core.data.Vector">Vector</a></code><div class="method_info"><p>
+ Returns the normal vector of the polygon.
+
+ </p><h4>Return</h4><p class="extra_info"> The normal vector of the polygon.
+	 </p></div></div><div class="method_details"><a name="swapCulling"></a><h3>swapCulling</h3><code class="method_synopsis">public function <strong class="method_name">swapCulling</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Changes which side is the "normal" culling side.
+
+ <p>The method also swaps the front and back skins.</p>
+	 </p></div></div><div class="method_details alt_row"><a name="destroy"></a><h3>destroy</h3><code class="method_synopsis">public function <strong class="method_name">destroy</strong>():<span class="void_name">Void</span></code><div class="method_info"><p>
+ Removes the polygon's container from the stage.
+	 </p></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

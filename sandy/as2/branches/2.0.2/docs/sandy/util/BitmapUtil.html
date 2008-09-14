@@ -1,0 +1,54 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.util.BitmapUtil - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.util" rel="up"/><link href="../../sandy/util/NumberUtil.html" title="Class sandy.util.NumberUtil" rel="prev"/><link href="../../sandy/util/BezierUtil.html" title="Class sandy.util.BezierUtil" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.util" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.util.BitmapUtil</h1><div class="type_hierachy"><ul><li><strong>sandy.util.BitmapUtil</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Utility class for Bitmap calculations.
+ 
+ </p></div><div class="type_indexes"><div class="method_index"><h2>Method Index</h2><p><a href="#burnShapeTexture" title="static public function burnShapeTexture(obj:Shape3D, scene:Scene3D, srcTexture:BitmapData, dstTexture:BitmapData, ambient:Number, diffuse:Number, specular:Number, gloss:Number):Void">burnShapeTexture()</a>, <a href="#concatBitmapMatrix" title="static public function concatBitmapMatrix(p_oM1:Object, p_oM2:Object):Object">concatBitmapMatrix()</a>, <a href="#getScaledBitmap" title="static public function getScaledBitmap(p_oBitmap:BitmapData, p_nScalex:Number, p_nScaley:Number):BitmapData">getScaledBitmap()</a>, <a href="#movieToBitmap" title="static public function movieToBitmap(p_oMovieClip:MovieClip, p_bTransparent:Boolean, p_nColor:Number):BitmapData">movieToBitmap()</a>, <a href="#ripShapeTexture" title="static public function ripShapeTexture(obj:Shape3D, size:Number):MovieClip">ripShapeTexture()</a></p></div></div><div class="type_details"><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="movieToBitmap"></a><h3>movieToBitmap</h3><code class="method_synopsis">static public function <strong class="method_name">movieToBitmap</strong>(p_oMovieClip:<span class="unresolved_type_name">MovieClip</span>, p_bTransparent:<span class="unresolved_type_name">Boolean</span>, p_nColor:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">BitmapData</span></code><div class="method_info"><p>
+ Converts a sprite to a bitmap respecting the sprite position.
+ 
+ <p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
+ This method does.</p>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_bTransparent</code></td><td>Whether to allow transparency.
+ </td></tr><tr><td><code>p_nColor</code></td><td>Background color ( 32 bit ).
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 			The converted bitmap.
+	 </p></div></div><div class="method_details"><a name="getScaledBitmap"></a><h3>getScaledBitmap</h3><code class="method_synopsis">static public function <strong class="method_name">getScaledBitmap</strong>(p_oBitmap:<span class="unresolved_type_name">BitmapData</span>, p_nScalex:<span class="unresolved_type_name">Number</span>, p_nScaley:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">BitmapData</span></code><div class="method_info"><p>
+ Returns a scaled version of a bitmap.
+ 
+ <p>The method takes a bitmap as input, and returns a scaled copy.<br/>
+ The original is not changed.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oBitmap</code></td><td>The bitmap to scale.
+ </td></tr><tr><td><code>p_nScalex</code></td><td>The x-scale.
+ </td></tr><tr><td><code>p_nScaley</code></td><td>The y-scale.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		The scaled bitmap data.
+	 </p></div></div><div class="method_details alt_row"><a name="concatBitmapMatrix"></a><h3>concatBitmapMatrix</h3><code class="method_synopsis">static public function <strong class="method_name">concatBitmapMatrix</strong>(p_oM1:<span class="unresolved_type_name">Object</span>, p_oM2:<span class="unresolved_type_name">Object</span>):<span class="unresolved_type_name">Object</span></code><div class="method_info"><p>
+ Returns a concatenation of two bitmap matrices.
+ 
+ <p>[ <strong>ToDo</strong>: Explain what matrices are handled here ]</p>
+ 
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oM1</code></td><td>The matrix of the first bitmap.
+ </td></tr><tr><td><code>p_oM2</code></td><td>The matrix of the second bitmap.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 	The resulting matrix.
+	 </p></div></div><div class="method_details"><a name="ripShapeTexture"></a><h3>ripShapeTexture</h3><code class="method_synopsis">static public function <strong class="method_name">ripShapeTexture</strong>(obj:<a href="../../sandy/core/scenegraph/Shape3D.html" class="class_name" title="Class sandy.core.scenegraph.Shape3D">Shape3D</a>, size:<span class="unresolved_type_name">Number</span>):<span class="unresolved_type_name">MovieClip</span></code><div class="method_info"><p>
+ Creates shape texture map template. This is useful for 3rd party models texturing:)
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>obj</code></td><td>Shape to rip texture template from.
+ </td></tr><tr><td><code>size</code></td><td>Template size ( will be size x size pixels ).
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		Sprite with texture map template drawn in.
+	 </p></div></div><div class="method_details alt_row"><a name="burnShapeTexture"></a><h3>burnShapeTexture</h3><code class="method_synopsis">static public function <strong class="method_name">burnShapeTexture</strong>(obj:<a href="../../sandy/core/scenegraph/Shape3D.html" class="class_name" title="Class sandy.core.scenegraph.Shape3D">Shape3D</a>, scene:<a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, srcTexture:<span class="unresolved_type_name">BitmapData</span>, dstTexture:<span class="unresolved_type_name">BitmapData</span>, ambient:<span class="unresolved_type_name">Number</span>, diffuse:<span class="unresolved_type_name">Number</span>, specular:<span class="unresolved_type_name">Number</span>, gloss:<span class="unresolved_type_name">Number</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Computes shape texture map pre-lit with Phong directional light source. Shape must be made of triangles.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>obj</code></td><td>Shape for texture to be applied to.
+ </td></tr><tr><td><code>srcTexture</code></td><td>Source texture.
+ </td></tr><tr><td><code>dstTexture</code></td><td>Destination texture.
+ </td></tr><tr><td><code>ambient</code></td><td>Ambient reflection factor.
+ </td></tr><tr><td><code>diffuse</code></td><td>Diffuse reflection factor.
+ </td></tr><tr><td><code>specular</code></td><td>Specular reflection factor.
+ </td></tr><tr><td><code>gloss</code></td><td>Specular exponent.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> 		Pre-lit texture map.
+ </p></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

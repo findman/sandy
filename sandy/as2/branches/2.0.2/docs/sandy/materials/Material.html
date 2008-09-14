@@ -1,0 +1,67 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.materials.Material - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.materials" rel="up"/><link href="../../sandy/materials/MaterialManager.html" title="Class sandy.materials.MaterialManager" rel="prev"/><link href="../../sandy/materials/IAlphaMaterial.html" title="Interface sandy.materials.IAlphaMaterial" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.materials" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.materials.Material</h1><div class="type_hierachy"><ul><li><strong>sandy.materials.Material</strong></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ The Material class is the base class for all materials.
+ 
+ <p>Since the Material object is essentially a blank material, this class can be used
+ to apply attributes without any material to a 3D object.</p>
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><span class="unresolved_type_name">Appearance</span></li></ul></div><div class="type_indexes"><div class="field_index"><h2>Field Index</h2><p><a href="#attributes" title="public attributes:MaterialAttributes">attributes</a>, <a href="#filters" title="public filters:Array">filters</a>, <a href="#flags" title="public flags:Number">flags</a>, <a href="#id" title="public id:Number">id</a>, <a href="#lightingEnable" title="public lightingEnable:Boolean">lightingEnable</a>, <a href="#modified" title="public modified:Boolean">modified</a>, <a href="#repeat" title="public repeat:Boolean">repeat</a>, <a href="#type" title="public type:MaterialType">type</a>, <a href="#useVertexNormal" title="public useVertexNormal:Boolean">useVertexNormal</a></p></div><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#Material" title="public function Material(p_oAttr:MaterialAttributes)">Material()</a></code></div><p><a href="#begin" title="public function begin(p_oScene:Scene3D):Void">begin()</a>, <a href="#finish" title="public function finish(p_oScene:Scene3D):Void">finish()</a>, <a href="#init" title="public function init(p_oPolygon:Polygon):Void">init()</a>, <a href="#renderPolygon" title="public function renderPolygon(p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:MovieClip):Void">renderPolygon()</a>, <a href="#renderSprite" title="public function renderSprite(p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D):Void">renderSprite()</a>, <a href="#unlink" title="public function unlink(p_oPolygon:Polygon):Void">unlink()</a></p></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="Material"></a><h3>Material</h3><code class="method_synopsis">public function <strong class="method_name">Material</strong>(p_oAttr:<a href="../../sandy/materials/attributes/MaterialAttributes.html" class="class_name" title="Class sandy.materials.attributes.MaterialAttributes">MaterialAttributes</a>)</code><div class="method_info"><p>
+ Creates a material.
+
+ <p>This constructor is never called directly - but by sub class constructors.</p>
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oAttr</code></td><td>The attributes for this material.
+	 </td></tr></table></div></div></div><div class="field_detail_list"><h2>Field Detail</h2><div class="field_details alt_row"><a name="attributes"></a><h3>attributes</h3><code class="field_synopsis">public <strong class="field_name">attributes</strong>:<a href="../../sandy/materials/attributes/MaterialAttributes.html" class="class_name" title="Class sandy.materials.attributes.MaterialAttributes">MaterialAttributes</a></code><div class="field_info"><p>
+ The attributes of this material.
+	 </p></div></div><div class="field_details"><a name="useVertexNormal"></a><h3>useVertexNormal</h3><code class="field_synopsis">public <strong class="field_name">useVertexNormal</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specify if the material use the vertex normal information.
+ 
+ </p></div></div><div class="field_details alt_row"><a name="lightingEnable"></a><h3>lightingEnable</h3><code class="field_synopsis">public <strong class="field_name">lightingEnable</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ Specifies if the material can receive light and have light attributes applied to it.
+ Can be useful to rapidly disable light on the object when unneeded.
+	 </p></div></div><div class="field_details"><a name="id"></a><h3>id</h3><code class="field_synopsis">public <strong class="field_name">id</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ The unique id of this material.
+	 </p></div></div><div class="field_details alt_row"><a name="type"></a><h3>type</h3><code class="field_synopsis">public <strong class="field_name">type</strong>:<a href="../../sandy/materials/MaterialType.html" class="class_name" title="Class sandy.materials.MaterialType">MaterialType</a> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ The material type of this material.
+ 
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/materials/MaterialType.html" class="class_name" title="Class sandy.materials.MaterialType">MaterialType</a></li></ul></div></div><div class="field_details"><a name="filters"></a><h3>filters</h3><code class="field_synopsis">public <strong class="field_name">filters</strong>:<span class="unresolved_type_name">Array</span></code><div class="field_info"><p>
+ The array of filters for this material.
+ 
+ <p>You use this property to add an array of filters you want to apply to this material<br>
+ To remove the filters, just assign an empty array.</p>
+	 </p></div></div><div class="field_details alt_row"><a name="flags"></a><h3>flags</h3><code class="field_synopsis">public <strong class="field_name">flags</strong>:<span class="unresolved_type_name">Number</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ Contains specific material flags.
+	 </p></div></div><div class="field_details"><a name="modified"></a><h3>modified</h3><code class="field_synopsis">public <strong class="field_name">modified</strong>:<span class="unresolved_type_name">Boolean</span> <em class="read_write_only">[Read Only]</em></code><div class="field_info"><p>
+ The modified state of this material.
+
+ <p>true if this material or its line attributes were modified since last rendered, false otherwise.</p> 
+	 </p></div></div><div class="field_details alt_row"><a name="repeat"></a><h3>repeat</h3><code class="field_synopsis">public <strong class="field_name">repeat</strong>:<span class="unresolved_type_name">Boolean</span></code><div class="field_info"><p>
+ The repeat property.
+ 
+ This affects the way textured materials are mapped for U or V out of 0-1 range.
+	 </p></div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="begin"></a><h3>begin</h3><code class="method_synopsis">public function <strong class="method_name">begin</strong>(p_oScene:<a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Calls begin method of the MaterialAttributes associated with this material.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The scene.
+
+ </td></tr></table><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/materials/attributes/MaterialAttributes.html#begin">sandy.materials.attributes.MaterialAttributes.begin()</a></li></ul></div></div><div class="method_details"><a name="finish"></a><h3>finish</h3><code class="method_synopsis">public function <strong class="method_name">finish</strong>(p_oScene:<a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Calls finish method of the MaterialAttributes associated with this material.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oScene</code></td><td>The scene.
+
+ </td></tr></table><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/materials/attributes/MaterialAttributes.html#finish">sandy.materials.attributes.MaterialAttributes.finish()</a></li></ul></div></div><div class="method_details alt_row"><a name="renderPolygon"></a><h3>renderPolygon</h3><code class="method_synopsis">public function <strong class="method_name">renderPolygon</strong>(p_oScene:<a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>, p_oPolygon:<a href="../../sandy/core/data/Polygon.html" class="class_name" title="Class sandy.core.data.Polygon">Polygon</a>, p_mcContainer:<span class="unresolved_type_name">MovieClip</span>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Renders the polygon dress in this material.
+
+ <p>Implemented by sub classes.</p>
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a></li><li><a href="../../sandy/core/data/Polygon.html" class="class_name" title="Class sandy.core.data.Polygon">Polygon</a></li></ul></div></div><div class="method_details"><a name="renderSprite"></a><h3>renderSprite</h3><code class="method_synopsis">public function <strong class="method_name">renderSprite</strong>(p_oSprite:<a href="../../sandy/core/scenegraph/Sprite2D.html" class="class_name" title="Class sandy.core.scenegraph.Sprite2D">Sprite2D</a>, p_oMaterial:<a href="../../sandy/materials/Material.html" class="class_name" title="Class sandy.materials.Material">Material</a>, p_oScene:<a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Renders the sprite dress in this material.
+
+ <p>Basically only needed to apply attributes to sprites</p>
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/core/scenegraph/Sprite2D.html" class="class_name" title="Class sandy.core.scenegraph.Sprite2D">Sprite2D</a></li><li><a href="../../sandy/core/Scene3D.html" class="class_name" title="Class sandy.core.Scene3D">Scene3D</a></li></ul></div></div><div class="method_details alt_row"><a name="init"></a><h3>init</h3><code class="method_synopsis">public function <strong class="method_name">init</strong>(p_oPolygon:<a href="../../sandy/core/data/Polygon.html" class="class_name" title="Class sandy.core.data.Polygon">Polygon</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Calls init method of the MaterialAttributes associated with this material.
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/materials/attributes/MaterialAttributes.html#init">sandy.materials.attributes.MaterialAttributes.init()</a></li></ul></div></div><div class="method_details"><a name="unlink"></a><h3>unlink</h3><code class="method_synopsis">public function <strong class="method_name">unlink</strong>(p_oPolygon:<a href="../../sandy/core/data/Polygon.html" class="class_name" title="Class sandy.core.data.Polygon">Polygon</a>):<span class="void_name">Void</span></code><div class="method_info"><p>
+ Calls unlink method of the MaterialAttributes associated with this material.
+
+ </p><h4>See Also</h4><ul class="extra_info"><li><a href="../../sandy/materials/attributes/MaterialAttributes.html#unlink">sandy.materials.attributes.MaterialAttributes.unlink()</a></li></ul></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>

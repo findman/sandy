@@ -1,0 +1,75 @@
+<?xml version="1.0"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><title>sandy.math.VertexMath - Sandy 2.0.2 API Documentation</title><link href="../../style.css" title="JavaDoc" rel="stylesheet" type="text/css"/><link href="../../overview-summary.html" title="Overview" rel="top"/><link href="package-summary.html" title="Package sandy.math" rel="up"/><link href="../../sandy/parser/AParser.html" title="Class sandy.parser.AParser" rel="prev"/><link href="../../sandy/math/VectorMath.html" title="Class sandy.math.VectorMath" rel="next"/><meta name="generator" content="http://www.badgers-in-foil.co.uk/projects/as2api/"/></head><body><ul class="main_nav" id="main_nav"><li><a href="../../overview-summary.html" title="Overview of Sandy 2.0.2 API Documentation" class="button">Overview</a></li><li><a href="package-summary.html" title="Overview of package sandy.math" class="button">Package</a></li><li><span class="button nav_current">Class</span></li><li><a href="../../index-files/index.html" title="Alphabetical index of types and members" class="button">Index</a></li></ul><h1>Class sandy.math.VertexMath</h1><div class="type_hierachy"><ul><li><a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a><ul><li><strong>sandy.math.VertexMath</strong></li></ul></li></ul></div><div class="type_description"><h2>Description</h2><p>
+ Math functions for vertex manipulation.
+  
+ </p></div><div class="type_indexes"><div class="method_index"><h2>Method Index</h2><div><code>new <a href="#VertexMath" title="public function VertexMath()">VertexMath()</a></code></div><p><a href="#addVertex" title="static public function addVertex(p_oV:Vertex, p_oW:Vertex):Vertex">addVertex()</a>, <a href="#clone" title="static public function clone(p_oV:Vertex):Vertex">clone()</a>, <a href="#cross" title="static public function cross(p_oW:Vertex, p_oV:Vertex):Vertex">cross()</a>, <a href="#dot" title="static public function dot(p_oV:Vertex, p_oW:Vertex):Number">dot()</a>, <a href="#getInstance" title="static public function getInstance():VertexMath">getInstance()</a>, <a href="#linearGradientMatrix" title="static public function linearGradientMatrix(p_oV0:Vertex, p_oV1:Vertex, p_oV2:Vertex, p_nR0:Number, p_nR1:Number, p_nR2:Number, p_oMatrix:Matrix):Matrix">linearGradientMatrix()</a>, <a href="#negate" title="static public function negate(p_oV:Vertex):Vertex">negate()</a>, <a href="#sub" title="static public function sub(p_oV:Vertex, p_oW:Vertex):Vertex">sub()</a></p><h4>Inherited from <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">VectorMath</a></h4><div class="extra_info"><p><a href="../../sandy/math/VectorMath.html#addVector" title="static public function addVector(p_oV:Vector, p_oW:Vector):Vector">addVector()</a>, <a href="../../sandy/math/VectorMath.html#getAngle" title="static public function getAngle(p_oV:Vector, p_oW:Vector):Number">getAngle()</a>, <a href="../../sandy/math/VectorMath.html#getNorm" title="static public function getNorm(p_oV:Vector):Number">getNorm()</a>, <a href="../../sandy/math/VectorMath.html#normalize" title="static public function normalize(p_oV:Vector):Boolean">normalize()</a>, <a href="../../sandy/math/VectorMath.html#pow" title="static public function pow(p_oV:Vector, p_nExp:Number):Vector">pow()</a>, <a href="../../sandy/math/VectorMath.html#scale" title="static public function scale(p_oV:Vector, n:Number):Vector">scale()</a>, <a href="../../sandy/math/VectorMath.html#sphrand" title="static public function sphrand(inner:Number, outer:Number):Vector">sphrand()</a></p></div></div></div><div class="type_details"><div class="constructor_detail_list"><h2>Constructor Detail</h2><div class="method_details"><a name="VertexMath"></a><h3>VertexMath</h3><code class="method_synopsis">public function <strong class="method_name">VertexMath</strong>()</code><div class="method_info"><p>
+ Creates a VertexMath object.
+ 
+ <p>This is a singleton constructor, and should not be called directly.<br />
+ If called from outside the ColorMath class, it throws a SingletonError.</p>
+ <p>[<strong>ToDo</strong>: Why instantiate this at all? - all methods are class methods! ]</p>
+	 </p></div></div></div><div class="method_detail_list"><h2>Method Detail</h2><div class="method_details alt_row"><a name="getInstance"></a><h3>getInstance</h3><code class="method_synopsis">static public function <strong class="method_name">getInstance</strong>():<a href="../../sandy/math/VertexMath.html" class="class_name" title="Class sandy.math.VertexMath">VertexMath</a></code><div class="method_info"><p>
+ Returns an instance of this class.
+
+ <p>Call this method to get an instance of VertexMath.</p>
+	 </p></div></div><div class="method_details"><a name="negate"></a><h3>negate</h3><code class="method_synopsis">static public function <strong class="method_name">negate</strong>(p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code><div class="method_info"><p>
+ Computes the opposite of a vertex.
+
+ <p>The opposite vertex is a vertex where all components are multiplied by <code>-1</code>.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vertex.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The opposite vertex.
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../sandy/math/VectorMath.html#negate" title="static public function negate(p_oV:Vector):Vector">negate()</a> in <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a></p></div></div><div class="method_details alt_row"><a name="dot"></a><h3>dot</h3><code class="method_synopsis">static public function <strong class="method_name">dot</strong>(p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oW:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<span class="unresolved_type_name">Number</span></code><div class="method_info"><p>
+ Computes the dot product of the two vertices.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The first vertex.
+ </td></tr><tr><td><code>p_oW</code></td><td>The second vertex.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The dot procuct.
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../sandy/math/VectorMath.html#dot" title="static public function dot(p_oV:Vector, p_oW:Vector):Number">dot()</a> in <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a></p></div></div><div class="method_details"><a name="addVertex"></a><h3>addVertex</h3><code class="method_synopsis">static public function <strong class="method_name">addVertex</strong>(p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oW:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code><div class="method_info"><p>
+ Adds the two vertices.
+
+ <p>[<strong>ToDo</strong>: Check here! We should add all the properties of the vertices! ]</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The first vertex.
+ </td></tr><tr><td><code>p_oW</code></td><td>The second vertex.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vertex.
+	 </p></div></div><div class="method_details alt_row"><a name="sub"></a><h3>sub</h3><code class="method_synopsis">static public function <strong class="method_name">sub</strong>(p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oW:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code><div class="method_info"><p>
+ Substracts one vertices from another.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>The vertex to subtract from.
+ </td></tr><tr><td><code>p_oW</code></td><td>The vertex to subtract.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting vertex.
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../sandy/math/VectorMath.html#sub" title="static public function sub(p_oV:Vector, p_oW:Vector):Vector">sub()</a> in <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a></p></div></div><div class="method_details"><a name="cross"></a><h3>cross</h3><code class="method_synopsis">static public function <strong class="method_name">cross</strong>(p_oW:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code><div class="method_info"><p>
+ Computes the cross product the two vertices.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oW</code></td><td>The second vertex.
+
+ </td></tr><tr><td><code>p_oV</code></td><td>The first vertex.
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The resulting cross product.
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../sandy/math/VectorMath.html#cross" title="static public function cross(p_oW:Vector, p_oV:Vector):Vector">cross()</a> in <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a></p></div></div><div class="method_details alt_row"><a name="clone"></a><h3>clone</h3><code class="method_synopsis">static public function <strong class="method_name">clone</strong>(p_oV:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>):<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a></code><div class="method_info"><p>
+ Clones a vertex.
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV</code></td><td>A vertex to clone.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The clone.
+	 </p><h4>Overrides</h4><p class="extra_info"><a href="../../sandy/math/VectorMath.html#clone" title="static public function clone(p_oV:Vector):Vector">clone()</a> in <a href="../../sandy/math/VectorMath.html" class="class_name" title="Class sandy.math.VectorMath">sandy.math.VectorMath</a></p></div></div><div class="method_details"><a name="linearGradientMatrix"></a><h3>linearGradientMatrix</h3><code class="method_synopsis">static public function <strong class="method_name">linearGradientMatrix</strong>(p_oV0:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oV1:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_oV2:<a href="../../sandy/core/data/Vertex.html" class="class_name" title="Class sandy.core.data.Vertex">Vertex</a>, p_nR0:<span class="unresolved_type_name">Number</span>, p_nR1:<span class="unresolved_type_name">Number</span>, p_nR2:<span class="unresolved_type_name">Number</span>, p_oMatrix:<span class="unresolved_type_name">Matrix</span>):<span class="unresolved_type_name">Matrix</span></code><div class="method_info"><p>
+ Calculates linear gradient matrix from three vertices and ratios.
+
+ <p>This function expects vertices to be ordered in such a way that p_nR0 &lt; p_nR1 &lt; p_n2.
+ Ratios can be scaled by any positive factor.</p>
+ <p>See flash.display.Graphics.beginGradientFill() documentation for ratios meaning.</p>
+
+ </p><h4>Parameters</h4><table class="arguments extra_info" summary=""><tr><td><code>p_oV0</code></td><td>The leftmost vertex in a gradient.
+ </td></tr><tr><td><code>p_oV1</code></td><td>The inner vertex in a gradient.
+ </td></tr><tr><td><code>p_oV2</code></td><td>The rightmost vertex in a gradient.
+ </td></tr><tr><td><code>p_nR0</code></td><td>The ratio for the leftmost vertext.
+ </td></tr><tr><td><code>p_nR1</code></td><td>The ratio for the inner vertex.
+ </td></tr><tr><td><code>p_nR2</code></td><td>The ratio for the rightmost.
+ </td></tr><tr><td><code>p_oMatrix</code></td><td>The matrix to use.
+
+ </td></tr></table><h4>Return</h4><p class="extra_info"> The transformation matrix to use with beginGradientFill (GradientType.LINEAR only).
+	 </p></div></div></div></div><div class="footer"><span>Generated by </span><a href="http://www.badgers-in-foil.co.uk/projects/as2api/" title="ActionScript 2 API Documentation Generator" target="_blank">as2api</a><span> FlashDevelop edition.</span></div></body></html>
