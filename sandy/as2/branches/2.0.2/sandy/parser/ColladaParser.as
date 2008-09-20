@@ -620,14 +620,12 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 				: m_oCollada.library_effects.effect.where( 'attributes.id', l_sEffectID )[ 0 ];
 
 			// -- no textures here or colors defined		
-			if( l_oEffect.profile_COMMON.technique.phong.texture.length() == 0 && l_oEffect.profile_COMMON.technique.phong.length() == 0 ) return m_oStandardAppearance;
-
-			// --------------------------------------------------- GA HIER VERDER ----------------------------------------------------------
+			if( l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).length() == 0 && l_oEffect.profile_COMMON.technique.phong.length() == 0 ) return m_oStandardAppearance;
 			
-			if( l_oEffect.profile_COMMON.technique.phong.texture.length() > 0 )
+			if( l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).length() > 0 )
 			{
 				// -- get the texture ID and use it to get the surface source
-				var l_sTextureID:String = l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" )[ 0 ].attributes.texture;
+				var l_sTextureID:String = l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).attributes.texture;
 				var l_sSurfaceID:String = String( l_oEffect.profile_COMMON.newparam.where( "attributes.sid", l_sTextureID ).sampler2D.source );
 					
 				// -- now get the image ID
@@ -637,7 +635,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 				if( m_oMaterials[ l_sImageID ].bitmapData ) l_oAppearance = new Appearance( new BitmapMaterial( m_oMaterials[ l_sImageID ].bitmapData ) );
 				if( l_oAppearance == null ) l_oAppearance = m_oStandardAppearance;
 			}
-			else if( l_oEffect.profile_COMMON.technique.phong.texture.length() > 0 )
+			else if( l_oEffect.profile_COMMON.technique.phong.length() > 0 )
 			{
 				// -- get the ambient color
 				var l_aColors:Array = stringToArray( String( l_oEffect.profile_COMMON.technique.phong.ambient.color ) );
