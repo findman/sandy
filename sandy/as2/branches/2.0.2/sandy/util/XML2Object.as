@@ -179,7 +179,7 @@ class sandy.util.XML2Object
 					}
 					
 					/**
-					 * Returns the XMLNodes as Array with the given attribute. (where the given attribute != undefined)
+					 * Returns the XMLNodes as Object with the given attribute. (where the given attribute != undefined)
 					 *
 					 * @param  item 	the attribute
 					 */
