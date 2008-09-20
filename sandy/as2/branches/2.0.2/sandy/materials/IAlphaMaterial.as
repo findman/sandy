@@ -18,22 +18,24 @@ limitations under the License.
  * Interface for setting and getting alpha on a material.
  * 
  * @author		flexrails
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		22.03.2008
- **/
+ */
 	 
 interface sandy.materials.IAlphaMaterial
 {
 	
+	// FIXME commented out, because getter/setter declarations are not permitted in AS2 interfaces.
+	
 	/**
 	 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
 	 */
-	function set alpha( p_nValue:Number ) : Void;
+	//function set alpha( p_nValue:Number ) : Void;
 
 	/**
 	 * @private
 	 */ 
-	function get alpha() : Number;
+	//function get alpha() : Number;
 		
 }

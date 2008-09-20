@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -27,7 +27,7 @@ import sandy.core.scenegraph.Camera3D;
  *
  * 
  * @author		Max Pellizzaro
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		29.12.2007
  */
@@ -64,20 +64,20 @@ class sandy.materials.attributes.DashedLineAttributes extends LineAttributes
 		var l_oVertex:Vertex;
 		p_oMovieClip.lineStyle( this.thickness, this.color, this.alpha );
 		// --
-		p_oMovieClip.beginFill(0);
+		p_oMovieClip.beginFill( 0 );
 					
-		for( l_nId = 0; l_nId < l_nLength; l_nId++ )
+		for( var l_nId:Number = 0; l_nId < l_nLength; l_nId++ )
 		{
 			var l_nNext:Number = ( l_nId + 1 ) % l_nLength;
 			// --
 			if( thisGap != 0 )
 			{
-				dashTo( p_oGraphics, p_oScene.camera, l_aPoints[l_nId], l_aPoints[l_nNext], thisLength, thisGap ); 
+				dashTo( p_oMovieClip, p_oScene.camera, l_aPoints[ l_nId ], l_aPoints[ l_nNext ], thisLength, thisGap ); 
 			}
 		  	else
 		  	{
-		  		p_oMovieClip.moveTo( l_aPoints[l_nId].sx, l_aPoints[l_nId].sy );
-		  		p_oMovieClip.lineTo( l_aPoints[l_nNext].sx, l_aPoints[l_nNext].sy );
+		  		p_oMovieClip.moveTo( l_aPoints[ l_nId ].sx, l_aPoints[ l_nId ].sy );
+		  		p_oMovieClip.lineTo( l_aPoints[ l_nNext ].sx, l_aPoints[ l_nNext ].sy );
 		  	}
 		}
 		p_oMovieClip.endFill();
@@ -109,20 +109,20 @@ class sandy.materials.attributes.DashedLineAttributes extends LineAttributes
 		cy = p_oStart.sy;
 			
 		// loop through each seg
-		for ( n = 1; n < segs - 1; n++ ) 
+		for( var n:Number = 1; n < segs - 1; n++ ) 
 		{
 			// do interpolation
 			l_oCurrent.wx += l_oDir.x * seglength;
 			l_oCurrent.wy += l_oDir.y * seglength;
 			l_oCurrent.wz += l_oDir.z * seglength;
 			// --
-			p_oGraphics.moveTo( cx, cy );
+			p_oMovieClip.moveTo( cx, cy );
 			// --- do projection
 			p_oCamera.projectVertex( l_oCurrent );
 			cx = l_oCurrent.sx;
 			cy = l_oCurrent.sy;
 			// -- do draw
-			p_oGraphics.lineTo( cx, cy );
+			p_oMovieClip.lineTo( cx, cy );
 			// -- process gap
 			l_oCurrent.wx += l_oDir.x * gap;
 			l_oCurrent.wy += l_oDir.y * gap;
@@ -146,20 +146,20 @@ class sandy.materials.attributes.DashedLineAttributes extends LineAttributes
 		if( l_oDeltaNorm > len )
 		{
 			// segment ends in the gap, so draw a full dash
-			p_oGraphics.moveTo( cx, cy );
+			p_oMovieClip.moveTo( cx, cy );
 			// --- do projection
 			cx = l_oCurrent.sx;
 			cy = l_oCurrent.sy;
-			p_oGraphics.lineTo( cx, cy );
+			p_oMovieClip.lineTo( cx, cy );
 		} 
 		else if( l_oDeltaNorm > 0 ) 
 		{
-			p_oGraphics.moveTo( cx, cy );
+			p_oMovieClip.moveTo( cx, cy );
 			// segment is shorter than dash so only draw what is needed
-			p_oGraphics.lineTo( p_oEnd.sx, p_oEnd.sy );
+			p_oMovieClip.lineTo( p_oEnd.sx, p_oEnd.sy );
 		}
 		// move the pen to the end position
-		//p_oGraphics.moveTo( p_oEnd.sx, p_oEnd.sy );
+		//p_oMovieClip.moveTo( p_oEnd.sx, p_oEnd.sy );
 	}
 	
 }

@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -32,12 +32,12 @@ import sandy.view.Frustum;
  * The Sprite3D class is used to create a 3D sprite.
  *
  * <p>A Sprite3D can be seen as a special Sprite2D.<br/>
- * It has an appearance that is a movie clip containing 360 frames (as maximum!) with texture.</p>
+ * It has an appearance that is a movie clip containing 360 frames ( as maximum! ) with texture.</p>
  *
  * <p>Depending on the camera position, a different frame of the clip is shown, givin a 3D effect.<p/>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		20.05.2006
  */
@@ -47,7 +47,7 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	
 	// FIXME Create a Sprite as the sprite3D container,
 	// and offer a method to attach a visual content as a child of the sprite
-	public var offset:Number = 0;
+	public var offset:Number;
 	
 	 /**
  	 * Creates a Sprite3D
@@ -60,11 +60,12 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	 *			Default value is 1.0 which means unchanged.
 	 * 			A value of 2.0 will make the object will double the size
 	 *
-	 * @param p_nOffset 	A number between [0-360] to give a frame offset into the clip.
+	 * @param p_nOffset 	A number between [ 0-360 ] to give a frame offset into the clip.
 	 */
 	public function Sprite3D( p_sName:String, p_oContent:MovieClip, p_nScale:Number, p_nOffset:Number )
 	{
 		super( p_sName||"", p_oContent, p_nScale||1 );
+		offset = 0;
 		// --
 		m_oNormale = new Vector();
 		// -- set the offset
@@ -79,11 +80,11 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	 */
 	public function set content( p_content:MovieClip ) : Void
 	{
-		if ( p_content instanceof MovieClip )
+		if( p_content instanceof MovieClip )
 		{
 			super.content = p_content;
 			// --
-			m_nAutoOffset = MovieClip( m_oContent )._totalframes / 360;
+			m_nAutoOffset = MovieClip( m_oContainer )._totalframes / 360;
 		}
 	}
 
@@ -97,7 +98,7 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	{
 		super.render( p_oScene, p_oCamera );
 		// --
-		MovieClip( m_oContent ).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
+		MovieClip( m_oContainer ).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
 	}
 
 	// Returns the frame to show at the current camera angle
@@ -108,7 +109,7 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 		// correction to simply use uint ()
 		a += 0.5 / m_nAutoOffset;
 		// force 0...360 range
-		a = (( a + offset ) + 360 ) % 360;
+		a = ( ( a + offset ) + 360 ) % 360;
 		// convert corrected angle to frame number
 		return 1 + int( a * m_nAutoOffset );
 	}

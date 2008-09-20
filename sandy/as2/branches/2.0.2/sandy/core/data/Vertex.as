@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Sandy is a software supplied by Thomas PFEIFFER
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -21,7 +21,7 @@ import sandy.core.data.Vector;
  * A vertex is the point of intersection of edges the of a polygon.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		24.08.2007
@@ -35,59 +35,59 @@ class sandy.core.data.Vertex
 	private static var ID:Number = 0;
 		
 	/**
-	* The unique identifier for the vertex.
-	*/
-	public var id:Number = ID ++;
+	 * The unique identifier for the vertex.
+	 */
+	public var id:Number;
 
 	/**
-	* The x coordinate in the scene.
-	*/
+	 * The x coordinate in the scene.
+	 */
 	public var x:Number;
 		
 	/**
-	* The y coordinate in the scene.
-	*/
+	 * The y coordinate in the scene.
+	 */
 	public var y:Number;
 		
 	/**
-	* The z coordinate in the scene.
-	*/
+	 * The z coordinate in the scene.
+	 */
 	public var z:Number;
 
 	/**
-	* The transformed x coordinate in the scene.
-	*/
+	 * The transformed x coordinate in the scene.
+	 */
 	public var wx:Number;
 	
 	/**
-	* The transformed y coordinate in the scene.
-	*/
+	 * The transformed y coordinate in the scene.
+	 */
 	public var wy:Number;
 	
 	/**
-	* The transformed z coordinate in the scene.
-	*/
+	 * The transformed z coordinate in the scene.
+	 */
 	public var wz:Number;
 
 	/**
-	* The transformed x coordinate on the screen.
-	*/
+	 * The transformed x coordinate on the screen.
+	 */
 	public var sx:Number;
 		
 	/**
-	* The transformed y coordinate on the screen.
-	*/
+	 * The transformed y coordinate on the screen.
+	 */
 	public var sy:Number;
 
 	/**
 	 * The number of polygons the vertex belongs to.
 	 */
-	public var nbFaces:Number = 0;
+	public var nbFaces:Number;
 
 	/**
 	 * An array of polygons that use the vertex</p>
 	 */
-	public var aFaces:Array = new Array();
+	public var aFaces:Array;
 
 	/**
 	* Creates a new vertex.
@@ -99,13 +99,16 @@ class sandy.core.data.Vertex
 	*/
 	public function Vertex( p_nx:Number, p_ny:Number, p_nz:Number )
 	{
+		nbFaces = 0;
+		aFaces = new Array();
+		id = ID++;
 		x = p_nx||0;
 		y = p_ny||0;
 		z = p_nz||0;
 		// --
-		wx = ( arguments[3] ) ? arguments[3] : x;
-		wy = ( arguments[4] ) ? arguments[4] : y;
-		wz = ( arguments[5] ) ? arguments[5] : z;
+		wx = ( arguments[ 3 ] ) ? arguments[ 3 ] : x;
+		wy = ( arguments[ 4 ] ) ? arguments[ 4 ] : y;
+		wz = ( arguments[ 5 ] ) ? arguments[ 5 ] : z;
 		// --
 		sy = sx = 0;
 		m_oWorld = new Vector();
@@ -187,7 +190,7 @@ class sandy.core.data.Vertex
 	 *
 	 * <p>Returns a new Vertex object that is created with the vertex's transformed coordinates as the new vertex's start position.
 	 * The <code>x</code>, y</code>, and z</code> properties of the new vertex would be the <code>wx</code>, <code>wy</code>, <code>wz</code> properties of this vertex.</p>
-	 * <p>[<strong>ToDo</strong>: What can this one be used for? - Explain! ]</p>
+	 * <p>[ <strong>ToDo</strong>: What can this one be used for? - Explain! ]</p>
 	 *
 	 * @return 	The new Vertex object.
 	 */
@@ -258,7 +261,7 @@ class sandy.core.data.Vertex
 	/**
 	 * Inverts the vertex.  All properties of the vertex become their nagative values.
 	 */
-	public function negate( /*v:Vertex*/ ): Void
+	public function negate( /*v:Vertex*/ ) :  Void
 	{
 		// The argument is commented out, as it is not used - Petit
 		x = -x;
@@ -267,7 +270,7 @@ class sandy.core.data.Vertex
 		wx = -wx;
 		wy = -wy;
 		wz = -wz;
-		//return new Vertex( -x, -y, -z, -wx, -wy, -wz);
+		//return new Vertex( -x, -y, -z, -wx, -wy, -wz );
 	}
 
 	/**
@@ -344,7 +347,7 @@ class sandy.core.data.Vertex
 	 *
 	 * @return The dot product.
 	 */
-	public function dot( w: Vertex) : Number
+	public function dot( w: Vertex ) : Number
 	{
 		return ( x * w.x + y * w.y + z * w.z );
 	}
@@ -378,7 +381,7 @@ class sandy.core.data.Vertex
 		// -- We get the norm of the vector
 		var norm:Number = getNorm();
 		// -- We escape the process is norm is null or equal to 1
-		if( norm == 0 || norm == 1) return;
+		if( norm == 0 || norm == 1 ) return;
 		x /= norm;
 		y /= norm;
 		z /= norm;
@@ -399,12 +402,12 @@ class sandy.core.data.Vertex
 	{
 		var ncos:Number = dot( w ) / ( getNorm() * w.getNorm() );
 		var sin2:Number = 1 - ncos * ncos;
-		if ( sin2 < 0 )
+		if( sin2 < 0 )
 		{
 			trace( "Wrong: " + ncos );
 			sin2 = 0;
 		}
-		//I took long time to find this bug. Who can guess that (1-cos*cos) is negative ?!
+		//I took long time to find this bug. Who can guess that ( 1-cos*cos ) is negative ?!
 		//sqrt returns a NaN for a negative value !
 		return  Math.atan2( Math.sqrt( sin2 ), ncos );
 	}
@@ -418,14 +421,13 @@ class sandy.core.data.Vertex
 	 */
 	public function toString( decPlaces:Number ) : String
 	{
-		decPlaces = decPlaces||.01;
-		if ( decPlaces == 0 )
+		if( decPlaces == 0 || !decPlaces )
 		{
 			decPlaces = .01;
 		}
 		// Round display to two decimals places
 		// Returns "{x, y, z}"
-		return "sandy.core.data.vertex {" +
+		return "{" +
 				NumberUtil.roundTo( x, decPlaces ) + ", " +
 				NumberUtil.roundTo( y, decPlaces ) + ", " +
 				NumberUtil.roundTo( z, decPlaces ) + ", " +
@@ -440,15 +442,14 @@ class sandy.core.data.Vertex
 	/**
 	 * Returns a string representation of this vertex with rounded values.
 	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
+	 * <p>[ <strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
 	 *
 	 * @param decPlaces	Number of decimals
 	 * @return The specific serialize string
 	 */
 	public function serialize( decPlaces:Number ) : String
 	{
-		if( decPlaces == null ) decPlaces = .01;
-		if (decPlaces == 0)
+		if( decPlaces == 0 || !decPlaces )
 		{
 			decPlaces = .01
 		}
@@ -467,30 +468,31 @@ class sandy.core.data.Vertex
 	/**
 	 * Sets the elements of this vertex from a string representation.
 	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
+	 * <p>[ <strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
 	 *
 	 * @param 	A string representing the vertex ( specific serialize format ).
 	 */
 	public function deserialize( convertFrom:String ) : Void
 	{
 		var tmp:Array = convertFrom.split( "," );
-		if (tmp.length != 9)
+		if( tmp.length != 9 )
 		{
 			trace ( "Unexpected length of string to deserialize into a vector " + convertFrom );
 		}
 
-		x = tmp[0];
-		y = tmp[1];
-		z = tmp[2];
+		x = tmp[ 0 ];
+		y = tmp[ 1 ];
+		z = tmp[ 2 ];
 
-		wx = tmp[3];
-		wy = tmp[4];
-		wz = tmp[5];
+		wx = tmp[ 3 ];
+		wy = tmp[ 4 ];
+		wz = tmp[ 5 ];
 			
-		sx = tmp[6];
-		sy = tmp[7];
+		sx = tmp[ 6 ];
+		sy = tmp[ 7 ];
 	}
 		
 	private var m_oWorld:Vector;
 	private var m_oLocal:Vector;
+	
 }

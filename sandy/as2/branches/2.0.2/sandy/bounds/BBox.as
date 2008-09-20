@@ -29,17 +29,19 @@ import sandy.core.data.Vector;
  *  </listing>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		22.03.2006
  */
+ 
 class sandy.bounds.BBox
 {
+	
 	/**
 	 *	Specifies if this object's boundaries are up to date with the object it is enclosing.
 	 * If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
 	 */
-	public var uptodate:Boolean = false;
+	public var uptodate:Boolean;
 	
 	/**
 	 * A vector, representing the highest point of the cube volume
@@ -58,13 +60,31 @@ class sandy.bounds.BBox
 	public var aTCorners:Array;
 	
 	/**
+	 * Creates a new BBox instance.
+	 * 
+	 * @param p_min		A vector representing the lowest point of the cube volume.
+	 * @param p_max		A vector representing the highest point of the cube volume.
+	 */		
+	public function BBox( p_min:Vector, p_max:Vector )
+	{
+		uptodate = false;
+		min		= ( p_min != null ) ? p_min : new Vector( -0.5, -0.5, -0.5 );
+		max		= ( p_max != null ) ? p_max : new Vector(  0.5,  0.5,  0.5 );
+		tmin = new Vector();
+		tmax = new Vector();
+		aCorners = new Array( 8 );
+		aTCorners = new Array( 8 );
+		__computeCorners( false );
+	}	
+	
+	/**
 	 * Creates a bounding box that encloses a 3D from an Array of the object's vertices.
 	 * 
 	 * @param p_aVertices		The vertices of the 3D object the bounding box will contain.
 	 *
 	 * @return The BBox instance.
 	 */		
-	public static function create( p_aVertices:Array ):BBox
+	public static function create( p_aVertices:Array ) : BBox
 	{
 		if( p_aVertices.length == 0 ) return null;
 	   
@@ -73,37 +93,20 @@ class sandy.bounds.BBox
 	    var l_max:Vector = new Vector();
 		
 		var lTmp:Array;
-		lTmp = p_aVertices.sortOn( ["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
-		l_min.x = p_aVertices[lTmp[0]].x;
-		l_max.x = p_aVertices[lTmp[lTmp.length-1]].x;
+		lTmp = p_aVertices.sortOn( [ "x" ], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		l_min.x = p_aVertices[ lTmp[ 0 ] ].x;
+		l_max.x = p_aVertices[ lTmp[ lTmp.length - 1 ] ].x;
 		  
-		lTmp = p_aVertices.sortOn( ["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
-		l_min.y = p_aVertices[lTmp[0]].y;
-		l_max.y = p_aVertices[lTmp[lTmp.length-1]].y;
+		lTmp = p_aVertices.sortOn( [ "y" ], [ Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		l_min.y = p_aVertices[ lTmp[ 0 ] ].y;
+		l_max.y = p_aVertices[ lTmp[ lTmp.length - 1 ] ].y;
 		  
-		lTmp = p_aVertices.sortOn( ["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
-		l_min.z = p_aVertices[lTmp[0]].z;
-		l_max.z = p_aVertices[lTmp[lTmp.length-1]].z;
+		lTmp = p_aVertices.sortOn( [ "z" ], [ Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		l_min.z = p_aVertices[ lTmp[ 0 ] ].z;
+		l_max.z = p_aVertices[ lTmp[ lTmp.length - 1 ] ].z;
 		 
 		return new BBox( l_min, l_max );
-	}
-
-	/**
-	 * Creates a new BBox instance.
-	 * 
-	 * @param p_min		A vector representing the lowest point of the cube volume.
-	 * @param p_max		A vector representing the highest point of the cube volume.
-	 */		
-	public function BBox( p_min:Vector, p_max:Vector )
-	{
-		min		= ( p_min != null ) ? p_min : new Vector( -0.5, -0.5, -0.5 );
-		max		= ( p_max != null ) ? p_max : new Vector(  0.5,  0.5,  0.5 );
-		tmin = new Vector();
-		tmax = new Vector();
-		aCorners = new Array(8);
-		aTCorners = new Array(8);
-		__computeCorners( false );
-	}		
+	}	
 	
 	/**
 	 * Returns the center of the bounding box volume.
@@ -112,9 +115,9 @@ class sandy.bounds.BBox
 	 */
 	public function getCenter() : Vector
 	{
-		return new Vector( 	( max.x + min.x ) / 2,
-							( max.y + min.y ) / 2,
-							( max.z + min.z ) / 2);
+		return new Vector( ( max.x + min.x ) / 2,
+						   ( max.y + min.y ) / 2,
+						   ( max.z + min.z ) / 2 );
 	}
 
 	/**
@@ -124,9 +127,9 @@ class sandy.bounds.BBox
 	 */
 	public function getSize() : Vector
 	{
-		return new Vector(	Math.abs( max.x - min.x ),
-							Math.abs( max.y - min.y ),
-							Math.abs( max.z - min.z ) );
+		return new Vector( Math.abs( max.x - min.x ),
+						   Math.abs( max.y - min.y ),
+						   Math.abs( max.z - min.z ) );
 	}
 
 	/**
@@ -140,7 +143,7 @@ class sandy.bounds.BBox
 	{
 		if( p_bRecalcVertices == null ) p_bRecalcVertices = false;
 		
-		var minx:Number,miny:Number,minz:Number,maxx:Number,maxy:Number,maxz:Number;
+		var minx:Number, miny:Number, minz:Number, maxx:Number, maxy:Number, maxz:Number;
 		
 		if( p_bRecalcVertices == true )
 		{
@@ -153,14 +156,14 @@ class sandy.bounds.BBox
 		    maxx = max.x;    maxy = max.y;    maxz = max.z;
 		}
 		// --
-		aTCorners[0] = new Vector(); aCorners[0] = new Vector( ( minx ), ( maxy ), ( maxz ) );
-		aTCorners[1] = new Vector(); aCorners[1] = new Vector( ( maxx ), ( maxy ), ( maxz ) );
-		aTCorners[2] = new Vector(); aCorners[2] = new Vector( ( maxx ), ( miny ), ( maxz ) );
-		aTCorners[3] = new Vector(); aCorners[3] = new Vector( ( minx ), ( miny ), ( maxz ) );
-		aTCorners[4] = new Vector(); aCorners[4] = new Vector( ( minx ), ( maxy ), ( minz ) );
-		aTCorners[5] = new Vector(); aCorners[5] = new Vector( ( maxx ), ( maxy ), ( minz ) );
-		aTCorners[6] = new Vector(); aCorners[6] = new Vector( ( maxx ), ( miny ), ( minz ) );
-		aTCorners[7] = new Vector(); aCorners[7] = new Vector( ( minx ), ( miny ), ( minz ) );
+		aTCorners[ 0 ] = new Vector(); aCorners[ 0 ] = new Vector( ( minx ), ( maxy ), ( maxz ) );
+		aTCorners[ 1 ] = new Vector(); aCorners[ 1 ] = new Vector( ( maxx ), ( maxy ), ( maxz ) );
+		aTCorners[ 2 ] = new Vector(); aCorners[ 2 ] = new Vector( ( maxx ), ( miny ), ( maxz ) );
+		aTCorners[ 3 ] = new Vector(); aCorners[ 3 ] = new Vector( ( minx ), ( miny ), ( maxz ) );
+		aTCorners[ 4 ] = new Vector(); aCorners[ 4 ] = new Vector( ( minx ), ( maxy ), ( minz ) );
+		aTCorners[ 5 ] = new Vector(); aCorners[ 5 ] = new Vector( ( maxx ), ( maxy ), ( minz ) );
+		aTCorners[ 6 ] = new Vector(); aCorners[ 6 ] = new Vector( ( maxx ), ( miny ), ( minz ) );
+		aTCorners[ 7 ] = new Vector(); aCorners[ 7 ] = new Vector( ( minx ), ( miny ), ( minz ) );
 		// --
 		return aCorners;
 	}	
@@ -172,28 +175,28 @@ class sandy.bounds.BBox
      */		
     public function transform( p_oMatrix:Matrix4 ) : Void
     {
-	    aTCorners[0].copy( aCorners[0] );
-	    p_oMatrix.vectorMult( aTCorners[0] );
-		tmin.copy( aTCorners[0] ); tmax.copy( tmin );
+	    aTCorners[ 0 ].copy( aCorners[ 0 ] );
+	    p_oMatrix.vectorMult( aTCorners[ 0 ] );
+		tmin.copy( aTCorners[ 0 ] ); tmax.copy( tmin );
 
 		var lId:Number;
 		var lVector:Vector;
 	    // --
 	    for( lId = 1; lId < 8; lId ++ )
 	    {
-	        aTCorners[lId].copy( aCorners[lId] )
-	        p_oMatrix.vectorMult( aTCorners[lId] );
+	        aTCorners[ lId ].copy( aCorners[ lId ] )
+	        p_oMatrix.vectorMult( aTCorners[ lId ] );
 	    
-			lVector = aTCorners[lId];
+			lVector = aTCorners[ lId ];
 
-			if( lVector.x < tmin.x )		tmin.x = lVector.x;
-			else if( lVector.x > tmax.x )	tmax.x = lVector.x;
+			if( lVector.x < tmin.x )	  tmin.x = lVector.x;
+			else if( lVector.x > tmax.x ) tmax.x = lVector.x;
 			// --
-			if( lVector.y < tmin.y )		tmin.y = lVector.y;
-			else if( lVector.y > tmax.y )	tmax.y = lVector.y;
+			if( lVector.y < tmin.y )	  tmin.y = lVector.y;
+			else if( lVector.y > tmax.y ) tmax.y = lVector.y;
 			// --
-			if( lVector.z < tmin.z )		tmin.z = lVector.z;
-			else if( lVector.z > tmax.z )	tmax.z = lVector.z;
+			if( lVector.z < tmin.z )	  tmin.z = lVector.z;
+			else if( lVector.z > tmax.z ) tmax.z = lVector.z;
     	}
 	    	
     	// --

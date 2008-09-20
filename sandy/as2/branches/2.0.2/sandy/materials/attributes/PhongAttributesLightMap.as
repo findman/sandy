@@ -17,25 +17,33 @@ limitations under the License.
 /**
  * A lightmap used for some of the shaders.
  *
- * @version		3.0.2
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
  */
  
 class sandy.materials.attributes.PhongAttributesLightMap
 {
 
+	public function PhongAttributesLightMap() 
+	{
+		alphas = [ [], [] ];
+		colors = [ [], [] ];
+		ratios = [ [], [] ]; 
+	}
+	
 	/**
 	 * An array of an array which contains the alphas of the strata. The values of the inner array must be between 0 and 1.
 	 */
-	public var alphas:Array = [[], []];
+	public var alphas:Array;
 	
 	/**
 	 * An array of an array which contains the colors of the strata.
 	 */
-	public var colors:Array = [[], []];
+	public var colors:Array;
 	
 	/**
 	 * An array of an array which contains the ratios (length) of each strata.
 	 */
-	public var ratios:Array = [[], []];
+	public var ratios:Array;
 	
 }

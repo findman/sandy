@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -28,7 +28,7 @@ import sandy.materials.attributes.MaterialAttributes;
  * with a certain thickness, color and alpha that you can specify inside the constructor</p>
  *
  * @author		Thomas PFEIFFER - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.06.2007
  */

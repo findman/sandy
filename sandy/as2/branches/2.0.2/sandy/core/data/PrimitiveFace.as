@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author Thomas PFEIFFER
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -14,29 +14,30 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
+import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Shape3D;
 import sandy.materials.Appearance;
 
 /** 
- * PrimitiveFace is a tool for generated primitive, allowing users (for some specifics primitives) to get the face polygon array
+ * PrimitiveFace is a tool for generated primitive, allowing users ( for some specifics primitives ) to get the face polygon array
  * to have an easier manipulation.
  * @author		Thomas Pfeiffer - kiroukou
  * @author		Xavier Martin - zeflasher
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		20.09.2007
- **/
+ */
  
 class sandy.core.data.PrimitiveFace
 {
 	
-	private var m_iPrimitive	: Shape3D;
-	private var m_oAppearance	: Appearance;
+	private var m_iPrimitive :Shape3D;
+	private var m_oAppearance:Appearance;
 		
 	/**
 	 * The array containing the polygon instances own by this primitive face
 	 */
-	public var aPolygons		: Array = new Array();
+	public var aPolygons	 :Array;
 	
 	/**
 	 * PrimitiveFace class
@@ -46,6 +47,7 @@ class sandy.core.data.PrimitiveFace
 	 */
 	public function PrimitiveFace( p_iPrimitive:Shape3D )
 	{
+		aPolygons = new Array();
 		m_iPrimitive = p_iPrimitive;
 	}
 
@@ -56,7 +58,7 @@ class sandy.core.data.PrimitiveFace
 	
 	public function addPolygon( p_oPolyId:Number ) : Void
 	{
-		aPolygons.push( Math.round( m_iPrimitive.aPolygons[p_oPolyId] ) );
+		aPolygons.push( Math.round( m_iPrimitive.aPolygons[ p_oPolyId ] ) );
 	}
 	
 	/**
@@ -71,7 +73,7 @@ class sandy.core.data.PrimitiveFace
 		{
 			var v:Polygon;
 			for( v in aPolygons )
-				aPolygons[v].appearance = m_oAppearance;
+				aPolygons[ v ].appearance = m_oAppearance;
 		}	
 	}
 	

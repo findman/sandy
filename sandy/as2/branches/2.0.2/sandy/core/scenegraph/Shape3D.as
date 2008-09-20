@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -54,10 +54,11 @@ import sandy.events.Shape3DEvent;
  * but transformations can be applied to the Shape directly.</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
+ 
 class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayable
 {
 	
@@ -74,7 +75,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	/**
 	 * The array of polygons building this object.
 	 */		
-	public var aPolygons:Array = new Array();
+	public var aPolygons:Array;
 
 	/**
 	 * This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
@@ -90,7 +91,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * 
 	 * <p>Important: Enable the clipping makes process a bit slower, especially with big scenes.</p>
 	 */ 
-	public var enableNearClipping:Boolean = false;
+	public var enableNearClipping:Boolean;
 	
 	/**
 	 * <p>
@@ -102,7 +103,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 *
 	 * <p>Specify if this object polygons should be clipped against the camera frustum planes.</p>
 	 */
-	public var enableClipping:Boolean = false;
+	public var enableClipping:Boolean;
 
 	/**
 	 * Should forced depth be enable for this object?.
@@ -111,7 +112,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * if false the normal Z-sorting algorithm is applied.</p>
 	 * <p>When correctly used, this feature allows you to avoid some Z-sorting problems.</p>
 	 */
-	public var enableForcedDepth:Boolean = false;
+	public var enableForcedDepth:Boolean;
 	
 	/**
 	 * The forced depth for this object.
@@ -119,7 +120,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * <p>To make this feature work, you must enable the ForcedDepth system too.<br/>
 	 * The higher the depth is, the sooner the more far the object will be represented.</p>
 	 */
-	public var forcedDepth:Number = 0;	
+	public var forcedDepth:Number;	
 	
 	/**
 	 * Animated flag. 
@@ -128,24 +129,24 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * To fix that problem, Sandy3D offers that new property appeared in 3.0.3 release, which once set to true, automatically update the normal vectors for you.
 	 * As a performance warning, don't set this value to true if your model geometry isn't animated.</p>
 	 */
-	public var animated:Boolean = false;
+	public var animated:Boolean;
 	
 	/**
 	 * The container of the Shape3D.
-	 * Please note: this property is not defined in the IDisplayable interface (as in the AS3 version) with getter/setter!
+	 * Please note: this property is not defined in the IDisplayable interface ( as in the AS3 version ) with getter/setter!
 	 */
 	public var container:MovieClip;
 		
 	/**
 	 * The depth of the Shape3D.
-	 * Please note: this property is not defined in the IDisplayable interface (as in the AS3 version) with getter/setter!
+	 * Please note: this property is not defined in the IDisplayable interface ( as in the AS3 version ) with getter/setter!
 	 */
 	public var depth:Number;
 
 	/**
 	 * Creates a 3D object
 	 *
-	 * <p>[<b>Todo</b>: some more explanations]</p>
+	 * <p>[ <b>Todo</b>: some more explanations ]</p>
 	 *
 	 * @param p_sName		A string identifier for this object
 	 * @param p_oGeometry		The geometry of this object
@@ -155,6 +156,13 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	public function Shape3D( p_sName:String, p_oGeometry:Geometry3D, p_oAppearance:Appearance, p_bUseSingleContainer:Boolean )
 	{
 		super( p_sName||"" )
+		
+		aPolygons = new Array();
+		enableNearClipping = false;
+		enableClipping 	   = false;
+		animated 		   = false;
+		forcedDepth = 0;
+		
 		p_bUseSingleContainer = p_bUseSingleContainer||true;; 
 		// --
 		m_oCache = new Map();
@@ -245,7 +253,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * <p>The method also updates the bounding volumes to make the more accurate culling system possible.<br/>
 	 * First the bounding sphere is updated, and if intersecting, 
 	 * the bounding box is updated to perform the more precise culling.</p>
-	 * <p><b>[MANDATORY] The update method must be called first!</b></p>
+	 * <p><b>[ MANDATORY ] The update method must be called first!</b></p>
 	 *
 	 * @param p_oScene The current scene
 	 * @param p_oFrustum	The frustum of the current camera
@@ -305,12 +313,12 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		invModelMatrix.n31 = modelMatrix.n13;
 		invModelMatrix.n32 = modelMatrix.n23;
 		invModelMatrix.n33 = modelMatrix.n33;
-		invModelMatrix.n14 = - ( modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34 );
-		invModelMatrix.n24 = - ( modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34 );
-		invModelMatrix.n34 = - ( modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34 );
+		invModelMatrix.n14 = -( modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34 );
+		invModelMatrix.n24 = -( modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34 );
+		invModelMatrix.n34 = -( modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34 );
 		
 		m_oCamPos.reset( p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34 );
-		//l_oCamPos.reset(p_oCamera.x, p_oCamera.y, p_oCamera.z);
+		//l_oCamPos.reset( p_oCamera.x, p_oCamera.y, p_oCamera.z );
 		invModelMatrix.vectorMult( m_oCamPos );
 		
 		// -- Now we can transform the objet vertices into the camera coordinates
@@ -393,7 +401,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		 		{
 		 			p_oCamera.projectArray( aPolygons[ l_oFace ].cvertices );
 		 			if( !enableForcedDepth ) m_nDepth += aPolygons[ l_oFace ].depth;
-				else aPolygons[ l_oFace ].depth = forcedDepth;    
+					else aPolygons[ l_oFace ].depth = forcedDepth;    
 		 		}
 		 		if( aPolygons[ l_oFace ].cvertices.length > 2 )
 					m_aVisiblePoly[ int( m_nVisiblePoly++ ) ] = aPolygons[ l_oFace ];
@@ -455,7 +463,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			var l_oPoly:Polygon;
 			for( l_oPoly in m_aVisiblePoly )
 			{
-				l_oVertex = m_aVisiblePoly[l_oPoly].normal;
+				l_oVertex = m_aVisiblePoly[ l_oPoly ].normal;
 				l_oVertex.wx  = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13;
 				l_oVertex.wy  = x * m21 + y * m22 + z * m23;
 				l_oVertex.wz  = x * m31 + y * m32 + z * m33;
@@ -514,7 +522,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		var l_oPoly:Polygon;
 		for( l_oPoly in m_aVisiblePoly )
 		{
-			m_aVisiblePoly[l_oPoly].display( p_oScene, container );
+			m_aVisiblePoly[ l_oPoly ].display( p_oScene, container );
 		}
 	}
 		
@@ -539,7 +547,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * 
 	 * @example To change the geometryCenter center at runtime
 	 * <listing version="3.0">
-	 *    var l_oSphere:Sphere = new Sphere("mySphere", 50, 3 );
+	 *    var l_oSphere:Sphere = new Sphere( "mySphere", 50, 3 );
 	 *    // Change the rotation reference to -50 offset in Y direction from the orinal one
 	 *    // and that corresponds to the bottom of the sphere
 	 *    l_oSphere.geometryCenter = new Vector( 0, -50, 0 ); 
@@ -580,7 +588,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		{
 			var v:Polygon;
 			for( v in aPolygons )
-				aPolygons[v].appearance = m_oAppearance;
+				aPolygons[ v ].appearance = m_oAppearance;
 		}
 	}
 		
@@ -717,7 +725,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 *   	// -- get the normalized uv of the point under mouse position
 	 *  	var l_oIntersectionUV:UVCoord = p_eEvent.uv;
 	 *   	// -- get the correct material
-	 *   	var l_oMaterial:BitmapMaterial = BitmapMaterial( l_oPoly.visible ? l_oPoly.appearance.frontMaterial : l_oPoly.appearance.backMaterial );
+	 *   	var l_oMaterial:BitmapMaterial = BitmapMaterial( l_oPoly.visible ? l_oPoly.appearance.frontMaterial:l_oPoly.appearance.backMaterial );
 	 * 	}
 	 * </code>
 	 */
@@ -734,7 +742,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
     			{
 	    			for( v in aPolygons )
 					{
-	    			    aPolygons[v].enableEvents = true;
+	    			    aPolygons[ v ].enableEvents = true;
 	    			}
     			}
     			else
@@ -758,7 +766,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
    			{
     			for( v in aPolygons )
 				{
-    			   aPolygons[v].enableEvents = false;
+    			   aPolygons[ v ].enableEvents = false;
     			}
    			}
    			else
@@ -790,7 +798,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		//j = l;
 		//while( --j > -1 )
 		{
-			l_oPoly = aPolygons[ l_aSId[ Number(j) ] ];
+			l_oPoly = aPolygons[ l_aSId[ Number( j ) ] ];
 			if( !l_oPoly.visible && m_bBackFaceCulling ) continue;
 			// --
 			var l_nSize:Number = l_oPoly.vertices.length;
@@ -798,7 +806,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			var i:Number;
 			for( var i:Number = 0; i < l_nTriangles; i++ )
 			{
-				l_oA.x = l_oPoly.vertices[i].sx; l_oA.y = l_oPoly.vertices[i].sy;
+				l_oA.x = l_oPoly.vertices[ i ].sx; l_oA.y = l_oPoly.vertices[ i ].sy;
 				l_oB.x = l_oPoly.vertices[ i + 1 ].sx; l_oB.y = l_oPoly.vertices[ i + 1 ].sy;
 				l_oC.x = l_oPoly.vertices[ ( i + 2 ) % l_nSize ].sx; l_oC.y = l_oPoly.vertices[ ( i + 2 ) % l_nSize ].sy;
 				// --
@@ -821,7 +829,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * The internal faces are not drawn due to back face culling</p>
 	 *
 	 * <p>In case you are inside the cube, by default Sandy's engine still doesn't draw the internal faces
-	 * (because you should not be in there).</p> 
+	 * ( because you should not be in there ).</p> 
 	 *
 	 * <p>If you need to be only inside the cube, you can call this method to change which side is culled.<br/>
 	 * The faces will be visible only from the interior of the cube.</p>
@@ -834,7 +842,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		var v:Polygon;
 		for( v in aPolygons )
 		{
-			aPolygons[v].swapCulling();
+			aPolygons[ v ].swapCulling();
 		}
 		changed = true;
 	}
@@ -858,7 +866,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 
 	/**
 	 * This method returns a clone of this Shape3D.
-	 * The current appearance will be applied, and the geometry is cloned (not referenced to curent one).
+	 * The current appearance will be applied, and the geometry is cloned ( not referenced to curent one ).
 	 * 
 	 * @param p_sName The name of the new shape you are going to create
 	 * @param p_bKeepTransform Boolean value which, if set to true, applies the current local transformations to the cloned shape. Default value is false.
@@ -895,16 +903,16 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			var i:Number, l:Number = aPolygons.length;
 			while( i < l )
 			{
-				if( broadcaster != null ) broadcaster.removeChild( aPolygons[i].broadcaster );
-				if( aPolygons[i] ) Polygon( aPolygons[ int(i) ] ).destroy();
+				if( broadcaster != null ) broadcaster.removeChild( aPolygons[ i ].broadcaster );
+				if( aPolygons[ i ] ) Polygon( aPolygons[ int( i ) ] ).destroy();
 				// --
-				aPolygons[ int(i) ] = null;
+				aPolygons[ int( i ) ] = null;
 				// --
 				i ++;
 			}
 		}
 
-		aPolygons.splice(0);
+		aPolygons.splice( 0 );
 		aPolygons = null;
 	}
 		
@@ -915,16 +923,16 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		// --
 		for( i = 0; i < l; i++ )
 		{
-			aPolygons[i] = new Polygon( this, p_oGeometry, p_oGeometry.aFacesVertexID[i], p_oGeometry.aFacesUVCoordsID[i], i, i );
-			if( m_oAppearance ) aPolygons[ int(i) ].appearance = m_oAppearance;
-			this.broadcaster.addChild( aPolygons[ int(i) ].broadcaster );
+			aPolygons[ i ] = new Polygon( this, p_oGeometry, p_oGeometry.aFacesVertexID[ i ], p_oGeometry.aFacesUVCoordsID[ i ], i, i );
+			if( m_oAppearance ) aPolygons[ int( i ) ].appearance = m_oAppearance;
+			this.broadcaster.addChild( aPolygons[ int( i ) ].broadcaster );
 		}			
 	}
 	    		
 	// ______________
-	// [PRIVATE] DATA________________________________________________				
+	// [ PRIVATE ] DATA________________________________________________				
 	private var m_oAppearance:Appearance ; // The Appearance of this Shape3D		
-    private var m_bEv:Boolean = false; // The event system state (enable or not)
+    private var m_bEv:Boolean = false; // The event system state ( enable or not )
 	private var m_oGeomCenter:Vector;
 	private var m_bBackFaceCulling:Boolean = true;
 	private var m_bClipped:Boolean = false;

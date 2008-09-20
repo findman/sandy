@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -13,6 +13,7 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
+
 import com.bourre.events.BubbleEventBroadcaster;
 import com.bourre.events.BubbleEvent;
 import com.bourre.events.EventType;
@@ -34,12 +35,14 @@ import sandy.materials.Appearance;
  * that handles all basic operations on a tree node.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
- * @version		2.0
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
  * @date 		16.03.2007
- **/
+ */
+ 
 class sandy.core.scenegraph.Node
 {
+	
 	/**
 	 * This property represent the culling state of the current node.
 	 * This state is defined during the culling phasis as it refers to the position of the object against the viewing frustum.
@@ -54,9 +57,9 @@ class sandy.core.scenegraph.Node
 		
 	/**
 	 * The children of this node are stored inside this array.
-	 * IMPORTANT: Use this property mainly as READ ONLY. To add, delete or search a specific child, you can use the specific method to do that
+	 * IMPORTANT: Use this property mainly as READ ONLY. To add, delete or search a specific child, you can use the specific method to do that.
 	 */
-	public var children:Array = new Array();
+	public var children:Array;
 		
 	/**
 	 *  Cached matrix corresponding to the transformation to the 0,0,0 frame system
@@ -84,7 +87,7 @@ class sandy.core.scenegraph.Node
 	 * The unique id of this node in the node graph.
 	 * <p>This value is very useful to retrieve a specific node.</p>
 	 */
-	public var id:Number = _ID_++;
+	public var id:Number;
 		
 	/**
 	 * Specify the visibility of this node.
@@ -96,7 +99,7 @@ class sandy.core.scenegraph.Node
 	 * Reference to the scene is it linked to.
 	 * Initialized at null.
 	 */
-	public var scene:Scene3D = null;
+	public var scene:Scene3D;
 		
 	/**
 	 * Creates a node in the object tree of the world.
@@ -107,6 +110,13 @@ class sandy.core.scenegraph.Node
 	 */
 	public function Node( p_sName:String )
 	{
+		changed = false;
+		id = _ID_++;
+		children = new Array();
+		culled = CullingState.OUTSIDE;
+		modelMatrix = new Matrix4();
+		viewMatrix = new Matrix4();
+		// --
 		parent = null;
 		// --
 		if( p_sName ) 
@@ -179,7 +189,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].useSingleContainer = p_bUseSingleContainer;
+			children[ l_oNode ].useSingleContainer = p_bUseSingleContainer;
 		}
 	}
 		
@@ -191,7 +201,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].enableBackFaceCulling = b;
+			children[ l_oNode ].enableBackFaceCulling = b;
 		}
 	}
 		
@@ -203,7 +213,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].enableInteractivity = p_bState;
+			children[ l_oNode ].enableInteractivity = p_bState;
 		}
 	}
 		
@@ -215,7 +225,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].enableEvents = b;
+			children[ l_oNode ].enableEvents = b;
 		}
 	}
 		
@@ -227,7 +237,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].appearance = p_oApp;
+			children[ l_oNode ].appearance = p_oApp;
 		}
 	}
 		
@@ -246,7 +256,7 @@ class sandy.core.scenegraph.Node
 	/**
 	 * The parent node of this node.
 	 *
-	 * <p>The reference is null if this nod has no parent (for example for a root node).</p>
+	 * <p>The reference is null if this nod has no parent ( for example for a root node ).</p>
 	 */
 	public function get parent() : Node
 	{
@@ -273,7 +283,7 @@ class sandy.core.scenegraph.Node
 	 */
 	public function addChild( p_oChild:Node ) : Void
 	{
-		if( p_oChild.parent )
+		if( p_oChild.hasParent() )
 		{
 			p_oChild.parent.removeChildByName( p_oChild.name );	
 		}
@@ -296,9 +306,9 @@ class sandy.core.scenegraph.Node
 	{
 		for( l_oNode in children )
 		{
-			if( children[l_oNode].name == p_sName )
+			if( children[ l_oNode ].name == p_sName )
 			{
-				return children[l_oNode];
+				return children[ l_oNode ];
 			}
 		}
 		if( p_bRecurs )
@@ -307,7 +317,7 @@ class sandy.core.scenegraph.Node
 			var l_oNode:Node;
 			for( l_oNode in children )
 			{
-				node = children[l_oNode].getChildByName( p_sName, p_bRecurs );
+				node = children[ l_oNode ].getChildByName( p_sName, p_bRecurs );
 				if( node != null )
 				{
 					 return node;
@@ -349,9 +359,9 @@ class sandy.core.scenegraph.Node
 		var l:Number = children.length;
 		while( i < l && !found )
 		{
-			if( children[int(i)].name == p_sName  )
+			if( children[ int( i ) ].name == p_sName  )
 			{
-				broadcaster.removeChild( children[int(i)].broadcaster );
+				broadcaster.removeChild( children[ int( i ) ].broadcaster );
 				children.splice( i, 1 );
 				changed = true;
 				found = true;
@@ -378,9 +388,9 @@ class sandy.core.scenegraph.Node
 		var lNode:Node;
 		for( lNode in l_aTmp )
 		{
-			l_aTmp[lNode].destroy();
+			l_aTmp[ lNode ].destroy();
 		}
-		children.splice(0);
+		children.splice( 0 );
 		m_oEB = null;
 	}
 
@@ -394,7 +404,7 @@ class sandy.core.scenegraph.Node
 	public function remove() : Void
 	{
 		// first we remove this node as a child of its parent
-		// we do not update rigth now, but a little bit later ;)
+		// we do not update rigth now, but a little bit later ; )
 		parent.removeChildByName( name );
 		
 		// now we make current node children the current parent's node children
@@ -404,7 +414,7 @@ class sandy.core.scenegraph.Node
 		{
 			parent.addChild( lNode );
 		}
-		children.splice(0);
+		children.splice( 0 );
 		m_oEB = null;
 		changed = true;
 	}
@@ -432,7 +442,7 @@ class sandy.core.scenegraph.Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			children[l_oNode].update( p_oScene, p_oModelMatrix, changed );
+			children[ l_oNode ].update( p_oScene, p_oModelMatrix, changed );
 		}
 	
 	}
@@ -445,12 +455,12 @@ class sandy.core.scenegraph.Node
 	 * <p>The method also updates the bounding volumes, to make a more accurate culling system possible.<br/>
 	 * First the bounding sphere is updated, and if intersecting, the bounding box is updated to perform a more
 	 * precise culling.</p>
-	 * <p><b>[MANDATORY] The update method must be called first!</b></p>
+	 * <p><b>[ MANDATORY ] The update method must be called first!</b></p>
 	 *
 	 * @param p_oScene	The current scene
 	 * @param p_oFrustum	The frustum of the current camera
-	 * @param p_oViewMatrix	<b>[ToDo: explain]</b>
-	 * @param p_bChanged	<b>[ToDo: explain]</b>
+	 * @param p_oViewMatrix	<b>[ ToDo: explain ]</b>
+	 * @param p_bChanged	<b>[ ToDo: explain ]</b>
 	 *
 	 */
 	public function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ) : Void
@@ -498,12 +508,12 @@ class sandy.core.scenegraph.Node
 	 *     var mySpecialOperation:SpecialOperation = new SpecialOperation;
 	 * 
 	 *     mySpecialOperation.someParameter = 0.8;
-	 *     someTreeNode.perform(mySpecialOperation);
-	 *     trace(mySpecialOperation.someResult);
+	 *     someTreeNode.perform( mySpecialOperation );
+	 *     trace( mySpecialOperation.someResult );
 	 * 
 	 *     mySpecialOperation.someParameter = 0.2;
-	 *     someOtherTreeNode.perform(mySpecialOperation);
-	 *     trace(mySpecialOperation.someResult);
+	 *     someOtherTreeNode.perform( mySpecialOperation );
+	 *     trace( mySpecialOperation.someResult );
 	 * </listing>
 	 * 
 	 * @param  p_iOperation   The operation to be performed on the node subtree
@@ -515,7 +525,7 @@ class sandy.core.scenegraph.Node
 		// perform operation on all child nodes
 		for( l_oChild in children ) 
 		{
-			children[l_oChild].perform( p_iOperation );
+			children[ l_oChild ].perform( p_iOperation );
 		}
 			
 		p_iOperation.performOnExit( this );
@@ -542,5 +552,6 @@ class sandy.core.scenegraph.Node
 	 * This property set the cache status of the current node.
 	 * IMPORTANT Currently this property isn't used!
 	 */
-	public var changed:Boolean = false;
+	public var changed:Boolean;
+	
 }

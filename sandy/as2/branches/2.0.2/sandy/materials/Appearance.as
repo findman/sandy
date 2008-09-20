@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -24,7 +24,7 @@ import sandy.materials.ColorMaterial;
  * <p>The appearance holds the front and back materials of the object.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  *
@@ -48,8 +48,8 @@ class sandy.materials.Appearance
 	 */
 	public function Appearance( p_oFront:Material, p_oBack:Material )
 	{
-		m_oFrontMaterial = ( p_oFront != null ) 	? p_oFront :	new ColorMaterial();
-		m_oBackMaterial  = ( p_oBack != null ) 		? p_oBack  :	m_oFrontMaterial;
+		m_oFrontMaterial = ( p_oFront != null ) ? p_oFront :	new ColorMaterial();
+		m_oBackMaterial  = ( p_oBack != null ) 	? p_oBack  :	m_oFrontMaterial;
 	}
 		
 	/**

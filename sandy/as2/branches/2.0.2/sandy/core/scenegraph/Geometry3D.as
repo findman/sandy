@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -21,7 +21,6 @@ import sandy.core.data.UVCoord;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 	
-	
 /**
  * 	The Geometry3D class holds a complete description of the geometry of a Shape3D.
  *
@@ -32,23 +31,24 @@ import sandy.core.data.Vertex;
  * 		if these points exist in points array.
  * 
  * 	NOTE: 	This object is going to work well _ONLY_ if arrays 
- * 		wont be changed directlly [ie. push()] but _ONLY_ via accessor methods:
+ * 		wont be changed directlly [ ie. push() ] but _ONLY_ via accessor methods:
  * 		createFace, createFaceByIds, addFace, addFaces.
  * 		In the future we can make these Arrays PRIVATE but then the only 
  * 		way to make them safe is to deliver additionall accessors like 
- * 		getPoint(index:int), getFace(index:int) what could potentially slow 
- * 		affect performance of this structure (well, we need to test it, and 
+ * 		getPoint( index:int ), getFace( index:int ) what could potentially slow 
+ * 		affect performance of this structure ( well, we need to test it, and 
  * 		if there is no problem, make arrays private and provide accessors for 
  * 		_SINGLE_ array's elements to make them safe ). 
  *
- * <p>[<b>ToDo</b>: Revise this and adopt tp ASDoc]</p>
+ * <p>[ <b>ToDo</b>: Revise this and adopt tp ASDoc ]</p>
  * 
  * @author	Mirek Mencel
  * @author	Thomas PFEIFFER
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version	2.0.2
  * @date	07.04.2007
  */
+ 
 class sandy.core.scenegraph.Geometry3D
 {	
 
@@ -59,18 +59,18 @@ class sandy.core.scenegraph.Geometry3D
 	
 		
 	/** Array of vertices */
-	public var aVertex:Array = new Array();
+	public var aVertex:Array;
 	/** Array of faces composed from vertices */
-	public var aFacesVertexID:Array = new Array();
-	public var aFacesUVCoordsID:Array = new Array();
+	public var aFacesVertexID:Array;
+	public var aFacesUVCoordsID:Array;
 	/** Array ov normals */
-	public var aFacesNormals:Array = new Array();
-	public var aVertexNormals:Array = new Array();
-	public var aEdges:Array = new Array();
+	public var aFacesNormals:Array;
+	public var aVertexNormals:Array;
+	public var aEdges:Array;
 	// Array of face edges
-	public var aFaceEdges:Array = new Array();
+	public var aFaceEdges:Array;
 	/** UV Coords for faces */
-	public var aUVCoords:Array = new Array();
+	public var aUVCoords:Array;
 	private var m_nLastVertexId:Number = 0;
 	private var m_nLastNormalId:Number = 0;
 	private var m_nLastFaceId:Number = 0;
@@ -78,6 +78,7 @@ class sandy.core.scenegraph.Geometry3D
 	private var m_nLastUVId:Number = 0;
 	private var m_nLastVertexNormalId:Number = 0;
 	private var m_aVertexFaces:Array = new Array();
+	
 // ___________
 // CONSTRUCTOR___________________________________________________
 	
@@ -88,6 +89,15 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function Geometry3D( p_points:Array )
 	{
+		aVertex 		 = new Array();
+		aFacesVertexID   = new Array();
+		aFacesUVCoordsID = new Array();
+		aFacesNormals 	 = new Array();
+		aVertexNormals 	 = new Array(); 
+		aEdges 			 = new Array(); 
+		aFaceEdges 		 = new Array();
+		aUVCoords 		 = new Array();
+		
 		EDGES_MAP = new Map();
 		init();
 	}
@@ -110,11 +120,11 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function setVertex( p_nVertexID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ) : Number
 	{
-		if( aVertex[p_nVertexID] )
+		if( aVertex[ p_nVertexID ] )
 			return -1;
 		else
 		{ 
-			aVertex[p_nVertexID] = new Vertex( p_nX, p_nY, p_nZ ); 
+			aVertex[ p_nVertexID ] = new Vertex( p_nX, p_nY, p_nZ ); 
 			return ++m_nLastVertexId - 1;  
 		}
 	}
@@ -142,11 +152,11 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function setFaceNormal( p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ) : Number
 	{
-		if( aFacesNormals[p_nNormalID] )
+		if( aFacesNormals[ p_nNormalID ] )
 			return -1;
 		else
 		{ 
-			aFacesNormals[p_nNormalID] = new Vertex( p_nX, p_nY, p_nZ ); 
+			aFacesNormals[ p_nNormalID ] = new Vertex( p_nX, p_nY, p_nZ ); 
 			return ++m_nLastNormalId - 1; 
 		}
 	}
@@ -174,11 +184,11 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function setVertexNormal( p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ) : Number
 	{
-		if( aVertexNormals[p_nNormalID] )
+		if( aVertexNormals[ p_nNormalID ] )
 			return -1;
 		else
 		{ 
-			aVertexNormals[p_nNormalID] = new Vertex( p_nX, p_nY, p_nZ ); 
+			aVertexNormals[ p_nNormalID ] = new Vertex( p_nX, p_nY, p_nZ ); 
 			return ++m_nLastVertexNormalId - 1;  
 		}
 	}
@@ -204,20 +214,21 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function setFaceVertexIds( p_nFaceID:Number /* Arguments */ ) : Number
 	{
-		if( aFacesVertexID[p_nFaceID] )
+		if( aFacesVertexID[ p_nFaceID ] )
 		{
+			trace( 'whowhowho are you?' );
 			return -1;
 		}
 		else
 		{
-			var rest:Array = ( arguments[1] instanceof Array )? arguments[1]: arguments.splice(1);
-			aFacesVertexID[p_nFaceID] = rest;
+			var rest:Array = ( arguments[ 1 ] instanceof Array )? arguments[ 1 ]: arguments.splice( 1 );
+			aFacesVertexID[ p_nFaceID ] = rest;
 			var lId:Number;
 			// Time to check if edges allready exist or if we shall create them
 			for( lId = 0; lId < rest.length; lId++ )
 			{
-				var lId1:Number = rest[lId];
-				var lId2:Number = rest[ ( lId+1 ) % rest.length ];
+				var lId1:Number = rest[ lId ];
+				var lId2:Number = rest[ ( lId + 1 ) % rest.length ];
 				var lEdgeID:Number;
 				var lString:String;
 				// --
@@ -237,8 +248,8 @@ class sandy.core.scenegraph.Geometry3D
 					lEdgeID = EDGES_MAP.get( lString );
 				}
 				
-				if( null == aFaceEdges[p_nFaceID] ) aFaceEdges[p_nFaceID] = new Array();
-					Array( aFaceEdges[p_nFaceID] ).push( lEdgeID );
+				if( null == aFaceEdges[ p_nFaceID ] ) aFaceEdges[ p_nFaceID ] = new Array();
+					Array( aFaceEdges[ p_nFaceID ] ).push( lEdgeID );
 			}
 			
 			return ++m_nLastFaceId - 1; 
@@ -247,7 +258,7 @@ class sandy.core.scenegraph.Geometry3D
 		
 	private function isEdgeExist( p_nVertexId1:Number, p_nVertexId2:Number ) : Boolean
 	{
-	var lString:String;
+		var lString:String;
 		// --
 		if( p_nVertexId1 < p_nVertexId2 ) lString = p_nVertexId1 + "_" + p_nVertexId2;
 		else lString = p_nVertexId2 + "_" + p_nVertexId1;
@@ -275,16 +286,16 @@ class sandy.core.scenegraph.Geometry3D
 	 * @param ...rest 	An array of data containing the ID's of the UV coords list for the face
 	 * @return 		The next free index or -1 it the index is already occupied
 	 */
-	public function setFaceUVCoordsIds( p_nFaceID:Number /* Arguments */ ):Number
+	public function setFaceUVCoordsIds( p_nFaceID:Number /* Arguments */ ) : Number
 	{
-		if( aFacesUVCoordsID[p_nFaceID] )
+		if( aFacesUVCoordsID[ p_nFaceID ] )
 		{
 			return -1;
 		}
 		else
 		{
-			var rest:Array = (arguments[1] instanceof Array)? arguments[1]: arguments.splice(1);
-			aFacesUVCoordsID[p_nFaceID] = rest;
+			var rest:Array = ( arguments[ 1 ] instanceof Array )? arguments[ 1 ]: arguments.splice( 1 );
+			aFacesUVCoordsID[ p_nFaceID ] = rest;
 			return ++m_nLastFaceUVId - 1; 
 		}
 	}
@@ -309,15 +320,15 @@ class sandy.core.scenegraph.Geometry3D
 	public function getVertexId( p_point:Vertex ) : Number
 	{
 		var j:Number;
-		for( j = 0; j < aVertex.length && !(aVertex[j] == p_point);	j++);
+		for( j = 0; j < aVertex.length && !( aVertex[ j ] == p_point );	j++ );
 		
-		return j == aVertex.length ? -1: j;
+		return j == aVertex.length ? -1 : j;
 	}
 		
 	/**
 	 * Adds UV coordinates for single face.
 	 * 
-	 * [<b>ToDo</b>: Explain this ]
+	 * [ <b>ToDo</b>: Explain this ]
 	 * @param p_nID		The id of the face
 	 * @param p_UValue	The u component of the UV coordinate
 	 * @param p_nVValue	The v component of the UV coordinate
@@ -325,13 +336,13 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function setUVCoords( p_nID:Number, p_UValue:Number, p_nVValue:Number ) : Number
 	{
-		if ( aUVCoords[p_nID] )
+		if( aUVCoords[ p_nID ] )
 		{
 			return -1;
 		}
 		else
 		{
-			aUVCoords[p_nID] = new UVCoord( p_UValue, p_nVValue );
+			aUVCoords[ p_nID ] = new UVCoord( p_UValue, p_nVValue );
 			return ++m_nLastUVId - 1; 
 		}
 	}
@@ -358,12 +369,12 @@ class sandy.core.scenegraph.Geometry3D
 			for( a in aFacesVertexID )
 			{
 				// If face is linear, as Line3D, no face normal to process
-				if( a.length < 3 ) continue;
+				if( aFacesVertexID[ a ].length < 3 ) continue;
 				// --
 				var lA:Vertex, lB:Vertex, lC:Vertex;
-				lA = aVertex[a[0]];
-				lB = aVertex[a[1]];
-				lC = aVertex[a[2]];
+				lA = aVertex[ aFacesVertexID[ a ][ 0 ] ];
+				lB = aVertex[ aFacesVertexID[ a ][ 1 ] ];
+				lC = aVertex[ aFacesVertexID[ a ][ 2 ] ];
 				// --
 				var lV:Vector = new Vector( lB.wx - lA.wx, lB.wy - lA.wy, lB.wz - lA.wz );
 				var lW:Vector = new Vector( lB.wx - lC.wx, lB.wy - lC.wy, lB.wz - lC.wz );
@@ -392,40 +403,40 @@ class sandy.core.scenegraph.Geometry3D
 				if( l_oNormal == null )
 					continue;
 				// -- add it to the corresponding vertex normals
-				if( null == aVertexNormals[l_aList[0]] )
+				if( null == aVertexNormals[ l_aList[ 0 ] ] )
 				{
 					m_nLastVertexNormalId++;
-					aVertexNormals[l_aList[0]] = new Vertex();
+					aVertexNormals[ l_aList[ 0 ] ] = new Vertex();
 				}
-				Vertex( aVertexNormals[l_aList[0]] ).add( l_oNormal );
+				Vertex( aVertexNormals[ l_aList[ 0 ] ] ).add( l_oNormal );
 				
-				if( null == aVertexNormals[l_aList[1]] )
+				if( null == aVertexNormals[ l_aList[ 1 ] ] )
 				{
 					m_nLastVertexNormalId++;
-					aVertexNormals[l_aList[1]] = new Vertex();
+					aVertexNormals[ l_aList[ 1 ] ] = new Vertex();
 				}
-				Vertex( aVertexNormals[l_aList[1]] ).add( l_oNormal );
+				Vertex( aVertexNormals[ l_aList[ 1 ] ] ).add( l_oNormal );
 				
-				if( null == aVertexNormals[l_aList[2]] )
+				if( null == aVertexNormals[ l_aList[ 2 ] ] )
 				{
 					m_nLastVertexNormalId++;
-					aVertexNormals[l_aList[2]] = new Vertex();
+					aVertexNormals[ l_aList[ 2 ] ] = new Vertex();
 				}
-				Vertex( aVertexNormals[l_aList[2]] ).add( l_oNormal );
+				Vertex( aVertexNormals[ l_aList[ 2 ] ] ).add( l_oNormal );
 				
 				// -- We update the number of faces these vertex belongs to
-				if( Vertex( aVertex[l_aList[0]] ).aFaces.indexOf( lId ) == 0 )
-					Vertex( aVertex[l_aList[0]] ).aFaces.push( lId );
+				if( Vertex( aVertex[ l_aList[ 0 ] ] ).aFaces.indexOf( lId ) == 0 )
+					Vertex( aVertex[ l_aList[ 0 ] ] ).aFaces.push( lId );
 				
-				if( Vertex( aVertex[l_aList[1]] ).aFaces.indexOf( lId ) == 0 )
-					Vertex( aVertex[l_aList[1]] ).aFaces.push( lId );
+				if( Vertex( aVertex[ l_aList[ 1 ] ] ).aFaces.indexOf( lId ) == 0 )
+					Vertex( aVertex[ l_aList[ 1 ] ] ).aFaces.push( lId );
 				
-				if( Vertex( aVertex[l_aList[2]] ).aFaces.indexOf( lId ) == 0 )
-					Vertex( aVertex[l_aList[2]] ).aFaces.push( lId );
+				if( Vertex( aVertex[ l_aList[ 2 ] ] ).aFaces.indexOf( lId ) == 0 )
+					Vertex( aVertex[ l_aList[ 2 ] ] ).aFaces.push( lId );
 					
-				aVertex[l_aList[0]].nbFaces++;
-				aVertex[l_aList[1]].nbFaces++;
-				aVertex[l_aList[2]].nbFaces++;
+				aVertex[ l_aList[ 0 ] ].nbFaces++;
+				aVertex[ l_aList[ 1 ] ].nbFaces++;
+				aVertex[ l_aList[ 2 ] ].nbFaces++;
 			}
 				
 			for( lId = 0; lId < aVertexNormals.length; lId++ )
@@ -452,7 +463,7 @@ class sandy.core.scenegraph.Geometry3D
 		// Points
 		for( l_oVertex in aVertex )
 		{
-			l_result.aVertex[i] = l_oVertex.clone();
+			l_result.aVertex[ i ] = aVertex[ l_oVertex ].clone();
 			i++;
 		}
 		
@@ -461,7 +472,7 @@ class sandy.core.scenegraph.Geometry3D
 		var a:Array;
 		for( a in aFacesVertexID )
 		{
-			l_result.aFacesVertexID[i] = a.concat();
+			l_result.aFacesVertexID[ i ] = aFacesVertexID[ a ].concat();
 			i++;
 		}
 		
@@ -469,7 +480,7 @@ class sandy.core.scenegraph.Geometry3D
 		i = 0;
 		for( l_oVertex in aFacesNormals )
 		{
-			l_result.aFacesNormals[i] = l_oVertex.clone();
+			l_result.aFacesNormals[ i ] = aFacesNormals[ l_oVertex ].clone();
 			i++;
 		}
 		
@@ -477,7 +488,7 @@ class sandy.core.scenegraph.Geometry3D
 		i = 0;
 		for( l_oVertex in aVertexNormals )
 		{
-			l_result.aVertexNormals[i] = l_oVertex.clone();
+			l_result.aVertexNormals[ i ] = aVertexNormals[ l_oVertex ].clone();
 			i++;
 		}
 		
@@ -486,7 +497,7 @@ class sandy.core.scenegraph.Geometry3D
 		var b:Array;
 		for( b in aFacesUVCoordsID )
 		{
-			l_result.aFacesUVCoordsID[i] = b.concat();
+			l_result.aFacesUVCoordsID[ i ] = aFacesUVCoordsID[ b ].concat();
 			i++;
 		}
 			
@@ -495,14 +506,14 @@ class sandy.core.scenegraph.Geometry3D
 		var u:UVCoord;
 		for( u in aUVCoords )
 		{
-			l_result.aUVCoords[i] = u.clone();
+			l_result.aUVCoords[ i ] = aUVCoords[ u ].clone();
 			i++;
 		}
 		
 		var l_oEdge:Edge3D;
 		for( l_oEdge in aEdges )
 		{
-			l_result.aEdges[i] = l_oEdge.clone();
+			l_result.aEdges[ i ] = aEdges[ l_oEdge ].clone();
 			i++;
 		}
 			
@@ -510,7 +521,7 @@ class sandy.core.scenegraph.Geometry3D
 		var l_oEdges:Array;
 		for( l_oEdges in aFaceEdges )
 		{
-			l_result.aFaceEdges[i] = l_oEdges.concat();
+			l_result.aFaceEdges[ i ] = aFaceEdges[ l_oEdges ].concat();
 			i++;
 		}
 		
@@ -528,39 +539,39 @@ class sandy.core.scenegraph.Geometry3D
 		// Points
 		for( l_oVertex in aVertex )
 		{
-			l_oVertex = null;
+			aVertex[ l_oVertex ] = null;
 		}
 		aVertex = null;
 		// Faces
 		for( a in aFacesVertexID )
 		{
-			a = null;
+			aFacesVertexID[ a ] = null;
 		}
 		aFacesVertexID = null;
 		// Normals
 		for( l_oVertex in aFacesNormals )
 		{
-			l_oVertex = null;
+			aFacesNormals[ l_oVertex ] = null;
 		}
 		aFacesNormals = null;
 		// Normals
 		for( l_oVertex in aVertexNormals )
 		{
-			l_oVertex = null;
+			aVertexNormals[ l_oVertex ] = null;
 		}
 		aVertexNormals = null;
 		// UVs face
 		var b:Array;
 		for( b in aFacesUVCoordsID )
 		{
-			b = null;
+			aFacesUVCoordsID[ b ] = null;
 		}
 		aFacesUVCoordsID = null;
 		// UVs coords
 		var u:UVCoord;
 		for( u in aUVCoords )
 		{
-			u = null;
+			aUVCoords[ u ] = null;
 		}	
 		aUVCoords = null;		
 	}
@@ -569,25 +580,25 @@ class sandy.core.scenegraph.Geometry3D
 	 * Returns a string representation of this geometry.
 	 *
 	 * <p>The string contins the lengths of the arrays of data defining this geometry.</p>
-	 * <p>[<b>ToDo</b>: Decide if this is the best representation ]</p>
+	 * <p>[ <b>ToDo</b>: Decide if this is the best representation ]</p>
 	 *
 	 * @return The string representation
 	 */
-	public function toString():String
+	public function toString() : String
 	{
-		return "[Geometry: " + 	aFacesVertexID.length + " faces, " + 
+		return "[ Geometry: " + aFacesVertexID.length + " faces, " + 
 				aVertex.length + " points, " + 
 				aFacesNormals.length + " normals, " +
-				aUVCoords.length + " uv coords]";
+				aUVCoords.length + " uv coords ]";
 	}
 		
 	/*public function debug() : Void
 	{
-		trace( "Faces: [" + faces.length + "] " + faces );
-		trace( "Points: [" + points.length + "] " + points );
-		trace( "Unique directions: [" + uniqueDirections.length + "] " + uniqueDirections );
-		trace( "Normals: [" + normals.length + "] " + normals );
-		trace( "UVs: [" + uv.length + "] " + uv );
+		trace( "Faces: [ " + faces.length + " ] " + faces );
+		trace( "Points: [ " + points.length + " ] " + points );
+		trace( "Unique directions: [ " + uniqueDirections.length + " ] " + uniqueDirections );
+		trace( "Normals: [ " + normals.length + " ] " + normals );
+		trace( "UVs: [ " + uv.length + " ] " + uv );
 	}*/
 	
 }

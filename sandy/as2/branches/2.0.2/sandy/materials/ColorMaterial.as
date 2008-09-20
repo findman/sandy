@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -18,6 +18,7 @@ import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
+import sandy.materials.IAlphaMaterial;
 import sandy.materials.Material;
 import sandy.materials.MaterialType;
 import sandy.materials.attributes.MaterialAttributes;
@@ -29,12 +30,12 @@ import sandy.util.NumberUtil;
  * <p>Used to show colored faces, possibly with lines at the edges of the faces.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
 	 
-class sandy.materials.ColorMaterial extends Material //implements IAlphaMaterial // problem: interface doesn't work with getters/setters
+class sandy.materials.ColorMaterial extends Material implements IAlphaMaterial
 {
 	
 	private var m_nColor:Number;
@@ -64,14 +65,14 @@ class sandy.materials.ColorMaterial extends Material //implements IAlphaMaterial
 	 */
 	public function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:MovieClip ) : Void
 	{
-		var l_points:Array = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices;
+		var l_points:Array = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices:p_oPolygon.vertices;
 		if( !l_points.length ) return;
 		var l_oVertex:Vertex;
 		var lId:Number = l_points.length;
 		// --
 		p_mcContainer.lineStyle();
 		p_mcContainer.beginFill( m_nColor, m_nAlpha );
-		p_mcContainer.moveTo( l_points[0].sx, l_points[0].sy );
+		p_mcContainer.moveTo( l_points[ 0 ].sx, l_points[ 0 ].sy );
 		while( l_oVertex = l_points[ --lId ] )
 			p_mcContainer.lineTo( l_oVertex.sx, l_oVertex.sy );
 		p_mcContainer.endFill();
@@ -80,7 +81,7 @@ class sandy.materials.ColorMaterial extends Material //implements IAlphaMaterial
 	}
 	
 	/**
-	 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 * Indicates the alpha transparency value of the material. Valid values are 0 ( fully transparent ) to 1 ( fully opaque ).
 	 *
 	 * @default 1.0
 	 */

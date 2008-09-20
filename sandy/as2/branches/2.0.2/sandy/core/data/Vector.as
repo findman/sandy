@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -26,7 +26,7 @@ import sandy.util.NumberUtil;
  * @author		Tabin Cédric - thecaptain
  * @author		Nicolas Coevoet - [ NikO ]
  * @author		Bruce Epstein - zeusprod - truncated toString output to 2 decimals
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		0.1
  * @version		2.0.2
  * @date 		24.08.2007
@@ -51,12 +51,12 @@ class sandy.core.data.Vector
 	public var z:Number;
 
 	/**
-	* Creates a new vector.
-	*
-	* @param p_nX	The x coordinate.
-	* @param p_nY	The y coordinate.
-	* @param p_nZ	The z coordinate.
-	*/
+	 * Creates a new vector.
+	 *
+ 	 * @param p_nX	The x coordinate.
+	 * @param p_nY	The y coordinate.
+	 * @param p_nZ	The z coordinate.
+	 */
 	public function Vector( p_nX:Number, p_nY:Number, p_nZ:Number )
 	{
 		x = p_nX||0;
@@ -67,13 +67,13 @@ class sandy.core.data.Vector
 	/**
 	 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to <code>0</code>.
 	 */
-	public function reset( px:Number, py:Number, pz:Number) : Void
+	public function reset( px:Number, py:Number, pz:Number ) : Void
 	{
 		x = px||0; y = py||0; z = pz||0;
 	}
 	
 	/**
-	 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).
+	 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle ( <code>Number.NEGATIVE_INFINITY</code> ).
 	 */
 	public function resetToNegativeInfinity() : Void
 	{
@@ -81,7 +81,7 @@ class sandy.core.data.Vector
 	}
 
 	/**
-	 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle (<code>Number.POSITIVE_INFINITY</code>).
+	 * Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to highest value Flash can handle ( <code>Number.POSITIVE_INFINITY</code> ).
 	 */
 	public function resetToPositiveInfinity() : Void
 	{
@@ -133,7 +133,7 @@ class sandy.core.data.Vector
 	public function negate( /*v:Vector*/ ) : Vector
 	{
 		// Commented out the argument as it is never used - Petit
-		return new Vector( - x, - y, - z );
+		return new Vector( -x, -y, -z );
 	}
 
 	/**
@@ -195,7 +195,7 @@ class sandy.core.data.Vector
 	 *
 	 * @return The dot product.
 	 */
-	public function dot( w: Vector) : Number
+	public function dot( w: Vector ) : Number
 	{
 		return ( x * w.x + y * w.y + z * w.z );
 	}
@@ -203,24 +203,22 @@ class sandy.core.data.Vector
 	/**
 	 * Returns the cross product between this vector and the specified vector.
 	 *
-	 * @param v 	The vector to make a cross product with (right side).
+	 * @param v 	The vector to make a cross product with ( right side ).
 	 *
 	 * @return The resulting vector of the cross product.
 	 */
 	public function cross( v:Vector ) : Vector
 	{
 		// cross product vector that will be returned
-		return new Vector(
-							(y * v.z) - (z * v.y) ,
-		                 	(z * v.x) - (x * v.z) ,
-		               		(x * v.y) - (y * v.x)
-                           );
+		return new Vector( ( y * v.z ) - ( z * v.y ) ,
+		                   ( z * v.x ) - ( x * v.z ) ,
+		               	   ( x * v.y ) - ( y * v.x ) );
 	}
 	
 	/**
 	 * Crosses this vector with the specified vector.
 	 *
-	 * @param v 	The vector to make the cross product with (right side).
+	 * @param v 	The vector to make the cross product with ( right side ).
 	 */
 	public function crossWith( v:Vector ) : Void
 	{
@@ -242,7 +240,7 @@ class sandy.core.data.Vector
 		// -- We get the norm of the vector
 		var norm:Number = getNorm();
 		// -- We escape the process is norm is null or equal to 1
-		if( norm == 0 || norm == 1) return;
+		if( norm == 0 || norm == 1 ) return;
 		x /= norm;
 		y /= norm;
 		z /= norm;
@@ -251,7 +249,7 @@ class sandy.core.data.Vector
 	/**
 	 * Gives the biggest component of the current vector.
 	 * <listing version="3.0">
-	 *     var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+	 *     var lMax:Number = new Vector( 5, 6.7, -4 ).getMaxComponent(); //returns 6.7
 	 *  </listing>
 	 * 
 	 * @return The biggest component value of the vector
@@ -264,7 +262,7 @@ class sandy.core.data.Vector
 	/**
 	 * Gives the smallest component of the current vector.
 	 * <listing version="3.0">
-	 *     var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+	 *     var lMin:Number = new Vector( 5, 6.7, -4 ).getMinComponent(); //returns -4
 	 *  </listing>
 	 * 
 	 * @return The smallest component value of the vector
@@ -299,7 +297,7 @@ class sandy.core.data.Vector
 				trace( "Wrong: " + ncos );
 				sin2 = 0;
 			}
-			//I took long time to find this bug. Who can guess that (1-cos*cos) is negative ?!
+			//I took long time to find this bug. Who can guess that ( 1-cos*cos ) is negative ?!
 			//sqrt returns a NaN for a negative value !
 			return  Math.atan2( Math.sqrt( sin2 ), ncos );
 		}
@@ -316,14 +314,14 @@ class sandy.core.data.Vector
 	{
 		// Round display to the specified number of decimals places
 		// Returns "{x, y, z}"
-		return "{" + serialize( decPlaces||0 ) + "}";
+		return "{" + serialize( Math.pow( 10, -decPlaces||0 ) ) + "}";
 	}
 
 	// Useful for XML output
 	/**
 	 * Returns a string representation of this vector with rounded values.
 	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
+	 * <p>[ <strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
 	 *
 	 * @param decPlaces	Number of decimals
 	 * @return 		The specific serialize string
@@ -331,7 +329,7 @@ class sandy.core.data.Vector
 	public function serialize( decPlaces:Number ) : String
 	{
 		if( decPlaces == null ) decPlaces = .01;
-		if (decPlaces == 0)
+		if ( decPlaces == 0 )
 		{
 			decPlaces = .01
 		}
@@ -345,21 +343,21 @@ class sandy.core.data.Vector
 	/**
 	 * Sets the elements of this vector from a string representation.
 	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
+	 * <p>[ <strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
 	 *
 	 * @param 	A string representing the vector ( specific serialize format )
 	 */
 	public function deserialize( convertFrom:String ) : Void
 	{
 		var tmp:Array = convertFrom.split( "," );
-		if (tmp.length != 3)
+		if ( tmp.length != 3 )
 		{
 			trace ( "Unexpected length of string to deserialize into a vector " + convertFrom );
 		}
 
-		x = tmp[0];
-		y = tmp[1];
-		z = tmp[2];
+		x = tmp[ 0 ];
+		y = tmp[ 1 ];
+		z = tmp[ 2 ];
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author Thomas PFEIFFER
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -47,7 +47,7 @@ import sandy.view.Frustum;
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author		Mirek Mencel
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		24.08.2007
@@ -78,7 +78,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	/**
 	 * The unique identifier for this polygon.
 	 */
-	public var id:Number = _ID_++;
+	public var id:Number;
 
 	/**
 	 * A reference to the Shape3D object this polygon belongs to.
@@ -127,7 +127,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	/**
 	 * An array of polygons that share an edge with this polygon.
 	 */
-	public var aNeighboors:Array = new Array();
+	public var aNeighboors:Array;
 
 	/**
 	 * Specifies whether the face of the polygon is visible.
@@ -152,7 +152,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	 * This is primarily used to update the scene material manager.
 	 * WARNING: Do not change manually.
 	 */
-	public var hasAppearanceChanged:Boolean = false;
+	public var hasAppearanceChanged:Boolean;
 		
 	/**
 	 * Creates a new polygon.
@@ -166,6 +166,12 @@ class sandy.core.data.Polygon implements IDisplayable
 	 */
 	public function Polygon( p_oOwner:Shape3D, p_geometry:Geometry3D, p_aVertexID:Array, p_aUVCoordsID:Array, p_nFaceNormalID:Number, p_nEdgesID:Number  )
 	{
+		mouseEvents 		 = false;
+		mouseInteractivity   = false;
+		hasAppearanceChanged = false;
+		
+		aNeighboors = new Array();
+		id = _ID_++;
 		p_nFaceNormalID = p_nFaceNormalID||0;
 		p_nEdgesID = p_nEdgesID||0;
 		shape = p_oOwner;
@@ -201,14 +207,15 @@ class sandy.core.data.Polygon implements IDisplayable
 		var o;
 		for( o in p_aVertexID )
 		{
-			vertices[i] = Vertex( m_oGeometry.aVertex[ p_aVertexID[i] ] );
-			vertexNormals[i] = m_oGeometry.aVertexNormals[ p_aVertexID[i] ];
+			
+			vertices[ i ] = Vertex( m_oGeometry.aVertex[ p_aVertexID[ i ] ] );
+			vertexNormals[ i ] = m_oGeometry.aVertexNormals[ p_aVertexID[ i ] ];
 			i++;
 		}
 		// --
-		a = vertices[0];
-		b = vertices[1];
-		c = vertices[2];
+		a = vertices[ 0 ];
+		b = vertices[ 1 ];
+		c = vertices[ 2 ];
 		// -- every polygon does not have some texture coordinates
 		if( p_aUVCoordsID )
 		{
@@ -222,10 +229,10 @@ class sandy.core.data.Polygon implements IDisplayable
 				var p;
 				for( p in p_aUVCoordsID )
 				{
-					var l_oUV:UVCoord = UVCoord( m_oGeometry.aUVCoords[ p_aUVCoordsID[i] ] );
+					var l_oUV:UVCoord = UVCoord( m_oGeometry.aUVCoords[ p_aUVCoordsID[ i ] ] );
 					if( l_oUV == null ) l_oUV = new UVCoord( 0, 0 );
 					// --
-					aUVCoord[i] = l_oUV;
+					aUVCoord[ i ] = l_oUV;
 					if( l_oUV.u < l_nMinU ) l_nMinU = l_oUV.u;
 					else if( l_oUV.u > l_nMaxU ) l_nMaxU = l_oUV.u;
 					// --
@@ -255,9 +262,9 @@ class sandy.core.data.Polygon implements IDisplayable
 		// --
 		aEdges = new Array();
 		var l_nEdgeId:Number;
-		for( l_nEdgeId in m_oGeometry.aFaceEdges[p_nEdgeListID] )
+		for( l_nEdgeId in m_oGeometry.aFaceEdges[ p_nEdgeListID ] )
 		{
-			var l_oEdge:Edge3D = m_oGeometry.aEdges[ m_oGeometry.aFaceEdges[p_nEdgeListID][l_nEdgeId] ];
+			var l_oEdge:Edge3D = m_oGeometry.aEdges[ m_oGeometry.aFaceEdges[ p_nEdgeListID ][ l_nEdgeId ] ];
 			l_oEdge.vertex1 = m_oGeometry.aVertex[ l_oEdge.vertexId1 ];
 			l_oEdge.vertex2 = m_oGeometry.aVertex[ l_oEdge.vertexId2 ];
 			aEdges.push( l_oEdge );
@@ -354,12 +361,12 @@ class sandy.core.data.Polygon implements IDisplayable
 	
 
 	/**
-	 * Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.
+	 * Returns a vector ( 3D position ) on the polygon relative to the specified point on the 2D screen.
 	 *
 	 * @example	Below is an example of how to get the 3D coordinate of the polygon under the position of the mouse:
 	 * <listing version="3.0">
-	 * var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
-	 * var scenePosition:Vector = myPolygon.get3DFrom2D(screenPoint);
+	 * var screenPoint:Point = new Point( myPolygon.container.mouseX, myPolygon.container.mouseY );
+	 * var scenePosition:Vector = myPolygon.get3DFrom2D( screenPoint );
      * </listing>
      * 
      * @return A vector that corresponds to the specified point.
@@ -368,23 +375,23 @@ class sandy.core.data.Polygon implements IDisplayable
 	{      
    		/// NEW CODE ADDED BY MAX with the help of makc ///
 			
-		var m1:Matrix= new Matrix(
-					vertices[1].sx - vertices[0].sx,
-					vertices[2].sx - vertices[0].sx,
-					vertices[1].sy - vertices[0].sy,
-					vertices[2].sy - vertices[0].sy,
+		var m1:Matrix= new Matrix( 
+					vertices[ 1 ].sx - vertices[ 0 ].sx,
+					vertices[ 2 ].sx - vertices[ 0 ].sx,
+					vertices[ 1 ].sy - vertices[ 0 ].sy,
+					vertices[ 2 ].sy - vertices[ 0 ].sy,
 					0,
-					0);
+					0 );
 		m1.invert();
 								
-		var capA:Number = m1.a * ( p_oScreenPoint.x - vertices[0].sx ) + m1.b * ( p_oScreenPoint.y - vertices[0].sy );
-		var capB:Number = m1.c * ( p_oScreenPoint.x - vertices[0].sx ) + m1.d * ( p_oScreenPoint.y - vertices[0].sy );
+		var capA:Number = m1.a * ( p_oScreenPoint.x - vertices[ 0 ].sx ) + m1.b * ( p_oScreenPoint.y - vertices[ 0 ].sy );
+		var capB:Number = m1.c * ( p_oScreenPoint.x - vertices[ 0 ].sx ) + m1.d * ( p_oScreenPoint.y - vertices[ 0 ].sy );
 		
-		var l_oPoint:Vector = new Vector(			
-			vertices[0].x + capA * ( vertices[1].x - vertices[0].x ) + capB * ( vertices[2].x - vertices[0].x ),
-			vertices[0].y + capA * ( vertices[1].y - vertices[0].y ) + capB * ( vertices[2].y - vertices[0].y ),
-			vertices[0].z + capA * ( vertices[1].z - vertices[0].z ) + capB * ( vertices[2].z - vertices[0].z )
-			);
+		var l_oPoint:Vector = new Vector( 			
+			vertices[ 0 ].x + capA * ( vertices[ 1 ].x - vertices[ 0 ].x ) + capB * ( vertices[ 2 ].x - vertices[ 0 ].x ),
+			vertices[ 0 ].y + capA * ( vertices[ 1 ].y - vertices[ 0 ].y ) + capB * ( vertices[ 2 ].y - vertices[ 0 ].y ),
+			vertices[ 0 ].z + capA * ( vertices[ 1 ].z - vertices[ 0 ].z ) + capB * ( vertices[ 2 ].z - vertices[ 0 ].z )
+			 );
 											
 		// transform the vertex with the model Matrix
 		this.shape.matrix.vectorMult( l_oPoint );
@@ -396,29 +403,29 @@ class sandy.core.data.Polygon implements IDisplayable
 	 *
 	 * @example	Below is an example of how to get the UV coordinate under the position of the mouse:
 	 * <listing version="3.0">
-	 * var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
-	 * var scenePosition:Vector = myPolygon.getUVFrom2D(screenPoint);
+	 * var screenPoint:Point = new Point( myPolygon.container.mouseX, myPolygon.container.mouseY );
+	 * var scenePosition:Vector = myPolygon.getUVFrom2D( screenPoint );
      * </listing>
      * 
      * @return A the UV coordinate that corresponds to the specified point.
      */
 	public function getUVFrom2D( p_oScreenPoint:Point ) : UVCoord
 	{
-		var p0:Point = new Point( vertices[0].sx, vertices[0].sy );
-		var p1:Point = new Point( vertices[1].sx, vertices[1].sy );
-		var p2:Point = new Point( vertices[2].sx, vertices[2].sy );
+		var p0:Point = new Point( vertices[ 0 ].sx, vertices[ 0 ].sy );
+		var p1:Point = new Point( vertices[ 1 ].sx, vertices[ 1 ].sy );
+		var p2:Point = new Point( vertices[ 2 ].sx, vertices[ 2 ].sy );
          
-		var u0:UVCoord = aUVCoord[0];
-		var u1:UVCoord = aUVCoord[1];
-		var u2:UVCoord = aUVCoord[2];
+		var u0:UVCoord = aUVCoord[ 0 ];
+		var u1:UVCoord = aUVCoord[ 1 ];
+		var u2:UVCoord = aUVCoord[ 2 ];
          
 		var v01:Point = new Point( p1.x - p0.x, p1.y - p0.y );
           
 		var vn01:Point = v01.clone();
-		vn01.normalize(1);
+		vn01.normalize( 1 );
          
 		var v02:Point = new Point( p2.x - p0.x, p2.y - p0.y );
-		var vn02:Point = v02.clone(); vn02.normalize(1);
+		var vn02:Point = v02.clone(); vn02.normalize( 1 );
           
 		// -- sub that from click point
 		var v4:Point = new Point( p_oScreenPoint.x - v01.x, p_oScreenPoint.y - v01.y );
@@ -430,10 +437,10 @@ class sandy.core.data.Polygon implements IDisplayable
 		var vi02:Point = new Point( l_oInter.x - p0.x, l_oInter.y - p0.y );      
 		var vi01:Point = new Point( p_oScreenPoint.x - l_oInter.x , p_oScreenPoint.y - l_oInter.y );
 
-		// -- insert coeffs (coefficients)
+		// -- insert coeffs ( coefficients )
 		var d1:Number = vi01.length / v01.length;
 		var d2:Number = vi02.length / v02.length;
-		// -- we insert linearity to find the position of the point in the mark of the texture (normalised) (?) 
+		// -- we insert linearity to find the position of the point in the mark of the texture ( normalised ) ( ? ) 
 		return new UVCoord( u0.u + d1 * ( u1.u - u0.u ) + d2 * ( u2.u - u0.u ),
 							u0.v + d1 * ( u1.v - u0.v ) + d2 * ( u2.v - u0.v ) );
 	}
@@ -530,7 +537,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	 */
 	public function toString() : String
 	{
-		return "sandy.core.data.Polygon::id=" + id + " [Points: " + vertices.length + "]";
+		return "sandy.core.data.Polygon::id=" + id + " [ Points: " + vertices.length + " ]";
 	}
 
 	/**
@@ -540,7 +547,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	 *
 	 * @see #addEventListener()
 	 */
-	public function get enableEvents():Boolean
+	public function get enableEvents() : Boolean
 	{
 		return mouseEvents;
 	}
@@ -593,7 +600,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	/**
 	 * @private
 	 */
-	private function _startMouseInteraction( e : EventType ) : Void
+	private function _startMouseInteraction( e:EventType ) : Void
 	{
 		container.onPress = Delegate.create( this, _onTextureInteraction, MouseEvent.CLICK );
 		container.mouseUp = Delegate.create( this, _onTextureInteraction, MouseEvent.MOUSE_UP ); 
@@ -613,7 +620,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	/**
 	 * @private
 	 */
-	private function _stopMouseInteraction( e : EventType ) : Void
+	private function _stopMouseInteraction( e:EventType ) : Void
 	{
 		container.onPress = null;
 		container.mouseUp = null;
@@ -637,7 +644,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	 *
 	 * @see #addEventListener()
 	 */
-	public function get enableInteractivity():Boolean
+	public function get enableInteractivity() : Boolean
 	{
 		return mouseInteractivity;
 	}
@@ -668,11 +675,11 @@ class sandy.core.data.Polygon implements IDisplayable
 	 */
 	private function _onTextureInteraction( p_oEvt:EventType ) : Void
 	{
-		if ( p_oEvt == null || !(p_oEvt instanceof EventType) ) p_oEvt = MouseEvent.MOUSE_MOVE;
+		if ( p_oEvt == null || !( p_oEvt instanceof EventType ) ) p_oEvt = MouseEvent.MOUSE_MOVE;
 		
 	    //	get the position of the mouse on the poly
-		var pt2D : Point = new Point( scene.container._xmouse, scene.container._ymouse );
-		var uv : UVCoord = getUVFrom2D( pt2D );
+		var pt2D:Point = new Point( scene.container._xmouse, scene.container._ymouse );
+		var uv:UVCoord = getUVFrom2D( pt2D );
 
 		_onInteraction( p_oEvt );
 	}
@@ -687,7 +694,7 @@ class sandy.core.data.Polygon implements IDisplayable
 		if( vertices.length > 2 )
 		{
 			var v:Vector, w:Vector;
-			var a:Vertex = vertices[0], b:Vertex = vertices[1], c:Vertex = vertices[2];
+			var a:Vertex = vertices[ 0 ], b:Vertex = vertices[ 1 ], c:Vertex = vertices[ 2 ];
 			v = new Vector( b.wx - a.wx, b.wy - a.wy, b.wz - a.wz );
 			w = new Vector( b.wx - c.wx, b.wy - c.wy, b.wz - c.wz );
 			// we compute de cross product
@@ -713,7 +720,7 @@ class sandy.core.data.Polygon implements IDisplayable
 		if( vertices.length > 2 )
 		{
 			var v:Vector, w:Vector;
-			var a:Vertex = vertices[0], b:Vertex = vertices[1], c:Vertex = vertices[2];
+			var a:Vertex = vertices[ 0 ], b:Vertex = vertices[ 1 ], c:Vertex = vertices[ 2 ];
 			v = new Vector( b.x - a.x, b.y - a.y, b.z - a.z );
 			w = new Vector( b.x - c.x, b.y - c.y, b.z - c.z );
 			// we compute de cross product
@@ -820,7 +827,8 @@ class sandy.core.data.Polygon implements IDisplayable
 	private var m_oEB:BubbleEventBroadcaster;
 
 	/** Boolean representing the state of the event activation */
-	private var mouseEvents:Boolean = false;
-	private var mouseInteractivity:Boolean = false;
+	private var mouseEvents:Boolean;
+	private var mouseInteractivity:Boolean;
+	
 }
 

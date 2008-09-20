@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -34,11 +34,12 @@ import sandy.util.NumberUtil;
  *
  * @author		rafajafar
  * @author		makc
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  */
  
 class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 {
+	
 	/**
 	 * Used if a lightmap needs to be overridden.
 	 */
@@ -48,17 +49,19 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 	 * Non-zero value adds sphere normals to actual normals for light rendering.
 	 * Use this with flat surfaces or cylinders.
 	 */
-	public var spherize:Number = 0;
+	public var spherize:Number;
 
 	/**
 	 * Create the CelShadeAttributes object.
 	 *
-	 * @param p_oLightMap A lightmap that the object will use (default map has four shades of gray).
+	 * @param p_oLightMap A lightmap that the object will use ( default map has four shades of gray ).
 	 *
 	 * @see PhongAttributesLightMap
 	 */
 	public function CelShadeAttributes( p_oLightMap:PhongAttributesLightMap )
 	{
+		spherize = 0;
+		
 		if( p_oLightMap )
 		{
 			lightmap = p_oLightMap;
@@ -66,27 +69,27 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 		else
 		{
 			lightmap = new PhongAttributesLightMap();
-			lightmap.alphas[0] = [ 0.5, 0.5,
-								   0.5, 0.5,
-								   0.5, 0.5,
-								   0.5, 0.5 ];
-			lightmap.colors[0] = [ 0xFFFFFF, 0xFFFFFF ,
-								   0x888888, 0x888888,
-								   0x666666, 0x666666,
-								   0x444444, 0x444444 ];
-			lightmap.ratios[0] = [ 0, 40,
-				  				   40, 80,
-				  				   80, 120,
-				 				   120, 180 ];
+			lightmap.alphas[ 0 ] = [ 0.5, 0.5,
+								     0.5, 0.5,
+								     0.5, 0.5,
+								     0.5, 0.5 ];
+			lightmap.colors[ 0 ] = [ 0xFFFFFF, 0xFFFFFF ,
+								     0x888888, 0x888888,
+								     0x666666, 0x666666,
+								     0x444444, 0x444444 ];
+			lightmap.ratios[ 0 ] = [ 0, 40,
+				  				    40, 80,
+				  				    80, 120,
+				 				    120, 180 ];
 		}
 		
 		//-- define some variables
-		aN = [new Vector (), new Vector (), new Vector ()]; 
-		aNP = [new Point (), new Point (), new Point ()]; 
+		aN = [ new Vector(), new Vector(), new Vector() ]; 
+		aNP = [ new Point(), new Point(), new Point() ]; 
 
-		dv = new Vector (); 
-		e1 = new Vector ();
-		e2 = new Vector ();
+		dv = new Vector(); 
+		e1 = new Vector();
+		e2 = new Vector();
 
 		matrix = new Matrix();
 		matrix2 = new Matrix();
@@ -113,15 +116,15 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 		// get vertices and prepare matrix2
 		var l_aPoints:Array = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices;
 
-		l_oVertex = l_aPoints[0];
+		l_oVertex = l_aPoints[ 0 ];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
 		
-		l_oVertex = l_aPoints[1];
+		l_oVertex = l_aPoints[ 1 ];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
 
-		l_oVertex = l_aPoints[2];
+		l_oVertex = l_aPoints[ 2 ];
 		m2c += l_oVertex.sx; matrix2.c = m2c;
 		m2d += l_oVertex.sy; matrix2.d = m2d;
 
@@ -130,11 +133,11 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 		var backside:Boolean = true;
 		for( i = 0; i < 3; i++ )
 		{
-			v = aN[i]; v.copy( Vertex( p_oPolygon.vertexNormals[i] ).getVector() );
+			v = aN[ i ]; v.copy( Vertex( p_oPolygon.vertexNormals[ i ] ).getVector() );
 
 			if( spherize > 0 )
 			{
-				l_oVertex = l_aPoints[i];
+				l_oVertex = l_aPoints[ i ];
 
 				dv.copy( l_oVertex.getVector() );
 				dv.sub( p_oPolygon.shape.geometryCenter );
@@ -156,9 +159,9 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 		if( backside )
 		{
 			// no reflection here - render the face in solid color
-			var l:Number = lightmap.colors[0].length;
-			var c:Number = int( lightmap.colors[0][l -1] );
-			a = lightmap.alphas[0][l -1];
+			var l:Number = lightmap.colors[ 0 ].length;
+			var c:Number = int( lightmap.colors[ 0 ][ l - 1 ] );
+			a = lightmap.alphas[ 0 ][ l - 1 ];
 			p_oMovieClip.beginFill( c, a );
 		}
 		else
@@ -178,9 +181,9 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 
 			for( i = 0; i < 3; i++ )
 			{
-				p = aNP[i]; v = aN[i];
+				p = aNP[ i ]; v = aN[ i ];
 				
-				// project aN [i] onto e1 and e2
+				// project aN [ i ] onto e1 and e2
 				p.x = e1.dot( v );
 				p.y = e2.dot( v );
 
@@ -191,7 +194,7 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 
 			// simple hack to resolve bad projections
 			// where the hell do they keep coming from?
-			p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
+			p = aNP[ 0 ]; p1 = aNP[ 1 ]; p2 = aNP[ 2 ];
 			a = ( p.x - p1.x ) * ( p.y - p2.y ) - ( p.y - p1.y ) * ( p.x - p2.x );
 			while( ( -20 < a ) && ( a < 20 ) )
 			{
@@ -209,14 +212,14 @@ class sandy.materials.attributes.CelShadeAttributes extends ALightAttributes
 			matrix.invert();
 
 			matrix.concat( matrix2 );
-			p_oMovieClip.beginGradientFill( "radial", lightmap.colors[0], lightmap.alphas[0], lightmap.ratios[0], matrix );
+			p_oMovieClip.beginGradientFill( "radial", lightmap.colors[ 0 ], lightmap.alphas[ 0 ], lightmap.ratios[ 0 ], matrix );
 		}
 
 		// render the lighting
-		p_oMovieClip.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+		p_oMovieClip.moveTo( l_aPoints[ 0 ].sx, l_aPoints[ 0 ].sy );
 		for( l_oVertex in l_aPoints )
 		{
-			p_oMovieClip.lineTo( l_aPoints[l_oVertex].sx, l_aPoints[l_oVertex].sy  );
+			p_oMovieClip.lineTo( l_aPoints[ l_oVertex ].sx, l_aPoints[ l_oVertex ].sy  );
 		}
 		p_oMovieClip.endFill();
 

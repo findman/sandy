@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -28,7 +28,7 @@ import sandy.util.NumberUtil;
  * Displays a kind of Z shading of any object that this material is applied to.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */	
@@ -42,7 +42,7 @@ class sandy.materials.ZShaderMaterial extends Material
 	/**
 	 * Creates a new ZShaderMaterial.
 	 *
-	 * @param p_nCoef	Could a dev help us out here? :)
+	 * @param p_nCoef	Could a dev help us out here?:)
 	 * @param p_oAttr	The attributes for this material.
 	 *
 	 * @see sandy.materials.attributes.MaterialAttributes
@@ -59,7 +59,7 @@ class sandy.materials.ZShaderMaterial extends Material
 	 */
 	public function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:MovieClip ) : Void 
 	{
-		var l_points:Array = ( ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices );
+		var l_points:Array = ( ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices:p_oPolygon.vertices );
 		if( !l_points.length )
 		{
 			return;
@@ -68,9 +68,9 @@ class sandy.materials.ZShaderMaterial extends Material
 		//-- get zSort
 		var zIndices: Array = l_points.sortOn( "wz", Array.NUMERIC | Array.RETURNINDEXEDARRAY );
 			
-		var v0:Vertex = l_points[ zIndices[0] ];
-		var v1:Vertex = l_points[ zIndices[1] ];
-		var v2:Vertex = l_points[ zIndices[2] ];
+		var v0:Vertex = l_points[ zIndices[ 0 ] ];
+		var v1:Vertex = l_points[ zIndices[ 1 ] ];
+		var v2:Vertex = l_points[ zIndices[ 2 ] ];
 
 		//-- compute gray values
 		if( !p_oPolygon.shape.boundingBox.uptodate )
@@ -95,10 +95,11 @@ class sandy.materials.ZShaderMaterial extends Material
 		//-- draw gradient
 		p_mcContainer.lineStyle();
 		p_mcContainer.beginGradientFill( "linear", [ ( g0 << 16 ) | ( g0 << 8 ) | g0, ( g2 << 16 ) | ( g2 << 8 ) | g2 ], [ 100, 100 ], [ 0, 0xff ], matrix );
-		p_mcContainer.moveTo( l_points[0].sx, l_points[0].sy );
+		p_mcContainer.moveTo( l_points[ 0 ].sx, l_points[ 0 ].sy );
+		var l_oVertex:Vertex;
 		for( l_oVertex in l_points )
 		{
-			p_mcContainer.lineTo( l_points[l_oVertex].sx, l_points[l_oVertex].sy );
+			p_mcContainer.lineTo( l_points[ l_oVertex ].sx, l_points[ l_oVertex ].sy );
 		}
 		p_mcContainer.endFill();
 		// --

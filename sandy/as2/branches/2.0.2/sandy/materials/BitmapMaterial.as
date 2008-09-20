@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -13,7 +13,6 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-
 
 import com.bourre.data.collections.Map;
 import com.bourre.data.iterator.ObjectIterator;
@@ -40,7 +39,7 @@ import sandy.util.NumberUtil;
  * @author		Xavier Martin - zeflasher - transparency managment
  * @author		Makc for first renderRect implementation
  * @author		James Dahl - optimization in renderRec method
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
@@ -53,7 +52,7 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	 * The default value is set to false to have the best performance first.
 	 * Enable this property have a performance impact, use it warefully
 	 */
-	public var smooth:Boolean = false;
+	public var smooth:Boolean;
 
 	/**
 	 * Precision of the bitmap mapping.
@@ -61,16 +60,16 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	 * One usual solution is to augment the number of polygon, but the performance cost can be quite big.
 	 * Another solution is to change the precision property value. The lower the value, the more accurate the perspective correction is.
 	 * To disable the perspective correction, set this property to zero, which is also the default value
-	 * If you use the precision to solve the distortion issue, you can reduce the primitives quality (except if you are experiencing some sorting issues)
+	 * If you use the precision to solve the distortion issue, you can reduce the primitives quality ( except if you are experiencing some sorting issues )
 	 */
-	public var precision:Number = 0;
+	public var precision:Number;
 
 	/**
-	 * Maximum  recurssion depth when using precision > 1 (which enables the perspective correction).
+	 * Maximum recurssion depth when using precision > 1 ( which enables the perspective correction ).
 	 * The bigger the number is, the more accurate the result will be.
 	 * Try to change this value to fits your needs to obtain the best performance.
 	 */
-	public var maxRecurssionDepth:Number = 5;
+	public var maxRecurssionDepth:Number;
 	
 	/**
 	 * Creates a new BitmapMaterial.
@@ -86,7 +85,8 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	public function BitmapMaterial( p_oTexture:BitmapData, p_oAttr:MaterialAttributes, p_nPrecision:Number )
 	{
 		super( p_oAttr );
-		// -- define some vars
+		smooth = false;
+		maxRecurssionDepth = 5;
 		map = new Matrix()
 		matrix = new Matrix();
 		m_oPoint = new Point();
@@ -136,23 +136,23 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 			l_uv = p_oPolygon.aUVCoord;
 			// --
 			map = Matrix( m_oPolygonMatrixMap.get( polygon.id ) );
-			var v0:Vertex = l_points[0];
-        	var v1:Vertex = l_points[1];
-        	var v2:Vertex = l_points[2];
+			var v0:Vertex = l_points[ 0 ];
+        	var v1:Vertex = l_points[ 1 ];
+        	var v2:Vertex = l_points[ 2 ];
 			if( precision == 0 )
 	        {
 	        	renderTriangle( map.a, map.b, map.c, map.d, map.tx, map.ty, v0.sx, v0.sy, v1.sx, v1.sy, v2.sx, v2.sy );
 	        }
 	        else
 	        {
-		        renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
+		        renderRec( 	map.a, map.b, map.c, map.d, map.tx, map.ty,
 							v0.sx, v0.sy, v0.wz,
 							v1.sx, v1.sy, v1.wz,
 							v2.sx, v2.sy, v2.wz );
 	        }
 		}
 		// --
-		if( attributes )  attributes.draw( graphics, polygon, this, p_oScene ) ;
+		if( attributes ) attributes.draw( graphics, polygon, this, p_oScene ) ;
 		// --
 		l_points = null;
 		l_uv = null;
@@ -179,9 +179,9 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 		// --
 		map = _createTextureMatrix( l_uv );
         // --
-        var v0:Vertex = l_points[0];
-        var v1:Vertex = l_points[1];
-        var v2:Vertex = l_points[2];
+        var v0:Vertex = l_points[ 0 ];
+        var v1:Vertex = l_points[ 1 ];
+        var v2:Vertex = l_points[ 2 ];
 
 		if( precision == 0 )
         {
@@ -189,10 +189,10 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
         }
         else
         {
-	        renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
+	        renderRec( 	map.a, map.b, map.c, map.d, map.tx, map.ty,
 						v0.sx, v0.sy, v0.wz,
 						v1.sx, v1.sy, v1.wz,
-						v2.sx, v2.sy, v2.wz);
+						v2.sx, v2.sy, v2.wz );
         }
         // --
         l_points = null;
@@ -328,22 +328,22 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	 */
 	private function _createTextureMatrix( p_aUv:Array ) : Matrix
 	{
-		var u0: Number = ( p_aUv[0].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
-			v0: Number = ( p_aUv[0].v * m_oTiling.y + m_oOffset.y ) * m_nHeight,
-			u1: Number = ( p_aUv[1].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
-			v1: Number = ( p_aUv[1].v * m_oTiling.y + m_oOffset.y ) * m_nHeight,
-			u2: Number = ( p_aUv[2].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
-			v2: Number = ( p_aUv[2].v * m_oTiling.y + m_oOffset.y ) * m_nHeight;
+		var u0: Number = ( p_aUv[ 0 ].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
+			v0: Number = ( p_aUv[ 0 ].v * m_oTiling.y + m_oOffset.y ) * m_nHeight,
+			u1: Number = ( p_aUv[ 1 ].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
+			v1: Number = ( p_aUv[ 1 ].v * m_oTiling.y + m_oOffset.y ) * m_nHeight,
+			u2: Number = ( p_aUv[ 2 ].u * m_oTiling.x + m_oOffset.x ) * m_nWidth,
+			v2: Number = ( p_aUv[ 2 ].v * m_oTiling.y + m_oOffset.y ) * m_nHeight;
 		// -- Fix perpendicular projections. Not sure it is really useful here since there's no texture prjection. This will certainly solve the freeze problem tho
 		if( ( u0 == u1 && v0 == v1 ) || ( u0 == u2 && v0 == v2 ) )
 		{
-			u0 -= ( u0 > 0.05 )? 0.05 : -0.05;
-			v0 -= ( v0 > 0.07 )? 0.07 : -0.07;
+			u0 -= ( u0 > 0.05 )? 0.05:-0.05;
+			v0 -= ( v0 > 0.07 )? 0.07:-0.07;
 		}
 		if( u2 == u1 && v2 == v1 )
 		{
-			u2 -= ( u2 > 0.05 ) ? 0.04 : -0.04;
-			v2 -= ( v2 > 0.06 ) ? 0.06 : -0.06;
+			u2 -= ( u2 > 0.05 ) ? 0.04:-0.04;
+			v2 -= ( v2 > 0.06 ) ? 0.06:-0.06;
 		}
 		// --
 		var m:Matrix = new Matrix( ( u1 - u0 ), ( v1 - v0 ), ( u2 - u0 ), ( v2 - v0 ), u0, v0 );
@@ -422,23 +422,23 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	 *
 	 * <p>The passed value is the percentage of opacity.</p>
 	 *
-	 * @param p_nValue 	A value between 0 and 1. (automatically constrained)
+	 * @param p_nValue 	A value between 0 and 1. ( automatically constrained )
 	 */
 	public function setTransparency( p_nValue:Number ) : Void
 	{
 		p_nValue = NumberUtil.constrain( p_nValue, 0, 1 );
 		if( m_oCmf ) m_oCmf = null;
-		var matrix:Array = [	1, 0, 0, 0, 0,
-						    	0, 1, 0, 0, 0,
-						    	0, 0, 1, 0, 0,
-						    	0, 0, 0, p_nValue, 0];
+		var matrix:Array = [ 1, 0, 0, 0, 0,
+						     0, 1, 0, 0, 0,
+						     0, 0, 1, 0, 0,
+						     0, 0, 0, p_nValue, 0 ];
 
 		m_oCmf = new ColorMatrixFilter( matrix );
 		texture.applyFilter( m_orgTexture, texture.rectangle, m_oPoint, m_oCmf );
 	}
 
 	/**
-	 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 * Indicates the alpha transparency value of the material. Valid values are 0 ( fully transparent ) to 1 ( fully opaque ).
 	 *
 	 * @default 1.0
 	 */
@@ -515,7 +515,7 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	/**
 	 * @private
 	 */
-	public var map:Matrix ;
+	public var map:Matrix;
 
 	/**
 	 * @private
@@ -568,6 +568,6 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 	/**
 	 * @private
 	 */
-	public var forceUpdate:Boolean = false;
+	public var forceUpdate:Boolean;
 	
 }

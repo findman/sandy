@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -33,7 +33,7 @@ import sandy.materials.attributes.AAttributes;
  * The OutlineAttributes class stores all the information to draw this outline shape</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		09.09.2007
  */
@@ -72,7 +72,7 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 	}
 		
 	/**
-	 * Indicates the alpha transparency value of the outline. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 * Indicates the alpha transparency value of the outline. Valid values are 0 ( fully transparent ) to 1 ( fully opaque ).
 	 *
 	 * @default 1.0
 	 */
@@ -159,23 +159,24 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 			var l_bNoInfo:Boolean = true;
 			for( i = 0; i < a; i++ )
 			{
-				if ( l_aPoly[i].aNeighboors.length > 0 )
+				if( l_aPoly[ i ].aNeighboors.length > 0 )
 					l_bNoInfo = false;
 			}
 			if( l_bNoInfo )
 			{
 				for( i = 0; i < a - 1; i+=1 )
 				{
-					lP1 = l_aPoly[ int(i) ];
+					lP1 = l_aPoly[ int( i ) ];
 					for( j = i + 1; j < a; j++ )
 					{
-						lP2 = l_aPoly[ int(j) ];
+						lP2 = l_aPoly[ int( j ) ];
 						l_aEdges = lP2.aEdges;
 						// --
 						lCount = 0;
 						// -- check if they share at least 2 vertices
+						var l_oEdge:Edge3D;
 						for( l_oEdge in lP1.aEdges )
-							if( l_aEdges.indexOf( lP1.aEdges[l_oEdge] ) > -1 ) lCount ++;
+							if( l_aEdges.indexOf( lP1.aEdges[ l_oEdge ] ) > -1 ) lCount ++;
 						// --
 						if( lCount > 0 )
 						{
@@ -196,7 +197,7 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 	public function unlink( p_oPolygon:Polygon ) : Void
 	{
 		;// to remove reference to the shapes/polygons that use this attribute
-		// TODO : can we free the memory of SHAPE_MAP ? Don't think so, and would it be really necessary? not sure either.
+		// TODO:can we free the memory of SHAPE_MAP ? Don't think so, and would it be really necessary? not sure either.
 	}
 	
 	/**
@@ -218,18 +219,18 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 		}
 		// --
 		p_oMovieClip.lineStyle( m_nThickness, m_nColor, m_nAlpha );
-		p_oMovieClip.beginFill(0);
+		p_oMovieClip.beginFill( 0 );
 		// --
 		for( l_oEdge in p_oPolygon.aEdges )
 		{
 			l_bFound = false;
-			l_oEdge = p_oPolygon.aEdges[l_oEdge];
+			l_oEdge = p_oPolygon.aEdges[ l_oEdge ];
 			// --
 			for( l_oPolygon in p_oPolygon.aNeighboors )
 			{
 				// aNeighboor not visible, does it share an edge?
 				// if so, we draw it
-				l_oPolygon = p_oPolygon.aNeighboors[l_oPolygon];
+				l_oPolygon = p_oPolygon.aNeighboors[ l_oPolygon ];
 				if( l_oPolygon.aEdges.indexOf( l_oEdge ) > -1 )
 				{
 					if( ( l_oPolygon.visible != l_bVisible ) ||
@@ -258,8 +259,8 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 	public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ) : Void
 	{
 		var g:MovieClip = p_oSprite.container; g.clear();
-		var r:Rectangle = p_oSprite.container.getBounds( p_oSprite.container );
-		g.lineStyle( m_nThickness, m_nColor, m_nAlpha ); g.drawRect( r.x, r.y, r.width, r.height );
+		var r:Object = p_oSprite.container.getBounds( p_oSprite.container );
+		g.lineStyle( m_nThickness, m_nColor, m_nAlpha ); g.drawRect( r.xMin, r.yMin, ( r.xMax - r.xMin ), ( r.yMax - r.yMin )  );
 	}
 	
 }

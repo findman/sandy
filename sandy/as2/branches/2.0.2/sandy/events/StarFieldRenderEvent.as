@@ -25,11 +25,12 @@ import sandy.core.scenegraph.StarField;
  * This class represents the type of events broadcasted by StarField objects.
  * It gives you some additional control over StarField rendering process.
  *
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version 2.0.2
  *
  * @see sandy.core.scenegraph.StarField
  */
+ 
 class sandy.events.StarFieldRenderEvent extends BubbleEvent
 {
 	

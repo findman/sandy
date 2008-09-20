@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -33,17 +33,19 @@ import sandy.core.data.Vector;
  *
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		16.03.2007
- **/
+ */
+ 
 class sandy.core.scenegraph.ATransformable extends Node
 {
+	
 	/**
 	 * Disable the local transformations applied to this Node if set to false.
 	 * They will be applied back once et back to true.
 	 */
-	public var disable:Boolean = false;
+	public var disable:Boolean;
 	
 	/**
 	 * Creates a transformable node in the object tree of the world.
@@ -55,6 +57,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	public function ATransformable ( p_sName:String )
 	{
 		super( p_sName );
+		disable = false;
 		resetCoords();
 	}
 	
@@ -66,15 +69,15 @@ class sandy.core.scenegraph.ATransformable extends Node
 		// --
 		initFrame();
 		// --
-		_p 		= new Vector();
-		_oScale = new Vector( 1, 1, 1 );
-		_vRotation = new Vector( 0,0,0 );
+		_p 		   = new Vector();
+		_oScale    = new Vector( 1, 1, 1 );
+		_vRotation = new Vector( 0, 0, 0 );
 		// --
 		_vLookatDown = new Vector( 0.00000000001, -1, 0 );// value to avoid some colinearity problems.;
 		// --
-		_nRoll 	= 0;
-		_nTilt 	= 0;
-		_nYaw  	= 0;
+		_nRoll = 0;
+		_nTilt = 0;
+		_nYaw  = 0;
 		// --
 		m_tmpMt = new Matrix4();
 		m_oMatrix = new Matrix4();
@@ -101,8 +104,8 @@ class sandy.core.scenegraph.ATransformable extends Node
 	/**
 	 * This property allows you to directly set the matrix you want to a transformable object.
 	 * But be careful with its use. It modifies the rotation AND the position.
-	 * WARNING : Please remove any scale from this matrix. This is not managed yet.
-	 * WARNING : Please think about call initFrame before changing this frame. Without calling this method first, the frame will stay local, and the transformation will be applied
+	 * WARNING:Please remove any scale from this matrix. This is not managed yet.
+	 * WARNING:Please think about call initFrame before changing this frame. Without calling this method first, the frame will stay local, and the transformation will be applied
 	 * locally.
 	 * @param p_oMatrix The new local matrix for this node
 	 */
@@ -210,7 +213,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * x scale of this object.
 	 *
 	 * <p>A value of 1 scales to the original x scale, a value of 2 doubles the x scale.<br/>
-	 * NOTE : This value does not affect the camera object.</p>
+	 * NOTE:This value does not affect the camera object.</p>
 	 */
 	public function get scaleX() : Number
 	{
@@ -230,7 +233,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * y scale of this object.
 	 *
 	 * <p>A value of 1 scales to the original y scale, a value of 2 doubles the y scale.<br/>
-	 * NOTE : This value does not affect the camera object.</p>
+	 * NOTE:This value does not affect the camera object.</p>
 	 */
 	public function get scaleY() : Number
 	{
@@ -250,7 +253,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * z scale of this object.
 	 *
 	 * <p>A value of 1 scales to the original z scale, a value of 2 doubles the z scale.<br/>
-	 * NOTE : This value does not affect the camera object.</p>
+	 * NOTE:This value does not affect the camera object.</p>
 	 */
 	public function get scaleZ() : Number
 	{
@@ -264,7 +267,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveSideways( p_nD : Number ) : Void
+	public function moveSideways( p_nD:Number ) : Void
 	{
 		changed = true;
 		_p.x += _vSide.x * p_nD;
@@ -280,7 +283,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveUpwards( p_nD : Number ) : Void
+	public function moveUpwards( p_nD:Number ) : Void
 	{
 		changed = true;
 		_p.x += _vUp.x * p_nD;
@@ -296,7 +299,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 *
 	 * @param p_nD	How far to move
 	 */
-	public function moveForward( p_nD : Number ) : Void
+	public function moveForward( p_nD:Number ) : Void
 	{
 		changed = true;
 		_p.x += _vOut.x * p_nD;
@@ -365,20 +368,20 @@ class sandy.core.scenegraph.ATransformable extends Node
 	/**
 	 * Rotate this object around the specified axis in the parent frame by the specified angle.
 	 *
-	 * <p>NOTE : The axis will be normalized automatically.</p>
+	 * <p>NOTE:The axis will be normalized automatically.</p>
 	 *
 	 * @param p_nX		The x coordinate of the axis
 	 * @param p_nY		The y coordinate of the axis
 	 * @param p_nZ		The z coordinate of the axis
 	 * @param p_nAngle	The angle of rotation in degrees.
 	 */
-	public function rotateAxis( p_nX : Number, p_nY : Number, p_nZ : Number, p_nAngle : Number ) : Void
+	public function rotateAxis( p_nX:Number, p_nY:Number, p_nZ:Number, p_nAngle:Number ) : Void
 	{
 		changed = true;
 		p_nAngle = ( p_nAngle + 360 ) % 360;
 		var n:Number = Math.sqrt( p_nX * p_nX + p_nY * p_nY + p_nZ * p_nZ );
 		// --
-		m_tmpMt.axisRotation( p_nX/n, p_nY/n, p_nZ/n, p_nAngle );
+		m_tmpMt.axisRotation( p_nX / n, p_nY / n, p_nZ / n, p_nAngle );
 		// --
 		m_tmpMt.vectorMult3x3( _vSide );
 		m_tmpMt.vectorMult3x3( _vUp );
@@ -710,6 +713,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	{
 	    	return "sandy.core.scenegraph.ATransformable";
 	}
+	
 	//
 	private var m_oMatrix:Matrix4;
 	// Side Orientation Vector
@@ -730,4 +734,5 @@ class sandy.core.scenegraph.ATransformable extends Node
 	private var _oScale:Vector;
 	private var m_tmpMt:Matrix4; // temporary transform matrix used at updateTransform
 	private var m_oPreviousOffsetRotation:Vector;
+	
 }

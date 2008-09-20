@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -14,12 +14,12 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
-import com.bourre.events.BasicEvent;
+import com.bourre.events.BubbleEvent;
 import com.bourre.events.EventBroadcaster;
 import com.bourre.events.EventType;
 
 import sandy.core.Scene3D;
-import sandy.events.BubbleEvent;
+import sandy.core.scenegraph.ATransformable;
 import sandy.core.data.Matrix4;
 import sandy.view.Frustum;
 
@@ -27,10 +27,11 @@ import sandy.view.Frustum;
  * Transform audio volume and pan relative to the Camera3D 
  * 
  * @author		Daniel Reitterer - Delta 9
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		14.12.2007
  */
+ 
 class sandy.core.scenegraph.Sound3D extends ATransformable
 {
 	
@@ -56,42 +57,42 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 	/**
 	* If pan is true the panning of the sound is relative to the camera rotation
 	 */
-	public var soundPan:Boolean = true;
+	public var soundPan:Boolean;
 		
 	/**
 	 * Maximal pan is a positive Number from 0-1 or higher
 	 */
-	public var maxPan:Number = 1;
+	public var maxPan:Number;
 		
 	/**
 	 * If the sound contains two channels, stereo have to be set to true in order to mix left and right channels correctly
 	 */
-	public var stereo:Boolean = false;
+	public var stereo:Boolean;
 		
 	/**
 	 * If flipPan is true the left and right channels of the sound are mirrored if the camera is facing away from the sound
 	 */
-	public var flipPan:Boolean = true;
+	public var flipPan:Boolean;
 		
 	/**
 	 * Type is either SPEECH or NOISE, SPEECH will start the sound at the last position if the camera enters the sphere of the sound
 	 */
-	public var type:String = SPEECH;
+	public var type:String;
 		
 	/**
 	 * The start time to play the audio from
 	 */
-	public var startTime:Number = 0;
+	public var startTime:Number;
 		
 	/**
 	 * Number of loops before the sound stops
 	 */
-	public var loops:Number = 0xffffff;
+	public var loops:Number;
 		
 	/**
 	 * Start time to play the audio from if the sound loops
 	 */
-	public var loopStartTime:Number = 0;
+	public var loopStartTime:Number;
 	
 	/**
 	 * Returns true if the stereo panorama is mirrored, flipPan have to be true to enable stereo flipping
@@ -105,7 +106,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 	private var _isPlaying:Boolean = false;
 	private var soundCulled:Boolean = false;
 	private var sMode:String = ""; // sound, channel or url
-	private var urlReq:LoadVars;
+	private var urlReq:String;
 	//private var channelRef:SoundChannel;  Flash 8 has no SoundChannel class
 	private var soundRef:Sound;
 	private var lastPosition:Number = 0;
@@ -131,13 +132,22 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 	{
 		super( p_sName||"" );
 		
+		soundPan = true;
+		maxPan = 1;
+		stereo = false;
+		flipPan = true;
+		type = SPEECH;
+		startTime = 0;
+		loops = 0xffffff;
+		loopStartTime = 0;
+		
 		soundVolume = p_nVolume||1;
 		soundRadius = p_nRadius||1;
 		soundSource = p_oSoundSource;
 		stereo = p_bStereo||false;
 		p_nMaxPan = p_nMaxPan||0;
 		
-		if(p_nMaxPan == 0) 
+		if( p_nMaxPan == 0 ) 
 		{
 			soundPan = false;
 		}
@@ -200,7 +210,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		{
 			sMode = "sound";
 			soundRef = Sound( s );
-			if( soundRef.length > 0 ) duration = soundRef.length;
+			if( soundRef.duration > 0 ) duration = soundRef.duration;
 		}
 		else if( s instanceof String ) 
 		{
@@ -222,7 +232,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		return soundRef;
 	}
 	
-	public function get soundMode () : String 
+	public function get soundMode() : String 
 	{
 		return sMode;
 	}
@@ -238,8 +248,8 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		
 		if( dist <= 0.001 ) 
 		{
-			m_oSoundTransform.volume = soundVolume;
-			m_oSoundTransform.pan = 0;
+			soundRef.setVolume( soundVolume );
+			soundRef.setPan( 0 );
 			soundCulled = false;
 		}
 		else if( dist <= soundRadius ) 
@@ -261,8 +271,8 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		{
 			if( !soundCulled ) 
 			{
-				m_oSoundTransform.setVolume( 0 );
-				m_oSoundTransform.setPan( 0 );
+				soundRef.setVolume( 0 );
+				soundRef.setPan( 0 );
 				soundCulled = true;
 			}
 		}
@@ -281,7 +291,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 			lastPosition = loopStartTime;
 			lastStopTime = getTimer();
 			cPlay();
-			m_oEB.broadcastEvent( new BasicEvent( LOOP, this ) );
+			m_oEB.broadcastEvent( new BubbleEvent( LOOP, this ) );
 		}
 		else
 		{
@@ -342,11 +352,11 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 						time = fn - f == 0 ? len : time - ( len * f );
 					}
 				}
-				soundRef.play( time, 0 );
+				soundRef.start( time, 0 );
 			}
 			else
 			{
-				soundRef.play( startTime, 0 );
+				soundRef.start( startTime, 0 );
 			}
 		}
 	}
@@ -356,13 +366,11 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		if( cPlaying ) 
 		{
 			cPlaying = false;
-			if( channelRef != null ) 
-			{
-				lastPosition = soundRef.position;
-				lastStopTime = getTimer();
-				soundRef.stop();
-				soundRef.onSoundComplete = null;
-			}
+			
+			lastPosition = soundRef.position;
+			lastStopTime = getTimer();
+			soundRef.stop();
+			soundRef.onSoundComplete = null;
 		}
 	}
 	
@@ -374,14 +382,14 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 			
 			var isUrl:Boolean = sMode == "url";
 			
-			if( isUrl || sMode == "sound" ) 
+			if( isUrl||sMode == "sound" ) 
 			{
 				if( !soundCulled ) 
 				{
 					if( !cPlaying ) 
 					{
 						cPlay( isUrl );
-						m_oEB.broadcastEvent( new BasicEvent( CULL_PLAY, this ) );
+						m_oEB.broadcastEvent( new BubbleEvent( CULL_PLAY, this ) );
 					}
 				}
 				else
@@ -389,7 +397,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 					if( cPlaying ) 
 					{
 						cStop( isUrl );
-						m_oEB.broadcastEvent( new BasicEvent( CULL_STOP, this ) );
+						m_oEB.broadcastEvent( new BubbleEvent( CULL_STOP, this ) );
 					}
 				}
 			}
@@ -397,8 +405,7 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 		}
 	}
 	
-	
-	public function toString () : String 
+	public function toString() : String 
 	{
 		return "sandy.core.scenegraph.Sound3D";
 	}

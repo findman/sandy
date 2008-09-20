@@ -21,11 +21,12 @@ import com.bourre.events.BubbleEvent;
  * Contains custom Sandy events.
  *
  * @author	Dennis Ippel
- * @author  (porting) Floris - FFlasher
+ * @author  (porting) Floris - xdevltd
  * @version	2.0.2
  *
  * @see BubbleEventBroadcaster
  */
+ 
 class sandy.events.SandyEvent extends BubbleEvent 
 {
 	
@@ -104,7 +105,7 @@ class sandy.events.SandyEvent extends BubbleEvent
 
     /**
 	 * Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
-     * Uneeded? Also in QueueEvent class...
+     * Deprecated, use QueueEvent.QUEUE_COMPLETE instead.
      *
      * @eventType queueComplete
      *
@@ -114,7 +115,7 @@ class sandy.events.SandyEvent extends BubbleEvent
 
     /**
 	 * Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
-     * Uneeded? Also in QueueEvent class...
+     * Deprecated, use QueueEvent.QUEUE_LOADER_ERROR instead.
      *
      * @eventType queueLoaderError
      *

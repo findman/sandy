@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -28,7 +28,7 @@ import sandy.materials.attributes.ALightAttributes;
  * This attributes contains some parameters</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
@@ -38,14 +38,14 @@ class sandy.materials.attributes.LightAttributes extends ALightAttributes
 		
 	/**
 	 * Flag for lighting mode.
-	 * <p>If true, the lit objects use full light range from black to white. If false (the default) they range from black to their normal appearance.</p>
+	 * <p>If true, the lit objects use full light range from black to white. If false ( the default ) they range from black to their normal appearance.</p>
 	 */
-	public var useBright:Boolean = false;
+	public var useBright:Boolean;
 		
 	/**
 	 * Creates a new LightAttributes object.
 	 *
-	 * @param p_bBright		The brightness (value for useBright).
+	 * @param p_bBright		The brightness ( value for useBright ).
 	 * @param p_nAmbient	The ambient light value. A value between O and 1 is expected.
 	 */
 	public function LightAttributes( p_bBright:Boolean, p_nAmbient:Number )
@@ -75,10 +75,11 @@ class sandy.materials.attributes.LightAttributes extends ALightAttributes
 			else 
 				p_oMovieClip.beginFill( 0, 1 - lightStrength );
 			// --
-			p_oMovieClip.moveTo( Vertex( l_aPoints[0] ).sx, Vertex( l_aPoints[0] ).sy );
+			p_oMovieClip.moveTo( Vertex( l_aPoints[ 0 ] ).sx, Vertex( l_aPoints[ 0 ] ).sy );
+			var l_oVertex:Vertex;
 			for( l_oVertex in l_aPoints )
 			{
-				p_oMovieClip.lineTo( l_aPoints[l_oVertex].sx, l_aPoints[l_oVertex].sy );
+				p_oMovieClip.lineTo( l_aPoints[ l_oVertex ].sx, l_aPoints[ l_oVertex ].sy );
 			}
 			p_oMovieClip.endFill();
 			// --

@@ -21,44 +21,56 @@ import sandy.math.Matrix4Math;
 import sandy.math.VectorMath;
 
 /**
-* The BSphere class is used to quickly and easily clip an object in a 3D scene.
-* <p>It creates a bounding sphere that contains the whole object</p>
-* 
-* @example 	This example is taken from the Shape3D class. It is used in
-* 				the <code>updateBoundingVolumes()</code> method:
-*
-* <listing version="3.0">
-*     _oBSphere = BSphere.create( m_oGeometry.aVertex );
-*  </listing>
-*
-* @author		Thomas Pfeiffer - kiroukou
-* @author		(porting) Floris - FFlasher
-* @version		2.0.2
-* @date 		22.03.2006
-*/
+ * The BSphere class is used to quickly and easily clip an object in a 3D scene.
+ * <p>It creates a bounding sphere that contains the whole object</p>
+ * 
+ * @example 	This example is taken from the Shape3D class. It is used in
+ * 				the <code>updateBoundingVolumes()</code> method:
+ * 
+ * <listing version="3.0">
+ *     _oBSphere = BSphere.create( m_oGeometry.aVertex );
+ *  </listing>
+ *
+ * @author		Thomas Pfeiffer - kiroukou
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
+ * @date 		22.03.2006
+ */
 
 class sandy.bounds.BSphere
 {
+	
 	/**
 	 * Specifies if this object's boundaries are up to date with the object it is enclosing.
 	 * If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
 	 */
-	public var uptodate:Boolean = false;
+	public var uptodate:Boolean;
 	
 	/**
 	 * A Vector representing the center of the bounding sphere.
 	 */
 		
-	public var center:Vector ;
+	public var center:Vector;
 			
 	/**
 	 * The radius of the bounding sphere.
 	 */
-	public var radius:Number = 1;
+	public var radius:Number;
 	
 	// -----------------------------
 	//    [TRANSFORMED]  -----------
 	public var position:Vector;
+	
+	/**
+	 * <p>Creates a new BSphere instance.</p>
+	 */ 	
+	public function BSphere()
+	{
+		uptodate = false;
+		radius = 1;
+		center = new Vector();
+		position = new Vector();		
+	}
 		
 	/**
 	 * Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.
@@ -99,15 +111,6 @@ class sandy.bounds.BSphere
 	    l_sphere.compute( p_aVertices );
 		return l_sphere;
 	}
-				
-	/**
-	 * <p>Creates a new BSphere instance.</p>
-	 */ 	
-	public function BSphere()
-	{
-		center = new Vector();
-		position = new Vector();		
-	}
 		
 	/**
      * Applies a transformation to the bounding sphere.
@@ -142,8 +145,8 @@ class sandy.bounds.BSphere
 	{
 		if( p_aVertices.length == 0 ) return;
 		var x:Number, y:Number, z:Number, d:Number, i:Number = 0, j:Number = 0, l:Number = p_aVertices.length;
-		var p1:Vertex = p_aVertices[0].clone();
-		var p2:Vertex = p_aVertices[0].clone();
+		var p1:Vertex = p_aVertices[ 0 ].clone();
+		var p2:Vertex = p_aVertices[ 0 ].clone();
 		// find the farthest couple of points
 		var dmax:Number = 0;			
 		var pA:Vertex, pB:Vertex;
@@ -235,4 +238,5 @@ class sandy.bounds.BSphere
 		}
 		return Math.sqrt( dmax );
 	}
+	
 }

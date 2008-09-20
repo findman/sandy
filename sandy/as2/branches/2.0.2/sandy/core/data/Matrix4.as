@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -22,7 +22,7 @@ import sandy.util.NumberUtil;
  * A 4x4 matrix for transformations in 3D space.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		24.08.2007
@@ -30,6 +30,7 @@ import sandy.util.NumberUtil;
  
 class sandy.core.data.Matrix4 
 {
+	
 	/**
      * Specifies whether fast math should be used.
 	 */
@@ -246,7 +247,7 @@ class sandy.core.data.Matrix4
 	 * </pre>
 	 *
 	 * <listing version="3.0">
-	 * var m:Matrix4 = new Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+	 * var m:Matrix4 = new Matrix4( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 );
 	 * </listing>
 	 *
 	 * <pre>
@@ -323,10 +324,10 @@ class sandy.core.data.Matrix4
 	 */
 	public function identity() : Void
 	{
-		n11 = 1 ; n12 = 0 ; n13 = 0 ; n14 = 0;
-		n21 = 0 ; n22 = 1 ; n23 = 0 ; n24 = 0;
-		n31 = 0 ; n32 = 0 ; n33 = 1 ; n34 = 0;
-		n41 = 0 ; n42 = 0 ; n43 = 0 ; n44 = 1;
+		n11 = 1; n12 = 0; n13 = 0; n14 = 0;
+		n21 = 0; n22 = 1; n23 = 0; n24 = 0;
+		n31 = 0; n32 = 0; n33 = 1; n34 = 0;
+		n41 = 0; n42 = 0; n43 = 0; n44 = 1;
 	}
 
 	
@@ -337,10 +338,10 @@ class sandy.core.data.Matrix4
 	 */	
 	public function clone() : Matrix4
 	{
-		return new Matrix4(	n11,n12,n13,n14,
-                            n21,n22,n23,n24,
-							n31,n32,n33,n34,
-							n41,n42,n43,n44 );
+		return new Matrix4( n11, n12, n13, n14,
+                            n21, n22, n23, n24,
+							n31, n32, n33, n34,
+							n41, n42, n43, n44 );
 	}
 
 	/**
@@ -352,10 +353,10 @@ class sandy.core.data.Matrix4
 	 */
 	public function copy( m:Matrix4 ) : Void
 	{
-		n11 = m.n11 ; n12 = m.n12 ; n13 = m.n13 ; n14 = m.n14 ;
-		n21 = m.n21 ; n22 = m.n22 ; n23 = m.n23 ; n24 = m.n24 ;
-		n31 = m.n31 ; n32 = m.n32 ; n33 = m.n33 ; n34 = m.n34 ;
-		n41 = m.n41 ; n42 = m.n42 ; n43 = m.n43 ; n44 = m.n44 ;
+		n11 = m.n11; n12 = m.n12; n13 = m.n13; n14 = m.n14;
+		n21 = m.n21; n22 = m.n22; n23 = m.n23; n24 = m.n24;
+		n31 = m.n31; n32 = m.n32; n33 = m.n33; n34 = m.n34;
+		n41 = m.n41; n42 = m.n42; n43 = m.n43; n44 = m.n44;
 	}
 
 	/**
@@ -480,7 +481,7 @@ class sandy.core.data.Matrix4
 	 *
 	 * @param m2	The matrix to add to this matrix.
 	 */
-	public function addMatrix( m2:Matrix4 ): Void
+	public function addMatrix( m2:Matrix4 ) :  Void
 	{
 		n11 += m2.n11; 
 		n12 += m2.n12; 
@@ -550,11 +551,11 @@ class sandy.core.data.Matrix4
 	 * 
 	 * @param angle	The angle of rotation around the y axis in degrees.
 	 */
-	public function rotationY( angle:Number ): Void
+	public function rotationY( angle:Number ) :  Void
 	{
 		identity();
 		//
-		angle = NumberUtil.toRadian(angle);
+		angle = NumberUtil.toRadian( angle );
 		var c:Number = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
 		var s:Number = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
 		// --
@@ -573,7 +574,7 @@ class sandy.core.data.Matrix4
 	{
 		identity();
 		//
-		angle = NumberUtil.toRadian(angle);
+		angle = NumberUtil.toRadian( angle );
 		var c:Number = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
 		var s:Number = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
 		// --
@@ -692,9 +693,9 @@ class sandy.core.data.Matrix4
 	*/
 	public function det() : Number
 	{
-		return		( n11 * n22 - n21 * n12 ) * ( n33 * n44 - n43 * n34 )- ( n11 * n32 - n31 * n12 ) * ( n23 * n44 - n43 * n24 )
-				 + 	( n11 * n42 - n41 * n12 ) * ( n23 * n34 - n33 * n24 )+ ( n21 * n32 - n31 * n22 ) * ( n13 * n44 - n43 * n14 )
-				 - 	( n21 * n42 - n41 * n22 ) * ( n13 * n34 - n33 * n14 )+ ( n31 * n42 - n41 * n32 ) * ( n13 * n24 - n23 * n14 );
+		return		( n11 * n22 - n21 * n12 ) * ( n33 * n44 - n43 * n34 ) - ( n11 * n32 - n31 * n12 ) * ( n23 * n44 - n43 * n24 )
+				 + 	( n11 * n42 - n41 * n12 ) * ( n23 * n34 - n33 * n24 ) + ( n21 * n32 - n31 * n22 ) * ( n13 * n44 - n43 * n14 )
+				 - 	( n21 * n42 - n41 * n22 ) * ( n13 * n34 - n33 * n14 ) + ( n31 * n42 - n41 * n32 ) * ( n13 * n24 - n23 * n14 );
 	}
 
 	/**
@@ -728,8 +729,7 @@ class sandy.core.data.Matrix4
 		var d:Number = det();
 		if( Math.abs( d ) < 0.001 )
 		{
-			trace ( "Warning: cannot invert a matrix with a null determinant" );
-			throw "cannot invert a matrix with a null determinant";
+			throw new Error( "Warning: cannot invert a matrix with a null determinant." );
 			return;
 		}
 
@@ -740,28 +740,28 @@ class sandy.core.data.Matrix4
 				m13:Number = n13, m23:Number = n23, m33:Number = n33, m43:Number = n43,
 				m14:Number = n14, m24:Number = n24, m34:Number = n34, m44:Number = n44;
 			
-		n11 = d * ( m22*(m33*m44 - m43*m34 ) - m32*( m23*m44 - m43*m24 ) + m42*( m23*m34 - m33*m24 ) );
-		n12 = -d* ( m12*(m33*m44 - m43*m34 ) - m32*( m13*m44 - m43*m14 ) + m42*( m13*m34 - m33*m14 ) );
-		n13 = d * ( m12*(m23*m44 - m43*m24 ) - m22*( m13*m44 - m43*m14 ) + m42*( m13*m24 - m23*m14 ) );
-		n14 = -d* ( m12*(m23*m34 - m33*m24 ) - m22*( m13*m34 - m33*m14 ) + m32*( m13*m24 - m23*m14 ) );
-		n21 = -d* ( m21*(m33*m44 - m43*m34 ) - m31*( m23*m44 - m43*m24 ) + m41*( m23*m34 - m33*m24 ) );
-		n22 = d * ( m11*(m33*m44 - m43*m34 ) - m31*( m13*m44 - m43*m14 ) + m41*( m13*m34 - m33*m14 ) );
-		n23 = -d* ( m11*(m23*m44 - m43*m24 ) - m21*( m13*m44 - m43*m14 ) + m41*( m13*m24 - m23*m14 ) );
-		n24 = d * ( m11*(m23*m34 - m33*m24 ) - m21*( m13*m34 - m33*m14 ) + m31*( m13*m24 - m23*m14 ) );
-		n31 = d * ( m21*(m32*m44 - m42*m34 ) - m31*( m22*m44 - m42*m24 ) + m41*( m22*m34 - m32*m24 ) );
-		n32 = -d* ( m11*(m32*m44 - m42*m34 ) - m31*( m12*m44 - m42*m14 ) + m41*( m12*m34 - m32*m14 ) );
-		n33 = d * ( m11*(m22*m44 - m42*m24 ) - m21*( m12*m44 - m42*m14 ) + m41*( m12*m24 - m22*m14 ) );
-		n34 = -d* ( m11*(m22*m34 - m32*m24 ) - m21*( m12*m34 - m32*m14 ) + m31*( m12*m24 - m22*m14 ) );
-		n41 = -d* ( m21*(m32*m43 - m42*m33 ) - m31*( m22*m43 - m42*m23 ) + m41*( m22*m33 - m32*m23 ) );
-		n42 = d * ( m11*(m32*m43 - m42*m33 ) - m31*( m12*m43 - m42*m13 ) + m41*( m12*m33 - m32*m13 ) );
-		n43 = -d* ( m11*(m22*m43 - m42*m23 ) - m21*( m12*m43 - m42*m13 ) + m41*( m12*m23 - m22*m13 ) );
-		n44 = d * ( m11*(m22*m33 - m32*m23 ) - m21*( m12*m33 - m32*m13 ) + m31*( m12*m23 - m22*m13 ) );
+		n11 =  d * ( m22 * ( m33 * m44 - m43 * m34 ) - m32 * ( m23 * m44 - m43 * m24 ) + m42 * ( m23 * m34 - m33 * m24 ) );
+		n12 = -d * ( m12 * ( m33 * m44 - m43 * m34 ) - m32 * ( m13 * m44 - m43 * m14 ) + m42 * ( m13 * m34 - m33 * m14 ) );
+		n13 =  d * ( m12 * ( m23 * m44 - m43 * m24 ) - m22 * ( m13 * m44 - m43 * m14 ) + m42 * ( m13 * m24 - m23 * m14 ) );
+		n14 = -d * ( m12 * ( m23 * m34 - m33 * m24 ) - m22 * ( m13 * m34 - m33 * m14 ) + m32 * ( m13 * m24 - m23 * m14 ) );
+		n21 = -d * ( m21 * ( m33 * m44 - m43 * m34 ) - m31 * ( m23 * m44 - m43 * m24 ) + m41 * ( m23 * m34 - m33 * m24 ) );
+		n22 =  d * ( m11 * ( m33 * m44 - m43 * m34 ) - m31 * ( m13 * m44 - m43 * m14 ) + m41 * ( m13 * m34 - m33 * m14 ) );
+		n23 = -d * ( m11 * ( m23 * m44 - m43 * m24 ) - m21 * ( m13 * m44 - m43 * m14 ) + m41 * ( m13 * m24 - m23 * m14 ) );
+		n24 =  d * ( m11 * ( m23 * m34 - m33 * m24 ) - m21 * ( m13 * m34 - m33 * m14 ) + m31 * ( m13 * m24 - m23 * m14 ) );
+		n31 =  d * ( m21 * ( m32 * m44 - m42 * m34 ) - m31 * ( m22 * m44 - m42 * m24 ) + m41 * ( m22 * m34 - m32 * m24 ) );
+		n32 = -d * ( m11 * ( m32 * m44 - m42 * m34 ) - m31 * ( m12 * m44 - m42 * m14 ) + m41 * ( m12 * m34 - m32 * m14 ) );
+		n33 =  d * ( m11 * ( m22 * m44 - m42 * m24 ) - m21 * ( m12 * m44 - m42 * m14 ) + m41 * ( m12 * m24 - m22 * m14 ) );
+		n34 = -d * ( m11 * ( m22 * m34 - m32 * m24 ) - m21 * ( m12 * m34 - m32 * m14 ) + m31 * ( m12 * m24 - m22 * m14 ) );
+		n41 = -d * ( m21 * ( m32 * m43 - m42 * m33 ) - m31 * ( m22 * m43 - m42 * m23 ) + m41 * ( m22 * m33 - m32 * m23 ) );
+		n42 =  d * ( m11 * ( m32 * m43 - m42 * m33 ) - m31 * ( m12 * m43 - m42 * m13 ) + m41 * ( m12 * m33 - m32 * m13 ) );
+		n43 = -d * ( m11 * ( m22 * m43 - m42 * m23 ) - m21 * ( m12 * m43 - m42 * m13 ) + m41 * ( m12 * m23 - m22 * m13 ) );
+		n44 =  d * ( m11 * ( m22 * m33 - m32 * m23 ) - m21 * ( m12 * m33 - m32 * m13 ) + m31 * ( m12 * m23 - m22 * m13 ) );
 	}
 
 	/**
 	 * Realize a rotation around a specific axis through a specified point.
 	 *
-	 * <p>A rotation by a specified angle around a specified axis through a specific position (the reference point),
+	 * <p>A rotation by a specified angle around a specified axis through a specific position ( the reference point ),
 	 * is applied to this matrix.</p>
 	 *
 	 * @param pAxis 	A vector representing the axis of the rotation.
@@ -785,13 +785,13 @@ class sandy.core.data.Matrix4
 	 *
 	 * @return	The fully qualified name of this object.
 	 */
-	public function toString(): String
+	public function toString() :  String
 	{
-		var s:String =  "sandy.core.data.Matrix4" + "\n (";
-		s += n11+"\t"+n12+"\t"+n13+"\t"+n14+"\n";
-		s += n21+"\t"+n22+"\t"+n23+"\t"+n24+"\n";
-		s += n31+"\t"+n32+"\t"+n33+"\t"+n34+"\n";
-		s += n41+"\t"+n42+"\t"+n43+"\t"+n44+"\n)";
+		var s:String =  "sandy.core.data.Matrix4" + "\n ( ";
+		s += n11 + "\t" + n12 + "\t" + n13 + "\t" + n14 + "\n";
+		s += n21 + "\t" + n22 + "\t" + n23 + "\t" + n24 + "\n";
+		s += n31 + "\t" + n32 + "\t" + n33 + "\t" + n34 + "\n";
+		s += n41 + "\t" + n42 + "\t" + n43 + "\t" + n44 + "\n )";
 		return s;
 	}
 		
@@ -823,27 +823,26 @@ class sandy.core.data.Matrix4
 		var s:Number = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
 		var scos:Number	= 1 - c ;
 		// --
-		var suv	:Number = u * v * scos ;
-		var svw	:Number = v * w * scos ;
-		var suw	:Number = u * w * scos ;
-		var sw	:Number = s * w ;
-		var sv	:Number = s * v ;
-		var su	:Number = s * u ;
+		var suv:Number = u * v * scos;
+		var svw:Number = v * w * scos;
+		var suw:Number = u * w * scos;
+		var sw:Number  = s * w		 ;
+		var sv:Number  = s * v		 ;
+		var su:Number  = s * u 		 ;
 			
-		n11  =   c + u * u * scos	;
-		n12  = - sw 	+ suv 			;
-		n13  =   sv 	+ suw			;
+		n11  =  c + u * u * scos;
+		n12  = -sw + suv 	 	;
+		n13  =  sv + suw	 	;
 
-		n21  =   sw 	+ suv 			;
-		n22  =   c + v * v * scos 	;
-		n23  = - su 	+ svw			;
+		n21  =  sw + suv 	 	;
+		n22  =  c + v * v * scos;
+		n23  = -su + svw	 	;
 	
-		n31  = - sv	+ suw 			;
-		n32  =   su	+ svw 			;
-		n33  =   c	+ w * w * scos	;
+		n31  = -sv + suw 		;
+		n32  =  su + svw 		;
+		n33  =  c + w * w * scos;
 	}
 		
-		 
 	/**
 	 * Computes a rotation from the Euler angle in degrees.
 	 *
@@ -854,10 +853,10 @@ class sandy.core.data.Matrix4
 	public function eulerRotation( ax:Number, ay:Number, az:Number ) : Void
 	{
 		identity();
-		//
-		ax = NumberUtil.toRadian( ax );
-		ay = NumberUtil.toRadian( ay );
-		az = NumberUtil.toRadian( az );
+		// signs are changed due to left coordinate system
+		ax = -NumberUtil.toRadian( ax );
+		ay =  NumberUtil.toRadian( ay );
+		az = -NumberUtil.toRadian( az );
 		// --
 		var a:Number = ( USE_FAST_MATH == false ) ? Math.cos( ax ) : FastMath.cos( ax );
 		var b:Number = ( USE_FAST_MATH == false ) ? Math.sin( ax ) : FastMath.sin( ax );
@@ -865,61 +864,132 @@ class sandy.core.data.Matrix4
 		var d:Number = ( USE_FAST_MATH == false ) ? Math.sin( ay ) : FastMath.sin( ay );
 		var e:Number = ( USE_FAST_MATH == false ) ? Math.cos( az ) : FastMath.cos( az );
 		var f:Number = ( USE_FAST_MATH == false ) ? Math.sin( az ) : FastMath.sin( az );
-		var ad:Number = a * d	;
-		var bd:Number = b * d	;
-		//
-		n11 =   c  * e         ;
-		n12 = - c  * f         ;
-		n13 = - d              ;
-		n21 = - bd * e + a * f ;
-		n22 = - bd * f + a * e ;
-		n23 = - b  * c 	 ;
-		n31 =   ad * e + b * f ;
-		n32 = - ad * f + b * e ;
-		n33 =   a  * c         ;
+		var ad:Number = a * d;
+		var bd:Number = b * d;
+		// signs are changed to match formulas 46 to 54 at http://mathworld.wolfram.com/EulerAngles.html
+		n11 =   c  * e        ;
+		n12 =   c  * f        ;
+		n13 = - d             ;
+		n21 =   bd * e - a * f;
+		n22 =   bd * f + a * e;
+		n23 =   b  * c 	 	  ;
+		n31 =   ad * e + b * f;
+		n32 =   ad * f - b * e;
+		n33 =   a  * c        ;
 	}
 	
 	/**
 	 * Get the Euler angles from the rotation matrix.
 	 *
-	 * @param t The Matrix4 instance from which to extract these angles.
-	 * 
 	 * @return A vector representing the Euler angles.
 	 */
-	public static function getEulerAngles( t:Matrix4 ) : Vector
+	public function getEulerAngles() : Vector
 	{
-		var lAngleY:Number = Math.asin( t.n13 );
-		var lCos:Number = Math.cos( lAngleY );
-		
-		//lAngleY *= NumberUtil.TO_DEGREE;
-		var lTrx:Number, lTry:Number, lAngleX:Number, lAngleZ:Number;
-		
-		if( Math.abs( lCos ) > 0.005 )
+		// is there any point in NumberUtil.TO_DEGREE ?
+		var lToDegree:Number = 57.295779513;
+
+		// we cannot know real sign of lAngleY from n13 alone
+		var lAngleY:Number = Math.asin( -this.n13 ) * lToDegree;
+
+		var lAngleX:Number, lAngleZ:Number;
+
+		if( !NumberUtil.isZero( Math.abs( this.n13 ) - 1 ) )
 		{
-			lTrx = t.n33 / lCos;
-			lTry = -t.n22 / lCos;
-			lAngleX = Math.atan2( lTry, lTrx );
-			// --
-			lTrx = t.n11 / lCos;
-			lTry = -t.n12 / lCos;
-			lAngleZ = Math.atan2( lTry, lTrx );
+			lAngleX = -Math.atan2( this.n23, this.n33 ) * lToDegree;
+			lAngleZ = -Math.atan2( this.n12, this.n11 ) * lToDegree;
 		}
 		else
 		{
 			lAngleX = 0;
-			lTrx = t.n22;
-			lTry = t.n21;
-			lAngleZ = Math.atan2( lTry, lTrx );
+			lAngleZ = Math.atan2( -this.n21, this.n22 );
 		}
-		
-		//lAngleX *= NumberUtil.TO_DEGREE;
-		//lAngleZ *= NumberUtil.TO_DEGREE;
-		
+			
 		if( lAngleX < 0 ) lAngleX += 360;
 		if( lAngleY < 0 ) lAngleY += 360;
 		if( lAngleZ < 0 ) lAngleZ += 360;
-			
+		
 		return new Vector( lAngleX, lAngleY, lAngleZ );
+	}
+	
+	private function _givensRotation( a:Number, b:Number ) : Vector
+	{
+		// zeroes element corresponding to b
+		// per http://en.wikipedia.org/wiki/Givens_rotation#Stable_calculation
+		var s:Number, c:Number, r:Number, t:Number, u:Number;
+		if( b == 0 )
+		{
+			c = ( a > 0 ) ? 1 : -1; s = 0; r = Math.abs( a );
+		} 
+		else if( a == 0 ) 
+		{
+			c = 0; s = ( b > 0 ) ? 1 : -1; r < Math.abs( b );
+		} 
+		else if( Math.abs( b ) > Math.abs( a ) )
+		{
+			t = a / b; u = Math.sqrt( 1 + t * t ) * ( ( b > 0 ) ? 1 : -1 );
+			s = 1 / u; c = s * t; r = b * u;
+		}
+		else 
+		{
+			t = b / a; u = Math.sqrt( 1 + t * t ) * ( ( a > 0 ) ? 1 : -1 );
+			c = 1 / u; s = c * t; r = a * u;
+		}
+		return new Vector( s, c, r );
+	}
+
+	/**
+	 * Get the Euler angles from any matrix. This method performs QR decomposition of the matrix
+	 * in order to extract rotation information. For best performance, use getEulerAngles method
+	 * for rotation matrices.
+	 *
+	 * @return A vector representing the Euler angles.
+	 */ 
+	/* --- Removed until the bugs are removed.
+	
+	public function getEulerAnglesQR() : Vector
+	{
+		// QR decomposition using Givens rotations: we compute Q^T = G3 * G2 * G1
+		// this means, I think, that Q = G1^T * G2^T * G3^T, and Givens to Euler
+		// correspondence is ax: G1^T, ay: G2^T, az: G3^T
+		var ax:Number, ay:Number, az:Number, s:Number, c:Number, v:Vector;
+
+		// G1: http://mathworld.wolfram.com/EulerAngles.html eq. 45
+		v = _givensRotation( n22, n32 );
+		s = v.x; c = v.y; ax = -Math.atan2( s, c );
+		var G1:Matrix4 = new Matrix4();
+		G1.n22 =  c; G1.n23 = s;
+		G1.n32 = -s; G1.n33 = c;
+		G1.multiply( this ); // G1 <- G1 * A
+
+		// G2: http://mathworld.wolfram.com/EulerAngles.html eq. 44, changed to get stable Y
+		v = _givensRotation( G1.n11, G1.n31 );
+		s = v.x; c = v.y; ay = +Math.atan2( s, c );
+		var G2:Matrix4 = new Matrix4();
+		G2.n11 =  c; G2.n13 = +s;
+		G2.n31 = -s; G2.n33 =  c;
+		G2.multiply( G1 ); // G2 <- G2 * G1 * A
+
+		// G3: http://mathworld.wolfram.com/EulerAngles.html eq. 43
+		v = _givensRotation( G2.n11, G2.n21 );
+		s = v.x; c = v.y; az = -Math.atan2( s, c );
+		var G3:Matrix4 = new Matrix4();
+		G3.n11 =  c; G3.n12 = s;
+		G3.n21 = -s; G3.n22 = c;
+		G3.multiply( G2 ); // G3 <- G3 * G2 * G1 * A, residual matrix R
+		trace( G3 );
+		G1 = null; G2 = null; G3 = null;
+
+		// is there any point in NumberUtil.TO_DEGREE ?
+		var lToDegree:Number = 57.295779513;
+		ax *= -lToDegree;
+		ay *=  lToDegree;
+		az *= -lToDegree;
+
+		if( ax < 0 ) ax += 360;
+		if( ay < 0 ) ay += 360;
+		if( az < 0 ) az += 360;
+			
+		return new Vector( ax, ay, az );
 	}
 	
 	/**
@@ -946,18 +1016,18 @@ class sandy.core.data.Matrix4
 	 */
 	public static function deserialize( convertFrom:String ) : Matrix4
 	{
-		//trace ("Matrix4.Deserialize convertFrom " + convertFrom);
+		//trace ( "Matrix4.Deserialize convertFrom " + convertFrom );
 				
 		var tmp:Array = convertFrom.split( "," );
-		if ( tmp.length != 16 ) {
+		if( tmp.length != 16 ) {
 			trace ( "Unexpected length of string to deserialize into a matrix4 " + convertFrom );
 		}
-		for ( var i:Number = 0; i < tmp.length; i++ ) {
-			tmp[i] = Number( tmp[i] );
+		for( var i:Number = 0; i < tmp.length; i++ ) {
+			tmp[ i ] = Number( tmp[ i ] );
 		}
-		var temp2:Matrix4 = new Matrix4 ( tmp[0], tmp[1], tmp[2], tmp[3], tmp[4], tmp[5], tmp[6], tmp[7],
-										  tmp[8], tmp[9], tmp[10], tmp[11], tmp[12], tmp[13], tmp[14], tmp[15] );
-		//trace ("temp2 in Matrix4.deserialize is " + temp2);
+		var temp2:Matrix4 = new Matrix4 ( tmp[ 0 ], tmp[ 1 ], tmp[ 2 ], tmp[ 3 ], tmp[ 4 ], tmp[ 5 ], tmp[ 6 ], tmp[ 7 ],
+										  tmp[ 8 ], tmp[ 9 ], tmp[ 10 ], tmp[ 11 ], tmp[ 12 ], tmp[ 13 ], tmp[ 14 ], tmp[ 15 ] );
+		//trace ( "temp2 in Matrix4.deserialize is " + temp2 );
 		return temp2;
 	}
 		

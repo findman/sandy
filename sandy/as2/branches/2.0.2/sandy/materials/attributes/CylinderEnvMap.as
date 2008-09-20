@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -35,7 +35,7 @@ import sandy.util.NumberUtil;
  * Applies cylindric environment map.
  *
  * @author		makc
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  */
 	 
@@ -51,7 +51,7 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 	 * Non-zero value adds sphere normals to actual normals for mapping.
 	 * Use this with flat surfaces or cylinders.
 	 */
-	public var spherize:Number = 0;
+	public var spherize:Number;
 
 	/**
 	 * Create the CylinderEnvMap object.
@@ -60,6 +60,8 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 	 */
 	public function CylinderEnvMap( p_oBitmapMaterial:BitmapMaterial )
 	{
+		spherize = 0;
+		
 		mapMaterial = p_oBitmapMaterial; mapMaterial.forceUpdate = true;
 
 		m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
@@ -67,8 +69,8 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 		// -- define some vars
 		matrix = new Matrix();
 		matrix2 = new Matrix();
-		aN  = [ new Vector (), new Vector (), new Vector () ];
-		aNP = [ new Point (), new Point (), new Point () ];
+		aN  = [ new Vector(), new Vector(), new Vector() ];
+		aNP = [ new Point(), new Point(), new Point() ];
 	}
 
 	/**
@@ -84,30 +86,30 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 		// get vertices and prepare matrix2
 		m_aPoints = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices;
 
-		l_oVertex = m_aPoints[0];
+		l_oVertex = m_aPoints[ 0 ];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
 			
-		l_oVertex = m_aPoints[1];
+		l_oVertex = m_aPoints[ 1 ];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
 
-		l_oVertex = m_aPoints[2];
+		l_oVertex = m_aPoints[ 2 ];
 		m2c += l_oVertex.sx; matrix2.c = m2c;
 		m2d += l_oVertex.sy; matrix2.d = m2d;
 
 		// transform 1st three normals
-		for( i = 0; i < 3; i++ )
+		for( var i:Number = 0; i < 3; i++ )
 		{
-			v = aN[i]; v.copy( p_oPolygon.vertexNormals[i].getWorldVector() );
+			v = aN[ i ]; v.copy( p_oPolygon.vertexNormals[ i ].getWorldVector() );
 
 			if( spherize > 0 )
 			{
-				// too bad, m_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-				// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
-				// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
-				l_oVertex = m_aPoints[i];
-				if( m_oVertices[l_oVertex] == null )
+				// too bad, m_aPoints[ i ].getWorldVector() gives viewMatrix-based coordinates
+				// when vertexNormals[ i ].getWorldVector() gives modelMatrix-based ones :( 
+				// so we have to use cache for modelMatrix-based vertex coords ( and also scaled )
+				l_oVertex = m_aPoints[ i ];
+				if( m_oVertices[ l_oVertex ] == null )
 				{
 					dv = l_oVertex.getVector().clone();
 					dv.sub( p_oPolygon.shape.geometryCenter );
@@ -124,7 +126,7 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 				v.normalize();
 			}
 
-			if ( !p_oPolygon.visible ) v.scale( -1 );
+			if( !p_oPolygon.visible ) v.scale( -1 );
 		}
 
 		// calculate coordinates in map texture
@@ -132,7 +134,7 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 
 		// simple hack to resolve bad projections
 		// where the hell do they keep coming from?
-		p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
+		p = aNP[ 0 ]; p1 = aNP[ 1 ]; p2 = aNP[ 2 ];
 		a = ( p.x - p1.x ) * ( p.y - p2.y ) - ( p.y - p1.y ) * ( p.x - p2.x );
 		while ( ( -2 < a ) && ( a < 2 ) )
 		{
@@ -153,10 +155,10 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 		p_oMovieClip.beginBitmapFill( mapMaterial.texture, matrix, mapMaterial.repeat, mapMaterial.smooth );
 
 		// render the map
-		p_oMovieClip.moveTo( m_aPoints[0].sx, m_aPoints[0].sy );
+		p_oMovieClip.moveTo( m_aPoints[ 0 ].sx, m_aPoints[ 0 ].sy );
 		for( l_oVertex in m_aPoints )
 		{
-			p_oMovieClip.lineTo( m_aPoints[l_oVertex].sx, m_aPoints[l_oVertex].sy  );
+			p_oMovieClip.lineTo( m_aPoints[ l_oVertex ].sx, m_aPoints[ l_oVertex ].sy  );
 		}
 		p_oMovieClip.endFill();
 
@@ -170,9 +172,9 @@ class sandy.materials.attributes.CylinderEnvMap extends AAttributes
 	private function computeMapping() : Void
 	{
 		var p:Point, v:Vector;
-		for( i = 0; i < 3; i++ )
+		for( var i:Number = 0; i < 3; i++ )
 		{
-			p = aNP[i]; v = aN[i];
+			p = aNP[ i ]; v = aN[ i ];
 
 			// x, z = -1 -> u = 0.5 
 			p.x = 0.5 * ( 1 + Math.atan2( v.x, -v.z ) / Math.PI );

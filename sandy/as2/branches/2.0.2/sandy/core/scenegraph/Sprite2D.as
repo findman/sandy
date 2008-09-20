@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -13,6 +13,7 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
+
 import com.bourre.commands.Delegate;
 import com.bourre.events.BasicEvent;
 import com.bourre.events.EventBroadcaster;
@@ -40,33 +41,34 @@ import sandy.view.Frustum;
  * In case your sprite is bigger, you can adjust it to avoid any frustum culling issue</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
+ 
 class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplayable
 {	
 
-	// FIXME Create a Sprite as the spriteD container, 
+	// FIXME Create a MovieClip as the sprite2D container, 
 	//and offer a method to attach a visual content as a child of the sprite
 	
 	/**
 	 * Set this to true if you want this sprite to rotate with camera.
 	 */
-	public var fixedAngle:Boolean = false;
+	public var fixedAngle:Boolean;
 
 	/**
 	 * When enabled, the sprite will be displayed at its graphical center.
 	 * Otherwise its top left corner will be set at the computed screen position
 	 */
-	public var autoCenter:Boolean = true;
+	public var autoCenter:Boolean;
 	
 	/**
 	 * When enabled, the sprite will be displayed at its bottom line.
-	 * Otherwise it is positioned at its registration point (usually top left corner).
+	 * Otherwise it is positioned at its registration point ( usually top left corner ).
 	 * This property has no effect when autoCenter is enabled.
 	 */
-	public var floorCenter:Boolean = false;
+	public var floorCenter:Boolean;
 		
 	/**
 	 * Creates a Sprite2D.
@@ -81,6 +83,11 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	public function Sprite2D( p_sName:String, p_oContent:MovieClip, p_nScale:Number ) 
 	{
 		super( p_sName||"" );
+		
+		fixedAngle = false;
+		autoCenter = true;
+		floorCenter = false;
+		
 		m_oContainer = new MovieClip();
 		// --
 		_v = new Vertex(); _vx = new Vertex(); _vy = new Vertex();
@@ -91,15 +98,15 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		// --
 		if( p_oContent ) content = p_oContent;
 		
-		setBoundingSphereRadius( 30 );
+		setBoundingSphereRadius( Math.max( 30, Math.abs( _nScale ) * Math.max( content.width, content.height ) ) );
 	}
 
 	/**
 	 * Gives access to your content reference.
 	 * The content is the exact visual object you passed to the constructor.
-	 * In comparison with the container which is the container of the content (in Sandy's architecture, the container must be a Sprite),
-	 * but the content can be any kind of visual object AS3 offers (MovieClip, Bitmap, Sprite etc.)
-	 * WARNNIG: Be careful when manipulating the content object to not break any link with the sandy container (content.parent).
+	 * In comparison with the container which is the container of the content ( in Sandy's architecture, the container must be a Sprite ),
+	 * but the content can be any kind of visual object AS3 offers ( MovieClip, Bitmap, Sprite etc. )
+	 * WARNNIG: Be careful when manipulating the content object to not break any link with the sandy container ( content.parent ).
 	 */
 	public function get content() : MovieClip
 	{
@@ -109,7 +116,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	/**
 	 * The DisplayObject that will used as content of this Sprite2D. 
 	 * If this DisplayObject has already a screen position, it will be reseted to 0,0.
-	 * If the DisplayObject has allready a parent, it will be unrelated from it automatically. (its transform matrix property is resetted to identity too).
+	 * If the DisplayObject has allready a parent, it will be unrelated from it automatically. ( its transform matrix property is resetted to identity too ).
 	 * @param p_content The DisplayObject to attach to the Sprite2D#container. 
 	 */
 	public function set content( p_content:MovieClip ) : Void
@@ -159,7 +166,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		
 	/**
 	 * The depth to draw this sprite at.
-	 * <p>[<b>ToDo</b>: Explain ]</p>
+	 * <p>[ <b>ToDo</b>: Explain ]</p>
 	 */
 	public function get depth() : Number
 	{
@@ -174,7 +181,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	 * <p>The method also updates the bounding volumes to make the more accurate culling system possible.<br/>
 	 * First the bounding sphere is updated, and if intersecting, 
 	 * the bounding box is updated to perform the more precise culling.</p>
-	 * <p><b>[MANDATORY] The update method must be called first!</b></p>
+	 * <p><b>[ MANDATORY ] The update method must be called first!</b></p>
 	 *
 	 * @param p_oScene The current scene
 	 * @param p_oFrustum	The frustum of the current camera
@@ -220,7 +227,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	 */
 	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
 	{
-		if ( ( m_oMaterial != null ) && !p_oScene.materialManager.isRegistered( m_oMaterial ) )
+		if( ( m_oMaterial != null ) && !p_oScene.materialManager.isRegistered( m_oMaterial ) )
 		{
 			p_oScene.materialManager.register( m_oMaterial );
 		}
@@ -229,7 +236,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
 		_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
 
-		m_nDepth = enableForcedDepth ? forcedDepth : _v.wz;
+		m_nDepth = enableForcedDepth ? forcedDepth:_v.wz;
 
 		p_oCamera.projectVertex( _v );
 		p_oCamera.addToDisplayList( this );
@@ -263,7 +270,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		if( m_oContainer ) m_oContainer.removeMovieClip();
 		m_oContainer.clear();
 		enableEvents = false;
-		if ( ( m_oMaterial != null ) && !scene.materialManager.isRegistered( m_oMaterial ) )
+		if( ( m_oMaterial != null ) && !scene.materialManager.isRegistered( m_oMaterial ) )
 		{
 			scene.materialManager.unregister( m_oMaterial );
 		}
@@ -299,9 +306,9 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		m_oContainer.y = _v.sy - ( autoCenter ? m_oContainer._height / 2 : ( floorCenter ? m_oContainer._height : 0 ) );
 		
 		// --
-		if ( fixedAngle ) m_oContainer.rotation = m_nRotation * 180 / Math.PI;
+		if( fixedAngle ) m_oContainer.rotation = m_nRotation * 180 / Math.PI;
 		// --
-		if ( m_oMaterial ) m_oMaterial.renderSprite( this, m_oMaterial, p_oScene );
+		if( m_oMaterial ) m_oMaterial.renderSprite( this, m_oMaterial, p_oScene );
 	}
 
 	/**
@@ -383,7 +390,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		return "sandy.core.scenegraph.Sprite2D, container:" + m_oContainer;
 	}
 		
-	private var m_bEv:Boolean = false; // The event system state (enable or not)
+	private var m_bEv:Boolean = false; // The event system state ( enable or not )
 	
 	private var m_nW2:Number = 0;
 	private var m_nH2:Number = 0;

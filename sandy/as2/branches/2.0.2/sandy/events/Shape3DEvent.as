@@ -13,6 +13,7 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
+
 import com.bourre.events.BubbleEvent;
 import com.bourre.events.EventType;	
 	
@@ -26,7 +27,7 @@ import sandy.core.data.Vector;
  * It gives some useful information about the clicked object such as the polygon clicked, and real 3D position of the point under mouse, the UV coordinate under mouse.
  * It allows some advanced interaction with the object and its texture.
  *
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version 2.0.2
  *
  * @see sandy.core.scenegraph.Shape3D

@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -28,7 +28,7 @@ import sandy.materials.attributes.LineAttributes;
  * special effects, displaying the normal of each vertex.</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
@@ -46,7 +46,7 @@ class sandy.materials.attributes.VertexNormalAttributes extends LineAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function VertexNormalAttributes( p_nLength:Number = 10, p_nThickness:Number, p_nColor:Number, p_nAlpha:Number )
+	public function VertexNormalAttributes( p_nLength:Number, p_nThickness:Number, p_nColor:Number, p_nAlpha:Number )
 	{
 		m_nLength = p_nLength||10;
 		// reuse LineAttributes setters

@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -18,16 +18,18 @@ import com.bourre.events.BubbleEvent;
 import com.bourre.events.EventType;
 
 /**
- * Contains events use for loading resources.
+ * Contains events use for loading resources. 
  *
- * @author	(porting) Floris - FFlasher
- * @version	3.0
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
  *
  * @see sandy.util.LoaderQueue
  * @see BubbleEventBroadcaster
  */
+ 
 class sandy.events.QueueEvent extends BubbleEvent
 {
+	
 	private var _loaders:Object;
 	
 	public var type:EventType;

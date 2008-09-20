@@ -26,7 +26,7 @@ import sandy.util.BezierUtil;
  * After that you will have to add three point segments</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		24.08.2007

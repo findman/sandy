@@ -18,9 +18,9 @@ import com.bourre.events.BasicEvent;
 import com.bourre.events.EventType;
 
 /**
- * KeyboardEvents, based on the AS3 KeyboardEvent class.
+ * Implementation of the AS3 KeyboardEvent class.
  *
- * @author	Floris - FFlasher
+ * @author	Floris - xdevltd
  * @version	2.0.2
  */
  
@@ -31,7 +31,7 @@ class sandy.events.KeyboardEvent extends BasicEvent
 	
 	public static var KEY_UP:EventType = new EventType( "KeyUpEVENT" );
 		
-	public function KeyboardEvent( e : EventType, oT ) 
+	public function KeyboardEvent( e:EventType, oT ) 
 	{
 		super( e, oT );
 	}

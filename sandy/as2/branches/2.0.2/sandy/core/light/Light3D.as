@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -21,39 +21,39 @@ import sandy.events.SandyEvent;
 import sandy.util.NumberUtil;
 
 /**
-* Dispatched when the light is updated.
-*
-* @eventType sandy.events.SandyEvent.LIGHT_UPDATED
-*/
-[Event("lightUpdated")]
+ * Dispatched when the light is updated.
+ *
+ * @eventType sandy.events.SandyEvent.LIGHT_UPDATED
+ */
+[ Event( name = "lightUpdated", type = "sandy.events.SandyEvent" ) ]
 	
 /**
-* Dispatched when the light color is changed.
-*
-* @eventType sandy.events.SandyEvent.LIGHT_COLOR_CHANGED
-*/
-[Event("lightColorChanged")]
+ * Dispatched when the light color is changed.
+ *
+ * @eventType sandy.events.SandyEvent.LIGHT_COLOR_CHANGED
+ */
+[ Event( name = "lightColorChanged", type = "sandy.events.SandyEvent" ) ]
 
- /**
+/**
  * The Light3D class is used for creating the light of the world.
  *
  * <p>The light in Sandy is a light source at infinity, emitting parallel colored light.
  * The direction, color, and intensity of the light can be changes.</p>
  *
  * @author	Thomas Pfeiffer - kiroukou
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version	2.0.2
  * @date 	26.07.2007
  */
- 
+  
 class sandy.core.light.Light3D extends EventBroadcaster
 {
 	
 	/**
-	* Maximum value accepted for the power of the light.
-	* Be aware that even if this constant is changed, the actual lighting calculations are normalized
-	* (<code>0</code> - <code>MAX_POWER</code> becomes <code>0</code> -> <code>1</code>).
-	*/
+	 * Maximum value accepted for the power of the light.
+	 * Be aware that even if this constant is changed, the actual lighting calculations are normalized
+	 * ( <code>0</code> - <code>MAX_POWER</code> becomes <code>0</code> -> <code>1</code> ).
+	 */
 	public static var MAX_POWER:Number = 150;
 
 	public static var _oEB:EventBroadcaster = new EventBroadcaster( Light3D );
@@ -159,7 +159,7 @@ class sandy.core.light.Light3D extends EventBroadcaster
 
 		// if DP is less than 0 then the face is facing away from the light
 		// so set it to zero
-		if ( DP < 0 )
+		if( DP < 0 )
 		{
 			DP = 0;
 		}
@@ -173,7 +173,7 @@ class sandy.core.light.Light3D extends EventBroadcaster
 	public function destroy() : Void
 	{
 		//How clean the listeners here?
-		//removeEventListener(SandyEvent.LIGHT_UPDATED, );
+		//removeEventListener( SandyEvent.LIGHT_UPDATED, );
 	}
 
 	/**

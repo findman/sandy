@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -35,10 +35,11 @@ import sandy.view.ViewPort;
  * which means it is transformed in the same manner as any other object.</p>
  * 
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
+ 
 class sandy.core.scenegraph.Camera3D extends ATransformable
 {		
 
@@ -152,7 +153,7 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		// -- Note, this is the displayed list from the previous iteration!
 		for( l_oShape in m_aDisplayedList )
 		{
-			m_aDisplayedList[l_oShape].clear();
+			m_aDisplayedList[ l_oShape ].clear();
 		}
 		
 		if( m_aDisplayList )
@@ -163,11 +164,11 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		    // -- This is the new list to be displayed.
 			for( l_oShape in m_aDisplayList )
 			{
-				m_aDisplayedList[l_oShape].display( p_oScene );
-				l_mcContainer.addChild( m_aDisplayedList[l_oShape].container );
+				m_aDisplayedList[ l_oShape ].display( p_oScene );
+				l_mcContainer.addChild( m_aDisplayedList[ l_oShape ].container );
 			}
 			// -- m_aDisplayedList is a list of all the elements, which are deleted from m_aDisplayList
-			m_aDisplayedList = m_aDisplayList.splice(0);
+			m_aDisplayedList = m_aDisplayList.splice( 0 );
 		}
 	}
 
@@ -179,7 +180,7 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 	public function addToDisplayList( p_oShape:IDisplayable ) : Void
 	{
 		//-- Why not use "push()"? Maybe this is faster?
-		if( p_oShape != null ) m_aDisplayList[m_aDisplayList.length] = ( p_oShape );
+		if( p_oShape != null ) m_aDisplayList[ m_aDisplayList.length ] = ( p_oShape );
 	}
 
 	/**
@@ -199,31 +200,31 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 	 */
 	public function removeFromDisplayList( p_oShape:IDisplayable ) : Void
 	{
-		trace ( "WARNING: Camera3D.removeFromDisplayList() has never been tested. Seems sufficient to invoke Camera3D.clearDisplayList() instead" );
+		trace( "WARNING: Camera3D.removeFromDisplayList() has never been tested. Seems sufficient to invoke Camera3D.clearDisplayList() instead." );
 		if( p_oShape != null ) 
 		{
 			var foundLoc:Number = m_aDisplayList.indexOf( p_oShape );
-			if ( foundLoc >= 0 ) 
+			if( foundLoc >= 0 ) 
 			{
 				m_aDisplayList.splice( foundLoc, 1 )
-				trace ( "Successfully removed p_oShape from m_aDisplayList " + p_oShape );
+				trace( "Successfully removed p_oShape from m_aDisplayList " + p_oShape );
 			} 
 			else 
 			{
-				trace ( "WARNING: Couldn't remove p_oShape from m_aDisplayList because it wasn't found " + p_oShape );
+				trace( "WARNING: Couldn't remove p_oShape from m_aDisplayList because it wasn't found " + p_oShape );
 			}
 		}
 	}
         
 	/**
 	 * Clears the camera's display list. Useful when destroying things in mid-render. The rendering engine will repopulate m_aDisplayList in the next iteration, so 
-	 *  removing everything in the list seems fine (no noticeable flicker).
+	 *  removing everything in the list seems fine ( no noticeable flicker ).
 	 *
 	 */
 	public function clearDisplayList() : Void
 	{
-		m_aDisplayedList.splice(0);
-		m_aDisplayList.splice(0);
+		m_aDisplayedList.splice( 0 );
+		m_aDisplayList.splice( 0 );
 	}
 				
 	/**
@@ -239,12 +240,12 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		var l_oVertex:Vertex;
 		for( l_oVertex in p_oList )
 		{
-			if( m_oCache.get( p_oList[l_oVertex] ) != null ) continue;
-			l_nCste = 	1 / ( p_oList[l_oVertex].wx * mp41 + p_oList[l_oVertex].wy * mp42 + p_oList[l_oVertex].wz * mp43 + mp44 );
-			p_oList[l_oVertex].sx =  l_nCste * ( p_oList[l_oVertex].wx * mp11 + p_oList[l_oVertex].wy * mp12 + p_oList[l_oVertex].wz * mp13 + mp14 ) * m_nOffx + l_nX;
-			p_oList[l_oVertex].sy = -l_nCste * ( p_oList[l_oVertex].wx * mp21 + p_oList[l_oVertex].wy * mp22 + p_oList[l_oVertex].wz * mp23 + mp24 ) * m_nOffy + l_nY;
+			if( m_oCache.get( p_oList[ l_oVertex ] ) != null ) continue;
+			l_nCste = 	1 / ( p_oList[ l_oVertex ].wx * mp41 + p_oList[ l_oVertex ].wy * mp42 + p_oList[ l_oVertex ].wz * mp43 + mp44 );
+			p_oList[ l_oVertex ].sx =  l_nCste * ( p_oList[ l_oVertex ].wx * mp11 + p_oList[ l_oVertex ].wy * mp12 + p_oList[ l_oVertex ].wz * mp13 + mp14 ) * m_nOffx + l_nX;
+			p_oList[ l_oVertex ].sy = -l_nCste * ( p_oList[ l_oVertex ].wx * mp21 + p_oList[ l_oVertex ].wy * mp22 + p_oList[ l_oVertex ].wz * mp23 + mp24 ) * m_nOffy + l_nY;
 			//nbVertices += 1;
-			m_oCache.put( p_oList[l_oVertex], p_oList[l_oVertex] );
+			m_oCache.put( p_oList[ l_oVertex ], p_oList[ l_oVertex ] );
 		}
 	}
 			
@@ -371,7 +372,7 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 	* <p>This projection allows a natural visual presentation of objects, mimicking 3D perspective.</p>
 	*
 	* @param p_nFovY 	The angle of view in degrees - Default 45.
-	* @param p_nAspectRatio The ratio between vertical and horizontal dimension - Default the viewport ratio (width/height)
+	* @param p_nAspectRatio The ratio between vertical and horizontal dimension - Default the viewport ratio ( width/height )
 	* @param p_nZNear 	The distance betweeen the camera and the near plane - Default 10.
 	* @param p_nZFar 	The distance betweeen the camera position and the far plane. Default 10 000.
 	*/
@@ -423,12 +424,12 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		// --
 		for( l_oShape in m_aDisplayedList )
 		{
-			if( m_aDisplayedList[l_oShape] ) m_aDisplayedList[l_oShape].clear();
+			if( m_aDisplayedList[ l_oShape ] ) m_aDisplayedList[ l_oShape ].clear();
 		}
 		
 		for( l_oShape in m_aDisplayList )
 		{
-			if( m_aDisplayList[l_oShape] ) m_aDisplayList[l_oShape].clear();
+			if( m_aDisplayList[ l_oShape ] ) m_aDisplayList[ l_oShape ].clear();
 		}
 		// --
 		m_aDisplayedList = null;

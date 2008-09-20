@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -20,8 +20,6 @@ import flash.geom.Rectangle;
 	
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
-import sandy.events.Timer;
-import sandy.events.TimerEvent;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.MaterialType;
 import sandy.materials.attributes.MaterialAttributes;
@@ -35,7 +33,7 @@ import sandy.util.NumberUtil;
  *
  * @author		Xavier Martin - zeflasher
  * @author		Thomas PFEIFFER - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		11.11.2007
@@ -48,7 +46,7 @@ class sandy.materials.MovieMaterial extends BitmapMaterial
 	 * Default color used to draw the bitmapdata content.
 	 * In case you need a specific color, change this value at your application initialization.
 	 */
-	public static var DEFAULT_FILL_COLOR:Number = 0;
+	public static var DEFAULT_FILL_COLOR:Number;
 
 	private var m_oTimer:Number;
 	private var m_bRunning:Boolean;
@@ -73,27 +71,30 @@ class sandy.materials.MovieMaterial extends BitmapMaterial
 	 *
 	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function MovieMaterial( p_oMovie:MovieClip, p_nUpdates:Number, p_oAttr:MaterialAttributes, p_bRemoveTransparentBorder:Boolean, p_nHeight:Number, p_nWidth:Number )
+	public function MovieMaterial( p_oMovie:MovieClip, p_nUpdate:Number, p_oAttr:MaterialAttributes, p_bRemoveTransparentBorder:Boolean, p_nHeight:Number, p_nWidth:Number )
 	{
-		var w : Number;
-		var h : Number;
+		DEFAULT_FILL_COLOR = 0;
+		var w:Number;
+		var h:Number;
 
-		m_oAlpha = new ColorTransform ();
-		if ( p_bRemoveTransparentBorder )
+		m_oAlpha = new ColorTransform();
+		
+		if( p_bRemoveTransparentBorder )
 		{
 			var tmpBmp:BitmapData = new BitmapData(  p_oMovie._width, p_oMovie._height, true, 0 );
 			tmpBmp.draw( p_oMovie );
-			var rect : Rectangle = tmpBmp.getColorBoundsRect( 0xFF000000, 0x00000000, false );
+			var rect:Rectangle = tmpBmp.getColorBoundsRect( 0xFF000000, 0x00000000, false );
 			w = rect.width;
 			h = rect.height;
 		}
 		else
 		{
-			w = p_nWidth ? p_nWidth :  p_oMovie._width;
+			w = p_nWidth ? p_nWidth : p_oMovie._width;
 			h = p_nHeight ? p_nHeight : p_oMovie._height;
 		}
 
-		super( new BitmapData( w, h, true, DEFAULT_FILL_COLOR ), p_oAttr );
+		// FIXME commented out, superconstructor must be called first in the constructor body.
+		// super( new BitmapData( w, h, true, DEFAULT_FILL_COLOR ), p_oAttr );
 		m_oMovie = p_oMovie;
 		m_oType = MaterialType.MOVIE;
 		// --
@@ -104,8 +105,9 @@ class sandy.materials.MovieMaterial extends BitmapMaterial
 
 		if( tmpBmp ) 
 		{
-			tmpBmp.dispose();tmpBmp = null;
+			tmpBmp.dispose(); tmpBmp = null;
 		}
+		
 		rect = null;
 		w = undefined;
 		h = undefined;
@@ -131,9 +133,9 @@ class sandy.materials.MovieMaterial extends BitmapMaterial
 	/**
 	 * Updates this material each internal timer cycle.
 	 */
-	private function _update( p_eEvent:TimerEvent ) : Void
+	private function _update() : Void
 	{
-		if ( m_bUpdate || forceUpdate )
+		if( m_bUpdate || forceUpdate )
 		{
 			m_oTexture.fillRect( m_oTexture.rectangle,
 			ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier ) );

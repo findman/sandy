@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -31,10 +31,10 @@ import sandy.math.VertexMath;
 	
 /**
  * This attribute provides very basic simulation of partially opaque medium.
- * You can use this attribute to achieve wide range of effects (e.g., fog, Rayleigh scattering, light attached to camera, etc).
+ * You can use this attribute to achieve wide range of effects ( e.g., fog, Rayleigh scattering, light attached to camera, etc ).
  * 
  * @author		makc
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		01.12.2007
  */
@@ -52,7 +52,7 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 	}
 	
 	/**
-	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
+	 * Medium color ( 32-bit value ) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
 	public function get color() : Number
@@ -95,18 +95,18 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 	 * Creates a new MediumAttributes object.
 	 *
 	 * @param p_nColor		Medium color
-	 * @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
-	 * @param p_oFadeFrom	Transparent point (at the screen by default).
+	 * @param p_oFadeTo		Attenuation vector ( 500 pixels beyond the screen by default ).
+	 * @param p_oFadeFrom	Transparent point ( at the screen by default ).
 	 * @param p_nBlurAmount	Maximum amount of blur to add
 	 *
 	 * @see sandy.core.data.Vector
 	 */
 	public function MediumAttributes( p_nColor:Number, p_oFadeFrom:Vector, p_oFadeTo:Vector, p_nBlurAmount:Number )
 	{
-		if (p_oFadeFrom == null)
-			p_oFadeFrom = new Vector (0, 0, 0);
-		if (p_oFadeTo == null)
-			p_oFadeTo = new Vector (0, 0, 500);
+		if( p_oFadeFrom == null )
+			p_oFadeFrom = new Vector ( 0, 0, 0 );
+		if( p_oFadeTo == null )
+			p_oFadeTo = new Vector ( 0, 0, 500 );
 		// --
 		color = int( p_nColor||0xFFFFFFFF ); fadeTo = p_oFadeTo; fadeFrom = p_oFadeFrom; blurAmount = p_nBlurAmount||0; _m = new Matrix();
 	}
@@ -120,17 +120,17 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 		var n:Number = l_points.length; if( n < 3 ) return;
 
 		var l_ratios:Array = new Array( n );
-		for( i = 0; i < n; i++ ) l_ratios[i] = ratioFromWorldVector( l_points[i].getWorldVector() );
+		for( var i:Number = 0; i < n; i++ ) l_ratios[ i ] = ratioFromWorldVector( l_points[ i ].getWorldVector() );
 
 		var zIndices:Array = l_ratios.sort( Array.NUMERIC | Array.RETURNINDEXEDARRAY );
 
-		var v0: Vertex = l_points[ zIndices[0] ];
-		var v1: Vertex = l_points[ zIndices[1] ];
-		var v2: Vertex = l_points[ zIndices[2] ];
+		var v0:Vertex = l_points[ zIndices[ 0 ] ];
+		var v1:Vertex = l_points[ zIndices[ 1 ] ];
+		var v2:Vertex = l_points[ zIndices[ 2 ] ];
 
-		var r0: Number = l_ratios[ zIndices[0] ], ar0:Number = _a * r0;
-		var r1: Number = l_ratios[ zIndices[1] ];
-		var r2: Number = l_ratios[ zIndices[2] ], ar2:Number = _a * r2;
+		var r0:Number = l_ratios[ zIndices[ 0 ] ], ar0:Number = _a * r0;
+		var r1:Number = l_ratios[ zIndices[ 1 ] ];
+		var r2:Number = l_ratios[ zIndices[ 2 ] ], ar2:Number = _a * r2;
 
 		if( ar2 > 0 )
 		{
@@ -147,16 +147,16 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 			}
 
 			// --
-			p_oMovieClip.moveTo( l_points[0].sx, l_points[0].sy );
+			p_oMovieClip.moveTo( l_points[ 0 ].sx, l_points[ 0 ].sy );
+			var l_oVertex:Vertex;
 			for( l_oVertex in l_points )
 			{
-				p_oMovieClip.lineTo( l_points[l_oVertex].sx, l_points[l_oVertex].sy );
+				p_oMovieClip.lineTo( l_points[ l_oVertex ].sx, l_points[ l_oVertex ].sy );
 			}
 			p_oMovieClip.endFill();
 		}
 
-		blurDisplayObjectBy( p_oPolygon.shape.useSingleContainer ? p_oPolygon.shape.container : p_oPolygon.container,
-							 prepareBlurAmount( blurAmount * r0 ) );
+		blurDisplayObjectBy( p_oPolygon.shape.useSingleContainer ? p_oPolygon.shape.container : p_oPolygon.container, prepareBlurAmount( blurAmount * r0 ) );
 	}
 
 	/**
@@ -175,8 +175,7 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 		// --
 		p_oSprite.container.transform.colorTransform = l_coltr;
 
-		blurDisplayObjectBy( p_oSprite.container,
-							 prepareBlurAmount( blurAmount * l_ratio ) );
+		blurDisplayObjectBy( p_oSprite.container, prepareBlurAmount( blurAmount * l_ratio ) );
 	}
 
 	// --
@@ -187,35 +186,35 @@ class sandy.materials.attributes.MediumAttributes extends AAttributes
 
 	private function prepareBlurAmount( p_nBlurAmount:Number ) : Number
 	{
-		// a) constrain blur amount according to filter specs
-		// b) quantize blur amount to make filter reuse more effective
+		// a ) constrain blur amount according to filter specs
+		// b ) quantize blur amount to make filter reuse more effective
 		return Math.round( 10 * Math.min( 255, Math.max( 0, p_nBlurAmount ) ) ) * 0.1;
 	}
 
 	private var m_bWasNotBlurred:Boolean = true;
-	private function blurDisplayObjectBy( p_oMovieClip:MovieClip, p_nBlurAmount:Number) : Void
+	private function blurDisplayObjectBy( p_oMovieClip:MovieClip, p_nBlurAmount:Number ) : Void
 	{
 		if( m_bWasNotBlurred && ( p_nBlurAmount == 0 ) ) return;
 
 		var fs:Array = [], changed:Boolean = false;
 
-		for ( i = p_oMovieClip.filters.length - 1; i > -1; i-- )
+		for( var i:Number = p_oMovieClip.filters.length - 1; i > -1; i-- )
 		{
-			if( !changed && ( p_oMovieClip.filters[i] instanceof BlurFilter) && ( p_oMovieClip.filters[i].quality == 1 ) )
+			if( !changed && ( p_oMovieClip.filters[ i ] instanceof BlurFilter ) && ( p_oMovieClip.filters[ i ].quality == 1 ) )
 			{
-				var bf:BlurFilter = p_oMovieClip.filters[i];
+				var bf:BlurFilter = p_oMovieClip.filters[ i ];
 
 				// hopefully, this check will save some cpu
-				if ( ( bf.blurX == p_nBlurAmount ) &&
-				     ( bf.blurY == p_nBlurAmount ) ) return;
+				if( ( bf.blurX == p_nBlurAmount ) &&
+				    ( bf.blurY == p_nBlurAmount ) ) return;
 
 				// assume this is our filter and change it
-				bf.blurX = bf.blurY = p_nBlurAmount; fs[i] = bf; changed = true;
+				bf.blurX = bf.blurY = p_nBlurAmount; fs[ i ] = bf; changed = true;
 			}
 			else
 			{
 				// copy the filter
-				fs[i] = p_oMovieClip.filters[i];
+				fs[ i ] = p_oMovieClip.filters[ i ];
 			}
 		}
 		// if filter was not found, add new

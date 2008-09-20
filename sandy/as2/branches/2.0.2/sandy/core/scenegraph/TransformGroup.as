@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -32,12 +32,12 @@ import sandy.view.Frustum;
  * <p>The class is final, i.e. it can not be subclassed.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		16.05.2006
  */
  
-class sandy.core.scenegraph.TransformGroup  extends ATransformable
+class sandy.core.scenegraph.TransformGroup extends ATransformable
 {
 	
 	/**
@@ -58,7 +58,7 @@ class sandy.core.scenegraph.TransformGroup  extends ATransformable
 	 * <p>The method also updates the bounding volumes to make the more accurate culling system possible.<br/>
 	 * First the bounding sphere is updated, and if intersecting,
 	 * the bounding box is updated to perform the more precise culling.</p>
-	 * <p><b>[MANDATORY] The update method must be called first!</b></p>
+	 * <p><b>[ MANDATORY ] The update method must be called first!</b></p>
 	 *
 	 * @param p_oScene The current scene
 	 * @param p_oFrustum	The frustum of the current camera
@@ -80,7 +80,7 @@ class sandy.core.scenegraph.TransformGroup  extends ATransformable
 			var l_oNode:Node;
 		    for( l_oNode in children )
 		    {
-		        children[l_oNode].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+		        children[ l_oNode ].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
 		    }
 		}
 	}
@@ -96,11 +96,11 @@ class sandy.core.scenegraph.TransformGroup  extends ATransformable
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-		    if( children[l_oNode].culled != CullingState.OUTSIDE )
-		    	children[l_oNode].render( p_oScene, p_oCamera );
+		    if( children[ l_oNode ].culled != CullingState.OUTSIDE )
+		    	children[ l_oNode ].render( p_oScene, p_oCamera );
 		    // --
-		    children[l_oNode].changed = false; // default value is set to not changed.
-		    children[l_oNode].culled = CullingState.INSIDE; // Default value is inside.
+		    children[ l_oNode ].changed = false; // default value is set to not changed.
+		    children[ l_oNode ].culled = CullingState.INSIDE; // Default value is inside.
 		}
 	}
 	
@@ -110,9 +110,9 @@ class sandy.core.scenegraph.TransformGroup  extends ATransformable
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-			if( children[l_oNode] instanceof Shape3D || children[l_oNode] instanceof Group || children[l_oNode] instanceof TransformGroup )
+			if( children[ l_oNode ] instanceof Shape3D || children[ l_oNode ] instanceof Group || children[ l_oNode ] instanceof TransformGroup )
 			{
-				l_oGroup.addChild( children[l_oNode].clone( p_sName + "_" + children[l_oNode].name ) );
+				l_oGroup.addChild( children[ l_oNode ].clone( p_sName + "_" + children[ l_oNode ].name ) );
 			} 
 		}
 		
@@ -126,7 +126,7 @@ class sandy.core.scenegraph.TransformGroup  extends ATransformable
 	 */
 	public function toString() : String
 	{
-		return "sandy.core.scenegraph.TransformGroup :[" + name + "]";
+		return "sandy.core.scenegraph.TransformGroup :[ " + name + " ]";
 	}
 	
 }

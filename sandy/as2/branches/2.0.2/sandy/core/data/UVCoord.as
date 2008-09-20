@@ -21,7 +21,7 @@ limitations under the License.
  * It is the 2D texture coordinate, used in the BitmapMaterial and VideoMaterial.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		0.3
  * @version		2.0.2
  * @date 		24.08.2007

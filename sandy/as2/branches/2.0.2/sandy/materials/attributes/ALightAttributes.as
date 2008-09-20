@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -36,7 +36,7 @@ import sandy.materials.attributes.IAttributes;
  * The ALightAttributes class implements Blinn flavor of Phong reflection model.</p>
  *
  * @author		makc
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		13.12.2007
  */
@@ -167,9 +167,9 @@ class sandy.materials.attributes.ALightAttributes implements IAttributes
 	 */
 	private function calculate( p_oNormal:Vector, p_bFrontside:Boolean, p_bIgnoreSpecular:Boolean ) : Number
 	{
-		var l_n:Number = p_bFrontside ? -1 : 1;
+		var l_n:Number = p_bFrontside ? -1:1;
 		var l_k:Number = l_n * m_oCurrentL.dot( p_oNormal ); if( l_k < 0 ) l_k = 0; l_k = _ambient + _diffuse * l_k;
-		if ( !p_bIgnoreSpecular && ( specular > 0 ) )
+		if( !p_bIgnoreSpecular && ( specular > 0 ) )
 		{
 			var l_s:Number = l_n * m_oCurrentH.dot( p_oNormal ); if( l_s < 0 ) l_s = 0;
 			l_k += _specular * Math.pow( l_s, _gloss );
@@ -201,10 +201,7 @@ class sandy.materials.attributes.ALightAttributes implements IAttributes
 	{
 		if( p_oMaterial.lightingEnable )
 		{
-			applyColorToDisplayObject(
-				p_oPolygon.shape.useSingleContainer ? p_oPolygon.shape.container : p_oPolygon.container,
-				p_oScene.light.color, 1
-			);
+			applyColorToDisplayObject( p_oPolygon.shape.useSingleContainer ? p_oPolygon.shape.container : p_oPolygon.container, p_oScene.light.color, 1 );
 
 			// compute local versions of vectors
 			if( m_oCurrentShape != p_oPolygon.shape )
@@ -234,14 +231,14 @@ class sandy.materials.attributes.ALightAttributes implements IAttributes
 		{
 			applyColorToDisplayObject( p_oSprite.container, p_oScene.light.color,
 				ambient * p_oScene.light.getNormalizedPower ()
-			);
+			 );
 		}
 	}
 
-	private function applyColorToDisplayObject( s:MovieClip, c:Number, b:Number) : Void
+	private function applyColorToDisplayObject( s:MovieClip, c:Number, b:Number ) : Void
 	{
 		// to avoid color darkening, we will normalize color; pitch-black is "normalized" to white
-		if ( ( c < 1 ) || ( c > 0xFFFFFF ) )
+		if( ( c < 1 ) || ( c > 0xFFFFFF ) )
 		{
 			c = 0xFFFFFF;
 		}
@@ -249,10 +246,10 @@ class sandy.materials.attributes.ALightAttributes implements IAttributes
 		var rgb_g:Number = ( 0x00FF00 & c ) >> 8;
 		var rgb_b:Number = ( 0x0000FF & c );
 
-		var bY:Number = b * 1.7321 /*Math.sqrt (3)*/ / Math.sqrt( rgb_r * rgb_r + rgb_g * rgb_g + rgb_b * rgb_b );
+		var bY:Number = b * 1.7321 /*Math.sqrt ( 3 )*/ / Math.sqrt( rgb_r * rgb_r + rgb_g * rgb_g + rgb_b * rgb_b );
 		rgb_r *= bY; rgb_g *= bY; rgb_b *= bY;
 		var ct:ColorTransform = s.transform.colorTransform;
-		if ( ( ct.redMultiplier != rgb_r ) || ( ct.greenMultiplier != rgb_g ) || ( ct.blueMultiplier != rgb_b ) )
+		if( ( ct.redMultiplier != rgb_r ) || ( ct.greenMultiplier != rgb_g ) || ( ct.blueMultiplier != rgb_b ) )
 		{
 			ct.redMultiplier = rgb_r; ct.greenMultiplier = rgb_g; ct.blueMultiplier = rgb_b;
 			s.transform.colorTransform = ct;

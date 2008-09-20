@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -25,45 +25,77 @@ import sandy.materials.MaterialManager;
 import sandy.core.SceneLocator;
 
 /**
+ * The Sandy 3D scene.
+ *
+ * <p>Supercedes deprecated World3D class.</p>
+ *
+ * <p>The Scene3D object is the central point of a Sandy scene.<br/>
+ * You can have multiple scenes.<br/>
+ * A scene contains the object tree with groups, a camera, a light source and a canvas to draw on.</p>
+ *
+ * @example	To create the scene, you invoke the Scene3D constructor, passing it the base movie clip, the camera, and the root group for the scene.<br/>
+ * The rendering of the scene is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
+ *
+ * The following pseudo-code approximates the necessary steps. It is very approximate and not meant as a working example:
+ * <listing version="3.0">
+ * 		var cam:Camera = new Camera3D( 600, 450, 45, 0, 2000 ); // camera viewport height,width, fov, near plane, and far plane
+ *		var mc:MovieClip = someSceneHoldingMovieClip;  // Programmer must ensure it is a valid movie clip.
+ *		var rootGroup = new Group( "world_root_group" );
+ *		// Add some child objects to the world ( not shown ), perhaps as follows
+ *		//rootGroup.addChild( someChild );
+ *		// Create the scene and render it
+ *     	var myScene:Scene3D = new Scene3D( "scene_name", mc, cam, rootGroup );
+ *		myScene.render();
+ *		//The enterFrameHandler presumably calls the myScene.render() method to render the scene for each frame.
+ *		yourMovieRoot.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+ *  </listing>
+ *
+ * @author		Thomas Pfeiffer - kiroukou
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
+ * @date 		25.08.2008
+ */
+
+/**
  * Dispatched when a light is added to the scene.
  *
  * @eventType sandy.events.SandyEvent.LIGHT_ADDED
  */
-[Event("lightAdded")]
+[ Event( name = "lightAdded", type = "sandy.events.SandyEvent" ) ]
 
 /**
-* Dispatched when the scene is rendered.
-*
-* @eventType sandy.events.SandyEvent.SCENE_RENDER
-*/
-[Event("scene_render")]
+ * Dispatched when the scene is rendered.
+ *
+ * @eventType sandy.events.SandyEvent.SCENE_RENDER
+ */
+[ Event( name = "scene_render", type = "sandy.events.SandyEvent" ) ]
 
 /**
-* Dispatched when the scene is culled.
-*
-* @eventType sandy.events.SandyEvent.SCENE_CULL
-*/
-[Event("scene_cull")]
+ * Dispatched when the scene is culled.
+ *
+ * @eventType sandy.events.SandyEvent.SCENE_CULL
+ */
+[ Event( name = "scene_cull", type = "sandy.events.SandyEvent" ) ]
 
 /**
-* Dispatched when the scene is updated.
-*
-* @eventType sandy.events.SandyEvent.SCENE_UPDATE
-*/
-[Event("scene_update")]
+ * Dispatched when the scene is updated.
+ *
+ * @eventType sandy.events.SandyEvent.SCENE_UPDATE
+ */
+[ Event( name = "scene_update", type = "sandy.events.SandyEvent" ) ]
 
 /**
-* Dispatched when the display list is rendered.
-*
-* @eventType sandy.events.SandyEvent.SCENE_RENDER_DISPLAYLIST
-*/
-[Event("scene_render_display_list")]
+ * Dispatched when the display list is rendered.
+ *
+ * @eventType sandy.events.SandyEvent.SCENE_RENDER_DISPLAYLIST
+ */
+[ Event( name = "scene_render_display_list", type = "sandy.events.SandyEvent" ) ]
 
 /**
  * The Scene3D object is the central point of a Sandy world.
  *
  * <p>A Scene3D object encompasses all the data needed to render a virtual 3D environment.
- * A scene contains objects in the 3D space (shapes, primitives, sprites, etc.), a camera, a light source, and a
+ * A scene contains objects in the 3D space ( shapes, primitives, sprites, etc. ), a camera, a light source, and a
  * container where its 2D representation will be drawn. Multiple
  * Scene3D objects can exist in a single application.</p>
  * <p>The older World3D is a singleton special case of Scene3D.</p>
@@ -72,24 +104,24 @@ import sandy.core.SceneLocator;
  * The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
  *
  * <listing version="3.0">
- * 	var camera:Camera3D = new Camera3D(400, 300);
+ * 	var camera:Camera3D = new Camera3D( 400, 300 );
  * 	camera.z = -200;
  * 	// The call to createScene() will create the root Group of this scene
- * 	var scene:Scene3D = new Scene3D("Scene 1", this, camera, createScene());
- * 	scene.root.addChild(camera);
+ * 	var scene:Scene3D = new Scene3D( "Scene 1", this, camera, createScene() );
+ * 	scene.root.addChild( camera );
  * 	//The handler calls the world.render() method to render the world for each frame.
  * this.onEnterFrame = enterFrameHandler;
  * </listing>
  *
  * @author	Thomas Pfeiffer - kiroukou
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version	2.0.2
  * @date 	07.09.2007
  *
  * @see World3D
  */
  
-class sandy.core.Scene3D
+class sandy.core.Scene3D extends EventBroadcaster
 {
 	
 	/**
@@ -115,8 +147,6 @@ class sandy.core.Scene3D
 	 * The material manager for the scene.
 	 */
 	public var materialManager:MaterialManager;
-
-	public static var _oEB:EventBroadcaster;
 		
 	/**
 	 * Creates a new 3D scene.
@@ -151,7 +181,6 @@ class sandy.core.Scene3D
 			m_sName = p_sName;
 		}
 		materialManager = new MaterialManager();
-		_oEB = new EventBroadcaster( Scene3D );
 		// --
 		_light = new Light3D( new Vector( 0, 0, 1 ), 100 );
 	}
@@ -169,23 +198,23 @@ class sandy.core.Scene3D
 	 */
 	public function render( p_oEvt:SandyEvent ) : Void
 	{
-		if (root && camera && container)
+		if( root && camera && container )
 		{
-			_oEB.broadcastEvent( new SandyEvent( SandyEvent.SCENE_UPDATE ) );
+			dispatchEvent( new SandyEvent( SandyEvent.SCENE_UPDATE ) );
 			root.update( this, null, false );
 			// --
-			_oEB.broadcastEvent( new SandyEvent( SandyEvent.SCENE_CULL ) );
+			dispatchEvent( new SandyEvent( SandyEvent.SCENE_CULL ) );
 			root.cull( this, camera.frustrum, camera.invModelMatrix, camera.changed );
 			// --
-			_oEB.broadcastEvent( new SandyEvent( SandyEvent.SCENE_RENDER ) );
+			dispatchEvent( new SandyEvent( SandyEvent.SCENE_RENDER ) );
 			root.render( this, camera );
 			// -- clear the polygon's container and the projection vertices list
-			_oEB.broadcastEvent( new SandyEvent( SandyEvent.SCENE_RENDER_DISPLAYLIST ) );
+			dispatchEvent( new SandyEvent( SandyEvent.SCENE_RENDER_DISPLAYLIST ) );
             materialManager.begin( this );
             camera.renderDisplayList( this );
             materialManager.finish( this );
 		}
-	} // end method
+	} 
 
 	/**
 	 * Disposes of all the scene's resources.
@@ -197,15 +226,15 @@ class sandy.core.Scene3D
 		SceneLocator.getInstance().unregisterScene( m_sName );
 		root.destroy();
 		// --
-		if (root)
+		if( root )
 		{
 			root = null;
 		}
-		if (camera)
+		if( camera )
 		{
 			camera = null;
 		}
-		if (_light)
+		if( _light )
 		{
 			_light = null;
 		}
@@ -228,13 +257,13 @@ class sandy.core.Scene3D
 	 */
 	public function set light( l:Light3D ) : Void
 	{
-		if ( _light )
+		if( _light )
 		{
 			_light.destroy();
 		}
 		// --
 		_light = l;
-		_oEB.broadcastEvent( new SandyEvent( SandyEvent.LIGHT_ADDED ) );
+		dispatchEvent( new SandyEvent( SandyEvent.LIGHT_ADDED ) );
 	}
 
 	/**
@@ -256,7 +285,7 @@ class sandy.core.Scene3D
 	{
 		m_bRectClipped = p_bEnableClipping;
 		// -- we force the new state of the rectClipping property to be applied
-		if ( camera )
+		if( camera )
 		{
 			camera.viewport.hasChanged = true;
 		}
@@ -264,11 +293,19 @@ class sandy.core.Scene3D
 
 	/**
 	 * The name of this scene.
-	 * This value can't be changed.d
+	 * This value can't be changed.
 	 */
 	public function get name() : String
 	{
 		return m_sName;
+	}
+	
+	/**
+	 * Returns a version string ( "2.0.2" ), useful for conditional code
+	 */	
+	public static function getVersion() : String
+	{
+		return _version;
 	}
 
 	/**
@@ -277,5 +314,6 @@ class sandy.core.Scene3D
 	private var m_sName:String;
 	private var m_bRectClipped:Boolean = true;
 	private var _light:Light3D; 	//the unique light instance of the world
+	private static var _version:String = "2.0.2";
 	
 }

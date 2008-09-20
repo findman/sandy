@@ -18,10 +18,10 @@ import com.bourre.events.BasicEvent;
 import com.bourre.events.EventType;
 
 /**
- * MouseEvents, based on the AS3 MouseEvent class.
+ * Implementation of the AS3 MouseEvent class.
  *
  * @author	Thomas Pfeiffer
- * @author	(porting) Floris - FFlasher
+ * @author	(porting) Floris - xdevltd
  * @version	2.0.2
  */
  
@@ -46,7 +46,7 @@ class sandy.events.MouseEvent extends BasicEvent
 	
 	public static var MOUSE_MOVE:EventType = new EventType( "MouseRollOverEVENT" );
 		
-	public function MouseEvent( e : EventType, oT ) 
+	public function MouseEvent( e:EventType, oT ) 
 	{
 		super( e, oT );
 	}

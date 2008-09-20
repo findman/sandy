@@ -31,7 +31,7 @@ import sandy.view.Frustum;
  * To transform collections of objects, you should add them to a transform group.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		28.03.2006
  *
@@ -80,7 +80,7 @@ class sandy.core.scenegraph.Group extends Node
 		    var lChanged:Boolean = p_bChanged || changed;
 			var l_oNode:Node;
 		    for( l_oNode in children )
-		        children[l_oNode].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+		        children[ l_oNode ].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
 		}
 		// --
 		//super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );
@@ -97,11 +97,11 @@ class sandy.core.scenegraph.Group extends Node
 		var l_oNode:Node;
 		for( l_oNode in children )
 		{
-		    if( children[l_oNode].culled != CullingState.OUTSIDE )
-		    	children[l_oNode].render( p_oScene, p_oCamera );
+		    if( children[ l_oNode ].culled != CullingState.OUTSIDE )
+		    	children[ l_oNode ].render( p_oScene, p_oCamera );
 		    // --
-		    children[l_oNode].changed = false; // default value is set to not changed.
-		  	children[l_oNode].culled = CullingState.INSIDE; // Default value is inside.
+		    children[ l_oNode ].changed = false; // default value is set to not changed.
+		  	children[ l_oNode ].culled = CullingState.INSIDE; // Default value is inside.
 		}
 	}
 	
@@ -112,9 +112,9 @@ class sandy.core.scenegraph.Group extends Node
 		var l_oNode;
 		for( l_oNode in children )
 		{
-			if( children[l_oNode] instanceof Shape3D || children[l_oNode] instanceof Group || children[l_oNode] instanceof TransformGroup )
+			if( children[ l_oNode ] instanceof Shape3D || children[ l_oNode ] instanceof Group || children[ l_oNode ] instanceof TransformGroup )
 			{
-				l_oGroup.addChild( children[l_oNode].clone(  p_sName + "_" + children[l_oNode].name ) );
+				l_oGroup.addChild( children[ l_oNode ].clone( p_sName + "_" + children[ l_oNode ].name ) );
 			} 
 		}
 		

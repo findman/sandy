@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -19,8 +19,6 @@ import flash.geom.ColorTransform;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
-import sandy.events.Timer;
-import sandy.events.TimerEvent;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.MaterialType;
 import sandy.materials.attributes.MaterialAttributes;
@@ -28,13 +26,13 @@ import sandy.math.ColorMath;
 import sandy.util.NumberUtil;
 
 /**
- * Displays a Flash video ( FLV ) on the faces of a 3D shape.
+ * Displays a Flash video (FLV) on the faces of a 3D shape.
  *
  * <p>Based on the AS2 class VideoSkin made by kiroukou and zeusprod</p>
  *
  * @author		Xavier Martin - zeflasher
  * @author		Thomas PFEIFFER - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @since		1.0
  * @version		2.0.2
  * @date 		26.06.2007
@@ -47,7 +45,7 @@ class sandy.materials.VideoMaterial extends BitmapMaterial
 	 * Default color used to draw the bitmapdata content.
 	 * In case you need a specific color, change this value at your application initialization.
 	 */
-	public static var DEFAULT_FILL_COLOR:Number = 0;
+	public static var DEFAULT_FILL_COLOR:Number;
 
 	private var m_oTimer:Number;
 	private var m_bRunning:Boolean;
@@ -71,6 +69,7 @@ class sandy.materials.VideoMaterial extends BitmapMaterial
 	public function VideoMaterial( p_oVideo:Video, p_nUpdate:Number, p_oAttr:MaterialAttributes )
 	{
 		super( new BitmapData( p_oVideo._width, p_oVideo._height, true, DEFAULT_FILL_COLOR ), p_oAttr );
+		DEFAULT_FILL_COLOR = 0;
 		m_oAlpha = new ColorTransform ();
 		m_oVideo = p_oVideo;
 		m_oType = MaterialType.VIDEO;
@@ -83,7 +82,7 @@ class sandy.materials.VideoMaterial extends BitmapMaterial
 	/**
 	 * @private
 	 */
-	public function renderPolygon ( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:MovieClip ) : Void
+	public function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:MovieClip ) : Void
 	{
 		m_bUpdate = true;
 		super.renderPolygon( p_oScene, p_oPolygon, p_mcContainer );
@@ -100,12 +99,11 @@ class sandy.materials.VideoMaterial extends BitmapMaterial
 	/**
 	 * Updates this material each internal timer cycle.
 	 */
-	private function _update( p_eEvent:TimerEvent ) : Void
+	private function _update() : Void
 	{
-		if ( m_bUpdate || forceUpdate )
+		if( m_bUpdate || forceUpdate )
 		{
-			m_oTexture.fillRect( m_oTexture.rectangle,
-				ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
+			m_oTexture.fillRect( m_oTexture.rectangle, ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier ) );
 			// --
 			m_oTexture.draw( m_oVideo, null, m_oAlpha, null, null, smooth );
 		}

@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -39,7 +39,7 @@ import sandy.util.NumberUtil;
  * and then this attribute for specular reflection.</p>
  *
  * @author		Makc
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		15.12.2007
  */
@@ -47,22 +47,24 @@ import sandy.util.NumberUtil;
 class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 {
 	
+	public function ALightAttributes() { spherize = 0 }
+	
 	/**
 	 * Non-zero value adds sphere normals to actual normals for light rendering.
 	 * Use this with flat surfaces or cylinders.
 	 */
-	public var spherize:Number = 0;
+	public var spherize:Number;
 
 	/**
 	 * Flag for rendering mode.
 	 * <p>If true, only specular highlight is rendered, when useBright is also true.<br />
-	 * If false (the default) ambient and diffuse reflections will also be rendered.</p>
+	 * If false ( the default ) ambient and diffuse reflections will also be rendered.</p>
 	 */
 	public var onlySpecular:Boolean = false;
 
 	/**
 	 * Flag for lightening mode.
-	 * <p>If true (the default), the lit objects use full light range from black to white.<br />
+	 * <p>If true ( the default ), the lit objects use full light range from black to white.<br />
 	 * If false they just range from black to their normal appearance; additionally, current
 	 * implementation does not render specular reflection in this case.</p>
 	 */
@@ -89,10 +91,10 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 	 * 
 	 * @param p_oLight Light3D object to make the light map for.
 	 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected
-	 * (Flash radial gradient is used internally light map, thus we can only roughly approximate exact
-	 * lighting).
-	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected (greater
-	 * values will produce a little bit more accurate interpolation with non-equally spaced anchors).
+	 * ( Flash radial gradient is used internally light map, thus we can only roughly approximate exact
+	 * lighting ).
+	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected ( greater
+	 * values will produce a little bit more accurate interpolation with non-equally spaced anchors ).
 	 *
 	 * @see sandy.core.light.Light3D
 	 */
@@ -109,7 +111,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 
 		// take arbitrary vector perpendicular to light direction and normalize it
 		var e:Vector = ( Math.abs( m_oCurrentL.x ) + Math.abs( m_oCurrentL.y ) > 0 ) ?
-			new Vector( m_oCurrentL.y, -m_oCurrentL.x, 0 ) : new Vector( m_oCurrentL.z, 0, -m_oCurrentL.x ); e.normalize();
+						new Vector( m_oCurrentL.y, -m_oCurrentL.x, 0 ) : new Vector( m_oCurrentL.z, 0, -m_oCurrentL.x ); e.normalize();
 	
 		// sample ambient + diffuse and specular separately
 		var n:Vector = new Vector();
@@ -117,7 +119,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 		var S:Array = [ 0, 0 ], t:Array = [ -1, -1 ];
 		for( i = 0; i < N; i++ )
 		{
-			// radius in the lightmap (scaled 0 to 1) and its complimentary number (to parabola)
+			// radius in the lightmap ( scaled 0 to 1 ) and its complimentary number ( to parabola )
 			var r:Number = i * 1.0 / ( N - 1 ), q:Number = 0.5 * ( 1 - r * r );
 			// take arbitrary normal that will map to radius r in the lightmap
 			n.x = e.x * r - m_oCurrentL.x * q;
@@ -125,22 +127,22 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 			n.z = e.z * r - m_oCurrentL.z * q;
 			n.normalize();
 			// calculate reflection from that normal
-			l_aReflection[0][i] = calculate( n, true, true );
-			l_aReflection[1][i] = calculate( n, true ) - l_aReflection[0][i];
+			l_aReflection[ 0 ][ i ] = calculate( n, true, true );
+			l_aReflection[ 1 ][ i ] = calculate( n, true ) - l_aReflection[ 0 ][ i ];
 
 			for( j = 0; j < 2; j++ )
 			{				
-				// constrain values (note: this is different from constraining their sum)
-				l_aReflection[j][i] = NumberUtil.constrain( l_aReflection[j][i], 0, 1 );
+				// constrain values ( note: this is different from constraining their sum )
+				l_aReflection[ j ][ i ] = NumberUtil.constrain( l_aReflection[ j ][ i ], 0, 1 );
 				// integrate it
-				S[j] += l_aReflection[j][i];
+				S[ j ] += l_aReflection[ j ][ i ];
 				// find transparent points for maps with useBright enabled
 				if( useBright )
 				{
-					if( l_aReflection[j][0] > 0.5 )
-						if( l_aReflection[j][i] <= 0.5 )
-							t[j] = ( ( l_aReflection[j][i - 1] - 0.5 ) * i + ( 0.5 - l_aReflection[j][i] ) * ( i - 1 ) ) /
-							         ( l_aReflection[j][i - 1] - l_aReflection[j][i] );
+					if( l_aReflection[ j ][ 0 ] > 0.5 )
+						if( l_aReflection[ j ][ i ] <= 0.5 )
+							t[ j ] = ( ( l_aReflection[ j ][ i - 1 ] - 0.5 ) * i + ( 0.5 - l_aReflection[ j ][ i ] ) * ( i - 1 ) ) /
+							         ( l_aReflection[ j ][ i - 1 ] - l_aReflection[ j ][ i ] );
 				}
 			}
 		}
@@ -155,61 +157,61 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 		for( j = 0; j < 2; j++ )
 		{
 			// skip if we have enough points for j-th map
-			// if this happens, algorithm below doesnt work well :(
-			if( I [j] > l_nQuality - 1 ) continue;
+			// if this happens, algorithm below doesnt work well :( 
+			if( I[ j ] > l_nQuality - 1 ) continue;
 			
 			// try to fit curve better with non-equally spaced anchors
-			s[j] += l_aReflection[j][i];
-			if( ( s[j] >= S[j] * I[j] / ( l_nQuality - 1 ) ) || ( N - i <= l_nQuality - I [j] ) )
+			s[ j ] += l_aReflection[ j ][ i ];
+			if( ( s[ j ] >= S[ j ] * I[ j ] / ( l_nQuality - 1 ) ) || ( N - i <= l_nQuality - I[ j ] ) )
 			{
 				if( useBright )
 				{
 					if( j == 0 )
 					{
 						// this is in effect only for ambient + diffuse
-						l_oLightMap.alphas[j].push( ( l_aReflection[j][i] > 0.5 ) ? 2 * l_aReflection[j][i] - 1 : 1 - 2 * l_aReflection[j][i] );
-						l_oLightMap.colors[j].push( ( l_aReflection[j][i] > 0.5 ) ? 0xFFFFFF : 0 );
-						l_oLightMap.ratios[j].push( ( i * 255 ) / ( N - 1 ) );
-						if( ( i <= t [j] ) && ( t[j] <= i + 1 ) )
+						l_oLightMap.alphas[ j ].push( ( l_aReflection[ j ][ i ] > 0.5 ) ? 2 * l_aReflection[ j ][ i ] - 1:1 - 2 * l_aReflection[ j ][ i ] );
+						l_oLightMap.colors[ j ].push( ( l_aReflection[ j ][ i ] > 0.5 ) ? 0xFFFFFF:0 );
+						l_oLightMap.ratios[ j ].push( ( i * 255 ) / ( N - 1 ) );
+						if( ( i <= t[ j ] ) && ( t[ j ] <= i + 1 ) )
 						{
 							// we need to add two transparent points, but the number of points is limited
 							// we might have to remove one or two points in order to do this
 							if( l_nQuality > 13 )
 							{
-								I[j] += 1;
+								I[ j ] += 1;
 								if( l_nQuality > 14 )
 								{
-									l_oLightMap.alphas[j].pop();
-									l_oLightMap.colors[j].pop();
-									l_oLightMap.ratios[j].pop();
+									l_oLightMap.alphas[ j ].pop();
+									l_oLightMap.colors[ j ].pop();
+									l_oLightMap.ratios[ j ].pop();
 								}
 							}
 
-							l_oLightMap.alphas[j].push( 0 );
-							l_oLightMap.colors[j].push( 0xFFFFFF );
-							l_oLightMap.ratios[j].push( ( t[j] * 255 ) / ( N - 1 ) );
+							l_oLightMap.alphas[ j ].push( 0 );
+							l_oLightMap.colors[ j ].push( 0xFFFFFF );
+							l_oLightMap.ratios[ j ].push( ( t[ j ] * 255 ) / ( N - 1 ) );
 	
-							l_oLightMap.alphas [j].push( 0 );
-							l_oLightMap.colors [j].push( 0 );
-							l_oLightMap.ratios [j].push( ( t[j] * 255 ) / ( N - 1 ) );
+							l_oLightMap.alphas [ j ].push( 0 );
+							l_oLightMap.colors [ j ].push( 0 );
+							l_oLightMap.ratios [ j ].push( ( t[ j ] * 255 ) / ( N - 1 ) );
 						}
 					}
 					else
 					{
 						// it is not really possible to support specular with this method in our limited 3.0 system
 						// so what we do here is not correct light map, but a hack losely based on actual values
-						l_oLightMap.alphas[j].push( 2.5 * l_aReflection[j][i] * l_aReflection[j][i] );
-						l_oLightMap.colors[j].push( 0xFFFFFF );
-						l_oLightMap.ratios[j].push( ( i * 255 ) / ( N - 1 ) );
+						l_oLightMap.alphas[ j ].push( 2.5 * l_aReflection[ j ][ i ] * l_aReflection[ j ][ i ] );
+						l_oLightMap.colors[ j ].push( 0xFFFFFF );
+						l_oLightMap.ratios[ j ].push( ( i * 255 ) / ( N - 1 ) );
 					}
 				}
 				else
 				{
-					l_oLightMap.alphas[j].push( 1 - l_aReflection[j][i] );
-					l_oLightMap.colors[j].push( 0 );
-					l_oLightMap.ratios[j].push( ( i * 255 ) / ( N - 1 ) );
+					l_oLightMap.alphas[ j ].push( 1 - l_aReflection[ j ][ i ] );
+					l_oLightMap.colors[ j ].push( 0 );
+					l_oLightMap.ratios[ j ].push( ( i * 255 ) / ( N - 1 ) );
 				}
-				I[j] += 1;
+				I[ j ] += 1;
 			}
 		}
 
@@ -219,7 +221,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 		
 	/**
 	 * Create the PhongAttributes object.
-	 * @param p_bBright The brightness (value for useBright).
+	 * @param p_bBright The brightness ( value for useBright ).
 	 * @param p_nAmbient The ambient light value. A value between 0 and 1 is expected.
 	 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected.
 	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected.
@@ -233,22 +235,22 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 		// -- define some vars
 		m_oLightMaps = new Map();
 		
-		aN0 = [ new Vector (), new Vector (), new Vector () ];
-		aN  = [ new Vector (), new Vector (), new Vector () ];
-		aNP = [ new Point (), new Point (), new Point () ];
+		aN0 = [ new Vector(), new Vector(), new Vector() ];
+		aN  = [ new Vector(), new Vector(), new Vector() ];
+		aNP = [ new Point(), new Point(), new Point() ];
 
-		dv = new Vector ();		
-		e1 = new Vector ();
-	 	e2 = new Vector ();
+		dv = new Vector();		
+		e1 = new Vector();
+	 	e2 = new Vector();
 
 		matrix = new Matrix();
  		matrix2 = new Matrix();
 	}
 
-	// default quality to pass to computeLightMap (set in constructor)
+	// default quality to pass to computeLightMap ( set in constructor )
 	private var m_nQuality:Number;
 
-	// default samples to pass to computeLightMap (set in constructor)
+	// default samples to pass to computeLightMap ( set in constructor )
 	private var m_nSamples:Number;
 
 	// dictionary to hold light maps
@@ -257,7 +259,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 	// on SandyEvent.LIGHT_UPDATED we update the light map for this light *IF* we have it
 	private function watchForUpdatedLights( p_oEvent:SandyEvent ) : Void
 	{
-		if( PhongAttributesLightMap( m_oLightMaps.get( Light3D( p_oEvent.getTarget() ) ) ) != null)
+		if( PhongAttributesLightMap( m_oLightMaps.get( Light3D( p_oEvent.getTarget() ) ) ) != null )
 		{
 			computeLightMap( Light3D( p_oEvent.getTarget() ), m_nQuality, m_nSamples );
 		}
@@ -275,7 +277,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 
 		var l_oLight:Light3D = p_oScene.light;
 
-		if( PhongAttributesLightMap( m_oLightMaps.get( l_oLight ) )  == null)
+		if( PhongAttributesLightMap( m_oLightMaps.get( l_oLight ) )  == null )
 		{
 			// if we have no map yet, subscribe to this light updates and make the map
 			l_oLight.addEventListener( SandyEvent.LIGHT_UPDATED, watchForUpdatedLights );
@@ -303,26 +305,26 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 		// get vertices and prepare matrix2
 		var l_aPoints:Array = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices;
 
-		l_oVertex = l_aPoints[0];
+		l_oVertex = l_aPoints[ 0 ];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
 			
-		l_oVertex = l_aPoints[1];
+		l_oVertex = l_aPoints[ 1 ];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
 
-		l_oVertex = l_aPoints[2];
+		l_oVertex = l_aPoints[ 2 ];
 		m2c += l_oVertex.sx; matrix2.c = m2c;
 		m2d += l_oVertex.sy; matrix2.d = m2d;
 
 		// transform 1st three normals
 		for( i = 0; i < 3; i++ )
 		{
-			v = aN0[i]; v.copy( Vertex( p_oPolygon.vertexNormals[i] ).getVector() );
+			v = aN0[ i ]; v.copy( Vertex( p_oPolygon.vertexNormals[ i ] ).getVector() );
 
 			if( spherize > 0 )
 			{
-				l_oVertex = l_aPoints [i];
+				l_oVertex = l_aPoints [ i ];
 
 				dv.copy( l_oVertex.getVector() );
 				dv.sub( p_oPolygon.shape.geometryCenter );
@@ -347,12 +349,12 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 			var backside:Boolean = true;
 			for( i = 0; i < 3; i++ )
 			{
-				v = aN[i]; v.copy( aN0[i] );
+				v = aN[ i ]; v.copy( aN0[ i ] );
 
 				var d_dot_aNi:Number = d.dot( v );
 				if( d_dot_aNi < 0 ) backside = false;
 
-				// intersect with parabola - q(r) in computeLightMap() corresponds to this
+				// intersect with parabola - q( r ) in computeLightMap() corresponds to this
 				v.scale( 1 / ( 1 - d_dot_aNi ) );
 			}
 				
@@ -372,7 +374,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 			else
 			{
 				// calculate two arbitrary vectors perpendicular to light direction
-				if ( ( d.x != 0 ) || ( d.y != 0 ) )
+				if( ( d.x != 0 ) || ( d.y != 0 ) )
 				{
 					e1.x = d.y; e1.y = -d.x; e1.z = 0;
 				}
@@ -386,9 +388,9 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 
 				for( i = 0; i < 3; i++ )
 				{
-					p = aNP[i]; v = aN[i];
+					p = aNP[ i ]; v = aN[ i ];
 
-					// project aN [i] onto e1 and e2
+					// project aN [ i ] onto e1 and e2
 					p.x = e1.dot( v );
 					p.y = e2.dot( v );
 
@@ -399,9 +401,9 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 
 				// simple hack to resolve bad projections
 				// where the hell do they keep coming from?
-				p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
+				p = aNP[ 0 ]; p1 = aNP[ 1 ]; p2 = aNP[ 2 ];
 				a = ( p.x - p1.x ) * ( p.y - p2.y ) - ( p.y - p1.y ) * ( p.x - p2.x );
-				while( (-20 < a ) && (  a < 20 ) )
+				while( ( -20 < a ) && (  a < 20 ) )
 				{
 					p.x--; p1.y++; p2.x++;
 					a = ( p.x - p1.x ) * ( p.y - p2.y ) - ( p.y - p1.y ) * ( p.x - p2.x );
@@ -417,16 +419,16 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 				matrix.invert();
 
 				matrix.concat( matrix2 );
-				p_oMovieClip.beginGradientFill( "radial", m_oCurrentLightMap.colors[j], m_oCurrentLightMap.alphas[j], m_oCurrentLightMap.ratios[j], matrix );
+				p_oMovieClip.beginGradientFill( "radial", m_oCurrentLightMap.colors[ j ], m_oCurrentLightMap.alphas[ j ], m_oCurrentLightMap.ratios[ j ], matrix );
 			}
 
 			if( !backside || ( j == 0 ) )
 			{
 				// render the lighting
-				p_oMovieClip.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+				p_oMovieClip.moveTo( l_aPoints[ 0 ].sx, l_aPoints[ 0 ].sy );
 				for( l_oVertex in l_aPoints )
 				{
-					p_oMovieClip.lineTo( l_aPoints[l_oVertex].sx, l_aPoints[l_oVertex].sy  );
+					p_oMovieClip.lineTo( l_aPoints[ l_oVertex ].sx, l_aPoints[ l_oVertex ].sy  );
 				}
 				p_oMovieClip.endFill();
 			}

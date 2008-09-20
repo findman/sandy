@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -47,9 +47,9 @@ import sandy.events.SandyEvent;
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author		Xavier Martin - zeflasher - http://dev.webbymx.net
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
- * @date 		07.09.2007
+ * @date 		25.08.2008
  */
  
 class sandy.core.World3D extends Scene3D
@@ -64,7 +64,7 @@ class sandy.core.World3D extends Scene3D
 	 */
 	public function World3D()
 	{
-		if ( create )
+		if( create )
 		{
 			// default light
 			super( null, null, null, null );
@@ -75,14 +75,6 @@ class sandy.core.World3D extends Scene3D
 			throw new SingletonError();
 		}
 	}
-	
-	/**
-	 * Returns a version string ("2.0.2"), useful for conditional code
-	 */	
-	public static function getVersion() : String
-	{
-		return _version;
-	}
 
 	/**
 	 * Returns an instance of World3D.
@@ -91,7 +83,7 @@ class sandy.core.World3D extends Scene3D
 	 */
 	public static function getInstance() : World3D
 	{
-		if ( instance == null )
+		if( instance == null )
 		{
 			create = true;
 			instance = new World3D();
@@ -101,6 +93,11 @@ class sandy.core.World3D extends Scene3D
 		return instance;
 	}
 
+	/**
+	 * Returns a string representation of this object.
+	 *
+	 * @return	The fully qualified name of this object.
+	 */
 	public function toString() : String
 	{
 		return "sandy.core.World3D";
@@ -110,9 +107,8 @@ class sandy.core.World3D extends Scene3D
 	////////////////////
 	//// PRIVATE
 	////////////////////
-	private var _light : Light3D; //the unique light instance of the world
+	private var _light:Light3D; //the unique light instance of the world
 	private static var instance:World3D;
 	private static var create:Boolean;
-	private static var _version:String = "2.0.2";
 	
 }

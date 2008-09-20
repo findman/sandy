@@ -36,10 +36,10 @@ limitations under the License.
  * </listing>
  * 
  * @author		flexrails
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		22.03.2008
- **/
+ */
  
 import sandy.core.scenegraph.Node;
  

@@ -20,47 +20,47 @@ import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
 /**
-* Interface for all the elements that represent a material attribute property.
-* This interface is important to make attributes really flexible and allow users to extend it.
-*/
+ * Interface for all the elements that represent a material attribute property.
+ * This interface is important to make attributes really flexible and allow users to extend it.
+ */
 
 interface sandy.materials.attributes.IAttributes
 {
 	
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function draw( p_oMovieClip:MovieClip, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ) : Void;
 
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ) : Void;
 
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function init( p_oPolygon:Polygon ) : Void;
 
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function unlink( p_oPolygon:Polygon ) : Void;
 
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function begin( p_oScene:Scene3D ) : Void;
 
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	function finish( p_oScene:Scene3D ) : Void;
 
 	/**
-	* @private
-	*/
-	// How to solve this?? Getter/setter declarations are not permitted in as2 interfaces.
-	function get flags() : Number;
+	 * @private
+	 */
+	 // FIXME commented out, getter/setter declarations are not permitted in AS2 interfaces.
+	// function get flags() : Number;
 
 }

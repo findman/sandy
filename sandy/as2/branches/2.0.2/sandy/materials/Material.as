@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -27,7 +27,7 @@ import sandy.materials.attributes.MaterialAttributes;
  * to apply attributes without any material to a 3D object.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  *
@@ -47,13 +47,13 @@ class sandy.materials.Material
 	 * 
 	 * @default false
 	 */
-	public var useVertexNormal:Boolean = false;
+	public var useVertexNormal:Boolean;
 		
 	/**
 	 * Specifies if the material can receive light and have light attributes applied to it.
 	 * Can be useful to rapidly disable light on the object when unneeded.
 	 */
-	public var lightingEnable:Boolean = false;
+	public var lightingEnable:Boolean;
 		
 	/**
 	 * Creates a material.
@@ -63,12 +63,15 @@ class sandy.materials.Material
 	 */
 	public function Material( p_oAttr:MaterialAttributes )
 	{
-		_filters 	= [];
-		_useLight 	= false;
-		_id = _ID_++;
-		attributes = ( p_oAttr == null ) ? new MaterialAttributes() : p_oAttr;
+		repeat = true;
+		useVertexNormal = false;
+		lightingEnable  = false;
+		_filters    = [];
+		_useLight   = false;
+		_id 	    = _ID_++;
+		attributes  = ( p_oAttr == null ) ? new MaterialAttributes() : p_oAttr;
 		m_bModified = true;
-		m_oType = MaterialType.NONE;
+		m_oType     = MaterialType.NONE;
 	}
 	
 	/**
@@ -100,7 +103,7 @@ class sandy.materials.Material
 	 */
 	public function finish( p_oScene:Scene3D ) : Void
 	{
-		attributes.finish(p_oScene );
+		attributes.finish( p_oScene );
 	}
 	
 	/**
@@ -204,7 +207,7 @@ class sandy.materials.Material
 	 */
 	public function get modified() : Boolean
 	{
-		return( m_bModified );// && ((lineAttributes) ? lineAttributes.modified : true));
+		return( m_bModified );// && ( ( lineAttributes ) ? lineAttributes.modified:true ) );
 	}
 				
 	/**
@@ -212,7 +215,7 @@ class sandy.materials.Material
 	 * 
 	 * This affects the way textured materials are mapped for U or V out of 0-1 range.
 	 */
-	public var repeat:Boolean = true;
+	public var repeat:Boolean;
 	
 	//////////////////
 	// PROPERTIES

@@ -14,23 +14,23 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
-	import sandy.core.Scene3D;
-	import sandy.core.data.Polygon;
-	import sandy.core.data.Vertex;
-	import sandy.materials.Material;
-	import sandy.materials.attributes.AAttributes;
+import sandy.core.Scene3D;
+import sandy.core.data.Polygon;
+import sandy.core.data.Vertex;
+import sandy.materials.Material;
+import sandy.materials.attributes.AAttributes;
 	
-	/**
-	 * Holds all line attribute data for a material.
-	 *
-	 * <p>Some materials have line attributes to outline the faces of a 3D shape.<br/>
-	 * In these cases a LineAttributes object holds all line attribute data</p>
-	 * 
-	 * @author		Thomas Pfeiffer - kiroukou
-	 * @author		(porting) Floris - FFlasher
-	 * @version		2.0.2
-	 * @date 		26.07.2007
-	 */
+/**
+ * Holds all line attribute data for a material.
+ *
+ * <p>Some materials have line attributes to outline the faces of a 3D shape.<br/>
+ * In these cases a LineAttributes object holds all line attribute data</p>
+ * 
+ * @author		Thomas Pfeiffer - kiroukou
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
+ * @date 		26.07.2007
+ */
 	 
 class sandy.materials.attributes.LineAttributes extends AAttributes
 {
@@ -115,15 +115,15 @@ class sandy.materials.attributes.LineAttributes extends AAttributes
 	}
 	
 	/**
-	* @private
-	*/
+	 * @private
+	 */
 	public function draw( p_oMovieClip:MovieClip, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ) : Void
 	{
 		var l_aPoints:Array = ( p_oPolygon.isClipped ) ? p_oPolygon.cvertices : p_oPolygon.vertices;
 		var l_oVertex:Vertex;
 		p_oMovieClip.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 		// --
-		p_oMovieClip.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+		p_oMovieClip.moveTo( l_aPoints[ 0 ].sx, l_aPoints[ 0 ].sy );
 		var lId:Number = l_aPoints.length;
 		while( l_oVertex = l_aPoints[ --lId ] )
 			p_oMovieClip.lineTo( l_oVertex.sx, l_oVertex.sy );

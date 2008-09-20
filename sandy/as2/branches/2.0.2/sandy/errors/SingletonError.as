@@ -25,13 +25,14 @@ limitations under the License.
  * class.
  * 
  * @author		Dennis Ippel - ippeldv
- * @author		(porting) Floris - FFlasher
+ * @author		(porting) Floris - xdevltd
  * @version		2.0.2
  * @date 		26.07.2007
  */
 	 
 class sandy.errors.SingletonError extends Error
 {
+	
 	/**
 	 * All the constructor does is passing the error message string to the 
 	 * superclass.
@@ -40,4 +41,5 @@ class sandy.errors.SingletonError extends Error
 	{
 		super( "Class cannot be instantiated." );
 	}
+	
 }
