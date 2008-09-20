@@ -187,6 +187,7 @@ class sandy.util.XML2Object
 					{
 						var n:Number = 0;
 						var length:Number = 0;
+						var outputlist:Object = new Object();
 						var resultlist:Object = new Object();
 						for( var i in this )
 						{
@@ -200,9 +201,12 @@ class sandy.util.XML2Object
 							}
 						}
 						
-						resultlist.length = function() { return length; };
+						outputlist = resultlist[ 0 ]
+						for( var i in resultlist ) outputlist[ i ] = resultlist[ i ];
 						
-						return resultlist;
+						outputlist.length = function() { return length; };
+						
+						return outputlist;
 					}
 							
 					
