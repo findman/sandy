@@ -1,7 +1,7 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/MPL-1.1.html
@@ -20,7 +20,7 @@ limitations under the License.
  * <p>This class is used primarily to represent the frustrum planes of the camera.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author		(porting) Floris - FFlasher
+ * @author		( porting ) Floris - xdevltd
  * @since		0.1
  * @version		2.0.2
  * @date 		24.08.2007
@@ -75,7 +75,7 @@ class sandy.core.data.Plane
 	 */
 	public function toString() : String
 	{
-		return "sandy.core.data.Plane" + "(a:" + a + ", b:" + b + ", c:" + c + ", d:" + d + ")";
+		return "sandy.core.data.Plane" + "( a:" + a + ", b:" + b + ", c:" + c + ", d:" + d + " )";
 	}
 	
 }
