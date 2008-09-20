@@ -1,0 +1,126 @@
+﻿/*
+# ***** BEGIN LICENSE BLOCK *****
+Copyright the original author or authors.
+Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+	http://www.mozilla.org/MPL/MPL-1.1.html
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+# ***** END LICENSE BLOCK *****
+*/
+
+/**
+ * 	Fast trigonometry functions using cache table and precalculated data. 
+ * 	Based on Michael Kraus implementation.
+ * 
+ * @author		Mirek Mencel	// miras@polychrome.pl
+ * @author		(porting) Floris - xdevltd
+ * @date 		01.02.2007
+ * @version 	2.0.2
+ */
+	
+class sandy.math.FastMath
+{
+		
+	/**
+	 * The precision of the lookup table.
+	 * <p>The bigger this number, the more entries there are in the lookup table, which gives more accurate results.</p>
+	 */
+	public static var PRECISION:Number = 0x020000;
+		
+	/**
+	 * Math constant pi&#42;2.
+	 */
+	public static var TWO_PI:Number = 2 * Math.PI;
+		
+	/**
+	 * Math constant pi/2.
+	 */
+	public static var HALF_PI:Number = Math.PI/2;
+		
+	// OPTIMIZATION CONSTANTS
+	/**
+	 * <code>PRECISION</code> - 1.
+	 */
+	public static var PRECISION_S:Number = PRECISION - 1;
+		
+	/**
+	 * <code>PRECISION</code> / <code>TWO_PI</code>.
+	 */
+	public static var PRECISION_DIV_2PI:Number = PRECISION / TWO_PI;
+		
+	// Precalculated values with given precision
+	private static var sinTable:Array = new Array( PRECISION );
+	private static var tanTable:Array = new Array( PRECISION );
+	
+	private static var RAD_SLICE:Number = TWO_PI / PRECISION;
+	
+	/**
+	 * Whether this class has been initialized.
+	 */
+	public static var initialized:Boolean = initialize();
+		
+	private static function initialize() : Boolean
+	{
+		var rad:Number = 0;
+		// --
+		for( var i:Number = 0; i < PRECISION; i++) 
+		{
+			rad = Number( i * RAD_SLICE );
+			sinTable[i] = Number( Math.sin( rad ) );
+			tanTable[i] = Number( Math.tan( rad ) );
+		}
+		// --
+		return true;
+	}
+
+	private static function radToIndex( radians:Number ) : Number 
+	{
+			return int( ( radians * PRECISION_DIV_2PI ) & ( PRECISION_S ) );
+	}
+	
+	/**
+	 * Returns the sine of a given value, by looking up it's approximation in a
+	 * precomputed table.
+	 *
+	 * @param radians	The value to sine.
+	 *
+	 * @return The approximation of the value's sine.
+	 */
+	public static function sin( radians:Number ) : Number 
+	{
+		return sinTable[ int( radToIndex( radians ) ) ];
+	}
+	
+	/**
+	 * Returns the cosine of a given value, by looking up it's approximation in a
+	 * precomputed table.
+	 *
+	 * @param radians	The value to cosine.
+	 *
+	 * @return The approximation of the value's cosine.
+	 */
+	public static function cos( radians:Number ) : Number 
+	{
+		return sinTable[ int( radToIndex( HALF_PI - radians ) ) ];
+	}
+
+	/**
+	 * Returns the tangent of a given value, by looking up it's approximation in a
+	 * precomputed table.
+	 *
+	 * @param radians	The value to tan.
+	 *
+	 * @return The approximation of the value's tangent.
+	 */
+	public static function tan( radians:Number ) : Number 
+	{
+		return tanTable[ int( radToIndex( radians ) ) ];
+	}
+	
+}
