@@ -495,4 +495,7 @@ class sandy.core.data.Vertex
 	private var m_oWorld:Vector;
 	private var m_oLocal:Vector;
 	
+	public var lastTimeSCoordsComputed:Number;   
+	public var lastTimeWCoordsComputed:Number; 
+	
 }

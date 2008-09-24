@@ -237,18 +237,22 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		var l_nX:Number = viewport.offset.x + m_nOffx;
 		var l_nY:Number = viewport.offset.y + m_nOffy;
 		var l_nCste:Number;
+		var l_mp11_offx:Number = mp11 * m_nOffx;   
+		var l_mp22_offy:Number = mp22 * m_nOffy; 
 		var l_oVertex:Vertex;
 		for( l_oVertex in p_oList )
 		{
-			if( m_oCache.get( p_oList[ l_oVertex ] ) != null ) continue;
-			/* l_nCste = 1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
-			p_oList[ l_oVertex ].sx =  l_nCste * ( p_oList[ l_oVertex ].wx * mp11 + p_oList[ l_oVertex ].wy * mp12 + p_oList[ l_oVertex ].wz * mp13 + mp14 ) * m_nOffx + l_nX;
-			l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;*/   
-			l_nCste = 1 / l_oVertex.wz;   
-			l_oVertex.sx = l_nCste * l_oVertex.wx * mp11 * m_nOffx + l_nX;   
-			l_oVertex.sy = -l_nCste * l_oVertex.wy * mp22 * m_nOffy + l_nY; 
-			//nbVertices += 1;
-			m_oCache.put( p_oList[ l_oVertex ], p_oList[ l_oVertex ] );
+			if( l_oVertex.lastTimeSCoordsComputed < _lastRenderTime )   
+			{ 
+				/* l_nCste = 1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
+				p_oList[ l_oVertex ].sx =  l_nCste * ( p_oList[ l_oVertex ].wx * mp11 + p_oList[ l_oVertex ].wy * mp12 + p_oList[ l_oVertex ].wz * mp13 + mp14 ) * m_nOffx + l_nX;
+				l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;*/   
+				l_nCste = 1 / l_oVertex.wz;   
+				l_oVertex.sx = l_nCste * l_oVertex.wx * l_mp11_offx + l_nX;
+				l_oVertex.sy = -l_nCste * l_oVertex.wy * l_mp22_offy + l_nY;
+				//nbVertices += 1;
+				l_oVertex.lastTimeSCoordsComputed = _lastRenderTime;
+			}
 		}
 	}
 			
@@ -279,21 +283,25 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		var l_nX:Number = viewport.offset.x + m_nOffx;
 		var l_nY:Number = viewport.offset.y + m_nOffy;
 		var l_nCste:Number;
+		var l_mp11_offx:Number = mp11 * m_nOffx;   
+		var l_mp22_offy:Number = mp22 * m_nOffy; 
 		var l_oVertex:Vertex;
 		var keys:ObjectIterator = p_oList.getKeysIterator();
 		while( keys.hasNext() )
 		{
 			l_oVertex = keys.next();
-			if( m_oCache.get( l_oVertex ) != null ) continue;
-			// --
-			/* l_nCste = 1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
-			l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
-			l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;*/   
-			l_nCste = 1 / l_oVertex.wz;   
-			l_oVertex.sx = l_nCste * l_oVertex.wx * mp11 * m_nOffx + l_nX;   
-			l_oVertex.sy = -l_nCste * l_oVertex.wy * mp22 * m_nOffy + l_nY; 
-			//nbVertices += 1;
-			m_oCache.put( l_oVertex, l_oVertex );
+			if( l_oVertex.lastTimeSCoordsComputed < _lastRenderTime )   
+			{ 
+				// --
+				/* l_nCste = 1 / ( l_oVertex.wx * mp41 + l_oVertex.wy * mp42 + l_oVertex.wz * mp43 + mp44 );
+				l_oVertex.sx =  l_nCste * ( l_oVertex.wx * mp11 + l_oVertex.wy * mp12 + l_oVertex.wz * mp13 + mp14 ) * m_nOffx + l_nX;
+				l_oVertex.sy = -l_nCste * ( l_oVertex.wx * mp21 + l_oVertex.wy * mp22 + l_oVertex.wz * mp23 + mp24 ) * m_nOffy + l_nY;*/   
+				l_nCste = 1 / l_oVertex.wz;   
+				l_oVertex.sx = l_nCste * l_oVertex.wx * l_mp11_offx + l_nX;
+				l_oVertex.sy = -l_nCste * l_oVertex.wy * l_mp22_offy + l_nY; 
+				//nbVertices += 1;
+				l_oVertex.lastTimeSCoordsComputed = _lastRenderTime;
+			}
 		}
 	}
 		
@@ -314,6 +322,8 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 	 */
 	public function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean ) : Void
 	{
+		_lastRenderTime = p_oScene.lastRenderTime;
+		
 		if( viewport.hasChanged )
 		{
 			_perspectiveChanged = true;
@@ -342,9 +352,6 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		invModelMatrix.n14 = -( modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34 );
 		invModelMatrix.n24 = -( modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34 );
 		invModelMatrix.n34 = -( modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34 );
-		// --
-		if( m_oCache )	m_oCache = null;
-		m_oCache = new Map();
 	}
 	
 	/**
@@ -466,11 +473,12 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 	private var _nFov:Number;
 	private var _nFar:Number;
 	private var _nNear:Number;
-	private var m_oCache:Map;
 	private var mp11:Number, mp21:Number,mp31:Number,mp41:Number,
 				mp12:Number,mp22:Number,mp32:Number,mp42:Number,
 				mp13:Number,mp23:Number,mp33:Number,mp43:Number,
 				mp14:Number,mp24:Number,mp34:Number,mp44:Number,				
 				m_nOffx:Number, m_nOffy:Number;
+				
+	private var _lastRenderTime:Number;
 				
 }

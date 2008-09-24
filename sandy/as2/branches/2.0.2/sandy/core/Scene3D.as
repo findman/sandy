@@ -198,6 +198,8 @@ class sandy.core.Scene3D extends EventBroadcaster
 	 */
 	public function render( p_oEvt:SandyEvent ) : Void
 	{
+		lastRenderTime = Math.max( lastRenderTime + 1, getTimer() );   
+		// -- 
 		if( root && camera && container )
 		{
 			dispatchEvent( new SandyEvent( SandyEvent.SCENE_UPDATE ) );
@@ -224,10 +226,10 @@ class sandy.core.Scene3D extends EventBroadcaster
 	public function dispose() : Boolean
 	{
 		SceneLocator.getInstance().unregisterScene( m_sName );
-		root.destroy();
 		// --
 		if( root )
 		{
+			root.destroy();
 			root = null;
 		}
 		if( camera )
@@ -315,5 +317,10 @@ class sandy.core.Scene3D extends EventBroadcaster
 	private var m_bRectClipped:Boolean = true;
 	private var _light:Light3D; 	//the unique light instance of the world
 	private static var _version:String = "2.0.2";
+	
+	/**   
+	 * Value returned by getTimer() in the last render() call, or greater one.   
+	 */   
+	public var lastRenderTime:Number; 
 	
 }
