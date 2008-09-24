@@ -19,7 +19,7 @@ limitations under the License.
  *
  * Full credits to Alessandro Crugnola - http://www.sephiroth.it/file_detail.php?id=129# and Phil Powell - http://www.sillydomainname.com.
  *
- * @author		Floris - xdevltd (adaption for Sandy, new functions, optimising)
+ * @author		Floris - xdevltd :: adaption for Sandy, new functions ( child, where, searchfor ), optimalization
  * @version 	2.0.2
  * @date 		28.10.2008
  */
@@ -31,36 +31,36 @@ class sandy.util.XML2Object
 	
 	public var xml:XML;
 	
-	private var _path:Object;
-	private static var x2o:XML2Object;
+	private var m_path:Object;
+	private static var m_X2O:XML2Object;
 
 	/**
 	 * Creates a new XML2Object instance.
 	 *
-	 * @param  xml 	The XML object to convert to an object.
+	 * @param  p_XML 	The XML object to convert to an object.
 	 */	
-	public function XML2Object( xml:XML )
+	public function XML2Object( p_XML:XML )
 	{			
 		data = new Object();
-		if( xml ) data = deserialize( xml );
+		if( p_XML ) data = deserialize( p_XML );
 	}
 	
 	/**
 	 * Deserializes and returns the xml object.
 	 *
-	 * @param  xml 	XML object.
+	 * @param  p_XML 	XML object.
 	 */		
-	public static function deserialize( xml:XML ) : Object
+	public static function deserialize( p_XML:XML ) : Object
 	{
-		x2o = new XML2Object();
+		m_X2O = new XML2Object();
 		
-		if( xml == null ) return x2o;
+		if( !p_XML ) return m_X2O;
 		
-		x2o.xml = xml;
+		m_X2O.xml = p_XML;
 		
 		Object.prototype.toString = function() { return this.data; }
 		
-		return x2o.nodesToProperties();
+		return m_X2O.nodesToProperties();
 	}
 		
 	/**
@@ -68,36 +68,37 @@ class sandy.util.XML2Object
 	 * 
 	 * Converts the XMLNodes to objects with nested properties and adds them to the main branch.
 	 *
-	 * @param  parent 		The parent of the current XMLNode.
-	 * @parem  path 		The object.
-	 * @parem  name 		Name of the property of the path.
-	 * @parem  position 	Position in the path (array).
+	 * @param  p_oParent 		The parent of the current XMLNode.
+	 * @parem  p_oPath 		The object.
+	 * @parem  p_sName 		Name of the property of the path.
+	 * @parem  p_nPosition 	Position in the path (array).
 	 */	
-	private function nodesToProperties( parent:XMLNode, path:Object, name:String, position:Number ) : Object
+	private function nodesToProperties( p_oParent:XMLNode, p_oPath:Object, p_sName:String, p_nPosition:Number ) : Object
 	{
-		var nodes:Array;
-		var node:XMLNode;
+		var m_aNodes:Array;
+		var m_oNode:XMLNode;
 		
-		path = ( !path ) ? this.data : path[ name ];
+		m_path = ( !p_oPath ) ? this.data : p_oPath[ p_sName ];
 
-		if( !parent ) parent = XMLNode( this.xml );
+		if( !p_oParent ) p_oParent = XMLNode( this.xml );
 		
-		if( parent.hasChildNodes() )
+		if( p_oParent.hasChildNodes() )
 		{
-			nodes = parent.childNodes;
-			if( position ) path = path[ position ];
+			m_aNodes = p_oParent.childNodes;
+			if( p_nPosition ) m_path = m_path[ p_nPosition ];
 			
-			while( nodes.length > 0 )
+			while( m_aNodes.length > 0 )
 			{
-				node = XMLNode( nodes.shift() );
+				m_oNode = XMLNode( m_aNodes.shift() );
 
-				if( node.nodeName )
+				if( m_oNode.nodeName )
 				{
-					var obj = new Object();
+					// -- object with the properties of the node (attributes, data) and some functions
+					var m_oInfo = new Object();
 					// -- the attributes of the node
-					obj.attributes = node.attributes;
-					// -- the data, you can use toString() function instead
-					obj.data = sanitizeLineBreaks( node.firstChild.nodeValue ); 
+					m_oInfo.attributes = m_oNode.attributes;
+					// -- the data, toString() function returns this property
+					m_oInfo.data = sanitizeLineBreaks( m_oNode.firstChild.nodeValue ); 
 					
 					/**
 					 * Returns the requested children.
@@ -108,25 +109,24 @@ class sandy.util.XML2Object
 					 * // -- Returns the id of the node xml_obj.nodes.testnode.attribute.id:
 					 * var testnode_id:String = xml_obj.nodes.child( 'testnode.attribute.id' );
 					 *
-					 * @param  child 	the path to the child
+					 * @param  p_sChild 	the path to the child
 					 */
-					obj.child = function( child:String )
+					m_oInfo.child = function( p_sChild:String )
 					{
-						if( child.indexOf( '.' ) > -1 )
+						if( p_sChild.indexOf( '.' ) > -1 )
 						{
-							var pt:Array = child.split( '.' );
-							var path:Object = this;
-							for( var n:Number = 0; n < pt.length; n++ )
+							var l_aChild:Array = p_sChild.split( '.' );
+							var l_path:Object = this;
+							for( var n:Number = 0; n < l_aChild.length; n++ )
 							{
-								path = path[ pt[ n ] ];
+								l_path = l_path[ l_aChild[ n ] ];
 							}
 						} 
-						else path = this[ child ];
+						else l_path = this[ p_sChild ];
 						
-						return path;
+						return l_path;
 					}
 							
-					
 					/**
 					 * Returns the XMLNodes where the given attribute is equal to the given value.
 					 *
@@ -134,119 +134,112 @@ class sandy.util.XML2Object
 					 *
 					 * @example
 					 * // -- Returns the content of one node with the id 'material01'. Gets from that node the sid attribute.
-					 * var id:String = xml_obj.nodes.where( 'attributes.id', 'material01', false ).attributes.sid; 
+					 * var id:String = xml_obj.nodes.where( 'attributes.id', 'material01' ).attributes.sid; 
 					 *
 					 * // -- In AS3 ( without XML2Object class )
 					 * var id:String = the_xml.nodes( @id == 'material01' ).attributes.sid;
 					 *
 					 * // -- Returns an object with all the nodes with the id 'material01'.
-					 * var all_nodes_with_material01:Object = xml_obj.nodes.where( 'attributes.id', 'material01', true );
+					 * var all_nodes_with_material01:Object = xml_obj.nodes.where( 'attributes.id', 'material01' );
 					 *
 					 * // -- In AS3 ( without XML2Object class )
 					 * var all_nodes_with_material01:XMLList = xml_obj.nodes.( @id == 'material01' );
 					 *
-					 * @param  item 	the attribute
-					 * @param  value	
-					 * @param  xmllist 	Boolean: true  = returns a list with the items where the given attribute is equal to the given value
-					 *							 false = returns the content of one item where the given attribute is equal to the given value
+					 * @param  p_sItem 	path to the attribute
+					 * @param  p_sValue	
 					 */
-					obj.where = function( item:String, value:String, xmllist:Boolean ) : Object
+					m_oInfo.where = function( p_sItem:String, p_sValue:String ) : Object
 					{
-						var length:Number = 0;
-						var resultlist:Object = new Object();
-						var outputlist:Object = new Object();
+						var n:Number = 0;
+						var l_oResult:Object = new Object();
+						var l_oOutput:Object = new Object();
 						for( var i in this ) 
 						{
-							var path:String = this[ i ].child( item );
+							var l_sPath:String = this[ i ].child( p_sItem );
 							
-							if( path == value && !isNaN( Number( i ) ) ) 
+							if( l_sPath == String( p_sValue ) && !isNaN( Number( i ) ) ) 
 							{
-								if( xmllist )
-								{
-									resultlist[ i ] = this[ i ];
-									length++;
-								}
-								else return this[ i ];
+								l_oResult[ n ] = this[ i ];
+								n++;
 							}
 						}
 						
-						outputlist = resultlist[ 0 ];
-						for( var i in resultlist ) outputlist[ i ] = resultlist[ i ];
+						l_oOutput = l_oResult[ 0 ];
+						for( var i in l_oResult ) l_oOutput[ i ] = l_oResult[ i ];
 						
-						outputlist.length = function() { return length; };
+						l_oOutput.length = function() { return n; };
 						
-						return outputlist;
+						return l_oOutput;
 					}
 					
 					/**
 					 * Returns the XMLNodes as Object with the given attribute. (where the given attribute != undefined)
 					 *
-					 * @param  item 	the attribute
+					 * @param  p_sItem 	path to the attribute
 					 */
-					obj.nodeswith = function( item:String ) : Object
+					m_oInfo.searchfor = function( p_sItem:String ) : Object
 					{
-						var n:Number = 0;
-						var length:Number = 0;
-						var outputlist:Object = new Object();
-						var resultlist:Object = new Object();
+						var n = 0;
+						var l_oOutput = new Object();
+						var l_oResult = new Object();
 						for( var i in this )
 						{
-							var path:String = this[ i ].child( item );
+							var l_sPath:String = this[ i ].child( p_sItem );
 							
-							if( path != undefined && isNaN( Number( i ) ) ) 
+							if( l_sPath != undefined && isNaN( Number( i ) ) ) 
 							{
-								resultlist[ n ] = this[ i ][ item ];
-								length++;
+								l_oResult[ n ] = this[ i ][ p_sItem ];
 								n++;
 							}
+							
 						}
 						
-						outputlist = resultlist[ 0 ]
-						for( var i in resultlist ) outputlist[ i ] = resultlist[ i ];
+						l_oOutput = l_oResult[ 0 ]
+						for( var i in l_oResult ) l_oOutput[ i ] = l_oResult[ i ];
 						
-						outputlist.length = function() { return length; };
+						l_oOutput.length = function() { return n; };
 						
-						return outputlist;
+						return l_oOutput;
 					}
 							
 					
 					// -- creates the node with nested properties
-					if( path[ node.nodeName ].__proto__ != Array.prototype )
+					if( m_path[ m_oNode.nodeName ].__proto__ != Array.prototype )
 					{
-						if( path[ node.nodeName ] != undefined )
+						if( m_path[ m_oNode.nodeName ] != undefined )
 						{
-							path[ node.nodeName ][ 0 ] = path[ node.nodeName ];
-							for( var i in obj ) path[ node.nodeName ][ i ] = obj[ i ];
+							m_path[ m_oNode.nodeName ][ 0 ] = m_path[ m_oNode.nodeName ];
+							for( var i in m_oInfo ) m_path[ m_oNode.nodeName ][ i ] = m_oInfo[ i ];
 						}
 						else
 						{
-							path[ node.nodeName ] = obj;
-							path[ node.nodeName ][ 0 ] = obj;
+							m_path[ m_oNode.nodeName ] = m_oInfo;
+							m_path[ m_oNode.nodeName ][ 0 ] = m_oInfo;
 						}
-						position = undefined;
-						path[ node.nodeName ].length = function() { return 1 };
+						p_nPosition = undefined;
+						m_path[ m_oNode.nodeName ].length = function() { return 1 };
 					} 
 					else
 					{
-						var newObj:Object = path[ node.nodeName ][ 0 ]; 
-						for( var i in obj ) newObj[ i ] = obj[ i ];
+						var newObj:Object = m_path[ m_oNode.nodeName ][ 0 ]; 
+						for( var i in m_oInfo ) newObj[ i ] = m_oInfo[ i ];
 						var n = 0;
-						for( var i in path[ node.nodeName ] ) 
+						for( var i in m_path[ m_oNode.nodeName ] ) 
 						{
-							newObj[ i ] = path[ node.nodeName ][ i ];
+							newObj[ i ] = m_path[ m_oNode.nodeName ][ i ];
 							n++;
 						}
 						newObj.length = function() { return n; };
-						path[ node.nodeName ] = newObj;
-						position = path[ node.nodeName ].length - 1;
+						m_path[ m_oNode.nodeName ] = newObj;
+						p_nPosition = m_path[ m_oNode.nodeName ].length - 1;
 					}
-					name = node.nodeName;
+					var m_sName:String = m_oNode.nodeName;
 				}
 
-				if( node.hasChildNodes() )
+				if( m_oNode.hasChildNodes() )
 				{
 					// -- repeat all with the childnodes
-					this.nodesToProperties( node, path, name, position );
+					this.nodesToProperties( m_oNode, m_path, m_sName, p_nPosition );
 				}
 				
 			}
@@ -260,14 +253,16 @@ class sandy.util.XML2Object
 	 * @private
 	 * 
 	 * Helper method to sanitize Windows line breaks.
+	 *
+	 * @param  p_sRaw	
 	 */
-	private function sanitizeLineBreaks( raw:String )
+	private function sanitizeLineBreaks( p_sRaw:String )
 	{
-		if( raw.indexOf( "\r\n" ) > -1 )
+		if( p_sRaw.indexOf( "\r\n" ) > -1 )
 		{
-			return raw.split( "\r\n" ).join( "\n" );
+			return p_sRaw.split( "\r\n" ).join( "\n" );
 		}
-		return raw;
+		return p_sRaw;
 	}
 	
 }

@@ -301,7 +301,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 			{
 				l_sNodeId = l_sNodeId.substr( 1 );
 					
-				var l_oMatchingNodes:Object = m_oCollada.library_nodes.node.where( 'attributes.id', l_sNodeId, true );
+				var l_oMatchingNodes:Object = m_oCollada.library_nodes.node.where( 'attributes.id', l_sNodeId );
 							
 				for( var i in l_oMatchingNodes ) 
 				{
@@ -328,7 +328,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	{
 		var i:Number;
 		var l_oOutpGeom:Geometry3D = new Geometry3D();
-		var l_oGeometry:Object = m_oCollada.library_geometries.geometry.where( 'attributes.id', p_sGeometryID, true );
+		var l_oGeometry:Object = m_oCollada.library_geometries.geometry.where( 'attributes.id', p_sGeometryID );
 		
 		// -- triangles
 		var l_oTriangles:Object = l_oGeometry.mesh.triangles[ 0 ];
@@ -359,7 +359,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 									l_oVertex.z );
 		}
 		
-		if( l_oTriangles.input.where( "attributes.semantic", "TEXCOORD", true ).length() > 0 )
+		if( l_oTriangles.input.where( "attributes.semantic", "TEXCOORD" ).length() > 0 )
 		{
 			// -- get uvcoords float array
 			var l_sUVCoordsID:String = l_oTriangles.input.where( "attributes.semantic", "TEXCOORD" ).attributes.source.split( "#" )[ 1 ];
@@ -377,7 +377,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 		
 		// -- get normals float array
 		// THOMAS TODO: Why using VertexNormal?  It is face normal !
-		if( l_oTriangles.input.where( "attributes.semantic", "NORMAL", true ).length() > 0 )
+		if( l_oTriangles.input.where( "attributes.semantic", "NORMAL" ).length() > 0 )
 		{
 			var l_sNormalsID:String = l_oTriangles.input.where( "attributes.semantic", "NORMAL" ).attributes.source.split( "#" )[ 1 ];
 			var l_aNormalFloats:Array = getFloatArray( l_sNormalsID, l_oGeometry );
@@ -620,12 +620,12 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 				: m_oCollada.library_effects.effect.where( 'attributes.id', l_sEffectID )[ 0 ];
 
 			// -- no textures here or colors defined		
-			if( l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).length() == 0 && l_oEffect.profile_COMMON.technique.phong.length() == 0 ) return m_oStandardAppearance;
+			if( l_oEffect.profile_COMMON.technique.phong.searchfor( "texture" ).length() == 0 && l_oEffect.profile_COMMON.technique.phong.length() == 0 ) return m_oStandardAppearance;
 			
-			if( l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).length() > 0 )
+			if( l_oEffect.profile_COMMON.technique.phong.searchfor( "texture" ).length() > 0 )
 			{
 				// -- get the texture ID and use it to get the surface source
-				var l_sTextureID:String = l_oEffect.profile_COMMON.technique.phong.nodeswith( "texture" ).attributes.texture;
+				var l_sTextureID:String = l_oEffect.profile_COMMON.technique.phong.searchfor( "texture" ).attributes.texture;
 				var l_sSurfaceID:String = String( l_oEffect.profile_COMMON.newparam.where( "attributes.sid", l_sTextureID ).sampler2D.source );
 					
 				// -- now get the image ID
