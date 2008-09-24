@@ -31,7 +31,6 @@ class sandy.util.XML2Object
 	
 	public var xml:XML;
 	
-	private var m_path:Object;
 	private static var m_X2O:XML2Object;
 
 	/**
@@ -78,14 +77,14 @@ class sandy.util.XML2Object
 		var m_aNodes:Array;
 		var m_oNode:XMLNode;
 		
-		m_path = ( !p_oPath ) ? this.data : p_oPath[ p_sName ];
+		var l_path:Object= ( !p_oPath ) ? this.data : p_oPath[ p_sName ];
 
 		if( !p_oParent ) p_oParent = XMLNode( this.xml );
 		
 		if( p_oParent.hasChildNodes() )
 		{
 			m_aNodes = p_oParent.childNodes;
-			if( p_nPosition ) m_path = m_path[ p_nPosition ];
+			if( p_nPosition ) l_path = l_path[ p_nPosition ];
 			
 			while( m_aNodes.length > 0 )
 			{
@@ -204,34 +203,34 @@ class sandy.util.XML2Object
 							
 					
 					// -- creates the node with nested properties
-					if( m_path[ m_oNode.nodeName ].__proto__ != Array.prototype )
+					if( l_path[ m_oNode.nodeName ].__proto__ != Array.prototype )
 					{
-						if( m_path[ m_oNode.nodeName ] != undefined )
+						if( l_path[ m_oNode.nodeName ] )
 						{
-							m_path[ m_oNode.nodeName ][ 0 ] = m_path[ m_oNode.nodeName ];
-							for( var i in m_oInfo ) m_path[ m_oNode.nodeName ][ i ] = m_oInfo[ i ];
+							l_path[ m_oNode.nodeName ][ 0 ] = l_path[ m_oNode.nodeName ];
+							for( var i in m_oInfo ) l_path[ m_oNode.nodeName ][ i ] = m_oInfo[ i ];
 						}
 						else
 						{
-							m_path[ m_oNode.nodeName ] = m_oInfo;
-							m_path[ m_oNode.nodeName ][ 0 ] = m_oInfo;
+							l_path[ m_oNode.nodeName ] = m_oInfo;
+							l_path[ m_oNode.nodeName ][ 0 ] = m_oInfo;
 						}
 						p_nPosition = undefined;
-						m_path[ m_oNode.nodeName ].length = function() { return 1 };
+						l_path[ m_oNode.nodeName ].length = function() { return 1 };
 					} 
 					else
 					{
-						var newObj:Object = m_path[ m_oNode.nodeName ][ 0 ]; 
+						var newObj:Object = l_path[ m_oNode.nodeName ][ 0 ]; 
 						for( var i in m_oInfo ) newObj[ i ] = m_oInfo[ i ];
 						var n = 0;
-						for( var i in m_path[ m_oNode.nodeName ] ) 
+						for( var i in l_path[ m_oNode.nodeName ] ) 
 						{
-							newObj[ i ] = m_path[ m_oNode.nodeName ][ i ];
+							newObj[ i ] = l_path[ m_oNode.nodeName ][ i ];
 							n++;
 						}
 						newObj.length = function() { return n; };
-						m_path[ m_oNode.nodeName ] = newObj;
-						p_nPosition = m_path[ m_oNode.nodeName ].length - 1;
+						l_path[ m_oNode.nodeName ] = newObj;
+						p_nPosition = l_path[ m_oNode.nodeName ].length - 1;
 					}
 					var m_sName:String = m_oNode.nodeName;
 				}
@@ -239,7 +238,7 @@ class sandy.util.XML2Object
 				if( m_oNode.hasChildNodes() )
 				{
 					// -- repeat all with the childnodes
-					this.nodesToProperties( m_oNode, m_path, m_sName, p_nPosition );
+					this.nodesToProperties( m_oNode, l_path, m_sName, p_nPosition );
 				}
 				
 			}
