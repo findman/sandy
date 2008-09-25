@@ -93,37 +93,14 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 			m_oFile = new XML();
 
 			// -- assume that textures are in same folder with model itself
-			var m_aUrl:Array = [ m_sUrl.split( '\\' ).splice( 0, m_sUrl.split( '\\' ).length - 1 ),
-			  					 m_sUrl.split( '/' ).splice( 0, m_sUrl.split( '/' ).length - 1 ) 	];
-			
-			 if( m_aUrl[ 0 ].length != 0  )
-			 {
-				RELATIVE_TEXTURE_PATH = m_aUrl[ 0 ].join( '/' );
-				if ( m_aUrl[ 1 ] != '' )
-				{ 
-					var m_aRelativePath:Array = new Array();
-					for( var i in m_aUrl[ 0 ] ) 
-					{
-						if( m_aUrl[ 0 ][ i ].indexOf( '/' ) > -1 )
-						{
-							for( var a in m_aUrl[ 0 ][ i ].split( '\\' ) )
-							{
-								m_aRelativePath.push( m_aUrl[ 0 ][ i ].split( '\\' )[ a ] );
-							}
-						} 
-						else
-						{
-							m_aRelativePath.push( m_aUrl[ 0 ][ i ] );
-						}
-					}
-					RELATIVE_TEXTURE_PATH = m_aRelativePath.join( '/' );
-				} 
-				 
-			 } 
-			 else if( m_aUrl[ 1 ].length != 0 )
-			 {
-				RELATIVE_TEXTURE_PATH = m_aUrl[ 1 ].join( '/' ); 
-			 }
+			if( m_sUrl.indexOf( '/' ) > m_sUrl.indexOf( '\\' ) )
+			{
+				RELATIVE_TEXTURE_PATH = m_sUrl.substring( 0, m_sUrl.lastIndexOf( '/' ) );
+			}
+			else
+			{
+				RELATIVE_TEXTURE_PATH = m_sUrl.substring( 0, m_sUrl.lastIndexOf( '\\' ) );
+			}
 		}
 		else
 		{
