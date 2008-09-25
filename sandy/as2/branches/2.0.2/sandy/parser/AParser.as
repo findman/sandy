@@ -18,6 +18,11 @@ import com.bourre.events.EventBroadcaster;
 import com.bourre.events.EventType;
 import com.bourre.commands.Delegate;
 
+import com.bourre.data.libs.GraphicLib;
+import com.bourre.data.libs.GraphicLibLocator;
+import com.bourre.data.libs.LibEvent;
+import com.bourre.data.libs.LibStack;
+
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.Shape3D;
 import sandy.parser.IParser;
@@ -26,6 +31,7 @@ import sandy.materials.Appearance;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.ColorMaterial;
 import sandy.materials.attributes.*;
+import sandy.util.BitmapUtil;
 
 /**
  * ABSTRACT CLASS - super class for all parser objects.
@@ -86,9 +92,38 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 			m_sUrl = p_sFile;
 			m_oFile = new XML();
 
-			// assume that textures are in same folder with model itself
-			/*if( m_sUrl.match( /[\/\\]/ ) )   // \/ staat voor een /, \\ staat voor een \
-				RELATIVE_TEXTURE_PATH = m_sUrl.replace( /(.*)[\/\\][^\/\\]+/, "$1" ); */
+			// -- assume that textures are in same folder with model itself
+			var m_aUrl:Array = [ m_sUrl.split( '\\' ).splice( 0, m_sUrl.split( '\\' ).length - 1 ),
+			  					 m_sUrl.split( '/' ).splice( 0, m_sUrl.split( '/' ).length - 1 ) 	];
+			
+			 if( m_aUrl[ 0 ].length != 0  )
+			 {
+				RELATIVE_TEXTURE_PATH = m_aUrl[ 0 ].join( '/' );
+				if ( m_aUrl[ 1 ] != '' )
+				{ 
+					var m_aRelativePath:Array = new Array();
+					for( var i in m_aUrl[ 0 ] ) 
+					{
+						if( m_aUrl[ 0 ][ i ].indexOf( '/' ) > -1 )
+						{
+							for( var a in m_aUrl[ 0 ][ i ].split( '\\' ) )
+							{
+								m_aRelativePath.push( m_aUrl[ 0 ][ i ].split( '\\' )[ a ] );
+							}
+						} 
+						else
+						{
+							m_aRelativePath.push( m_aUrl[ 0 ][ i ] );
+						}
+					}
+					RELATIVE_TEXTURE_PATH = m_aRelativePath.join( '/' );
+				} 
+				 
+			 } 
+			 else if( m_aUrl[ 1 ].length != 0 )
+			 {
+				RELATIVE_TEXTURE_PATH = m_aUrl[ 1 ].join( '/' ); 
+			 }
 		}
 		else
 		{
@@ -138,11 +173,92 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 	 */
 	private function dispatchInitEvent() : Void
 	{
-		// -- Parsing is finished
-		var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
-		l_eOnInit.group = m_oGroup;			
-		dispatchEvent( l_eOnInit );
+		m_oQueue = new LibStack();
+		var mc:MovieClip = new MovieClip();
+		var l_oContainer:MovieClip = mc.createEmptyMovieClip( "texture", mc.getNextHighestDepth() );
+		var l_oGraphicLib:GraphicLib = new GraphicLib( l_oContainer, 0, false );
+		
+		// -- load textures, if any
+		if( m_aTextures != null )
+		{
+			for( var i:Number = 0; i < m_aTextures.length; i++ ) 
+			{
+				m_oQueue.enqueue( l_oGraphicLib, i.toString(), RELATIVE_TEXTURE_PATH + "/" + m_aTextures[ i ] );
+			}
+			m_oQueue.addEventListener( LibStack.onLoadCompleteEVENT, this, onTexturesloadComplete );
+			m_oQueue.load();
+		}
+		else 
+		{
+			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
+			l_eOnInit.group = m_oGroup;
+			dispatchEvent( l_eOnInit );
+		}
 	}
+
+	private function onTexturesloadComplete() : Void
+	{
+		for( var i:Number = 0; i < m_aShapes.length; i++ )
+		{
+			// -- set successfully loaded materials
+			var l_oGL:GraphicLib;
+			if( ( l_oGL = GraphicLibLocator.getInstance().getGraphicLib( i.toString() ) ) ) 
+			{
+				Shape3D( m_aShapes[ i.toString() ] ).appearance = new Appearance( new BitmapMaterial( BitmapUtil.movieToBitmap( l_oGL.getContent(), true ) ) );
+			}
+		}
+
+		m_oQueue.removeEventListener( LibStack.onLoadCompleteEVENT, onTexturesloadComplete );
+
+		// -- this is called even if there were errors loading textures... perfect!
+		m_aShapes = m_aTextures = null; dispatchInitEvent();
+	}
+
+	/**
+	 * @private used internally to load textures
+	 */
+	private function applyTextureToShape( shape:Shape3D, texture:String )
+	{
+		if( m_aShapes == null )
+		{
+			m_aShapes = []; m_aTextures = [];
+		}
+
+		m_aShapes.push( shape );
+		m_aTextures.push( changeExt( texture ) );
+	}
+		
+	/**
+	 * @private Collada parser already loads textures on its own, so it needs this protected
+	 */
+	private /* porting :: It's correct to replace protected with private? */ function changeExt( s:String ) : String
+	{
+		if( m_sTextureExtension != null )
+		{
+			var tmp:Array = s.split( "." );
+			if( tmp.length > 1 )
+			{
+				tmp[ tmp.length - 1 ] = m_sTextureExtension;
+				s = tmp.join( "." );
+			}
+			else 
+			{
+				// leave as is?
+				s += "." + m_sTextureExtension;
+			}
+		}
+		return s;
+	}
+
+	private var m_sTextureExtension:String;
+	private var m_aShapes:Array;
+	private var m_aTextures:Array;
+	private var m_oQueue:LibStack;
+	
+	/**   
+	 * Default path for images.   
+	 */   
+	public var RELATIVE_TEXTURE_PATH:String = "."; 
 	
     /**
      * Load the file that needs to be parsed. When done, call the parseData method.

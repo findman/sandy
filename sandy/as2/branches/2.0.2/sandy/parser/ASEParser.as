@@ -53,13 +53,15 @@ class sandy.parser.ASEParser extends AParser implements IParser
 	/**
 	 * Creates a new ASEParser instance
 	 *
-	 * @param p_sUrl		This can be either a String containing an URL or a
-	 * 						an embedded object
-	 * @param p_nScale		The scale factor
+	 * @param p_sUrl					This can be either a String containing an URL or a
+	 * 									an embedded object
+	 * @param p_nScale					The scale factor
+	 * @param p_sTextureExtension		Overrides texture extension. You might want to use it for models that   
+	 * 									specify PSD or TGA textures. 
 	 */
-	public function ASEParser( p_sUrl, p_nScale:Number )
+	public function ASEParser( p_sUrl, p_nScale:Number, p_sTextureExtension:String )
 	{
-		super( p_sUrl, p_nScale );
+		super( p_sUrl, p_nScale||1, p_sTextureExtension );
 	}
 
 	/**
@@ -84,6 +86,9 @@ class sandy.parser.ASEParser extends AParser implements IParser
 		var l_oShape:Shape3D = null;
 		var l_sLastNodeName:String = null;
 		// --
+		var recToGet2:Array = [];   
+		var m_textureNames:Array = [];  
+		// --
 		while( lines.length )
 		{
 			var event:ParserEvent = new ParserEvent( ParserEvent.PARSING );
@@ -100,6 +105,14 @@ class sandy.parser.ASEParser extends AParser implements IParser
 			//--
 			switch( chunk )
 			{
+				case 'BITMAP':   
+					// ideally, we need to load these only from *MAP_DIFFUSE { ... }   
+					// *BITMAP "f:\models\mapobjects\kt_barge\kt_barge_grey.tga"   
+					// *BITMAP "F:\my_stuff\3d\studentCap\workfiles\textures\studentCap_color_002.psd"   
+
+					m_textureNames.push( line.split( '"' )[ 1 ] );   
+					break;   
+
 				case 'GEOMOBJECT':
 					// we need to catch this before NODE_NAME
 					if( l_oGeometry )
@@ -113,7 +126,7 @@ class sandy.parser.ASEParser extends AParser implements IParser
 				
 				case 'NODE_NAME':
 					// TODO: NODE_NAME is repeated in NODE_TM - find out why (if there can be multiple nodes, this code will break :)
-					l_sLastNodeName = line.split( '"' )[1];
+					l_sLastNodeName = line.split( '"' )[ 1 ];
 					break;
 				
 					/* case 'MESH_NUMFACES':
@@ -125,10 +138,10 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );
-						var mtvl: Array = content.split( '\t' ); 
-						id = parseInt( mtvl[0].substr( mtvl[0].lastIndexOf( ' ' ) ) );
+						var mtvl:Array = content.split( '\t' ); 
+						id = parseInt( mtvl[ 0 ].substr( mtvl[ 0 ].lastIndexOf( ' ' ) ) );
 						
-						l_oGeometry.setUVCoords( id , Number( parseFloat( mtvl[1] ) ) , 1 - Number( parseFloat( mtvl[2] ) ) );
+						l_oGeometry.setUVCoords( id , Number( parseFloat( mtvl[ 1 ] ) ) , 1 - Number( parseFloat( mtvl[ 2 ] ) ) );
 					}
 					break;
 				
@@ -136,10 +149,10 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );						
-						var mfl: Array = content.split(  '\t' )[0]; 
-						var drc: Array = mfl.split( ':' );
-						var con: String;		
-						id = parseInt( drc[0].substr( drc[0].lastIndexOf( ' ' ) ) );
+						var mfl:Array = content.split(  '\t' )[ 0 ]; 
+						var drc:Array = mfl.split( ':' );
+						var con:String;		
+						id = parseInt( drc[ 0 ].substr( drc[ 0 ].lastIndexOf( ' ' ) ) );
 					}
 					break;
 					
@@ -147,10 +160,10 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );
-						var mtvl: Array = content.split( '\t' ); 
-						id = parseInt( mtvl[0].substr( mtvl[0].lastIndexOf( ' ' ) ) );
+						var mtvl:Array = content.split( '\t' ); 
+						id = parseInt( mtvl[ 0 ].substr( mtvl[ 0 ].lastIndexOf( ' ' ) ) );
 						
-						l_oGeometry.setUVCoords( id , Number( parseFloat( mtvl[1] ) ) , 1 - Number( parseFloat( mtvl[2] ) ) );
+						l_oGeometry.setUVCoords( id , Number( parseFloat( mtvl[ 1 ] ) ) , 1 - Number( parseFloat( mtvl[ 2 ] ) ) );
 					}
 					break;
 
@@ -159,18 +172,29 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );
-						var mtfl: Array = content.split(  '\t' ); // separate here
-						id = parseInt( mtfl[0].substr( mtfl[0].lastIndexOf( ' ' ) ) );
+						var mtfl:Array = content.split(  '\t' ); 
+						id = parseInt( mtfl[ 0 ].substr( mtfl[ 0 ].lastIndexOf( ' ' ) ) );
 						
-						l_oGeometry.setFaceUVCoordsIds( id , Number( parseInt( mtfl[1] ) ) , Number( parseInt( mtfl[2] ) ) , Number( parseInt( mtfl[3] ) ) );
+						l_oGeometry.setFaceUVCoordsIds( id , Number( parseInt( mtfl[ 1 ] ) ) , Number( parseInt( mtfl[ 2 ] ) ) , Number( parseInt( mtfl[ 3 ] ) ) );
 					}
 					break;
+				
+				case 'MATERIAL_REF':               
+					// *MATERIAL_REF 0
+					recToGet2.push( parseInt( line.substr( line.lastIndexOf( ' ' ) + 1 ) ) );        
+					break;        
 
 			}
 		}
 		// --
 		l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
 		m_oGroup.addChild( l_oShape );
+		
+		for( var i:Number = 0; i < m_oGroup.children.length; i++ )        
+		{        
+			applyTextureToShape( Shape3D( m_oGroup.children[ i ] ), m_textureNames[ recToGet2[ i ] ] );        
+		} 
+		
 		// -- Parsing is finished
 		dispatchInitEvent();
 	}

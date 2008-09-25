@@ -72,22 +72,17 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	private var m_oMaterials:Object;
 
 	/**
-	 * Default path for COLLADA images.
-	 * <p>Can this be done without?</p>
-	 */
-	public var RELATIVE_TEXTURE_PATH:String;
-
-	/**
 	 * Creates a new COLLADA parser instance.
 	 *
-	 * @param  p_sUrl		Can be either a string pointing to the location of the
-	 * 						COLLADA file or an instance of an embedded COLLADA file.
-	 * @param  p_nScale		The scale factor.
+	 * @param  p_sUrl					Can be either a string pointing to the location of the
+	 * 									COLLADA file or an instance of an embedded COLLADA file.
+	 * @param  p_nScale					The scale factor.
+	 * @param  p_sTextureExtension		Overrides texture extension. You might want to use it for models that        
+	 * 									specify BMP or PCX textures. 
 	 */
-	public function ColladaParser( p_sUrl, p_nScale:Number )
+	public function ColladaParser( p_sUrl, p_nScale:Number, p_sTextureExtension:String )
 	{
-		super( p_sUrl, p_nScale );
-		RELATIVE_TEXTURE_PATH = ".";
+		super( p_sUrl, p_nScale||1, p_sTextureExtension );
 	}
 
 	/**
@@ -679,7 +674,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 			l_oImages[ p_oLibImages[ i ].attributes.id ] = 
 			{
 				id : p_oLibImages[ i ].attributes.id,
-				fileName : l_oInitFrom.substring( l_oInitFrom.lastIndexOf( "/" ) + 1, l_oInitFrom.length )
+				fileName : changeExt( l_oInitFrom.substring( l_oInitFrom.lastIndexOf( "/" ) + 1, l_oInitFrom.length ) )
 			}
 
 			l_oLStack.enqueue(

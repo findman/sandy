@@ -93,13 +93,14 @@ class sandy.parser.Parser
 	 *     var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.3DS );
 	 * </listing>
 	 * 
-	 * @param p_sFile			Can be either a string pointing to the location of the
-	 * 							file or an instance of an embedded file
-	 * @param p_sParserType		The parser type string
-	 * @param p_nScale			The scale factor
-	 * @return					The parser to be used
+	 * @param p_sFile				Can be either a string pointing to the location of the
+	 * 								file or an instance of an embedded file
+	 * @param p_sParserType			The parser type string
+	 * @param p_nScale				The scale factor
+	 * @param p_sTextureExtension 	Overrides texture extension.
+	 * @return						The parser to be used
 	 */		
-	public static function create( p_sFile, p_sParserType:String, p_nScale:Number ) : IParser
+	public static function create( p_sFile, p_sParserType:String, p_nScale:Number, p_sTextureExtension:String ) : IParser
 	{
 		var l_sExt:String, l_iParser = null;
 		p_nScale = p_nScale||1;
@@ -116,10 +117,10 @@ class sandy.parser.Parser
 		switch( l_sExt.toUpperCase() )
 		{
 			case ASE:
-				l_iParser = new ASEParser( p_sFile, p_nScale );
+				l_iParser = new ASEParser( p_sFile, p_nScale, p_sTextureExtension );
 				break;
 			case COLLADA:
-				 l_iParser = new ColladaParser( p_sFile, p_nScale );
+				 l_iParser = new ColladaParser( p_sFile, p_nScale, p_sTextureExtension );
 				break;
 			default:
 				break;
