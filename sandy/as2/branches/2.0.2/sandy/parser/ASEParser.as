@@ -14,9 +14,6 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
-import com.bourre.events.EventBroadcaster;
-import com.bourre.events.EventType;
-
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.materials.Appearance;
@@ -51,7 +48,7 @@ class sandy.parser.ASEParser extends AParser implements IParser
 {
 	
 	/**
-	 * Creates a new ASEParser instance
+	 * Creates a new ASEParser instance.
 	 *
 	 * @param p_sUrl					This can be either a String containing an URL or a
 	 * 									an embedded object
@@ -68,16 +65,16 @@ class sandy.parser.ASEParser extends AParser implements IParser
 	 * @private
 	 * Starts the parsing process
 	 *
-	 * @param e				Boolean: loaded succesfully.
+	 * @param b				Boolean: loaded succesfully.
 	 */
-	private function parseData( s:Boolean ) : Void
+	private function parseData( b:Boolean ) : Void
 	{
-		super.parseData( s );
+		super.parseData( b );
 		// --
 		var lines:Array =  String( m_oFile ).split( '\r\n' );
 		var lineLength:Number = lines.length;
-		var id:Number;
 		// -- local vars
+		var id:Number;
 		var line:String;
 		var content:String;
 		var chunk:String;
@@ -138,10 +135,10 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );
-						var mtvl:Array = content.split( '\t' ); 
-						id = parseInt( mtvl[ 0 ].substr( mtvl[ 0 ].lastIndexOf( ' ' ) ) );
+						var mvl:Array = content.split( '\t' );
+						id = parseInt( mvl[ 0 ].substr( mvl[ 0 ].lastIndexOf( ' ' ) ) );
 						
-						l_oGeometry.setUVCoords( id , Number( parseFloat( mtvl[ 1 ] ) ) , 1 - Number( parseFloat( mtvl[ 2 ] ) ) );
+						l_oGeometry.setVertex( id, Number( parseFloat( mvl[ 1 ] ) ) * m_nScale, Number( parseFloat( mvl[ 2 ] ) ) * m_nScale, Number( parseFloat( mvl[ 3 ] ) ) * m_nScale );
 					}
 					break;
 				
@@ -149,10 +146,12 @@ class sandy.parser.ASEParser extends AParser implements IParser
 					while( ( content = String( lines.shift() ) ).indexOf( '}' ) < 0 )
 					{
 						content = content.substr( content.indexOf( '*' ) + 1 );						
-						var mfl:Array = content.split(  '\t' )[ 0 ]; 
+						var mfl:Array = content.split( '\t' )[ 0 ]; 
 						var drc:Array = mfl.split( ':' );
 						var con:String;		
 						id = parseInt( drc[ 0 ].substr( drc[ 0 ].lastIndexOf( ' ' ) ) );
+						
+						l_oGeometry.setFaceVertexIds( id, Number( parseInt( con.substr( 0, ( con = drc[ 2 ] ).lastIndexOf( ' ' ) ) ) ), Number( parseInt( con.substr( 0, ( con = drc[ 3 ] ).lastIndexOf( ' ' ) ) ) ), Number( parseInt( con.substr( 0, ( con = drc[ 4 ] ).lastIndexOf( ' ' ) ) ) ) );					
 					}
 					break;
 					
