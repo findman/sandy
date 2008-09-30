@@ -188,8 +188,12 @@ package sandy.parser
 			for (var i:int = 0; i < m_aShapes.length; i++) {
 				// set successfully loaded materials
 				if (m_oQueue.data [i.toString ()]) {
-					Shape3D (m_aShapes [i.toString ()]).appearance =
-						new Appearance (new BitmapMaterial (m_oQueue.data [i].bitmapData ));
+					var shapes:Array = m_aShapes [i.toString ()];
+					var mat:Appearance = new Appearance (new BitmapMaterial (m_oQueue.data [i].bitmapData ));
+					for (var j:int = 0; j < shapes.length; j++) {
+						// whatever is in m_aShapes must have appearance property or be dynamic class
+						Object (shapes [j]).appearance = mat;
+					}
 				}
 			}
 
@@ -202,14 +206,27 @@ package sandy.parser
 		/**
 		 * @private used internally to load textures
 		 */
-		protected function applyTextureToShape (shape:Shape3D, texture:String)
+		protected function applyTextureToShape (shape:Object, texture:String)
 		{
-			if (m_aShapes == null) {
-				m_aShapes = []; m_aTextures = [];
+			var texName:String = changeExt (texture);
+			var texId:int = -1;
+
+			if (m_aTextures == null) {
+				// there was no textures enqueued so far
+				m_aTextures = []; m_aShapes = [];
+			} else {
+				// look up texture, maybe we have it enqueued
+				texId = m_aTextures.indexOf (texName);
 			}
 
-			m_aShapes.push (shape);
-			m_aTextures.push (changeExt (texture));
+			if (texId < 0) {
+				// this texture is not enqueued yet
+				m_aTextures.push (texName);
+				m_aShapes.push ([shape]);
+			} else {
+				// this texture is enqueued, just add shape to the list
+				m_aShapes [texId].push (shape);
+			}
 		}
 		
 		/**

@@ -59,6 +59,7 @@ package sandy.parser
 		private var textureFileNames:Array;
 		private var currentMaterialName:String;
 		private var currentMeshMaterialName:String;
+		private var currentMeshMaterialsMap:Array;
 
 		/**
 		 * Creates a new Parser3DS instance.
@@ -84,6 +85,7 @@ package sandy.parser
 		{
 			super.parseData( e );
 			// --
+			currentMeshMaterialsMap = [];
 			data = (m_oFileLoader.data as ByteArray );
 			data.endian = Endian.LITTLE_ENDIAN;
 			// --
@@ -134,24 +136,26 @@ package sandy.parser
 					case Parser3DSChunkTypes.MAT_NAME:
 						// material name
 						currentMaterialName = readString ();
-trace ("currentMaterialName <- " + currentMaterialName);
+//trace ("currentMaterialName <- " + currentMaterialName);
 						break;
 					case Parser3DSChunkTypes.MAT_TEXFLNM:
 						// texture file name
 						textureFileNames [currentMaterialName] = readString ();
-trace ("texture (currentMaterialName = " + currentMaterialName + ") " + textureFileNames [currentMaterialName]);
+//trace ("texture (currentMaterialName = " + currentMaterialName + ") " + textureFileNames [currentMaterialName]);
 						break;
 
 					case Parser3DSChunkTypes.TRI_MATERIAL:
 						// what material to use
 						currentMeshMaterialName = readString ();
-trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
-						// this chunk actually has face list
-						// sandy potentially can handle this, but let's just skip it
+//trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
+						// this chunk has face list
+						var faceList:Array = [ currentMeshMaterialName ];
 						var numFaces:int = data.readUnsignedShort();
 						for (var f:int = 0; f < numFaces; f++) {
-							data.readUnsignedShort();
+							faceList.push (data.readUnsignedShort());
 						}
+						currentMeshMaterialsMap.push (faceList);
+
 						break;
 
 				    case Parser3DSChunkTypes.EDIT_OBJECT:
@@ -163,9 +167,22 @@ trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
 					        if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 							m_oGroup.addChild( l_oShape );
 						// untested, may not work... but should
-trace ("making shape, currentMeshMaterialName = " + currentMeshMaterialName);
-						if (textureFileNames [currentMeshMaterialName])
-							applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
+//trace ("making shape (1), currentMeshMaterialName = " + currentMeshMaterialName);
+						if (currentMeshMaterialsMap.length < 2) {
+							// 1 or less materials
+							if (textureFileNames [currentMeshMaterialName])
+								applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
+						} else {
+							// multiple materials per shape
+							for each (var faceList1:Array in currentMeshMaterialsMap) {
+								if (textureFileNames [faceList1 [0]]) {
+									for (var p1:int = 1; p1 < faceList1.length; p1++) {
+										applyTextureToShape (l_oShape.aPolygons [faceList1 [p1]], textureFileNames [faceList1 [0]]);
+									}
+								}
+							}
+						}
+						currentMeshMaterialsMap = [];
 					    }
 					    // --
 					    var str:String = readString();
@@ -214,7 +231,9 @@ trace ("making shape, currentMeshMaterialName = " + currentMeshMaterialName);
 			            	var vertex_b:int = data.readUnsignedShort();
 			            	var vertex_c:int = data.readUnsignedShort();
 
-			            	var faceId:int = data.readUnsignedShort(); // TODO what is that? value is 3 or 6 ?....
+					// should we ignore invisible faces?
+			            	var visible:Boolean = data.readUnsignedShort() as Boolean;
+
 			            	l_oGeometry.setFaceVertexIds(i, vertex_a, vertex_b, vertex_c );
 			            	l_oGeometry.setFaceUVCoordsIds(i, vertex_a, vertex_b, vertex_c );
 			            }
@@ -527,9 +546,22 @@ trace ("making shape, currentMeshMaterialName = " + currentMeshMaterialName);
 				l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance);
 				if( l_oMatrix ) _applyMatrixToShape( l_oShape, l_oMatrix );
 				m_oGroup.addChild( l_oShape );
-trace ("making shape (2), currentMeshMaterialName = " + currentMeshMaterialName);
-				if (textureFileNames [currentMeshMaterialName])
-					applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
+//trace ("making shape (2), currentMeshMaterialName = " + currentMeshMaterialName);
+				if (currentMeshMaterialsMap.length < 2) {
+					// 1 or less materials
+					if (textureFileNames [currentMeshMaterialName])
+						applyTextureToShape (l_oShape, textureFileNames [currentMeshMaterialName]);
+				} else {
+					// multiple materials per shape
+					for each (var faceList2:Array in currentMeshMaterialsMap) {
+						if (textureFileNames [faceList2 [0]]) {
+							for (var p2:int = 1; p2 < faceList2.length; p2++) {
+								applyTextureToShape (l_oShape.aPolygons [faceList2 [p2]], textureFileNames [faceList2 [0]]);
+							}
+						}
+					}
+				}
+				currentMeshMaterialsMap = [];
 			}
 			// -- Parsing is finished
 			dispatchInitEvent ();
