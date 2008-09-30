@@ -141,7 +141,7 @@ package sandy.core.scenegraph
 		 * @param p_nZ		The z component of the normal
 		 * @return 		The next free index or -1 it the index is already occupied		 
 		 */
-		public function setFaceNormal( p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number ):Number
+		public function setFaceNormal( p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number ):int
 		{
 			if( aFacesNormals[p_nNormalID] )
 				return -1;
