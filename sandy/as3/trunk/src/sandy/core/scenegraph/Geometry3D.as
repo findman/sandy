@@ -109,7 +109,7 @@ package sandy.core.scenegraph
 		 * @param p_nZ		z coordinate of the vertex
 		 * @return 		The next free index or -1 it the index is already occupied		 
 		 */
-		public function setVertex( p_nVertexID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ):Number
+		public function setVertex( p_nVertexID:int, p_nX:Number, p_nY:Number, p_nZ:Number ):int
 		{
 			if( aVertex[p_nVertexID] )
 				return -1;
@@ -127,7 +127,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The vertex id
 		 */
-		public function getNextVertexID():Number
+		public function getNextVertexID():int
 		{
 			return m_nLastVertexId;
 		}	
@@ -141,7 +141,7 @@ package sandy.core.scenegraph
 		 * @param p_nZ		The z component of the normal
 		 * @return 		The next free index or -1 it the index is already occupied		 
 		 */
-		public function setFaceNormal( p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ):Number
+		public function setFaceNormal( p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number ):Number
 		{
 			if( aFacesNormals[p_nNormalID] )
 				return -1;
@@ -159,7 +159,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The normal id
 		 */
-		public function getNextFaceNormalID():Number
+		public function getNextFaceNormalID():int
 		{
 			return m_nLastNormalId;
 		}
@@ -173,7 +173,7 @@ package sandy.core.scenegraph
 		 * @param p_nZ		z coordinate of the vertex normal
 		 * @return 		The next free index or -1 it the index is already occupied
 		 */
-		public function setVertexNormal( p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number ):Number
+		public function setVertexNormal( p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number ):int
 		{
 			if( aVertexNormals[p_nNormalID] )
 				return -1;
@@ -191,7 +191,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The vertex normal id
 		 */
-		public function getNextVertexNormalID():Number
+		public function getNextVertexNormalID():int
 		{
 			return m_nLastVertexNormalId;
 		}
@@ -203,7 +203,7 @@ package sandy.core.scenegraph
 		 * @param...rest 	An array of data containing the ID's of the vertex list for the face
 		 * @return 		The next free index or -1 it the index is already occupied
 		 */
-		public function setFaceVertexIds( p_nFaceID:Number, ... arguments ):Number
+		public function setFaceVertexIds( p_nFaceID:int, ... arguments ):int
 		{
 			if( aFacesVertexID[p_nFaceID] )
 			{
@@ -264,7 +264,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The index
 		 */
-		public function getNextFaceID():Number
+		public function getNextFaceID():int
 		{
 			return m_nLastFaceId;
 		}
@@ -276,7 +276,7 @@ package sandy.core.scenegraph
 		 * @param ...rest 	An array of data containing the ID's of the UV coords list for the face
 		 * @return 		The next free index or -1 it the index is already occupied
 		 */
-		public function setFaceUVCoordsIds( p_nFaceID:Number, ... arguments /* Arguments */ ):Number
+		public function setFaceUVCoordsIds( p_nFaceID:int, ... arguments /* Arguments */ ):int
 		{
 			if( aFacesUVCoordsID[p_nFaceID] )
 			{
@@ -297,7 +297,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The index
 		 */
-		public function getNextFaceUVCoordID():Number
+		public function getNextFaceUVCoordID():int
 		{
 			return m_nLastFaceUVId;
 		}
@@ -307,12 +307,13 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The index
 		 */
-		public function getVertexId( p_point:Vertex ):Number
+		public function getVertexId( p_point:Vertex ):int
 		{
-			var j:Number = 0;
+			/*var j:Number = 0;
 			for(j=0; j<aVertex.length && !(aVertex[j] == p_point); 	j++);
 			
-			return j == aVertex.length ? -1: j;
+			return j == aVertex.length ? -1: j;*/
+			return aVertex.indexOf (p_point);
 		}
 		
 		/**
@@ -324,7 +325,7 @@ package sandy.core.scenegraph
 		 * @param p_nVValue	The v component of the UV coordinate
 		 * @return 		The next free index or -1 it the index is already occupied
 		 */
-		public function setUVCoords( p_nID:Number, p_UValue:Number, p_nVValue:Number ):Number
+		public function setUVCoords( p_nID:int, p_UValue:Number, p_nVValue:Number ):int
 		{
 			if ( aUVCoords[p_nID] )
 			{
@@ -344,7 +345,7 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The index
 		 */
-		public function getNextUVCoordID():Number
+		public function getNextUVCoordID():int
 		{
 			return m_nLastUVId;
 		}
