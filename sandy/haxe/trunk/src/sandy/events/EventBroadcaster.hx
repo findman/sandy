@@ -187,11 +187,12 @@ class EventBroadcaster
 
 		for (listener in c)
 		{
-			var f = listener.get(type);
+			var f : Dynamic = null; 	
+			if (Reflect.hasField( listener, "get" ) ) f = listener.get(type);
+
 			if (listener.hasOwnProperty(type) && Reflect.isFunction(f))
 			{
 				f(e);
-
 			}
 			else if (listener.hasOwnProperty("handleEvent") && Reflect.isFunction(listener.handleEvent))
 			{
