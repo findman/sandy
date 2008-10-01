@@ -86,7 +86,7 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 		super( this );
 		m_oGroup = new Group( 'parser' );
 		m_nScale = p_nScale||1;
-		//m_sTextureExtension = p_sTextureExtension;
+		m_sTextureExtension = p_sTextureExtension;
 		if( typeof( p_sFile ) == "string" )
 		{
 			m_sUrl = p_sFile;
@@ -94,13 +94,9 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 
 			// -- assume that textures are in same folder with model itself
 			if( m_sUrl.indexOf( '/' ) > m_sUrl.indexOf( '\\' ) )
-			{
 				RELATIVE_TEXTURE_PATH = m_sUrl.substring( 0, m_sUrl.lastIndexOf( '/' ) );
-			}
 			else
-			{
 				RELATIVE_TEXTURE_PATH = m_sUrl.substring( 0, m_sUrl.lastIndexOf( '\\' ) );
-			}
 		}
 		else
 		{
@@ -206,9 +202,9 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 	}
 		
 	/**
-	 * @private Collada parser already loads textures on its own, so it needs this protected
+	 * @private Collada parser already loads textures on its own, so it needs this private
 	 */
-	private /* porting :: It's correct to replace protected with private? */ function changeExt( s:String ) : String
+	private function changeExt( s:String ) : String
 	{
 		if( m_sTextureExtension != null )
 		{

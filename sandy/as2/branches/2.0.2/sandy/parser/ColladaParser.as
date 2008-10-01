@@ -89,11 +89,11 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	 * @private
 	 * Starts the parsing process
 	 *
-	 * @param  s				Boolean: loaded succesfully.
+	 * @param  b				Boolean: loaded succesfully.
 	 */
-	private function parseData( s:Boolean ) : Void
+	private function parseData( b:Boolean ) : Void
 	{
-		super.parseData( s );
+		super.parseData( b );
 		// -- read the XML
 		m_oCollada = new XML2Object( m_oFile ).data.COLLADA;
 		
@@ -661,10 +661,10 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	 */
 	private function loadImages( p_oLibImages:Array ) : Object
 	{
-		var l_oLStack:LibStack = new LibStack();
+		var l_oLibStack:LibStack = new LibStack();
 		var mc:MovieClip = new MovieClip();
-		var l_oLContainer:MovieClip = mc.createEmptyMovieClip( "texture", mc.getNextHighestDepth() );
-		var l_oGLib:GraphicLib = new GraphicLib( l_oLContainer, 0, false );
+		var l_oContainer:MovieClip = mc.createEmptyMovieClip( "texture", mc.getNextHighestDepth() );
+		var l_oGraphicLib:GraphicLib = new GraphicLib( l_oContainer, 0, false );
 		
 		l_oImages = new Object();
 	
@@ -677,15 +677,15 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 				fileName : changeExt( l_oInitFrom.substring( l_oInitFrom.lastIndexOf( "/" ) + 1, l_oInitFrom.length ) )
 			}
 
-			l_oLStack.enqueue(
-				l_oGLib,
+			l_oLibStack.enqueue(
+				l_oGraphicLib,
 				p_oLibImages[ i ].attributes.id,
 				RELATIVE_TEXTURE_PATH + "/" + l_oImages[ p_oLibImages[ i ].attributes.id ].fileName
 			);
 
 		}
-		l_oLStack.addEventListener( LibStack.onLoadCompleteEVENT, this, imageQueueCompleteHandler );
-		l_oLStack.load();
+		l_oLibStack.addEventListener( LibStack.onLoadCompleteEVENT, this, imageQueueCompleteHandler );
+		l_oLibStack.load();
 
 		return l_oImages;
 	}
