@@ -209,19 +209,18 @@ class sandy.core.scenegraph.Geometry3D
 	 * Sets the ID's of the face vertices.
 	 * 
 	 * @param p_nFaceID	Id of the face
-	 * @param...rest 	An array of data containing the ID's of the vertex list for the face
-	 * @return 		The next free index or -1 it the index is already occupied
+	 * @param ...rest 	An array of data containing the ID's of the vertex list for the face
+	 * @return 			The next free index or -1 it the index is already occupied
 	 */
 	public function setFaceVertexIds( p_nFaceID:Number /* Arguments */ ) : Number
 	{
 		if( aFacesVertexID[ p_nFaceID ] )
 		{
-			trace( 'whowhowho are you?' );
 			return -1;
 		}
 		else
 		{
-			var rest:Array = ( arguments[ 1 ] instanceof Array )? arguments[ 1 ]: arguments.splice( 1 );
+			var rest:Array = ( arguments[ 1 ] instanceof Array )? arguments[ 1 ] : arguments.splice( 1 );
 			aFacesVertexID[ p_nFaceID ] = rest;
 			var lId:Number;
 			// Time to check if edges allready exist or if we shall create them
@@ -284,7 +283,7 @@ class sandy.core.scenegraph.Geometry3D
 	 *
 	 * @param p_nFaceID	The id of the face
 	 * @param ...rest 	An array of data containing the ID's of the UV coords list for the face
-	 * @return 		The next free index or -1 it the index is already occupied
+	 * @return 			The next free index or -1 it the index is already occupied
 	 */
 	public function setFaceUVCoordsIds( p_nFaceID:Number /* Arguments */ ) : Number
 	{
@@ -319,10 +318,11 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function getVertexId( p_point:Vertex ) : Number
 	{
-		var j:Number;
+		/* var j:Number;
 		for( j = 0; j < aVertex.length && !( aVertex[ j ] == p_point );	j++ );
 		
-		return j == aVertex.length ? -1 : j;
+		return j == aVertex.length ? -1 : j; */
+		return aVertex.indexOf( p_point );
 	}
 		
 	/**
