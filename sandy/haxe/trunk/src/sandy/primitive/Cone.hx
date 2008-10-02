@@ -29,7 +29,6 @@ import sandy.core.scenegraph.Geometry3D;
 * @author		Tim Knipt
 * @author Niel Drummond - haXe port 
 * 
-* 
 *
 * @example To create a cone with a base radius of 150 and a height of 300,
 * with default number of segments, use the following statement:
@@ -52,13 +51,8 @@ class Cone extends Cylinder, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new(?p_sName : String, ?p_nRadius:Float, ?p_nHeight:Float, ?p_nSegmentsW:Float, ?p_nSegmentsH:Float)
+	public function new(p_sName : String = null, p_nRadius:Float = 100.0, p_nHeight:Float = 100.0, p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6)
 	{
-			if (p_nRadius == null) p_nRadius = 100;
-			if (p_nHeight == null) p_nHeight = 100;
-			if (p_nSegmentsW == null) p_nSegmentsW = 8;
-			if (p_nSegmentsH == null) p_nSegmentsH = 6;
-
 		super(p_sName, p_nRadius, p_nHeight, p_nSegmentsW, p_nSegmentsH, 0 );
 	}
 

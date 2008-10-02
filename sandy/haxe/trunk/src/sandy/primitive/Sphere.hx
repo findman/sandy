@@ -24,8 +24,6 @@ import sandy.core.scenegraph.Shape3D;
 * @author		Thomas Pfeiffer - kiroukou
 * @author Niel Drummond - haXe port 
 * 
-* 
-*
 * @example To create a sphere with radius 150 and with default settings
 * for the number of horizontal and vertical segments, use the following statement:
 *
@@ -88,16 +86,12 @@ class Sphere extends Shape3D, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new( ?p_sName:String , ?p_nRadius:Float, ?p_nSegmentsW:Float, ?p_nSegmentsH:Float )
+	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6 )
 	{
-		if (p_nRadius == null) p_nRadius = 100;
-		if (p_nSegmentsW == null) p_nSegmentsW = 8;
-		if (p_nSegmentsH == null) p_nSegmentsH = 6;
-
 		super( p_sName );
 		// --
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, ((p_nSegmentsW != null)?p_nSegmentsW:DEFAULT_SEGMENTSW))); // Defaults to 8
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, ((p_nSegmentsH != null)?p_nSegmentsH:DEFAULT_SEGMENTSH))); // Defaults to 6
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
 		radius = (p_nRadius != 0) ? p_nRadius : DEFAULT_RADIUS; // Defaults to 100
 		// --
 		var scale :Float = DEFAULT_SCALE;
@@ -107,6 +101,8 @@ class Sphere extends Shape3D, implements Primitive3D
 
 	/**
 	* Generates the geometry for the sphere.
+	*
+	* @return The geometry object for the sphere.
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
@@ -158,8 +154,8 @@ class Sphere extends Shape3D, implements Primitive3D
 					var l_nP3:Float = aVtc[j-1][(i==0?iHorNum:i)-1];
 					var l_nP4:Float = aVtc[j-1][bEnd?0:i];
 					// uv
-					var fJ0:Float = j		/ iVerNum;
-					var fJ1:Float = (j-1)	/ iVerNum;
+					var fJ0:Float = j		/ (iVerNum-1);
+					var fJ1:Float = (j-1)	/ (iVerNum-1);
 					var fI0:Float = (i+1)	/ iHorNum;
 					var fI1:Float = i		/ iHorNum;
 

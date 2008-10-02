@@ -29,8 +29,6 @@ import sandy.core.scenegraph.Shape3D;
 * @author		Tim Knipt
 * @author Niel Drummond - haXe port 
 * 
-* 
-*
 * @example To create a torus with a large radius of 250, a small radius of 80,
 * and with default settings for the number of horizontal and vertical segments,
 * use the following statement:
@@ -102,12 +100,9 @@ class Torus extends Shape3D, implements Primitive3D
 	static public var MIN_SEGMENTSH :Float = 2;
 
 	/**
-	* Creates a Torus primitive ( a donut )
+	* Creates a Torus primitive.
 	*
-	* <p>The Torus is created centered at the origin of the world coordinate system,
-	* with its axis along the y axis. </p>
-	*
-	* <p>All arguments to the constructor have default values.</p>
+	* <p>A torus is created at the origin of the world coordinate system, centered, with its axis along the y axis.</p>
 	*
 	* @param p_sName 		A string identifier for this object.
 	* @param p_nLargeRadius	Large radius of the torus.
@@ -115,25 +110,22 @@ class Torus extends Shape3D, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new( ?p_sName : String, ?p_nLargeRadius:Float, ?p_nSmallRadius:Float, ?p_nSegmentsW:Float, ?p_nSegmentsH:Float )
+	public function new( p_sName : String = null, p_nLargeRadius:Float = 100.0, p_nSmallRadius:Float = 50.0, p_nSegmentsW:Int = 12, p_nSegmentsH:Int = 8 )
 	{
-		if (p_nLargeRadius == null) p_nLargeRadius = 100;
-		if (p_nSmallRadius == null) p_nSmallRadius = 50;
-		if (p_nSegmentsW == null) p_nSegmentsW = 12;
-		if (p_nSegmentsH == null) p_nSegmentsH = 8;
-
 		super(p_sName);
 		// --
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, ((p_nSegmentsW != null)?p_nSegmentsW:DEFAULT_SEGMENTSW))); // Defaults to 12
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, ((p_nSegmentsH != null)?p_nSegmentsH:DEFAULT_SEGMENTSH))); // Defaults to 8
-		this.largeRadius = (p_nLargeRadius != null)?p_nLargeRadius:DEFAULT_LARGE_RADIUS; // Defaults to 100
-		this.smallRadius = (p_nSmallRadius != null)?p_nSmallRadius:DEFAULT_SMALL_RADIUS; // Defaults to 50
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
+		this.largeRadius = p_nLargeRadius;
+		this.smallRadius = p_nSmallRadius;
 		// --
 		geometry = generate();
 	}
 
 	/**
 	* Generates the geometry for the torus.
+	*
+	* @return The geometry object for the torus.
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/

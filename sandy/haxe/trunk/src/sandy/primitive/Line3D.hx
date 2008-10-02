@@ -28,8 +28,6 @@ import sandy.core.data.Vector;
 * @author		Thomas Pfeiffer - kiroukou
 * @author Niel Drummond - haXe port 
 * 
-* 
-*
 * @example To create a line between ( x0, y0, z0 ), ( x1, y1, z1 ), ( x2, y2, z3 ),
 * use the following statement:
 *
@@ -49,12 +47,18 @@ class Line3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.data.Vector
 	*/
-	public function new ( p_sName:String, rest : Array<Dynamic> )
+	public function new ( p_sName:String=null, rest : Array<Dynamic> )
 	{
 		super ( p_sName );
-		if( rest.length < 2 )
+		// "rest" can be a two-or-more-element array of vectors. Or the first element can itself be an array
+		if (rest.length == 1 && Std.is(rest[0], Array)) {
+			rest = rest[0];
+		}
+			
+		if( rest.length < 2)
 		{
 			trace('Line3D::Too few arguments');
+			// Should throw an exception, frankly
 		}
 		else
 		{
@@ -65,6 +69,8 @@ class Line3D extends Shape3D, implements Primitive3D
 
 	/**
 	* Generates the geometry for the line.
+	*
+	* @return The geometry object for the line.
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/

@@ -31,8 +31,6 @@ import sandy.core.scenegraph.Shape3D;
 * @author		Tim Knipt
 * @author Niel Drummond - haXe port 
 * 
-* 
-*
 * @example To create a cylinder with a base radius of 150 and a height of 300,
 * with default number of faces, use the following statement:
 *
@@ -138,15 +136,11 @@ class Cylinder extends Shape3D, implements Primitive3D
 	* be mapped. If set to <code>false</code>, the material will be mapped to each individual
 	* face, rather than to the whole cylinder.
 	*/
-	public function new( ?p_sName:String, ?p_nRadius:Float, ?p_nHeight:Float,
-	                   ?p_nSegmentsW:Float, ?p_nSegmentsH:Float, ?p_nTopRadius:Float,
-	                   ?p_bExcludeBottom:Bool, ?p_bExludeTop:Bool,
-	                   ?p_bWholeMapping:Bool )
+	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nHeight:Float = 100.0,
+	                   p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6, ?p_nTopRadius:Float,
+	                   ?p_bExcludeBottom:Bool, p_bExludeTop:Bool = false,
+	                   p_bWholeMapping:Bool = true )
 	{
-		if (p_nRadius == null) p_nRadius = 100;
-		if (p_nHeight == null) p_nHeight = 100;
-		if (p_nSegmentsW == null) p_nSegmentsW = 8;
-		if (p_nSegmentsH == null) p_nSegmentsH = 6;
 		if (p_nTopRadius == null) p_nTopRadius = Math.NaN;
 		if (p_bExcludeBottom == null) {
 				p_bExcludeBottom = false;
@@ -154,13 +148,11 @@ class Cylinder extends Shape3D, implements Primitive3D
 		} else {
 				m_nPolBase = 0;
 		}
-		if (p_bExludeTop == null) p_bExludeTop = false;
-		if (p_bWholeMapping == null) p_bWholeMapping = true;
 
 		super( p_sName );
 
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, ((p_nSegmentsW != null)?p_nSegmentsW:DEFAULT_SEGMENTSW))); // Defaults to 8
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, ((p_nSegmentsH != null)?p_nSegmentsH:DEFAULT_SEGMENTSH))); // Defaults to 6
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
 		radius = (p_nRadius==0) ? DEFAULT_RADIUS : p_nRadius; // Defaults to 100
 		height = (p_nHeight==0) ? DEFAULT_HEIGHT : p_nHeight; // Defaults to 100
 		topRadius = ( Math.isNaN(p_nTopRadius) ) ? radius : p_nTopRadius;
@@ -179,6 +171,8 @@ class Cylinder extends Shape3D, implements Primitive3D
 
 	/**
 	* Generates the geometry for the cylinder.
+	*
+	* @return The geometry object for the cylinder.
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/

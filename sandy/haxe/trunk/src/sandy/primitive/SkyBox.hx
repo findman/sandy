@@ -62,14 +62,9 @@ class SkyBox extends TransformGroup
 	* @param p_nQualityV	Number of vertical segments of the planes of the skybox. (WARNING: Some faces are rotated, and so, the quality isn't representative. To fix!)
 	*
 	*/
-	public function new(?p_sName:String, ?p_nDim:Float, ?p_nQualityH:Int, ?p_nQualityV:Int )
+	public function new(p_sName:String=null, p_nDim:Float = 100.0, p_nQualityH:Int = 1, p_nQualityV:Int = 1 )
 	{
 	 m_aPlanes = new Array();
-
-		if (p_sName == null) p_sName = "";
-		if (p_nDim == null) p_nDim = 100;
-		if (p_nQualityH == null) p_nQualityH = 1;
-		if (p_nQualityV == null) p_nQualityV = 1;
 
 		super(p_sName); // TOP BOTTOM
 		var l_oPlane:Plane3D;

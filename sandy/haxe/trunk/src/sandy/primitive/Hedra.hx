@@ -23,8 +23,6 @@ import sandy.core.scenegraph.Shape3D;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author Niel Drummond - haXe port 
-* 
-* 
 *
 * @example To create a hedra with ( y, x, z ) dimensions ( 100, 60, 80 ),
 * use the following statement:
@@ -53,21 +51,19 @@ class Hedra extends Shape3D, implements Primitive3D
 	* @param p_nWidth	Width of the hedra (along the x-axis).
 	* @param p_nDepth	Depth of the hedra (along the z-axis).
 	*/
-	public function new ( p_sName:String, ?p_nHeight : Float, ?p_nWidth : Float, ?p_nDepth : Float )
+	public function new ( p_sName:String=null, p_nHeight : Float = 100.0, p_nWidth : Float = 100.0, p_nDepth : Float = 100.0 )
 	{
-		if (p_nHeight == null) p_nHeight = 100;
-		if (p_nWidth == null) p_nWidth = 100;
-		if (p_nDepth == null) p_nDepth = 100;
-
 		super (p_sName);
-		_radius = (p_nDepth != null)?p_nDepth:100;
-		_h = (p_nHeight != null)?p_nHeight:100 ;
-		_lg = (p_nWidth != null)?p_nWidth:100;
+		_radius = p_nDepth;
+		_h = p_nHeight;
+		_lg = p_nWidth;
 		geometry = generate ();
 	}
 
 	/**
 	* Generates the geometry for the hedra.
+	*
+	* @return The geometry object for the hedra.
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
