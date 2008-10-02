@@ -166,22 +166,22 @@ class MD2 extends Shape3D, implements Primitive3D
 	/**
 	* Frame number. You can tween this value to play MD2 animation.
 	*/
-	public var frame (__getFrame,__setFrame):Int;
-	private function __getFrame ():Int { return t; }
+	public var frame (__getFrame,__setFrame):Float;
+	private function __getFrame ():Float { return t; }
 
 	/**
 	* @private (setter)
 	*/
-	private function __setFrame (value:Int):Int
+	private function __setFrame (value:Float):Float
 	{
 		t = value;
 
 		// interpolation frames
-		var f1:Array<Vector> = vertices [t % num_frames];
-		var f2:Array<Vector> = vertices [(t + 1) % num_frames];
+		var f1:Array<Vector> = vertices [Std.int(t) % num_frames];
+		var f2:Array<Vector> = vertices [(Std.int(t) + 1) % num_frames];
 
 		// interpolation coef-s
-		var c2:Int = t - t, c1:Int = 1 - c2;
+		var c2:Float = t - Std.int(t), c1:Float = 1 - c2;
 
 		// loop through vertices
 		for (i in 0...num_vertices)
@@ -226,7 +226,7 @@ class MD2 extends Shape3D, implements Primitive3D
 	}
 
 	// animation "time" (frame number)
-	private var t:Int;		
+	private var t:Float;		
 
 	// vertices list for every frame
 	private var vertices:Array<Array<Vector>>;
