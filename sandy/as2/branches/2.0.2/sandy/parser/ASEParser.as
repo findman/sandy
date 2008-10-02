@@ -60,6 +60,28 @@ class sandy.parser.ASEParser extends AParser implements IParser
 	{
 		super( p_sUrl, p_nScale||1, p_sTextureExtension );
 	}
+	
+	/**
+	 * Add a listener for a specific event.
+	 *
+	 * @param  t	EventType The type of event we want to register
+	 * @param  o	The object listener
+	 */
+	public function addEventListener( t:EventType, o ) : Void 
+	{ 
+		super.addEventListener( t, o ); 
+	};
+	
+	/**
+	 * Add a listener for a specific event.
+	 *
+	 * @param  t	EventType The type of event we want to register
+	 * @param  o	The object listener
+	 */
+	public function removeEventListener( e:EventType, oL ) : Void 
+	{
+		super.removeEventListener( e, oL ); 
+	};
 
 	/**
 	 * @private
@@ -90,7 +112,7 @@ class sandy.parser.ASEParser extends AParser implements IParser
 		{
 			var event:ParserEvent = new ParserEvent( ParserEvent.PARSING );
 			event.percent = ( 100 - ( lines.length * 100 / lineLength ) );
-			dispatchEvent( event );
+			_oEB.dispatchEvent( event );
 			//-- parsing
 			line = String( lines.shift() );
 			//-- clear white space from begin

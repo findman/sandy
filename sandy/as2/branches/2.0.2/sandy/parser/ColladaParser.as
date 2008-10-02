@@ -61,9 +61,9 @@ import sandy.util.XML2Object;
  * </listing>
  */
 
-class sandy.parser.ColladaParser extends AParser implements IParser
+class sandy.parser.ColladaParser extends AParser  implements IParser
 {
-
+	
 	private var l_oImages:Object;
 	
 	private var m_oCollada:Object;
@@ -84,6 +84,28 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	{
 		super( p_sUrl, p_nScale||1, p_sTextureExtension );
 	}
+	
+	/**
+	 * Add a listener for a specific event.
+	 *
+	 * @param  t	EventType The type of event we want to register
+	 * @param  o	The object listener
+	 */
+	public function addEventListener( t:EventType, o ) : Void 
+	{ 
+		super.addEventListener( t, o ); 
+	};
+	
+	/**
+	 * Add a listener for a specific event.
+	 *
+	 * @param  t	EventType The type of event we want to register
+	 * @param  o	The object listener
+	 */
+	public function removeEventListener( e:EventType, oL ) : Void 
+	{
+		super.removeEventListener( e, oL ); 
+	};
 
 	/**
 	 * @private
@@ -662,8 +684,7 @@ class sandy.parser.ColladaParser extends AParser implements IParser
 	private function loadImages( p_oLibImages:Array ) : Object
 	{
 		var l_oLibStack:LibStack = new LibStack();
-		var mc:MovieClip = new MovieClip();
-		var l_oContainer:MovieClip = mc.createEmptyMovieClip( "texture", mc.getNextHighestDepth() );
+		var l_oContainer:MovieClip = this.createEmptyMovieClip( "texture", this.getNextHighestDepth() );
 		var l_oGraphicLib:GraphicLib = new GraphicLib( l_oContainer, 0, false );
 		
 		l_oImages = new Object();

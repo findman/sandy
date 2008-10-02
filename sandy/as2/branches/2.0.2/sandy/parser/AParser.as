@@ -47,7 +47,7 @@ import sandy.util.BitmapUtil;
  * @date 		26.07.2007
  */
  
-class sandy.parser.AParser extends EventBroadcaster implements IParser
+class sandy.parser.AParser extends MovieClip implements IParser
 {
 		
 	/**
@@ -72,6 +72,30 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 
 	private var m_sUrl:String;
 
+	private static var _oEB:EventBroadcaster = new EventBroadcaster( AParser );
+	
+	/**
+	 * Add a listener for a specific event.
+	 *
+	 * @param  t	EventType The type of event we want to register
+	 * @param  o	The object listener
+	 */
+	public  function addEventListener( t:EventType, o ) : Void
+	{
+		_oEB.addEventListener.apply( _oEB, arguments );
+	}
+	
+	/**
+	 * Remove a listener for a specific event.
+	 *
+	 * @param  e 	String The type of event we want to register
+	 * @param  oL 	The object listener
+	 */
+	public  function removeEventListener( e:EventType, oL ) : Void
+	{
+		_oEB.removeEventListener( e, oL );
+	}
+	
 	/**
 	 * Creates a parser object. Creates a root Group, default appearance
 	 * and sets up an URLLoader.
@@ -125,7 +149,7 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 	{
 		if( p_nHttpStatus < 200 || p_nHttpStatus > 299 ) 
 		{
-			dispatchEvent( new ParserEvent( ParserEvent.FAIL ) );
+			_oEB.dispatchEvent( new ParserEvent( ParserEvent.FAIL ) );
 		}
 	}
 
@@ -138,7 +162,7 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 	 */
 	private function parseData( s:Boolean ) : Void
 	{
-		if( !m_oFile ) dispatchEvent( new ParserEvent( ParserEvent.FAIL ) );   
+		if( !m_oFile ) _oEB.dispatchEvent( new ParserEvent( ParserEvent.FAIL ) );   
 	}
 		
 	/**
@@ -147,8 +171,7 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 	private function dispatchInitEvent() : Void
 	{
 		m_oQueue = new LibStack();
-		var mc:MovieClip = new MovieClip();
-		var l_oContainer:MovieClip = mc.createEmptyMovieClip( "texture", mc.getNextHighestDepth() );
+		var l_oContainer:MovieClip = this.createEmptyMovieClip( "texture", this.getNextHighestDepth() );
 		var l_oGraphicLib:GraphicLib = new GraphicLib( l_oContainer, 0, false );
 		
 		// -- load textures, if any
@@ -165,7 +188,7 @@ class sandy.parser.AParser extends EventBroadcaster implements IParser
 		{
 			var l_eOnInit:ParserEvent = new ParserEvent( ParserEvent.INIT );
 			l_eOnInit.group = m_oGroup;
-			dispatchEvent( l_eOnInit );
+			_oEB.dispatchEvent( l_eOnInit );
 		}
 	}
 

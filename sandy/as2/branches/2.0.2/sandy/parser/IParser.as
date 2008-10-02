@@ -14,7 +14,7 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
-import com.bourre.events.IEventDispatcher;
+import com.bourre.events.EventType;
 
 import sandy.materials.Appearance;
 
@@ -28,7 +28,7 @@ import sandy.materials.Appearance;
  * @date 		26.07.2007
  */
  
-interface sandy.parser.IParser extends IEventDispatcher
+interface sandy.parser.IParser
 {
 	
 	/**
@@ -43,5 +43,9 @@ interface sandy.parser.IParser extends IEventDispatcher
 	 */
 	//function set standardAppearance( p_oAppearance:Appearance ) : Void;
 	// FIXME commented out, because getter/setter declarations are not permitted in AS2 interfaces.
+	
+	function addEventListener( t:EventType, o ) : Void;
+	
+	function removeEventListener( t:EventType, o ) : Void;
 	
 }
