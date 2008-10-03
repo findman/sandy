@@ -199,8 +199,14 @@ class sandy.parser.AParser extends MovieClip implements IParser
 			// -- set successfully loaded materials
 			var l_oGL:GraphicLib;
 			if( ( l_oGL = GraphicLibLocator.getInstance().getGraphicLib( i.toString() ) ) ) 
-			{
-				Shape3D( m_aShapes[ i.toString() ] ).appearance = new Appearance( new BitmapMaterial( BitmapUtil.movieToBitmap( l_oGL.getContent(), true ) ) );
+			{				
+				var shapes:Array = m_aShapes[ i.toString() ]; 
+				var mat:Appearance = new Appearance( new BitmapMaterial( BitmapUtil.movieToBitmap( l_oGL.getContent(), true ) ) );        
+				for( var j:Number = 0; j < shapes.length; j++ ) 
+				{       
+					// whatever is in m_aShapes must have appearance property or be dynamic class        
+					Object( shapes[ j ] ).appearance = mat;
+				} 
 			}
 		}
 
@@ -213,16 +219,34 @@ class sandy.parser.AParser extends MovieClip implements IParser
 	/**
 	 * @private used internally to load textures
 	 */
-	private function applyTextureToShape( shape:Shape3D, texture:String )
-	{
-		if( m_aShapes == null )
-		{
-			m_aShapes = []; m_aTextures = [];
+	private function applyTextureToShape( shape:Object, texture:String )      
+	{      
+		var texName:String = changeExt( texture );      
+		var texId:Number = -1;        
+	
+		if( m_aTextures == null )
+		{        
+			// there was no textures enqueued so far        
+			m_aTextures = []; m_aShapes = [];        
 		}
-
-		m_aShapes.push( shape );
-		m_aTextures.push( changeExt( texture ) );
-	}
+		else
+		{        
+			// look up texture, maybe we have it enqueued        
+			texId = m_aTextures.indexOf( texName );      
+		}
+		
+		if( texId < 0 ) 
+		{
+			// this texture is not enqueued yet
+			m_aTextures.push( texName );        
+			m_aShapes.push( [ shape ] );        
+		}
+		else
+		{        
+			// this texture is enqueued, just add shape to the list        
+			m_aShapes[ texId ].push( shape );        
+		} 
+ 	}      
 		
 	/**
 	 * @private Collada parser already loads textures on its own, so it needs this private
