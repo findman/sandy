@@ -26,64 +26,66 @@ package sandy.extrusion {
 		 * @see Matrix4
 		 * @see Polygon2D
 		 */
-		public function Extrusion (name:String, profile:Polygon2D, sections:Array, closeFront:Boolean = true, closeBack:Boolean = true) {
+		public function Extrusion (name:String, profile:Polygon2D, sections:Array = null, closeFront:Boolean = true, closeBack:Boolean = true) {
 			var i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
 
 			// arrays to store face IDs
 			var backFaceIDs:Array = [], frontFaceIDs:Array = [], sideFaceIDs:Array = [];
 
-			if (sections.length > 1)
-			{
-				// find links
-				// 2nd vertex in link edge goes to array
-				var links:Array = [], n:int = profile.vertices.length;
-				for (i = 1; i < n + 1; i++)
-				for (j = 1; j < n + 1; j++) {
-					if ((Point.distance (profile.vertices [i % n], profile.vertices [j - 1]) == 0) &&
-						(Point.distance (profile.vertices [j % n], profile.vertices [i - 1]) == 0)) links.push (profile.vertices [i]);
-				}
+			// find links
+			// 2nd vertex in link edge goes to array
+			var links:Array = [], n:int = profile.vertices.length;
+			for (i = 1; i < n + 1; i++)
+			for (j = 1; j < n + 1; j++) {
+				if ((Point.distance (profile.vertices [i % n], profile.vertices [j - 1]) == 0) &&
+					(Point.distance (profile.vertices [j % n], profile.vertices [i - 1]) == 0)) links.push (profile.vertices [i]);
+			}
 
-				// construct side surface
-				for (i = 0; i < sections.length; i++) {
-					var m:Matrix4 = Matrix4 (sections [i]);
-					
-					for (j = 0; j < n; j++) {
-						v.x = profile.vertices [j].x;
-						v.y = profile.vertices [j].y;
-						v.z = 0;
-						m.vectorMult (v);
-						g.setVertex (j + i * n, v.x, v.y, v.z);
-						g.setUVCoords (j + i * n, j / (n - 1), i / (sections.length - 1));
-					}
-					
-					if (i > 0) {
-						for (j = 1; j < n + 1; j++) {
-							if (links.indexOf (profile.vertices [j % n]) < 0) {
-								k = g.getNextFaceID ();
-								g.setFaceVertexIds (k,
-									j % n + i * n,
-									j + (i - 1) * n - 1,
-									j + i * n - 1);
-								g.setFaceVertexIds (k + 1,
-									j % n + i * n,
-									j % n + (i - 1) * n,
-									j + (i - 1) * n - 1);
-								g.setFaceUVCoordsIds (k,
-									j % n + i * n,
-									j + (i - 1) * n - 1,
-									j + i * n - 1);
-								g.setFaceUVCoordsIds (k + 1,
-									j % n + i * n,
-									j % n + (i - 1) * n,
-									j + (i - 1) * n - 1);
-								sideFaceIDs.push (k, k + 1);
-							}
+			// if no matrices are passed, use Identity
+			if (sections == null) sections = [];
+			if (sections.length < 1) sections.push (new Matrix4);
+
+			// construct profile vertices and side surface, if any
+			for (i = 0; i < sections.length; i++) {
+				var m:Matrix4 = Matrix4 (sections [i]);
+				
+				for (j = 0; j < n; j++) {
+					v.x = profile.vertices [j].x;
+					v.y = profile.vertices [j].y;
+					v.z = 0;
+					m.vectorMult (v);
+					g.setVertex (j + i * n, v.x, v.y, v.z);
+					g.setUVCoords (j + i * n, j / (n - 1), i / (sections.length - 1));
+				}
+				
+				if (i > 0) {
+					for (j = 1; j < n + 1; j++) {
+						if (links.indexOf (profile.vertices [j % n]) < 0) {
+							k = g.getNextFaceID ();
+							g.setFaceVertexIds (k,
+								j % n + i * n,
+								j + (i - 1) * n - 1,
+								j + i * n - 1);
+							g.setFaceVertexIds (k + 1,
+								j % n + i * n,
+								j % n + (i - 1) * n,
+								j + (i - 1) * n - 1);
+							g.setFaceUVCoordsIds (k,
+								j % n + i * n,
+								j + (i - 1) * n - 1,
+								j + i * n - 1);
+							g.setFaceUVCoordsIds (k + 1,
+								j % n + i * n,
+								j % n + (i - 1) * n,
+								j + (i - 1) * n - 1);
+							sideFaceIDs.push (k, k + 1);
 						}
 					}
 				}
-
-				links.length = 0; links = null;
 			}
+
+			links.length = 0; links = null;
+
 
 			if (closeFront || closeBack) {
 				// profiles need separate UV mapping
