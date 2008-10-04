@@ -511,6 +511,23 @@ package sandy.core.data
 		}
 
 		/**
+		 * Creates transformation matrix from axis and translation vectors.
+		 * 
+		 * @param	px X axis vector.
+		 * @param	py Y axis vector.
+		 * @param	pz Z axis vector.
+		 * @param	pt translation vector.
+		 */
+		public final function fromVectors (px:Vector, py:Vector, pz:Vector, pt:Vector):void
+		{
+			zero ();
+			n11 = px.x; n21 = px.y; n31 = px.z;
+			n12 = py.x; n22 = py.y; n32 = py.z;
+			n13 = pz.x; n23 = pz.y; n33 = pz.z;
+			n14 = pt.x; n24 = pt.y; n34 = pt.z;
+		}
+
+		/**
 		 * Multiplies a vector with the upper left 3x3 sub matrix of this matrix.
 		 *
 		 * @param pv	The vector to be mutliplied.
