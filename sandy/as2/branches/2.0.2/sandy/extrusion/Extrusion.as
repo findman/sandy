@@ -18,6 +18,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import sandy.core.data.Matrix4;
+import sandy.core.data.PrimitiveFace;
 import sandy.core.data.Vector;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
@@ -47,69 +48,75 @@ class sandy.extrusion.Extrusion extends Shape3D
 	 * @see Matrix4
 	 * @see Polygon2D
 	 */
-	public function Extrusion( name:String, profile:Polygon2D, sections:Array, closeFront:Boolean, closeBack:Boolean ) 
+	public function Extrusion( name:String, profile:Polygon2D, sections:Array, closeFront:Boolean, closeBack:Boolean )
 	{
 		if( closeFront == null ) closeFront = true;
 		if( closeBack == null ) closeBack = true;
 			
 		var i:Number, j:Number, k:Number, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
 
-		if( sections.length > 1 )
+		// arrays to store face IDs
+		var backFaceIDs:Array = [], frontFaceIDs:Array = [], sideFaceIDs:Array = [];
+		
+		// find links
+		// 2nd vertex in link edge goes to array
+		var links:Array = [], n:Number = profile.vertices.length;
+		for( i = 1; i < n + 1; i++ )
+		for( j = 1; j < n + 1; j++ ) 
 		{
-			// find links
-			// 2nd vertex in link edge goes to array
-			var links:Array = [], n:Number = profile.vertices.length;
-			for( i = 1; i < n + 1; i++ )
-			for( j = 1; j < n + 1; j++ ) 
-			{
-				if( ( Point.distance( profile.vertices[ i % n ], profile.vertices[ j - 1 ] ) == 0 ) &&
-					( Point.distance( profile.vertices[ j % n ], profile.vertices[ i - 1 ] ) == 0 ) ) links.push( profile.vertices[ i ] );
-			}
+			if( ( Point.distance( profile.vertices[ i % n ], profile.vertices[ j - 1 ] ) == 0 ) &&
+			 	( Point.distance( profile.vertices[ j % n ], profile.vertices[ i - 1 ] ) == 0 ) ) links.push( profile.vertices[ i ] );
+		}
+	
+		// if no matrices are passed, use Identity
+		if( sections == null ) sections = [];
+		if( sections.length < 1 ) sections.push( new Matrix4() );
 
-			// construct side surface
-			for( i = 0; i < sections.length; i++ )
+		// construct profile vertices and side surface, if any
+		for( i = 0; i < sections.length; i++ )
+		{
+			var m:Matrix4 = Matrix4( sections[ i ] );
+				
+			for( j = 0; j < n; j++ )
 			{
-				var m:Matrix4 = Matrix4( sections[ i ] );
+				v.x = profile.vertices[ j ].x;
+				v.y = profile.vertices[ j ].y;
+				v.z = 0;
+				m.vectorMult( v );
+				g.setVertex( j + i * n, v.x, v.y, v.z );
+				g.setUVCoords( j + i * n, j / ( n - 1 ), i / ( sections.length - 1 ) );
+			}
 				
-				for( j = 0; j < n; j++ ) 
+			if( i > 0 )
+			{
+				for( j = 1; j < n + 1; j++ )
 				{
-					v.x = profile.vertices[ j ].x;
-					v.y = profile.vertices[ j ].y;
-					v.z = 0;
-					m.vectorMult( v );
-					g.setVertex( j + i * n, v.x, v.y, v.z );
-					g.setUVCoords( j + i * n, j / ( n - 1 ), i / ( sections.length - 1 ) );
-				}
-				
-				if( i > 0 )
-				{
-					for( j = 1; j < n + 1; j++ )
+					if( links.indexOf( profile.vertices[ j % n ] ) < 0 )
 					{
-						if( links.indexOf( profile.vertices[ j % n ] ) < 0 )
-						{
-							k = g.getNextFaceID();
-							g.setFaceVertexIds( k, j % n + i * n,
-												j + ( i - 1 ) * n - 1,
-												j + i * n - 1		   );
-								
-							g.setFaceVertexIds( k + 1, j % n + i * n,
-												j % n + ( i - 1 ) * n,
-												j + ( i - 1 ) * n - 1  );
-							
-							g.setFaceUVCoordsIds( k, j % n + i * n,
-												  j + ( i - 1 ) * n - 1,
-												  j + i * n - 1			 );
-								
-							g.setFaceUVCoordsIds( k + 1, j % n + i * n,
-												  j % n + ( i - 1 ) * n,
-												  j + ( i - 1 ) * n - 1  );
-						}
+						k = g.getNextFaceID();
+						g.setFaceVertexIds(k, j % n + i * n,
+											  j + ( i - 1 ) * n - 1,
+											  j + i * n - 1 );
+						
+						g.setFaceVertexIds( k + 1, j % n + i * n,
+												   j % n + ( i - 1 ) * n,
+												   j + ( i - 1 ) * n - 1 );
+						
+						g.setFaceUVCoordsIds( k, j % n + i * n,
+												 j + ( i - 1 ) * n - 1,
+												 j + i * n - 1 );
+						
+						g.setFaceUVCoordsIds( k + 1, j % n + i * n,
+													 j % n + ( i - 1 ) * n,
+													 j + ( i - 1 ) * n - 1 );
+						
+						sideFaceIDs.push( k, k + 1 );
 					}
 				}
 			}
-
-			links.length = 0; links = null;
 		}
+		
+		links.length = 0; links = null;
 
 		if( closeFront || closeBack )
 		{
@@ -131,23 +138,57 @@ class sandy.extrusion.Extrusion extends Shape3D
 
 				if( closeFront )
 				{
-					// add front end
+					// add front surface
 					k = g.getNextFaceID();
 					g.setFaceVertexIds( k, v1, v2, v3 );
 					g.setFaceUVCoordsIds( k, p + v1, p + v2, p + v3 );
+					frontFaceIDs.push( k );
 				}
 
 				if( closeBack ) 
 				{
-					// add back end
+					// add back surface
 					k = g.getNextFaceID();
 					g.setFaceVertexIds( k, q + v1, q + v3, q + v2 );
 					g.setFaceUVCoordsIds( k, p + v1, p + v3, p + v2 );
+					backFaceIDs.push( k );
 				}
 			}
 		}
 
 		geometry = g;
+		
+		// generate faces
+		_backFace = new PrimitiveFace( this );
+		while( backFaceIDs.length > 0 ) _backFace.addPolygon( Number( backFaceIDs.pop() ) );
+
+		_frontFace = new PrimitiveFace( this );
+		while( frontFaceIDs.length > 0 ) _frontFace.addPolygon( Number( frontFaceIDs.pop() ) );
+
+		_sideFace = new PrimitiveFace( this );
+		while( sideFaceIDs.length > 0 ) _sideFace.addPolygon( Number( sideFaceIDs.pop() ) );
 	}
+
+	/**
+	 * Collection of polygons on the back surface of extruded shape.
+	 * Texture is mapped to fit profile bounding box on this face.
+	 */
+	public function get backFace() : PrimitiveFace { return _backFace; }
+	private var _backFace:PrimitiveFace;
+
+	/**
+	 * Collection of polygons on the front surface of extruded shape.
+	 * Texture is mapped to fit profile bounding box on this face.
+	 */
+	public function get frontFace() : PrimitiveFace { return _frontFace; }
+	private var _frontFace:PrimitiveFace;
+
+	/**
+	 * Collection of polygons on the side surface of extruded shape.
+	 * Texture U coordinate is mapped from 0 to 1 along the profile, and
+	 * V coordinate is mapped from 0 at the front edge to 1 at the back edge.
+	 */
+	public function get sideFace() : PrimitiveFace { return _sideFace; }
+	private var _sideFace:PrimitiveFace;
 	
 }
