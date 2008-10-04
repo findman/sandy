@@ -218,6 +218,19 @@ class Vector
 	}
 
 	/**
+	 * Crosses this vector with the specified vector.
+	 *
+	 * @param v 	The vector to make the cross product with (right side).
+	 */
+	public inline function crossWith( v:Vector):Void
+	{
+		var cx:Float = (y * v.z) - (z * v.y);
+		var cy:Float = (z * v.x) - (x * v.z);
+		var cz:Float = (x * v.y) - (y * v.x);
+		x = cx; y = cy; z = cz;
+	}
+
+	/**
 	 * Normalizes this vector.
 	 *
 	 * <p>After normalizing the vector, the direction is the same, but the length is = 1.</p>
