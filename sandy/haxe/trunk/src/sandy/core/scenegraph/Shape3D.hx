@@ -20,7 +20,6 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
-import flash.utils.Dictionary;
 
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
@@ -67,6 +66,12 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 * The array of polygons building this object.
 	 */		
 	public var aPolygons:Array<Polygon>;
+
+	/**
+	 * This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
+	 * In that case, that property will return the invert model matrix on that node
+	 */
+	public var invModelMatrix:Matrix4;
 
 	/**
 	 * <p>
@@ -135,6 +140,8 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 m_aVisiblePoly = new Array();	
 	 m_bMouseInteractivity = false;
 	 m_bForcedSingleContainer = false;
+
+	 invModelMatrix = new Matrix4 ();
 
 		if( p_sName == null ) p_sName = "";
 		if ( p_bUseSingleContainer == null ) p_bUseSingleContainer =true;
