@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -25,7 +25,7 @@ import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
 /**
- * Display the vertex normals of a given object
+ * Display the vertex normals of a given object.
  *
  * <p>Developed originally for a debug purpose, this class allows you to create some
  * special effects, displaying the normal of each vertex.</p>
@@ -41,18 +41,14 @@ class VertexNormalAttributes extends LineAttributes
 	
 	/**
 	 * Creates a new VertexNormalAttributes object.
-	 * @param p_nLength The length of the segment
-	 * @param p_nThickness	The line thickness - Defaoult 1
-	 * @param p_nColor	The line color - Defaoult 0 ( black )
-	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+	 *
+	 * @param p_nLength		The length of the segment.
+	 * @param p_nThickness	The line thickness.
+	 * @param p_nColor		The line color.
+	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( ?p_nLength:Float, ?p_nThickness:UInt, ?p_nColor:UInt, ?p_nAlpha:Float )
+	public function new( p_nLength:Float = 10.0, p_nThickness:UInt = 1, p_nColor:UInt = 0, p_nAlpha:Float = 1.0)
 	{
-  if ( p_nLength == null ) p_nLength = 10;
-  if ( p_nThickness == null ) p_nThickness = 1;
-  if ( p_nColor == null ) p_nColor = 0;
-  if ( p_nAlpha == null ) p_nAlpha = 1;
-
 		m_nLength = p_nLength;
 		// reuse LineAttributes setters
 		thickness = p_nThickness;
@@ -64,7 +60,7 @@ class VertexNormalAttributes extends LineAttributes
 	}
 	
 	/**
-	 * @private
+	 * The line length.
 	 */
 	public var length(__getLength,__setLength):Float;
 	private function __getLength():Float
@@ -73,7 +69,7 @@ class VertexNormalAttributes extends LineAttributes
 	}
 	
 	/**
-	 * The line length
+	 * The line length.
 	 */
 	private function __setLength( p_nValue:Float ):Float
 	{

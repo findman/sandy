@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -32,29 +32,27 @@ import sandy.materials.Material;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
-class LineAttributes extends AAttributes
+class LineAttributes extends AAttributes, implements IAttributes
 {
 	private var m_nThickness:Float;
 	private var m_nColor:UInt;
 	private var m_nAlpha:Float;
 	// --
+	/**
+	 * Whether the attribute has been modified since it's last render.
+	 */
 	public var modified:Bool;
 	
 	/**
 	 * Creates a new LineAttributes object.
 	 *
-	 * @param p_nThickness	The line thickness - Defaoult 1
-	 * @param p_nColor	The line color - Defaoult 0 ( black )
-	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+	 * @param p_nThickness	The line thickness.
+	 * @param p_nColor		The line color.
+	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( ?p_nThickness:Float, ?p_nColor:UInt, ?p_nAlpha:Float )
+	public function new( p_nThickness:Float = 1.0, p_nColor:UInt = 1, p_nAlpha:Float = 1.0 )
 	{
-		if ( p_nThickness == null ) p_nThickness = 1;
-		if ( p_nColor == null ) p_nColor = 0;
-		if ( p_nAlpha == null ) p_nAlpha = 1;
-
 		m_nThickness = p_nThickness;
 		m_nAlpha = p_nAlpha;
 		m_nColor = p_nColor;
@@ -65,7 +63,9 @@ class LineAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 *
+	 * @default 1.0
 	 */
 	public var alpha(__getAlpha,__setAlpha):Float;
 	private function __getAlpha():Float
@@ -74,7 +74,7 @@ class LineAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * The line color.
 	 */
 	public var color(__getColor,__setColor):UInt;
 	private function __getColor():UInt
@@ -83,7 +83,7 @@ class LineAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * The line thickness.
 	 */
 	public var thickness(__getThickness,__setThickness):Float;
 	private function __getThickness():Float

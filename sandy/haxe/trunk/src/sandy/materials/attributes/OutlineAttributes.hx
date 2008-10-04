@@ -23,6 +23,7 @@ import flash.utils.Dictionary;
 import sandy.core.Scene3D;
 import sandy.core.data.Edge3D;
 import sandy.core.data.Polygon;
+import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
@@ -35,7 +36,6 @@ import sandy.materials.Material;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
 class OutlineAttributes extends AAttributes
 {
@@ -45,32 +45,38 @@ class OutlineAttributes extends AAttributes
 	private var m_nColor:Int;
 	private var m_nAlpha:Float;
 	// --
+	private var m_nAngleThreshold:Float;
+	// --
+	/**
+	 * Whether the attribute has been modified since it's last render.
+	 */
 	public var modified:Bool;
 	
 	/**
 	 * Creates a new OutlineAttributes object.
 	 *
-	 * @param p_nThickness	The line thickness - Defaoult 1
-	 * @param p_nColor	The line color - Default 0 ( black )
-	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
+	 * @param p_nThickness	The line thickness.
+	 * @param p_nColor		The line color.
+	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( ?p_nThickness:UInt, ?p_nColor:UInt, ?p_nAlpha:Float )
+	public function new( p_nThickness:UInt = 1, p_nColor:UInt = 0, p_nAlpha:Float = 1.0 )
 	{
-        if ( p_nThickness == null ) p_nThickness = 1;
-        if ( p_nColor == null ) p_nColor = 0;
-        if ( p_nAlpha == null ) p_nAlpha = 1;
 
-	    SHAPE_MAP = new Dictionary(true);
+	 SHAPE_MAP = new Dictionary(true);
 		m_nThickness = p_nThickness;
 		m_nAlpha = p_nAlpha;
 		m_nColor = p_nColor;
+
+	 m_nAngleThreshold = 181.0;
 		// --
 		super();
 		modified = true;
 	}
 	
 	/**
-	 * @private
+	 * Indicates the alpha transparency value of the outline. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 *
+	 * @default 1.0
 	 */
 	public var alpha(__getAlpha,__setAlpha):Float;
 	private function __getAlpha():Float
@@ -79,7 +85,7 @@ class OutlineAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * The line color.
 	 */
 	public var color(__getColor,__setColor):Int;
 	private function __getColor():Int
@@ -88,8 +94,8 @@ class OutlineAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
-	 */
+	 * The line thickness.
+	 */	
 	public var thickness(__getThickness,__setThickness):Int;
 	private function __getThickness():Int
 	{
@@ -97,10 +103,17 @@ class OutlineAttributes extends AAttributes
 	}
 	
 	/**
-	 * The alpha value for the lines ( 0 - 1 )
-	 *
-	 * Alpha = 0 means fully transparent, alpha = 1 fully opaque.
-	 */
+	 * The angle threshold. Attribute will additionally draw edges between faces that form greater angle than this value.
+	 */	
+	public var angleThreshold(__getAngleThreshold,__setAngleThreshold):Float;
+	private function __getAngleThreshold():Float
+	{
+		return m_nAngleThreshold;
+	}
+ 
+	/**
+	 * @private
+		*/
 	private function __setAlpha(p_nValue:Float):Float
 	{
 		m_nAlpha = p_nValue; 
@@ -128,6 +141,12 @@ class OutlineAttributes extends AAttributes
         return p_nValue;
 	}
 	
+	public function __setAngleThreshold(p_nValue:Float):Float
+	{
+		m_nAngleThreshold = p_nValue;
+		return p_nValue;
+	}
+
 	/**
 	 * Allows to proceed to an initialization
 	 * to know when the polyon isn't lined to the material, look at #unlink
@@ -138,31 +157,42 @@ class OutlineAttributes extends AAttributes
 		// -- attempt to create the neighboors relation between polygons
 		if( SHAPE_MAP[p_oPolygon.shape.id] == null )
 		{
-	        // if this shape hasn't been registered yet, we compute its polygon relation to be able
-	        // to draw the outline.
-	        var l_aPoly:Array<Polygon> = p_oPolygon.shape.aPolygons;
-	        var a:Int = l_aPoly.length, lCount:UInt = 0, i:Int, j:Int;
-	        var lP1:Polygon, lP2:Polygon;
-	        var l_aEdges:Array<Edge3D>;
-	        for( i in 0...(a-1) )
-	        {
-	        	lP1 = l_aPoly[i];
-	        	for( j in (i+1)...a )
-		        {
-		        	lP2 = l_aPoly[j];
-		        	l_aEdges = lP2.aEdges;
-		        	// --
-		        	lCount = 0;
-		        	// -- check if they share at least 2 vertices
-		        	for ( l_oEdge in lP1.aEdges )
-		        		if( untyped( l_aEdges.indexOf( l_oEdge ) ) > -1 ) lCount += 1;
-		        	// --
-		        	if( lCount > 0 )
-		        	{
-		        		lP1.aNeighboors.push( lP2 );
-		        		lP2.aNeighboors.push( lP1 );
-		        	}
-		        }
+			// if this shape hasn't been registered yet, we compute its polygon relation to be able
+			// to draw the outline.
+			var l_aPoly:Array<Polygon> = p_oPolygon.shape.aPolygons;
+			var a:Int = l_aPoly.length, lCount:UInt = 0, i:Int, j:Int;
+			var lP1:Polygon, lP2:Polygon;
+			var l_aEdges:Array<Edge3D>;
+			// if any of polygons of this shape have neighbour information, do not re-calculate it
+			var l_bNoInfo:Bool = true;
+			for( i in 0...a)
+			{
+				if ( l_aPoly[i].aNeighboors.length > 0 )
+					l_bNoInfo = false;
+			}
+			if ( l_bNoInfo )
+			{
+				for( i in 0...a-1 )
+				{
+					lP1 = l_aPoly[i];
+					for( j in i+1...a )
+					{
+						lP2 = l_aPoly[j];
+						l_aEdges = lP2.aEdges;
+						// --
+						lCount = 0;
+						// -- check if they share at least 2 vertices
+						for ( l_oEdge in lP1.aEdges )
+							// FIXME: optimise Polygon with less Arrays, and you won't need this
+							if( untyped( l_aEdges.indexOf( l_oEdge ) ) > -1 ) lCount += 1;
+						// --
+						if( lCount > 0 )
+						{
+							lP1.aNeighboors.push( lP2 );
+							lP2.aNeighboors.push( lP1 );
+						}
+					}
+				}
 			}
 			// --
 			SHAPE_MAP[p_oPolygon.shape.id] = true;
@@ -192,34 +222,44 @@ class OutlineAttributes extends AAttributes
 		var l_oEdge:Edge3D;
 		var l_oPolygon:Polygon;
 		var l_bFound:Bool;
+		var l_bVisible:Bool = p_oPolygon.visible;
+		// --
+		var l_oNormal:Vertex = null;
+		var l_nDotThreshold:Float = 0.0;
+		if (m_nAngleThreshold < 180)
+		{
+			l_oNormal = p_oPolygon.normal;
+			l_nDotThreshold = Math.cos (m_nAngleThreshold * 0.017453292519943295769236907684886 /* Math.PI / 180 */ );
+		}
 		// --
 		p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 		p_oGraphics.beginFill(0);
 		// --
 		for ( l_oEdge in p_oPolygon.aEdges )
-    	{
-    		l_bFound = false;
-    		// --
-    		for ( l_oPolygon in p_oPolygon.aNeighboors )
+		{
+			l_bFound = false;
+			// --
+			for ( l_oPolygon in p_oPolygon.aNeighboors )
 			{
-        		// aNeighboor not visible, does it share an edge?
+				// aNeighboor not visible, does it share an edge?
 				// if so, we draw it
 				if( untyped( l_oPolygon.aEdges.indexOf( l_oEdge ) ) > -1 )
-        		{
-					if( l_oPolygon.visible == false )
+				{
+					if(( l_oPolygon.visible != l_bVisible ) ||
+						((m_nAngleThreshold < 180) && (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold )) )
 					{
 						p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 						p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
 					}
 					l_bFound = true;
 				}
-   			}
-   			// -- if not shared with any neighboor, it is an extremity edge that shall be drawn
-   			if( l_bFound == false )
-   			{
-	   			p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
+			}
+			// -- if not shared with any neighboor, it is an extremity edge that shall be drawn
+			if( l_bFound == false )
+			{
+				p_oGraphics.moveTo( l_oEdge.vertex1.sx, l_oEdge.vertex1.sy );
 				p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
-   			}
+			}
 		}
 
 		p_oGraphics.endFill();

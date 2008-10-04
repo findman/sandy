@@ -33,7 +33,7 @@ import sandy.materials.attributes.MaterialAttributes;
 import sandy.util.NumberUtil;
 
 /**
- * Displays a bitmap on the faces of a 3D shape..
+ * Displays a bitmap on the faces of a 3D shape.
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author		Xavier Martin - zeflasher - transparency managment
@@ -41,13 +41,12 @@ import sandy.util.NumberUtil;
  * @author		James Dahl - optimization in renderRec method
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
-class BitmapMaterial extends Material
+class BitmapMaterial extends Material, implements IAlphaMaterial
 {
 
 	/**
-	 * This property enable smooth bitmap rendering when set to true.
+	 * This property enables smooth bitmap rendering when set to true.
 	 * The default value is set to false to have the best performance first.
 	 * Enable this property have a performance impact, use it warefully
 	 */
@@ -56,10 +55,10 @@ class BitmapMaterial extends Material
 	/**
 	 * Precision of the bitmap mapping.
 	 * This material uses an affine linear mapping. It results in a lack of accuracy at rendering time when the surface to draw is too big.
-	 * An usual solution is to augment the number of polygon, but the performance cost can be quite big.
-	 * An other solution is to change this property value. The lower to more accurate the perspective correction is.
+	 * One usual solution is to augment the number of polygon, but the performance cost can be quite big.
+	 * Another solution is to change the precision property value. The lower the value, the more accurate the perspective correction is.
 	 * To disable the perspective correction, set this property to zero, which is also the default value
-	 * If you use the precision to solve the distortion issue, you can reduce the primitives quality (execpt if you are experimenting some sorting issues)
+	 * If you use the precision to solve the distortion issue, you can reduce the primitives quality (except if you are experiencing some sorting issues)
 	 */
 	public var precision:Int;
 
@@ -72,13 +71,16 @@ class BitmapMaterial extends Material
 	
 	/**
 	 * Creates a new BitmapMaterial.
-	 * <p>Please note that we ue internally a copy of the constructor bitmapdata. Thatea mns in case you need to access this bitmapdata, you can't just use the same reference
+	 * <p>Please note that we use internally a copy of the constructor bitmapdata. That means in case you need to access this bitmapdata, you can't just use the same reference
 	 * but you shall use the BitmapMaterial#texture getter property to make it work.</p>
-	 * @param p_oTexture 	The bitmapdata for this material
-	 * @param p_oAttr	The attributes for this material
-	 * @param p_nPrecision The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
+	 *
+	 * @param p_oTexture	The bitmapdata for this material.
+	 * @param p_oAttr		The attributes for this material.
+	 * @param p_nPrecision	The precision of this material. Using a precision with 0 makes the material behave as before. Then 1 as precision is very high and requires a lot of computation but proceed a the best perpective mapping correction. Bigger values are less CPU intensive but also less accurate. Usually a value of 5 is enough.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( ?p_oTexture:BitmapData, ?p_oAttr:MaterialAttributes, ?p_nPrecision:Int )
+	public function new( ?p_oTexture:BitmapData, ?p_oAttr:MaterialAttributes, p_nPrecision:Int = 0)
 	{
 	 smooth = false;
 	 precision = 0;
@@ -90,8 +92,9 @@ class BitmapMaterial extends Material
 	 matrix = new Matrix();
 	 m_oTiling = new Point( 1, 1 );
 	 m_oOffset = new Point( 0, 0 );
+	 forceUpdate = false;
 
-		if( p_nPrecision == null) p_nPrecision = 0;
+	 m_nAlpha = 1.0;
 
 		super(p_oAttr);
 		// --
@@ -115,7 +118,6 @@ class BitmapMaterial extends Material
 	 */
 	public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void
 	{
-
        	if( m_oTexture == null ) return;
        	// --
 		var l_points:Array<Vertex>, l_uv:Array<UVCoord>;
@@ -350,7 +352,7 @@ class BitmapMaterial extends Material
 	}
 
 	/**
-	 * The texture ( bitmap ) of this material
+	 * The texture ( bitmap ) of this material.
 	 */
 	public var texture(__getTexture,__setTexture):Null<BitmapData>;
 	private function __getTexture():BitmapData
@@ -400,26 +402,22 @@ class BitmapMaterial extends Material
 	/**
 	 * Sets texture tiling and optional offset. Tiling is applied first.
 	 */
-	public function setTiling( p_nW:Float, p_nH:Float, ?p_nU:Float, ?p_nV:Float ):Void
+	public function setTiling( p_nW:Float, p_nH:Float, p_nU:Float = 0.0, p_nV:Float = 0.0 ):Void
 	{
 		m_oTiling.x = p_nW;
 		m_oTiling.y = p_nH;
 		// --
-		m_oOffset.x = p_nU;
-		m_oOffset.y = p_nV;
+		m_oOffset.x = p_nU - Math.floor (p_nU);
+		m_oOffset.y = p_nV - Math.floor (p_nV);
 		// --
-
-		if( p_nU == null) p_nU = 0;
-		if ( p_nV == null) p_nV = 0;
 
 		for( l_sID in m_oPolygonMatrixMap )
 		{
-			//throw "Bad Transformation";
+			// FIXME: m_oPolygonMatrixMap cannot contain matrices and an integers at the same time.
 			//var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( Std.parseInt( l_sID ) );
 			//init( l_oPoly );
 		}
 	}
-	
 
 	/**
 	 * Changes the transparency of the texture.
@@ -441,6 +439,25 @@ class BitmapMaterial extends Material
 		texture.applyFilter( m_orgTexture, texture.rect, m_oPoint, m_oCmf );
 	}
 
+	/**
+	 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 *
+	 * @default 1.0
+	 */
+	public var alpha(__getAlpha,__setAlpha):Float;
+	private function __getAlpha():Float 
+	{
+		return m_nAlpha;
+	}
+ 
+	private function __setAlpha(p_nValue:Float):Float	
+	{
+		setTransparency(p_nValue);
+		m_nAlpha = p_nValue;
+		m_bModified = true;
+		return p_nValue;
+	}
+ 
 	public override function unlink( p_oPolygon:Polygon ):Void
 	{
 		if( m_oPolygonMatrixMap[p_oPolygon.id] != null )
@@ -448,9 +465,8 @@ class BitmapMaterial extends Material
 		// --
 		super.unlink( p_oPolygon );
 	}
+
 	/**
-	 * Initiates this material.
-	 *
 	 * @param p_oPolygon	The face dressed by this material
 	 */
 	public override function init( p_oPolygon:Polygon ):Void
@@ -474,6 +490,11 @@ class BitmapMaterial extends Material
 		super.init( p_oPolygon );
 	}
 
+	/**
+	 * Returns a string representation of this object.
+	 *
+	 * @return	The fully qualified name of this object.
+	 */
 	public function toString():String
 	{
 		return 'sandy.materials.BitmapMaterial' ;
@@ -489,6 +510,7 @@ class BitmapMaterial extends Material
 	private var m_nWidth:Float;
 	private var m_nInvHeight:Float;
 	private var m_nInvWidth:Float;
+	private var m_nAlpha:Float;
 
 	private var m_nRecLevel:Int;
 	private var m_oPolygonMatrixMap:Array<Matrix>;
@@ -497,5 +519,6 @@ class BitmapMaterial extends Material
 	private var matrix:Matrix;
 	private var m_oTiling:Point;
 	private var m_oOffset:Point;
+	public var forceUpdate:Bool;
 }
 

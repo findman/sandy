@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,7 +21,6 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.utils.Dictionary;
 
-import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
@@ -41,7 +40,6 @@ import sandy.util.NumberUtil;
  *
  * @author		Makc
  * @author Niel Drummond - haXe port 
- * 
  * 
  */
 class PhongAttributes extends ALightAttributes
@@ -67,7 +65,9 @@ class PhongAttributes extends ALightAttributes
 	 */
 	public var useBright (__getUseBright,__setUseBright):Bool;
 	private function __getUseBright ():Bool
-	{return _useBright;}
+	{
+		return _useBright;
+	}
 	
 	/**
 	 * @private
@@ -92,12 +92,11 @@ class PhongAttributes extends ALightAttributes
 	 * lighting).
 	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected (greater
 	 * values will produce a little bit more accurate interpolation with non-equally spaced anchors).
+	 *
+	 * @see sandy.core.light.Light3D
 	 */
-	public function computeLightMap (p_oLight:Light3D, ?p_nQuality:Int, ?p_nSamples:Int):Void
+	public function computeLightMap (p_oLight:Light3D, p_nQuality:Int = 4, p_nSamples:Int = 4):Void
 	{
-		if ( p_nQuality == null ) p_nQuality = 4;
-  if ( p_nSamples == null ) p_nSamples = 4;
-
 		var i:Int, j:Int;
 		var l_nQuality:Int = Std.int( NumberUtil.constrain (p_nQuality, 2, 15) );
 		var l_nSamples:Int = Std.int( Math.max (p_nSamples, 1) );
@@ -105,11 +104,11 @@ class PhongAttributes extends ALightAttributes
 
 		// store Blinn vector, and replace it with light direction
 		// this is to simplify specular map calculation
-		var l_oH:Vector = m_oH.clone (); m_oH.copy (m_oL);
+		var l_oCurrentH:Vector = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
 
 		// take arbitrary vector perpendicular to light direction and normalize it
-		var e:Vector = (Math.abs (m_oL.x) + Math.abs (m_oL.y) > 0) ?
-			new Vector (m_oL.y, -m_oL.x, 0) : new Vector (m_oL.z, 0, -m_oL.x); e.normalize ();
+		var e:Vector = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
+			new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 
 		// sample ambient + diffuse and specular separately
 		var n:Vector = new Vector ();
@@ -120,9 +119,9 @@ class PhongAttributes extends ALightAttributes
 			// radius in the lightmap (scaled 0 to 1) and its complimentary number (to parabola)
 			var r:Float = i * 1.0 / (N - 1), q:Float = 0.5 * (1 - r * r);
 			// take arbitrary normal that will map to radius r in the lightmap
-			n.x = e.x * r - m_oL.x * q;
-			n.y = e.y * r - m_oL.y * q;
-			n.z = e.z * r - m_oL.z * q;
+			n.x = e.x * r - m_oCurrentL.x * q;
+			n.y = e.y * r - m_oCurrentL.y * q;
+			n.z = e.z * r - m_oCurrentL.z * q;
 			n.normalize ();
 			// calculate reflection from that normal
 			l_aReflection [0] [i] = calculate (n, true, true);
@@ -146,7 +145,7 @@ class PhongAttributes extends ALightAttributes
 		}
 
 		// restore original Blinn vector
-		m_oH.copy (l_oH);
+		m_oCurrentH.copy (l_oCurrentH);
 
 		// compute the light map
 		var l_oLightMap:PhongAttributesLightMap = new PhongAttributesLightMap ();
@@ -224,17 +223,13 @@ class PhongAttributes extends ALightAttributes
 	/**
 	 * Create the PhongAttributes object.
 	 * @param p_bBright The brightness (value for useBright).
+	 * @param p_bBright The brightness (value for useBright).
 	 * @param p_nAmbient The ambient light value. A value between 0 and 1 is expected.
 	 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected.
 	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected.
 	 */
-	public function new (?p_bBright:Bool, ?p_nAmbient:Float, ?p_nQuality:Int, ?p_nSamples:Int)
+	public function new (p_bBright:Bool = false, p_nAmbient:Float = 0.0, p_nQuality:Int = 15, p_nSamples:Int = 4)
 	{
-		if ( p_bBright == null ) p_bBright = false;
-		if ( p_nAmbient == null ) p_nAmbient = 0.0;
-		if ( p_nQuality == null ) p_nQuality = 4;
-		if ( p_nSamples == null ) p_nSamples = 4;
-
 	 m_oLightMaps = new Dictionary ();
 
 	 _useBright = true;
@@ -246,17 +241,19 @@ class PhongAttributes extends ALightAttributes
 	 matrix = new Matrix();
 	 matrix2 = new Matrix();
 
-	    spherize = 0;
-	    onlySpecular = false;
-					super();
+	 dv = new Vector ();		
+	 e1 = new Vector ();
+	 e2 = new Vector ();
+
+	 spherize = 0;
+	 onlySpecular = false;
+		super();
 
 		useBright = p_bBright;
 		ambient = NumberUtil.constrain (p_nAmbient, 0, 1);
 
 		m_nQuality = p_nQuality;
 		m_nSamples = p_nSamples;
-		
-		m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 	}
 
 	// default quality to pass to computeLightMap (set in constructor)
@@ -295,20 +292,16 @@ class PhongAttributes extends ALightAttributes
 		}
 
 		m_oCurrentLightMap = untyped m_oLightMaps[l_oLight];
-		
-		// also, clear vertex dictionary
-		m_oVertices = new Dictionary (true);
 	}
 
-	// vertex dictionary
-	private var m_oVertices:Dictionary;
-	
-	// --
 	override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):Void
 	{
 		super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
-		var i:Int, j:Int, l_oVertex:Vertex;
+		var i:Int, j:Int, l_oVertex:Vertex,
+			v:Vector,
+			p:Point, p1:Point, p2:Point,
+			m2a:Float, m2b:Float, m2c:Float, m2d:Float, a:Float;
 
 		// got anything at all to do?
 		if( !p_oMaterial.lightingEnable )
@@ -316,41 +309,38 @@ class PhongAttributes extends ALightAttributes
 
 		// get vertices and prepare matrix2
 		var l_aPoints:Array<Vertex> = (p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices;
-		matrix2.a = l_aPoints[1].sx - l_aPoints[0].sx;
-		matrix2.b = l_aPoints[1].sy - l_aPoints[0].sy;
-		matrix2.c = l_aPoints[2].sx - l_aPoints[0].sx;
-		matrix2.d = l_aPoints[2].sy - l_aPoints[0].sy;
-		matrix2.tx = l_aPoints[0].sx;
-		matrix2.ty = l_aPoints[0].sy;
+
+		l_oVertex = l_aPoints [0];
+		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
+		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
+		
+		l_oVertex = l_aPoints [1];
+		m2a += l_oVertex.sx; matrix2.a = m2a;
+		m2b += l_oVertex.sy; matrix2.b = m2b;
+
+		l_oVertex = l_aPoints [2];
+		m2c += l_oVertex.sx; matrix2.c = m2c;
+		m2d += l_oVertex.sy; matrix2.d = m2d;
 
 		// transform 1st three normals
 		for (i in 0...3)
 		{
-			aN0 [i].copy (p_oPolygon.vertexNormals [i].getWorldVector());
-			if (!p_oPolygon.visible) aN0 [i].scale (-1);
+			v = aN0 [i]; v.copy (p_oPolygon.vertexNormals [i].getVector());
 
 			if (spherize > 0)
 			{
-				// too bad, l_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-				// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
-				// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
-				var dv:Vector;
-				if (untyped( m_oVertices [l_aPoints [i]] ) == null)
-				{
-					dv = l_aPoints [i].getVector ();
-					dv.sub (p_oPolygon.shape.geometryCenter);
-					p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
-					dv.normalize ();
-					dv.scale (spherize);
-					untyped(m_oVertices [ l_aPoints [i] ] = dv );
-				}
-				else
-				{
-					dv = untyped( m_oVertices [l_aPoints [i]] );
-				}
-				aN0 [i].add (dv);
-				aN0 [i].normalize ();
+				l_oVertex = l_aPoints [i];
+
+				dv.copy (l_oVertex.getVector ());
+				dv.sub (p_oPolygon.shape.geometryCenter);
+				dv.normalize ();
+				dv.scale (spherize);
+
+				v.add (dv);
+				v.normalize ();
 			}
+
+			if (!p_oPolygon.visible) v.scale (-1);
 		}
 
 		// apply ambient + diffuse and specular maps separately
@@ -359,19 +349,19 @@ class PhongAttributes extends ALightAttributes
 		while ( j < (_useBright ? 2 : 1))
 		{
 			// get highlight direction vector
-			var d:Vector = (j == 0) ? m_oL : m_oH;
+			var d:Vector = (j == 0) ? m_oCurrentL : m_oCurrentH;
 
-			// see if we are on the backside
+			// see if we are on the backside relative to d
 			var backside:Bool = true;
 			for (i in 0...3)
 			{
-				aN [i].copy (aN0 [i]);
+				v = aN [i]; v.copy (aN0 [i]);
 
-				var d_dot_aNi:Float = d.dot (aN [i]);
+				var d_dot_aNi:Float = d.dot (v);
 				if (d_dot_aNi < 0) backside = false;
 
 				// intersect with parabola - q(r) in computeLightMap() corresponds to this
-				aN[i].scale (1 / (1 - d_dot_aNi));
+				v.scale (1 / (1 - d_dot_aNi));
 			}
 
 			if (backside)
@@ -391,45 +381,48 @@ class PhongAttributes extends ALightAttributes
 			else
 			{
 				// calculate two arbitrary vectors perpendicular to light direction
-				var e1:Vector = (Math.abs (d.x) + Math.abs (d.y) > 0) ? new Vector (d.y, -d.x, 0) : new Vector (d.z, 0, -d.x);
-				var e2:Vector = d.cross (e1);
+				if ((d.x != 0) || (d.y != 0))
+				{
+					e1.x = d.y; e1.y = -d.x; e1.z = 0;
+				}
+				else
+				{
+					e1.x = d.z; e1.y = 0; e1.z = -d.x;
+				}
+				e2.copy (d); e2.crossWith (e1);
 				e1.normalize ();
 				e2.normalize ();
 
 				for (i in 0...3)
 				{
+					p = aNP [i]; v = aN [i];
+
 					// project aN [i] onto e1 and e2
-					aNP [i].x = e1.dot (aN [i]);
-					aNP [i].y = e2.dot (aN [i]);
+					p.x = e1.dot (v);
+					p.y = e2.dot (v);
 
 					// re-calculate into light map coordinates
-					aNP [i].x = (16384 - 1) * 0.05 * aNP [i].x;
-					aNP [i].y = (16384 - 1) * 0.05 * aNP [i].y;
+					p.x = (16384 - 1) * 0.05 * p.x;
+					p.y = (16384 - 1) * 0.05 * p.y;
 				}
 
 				// simple hack to resolve bad projections
 				// where the hell do they keep coming from?
-				while ((Math.abs(
-						(aNP[0].x - aNP[1].x) * (aNP[0].x - aNP[2].x) + (aNP[0].y - aNP[1].y) * (aNP[0].y - aNP[2].y)
-						) > (1 - NumberUtil.TOL) *
-						Point.distance(aNP[0], aNP[1]) * Point.distance(aNP[0], aNP[2])
-					)
-					|| (Math.abs(
-						(aNP[0].x - aNP[1].x) * (aNP[2].x - aNP[1].x) + (aNP[0].y - aNP[1].y) * (aNP[2].y - aNP[1].y)
-						) > (1 - NumberUtil.TOL) *
-						Point.distance(aNP[0], aNP[1]) * Point.distance(aNP[2], aNP[1])
-					))
+				p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
+				a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
+				while ((-20 < a) && (a < 20))
 				{
-					aNP[0].x--; aNP[1].y++; aNP[2].x++;
+					p.x--; p1.y++; p2.x++;
+					a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
 				}
 
 				// compute gradient matrix
-				matrix.a = aNP[1].x - aNP[0].x;
-				matrix.b = aNP[1].y - aNP[0].y;
-				matrix.c = aNP[2].x - aNP[0].x;
-				matrix.d = aNP[2].y - aNP[0].y;
-				matrix.tx = aNP[0].x;
-				matrix.ty = aNP[0].y;
+				matrix.a = p1.x - p.x;
+				matrix.b = p1.y - p.y;
+				matrix.c = p2.x - p.x;
+				matrix.d = p2.y - p.y;
+				matrix.tx = p.x;
+				matrix.ty = p.y;
 				matrix.invert ();
 
 				matrix.concat (matrix2);
@@ -452,7 +445,9 @@ class PhongAttributes extends ALightAttributes
 		l_aPoints = null;
 	}
 
-	// when Phong model parameters change, any light maps we had are no longer valid
+	/**
+	 * when Phong model parameters change, any light maps we had are no longer valid
+	 */
 	override private function onPropertyChange ():Void
 	{
 		m_oLightMaps = new Dictionary ();
@@ -464,6 +459,10 @@ class PhongAttributes extends ALightAttributes
 	private var aN0:Array<Vector>;
 	private var aN:Array<Vector>;
 	private var aNP:Array<Point>;
+
+	private var dv:Vector;
+	private var e1:Vector;
+	private var e2:Vector;
 
 	private var matrix:Matrix;
 	private var matrix2:Matrix;

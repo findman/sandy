@@ -19,69 +19,48 @@ package sandy.materials;
 /**
  * Represents the material types used in Sandy.
  * 
- * <p>Types are registered here as constant properties.<br/>
- * If new materials are added to the Sandy library, they should be refistered here.</p> 
+ * <p>All materialy types used in Sandy are registered here as constant properties.<br/>
+ * If new materials are added to the Sandy library, they should be registered here.</p> 
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
 enum MaterialType 
 {
+
+	/**
+	 * Specifies the default material.
+	 */
 		NONE;
+
+	/**
+	 * Specifies a ColorMaterial
+	 */
 		COLOR;
+
+	/**
+	 * Specifies a WireFrameMaterial
+	 */
 		WIREFRAME;
+
+	/**
+	 * Specifies a BitmapMaterial
+	 */
 		BITMAP;
+
+	/**
+	 * Specifies a MovieMaterial
+	 */
 		MOVIE;
+
+	/**
+	 * Specifies a VideoMaterial
+	 */
 		VIDEO;
+
+	/**
+	 * Specifies a OutlineMaterial
+	 */
 		OUTLINE;
 }
-
-//  class MaterialType
-//  {
-//  	//---------//
-//  	//Constants//
-//  	//---------//
-//  	/**
-//  	 * Constant value representing the default material
-//  	 */
-//  	public static var NONE:MaterialType = new MaterialType("default");
-//  
-//  	/**
-//  	 * Constant value representing the ColorMaterial
-//  	 */
-//  	public static var COLOR:MaterialType = new MaterialType("color");
-//  
-//  	/**
-//  	 * Constant value representing the WireFrameMaterial
-//  	 */
-//  	public static var WIREFRAME:MaterialType = new MaterialType("wireframe");
-//  
-//  	/**
-//  	 * Constant value representing the BitmapMaterial
-//  	 */
-//  	public static var BITMAP:MaterialType = new MaterialType("bitmap");
-//  
-//  	/**
-//  	 * Constant value representing the MovieMaterial
-//  	 */
-//  	public static var MOVIE:MaterialType = new MaterialType("movie");
-//  
-//  	/**
-//  	 * Constant value representing the VideoMaterial
-//  	 */
-//  	public static var VIDEO:MaterialType = new MaterialType("video");
-//  
-//  	/**
-//  	 * Constant value representing the OutlineMaterial
-//  	 */
-//  	public static var OUTLINE:MaterialType = new MaterialType("outline");
-//  	
-//  	public function new( p_sType:String )
-//  	{
-//  		m_sType = p_sType;
-//  	}
-//  	private var m_sType:String;
-//  }
-//  

@@ -1,6 +1,6 @@
 /*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -17,8 +17,17 @@ package sandy.materials;
 
 import sandy.core.Scene3D;
 
+/**
+ * The MaterialManager class is used to keep track of all materials used in a scene.
+ *
+ * @see sandy.core.Scene3D
+ **/
 class MaterialManager
 {
+
+	/**
+	 * Creates a new MaterialManager object.
+	 **/
 	public function new()
 	{
 	 m_aList = new Array();
@@ -26,6 +35,13 @@ class MaterialManager
 
 	private var m_aList:Array<Material>;
 	
+	/**
+	 * Determines whether a material is registered in the material manager.
+	 *
+	 * @param p_oMaterial	The material to check for.
+	 *
+	 * @return Whether the material is registered.
+	 */
 	public function isRegistered( p_oMaterial:Material ):Bool
 	{
 		for(i in 0...m_aList.length )
@@ -38,23 +54,43 @@ class MaterialManager
 		return false;
 	}
 	
+	/**
+	 * Calls the <code>begin()</code> method of all materials in the material manager.
+	 *
+	 * @param p_oScene	The scene.
+	 */
 	public function begin( p_oScene:Scene3D ):Void
 	{
 		for ( l_oMaterial in m_aList )
 			l_oMaterial.begin( p_oScene );
 	}
 	
+	/**
+	 * Calls the <code>finish()</code> method of all materials in the material manager.
+	 *
+	 * @param p_oScene	The scene.
+	 */
 	public function finish( p_oScene:Scene3D ):Void
 	{
 		for ( l_oMaterial in m_aList )
 			l_oMaterial.finish( p_oScene );
 	}
 	
+	/**
+	 * Registers a material with the material manager.
+	 *
+	 * @param p_oMaterial	The material to register.
+	 */
 	public function register( p_oMaterial:Material ):Void
 	{
 		m_aList.push( p_oMaterial );
 	}
 	
+	/**
+	 * Removes a material from the material manager.
+	 *
+	 * @param p_oMaterial	The material to remove.
+	 */
 	public function unregister( p_oMaterial:Material ):Void
 	{
 		for( i in 0...m_aList.length )

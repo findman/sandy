@@ -34,9 +34,8 @@ import sandy.util.NumberUtil;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
-class ColorMaterial extends Material
+class ColorMaterial extends Material, implements IAlphaMaterial
 {
 	private var m_nColor:Int;
 	private var m_nAlpha:Float;
@@ -44,15 +43,14 @@ class ColorMaterial extends Material
 	/**
 	 * Creates a new ColorMaterial.
 	 *
-	 * @param p_nColor 	The color for this material in hexadecimal notation
-	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
-	 * @param p_oAttr	The attributes for this material
+	 * @param p_nColor 	The color for this material in hexadecimal notation.
+	 * @param p_nAlpha	The alpha transparency value of the material.
+	 * @param p_oAttr	The attributes for this material.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( ?p_nColor:Int, ?p_nAlpha:Float, ?p_oAttr:MaterialAttributes )
+	public function new( p_nColor:Int = 0x00, p_nAlpha:Float = 1.0, ?p_oAttr:MaterialAttributes )
 	{
-		if (p_nColor == null) p_nColor = 0x00;
-		if (p_nAlpha == null) p_nAlpha = 1;
-
 		super(p_oAttr);
 		// --
 		m_oType = MaterialType.COLOR;
@@ -88,7 +86,9 @@ class ColorMaterial extends Material
 	}
 
 	/**
-	 * @private
+	 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
+	 *
+	 * @default 1.0
 	 */
 	public var alpha(__getAlpha,__setAlpha):Float;
 	private function __getAlpha():Float
@@ -97,7 +97,9 @@ class ColorMaterial extends Material
 	}
 
 	/**
-	 * @private
+	 * The color of this material.
+	 *
+	 * @default 0x00
 	 */
 	public var color(__getColor,__setColor):Int;
 	private function __getColor():Int

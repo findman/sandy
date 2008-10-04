@@ -38,16 +38,14 @@ import sandy.util.NumberUtil;
  * @author		Thomas PFEIFFER - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 
  */
 class VideoMaterial extends BitmapMaterial
 {
 	/**
-	 * Default color used to draw the bitmapdata content with.
-	 * In case you need a specific color, change  this value at your application initialization
+	 * Default color used to draw the bitmapdata content.
+	 * In case you need a specific color, change this value at your application initialization.
 	 */
-	public static var DEFAULT_FILL_COLOR:UInt;
+	public static inline var DEFAULT_FILL_COLOR:UInt = 0;
 
 	private var m_oTimer:Timer;
 	private var m_oVideo:Video;
@@ -60,16 +58,14 @@ class VideoMaterial extends BitmapMaterial
 	 * <p>The video is converted to a bitmap to give it a perspective distortion.<br/>
 	 * To see the animation, the bitmap has to be recreated from the video on a regular basis.</p>
 	 *
-	 * @param p_oVideo 	The video to be shown by this material
-	 * @param p_nUpdateMS	The update interval
-	 * @param p_oAttr	The material attributes
+	 * @param p_oVideo		The video to be shown by this material.
+	 * @param p_nUpdateMS	The update interval.
+	 * @param p_oAttr		The material attributes.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( p_oVideo:Video, ?p_nUpdateMS:UInt, ?p_oAttr:MaterialAttributes )
+	public function new( p_oVideo:Video, p_nUpdateMS:UInt = 40, ?p_oAttr:MaterialAttributes )
 	{
-	 DEFAULT_FILL_COLOR = 0;
-
-		if ( p_nUpdateMS == null ) p_nUpdateMS = 40;
-
 		super( new BitmapData( Std.int( p_oVideo.width ), Std.int( p_oVideo.height ), true, DEFAULT_FILL_COLOR ), p_oAttr );
 		m_oAlpha = new ColorTransform ();
 		m_oVideo = p_oVideo;
@@ -111,7 +107,7 @@ class VideoMaterial extends BitmapMaterial
 	 */
 	private function _update( p_eEvent:TimerEvent ):Void
 	{
-		if ( m_bUpdate )
+		if ( m_bUpdate || forceUpdate )
 		{
 			m_oTexture.fillRect( m_oTexture.rect,
 				ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );

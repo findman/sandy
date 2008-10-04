@@ -18,13 +18,11 @@ package sandy.materials.attributes;
 
 import flash.display.Graphics;
 
-import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
-import sandy.util.NumberUtil;
 
 /**
  * Realize a flat shading effect when associated to a material.
@@ -35,35 +33,27 @@ import sandy.util.NumberUtil;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
 class LightAttributes extends ALightAttributes
 {
 	/**
-	 * Flag for lightening mode.
-	 * <p>If true, the lit objects use full light range from black to white.<b />
-	 * If false (the default) they just range from black to their normal appearance.</p>
+	 * Flag for lighting mode.
+	 * <p>If true, the lit objects use full light range from black to white. If false (the default) they range from black to their normal appearance.</p>
 	 */
 	public var useBright:Bool;
 	
 	/**
 	 * Creates a new LightAttributes object.
 	 *
-	 * @param p_bBright The brightness (value for useBright).
-	 * @param p_nAmbient The ambient light value. Value must be between 0 and 1
+	 * @param p_bBright		The brightness (value for useBright).
+	 * @param p_nAmbient	The ambient light value. A value between O and 1 is expected.
 	 */
-	public function new( ?p_bBright:Bool, ?p_nAmbient:Float )
+	public function new( p_bBright:Bool = false, p_nAmbient:Float = 0.3 )
 	{
-	 useBright = false;
-
-		if ( p_bBright == null ) p_bBright = false;
-		if ( p_nAmbient == null ) p_nAmbient = 0.3;
-
 		super();
 
 		useBright = p_bBright;
-		ambient = NumberUtil.constrain( p_nAmbient, 0, 1 );
-		m_nFlags |= SandyFlags.POLYGON_NORMAL_WORLD;
+		ambient = Math.min (Math.max (p_nAmbient, 0), 1);
 	}
 	
 	/**
@@ -81,9 +71,10 @@ class LightAttributes extends ALightAttributes
 		if( p_oMaterial.lightingEnable )
 		{	
 			var l_aPoints:Array<Vertex> = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
-			var l_oNormal:Vector = p_oPolygon.normal.getWorldVector();
+			var l_oNormal:Vector = p_oPolygon.normal.getVector();
 			// --
-			var lightStrength:Float = NumberUtil.constrain (calculate (l_oNormal, p_oPolygon.visible), 0, 1);
+			var lightStrength:Float = calculate (l_oNormal, p_oPolygon.visible);
+			if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;
 			// --
 			p_oGraphics.lineStyle();
 			if( useBright ) 
@@ -99,7 +90,6 @@ class LightAttributes extends ALightAttributes
 			p_oGraphics.endFill();
 			// --
 			l_oNormal = null;
-			//l_oVertex = null;
 		}
 	}
 }

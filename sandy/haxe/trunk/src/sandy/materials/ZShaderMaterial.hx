@@ -28,11 +28,10 @@ import sandy.math.VertexMath;
 import sandy.util.NumberUtil;
 
 /**
- * Displays a kind of Z shading of any object that this material is applied to
+ * Displays a kind of Z shading of any object that this material is applied to.
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
- * 
  * 
  */	
 class ZShaderMaterial extends Material
@@ -40,11 +39,17 @@ class ZShaderMaterial extends Material
 	var matrix:Matrix;
 	// --
 	
-	public function new( ?p_nCoef:Int, ?p_oAttr:MaterialAttributes )
+	/**
+	 * Creates a new ZShaderMaterial.
+	 *
+	 * @param p_nCoef	Could a dev help us out here? :)
+	 * @param p_oAttr	The attributes for this material.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
+	 */
+	public function new( p_nCoef:Int = 1, ?p_oAttr:MaterialAttributes )
 	{
 	 matrix = new Matrix();
-
-		if ( p_nCoef == null ) p_nCoef = 1;
 
 		super(p_oAttr);
 	}
@@ -58,7 +63,10 @@ class ZShaderMaterial extends Material
 	public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void 
 	{
 		var l_points:Array<Vertex> = ((p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices);
-		if( l_points.length == 0 ) return;
+		if( l_points.length == 0 )
+		{
+			return;
+		}
 		var l_graphics:Graphics = p_mcContainer.graphics;	
 
 		//-- get zSort
@@ -70,7 +78,9 @@ class ZShaderMaterial extends Material
 
 		//-- compute gray values
 		if (!p_oPolygon.shape.boundingBox.uptodate)
+		{
 			p_oPolygon.shape.boundingBox.transform (p_oPolygon.shape.viewMatrix);
+		}
 
 		var zM: Float = p_oPolygon.shape.boundingBox.tmin.z;
 		var zR: Float = p_oPolygon.shape.boundingBox.tmax.z - zM;
@@ -96,7 +106,10 @@ class ZShaderMaterial extends Material
            }
 		l_graphics.endFill();
 		// --
-		if( attributes != null )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+		if( attributes != null )  
+		{
+				attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+		}
 	}
 
 }

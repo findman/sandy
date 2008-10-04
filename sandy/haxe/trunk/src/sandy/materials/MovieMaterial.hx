@@ -16,61 +16,8 @@ limitations under the License.
 
 package sandy.materials;
 
-import flash.display.AVM1Movie;
-import flash.display.ActionScriptVersion;
-import flash.display.Bitmap;
 import flash.display.BitmapData;
-import flash.display.BitmapDataChannel;
-import flash.display.BlendMode;
-import flash.display.CapsStyle;
-import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
-import flash.display.FrameLabel;
-import flash.display.GradientType;
-import flash.display.Graphics;
-import flash.display.GraphicsBitmapFill;
-import flash.display.GraphicsEndFill;
-import flash.display.GraphicsGradientFill;
-import flash.display.GraphicsPath;
-import flash.display.GraphicsPathCommand;
-import flash.display.GraphicsPathWinding;
-import flash.display.GraphicsShaderFill;
-import flash.display.GraphicsSolidFill;
-import flash.display.GraphicsStroke;
-import flash.display.GraphicsTrianglePath;
-import flash.display.IBitmapDrawable;
-import flash.display.IGraphicsData;
-import flash.display.IGraphicsFill;
-import flash.display.IGraphicsPath;
-import flash.display.IGraphicsStroke;
-import flash.display.InteractiveObject;
-import flash.display.InterpolationMethod;
-import flash.display.JointStyle;
-import flash.display.LineScaleMode;
-import flash.display.Loader;
-import flash.display.LoaderInfo;
-import flash.display.MorphShape;
-import flash.display.MovieClip;
-import flash.display.PixelSnapping;
-import flash.display.SWFVersion;
-import flash.display.Scene;
-import flash.display.Shader;
-import flash.display.ShaderData;
-import flash.display.ShaderInput;
-import flash.display.ShaderJob;
-import flash.display.ShaderParameter;
-import flash.display.ShaderParameterType;
-import flash.display.ShaderPrecision;
-import flash.display.Shape;
-import flash.display.SimpleButton;
-import flash.display.SpreadMethod;
 import flash.display.Sprite;
-import flash.display.Stage;
-import flash.display.StageAlign;
-import flash.display.StageDisplayState;
-import flash.display.StageQuality;
-import flash.display.StageScaleMode;
-import flash.display.TriangleCulling;
 
 import flash.events.Event;
 import flash.events.TimerEvent;
@@ -93,17 +40,14 @@ import sandy.util.NumberUtil;
  * @author		Thomas PFEIFFER - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 				this should be add directly in the bitmap material I reckon
- * 
  */
 class MovieMaterial extends BitmapMaterial
 {
 	/**
-	 * Default color used to draw the bitmapdata content with.
-	 * In case you need a specific color, change  this value at your application initialization
+	 * Default color used to draw the bitmapdata content.
+	 * In case you need a specific color, change this value at your application initialization.
 	 */
-	public static var DEFAULT_FILL_COLOR:Int = 0;
+	public static inline var DEFAULT_FILL_COLOR:Int = 0;
 
 	private var m_oTimer:Timer;
 	private var m_oMovie:Sprite;
@@ -117,22 +61,19 @@ class MovieMaterial extends BitmapMaterial
 	 * It is converted to a bitmap to give it a perspective distortion.<br/>
 	 * To see the animation the bitmap has to be recreated from the MovieClip on a regular basis.</p>
 	 *
-	 * @param p_oMovie 	The Movieclip to be shown by this material
-	 * @param p_nUpdateMS	The update interval
-	 * @param p_oAttr	The material attributes
-	 * @param p_bRemoveTransparentBorder	Remove the transparent border
-	 * @param p_nWidth	desired width ( chunk the movieclip )
-	 * @param p_nHeight	desired height ( chunk the movieclip )
+	 * @param p_oMovie		The Movieclip to be shown by this material.
+	 * @param p_nUpdateMS	The update interval.
+	 * @param p_oAttr		The material attributes.
+	 * @param p_bRemoveTransparentBorder	Remove the transparent border.
+	 * @param p_nWidth		Desired width ( chunk the movieclip )
+	 * @param p_nHeight		Desired height ( chunk the movieclip )
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( p_oMovie:Sprite, ?p_nUpdateMS:Int, ?p_oAttr:MaterialAttributes, ?p_bRemoveTransparentBorder:Bool, ?p_nHeight:Float, ?p_nWidth:Float )
+	public function new( p_oMovie:Sprite, p_nUpdateMS:Int = 40, ?p_oAttr:MaterialAttributes, p_bRemoveTransparentBorder:Bool = false, p_nHeight:Float = 0.0, p_nWidth:Float = 0.0 )
 	{
 		var w : Float;
 		var h : Float;
-
-		if ( p_nUpdateMS == null ) p_nUpdateMS = 40;
-		if ( p_bRemoveTransparentBorder == null ) p_bRemoveTransparentBorder = false;
-		if ( p_nHeight == null ) p_nHeight = 0;
-		if ( p_nWidth == null ) p_nWidth = 0;
 
 		m_oAlpha = new ColorTransform ();
 
@@ -201,7 +142,7 @@ class MovieMaterial extends BitmapMaterial
 	 */
 	private function _update( p_eEvent:Event ):Void
 	{
-		if ( m_bUpdate )
+		if ( m_bUpdate || forceUpdate )
 		{
 			m_oTexture.fillRect( m_oTexture.rect,
 				ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
@@ -229,7 +170,7 @@ class MovieMaterial extends BitmapMaterial
 	}
 
 	/**
-	 * Get the movieclip used for the material
+	 * Get the sprite used for the material.
 	 */
 	public var movie(__getMovie,null) : Sprite;
 	private function __getMovie() : Sprite

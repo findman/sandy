@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -56,7 +56,8 @@ class MediumAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
+	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
 	public var color (__getColor,__setColor):UInt;
 	private function __getColor ():UInt
@@ -75,7 +76,9 @@ class MediumAttributes extends AAttributes
 	}
 	
 	/**
-	 * @private
+	 * Attenuation vector. This is the vector from transparent point to opaque point.
+	 *
+	 * @see sandy.core.data.Vector
 	 */
 	public var fadeTo (__getFadeTo,__setFadeTo):Vector;
 	private function __getFadeTo ():Vector
@@ -85,6 +88,8 @@ class MediumAttributes extends AAttributes
 
 	/**
 	 * Transparent point in wx, wy and wz coordinates.
+	 *
+	 * @see sandy.core.data.Vector
 	 */
 	public var fadeFrom:Vector;
 
@@ -96,18 +101,17 @@ class MediumAttributes extends AAttributes
 	/**
 	 * Creates a new MediumAttributes object.
 	 *
-	 * @param p_nColor - Medium color (opaque white by default).
-	 * @param p_oFadeTo - Attenuation vector (500 pixels beyond the screen by default).
-	 * @param p_oFadeFrom - Transparent point (at the screen by default).
-	 * @param p_nBlurAmount - Maximum amount of blur to add (0 by default).
+	 * @param p_nColor		Medium color
+	 * @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
+	 * @param p_oFadeFrom	Transparent point (at the screen by default).
+	 * @param p_nBlurAmount	Maximum amount of blur to add
+	 *
+	 * @see sandy.core.data.Vector
 	 */
-	public function new (?p_nColor:UInt, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, ?p_nBlurAmount:Float )
+	public function new (p_nColor:UInt = 0xFFFFFFFF, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, p_nBlurAmount:Float = 0.0)
 	{
-        m_bWasNotBlurred = true;
-	    _m = new Matrix();
-
-        if ( p_nColor == null ) p_nColor = 0xFFFFFFFF;
-        if ( p_nBlurAmount == null ) p_nBlurAmount = 0;
+		m_bWasNotBlurred = true;
+		_m = new Matrix();
 
 		if (p_oFadeFrom == null)
 			p_oFadeFrom = new Vector (0, 0, 0);
@@ -134,18 +138,7 @@ class MediumAttributes extends AAttributes
 		var l_ratios:Array<Float> = new Array ();
 		for (i in 0...n) l_ratios[i] = ratioFromWorldVector (l_points[i].getWorldVector ());
 
-		trace( "Doing something funny here::::" );
 		var zIndices:Array<Int> = untyped Reflect.callMethod( l_ratios, "sort", [Array.NUMERIC | Array.RETURNINDEXEDARRAY] );
-		/*
-		var tmp_ratios:Array<Float> = l_ratios.slice(0);
-		tmp_ratios.sort( function (a,b) { 
-						if (a > b ) return 1;
-						if (a < b ) return -1;
-						return 0;
-						});
-		var zIndices:Array<Int>;
-		for ( i in 0...tmp_ratios.length ) zIndices.push( i );
-		*/
 
 		var v0: Vertex = l_points[zIndices[0]];
 		var v1: Vertex = l_points[zIndices[1]];
@@ -248,7 +241,7 @@ class MediumAttributes extends AAttributes
 				// copy the filter
 				fs[i] = p_oDisplayObject.filters[i];
 			}
-            i--;
+			i--;
 		}
 		// if filter was not found, add new
 		if (!changed)

@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
+Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,7 +21,6 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.utils.Dictionary;
 
-import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
@@ -36,7 +35,7 @@ import sandy.util.NumberUtil;
  * <b>Note:</b> this class ignores all properties inherited from ALightAttributes!
  *
  * @author		rafajafar + makc :)
- * @author Niel Drummond - haXe port 
+ * @author Niel Drummond - haXe port
  */
 class CelShadeAttributes extends ALightAttributes
 {
@@ -53,20 +52,26 @@ class CelShadeAttributes extends ALightAttributes
 
 	/**
 	 * Create the CelShadeAttributes object.
-	 * @param p_oLightMap A lightmap that object will use (default map has four shades of gray).
+	 *
+	 * @param p_oLightMap A lightmap that the object will use (default map has four shades of gray).
+	 *
+	 * @see PhongAttributesLightMap
 	 */
 	public function new (?p_oLightMap:PhongAttributesLightMap)
 	{
-	    spherize = 0;
+	 spherize = 0;
 
-        aN0 = [new Vector (), new Vector (), new Vector ()];
-        aN  = [new Vector (), new Vector (), new Vector ()];
-        aNP = [new Point (), new Point (), new Point ()];
+  aN  = [new Vector (), new Vector (), new Vector ()];
+  aNP = [new Point (), new Point (), new Point ()];
 
-        matrix = new Matrix();
-        matrix2 = new Matrix();
+  matrix = new Matrix();
+  matrix2 = new Matrix();
 
-								super();
+	 dv = new Vector ();
+	 e1 = new Vector ();
+	 e2 = new Vector ();
+
+		super();
 
 		if (p_oLightMap != null)
 		{
@@ -91,8 +96,6 @@ class CelShadeAttributes extends ALightAttributes
 				  80, 120,
 				 120, 180];
 		}
-
-		m_nFlags |= SandyFlags.VERTEX_NORMAL_WORLD;
 	}
 
 	// --
@@ -100,67 +103,58 @@ class CelShadeAttributes extends ALightAttributes
 	{
 		super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
-		var i:Int, l_oVertex:Vertex;
+		var i:Int, l_oVertex:Vertex,
+			v:Vector = null,
+			p:Point = new Point(), p1:Point, p2:Point,
+			m2a:Float, m2b:Float, m2c:Float, m2d:Float, a:Float;
 
 		// got anything at all to do?
 		if( !p_oMaterial.lightingEnable )
+		{
 			return;
+		}
 
 		// get vertices and prepare matrix2
 		var l_aPoints:Array<Vertex> = (p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices;
-		matrix2.a = l_aPoints[1].sx - l_aPoints[0].sx;
-		matrix2.b = l_aPoints[1].sy - l_aPoints[0].sy;
-		matrix2.c = l_aPoints[2].sx - l_aPoints[0].sx;
-		matrix2.d = l_aPoints[2].sy - l_aPoints[0].sy;
-		matrix2.tx = l_aPoints[0].sx;
-		matrix2.ty = l_aPoints[0].sy;
+
+		l_oVertex = l_aPoints [0];
+		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
+		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
+		
+		l_oVertex = l_aPoints [1];
+		m2a += l_oVertex.sx; matrix2.a = m2a;
+		m2b += l_oVertex.sy; matrix2.b = m2b;
+ 
+		l_oVertex = l_aPoints [2];
+		m2c += l_oVertex.sx; matrix2.c = m2c;
+		m2d += l_oVertex.sy; matrix2.d = m2d;
 
 		// transform 1st three normals
-		for (i in 0...3)
-		{
-			aN0 [i].copy (p_oPolygon.vertexNormals [i].getWorldVector());
-			if (!p_oPolygon.visible) aN0 [i].scale (-1);
-
-			if (spherize > 0)
-			{
-				// too bad, l_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-				// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
-				// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
-				var dv:Vector;
-				if (untyped( m_oVertices [l_aPoints [i]] ) == null)
-				{
-					dv = l_aPoints [i].getVector ();
-					dv.sub (p_oPolygon.shape.geometryCenter);
-					p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
-					dv.normalize ();
-					dv.scale (spherize);
-					untyped {
-							m_oVertices [l_aPoints [i]] = dv;
-					}
-				}
-				else
-				{
-					dv = untyped m_oVertices [l_aPoints [i]];
-				}
-				aN0 [i].add (dv);
-				aN0 [i].normalize ();
-			}
-		}
-
-		// get highlight direction vector
-		var d:Vector =  m_oL ;
-
 		// see if we are on the backside
 		var backside:Bool = true;
 		for (i in 0...3)
 		{
-			aN [i].copy (aN0 [i]);
+			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getVector());
 
-			var d_dot_aNi:Float = d.dot (aN [i]);
-			if (d_dot_aNi < 0) backside = false;
+			if (spherize > 0)
+			{
+				l_oVertex = l_aPoints [i];
 
-			// intersect with parabola - q(r) in computeLightMap() corresponds to this
-			aN[i].scale (1 / (1 - d_dot_aNi));
+				dv.copy (l_oVertex.getVector ());
+				dv.sub (p_oPolygon.shape.geometryCenter);
+				dv.normalize ();
+				dv.scale (spherize);
+
+				v.add (dv);
+				v.normalize ();
+			}
+
+			if (!p_oPolygon.visible) v.scale (-1);
+
+			a = m_oCurrentL.dot (v); if (a < 0) backside = false;
+
+			// intersect with parabola - is it really needed here?
+			v.scale (1 / (1 - a));
 		}
 
 		if (backside)
@@ -168,52 +162,55 @@ class CelShadeAttributes extends ALightAttributes
 			// no reflection here - render the face in solid color
 			var l:Int = lightmap.colors[0].length;
 			var c:UInt = lightmap.colors[0][l -1];
-			var a:Float = lightmap.alphas[0][l -1];
+			a = lightmap.alphas[0][l -1];
 			p_oGraphics.beginFill( c, a );
 		}
 
 		else
 		{
 			// calculate two arbitrary vectors perpendicular to light direction
-			var e1:Vector = (Math.abs (d.x) + Math.abs (d.y) > 0) ? new Vector (d.y, -d.x, 0) : new Vector (d.z, 0, -d.x);
-			var e2:Vector = d.cross (e1);
+			if ((m_oL.x != 0) || (m_oL.y != 0))
+			{
+				e1.x = m_oCurrentL.y; e1.y = -m_oCurrentL.x; e1.z = 0;
+			}
+			else
+			{
+				e1.x = m_oCurrentL.z; e1.y = 0; e1.z = -m_oCurrentL.x;
+			}
+			e2.copy (m_oCurrentL); e2.crossWith (e1);
 			e1.normalize ();
 			e2.normalize ();
 
-            for (i in 0...3)
+			for (i in 0...3)
 			{
+				p = aNP [i]; v = aN [i];
+
 				// project aN [i] onto e1 and e2
-				aNP [i].x = e1.dot (aN [i]);
-				aNP [i].y = e2.dot (aN [i]);
+				p.x = e1.dot (v);
+				p.y = e2.dot (v);
 
 				// re-calculate into light map coordinates
-				aNP [i].x = (16384 - 1) * 0.05 * aNP [i].x;
-				aNP [i].y = (16384 - 1) * 0.05 * aNP [i].y;
+				p.x = (16384 - 1) * 0.05 * p.x;
+				p.y = (16384 - 1) * 0.05 * p.y;
 			}
 
 			// simple hack to resolve bad projections
 			// where the hell do they keep coming from?
-			while ((Math.abs(
-					(aNP[0].x - aNP[1].x) * (aNP[0].x - aNP[2].x) + (aNP[0].y - aNP[1].y) * (aNP[0].y - aNP[2].y)
-					) > (1 - NumberUtil.TOL) *
-					Point.distance(aNP[0], aNP[1]) * Point.distance(aNP[0], aNP[2])
-				)
-				|| (Math.abs(
-					(aNP[0].x - aNP[1].x) * (aNP[2].x - aNP[1].x) + (aNP[0].y - aNP[1].y) * (aNP[2].y - aNP[1].y)
-					) > (1 - NumberUtil.TOL) *
-					Point.distance(aNP[0], aNP[1]) * Point.distance(aNP[2], aNP[1])
-				))
+			p = aNP[0]; p1 = aNP[1]; p2 = aNP[2];
+			a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
+			while ((-20 < a) && (a < 20))
 			{
-				aNP[0].x--; aNP[1].y++; aNP[2].x++;
+				p.x--; p1.y++; p2.x++;
+				a = (p.x - p1.x) * (p.y - p2.y) - (p.y - p1.y) * (p.x - p2.x);
 			}
 
 			// compute gradient matrix
-			matrix.a = aNP[1].x - aNP[0].x;
-			matrix.b = aNP[1].y - aNP[0].y;
-			matrix.c = aNP[2].x - aNP[0].x;
-			matrix.d = aNP[2].y - aNP[0].y;
-			matrix.tx = aNP[0].x;
-			matrix.ty = aNP[0].y;
+			matrix.a = p1.x - p.x;
+			matrix.b = p1.y - p.y;
+			matrix.c = p2.x - p.x;
+			matrix.d = p2.y - p.y;
+			matrix.tx = p.x;
+			matrix.ty = p.y;
 			matrix.invert ();
 
 			matrix.concat (matrix2);
@@ -232,21 +229,13 @@ class CelShadeAttributes extends ALightAttributes
 		l_aPoints = null;
 	}
 
-	// vertex dictionary
-	private var m_oVertices:Dictionary;
-
-	override public function begin( p_oScene:Scene3D ):Void
-	{
-		super.begin (p_oScene);
-
-		// clear vertex dictionary
-		m_oVertices = new Dictionary (true);
-	}
-
 	// --
-	private var aN0:Array<Vector>;
 	private var aN:Array<Vector>;
 	private var aNP:Array<Point>;
+
+	private var dv:Vector;
+	private var e1:Vector;
+	private var e2:Vector;
 
 	private var matrix:Matrix;
 	private var matrix2:Matrix;

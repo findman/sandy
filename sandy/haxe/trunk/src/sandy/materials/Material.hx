@@ -24,14 +24,15 @@ import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.attributes.MaterialAttributes;
 
 /**
- * Blank material - base class for all materials.
+ * The Material class is the base class for all materials.
  * 
- * <p>You can use this class to apply attributes without any material to object.</p>
+ * <p>Since the Material object is essentially a blank material, this class can be used
+ * to apply attributes without any material to a 3D object.</p>
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
- * 
- * 
+ *
+ * @see Appearance
  */
 class Material 
 {
@@ -41,23 +42,23 @@ class Material
 	public var attributes:MaterialAttributes;
 	
 	/**
-	 * Specify if the material use the vertex normal information
-	 * Default value is set to false.
+	 * Specify if the material use the vertex normal information.
+	 * 
+	 * @default false
 	 */
 	public var useVertexNormal:Bool;
 	
 	/**
-	 * Specify is the material can receive light and apply the light attributes if specified.
-	 * Can be useful to disable very rapidly the light when unused.
-	 * Default value : false
+	 * Specifies if the material can receive light and have light attributes applied to it.
+	 * Can be useful to rapidly disable light on the object when unneeded.
 	 */
 	public var lightingEnable:Bool;
 	
 	/**
 	 * Creates a material.
 	 *
-	 * <p>This constructor is never called directly - but by sub class constructors</p>
-	 * @param p_oAttr	The attributes for this material
+	 * <p>This constructor is never called directly - but by sub class constructors.</p>
+	 * @param p_oAttr	The attributes for this material.
 	 */
 	public function new( ?p_oAttr:MaterialAttributes )
 	{
@@ -69,7 +70,6 @@ class Material
 	 _useLight = false;
 
 		_filters 	= [];
-		_useLight 	= false;
 		_id = _ID_++;
 		attributes = (p_oAttr == null) ? new MaterialAttributes() : p_oAttr;
 		m_bModified = true;
@@ -77,7 +77,7 @@ class Material
 	}
 	
 	/**
-	 * The unique id of this material
+	 * The unique id of this material.
 	 */
 	public var id(__getId,null):Float;
 	private function __getId():Float
@@ -85,11 +85,25 @@ class Material
 		return _id;
 	}
 	
+	/**
+	 * Calls begin method of the MaterialAttributes associated with this material.
+	 *
+	 * @param p_oScene	The scene.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes#begin()
+	 */
 	public function begin( p_oScene:Scene3D ):Void
 	{
 		attributes.begin( p_oScene );
 	}
 	
+	/**
+	 * Calls finish method of the MaterialAttributes associated with this material.
+	 *
+	 * @param p_oScene	The scene.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes#finish()
+	 */
 	public function finish( p_oScene:Scene3D ):Void
 	{
 		attributes.finish(p_oScene );
@@ -98,26 +112,39 @@ class Material
 	/**
 	 * Renders the polygon dress in this material.
 	 *
-	 * <p>Implemented by sub classes</p>
+	 * <p>Implemented by sub classes.</p>
+	 *
+	 * @see sandy.core.Scene3D
+	 * @see sandy.core.data.Polygon
 	 */
 	public function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void
 	{
-		if( attributes != null )  attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene ) ;
+		if( attributes != null )
+		{
+			attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene ) ;
+		}
 	}
 		
 	/**
 	 * Renders the sprite dress in this material.
 	 *
 	 * <p>Basically only needed to apply attributes to sprites</p>
+	 *
+	 * @see sandy.core.scenegraph.Sprite2D
+	 * @see sandy.core.Scene3D
 	 */
 	public function renderSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
-		if( attributes != null )  attributes.drawOnSprite( p_oSprite, p_oMaterial, p_oScene );
+		if( attributes != null )
+		{
+			attributes.drawOnSprite( p_oSprite, p_oMaterial, p_oScene );
+		}
 	}
 
 	/**
-	 * Allows to proceed to an initialization
-	 * to know when the polyon isn't lined to the material, look at #unlink
+	 * Calls init method of the MaterialAttributes associated with this material.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes#init()
 	 */
 	public function init( p_oPolygon:Polygon ):Void
 	{
@@ -125,8 +152,9 @@ class Material
 	}
 
 	/**
-	 * Remove all the initialization
-	 * opposite of init
+	 * Calls unlink method of the MaterialAttributes associated with this material.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes#unlink()
 	 */
 	public function unlink( p_oPolygon:Polygon ):Void
 	{
@@ -136,7 +164,9 @@ class Material
 	/**
 	 * The material type of this material.
 	 * 
-	 * <p>For the default material this value is set to NONE</p>
+	 * @default MaterialType.NONE
+	 *
+	 * @see MaterialType
 	 */
 	public var type(__getType,null):MaterialType;
 	private function __getType():MaterialType
@@ -152,10 +182,14 @@ class Material
 	 */
 	private function __setFilters( a:Array<Dynamic> ):Array<Dynamic>
 	{ 
-		_filters = a; m_bModified = true;
+		_filters = a;
+		m_bModified = true;
 		return a;
 	}
 	
+	/**
+	 * Contains specific material flags.
+	 */
 	public var flags(__getFlags,null):Int;
 	public function __getFlags():Int
 	{
@@ -164,7 +198,10 @@ class Material
 		return l_nFlags;
 	}
 	/**
-	 * @private
+	 * The array of filters for this material.
+	 * 
+	 * <p>You use this property to add an array of filters you want to apply to this material<br>
+	 * To remove the filters, just assign an empty array.</p>
 	 */
 	public var filters(__getFilters,__setFilters):Array<Dynamic>;
 	public function __getFilters():Array<Dynamic>
@@ -199,10 +236,11 @@ class Material
 	 */
 	private var m_nFlags:Int;
 	private var m_bModified:Bool;
-	private var _filters:Array<Dynamic>;
 	private var _useLight : Bool;
-	private var _id:Float;
 	private var m_oType:MaterialType;
+	private var _filters:Array<Dynamic>;
+	private var _id:Float;
 	private static var _ID_:Float = 0;
+	private static var create:Bool;
 }
 

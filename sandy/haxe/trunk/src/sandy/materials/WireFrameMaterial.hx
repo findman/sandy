@@ -31,25 +31,21 @@ import sandy.materials.attributes.MaterialAttributes;
  * @author		Thomas PFEIFFER - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
 class WireFrameMaterial extends Material
 {
 	/**
 	 * Creates a new WireFrameMaterial.
 	 *
-	 * @param p_nThickness	The thickness of the lines - Default 1
-	 * @param p_nColor 	The color of the lines - Default 0
-	 * @param p_nAlpha	The alpha value in percent of full opacity ( 0 - 1 )
-	 * @param p_oAttr	The attributes for this material
+	 * @param p_nThickness	The thickness of the lines.
+	 * @param p_nColor		The color of the lines.
+	 * @param p_nAlpha		The alpha transparency value of the material.
+	 * @param p_oAttr		The attributes for this material.
+	 *
+	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( ?p_nThickness:Int, ?p_nColor:Int, ?p_nAlpha: Float, ?p_oAttr:MaterialAttributes )
+	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha: Float = 1.0, ?p_oAttr:MaterialAttributes )
 	{
-
-  if ( p_nThickness == null ) p_nThickness = 1;
-  if ( p_nColor == null ) p_nColor = 0;
-  if ( p_nAlpha == null ) p_nAlpha = 1;
-
 		super( p_oAttr );
 		// --
 		m_oType = MaterialType.WIREFRAME;
