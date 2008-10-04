@@ -4,6 +4,7 @@ package sandy.extrusion {
 	import flash.geom.Rectangle;
 
 	import sandy.core.data.Matrix4;
+	import sandy.core.data.PrimitiveFace;
 	import sandy.core.data.Vector;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
@@ -11,6 +12,7 @@ package sandy.extrusion {
 
 	/**
 	 * Very basic extrusion class.
+	 * @author makc
 	 */
 	public class Extrusion extends Shape3D {
 
@@ -26,6 +28,9 @@ package sandy.extrusion {
 		 */
 		public function Extrusion (name:String, profile:Polygon2D, sections:Array, closeFront:Boolean = true, closeBack:Boolean = true) {
 			var i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
+
+			// arrays to store face IDs
+			var backFaceIDs:Array = [], frontFaceIDs:Array = [], sideFaceIDs:Array = [];
 
 			if (sections.length > 1)
 			{
@@ -71,6 +76,7 @@ package sandy.extrusion {
 									j % n + i * n,
 									j % n + (i - 1) * n,
 									j + (i - 1) * n - 1);
+								sideFaceIDs.push (k, k + 1);
 							}
 						}
 					}
@@ -96,23 +102,56 @@ package sandy.extrusion {
 					var v3:int = profile.vertices.indexOf (tri.vertices [2]);
 
 					if (closeFront) {
-						// add front end
+						// add front surface
 						k = g.getNextFaceID ();
 						g.setFaceVertexIds (k, v1, v2, v3);
 						g.setFaceUVCoordsIds (k, p + v1, p + v2, p + v3);
+						frontFaceIDs.push (k);
 					}
 
 					if (closeBack) {
-						// add back end
+						// add back surface
 						k = g.getNextFaceID ();
 						g.setFaceVertexIds (k, q + v1, q + v3, q + v2);
 						g.setFaceUVCoordsIds (k, p + v1, p + v3, p + v2);
+						backFaceIDs.push (k);
 					}
 				}
 			}
 
-
 			geometry = g;
+
+			// generate faces
+			_backFace = new PrimitiveFace (this);
+			while (backFaceIDs.length > 0) _backFace.addPolygon (backFaceIDs.pop ());
+
+			_frontFace = new PrimitiveFace (this);
+			while (frontFaceIDs.length > 0) _frontFace.addPolygon (frontFaceIDs.pop ());
+
+			_sideFace = new PrimitiveFace (this);
+			while (sideFaceIDs.length > 0) _sideFace.addPolygon (sideFaceIDs.pop ());
 		}
+
+		/**
+		 * Collection of polygons on the back surface of extruded shape.
+		 * Texture is mapped to fit profile bounding box on this face.
+		 */
+		public function get backFace ():PrimitiveFace { return _backFace; }
+		private var _backFace:PrimitiveFace;
+
+		/**
+		 * Collection of polygons on the front surface of extruded shape.
+		 * Texture is mapped to fit profile bounding box on this face.
+		 */
+		public function get frontFace ():PrimitiveFace { return _frontFace; }
+		private var _frontFace:PrimitiveFace;
+
+		/**
+		 * Collection of polygons on the side surface of extruded shape.
+		 * Texture U coordinate is mapped from 0 to 1 along the profile, and
+		 * V coordinate is mapped from 0 at the front edge to 1 at the back edge.
+		 */
+		public function get sideFace ():PrimitiveFace { return _sideFace; }
+		private var _sideFace:PrimitiveFace;
 	}
 }
