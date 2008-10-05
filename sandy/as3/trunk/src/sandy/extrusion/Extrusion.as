@@ -43,11 +43,12 @@ package sandy.extrusion {
 
 			// if no matrices are passed, use Identity
 			if (sections == null) sections = [];
-			if (sections.length < 1) sections.push (new Matrix4);
+			var l_sections:Array = sections.slice ();
+			if (l_sections.length < 1) l_sections.push (new Matrix4);
 
 			// construct profile vertices and side surface, if any
-			for (i = 0; i < sections.length; i++) {
-				var m:Matrix4 = Matrix4 (sections [i]);
+			for (i = 0; i < l_sections.length; i++) {
+				var m:Matrix4 = Matrix4 (l_sections [i]);
 				
 				for (j = 0; j < n; j++) {
 					v.x = profile.vertices [j].x;
@@ -55,7 +56,7 @@ package sandy.extrusion {
 					v.z = 0;
 					m.vectorMult (v);
 					g.setVertex (j + i * n, v.x, v.y, v.z);
-					g.setUVCoords (j + i * n, j / (n - 1), i / (sections.length - 1));
+					g.setUVCoords (j + i * n, j / (n - 1), i / (l_sections.length - 1));
 				}
 				
 				if (i > 0) {
