@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
+Copyright the original author Thomas PFEIFFER (thomas.pfeiffer AT gmail DOT com) flashsandy.org
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,17 +19,9 @@ package sandy.core.scenegraph
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
-	import sandy.bounds.BSphere;
 	import sandy.core.Scene3D;
-	import sandy.core.data.Matrix4;
-	import sandy.core.data.Vector;
-	import sandy.core.data.Vertex;
-	import sandy.events.BubbleEvent;
-	import sandy.view.CullingState;
-	import sandy.view.Frustum;
+	import sandy.core.data.Matrix4;	
 
 	/**
 	 * The Sprite3D class is used to create a 3D sprite.
@@ -85,18 +77,11 @@ package sandy.core.scenegraph
 				m_nAutoOffset = (m_oContent as MovieClip).totalFrames / 360;
 			}
 		}
-
-		/**
-		 * Renders this 3D sprite
-		 *
-		 * @param p_oScene The current scene
-		 * @param p_oCamera	The current camera
-		 */
-		override public function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
+		
+		override public function display( p_oScene:Scene3D, p_oContainer:Sprite = null ):void
 		{
-			super.render ( p_oScene, p_oCamera );
-			// --
 			(m_oContent as MovieClip).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
+			super.display( p_oScene, p_oContainer );
 		}
 
 		// Returns the frame to show at the current camera angle
@@ -113,7 +98,6 @@ package sandy.core.scenegraph
 		}
 
 		// -- frames offset
-		private var m_oNormale:Vector = new Vector();
 		private var m_nAutoOffset:Number;
 	}
 }

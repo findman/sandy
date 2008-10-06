@@ -22,12 +22,13 @@ package sandy.materials.attributes
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
+	import sandy.core.data.Pool;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
 	import sandy.core.light.Light3D;
 	import sandy.events.SandyEvent;
 	import sandy.materials.Material;
-	import sandy.util.NumberUtil;
+	import sandy.util.NumberUtil;	
 
 	/**
 	 * Realize a Phong shading on a material.
@@ -108,7 +109,7 @@ package sandy.materials.attributes
 				new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 	
 			// sample ambient + diffuse and specular separately
-			var n:Vector = new Vector ();
+			var n:Vector = Pool.getInstance().nextVector;
 			var l_aReflection:Array = [new Array (l_nQuality), new Array (l_nQuality)];
 			var S:Array = [0, 0], t:Array = [-1, -1];
 			for (i = 0; i < N; i++)
@@ -349,7 +350,7 @@ package sandy.materials.attributes
 					// the way specular is done now, we dont need to render it at all on the backside
 					if (j == 0)
 					{
-						const aI:Number = ambient * m_nI;
+						var aI:Number = ambient * m_nI;
 						if (useBright) 
 							p_oGraphics.beginFill( (aI < 0.5) ? 0 : 0xFFFFFF, (aI < 0.5) ? (1 - 2 * aI) : (2 * aI - 1) );
 						else

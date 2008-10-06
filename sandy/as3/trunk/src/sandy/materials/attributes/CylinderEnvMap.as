@@ -19,17 +19,14 @@ package sandy.materials.attributes
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-
+	
 	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
-	import sandy.core.light.Light3D;
-	import sandy.materials.Material;
 	import sandy.materials.BitmapMaterial;
-	import sandy.math.VertexMath;
-	import sandy.util.NumberUtil;
+	import sandy.materials.Material;	
 
 	/**
 	 * Applies cylindric environment map.
@@ -42,7 +39,7 @@ package sandy.materials.attributes
 		/**
 		 * A bitmap-based material to use for environment map.
 		 */
-		public var mapMaterial:BitmapMaterial
+		public var mapMaterial:BitmapMaterial;
 
 		/**
 		 * Non-zero value adds sphere normals to actual normals for mapping.

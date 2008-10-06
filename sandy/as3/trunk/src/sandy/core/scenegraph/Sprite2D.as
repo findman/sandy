@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 package sandy.core.scenegraph 
-{	
+{
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -28,8 +28,8 @@ package sandy.core.scenegraph
 	import sandy.events.BubbleEvent;
 	import sandy.materials.Material;
 	import sandy.view.CullingState;
-	import sandy.view.Frustum;
-	
+	import sandy.view.Frustum;	
+
 	/**
 	 * The Sprite2D class is used to create a 2D sprite.
 	 *
@@ -67,6 +67,19 @@ package sandy.core.scenegraph
 		public var floorCenter:Boolean = false;
 		
 		/**
+		 * @private
+		 */
+		public var v:Vertex;
+		/**
+		 * @private
+		 */
+		public var vx:Vertex;
+		/**
+		 * @private
+		 */
+		public var vy:Vertex;
+		
+		/**
 		 * Creates a Sprite2D.
 		 *
 		 * @param p_sName	A string identifier for this object
@@ -83,7 +96,7 @@ package sandy.core.scenegraph
 			super(p_sName);
 			m_oContainer = new Sprite();
 			// --
-			_v = new Vertex(); _vx = new Vertex(); _vy = new Vertex();
+			v = new Vertex(); vx = new Vertex(); vy = new Vertex();
 			boundingSphere 	= new BSphere();
 	        boundingBox		= null;
 	        // --
@@ -101,8 +114,6 @@ package sandy.core.scenegraph
 		 */
 		public function set content( p_content:DisplayObject ):void
 		{
-//			if( p_content.transform ) p_content.transform.matrix.identity();
-//			if( m_oContent ) m_oContent.parent.removeChild( m_oContent );
 			p_content.transform.matrix.identity();
 			if( m_oContent ) m_oContainer.removeChild( m_oContent );
 			m_oContent = p_content;
@@ -169,6 +180,12 @@ package sandy.core.scenegraph
 		{
 			return m_nDepth;
 		}
+		
+		/**
+		 * @private
+		 */
+		public function set depth( p_nDepth:Number ):void
+		{m_nDepth = p_nDepth;}
 		  
 		/**
 		 * Tests this node against the camera frustum to get its visibility.
@@ -203,50 +220,42 @@ package sandy.core.scenegraph
 		        culled = p_oFrustum.sphereInFrustum( boundingSphere );
 			}
 			// --
-			if( culled == CullingState.OUTSIDE ) 	
+			if( culled == CullingState.OUTSIDE )
+			{ 	
 				container.visible = false;
-			else if( culled == CullingState.INTERSECT ) 
-			{
-				if( boundingSphere.position.z <= p_oScene.camera.near ) 
-					container.visible = false;
-				else 
-					container.visible = true;
 			}
-			else	
-				container.visible = true;
+			else 
+			{
+				if( culled == CullingState.INTERSECT ) 
+				{
+					if( boundingSphere.position.z <= p_oScene.camera.near )
+					{
+						container.visible = false;
+					}
+					else 
+					{
+						container.visible = true;
+						if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
+						{
+							p_oScene.materialManager.register( m_oMaterial );
+						}
+						// --
+						p_oScene.renderer.addToDisplayList( this ); 
+					}
+				}
+				else
+				{
+					container.visible = true;
+					if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
+					{
+						p_oScene.materialManager.register( m_oMaterial );
+					}
+					// --
+					p_oScene.renderer.addToDisplayList( this ); 
+				}
+			}
 		}
 		
-		/**
-		 * Renders this 2D sprite
-		 *
-		 * @param p_oScene The current scene
-		 * @param p_oCamera	The current camera
-		 */
-		public override function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
-		{
-			if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
-			{
-				p_oScene.materialManager.register( m_oMaterial );
-			}
-
-			_v.wx = _v.x * viewMatrix.n11 + _v.y * viewMatrix.n12 + _v.z * viewMatrix.n13 + viewMatrix.n14;
-			_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
-			_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
-
-			m_nDepth = enableForcedDepth ? forcedDepth : _v.wz;
-
-			p_oCamera.projectVertex( _v );
-			p_oCamera.addToDisplayList( this );
-
-			_vx.copy (_v); _vx.wx++; p_oCamera.projectVertex (_vx);
-			_vy.copy (_v); _vy.wy++; p_oCamera.projectVertex (_vy);
-
-			m_nPerspScaleX = (_nScale == 0) ? 1 : _nScale * (_vx.sx - _v.sx);
-			m_nPerspScaleY = (_nScale == 0) ? 1 : _nScale * (_v.sy - _vy.sy);
-
-			m_nRotation = Math.atan2( viewMatrix.n12, viewMatrix.n22 );
-		}
-
 		/**
 		 * Clears the graphics object of this object's container.
 		 *
@@ -294,11 +303,14 @@ package sandy.core.scenegraph
 		 */
 		public function display( p_oScene:Scene3D, p_oContainer:Sprite = null  ):void
 		{
+			m_nPerspScaleX = (_nScale == 0) ? 1 : _nScale * (vx.sx - v.sx);
+			m_nPerspScaleY = (_nScale == 0) ? 1 : _nScale * (v.sy - vy.sy);
+			m_nRotation = Math.atan2( viewMatrix.n12, viewMatrix.n22 );
+			// --
 			m_oContainer.scaleX = m_nPerspScaleX;
 			m_oContainer.scaleY = m_nPerspScaleY;
-			m_oContainer.x = _v.sx - (autoCenter ? m_oContainer.width/2 : 0);
-			m_oContainer.y = _v.sy - (autoCenter ? m_oContainer.height/2 : (floorCenter ? m_oContainer.height : 0) );
-			
+			m_oContainer.x = v.sx - (autoCenter ? m_oContainer.width/2 : 0);
+			m_oContainer.y = v.sy - (autoCenter ? m_oContainer.height/2 : (floorCenter ? m_oContainer.height : 0) );
 			// --
 			if (fixedAngle) m_oContainer.rotation = m_nRotation * 180 / Math.PI;
 			// --
@@ -391,11 +403,8 @@ package sandy.core.scenegraph
 		private var m_nW2:Number=0;
 		private var m_nH2:Number=0;
 		private var m_oContainer:Sprite;
-		private var m_bLightingEnabled:Boolean = false;
-
 		protected var m_nPerspScaleX:Number=0, m_nPerspScaleY:Number=0;
 		protected var m_nRotation:Number = 0;
-		protected var _v:Vertex, _vx:Vertex, _vy:Vertex;
 		protected var m_nDepth:Number;
 		protected var _nScale:Number;
 		protected var m_oContent:DisplayObject;

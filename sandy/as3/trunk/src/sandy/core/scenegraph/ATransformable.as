@@ -17,7 +17,7 @@ package sandy.core.scenegraph
 {
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Vector;	
 
 	/**
 	 * ABSTRACT CLASS - super class for all movable objects in the object tree.
@@ -46,6 +46,13 @@ package sandy.core.scenegraph
 		public var disable:Boolean = false;
 		
 		/**
+		 * <p>Inverse of the model matrix
+		 * The matrix is inverted in comparison of the real model matrix.<br/>
+		 * For example, this allows replacement of the objects in the correct camera frame before projection</p>
+		 */
+		public var invModelMatrix:Matrix4 = new Matrix4 ();
+		
+		/**
 		 * Creates a transformable node in the object tree of the world.
 		 *
 		 * <p>This constructor should normally not be called directly, but from a sub class.</p>
@@ -61,7 +68,8 @@ package sandy.core.scenegraph
 		/**
 		 * Resets the coordinate system for this object. Useful for returning to known state.
 		 */
-		public function resetCoords (): void {
+		public function resetCoords (): void 
+		{
 			// --
 			initFrame();
 			// --
@@ -528,7 +536,7 @@ package sandy.core.scenegraph
 		 */
 		public function set roll ( p_nAngle:Number ):void
 		{
-			var l_nAngle:Number = (p_nAngle - _nRoll)
+			var l_nAngle:Number = (p_nAngle - _nRoll);
 			if(l_nAngle == 0 ) return;
 			changed = true;
 			// --
@@ -647,6 +655,19 @@ package sandy.core.scenegraph
 				 {
 					modelMatrix.copy( m_oMatrix );
 				 }
+				 // -- fast model matrix inverssion
+				invModelMatrix.n11 = modelMatrix.n11;
+				invModelMatrix.n12 = modelMatrix.n21;
+				invModelMatrix.n13 = modelMatrix.n31;
+				invModelMatrix.n21 = modelMatrix.n12;
+				invModelMatrix.n22 = modelMatrix.n22;
+				invModelMatrix.n23 = modelMatrix.n32;
+				invModelMatrix.n31 = modelMatrix.n13;
+				invModelMatrix.n32 = modelMatrix.n23;
+				invModelMatrix.n33 = modelMatrix.n33;
+				invModelMatrix.n14 = -(modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34);
+				invModelMatrix.n24 = -(modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34);
+				invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
 			}
 			// --
 			super.update( p_oScene, modelMatrix, p_bChanged );
@@ -673,13 +694,10 @@ package sandy.core.scenegraph
 				m_oMatrix.n32 = _vUp.z * _oScale.y;
 				m_oMatrix.n33 = _vOut.z * _oScale.z;
 				m_oMatrix.n34 = _p.z;
-
 				// -- normalization of the frame to make sure the rotation error will not become too big.
 				_vOut.normalize();
 				_vSide.normalize();
 				_vUp.normalize();
-				//m_oMatrix.n41 = m_oMatrix.n42 = m_oMatrix.n43 = 0;
-				//m_oMatrix.n44 = 1;
 			}
 		}
 

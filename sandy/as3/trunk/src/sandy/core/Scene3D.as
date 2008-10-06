@@ -16,18 +16,8 @@ limitations under the License.
 
 package sandy.core
 {
-	import flash.display.Sprite;
-	import flash.events.EventDispatcher;
-	import flash.utils.getTimer;
-
-	import sandy.core.data.Vector;
-	import sandy.core.light.Light3D;
-	import sandy.core.scenegraph.Camera3D;
-	import sandy.core.scenegraph.Group;
-	import sandy.events.SandyEvent;
-	import sandy.materials.MaterialManager;
-	
-	/**
+	import sandy.core.data.Pool;			import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	import sandy.materials.MaterialManager;	
+	/**
 	 * The Sandy 3D scene.
 	 *
 	 * <p>Supercedes deprecated World3D class.</p>
@@ -148,6 +138,13 @@ package sandy.core
 		public var materialManager:MaterialManager = new MaterialManager();
 
 		/**
+		 * The renerer choosed for render this scene.
+		 * In the future, the actual renderer will implement an interface that developers could use to create their own
+		 * rendering process.
+		 */
+		public var renderer:Renderer = new Renderer();
+		
+		/**
 		 * Creates a new 3D scene.
 		 *
 		 * <p>Each scene is automatically registered with the SceneLocator and must be given
@@ -198,7 +195,8 @@ package sandy.core
 		{
 			if (root && camera && container)
 			{
-				lastRenderTime = Math.max (lastRenderTime + 1, getTimer ());
+				Pool.getInstance().init();
+				renderer.init();
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_UPDATE));
 				root.update(this, null, false);
@@ -207,11 +205,12 @@ package sandy.core
 				root.cull(this, camera.frustrum, camera.invModelMatrix, camera.changed);
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
-				root.render(this, camera);
+				materialManager.begin(this);
+				renderer.render( this );
 				// -- clear the polygon's container and the projection vertices list
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
-	            materialManager.begin(this);
-	            camera.renderDisplayList(this);
+	            renderer.renderDisplayList( this );
+	            // --
 	            materialManager.finish(this);
 			}
 		} // end method
@@ -315,9 +314,5 @@ package sandy.core
 		private var m_bRectClipped:Boolean = true;
 		private var _light:Light3D; 	//the unique light instance of the world
 		private static var _version:String = "3.0.3";
-		/**
-		 * Value returned by getTimer() in the last render() call, or greater one.
-		 */
-		public var lastRenderTime:int;
 	}
 }

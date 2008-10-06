@@ -16,7 +16,7 @@ limitations under the License.
 package sandy.primitive
 {
 	import sandy.core.scenegraph.Geometry3D;
-	import sandy.core.scenegraph.Shape3D;	
+	import sandy.core.scenegraph.Shape3D;
 
 	/**
 	* The Plane3D is used for creating a plane primitive.
@@ -60,7 +60,7 @@ package sandy.primitive
 		private var _qH:uint;
 		private var _qV:uint;
 		private var m_sType:String;
-
+		private var _mode : String;
 
 		/**
 		* Creates a Plane primitive.
@@ -74,25 +74,25 @@ package sandy.primitive
 		* @param p_nQualityH 	Number of horizontal segments.
 		* @param p_nQualityV	Number of vertical segments.
 		* @param p_sType		Alignment of the plane, one of XY_ALIGNED ( default ), YZ_ALIGNED or ZX_ALIGNED.
+		* @param p_sMode		The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
 		*
 		* @see PrimitiveMode
 		*/
 		public function Plane3D(p_sName:String=null, p_nHeight:Number = 100, p_nWidth:Number = 100, p_nQualityH:uint = 1,
-								p_nQualityV:uint=1, p_sType:String=Plane3D.XY_ALIGNED )
+								p_nQualityV:uint=1, p_sType:String=Plane3D.XY_ALIGNED, p_sMode:String=null )
 		{
 			super( p_sName ) ;
 			_h = p_nHeight;
 			_lg = p_nWidth;
 			_qV = p_nQualityV;
 			_qH = p_nQualityH;
+			_mode = ( p_sMode != PrimitiveMode.TRI && p_sMode != PrimitiveMode.QUAD ) ? PrimitiveMode.TRI : p_sMode;
 			m_sType = p_sType;
 			geometry = generate() ;
 		}
 
 		/**
 		* Generates the geometry for the plane.
-		*
-		* @return The geometry object for the plane.
 		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
@@ -132,11 +132,19 @@ package sandy.primitive
 				for( j = 0; j < _qH; j++ )
 				{
 					//Face creation
-					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
-					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
+					if( _mode == PrimitiveMode.TRI )
+					{
+						l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
+						l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
 
-					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
-					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+						l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+						l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					}
+					else if( _mode == PrimitiveMode.QUAD )
+					{
+						l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+						l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					}
 				}
 			}
 

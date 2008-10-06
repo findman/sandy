@@ -412,6 +412,7 @@ package sandy.core.scenegraph
 		public function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean ):void
 		{
 			scene = p_oScene;
+			culled = CullingState.INSIDE;
 			// --
 			if( boundingBox )
 				boundingBox.uptodate = false;
@@ -426,7 +427,6 @@ package sandy.core.scenegraph
 				l_oNode.update( p_oScene, p_oModelMatrix, changed );
 			}
 		}
-
 
 		/**
 		 * Tests this node against the frustum volume to get its visibility.
@@ -459,19 +459,6 @@ package sandy.core.scenegraph
 				}
 			}
 		}
-		
-		/**
-		 * Renders this node.
-		 *
-		 * <p>Overridden in sub classes</p>
-		 *
-		 * @param  p_oScene		The current scene
-		 * @param  p_oCamera	The camera of the world
-		 */
-		public function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
-		{
-			;/* TO OVERRIDE */
-		}
 
 		/**
 		 * Performs an operation on this node and all of its children.
@@ -499,7 +486,8 @@ package sandy.core.scenegraph
 		 * 
 		 * @param  p_iOperation   The operation to be performed on the node subtree
 		 */ 
-		public function perform( p_iOperation:INodeOperation ):void {
+		public function perform( p_iOperation:INodeOperation ):void 
+		{
 			p_iOperation.performOnEntry( this );
 			
 			// perform operation on all child nodes

@@ -22,9 +22,10 @@ package sandy.view
 	import sandy.core.data.UVCoord;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
+	import sandy.core.data.Pool;
 	import sandy.math.PlaneMath;
-	import sandy.util.NumberUtil;
-	
+	import sandy.util.NumberUtil;	
+
 	/**
 	 * Used to create the frustum of the camera.
 	 * 
@@ -170,58 +171,6 @@ package sandy.view
 		}
 		
 		/**
-		 * Extracts the clipping planes.
-		 *
-		 * <p>[<strong>ToDo</strong>: Expalain this ]</p>
-		 *
-		 * @param comboMatrix
-		 * @param normalize
-		 */
-		public function extractPlanes( comboMatrix:Matrix4, normalize:Boolean ):void
-		{
-			// Left clipping plane
-			aPlanes[0].a = comboMatrix.n14 + comboMatrix.n11;
-			aPlanes[0].b = comboMatrix.n24 + comboMatrix.n21;
-			aPlanes[0].c = comboMatrix.n34 + comboMatrix.n31;
-			aPlanes[0].d = comboMatrix.n44 + comboMatrix.n41;
-			// Right clipping plane
-			aPlanes[1].a = comboMatrix.n14 - comboMatrix.n11;
-			aPlanes[1].b = comboMatrix.n24 - comboMatrix.n21;
-			aPlanes[1].c = comboMatrix.n34 - comboMatrix.n31;
-			aPlanes[1].d = comboMatrix.n44 - comboMatrix.n41;
-			// Top clipping plane
-			aPlanes[2].a = comboMatrix.n14 - comboMatrix.n12;
-			aPlanes[2].b = comboMatrix.n24 - comboMatrix.n22;
-			aPlanes[2].c = comboMatrix.n34 - comboMatrix.n32;
-			aPlanes[2].d = comboMatrix.n44 - comboMatrix.n42;
-			// Bottom clipping plane
-			aPlanes[3].a = comboMatrix.n14 + comboMatrix.n12;
-			aPlanes[3].b = comboMatrix.n24 + comboMatrix.n22;
-			aPlanes[3].c = comboMatrix.n34 + comboMatrix.n32;
-			aPlanes[3].d = comboMatrix.n44 + comboMatrix.n42;
-			// Near clipping plane
-			aPlanes[4].a = comboMatrix.n13;
-			aPlanes[4].b = comboMatrix.n23;
-			aPlanes[4].c = comboMatrix.n33;
-			aPlanes[4].d = comboMatrix.n43;
-			// Far clipping plane
-			aPlanes[5].a = comboMatrix.n14 - comboMatrix.n13;
-			aPlanes[5].b = comboMatrix.n24 - comboMatrix.n23;
-			aPlanes[5].c = comboMatrix.n34 - comboMatrix.n33;
-			aPlanes[5].d = comboMatrix.n44 - comboMatrix.n43;
-			// Normalize the plane equations, if requested
-			if ( normalize == true )
-			{
-				PlaneMath.normalizePlane( aPlanes[0] );
-				PlaneMath.normalizePlane( aPlanes[1] );
-				PlaneMath.normalizePlane( aPlanes[2] );
-				PlaneMath.normalizePlane( aPlanes[3] );
-				PlaneMath.normalizePlane( aPlanes[4] );
-				PlaneMath.normalizePlane( aPlanes[5] );
-			};
-		}
-		
-		/**
 		 * Returns the culling state for the passed point.
 		 * 
 		 * <p>The method tests if the passed point is within the frustum volume or not.
@@ -340,7 +289,6 @@ package sandy.view
 			{
 				return true;
 			}
-			
 			var l_bResult:Boolean, l_bClipped:Boolean;
 			l_bResult = clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
 			l_bClipped = clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
@@ -352,7 +300,7 @@ package sandy.view
 		    l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom	
 		    l_bResult ||= l_bClipped;
 
-		    return l_bResult;
+			return l_bResult;
 		}
 	
 	
@@ -368,7 +316,6 @@ package sandy.view
 			{
 				return true;
 			}
-			
 			return clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near;
 		}
 		
@@ -390,7 +337,7 @@ package sandy.view
 			var l_nDist1:Number = l_oPlane.a * v1.wx + l_oPlane.b * v1.wy + l_oPlane.c * v1.wz + l_oPlane.d;
 			// --
 			var d:Number = 0;
-			var t:Vertex = new Vertex();
+			var t:Vertex = Pool.getInstance().nextVertex;
 			// --
 			if ( l_nDist0 < 0 && l_nDist1 >=0 )	// Coming in
 			{	 
@@ -472,7 +419,6 @@ package sandy.view
 			//
 			var d:Number, dist2:Number, dist1:Number = aDist[0];
 			var clipped:Boolean = false, inside:Boolean = (dist1 >= 0);
-			var curv:Number = 0;
 			for (i=1; i <= l; i++)
 			{	 
 				v2 = tmp[i%l];
@@ -489,7 +435,7 @@ package sandy.view
 				{	 
 					clipped = inside = true;
 					//
-					t = new Vertex();
+					t = Pool.getInstance().nextVertex;
 					d = dist1/(dist1-dist2);
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
@@ -498,7 +444,7 @@ package sandy.view
 					p_aCvert.push( t );
 					p_aCvert.push( v2 );
 					//
-					l_oUVTmp = new UVCoord();
+					l_oUVTmp = Pool.getInstance().nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
@@ -509,14 +455,14 @@ package sandy.view
 				{	 
 					clipped=true;
 					inside=false;
-					t = new Vertex();
+					t = Pool.getInstance().nextVertex;
 					d = dist1/(dist1-dist2);
 					//
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					l_oUVTmp = new UVCoord();
+					l_oUVTmp = Pool.getInstance().nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//

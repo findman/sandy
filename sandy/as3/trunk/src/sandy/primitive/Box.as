@@ -20,7 +20,7 @@ package sandy.primitive
 	import sandy.core.data.UVCoord;
 	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Geometry3D;
-	import sandy.core.scenegraph.Shape3D;	
+	import sandy.core.scenegraph.Shape3D;
 
 	/**
 	* The Box class is used for creating a cube or box primitive ( cuboid ).
@@ -30,10 +30,10 @@ package sandy.primitive
 	* @date 		26.07.2007
 	*
 	* @example To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
-	* with a quality of 2, use the following statement:
+	* in 'tri' mode and a with a quality of 2, use the following statement:
 	*
 	* <listing version="3.0">
-	*     var myBox:Box = new Box( "theBox", 50, 100, 150, 2 );
+	*     var myBox:Box = new Box( "theBox", 50, 100, 150, PrimitiveMode.TRI, 2 );
 	*  </listing>
 	*/
 	public class Box extends Shape3D implements Primitive3D
@@ -85,7 +85,10 @@ package sandy.primitive
 		* creation quality
 		*/
 		private var _q:Number;
-
+		/**
+		* creation mode - number of vertices per face
+		*/
+		private var _mode : String;
 		/**
 		* faces of the cube
 		*/
@@ -102,11 +105,13 @@ package sandy.primitive
 		* @param p_nWidth 	Width of the box (along the x-axis).
 		* @param p_nHeight	Height of the box (along the y-axis).
 		* @param p_nDepth	Depth of the box (along the z-axis).
-		* @param p_sMode	The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
+		* @param p_sMode	One of two available face generation modes:
+		*                      "tri" generates faces with 3 vertices,
+		* 			"quad" generates faces with 4 vertices.
 		*
 		* @see PrimitiveMode
 		*/
-		public function Box ( p_sName:String = null, p_nWidth:Number=6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_nQuality:Number=1)
+		public function Box ( p_sName:String = null, p_nWidth:Number=6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_sMode:String = "tri", p_nQuality:Number=1)
 		{
 			super ( p_sName );
 			//
@@ -114,45 +119,13 @@ package sandy.primitive
 			_lg = p_nDepth;
 			_radius = p_nWidth;
 			_q = (p_nQuality <= 0 || p_nQuality > 10) ?  1 : p_nQuality ;
+			_mode = ( p_sMode != 'tri' && p_sMode != 'quad' ) ? 'tri' : p_sMode;
 			geometry = generate();
 			_generateFaces();
-		}
-		
-		/**
-		 * READ-ONLY
-		 * This getter allows to retrieve the original box width specified at the geometry creation
-		 * @return the original box width value
-		 */
-		public function get boxWidth():Number
-		{
-			return _radius;
-		}
-		
-		/**
-		 * READ-ONLY
-		 * This getter allows to retrieve the original box height specified at the geometry creation
-		 * @return the original box height value
-		 */
-		public function get boxHeight():Number
-		{
-			return _h;
-		}
-		
-		/**
-		 * READ-ONLY
-		 * This getter allows to retrieve the original box depth specified at the geometry creation
-		 * IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.
-		 * @return the original box depth value
-		 */
-		public function get boxDepth():Number
-		{
-			return _lg;
 		}
 
 		/**
 		* Generates the geometry object for the box.
-		*
-		* @return The geometry object for the box.
 		*
 		* @see sandy.core.scenegraph.Geometry3D
 		*/
@@ -217,7 +190,7 @@ package sandy.primitive
 			//Bottom Face
 			__tesselate(l_geometry,
 						l_nID0, l_nID4, l_nID5, l_nID1,
-						0, 2, 3, 1,
+						3, 1, 0, 2,
 						_q - 1 );
 			//Left Face
 			__tesselate(l_geometry,
@@ -227,7 +200,7 @@ package sandy.primitive
 			//Right Face
 			__tesselate(l_geometry,
 						l_nID1, l_nID5, l_nID6, l_nID2,
-						0, 2, 3, 1,
+						1, 0, 2, 3,
 						_q - 1 );
 
 			return l_geometry;
@@ -244,13 +217,25 @@ package sandy.primitive
 			if(level == 0 ) // End of recurssion
 			{
 				// -- We have the same normal for 2 faces, be careful to don't add extra normal
-				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), p0, p1, p3 );
-				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), uv0, uv1, uv3 );
+				if( _mode == 'tri' )
+				{
+					//l_geometry.createFace( p0, p1, p3 );
+					//l_geometry.addUVCoords( uv0, uv1, uv3 );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), p0, p1, p3 );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), uv0, uv1, uv3 );
 
-
-				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), p2, p3, p1 );
-				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), uv2, uv3, uv1 );
-				
+					//l_geometry.createFace( p2, p3, p1 );
+					//l_geometry.addUVCoords( uv2, uv3, uv1 );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), p2, p3, p1 );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), uv2, uv3, uv1 );
+				}
+				else if( _mode == 'quad' )
+				{
+					//l_geometry.createFace( p0, p1, p2, p3 );
+					//l_geometry.addUVCoords( uv0, uv1, uv2 );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), p0, p1, p2, p3 );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), uv0, uv1, uv2, uv3 );
+				}
 			}
 			else
 			{
@@ -323,7 +308,7 @@ package sandy.primitive
 		private function _generateFaces() : void
 		{
 			m_aFaces = new Array( 6 );
-			var m : uint = 2;
+			var m : uint = _mode == PrimitiveMode.TRI ? 2 : 1;
 			var multi : uint = m * Math.pow( 4, _q-1 );
 			for ( var i : Number = 0; i < 6; i++ )
 			{

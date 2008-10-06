@@ -36,7 +36,7 @@ package sandy.core.data
 	import sandy.materials.Appearance;
 	import sandy.math.IntersectionMath;
 	import sandy.math.VectorMath;
-	import sandy.view.Frustum;
+	import sandy.view.Frustum;	
 
 	/**
 	 * Polygon's are the building blocks of visible 3D shapes.
@@ -133,7 +133,7 @@ package sandy.core.data
 		public var minZ:Number;
 		
 		
-		public var a:Vertex, b:Vertex, c:Vertex;
+		public var a:Vertex, b:Vertex, c:Vertex, d:Vertex;
 		
 		/**
 		 * The depth sorter the polygon uses.
@@ -197,6 +197,7 @@ package sandy.core.data
 			a = vertices[0];
 			b = vertices[1];
 			c = vertices[2];
+			d = vertices[3];
 			// -- every polygon does not have some texture coordinates
 			if( p_aUVCoordsID )
 			{
@@ -263,10 +264,10 @@ package sandy.core.data
 		
 		public function updateNormal():void
 		{
-			var x:Number = 	((b.y - a.y) * (c.z - a.z)) - ((b.z - a.z) * (c.y - a.y)) ;
-			var y:Number =	((b.z - a.z) * (c.x - a.x)) - ((b.x - a.x) * (c.z - a.z)) ;
-			var z:Number = 	((b.x - a.x) * (c.y - a.y)) - ((b.y - a.y) * (c.x - a.x)) ;
-			m_oGeometry.aFacesNormals[ m_nNormalId ].reset( x, y, z );
+			var x:Number = 	((a.y - b.y) * (c.z - b.z)) - ((a.z - b.z) * (c.y - b.y)) ;
+			var y:Number =	((a.z - b.z) * (c.x - b.x)) - ((a.x - b.x) * (c.z - b.z)) ;
+			var z:Number = 	((a.x - b.x) * (c.y - b.y)) - ((a.y - b.y) * (c.x - b.x)) ;
+			normal.reset( x, y, z );
 		}
 		
 		/**
@@ -330,12 +331,19 @@ package sandy.core.data
 			// --
 			minZ = a.wz;
 			if (b.wz < minZ) minZ = b.wz;
+			m_nDepth = a.wz + b.wz;
 			// --
 			if (c != null)
 			{
 				if (c.wz < minZ) minZ = c.wz;
+				m_nDepth += c.wz;
 			}
-			m_nDepth = depthSorter.getDepth(this);
+			if (d != null)
+			{
+				if (d.wz < minZ) minZ = d.wz;
+				m_nDepth += d.wz;
+			}
+			m_nDepth /= vertices.length;//depthSorter.getDepth(this);
 		}
 	
 		/**
@@ -438,9 +446,6 @@ package sandy.core.data
 			} 
 			else
 			{
-				cvertices = null;
-				caUVCoord = null;
-				// --	
 				cvertices = vertices.slice();
 				caUVCoord = aUVCoord.slice();
 				// --
@@ -456,7 +461,6 @@ package sandy.core.data
 		 */
 		public function clipFrontPlane( p_oFrustum:Frustum ):Array
 		{
-			cvertices = null;
 			cvertices = vertices.slice();
 			// If line
 			if( vertices.length < 3 ) 
@@ -465,7 +469,6 @@ package sandy.core.data
 			}
 			else
 			{
-				caUVCoord = null;
 				caUVCoord = aUVCoord.slice();
 				isClipped = p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 			}

@@ -32,6 +32,15 @@ package sandy.core.data
 		private static var ID:uint = 0;
 		
 		/**
+		 * Vertex flags that can be SandyFlags.VERTEX_WORLD, SandyFlags.VERTEX_CAMERA or SandyFlags.VERTEX_PROJECTED
+		 * Need to avoid unecessary computations
+		 */
+		public var flags:int = 0;
+		
+		public var projected:Boolean = false;
+		public var transformed:Boolean = false;
+		
+		/**
 		* The unique identifier for the vertex.
 		*/
 		public const id:uint = ID ++;
@@ -487,8 +496,5 @@ package sandy.core.data
 		
 		private const m_oWorld:Vector = new Vector();
 		private const m_oLocal:Vector = new Vector();
-
-		public var lastTimeSCoordsComputed:int;
-		public var lastTimeWCoordsComputed:int;
 	}
 }

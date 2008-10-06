@@ -21,14 +21,13 @@ package sandy.materials
 	import flash.filters.ColorMatrixFilter;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Vertex;
 	import sandy.materials.attributes.MaterialAttributes;
-	import sandy.util.NumberUtil;
+	import sandy.util.NumberUtil;	
 
 	/**
 	 * Displays a bitmap on the faces of a 3D shape.
@@ -101,23 +100,40 @@ package sandy.materials
         	if( m_oTexture == null ) return;
         	// --
 			var l_points:Array, l_uv:Array;
+			var v0:Vertex, v1:Vertex,v2:Vertex;
+			var i:int, l:int;
 			// --
 			polygon = p_oPolygon;
         	graphics = p_mcContainer.graphics;
 			// --
 			m_nRecLevel = 0;
-			// --
-			if( polygon.isClipped )
+			// -- Need some tesselation or mapping texture computation (clipped case)
+			if( polygon.isClipped || polygon.vertices.length > 3 )
 			{
-				l_points = p_oPolygon.cvertices.slice();
-				l_uv = p_oPolygon.caUVCoord.slice();
-				_tesselatePolygon( l_points, l_uv );
-			}
-			else if( polygon.vertices.length > 3 )
-			{
-				l_points = p_oPolygon.vertices.slice();
-				l_uv = p_oPolygon.aUVCoord.slice();
-				_tesselatePolygon( l_points, l_uv );
+				l_points = polygon.isClipped ? p_oPolygon.cvertices : p_oPolygon.vertices;
+				l_uv = polygon.isClipped ? p_oPolygon.caUVCoord : p_oPolygon.aUVCoord;
+				// --
+				l = l_points.length - 1;
+				for( i = 1; i < l; i++ )
+				{
+					map = _createTextureMatrix( l_uv[0].u, l_uv[0].v, l_uv[int(i)].u, l_uv[int(i)].v, l_uv[int(i+1)].u, l_uv[int(i+1)].v );
+					// --
+			        v0 = l_points[0];
+			        v1 = l_points[int(i)];
+			        v2 = l_points[int(i+1)];
+		
+			        if( precision == 0 )
+			        {
+			        	renderTriangle(map.a, map.b, map.c, map.d, map.tx, map.ty, v0.sx, v0.sy, v1.sx, v1.sy, v2.sx, v2.sy );
+			        }
+			        else
+			        {
+				        renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
+									v0.sx, v0.sy, v0.wz,
+									v1.sx, v1.sy, v1.wz,
+									v2.sx, v2.sy, v2.wz);
+			        }
+				}	        
 			}
 			else
 			{
@@ -125,9 +141,9 @@ package sandy.materials
 				l_uv = p_oPolygon.aUVCoord;
 				// --
 				map = (m_oPolygonMatrixMap[polygon.id] as Matrix );
-				var v0:Vertex = l_points[0];
-	        	var v1:Vertex = l_points[1];
-	        	var v2:Vertex = l_points[2];
+				v0 = l_points[0];
+	        	v1 = l_points[1];
+	        	v2 = l_points[2];
 				if( precision == 0 )
 		        {
 		        	renderTriangle(map.a, map.b, map.c, map.d, map.tx, map.ty, v0.sx, v0.sy, v1.sx, v1.sy, v2.sx, v2.sy );
@@ -146,47 +162,6 @@ package sandy.materials
 			l_points = null;
 			l_uv = null;
 		}
-
-		/**
-		 * @private
-		 */
-		protected function _tesselatePolygon ( p_aPoints:Array, p_aUv:Array ):void
-		{
-			var l_points: Array = p_aPoints.slice();
-			var l_uv: Array = p_aUv.slice();
-			// --
-			if( l_points.length > 3 )
-			{
-				l_points = l_points.slice( 0, 3 );
-				l_uv = l_uv.slice( 0, 3 );
-				// --
-				p_aPoints.splice( 1, 1 );
-				p_aUv.splice( 1, 1 );
-				// --
-				_tesselatePolygon( p_aPoints, p_aUv );
-			}
-			// --
-			map = _createTextureMatrix( l_uv );
-	        // --
-	        var v0:Vertex = l_points[0];
-	        var v1:Vertex = l_points[1];
-	        var v2:Vertex = l_points[2];
-
-	        if( precision == 0 )
-	        {
-	        	renderTriangle(map.a, map.b, map.c, map.d, map.tx, map.ty, v0.sx, v0.sy, v1.sx, v1.sy, v2.sx, v2.sy );
-	        }
-	        else
-	        {
-		        renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
-							v0.sx, v0.sy, v0.wz,
-							v1.sx, v1.sy, v1.wz,
-							v2.sx, v2.sy, v2.wz);
-	        }
-	        // --
-	        l_points = null;
-			l_uv = null;
-	 	}
 
 		/**
 		 * @private
@@ -315,14 +290,14 @@ package sandy.materials
 		/**
 		 * @private
 		 */
-		protected function _createTextureMatrix( p_aUv:Array ):Matrix
+		protected function _createTextureMatrix( p_nU0:Number, p_nV0:Number, p_nU1:Number, p_nV1:Number, p_nU2:Number, p_nV2:Number ):Matrix
 		{
-			var u0: Number = (p_aUv[0].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
-				v0: Number = (p_aUv[0].v * m_oTiling.y + m_oOffset.y) * m_nHeight,
-				u1: Number = (p_aUv[1].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
-				v1: Number = (p_aUv[1].v * m_oTiling.y + m_oOffset.y) * m_nHeight,
-				u2: Number = (p_aUv[2].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
-				v2: Number = (p_aUv[2].v * m_oTiling.y + m_oOffset.y) * m_nHeight;
+			var u0: Number = (p_nU0 * m_oTiling.x + m_oOffset.x) * m_nWidth,
+				v0: Number = (p_nV0 * m_oTiling.y + m_oOffset.y) * m_nHeight,
+				u1: Number = (p_nU1 * m_oTiling.x + m_oOffset.x) * m_nWidth,
+				v1: Number = (p_nV1 * m_oTiling.y + m_oOffset.y) * m_nHeight,
+				u2: Number = (p_nU2 * m_oTiling.x + m_oOffset.x) * m_nWidth,
+				v2: Number = (p_nV2 * m_oTiling.y + m_oOffset.y) * m_nHeight;
 			// -- Fix perpendicular projections. Not sure it is really useful here since there's no texture prjection. This will certainly solve the freeze problem tho
 			if( (u0 == u1 && v0 == v1) || (u0 == u2 && v0 == v2) )
 			{
@@ -469,7 +444,7 @@ package sandy.materials
 					var l_aUV:Array = p_oPolygon.aUVCoord;
 					if( l_aUV )
 					{
-						m = _createTextureMatrix( l_aUV );
+						m = _createTextureMatrix( l_aUV[0].u, l_aUV[0].v, l_aUV[int(1)].u, l_aUV[int(1)].v, l_aUV[int(2)].u, l_aUV[int(2)].v );
 					}
 				}
 				// --

@@ -74,25 +74,8 @@ package sandy.core.scenegraph
 			    for each( var l_oNode:Node in children )
 			    {
 			        l_oNode.cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+			        l_oNode.changed = false;
 			    }
-			}
-		}
-
-		/**
-		 * Renders all children of this transformgroup.
-		 *
-		 * @param p_oScene The current scene
-		 * @param p_oCamera	The current camera
-		 */
-		public override function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
-		{
-			for each( var l_oNode:Node in children )
-			{
-			    if( l_oNode.culled != CullingState.OUTSIDE )
-			    	l_oNode.render( p_oScene, p_oCamera );
-			    // --
-			    l_oNode.changed = false; // default value is set to not changed.
-			    l_oNode.culled = CullingState.INSIDE; // Default value is inside.
 			}
 		}
 
