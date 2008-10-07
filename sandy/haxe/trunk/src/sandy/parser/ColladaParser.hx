@@ -102,7 +102,7 @@ import xpath.xml.XPathXml;
 class ColladaParser extends AParser, implements IParser
 {
 	private var m_oCollada : XPathHxXml;
-	private var m_bYUp : Bool;
+	private var m_oUp:UpAxis;
 
 	private var m_oMaterials : Hash<Dynamic>;
 
@@ -136,19 +136,20 @@ class ColladaParser extends AParser, implements IParser
 		super.parseData( e );
 
 		// -- read the XML
-		//m_oCollada = XML( m_oFile );
 		m_oCollada = XPathHxXml.wrapNode( Xml.parse( m_oFile ) );
 
-		//default xml namespace = m_oCollada.namespace();
-		
+		switch ( (new XPath('/COLLADA/asset/up_axis')).selectNode(m_oCollada).getStringValue() ) 
+		{
+				case "Y_UP":	m_oUp = Y_UP;
+				case "Z_UP":	m_oUp = Z_UP;
+				case "X_UP":	m_oUp = X_UP;
+				default:				 m_oUp = NONE;
+		}
 
-		m_bYUp = ((new XPath('//asset/up_axis')).selectNode(m_oCollada).getStringValue() == "Y_UP" ) ? true : false;
-		m_bYUp = !m_bYUp;
-		
-		if( Lambda.count( (new XPath('//library_images')).selectNodes(m_oCollada)) > 0 )
-			m_oMaterials = loadImages( new XPath('//library_images/image').selectNodes(m_oCollada));
+		if( Lambda.count( (new XPath('/COLLADA/library_images')).selectNodes(m_oCollada)) > 0 )
+			m_oMaterials = loadImages( new XPath('/COLLADA/library_images/image').selectNodes(m_oCollada));
 		else
-			parseScene( new XPath('//library_visual_scenes/visual_scene').selectNode(m_oCollada));
+			parseScene( new XPath('/COLLADA/library_visual_scenes/visual_scene').selectNode(m_oCollada));
 	}
 
 	private function parseScene( p_oScene : XPathXml ) : Void
@@ -249,22 +250,27 @@ class ColladaParser extends AParser, implements IParser
 			}
 		}
 		// -- rotate
-			if( Lambda.count( new XPath( './rotate' ).selectNodes(p_oNode) ) == 1 ) 
-			{
+		if( Lambda.count( new XPath( './rotate' ).selectNodes(p_oNode) ) == 1 ) 
+		{
 			var l_oRotations : Array<Float> = stringToArray( new XPath( './rotate' ).selectNode(p_oNode).getStringValue() );
 			
-			if( m_bYUp )
+			switch (m_oUp) 
 			{
-				l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
+				case X_UP: 
+						// not implemented
+				case Y_UP: 
+						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
+				case Z_UP: 
+						// not implemented
+				case NONE:
+						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
 			}
-			else
-			{
-				l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
-			}	
+
 		} 
 		else if( Lambda.count( new XPath( './rotate' ).selectNodes(p_oNode) ) == 3 ) 
 		{
-			for( l_oN in (new XPath( './rotate' ).selectNodes(p_oNode)) )
+			var l_oRotateNodes = (new XPath( './rotate' ).selectNodes(p_oNode));
+			for( l_oN in l_oRotateNodes )
 			{
 				var l_oRot : Array<Float> = stringToArray( l_oN.getStringValue() );
 
@@ -274,8 +280,12 @@ class ColladaParser extends AParser, implements IParser
 					{
 						if( l_oRot[ 3 ] != 0 )
 						{
-							if( m_bYUp ) 	l_oNode.rotateX = l_oRot[ 3 ];
-							else 			l_oNode.rotateX = l_oRot[ 3 ];
+								switch (m_oUp) {
+										case X_UP: // not implemented
+										case Y_UP: l_oNode.rotateX = l_oRot[ 3 ];
+										case Z_UP: // not implemented
+										case NONE: l_oNode.rotateX = l_oRot[ 3 ];
+								}
 						}
 						break;
 					}
@@ -283,8 +293,12 @@ class ColladaParser extends AParser, implements IParser
 					{
 						if( l_oRot[ 3 ] != 0 )
 						{
-							if( m_bYUp ) 	l_oNode.rotateY = l_oRot[ 3 ];
-							else 			l_oNode.rotateZ = l_oRot[ 3 ];
+								switch (m_oUp) {
+										case X_UP: // not implemented
+										case Y_UP: l_oNode.rotateY = l_oRot[ 3 ];
+										case Z_UP: // not implemented
+										case NONE: l_oNode.rotateZ = l_oRot[ 3 ];
+								}
 						} 
 						break;
 					}
@@ -292,8 +306,12 @@ class ColladaParser extends AParser, implements IParser
 					{
 						if( l_oRot[ 3 ] != 0 ) 
 						{
-							if( m_bYUp ) 	l_oNode.rotateZ = l_oRot[ 3 ];
-							else			l_oNode.rotateY = l_oRot[ 3 ];
+							switch (m_oUp) {
+									case X_UP: // not implemented
+									case Y_UP: l_oNode.rotateZ = l_oRot[ 3 ];
+									case Z_UP: // not implemented
+									case NONE: l_oNode.rotateY = l_oRot[ 3 ];
+							}
 						}
 						break;
 					}
@@ -348,7 +366,7 @@ class ColladaParser extends AParser, implements IParser
 	{
 		var i : Int;
 		var l_oOutpGeom : Geometry3D = new Geometry3D();
-		var l_oGeometry : XPathXml = new XPath( '//library_geometries/geometry[ ./@id = "' + p_sGeometryID + '" ]' ).selectNode( m_oCollada );
+		var l_oGeometry : XPathXml = new XPath( '/COLLADA/library_geometries/geometry[ ./@id = "' + p_sGeometryID + '" ]' ).selectNode( m_oCollada );
 
 		// -- triangles
 		var l_oTriangles : XPathXml = new XPath( './mesh/triangles' ).selectNode(l_oGeometry);
@@ -360,10 +378,9 @@ class ColladaParser extends AParser, implements IParser
 
 		// -- get vertices float array
 		var l_sVerticesID : String = new XPath( './input[ ./@semantic = "VERTEX" ]/@source' ).selectNode(l_oTriangles).getStringValue().split("#")[1];
-		var l_sPosSourceID : String = new XPath( './/vertices[ ./@id = "' + l_sVerticesID + '"]/input[ ./@semantic = "POSITION" ]/@source' ).selectNode(l_oGeometry).getStringValue().split("#")[1];
+		var l_sPosSourceID : String = new XPath( './mesh/vertices[ ./@id = "' + l_sVerticesID + '"]/input[ ./@semantic = "POSITION" ]/@source' ).selectNode(l_oGeometry).getStringValue().split("#")[1];
 		var l_aVertexFloats : Array<Vector> = getFloatArray( l_sPosSourceID, l_oGeometry );
 		var l_nVertexFloat : Int = l_aVertexFloats.length;
-		//var l_aVertices : Array = new Array();
 
 		// -- set vertices
 		for( i in 0...l_nVertexFloat )
@@ -411,8 +428,7 @@ class ColladaParser extends AParser, implements IParser
 				l_oNormal.normalize();
 				// --
 				formatVector(l_oNormal);
-				// --
-				if( !m_bYUp ) l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
+
 			}
 		}
 		var l_aTrianglez:Array<Hash<Array<Float>>> = convertTriangleArray( new XPath( './input' ).selectNodes(l_oTriangles), l_aTriangles, l_nCount );
@@ -424,16 +440,8 @@ class ColladaParser extends AParser, implements IParser
 			var l_aNormals : Array<Float> = l_aTrianglez[ i ].get( 'NORMAL' );
 			var l_aUVs : Array<Float> = l_aTrianglez[ i ].get( 'TEXCOORD' );
 
-			if( m_bYUp )
-			{
 				l_oOutpGeom.setFaceVertexIds( i, [l_aVertex[ 0 ], l_aVertex[ 1 ], l_aVertex[ 2 ]] );
 				if( l_aUVs != null ) l_oOutpGeom.setFaceUVCoordsIds( i, [l_aUVs[ 0 ], l_aUVs[ 1 ], l_aUVs[ 2 ]] );
-			}
-			else
-			{
-				l_oOutpGeom.setFaceVertexIds( i, [l_aVertex[ 0 ], l_aVertex[ 1 ], l_aVertex[ 2 ]] );
-				if( l_aUVs != null ) l_oOutpGeom.setFaceUVCoordsIds( i, [l_aUVs[ 0 ], l_aUVs[ 1 ], l_aUVs[ 2 ]] );
-			}
 		}
 
 		return l_oOutpGeom;
@@ -563,9 +571,16 @@ class ColladaParser extends AParser, implements IParser
 	private function formatVector( p_oVect:Vector ):Void
 	{
 		var tmp:Float;
-		if( m_bYUp )
-		{
-			p_oVect.x = -p_oVect.x;
+		switch (m_oUp) {
+				case X_UP:
+						// not implemented
+				case Y_UP:
+						p_oVect.x = -p_oVect.x;
+				case Z_UP:
+						var t = p_oVect.z;
+						p_oVect.z = p_oVect.y;
+						p_oVect.y = t;
+				case NONE:
 		}
 	}
 
@@ -575,8 +590,8 @@ class ColladaParser extends AParser, implements IParser
 		var l_oAppearance : Appearance = null;
 
 		// -- Get this node's instance materials
-		//for ( l_oInstMat in (new XPath( './///instance_material' ).selectNodes(p_oNode)) )
-		for ( l_oInstMat in (new XPath( './/instance_material' ).selectNodes(p_oNode)) )
+		var l_oMaterials = (new XPath( './/instance_material' ).selectNodes(p_oNode));
+		for ( l_oInstMat in l_oMaterials )
 		{
 			// -- get the corresponding material from the library
 			var l_oMaterial : XPathXml = new XPath( '//library_materials/material[ ./@id = "' + new XPath( '@target' ).selectNode(l_oInstMat).getStringValue().split( "#" )[ 1 ] + '" ]' ).selectNode(m_oCollada);
@@ -661,7 +676,13 @@ class ColladaParser extends AParser, implements IParser
 				m_oMaterials.get( l_oLoader.name ).bitmapData = Reflect.field( l_oLoader.loader.content, "bitmapData" );
 		}
 
-		parseScene( new XPath('//library_visual_scenes/visual_scene').selectNode(m_oCollada) );
+		parseScene( new XPath('/COLLADA/library_visual_scenes/visual_scene').selectNode(m_oCollada) );
 	}
 }
 
+enum UpAxis {
+		Y_UP;
+		X_UP;
+		Z_UP;
+		NONE;
+}
