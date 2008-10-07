@@ -27,7 +27,7 @@ package sandy.extrusion {
 		 * @see Polygon2D
 		 */
 		public function Extrusion (name:String, profile:Polygon2D, sections:Array = null, closeFront:Boolean = true, closeBack:Boolean = true) {
-			var i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
+			var a:Number = profile.area (), i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
 
 			// arrays to store face IDs
 			var backFaceIDs:Array = [], frontFaceIDs:Array = [], sideFaceIDs:Array = [];
@@ -63,22 +63,15 @@ package sandy.extrusion {
 					for (j = 1; j < n + 1; j++) {
 						if (links.indexOf (profile.vertices [j % n]) < 0) {
 							k = g.getNextFaceID ();
-							g.setFaceVertexIds (k,
-								j % n + i * n,
-								j + (i - 1) * n - 1,
-								j + i * n - 1);
-							g.setFaceVertexIds (k + 1,
-								j % n + i * n,
-								j % n + (i - 1) * n,
-								j + (i - 1) * n - 1);
-							g.setFaceUVCoordsIds (k,
-								j % n + i * n,
-								j + (i - 1) * n - 1,
-								j + i * n - 1);
-							g.setFaceUVCoordsIds (k + 1,
-								j % n + i * n,
-								j % n + (i - 1) * n,
-								j + (i - 1) * n - 1);
+							var i1:int = j % n + i * n;
+							var i2:int = (a > 0) ? (j + (i - 1) * n - 1) : (j + i * n - 1);
+							var i3:int = (a > 0) ? (j + i * n - 1) : (j + (i - 1) * n - 1);
+							var i4:int = (a > 0) ? (j % n + (i - 1) * n) : (j + (i - 1) * n - 1);
+							var i5:int = (a > 0) ? (j + (i - 1) * n - 1) : (j % n + (i - 1) * n);
+							g.setFaceVertexIds (k, i1, i2, i3);
+							g.setFaceVertexIds (k + 1, i1, i4, i5);
+							g.setFaceUVCoordsIds (k, i1, i2, i3);
+							g.setFaceUVCoordsIds (k + 1, i1, i4, i5);
 							sideFaceIDs.push (k, k + 1);
 						}
 					}
@@ -101,8 +94,8 @@ package sandy.extrusion {
 				var q:int = g.getNextVertexID () - profile.vertices.length;
 				for each (var tri:Polygon2D in triangles) {
 					var v1:int = profile.vertices.indexOf (tri.vertices [0]);
-					var v2:int = profile.vertices.indexOf (tri.vertices [1]);
-					var v3:int = profile.vertices.indexOf (tri.vertices [2]);
+					var v2:int = profile.vertices.indexOf (tri.vertices [(a > 0) ? 1 : 2]);
+					var v3:int = profile.vertices.indexOf (tri.vertices [(a > 0) ? 2 : 1]);
 
 					if (closeFront) {
 						// add front surface
