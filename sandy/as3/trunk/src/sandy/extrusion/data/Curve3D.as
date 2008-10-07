@@ -69,7 +69,7 @@
 						normal.scale ( -1); binormal.scale ( -1);
 					}
 				}
-				m1 = new Matrix4; m1.fromVectors (binormal, normal, t [i], v [i]);
+				m1 = new Matrix4; m1.fromVectors (normal, binormal, t [i], v [i]);
 				m2.scale (s [i], s [i], s [i]); m1.multiply (m2);
 				sections [i] = m1;
 			}

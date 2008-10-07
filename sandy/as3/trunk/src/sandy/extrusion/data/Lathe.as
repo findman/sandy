@@ -39,9 +39,7 @@
 			// generate curve
 			v = []; t = []; n = []; s = []; var a:Number = angle0;
 			while (((angle0 <= angle1) && (a <= angle1)) || ((angle0 > angle1) && (a >= angle1))) {
-
-				// use -a to match Extrusion face orientation by default
-				var ca:Number = Math.cos (-a), sa:Number = Math.sin (-a);
+				var ca:Number = Math.cos (a), sa:Number = Math.sin (a);
 
 				var r:Number = radius0;
 				if (angle1 != angle0) r = (a - angle0) * (radius1 - radius0) / (angle1 - angle0) + radius0;
@@ -63,8 +61,8 @@
 				if (tangent.getNorm () > 0) tangent.normalize (); else tangent.z = +1;
 				t.push (new Vector (basex.dot (tangent), basey.dot (tangent), basez.dot (tangent)));
 
-				// normal (too lazy to solve this; but should be close to x = cos a, z = sin a, y = 0)
-				var normal:Vector = orthogonalize (tangent, new Vector (ca, 0, sa));
+				// normal (too lazy to solve this; but should be close to x = -cos a, z = -sin a, y = 0)
+				var normal:Vector = orthogonalize (tangent, new Vector (-ca, 0, -sa));
 				if (normal.getNorm () > 0) normal.normalize (); else normal.y = +1;
 				n.push (new Vector (basex.dot (normal), basey.dot (normal), basez.dot (normal)));
 
