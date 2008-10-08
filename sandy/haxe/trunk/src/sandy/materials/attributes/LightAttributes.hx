@@ -18,11 +18,13 @@ package sandy.materials.attributes;
 
 import flash.display.Graphics;
 
+import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
+import sandy.util.NumberUtil;
 
 /**
  * Realize a flat shading effect when associated to a material.
@@ -53,7 +55,8 @@ class LightAttributes extends ALightAttributes
 		super();
 
 		useBright = p_bBright;
-		ambient = Math.min (Math.max (p_nAmbient, 0), 1);
+		ambient = NumberUtil.constrain( p_nAmbient, 0, 1 );
+		m_nFlags |= SandyFlags.POLYGON_NORMAL_WORLD;
 	}
 	
 	/**
@@ -71,7 +74,7 @@ class LightAttributes extends ALightAttributes
 		if( p_oMaterial.lightingEnable )
 		{	
 			var l_aPoints:Array<Vertex> = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
-			var l_oNormal:Vector = p_oPolygon.normal.getVector();
+			var l_oNormal:Vector = p_oPolygon.normal.getWorldVector();
 			// --
 			var lightStrength:Float = calculate (l_oNormal, p_oPolygon.visible);
 			if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;
