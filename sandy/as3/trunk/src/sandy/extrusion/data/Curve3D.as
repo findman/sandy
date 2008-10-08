@@ -86,6 +86,13 @@
 			var w:Vector = vector.cross (hint); w.crossWith (vector); return w;
 		}
 
+		/**
+		 * Creates empty Curve3D object.
+		 */
+		public function Curve3D () {
+			v = []; t = []; n = []; s = [];
+		}
+
 	}
 	
 }

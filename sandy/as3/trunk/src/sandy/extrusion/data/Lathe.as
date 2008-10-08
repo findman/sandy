@@ -24,6 +24,8 @@
 		 */
 		public function Lathe (center:Vector, axis:Vector, reference:Vector, angle0:Number = 0, angle1:Number = Math.PI, step:Number = 0.3, radius0:Number = 100, radius1:Number = 100, height0:Number = 0, height1:Number = 0, scale0:Number = 1, scale1:Number = 1)
 		{
+			super ();
+
 			// compute local coordinates
 			var x:Vector = orthogonalize (axis, reference);
 				if (x.getNorm () > 0) x.normalize (); else x.x = +1;
@@ -37,7 +39,7 @@
 			var basez:Vector = new Vector (x.z, y.z, z.z);
 
 			// generate curve
-			v = []; t = []; n = []; s = []; var a:Number = angle0;
+			var a:Number = angle0;
 			while (((angle0 <= angle1) && (a <= angle1)) || ((angle0 > angle1) && (a >= angle1))) {
 				var ca:Number = Math.cos (a), sa:Number = Math.sin (a);
 

@@ -50,13 +50,15 @@ package sandy.extrusion {
 			for (i = 0; i < l_sections.length; i++) {
 				var m:Matrix4 = Matrix4 (l_sections [i]);
 				
-				for (j = 0; j < n; j++) {
-					v.x = profile.vertices [j].x;
-					v.y = profile.vertices [j].y;
-					v.z = 0;
-					m.vectorMult (v);
-					g.setVertex (j + i * n, v.x, v.y, v.z);
-					g.setUVCoords (j + i * n, j / (n - 1), i / (l_sections.length - 1));
+				for (j = 0; j < n + 1; j++) {
+					if (j < n) {
+						v.x = profile.vertices [j].x;
+						v.y = profile.vertices [j].y;
+						v.z = 0;
+						m.vectorMult (v);
+						g.setVertex (j + i * n, v.x, v.y, v.z);
+					}
+					g.setUVCoords (j + i * (n + 1), j / n, i / (l_sections.length - 1));
 				}
 				
 				if (i > 0) {
@@ -70,6 +72,11 @@ package sandy.extrusion {
 							var i5:int = (a > 0) ? (j + (i - 1) * n - 1) : (j % n + (i - 1) * n);
 							g.setFaceVertexIds (k, i1, i2, i3);
 							g.setFaceVertexIds (k + 1, i1, i4, i5);
+							i1 = j + i * (n + 1);
+							i2 = (a > 0) ? (j + (i - 1) * (n + 1) - 1) : (j + i * (n + 1) - 1);
+							i3 = (a > 0) ? (j + i * (n + 1) - 1) : (j + (i - 1) * (n + 1) - 1);
+							i4 = (a > 0) ? (j + (i - 1) * (n + 1)) : (j + (i - 1) * (n + 1) - 1);
+							i5 = (a > 0) ? (j + (i - 1) * (n + 1) - 1) : (j + (i - 1) * (n + 1));
 							g.setFaceUVCoordsIds (k, i1, i2, i3);
 							g.setFaceUVCoordsIds (k + 1, i1, i4, i5);
 							sideFaceIDs.push (k, k + 1);
