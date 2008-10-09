@@ -108,7 +108,7 @@ class MediumAttributes extends AAttributes
 	 *
 	 * @see sandy.core.data.Vector
 	 */
-	public function new (p_nColor:UInt = 0xFFFFFFFF, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, p_nBlurAmount:Float = 0.0)
+	public function new (p_nColor:Int = 0xFFFFFFFF, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, p_nBlurAmount:Float = 0.0)
 	{
 		m_bWasNotBlurred = true;
 		_m = new Matrix();
