@@ -87,9 +87,13 @@ package sandy.parser
 			var l_oGeometry:Geometry3D = null;
 			var l_oShape:Shape3D = null;
 			var l_sLastNodeName:String = null;
+			var l_aPolySubmatId:Array;
+			var l_aPolySubmatIds:Array = [];
 			// --
 			var recToGet2:Array = [];
 			var m_textureNames:Array = [];
+			var m_subMaterials:Array = [];
+			var currentMatId:int;
 			// --
 			while( lines.length )
 			{
@@ -107,6 +111,20 @@ package sandy.parser
 				//--
 				switch( chunk )
 				{
+					case 'MATERIAL':
+					{
+						// get material ID from "MATERIAL 0 {"
+						var matIdReg:RegExp = /MATERIAL[^\d]+(\d+)[^\d]+/
+						currentMatId = parseInt (line.replace (matIdReg, "$1"));
+
+						// start submaterials list
+						m_subMaterials [currentMatId] = []; break;
+					}
+					case 'SUBMATERIAL':
+					{
+						// found submaterial, push empty string to the list
+						m_subMaterials [currentMatId].push (""); break;
+					}
 					case 'BITMAP':
 					{
 						// ideally, we need to load these only from *MAP_DIFFUSE { ... }
@@ -114,7 +132,16 @@ package sandy.parser
 						// *BITMAP "f:\models\mapobjects\kt_barge\kt_barge_grey.tga"
 						// *BITMAP "F:\my_stuff\3d\studentCap\workfiles\textures\studentCap_color_002.psd"
 						var texReg:RegExp = /BITMAP.+[\"\\]([^\"\\]+)\"\s*/
-						m_textureNames.push (line.replace (texReg, "$1"));
+						if ((m_subMaterials [currentMatId].length > 0) && (m_subMaterials [currentMatId] [m_subMaterials [currentMatId].length -1] == ""))
+						{
+							// this is submaterial
+							m_subMaterials [currentMatId] [m_subMaterials [currentMatId].length -1] = line.replace (texReg, "$1");
+						}
+						else
+						{
+							// material has no submaterials
+							m_textureNames [currentMatId] = line.replace (texReg, "$1");
+						}
 						break;
 					}
 
@@ -124,7 +151,7 @@ package sandy.parser
 						if( l_oGeometry )
 						{
 							l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
-							m_oGroup.addChild( l_oShape );
+							m_oGroup.addChild( l_oShape ); l_aPolySubmatIds.push (l_aPolySubmatId);
 						}
 						// -
 						l_oGeometry = new Geometry3D();
@@ -158,17 +185,22 @@ package sandy.parser
 					}
 					case 'MESH_FACE_LIST':
 					{
+						l_aPolySubmatId = [];
 						while( ( content = (lines.shift() as String )).indexOf( '}'  ) < 0 )
 						{
 							content = content.substr( content.indexOf( '*' ) + 1 );
-							var mfl:String = content.split(  '*' )[0];
 							//"MESH_FACE    0:    A:    777 B:    221 C:    122 AB:    1 BC:    1 CA:    1 *MESH_SMOOTHING 1   *MESH_MTLID 0"
 							//"MESH_FACE   10: A:  325 B:  155 C:  327	 *MESH_SMOOTHING 0 	*MESH_MTLID 0"
-							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)\s+.*/
-							id = uint(mfl.replace(faceReg, "$1"));
-							var p1:uint = uint(mfl.replace(faceReg, "$2"));
-							var p2:uint = uint(mfl.replace(faceReg, "$3"));
-							var p3:uint = uint(mfl.replace(faceReg, "$4"));
+							var faceReg:RegExp = /MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)[^\d]+.*/
+							id = uint(content.replace(faceReg, "$1"));
+							var p1:uint = uint(content.replace(faceReg, "$2"));
+							var p2:uint = uint(content.replace(faceReg, "$3"));
+							var p3:uint = uint(content.replace(faceReg, "$4"));
+
+							// additionally parse submaterial IDs
+							// thanks darknet for bringing this to attention
+							var MatReg:RegExp = /.*\*MESH_MTLID\s*(\d+)[^\d]*/
+							l_aPolySubmatId [id] = parseInt(content.replace(MatReg, "$1"));
 
 							l_oGeometry.setFaceVertexIds(id, p1, p2, p3 );
 						}
@@ -216,11 +248,28 @@ package sandy.parser
 			}
 			// --
 			l_oShape = new Shape3D( l_sLastNodeName, l_oGeometry, m_oStandardAppearance );
-			m_oGroup.addChild( l_oShape );
+			m_oGroup.addChild( l_oShape ); l_aPolySubmatIds.push (l_aPolySubmatId);
 
 			for(var i:int = 0; i<m_oGroup.children.length; i++)
 			{
-				applyTextureToShape (Shape3D (m_oGroup.children[i]), m_textureNames[recToGet2[i]]);
+				var s:Shape3D = Shape3D (m_oGroup.children[i]);
+				currentMatId = recToGet2 [i];
+				// have any submaterials?
+				if (m_subMaterials [currentMatId].length > 0)
+				{
+					l_aPolySubmatId = l_aPolySubmatIds [i];
+					for (var j:int = 0; j < s.aPolygons.length; j++)
+					{
+						//trace ("shape " + i + " mat " + currentMatId + " poly " + j +
+						// " submat id " + l_aPolySubmatId [j] + " bitmap " + m_subMaterials [currentMatId] [l_aPolySubmatId [j]]);
+						applyTextureToShape (s.aPolygons [j],
+							m_subMaterials [currentMatId] [l_aPolySubmatId [j]] );
+					}
+				}
+				else
+				{
+					applyTextureToShape (s, m_textureNames [currentMatId]);
+				}
 			}
 
 			// -- Parsing is finished
