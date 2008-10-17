@@ -21,6 +21,7 @@ import flash.geom.Point;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
+import sandy.core.data.Pool;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.core.light.Light3D;
@@ -114,7 +115,7 @@ class sandy.materials.attributes.PhongAttributes extends ALightAttributes
 						new Vector( m_oCurrentL.y, -m_oCurrentL.x, 0 ) : new Vector( m_oCurrentL.z, 0, -m_oCurrentL.x ); e.normalize();
 	
 		// sample ambient + diffuse and specular separately
-		var n:Vector = new Vector();
+		var n:Vector = Pool.getInstance().nextVector;
 		var l_aReflection:Array = [ new Array( l_nQuality ), new Array( l_nQuality ) ];
 		var S:Array = [ 0, 0 ], t:Array = [ -1, -1 ];
 		for( i = 0; i < N; i++ )

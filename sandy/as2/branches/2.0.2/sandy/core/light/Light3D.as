@@ -38,12 +38,12 @@ import sandy.util.NumberUtil;
  * The Light3D class is used for creating the light of the world.
  *
  * <p>The light in Sandy is a light source at infinity, emitting parallel colored light.
- * The direction, color, and intensity of the light can be changes.</p>
+ * The direction, color, and intensity of the light can be changed.</p>
  *
- * @author	Thomas Pfeiffer - kiroukou
- * @author	(porting) Floris - xdevltd
- * @version	2.0.2
- * @date 	26.07.2007
+ * @author		Thomas Pfeiffer - kiroukou
+ * @author		(porting) Floris - xdevltd
+ * @version		2.0.2
+ * @date 		26.07.2007
  */
   
 class sandy.core.light.Light3D extends EventBroadcaster
@@ -134,7 +134,7 @@ class sandy.core.light.Light3D extends EventBroadcaster
 	/**
 	 * Sets the direction of the Light3D.
 	 *
-	 * @param x	A Vector object representing the direction of the light.
+	 * @param pDir	A Vector object representing the direction of the light.
 	 *
      * @see sandy.core.data.Vector
 	 */

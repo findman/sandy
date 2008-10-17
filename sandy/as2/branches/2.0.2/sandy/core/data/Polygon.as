@@ -140,7 +140,7 @@ class sandy.core.data.Polygon implements IDisplayable
 	public var minZ:Number;
 		
 		
-	public var a:Vertex, b:Vertex, c:Vertex;
+	public var a:Vertex, b:Vertex, c:Vertex, d:Vertex;
 		
 	/**
 	 * The depth sorter the polygon uses.
@@ -216,6 +216,7 @@ class sandy.core.data.Polygon implements IDisplayable
 		a = vertices[ 0 ];
 		b = vertices[ 1 ];
 		c = vertices[ 2 ];
+		d = vertices[ 3 ];
 		// -- every polygon does not have some texture coordinates
 		if( p_aUVCoordsID )
 		{
@@ -284,10 +285,10 @@ class sandy.core.data.Polygon implements IDisplayable
 		
 	public function updateNormal() : Void
 	{
-		var x:Number = 	( ( b.y - a.y ) * ( c.z - a.z ) ) - ( ( b.z - a.z ) * ( c.y - a.y ) );
-		var y:Number =	( ( b.z - a.z ) * ( c.x - a.x ) ) - ( ( b.x - a.x ) * ( c.z - a.z ) );
-		var z:Number = 	( ( b.x - a.x ) * ( c.y - a.y ) ) - ( ( b.y - a.y ) * ( c.x - a.x ) );
-		m_oGeometry.aFacesNormals[ m_nNormalId ].reset( x, y, z );
+		var x:Number = 	( ( a.y - b.y ) * ( c.z - b.z ) ) - ( ( a.z - b.z ) * ( c.y - b.y ) );
+		var y:Number =	( ( a.z - b.z ) * ( c.x - b.x ) ) - ( ( a.x - b.x ) * ( c.z - b.z ) );
+		var z:Number = 	( ( a.x - b.x ) * ( c.y - b.y ) ) - ( ( a.y - b.y ) * ( c.x - b.x ) );
+		normal.reset( x, y, z );
 	}
 		
 	/**
@@ -351,12 +352,19 @@ class sandy.core.data.Polygon implements IDisplayable
 		// --
 		minZ = a.wz;
 		if ( b.wz < minZ ) minZ = b.wz;
+		m_nDepth = a.wz + b.wz;
 		// --
-		if ( c != null )
+		if( c != null )
 		{
-			if ( c.wz < minZ ) minZ = c.wz;
-		}
-		m_nDepth = depthSorter.getDepth( this );
+			if( c.wz < minZ ) minZ = c.wz;
+			m_nDepth += c.wz; 
+		}   
+		if( d != null )   
+		{   
+			if( d.wz < minZ ) minZ = d.wz;   
+			m_nDepth += d.wz;   
+		}   
+		m_nDepth /= vertices.length;//depthSorter.getDepth(this); 
 	}
 	
 
@@ -459,8 +467,6 @@ class sandy.core.data.Polygon implements IDisplayable
 		} 
 		else
 		{
-			cvertices = null;
-			caUVCoord = null;
 			// --	
 			cvertices = vertices.slice();
 			caUVCoord = aUVCoord.slice();
@@ -477,7 +483,6 @@ class sandy.core.data.Polygon implements IDisplayable
 	 */
 	public function clipFrontPlane( p_oFrustum:Frustum ) : Array
 	{
-		cvertices = null;
 		cvertices = vertices.slice();
 		// If line
 		if( vertices.length < 3 ) 
@@ -486,7 +491,6 @@ class sandy.core.data.Polygon implements IDisplayable
 		}
 		else
 		{
-			caUVCoord = null;
 			caUVCoord = aUVCoord.slice();
 			isClipped = p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 		}

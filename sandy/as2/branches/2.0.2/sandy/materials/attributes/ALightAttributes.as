@@ -210,14 +210,21 @@ class sandy.materials.attributes.ALightAttributes implements IAttributes
 
 				var invModelMatrix:Matrix4 = m_oCurrentShape.invModelMatrix;
 
-				m_oCurrentL.copy( m_oL );
-				invModelMatrix.vectorMult3x3( m_oCurrentL );
-
-				m_oCurrentV.copy( m_oV );
-				invModelMatrix.vectorMult3x3( m_oCurrentV );
-
-				m_oCurrentH.copy( m_oH );
-				invModelMatrix.vectorMult3x3( m_oCurrentH );
+				if( m_oL )
+				{
+					m_oCurrentL.copy( m_oL );
+					invModelMatrix.vectorMult3x3( m_oCurrentL );
+				}
+				if( m_oV )
+				{
+					m_oCurrentV.copy( m_oV );
+					invModelMatrix.vectorMult3x3( m_oCurrentV );
+				}
+				if( m_oH )
+				{
+					m_oCurrentH.copy( m_oH );
+					invModelMatrix.vectorMult3x3( m_oCurrentH );
+				}
 			}
 		}
 	}

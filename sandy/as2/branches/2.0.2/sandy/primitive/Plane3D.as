@@ -17,6 +17,7 @@ limitations under the License.
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;	
 import sandy.primitive.Primitive3D;
+import sandy.primitive.PrimitiveMode;
 
 /**
  * The Plane3D is used for creating a plane primitive.
@@ -63,7 +64,8 @@ class sandy.primitive.Plane3D extends Shape3D implements Primitive3D
 	private var _qH:Number; 
 	private var _qV:Number; 
 	private var m_sType:String;
-
+	private var _mode:String;
+	
 	/**
 	 * Creates a Plane primitive.
 	 *
@@ -76,25 +78,25 @@ class sandy.primitive.Plane3D extends Shape3D implements Primitive3D
 	 * @param p_nQualityH 	Number of horizontal segments.
 	 * @param p_nQualityV	Number of vertical segments.
 	 * @param p_sType		Alignment of the plane, one of XY_ALIGNED ( default ), YZ_ALIGNED or ZX_ALIGNED.
+	 * @param p_sMode   	The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
 	 *
 	 * @see PrimitiveMode
 	 */
 	public function Plane3D( p_sName:String, p_nHeight:Number, p_nWidth:Number, p_nQualityH:Number,
-							 p_nQualityV:Number, p_sType:String )
+							 p_nQualityV:Number, p_sType:String, p_sMode:String )
 	{
 		super( p_sName );
 		_h = p_nHeight||100;
 		_lg = p_nWidth||100;
 		_qV = p_nQualityV||1;
 		_qH = p_nQualityH||1;
+		_mode = ( p_sMode != PrimitiveMode.TRI && p_sMode != PrimitiveMode.QUAD ) ? PrimitiveMode.TRI : p_sMode;
 		m_sType = p_sType||Plane3D.XY_ALIGNED;
 		geometry = generate();
 	}
 
 	/**
 	 * Generates the geometry for the plane.
-	 *
-	 * @return The geometry object for the plane.
 	 *
 	 * @see sandy.core.scenegraph.Geometry3D
 	 */

@@ -129,7 +129,7 @@ class sandy.core.scenegraph.Node
 		}
 		// --
 		changed = true;
-		m_oEB = new BubbleEventBroadcaster( Node );
+		m_oEB = new BubbleEventBroadcaster( this );
 		// --
 		culled = CullingState.INSIDE;
 	}
@@ -431,6 +431,7 @@ class sandy.core.scenegraph.Node
 	public function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean ) : Void
 	{
 		scene = p_oScene;
+		culled = CullingState.INSIDE;
 		// --
 		if( boundingBox )
 			boundingBox.uptodate = false;
@@ -477,19 +478,6 @@ class sandy.core.scenegraph.Node
 				viewMatrix.multiply4x3( modelMatrix );
 			}
 		}
-	}
-	
-	/**
-	 * Renders this node.
-	 *
-	 * <p>Overridden in sub classes</p>
-	 *
-	 * @param  p_oScene		The current scene
-	 * @param  p_oCamera	The camera of the world
-	 */
-	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
-	{
-		;/* TO OVERRIDE */
 	}
 	
 	/**

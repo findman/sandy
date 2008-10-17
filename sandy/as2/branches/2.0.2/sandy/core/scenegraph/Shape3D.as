@@ -17,14 +17,12 @@ limitations under the License.
 import flash.geom.Point;
 	
 import com.bourre.commands.Delegate;
-import com.bourre.data.collections.Map;
 import com.bourre.events.BubbleEvent;
 import com.bourre.events.BubbleEventBroadcaster;
 import com.bourre.events.EventType;
 	
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
-import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Polygon;
@@ -76,12 +74,6 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * The array of polygons building this object.
 	 */		
 	public var aPolygons:Array;
-
-	/**
-	 * This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
-	 * In that case, that property will return the invert model matrix on that node
-	 */
-	public var invModelMatrix:Matrix4;
 		
 	/**
 	 * <p>
@@ -131,6 +123,12 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 */
 	public var animated:Boolean;
 	
+	/**   
+	 * Array containing the visible polygons of that shape.  
+	 * Contente is available after the SCENE_RENDER_DISPLAYLIST event of the current scene has been dispatched  
+	 */  
+	public var aVisiblePolygons:Array; 
+	
 	/**
 	 * The container of the Shape3D.
 	 * Please note: this property is not defined in the IDisplayable interface ( as in the AS3 version ) with getter/setter!
@@ -163,11 +161,11 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		animated 		   = false;
 		forcedDepth = 0;
 		
+		aVisiblePolygons = new Array();
+		
 		p_bUseSingleContainer = p_bUseSingleContainer||true;
 		// --
 		m_oGeomCenter = new Vector();
-		m_oCamPos = new Vector();
-		invModelMatrix = new Matrix4();
 		DEFAULT_MATERIAL = new WireFrameMaterial();
 		DEFAULT_APPEARANCE = new Appearance( DEFAULT_MATERIAL );
 		// -- Add this graphical object to the World display list
@@ -263,7 +261,6 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	{
 		super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );
 		if( culled == Frustum.OUTSIDE ) return;
-
 		/////////////////////////
         //// BOUNDING SPHERE ////
         /////////////////////////
@@ -278,229 +275,10 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			if( !boundingBox.uptodate ) boundingBox.transform( viewMatrix );
 			culled = p_oFrustum.boxInFrustum( boundingBox );
 		}
-		
-		m_bClipped = ( ( culled == CullingState.INTERSECT ) && ( enableClipping || enableNearClipping ) );
-	}
-	
-	/**
-	 * Renders this 3D object.
-	 *
-	 * @param p_oScene The current scene
-	 * @param p_oCamera	The current camera
-	 */		
-	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
-	{
-		// If no appearance has bene applied, no display
-		if( m_oAppearance == null ) return;
-		var 	m11:Number, m21:Number, m31:Number,
-				m12:Number, m22:Number, m32:Number,
-				m13:Number, m23:Number, m33:Number,
-				m14:Number, m24:Number, m34:Number,
-				x:Number, y:Number, z:Number;
-				
-		var  	l_nZNear:Number = p_oCamera.near, l_aPoints:Array = m_oGeometry.aVertex,
-        		l_oMatrix:Matrix4 = viewMatrix, l_oFrustum:Frustum = p_oCamera.frustrum, 
-				l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Number, l_nFlags:Number;
-		
-		// -- fast camera model matrix inverssion
-		invModelMatrix.n11 = modelMatrix.n11;
-		invModelMatrix.n12 = modelMatrix.n21;
-		invModelMatrix.n13 = modelMatrix.n31;
-		invModelMatrix.n21 = modelMatrix.n12;
-		invModelMatrix.n22 = modelMatrix.n22;
-		invModelMatrix.n23 = modelMatrix.n32;
-		invModelMatrix.n31 = modelMatrix.n13;
-		invModelMatrix.n32 = modelMatrix.n23;
-		invModelMatrix.n33 = modelMatrix.n33;
-		invModelMatrix.n14 = -( modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34 );
-		invModelMatrix.n24 = -( modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34 );
-		invModelMatrix.n34 = -( modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34 );
-		
-		m_oCamPos.reset( p_oCamera.modelMatrix.n14, p_oCamera.modelMatrix.n24, p_oCamera.modelMatrix.n34 );
-		//l_oCamPos.reset( p_oCamera.x, p_oCamera.y, p_oCamera.z );
-		invModelMatrix.vectorMult( m_oCamPos );
-		
-		// -- Now we can transform the objet vertices into the camera coordinates
-		l_oMatrix = viewMatrix;
-		m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-		m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-		m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-		m14 = l_oMatrix.n14; m24 = l_oMatrix.n24; m34 = l_oMatrix.n34;
-			
-		// -- The polygons will be clipped, we shall allocate a new array container the clipped vertex.
-		m_aVisiblePoly = [];
-		m_nVisiblePoly = 0;
-		m_nDepth = 0;
-		l_nFlags = appearance.flags;
-		var l_lastRenderTime:Number = p_oScene.lastRenderTime;
-		// --
-		var polyFlags:Number = 0;
-		for( l_oFace in aPolygons )
+		if( culled != CullingState.OUTSIDE && m_oAppearance != null )
 		{
-			if( animated )
-				aPolygons[ l_oFace ].updateNormal();
-			// -- visibility test
-			aPolygons[ l_oFace ].visible = ( l_oVertex.x * ( m_oCamPos.x - aPolygons[ l_oFace ].a.x ) + l_oVertex.y * ( m_oCamPos.y - aPolygons[ l_oFace ].a.y ) + l_oVertex.z * ( m_oCamPos.z - aPolygons[ l_oFace ].a.z ) ) > 0;
-			// -- 
-			if( m_bBackFaceCulling )
-			{
-				if( aPolygons[ l_oFace ].visible == false )
-            	continue;
-			}
-		    // --
-			l_oVertex = aPolygons[ l_oFace ].a;
-			if( l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime )  
-			{
-				l_oVertex.wx = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13 + m14;
-				l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-				l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-				l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
-			}
-			l_oVertex = aPolygons[ l_oFace ].b;
-			if( l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime )
-			{
-				l_oVertex.wx = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13 + m14;
-				l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-				l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-				l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
-			}
-			l_oVertex = aPolygons[ l_oFace ].c;
-			if( ( l_oVertex != null ) && ( l_oVertex.lastTimeWCoordsComputed < l_lastRenderTime ) )
-			{ 
-				l_oVertex.wx = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13 + m14;
-				l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-				l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-				l_oVertex.lastTimeWCoordsComputed = l_lastRenderTime;
-			}
-			// --
-			aPolygons[ l_oFace ].precompute();
-			l_nMinZ = aPolygons[ l_oFace ].minZ;
-			// --
-			if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
-			{
-				aPolygons[ l_oFace ].clip( l_oFrustum );
-				
-				if( l_oFace.cvertices.length > 2 )
-				{
-					// -- cvertices are either new vertices, or references to old ones
-					p_oCamera.projectArray( aPolygons[ l_oFace ].cvertices );
-					
-					if( !enableForcedDepth )
-					m_nDepth += aPolygons[ l_oFace ].depth;
-					else 
-					aPolygons[ l_oFace ].depth = forcedDepth;    
-					
-					m_aVisiblePoly[ int( m_nVisiblePoly++ ) ] = aPolygons[ l_oFace ];
-				}
-			}
-			else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
-			{
-				aPolygons[ l_oFace ].clipFrontPlane( l_oFrustum );
-				
-				if( l_oFace.cvertices.length > 2 )
-		 		{
-					// cvertices are either new vertices, or references to old ones
-		 			p_oCamera.projectArray( aPolygons[ l_oFace ].cvertices );
-					
-		 			if( !enableForcedDepth ) 
-					m_nDepth += aPolygons[ l_oFace ].depth;
-					else 
-					aPolygons[ l_oFace ].depth = forcedDepth;   
-					
-					m_aVisiblePoly[ int( m_nVisiblePoly++ ) ] = aPolygons[ l_oFace ];
-		 		}
-			 }
-			 else if( l_nMinZ >= l_nZNear )
-			 {
-		 		p_oCamera.projectArray( aPolygons[ l_oFace ].vertices );
-				
-				if( !enableForcedDepth ) 
-				m_nDepth += aPolygons[ l_oFace ].depth;
-				else 
-				aPolygons[ l_oFace ].depth = forcedDepth;   
-					
-				m_aVisiblePoly[ int( m_nVisiblePoly++ ) ] = aPolygons[ l_oFace ];
-			}
-			else
-			{
-			   continue;
-			}
-				
-			if( aPolygons[ l_oFace ].hasAppearanceChanged )
-			{
-				if( p_oScene.materialManager.isRegistered( aPolygons[ l_oFace ].appearance.frontMaterial ) == false )
-				{
-					p_oScene.materialManager.register( aPolygons[ l_oFace ].appearance.frontMaterial );
-				}
-				if( aPolygons[ l_oFace ].appearance.frontMaterial != aPolygons[ l_oFace ].appearance.backMaterial )
-				{
-					if( p_oScene.materialManager.isRegistered( aPolygons[ l_oFace ].appearance.backMaterial ) == false )
-					{
-						p_oScene.materialManager.register( aPolygons[ l_oFace ].appearance.backMaterial );
-					}
-				}
-				aPolygons[ l_oFace ].hasAppearanceChanged = false;
-				polyFlags |= aPolygons[ l_oFace ];
-			}
-		} // end for
-		
-		// --
-		if( m_bUseSingleContainer )
-		{
-			if( enableForcedDepth ) 	
-			m_nDepth = forcedDepth;
-			else 					
-			m_nDepth /= m_aVisiblePoly.length;
-			
-			p_oCamera.addToDisplayList( this );
+			p_oScene.renderer.addToDisplayList( this );
 		}
-		else
-		{
-		    p_oCamera.addArrayToDisplayList( m_aVisiblePoly );
-		}
-		
-		if( l_nFlags == 0 && polyFlags == 0 ) return;
-					
-		if( ( l_nFlags | polyFlags ) & SandyFlags.POLYGON_NORMAL_WORLD )
-		{
-           	l_oMatrix = modelMatrix;
-           	m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-           	m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-           	m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-			// -- Now we transform the normals.
-			var l_oPoly:Polygon;
-			for( l_oPoly in m_aVisiblePoly )
-			{
-				l_oVertex = m_aVisiblePoly[ l_oPoly ].normal;
-				l_oVertex.wx  = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13;
-				l_oVertex.wy  = x * m21 + y * m22 + z * m23;
-				l_oVertex.wz  = x * m31 + y * m32 + z * m33;
-			}
-		}
-		if( ( l_nFlags | polyFlags ) & SandyFlags.VERTEX_NORMAL_WORLD )
-		{
-			l_oMatrix = modelMatrix;
-			m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-            m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-            m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-			// -- Now we transform the normals.
-			for( l_oVertex in  m_oGeometry.aVertexNormals )
-			{
-				l_oVertex = m_oGeometry.aVertexNormals[ l_oVertex ];
-				l_oVertex.wx  = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13;
-				l_oVertex.wy  = x * m21 + y * m22 + z * m23;
-				l_oVertex.wz  = x * m31 + y * m32 + z * m33;
-			}
-		}      
-	}
-		
-	/**
-	 * <p>Returns the number of visible polygons of that shape</p>
-	 * @return A unsigned int value which represents the amount of visible polygons of that shape
-	 */
-	public function get visiblePolygonsCount() : Number
-	{
-		return int( m_nVisiblePoly );
 	}
 		
 	/**
@@ -511,7 +289,8 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	*/
 	public function clear() : Void
 	{
-		if( container ) container.clear();
+		if( container ) 
+		container.clear();
 	}
 	
 	/**
@@ -523,14 +302,32 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * @param p_oScene The current scene
 	 * @param p_oContainer	The container to draw on
 	 */
-	public function display(  p_oScene:Scene3D, p_oContainer:MovieClip ) : Void
+	public function display( p_oScene:Scene3D, p_oContainer:MovieClip ) : Void
 	{
-		m_aVisiblePoly.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
+		aVisiblePolygons.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
 	    // --
-		var l_oPoly:Polygon;
-		for( l_oPoly in m_aVisiblePoly )
+		var l_oFace:Polygon;
+		for( var i in aVisiblePolygons )
 		{
-			m_aVisiblePoly[ l_oPoly ].display( p_oScene, container );
+			l_oFace = aVisiblePolygons[ i ];
+			if( l_oFace.hasAppearanceChanged )
+			{
+				var l_oApp:Appearance = l_oFace.appearance;
+				if( p_oScene.materialManager.isRegistered( l_oApp.frontMaterial ) == false )
+				{
+					p_oScene.materialManager.register( l_oApp.frontMaterial );
+				}
+				if( l_oApp.frontMaterial != l_oApp.backMaterial )
+				{
+					if( p_oScene.materialManager.isRegistered( l_oApp.backMaterial ) == false )
+					{
+						p_oScene.materialManager.register( l_oApp.backMaterial );
+					}
+				}
+				l_oFace.hasAppearanceChanged = false;
+			}
+			// --
+			l_oFace.display( p_oScene, container );
 		}
 	}
 		
@@ -943,17 +740,12 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
     private var m_bEv:Boolean = false; // The event system state ( enable or not )
 	private var m_oGeomCenter:Vector;
 	private var m_bBackFaceCulling:Boolean = true;
-	private var m_bClipped:Boolean = false;
 
 	/** Geometry of this object */
 	private var m_oGeometry:Geometry3D;
 	
 	private var m_bUseSingleContainer:Boolean = true;
 	private var m_nDepth:Number = 0;
-	private var m_oCamPos:Vector;
-	private var m_aVisiblePoly:Array = new Array();	
-	private var m_nVisiblePoly:Number;	
-	
 	private var m_bMouseInteractivity:Boolean = false;
 	private var m_bForcedSingleContainer:Boolean = false;
 	

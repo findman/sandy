@@ -81,26 +81,8 @@ class sandy.core.scenegraph.TransformGroup extends ATransformable
 		    for( l_oNode in children )
 		    {
 		        children[ l_oNode ].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+				children[ l_oNode ].changed = false;
 		    }
-		}
-	}
-	
-	/**
-	 * Renders all children of this transformgroup.
-	 *
-	 * @param p_oScene The current scene
-	 * @param p_oCamera	The current camera
-	 */
-	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
-	{
-		var l_oNode:Node;
-		for( l_oNode in children )
-		{
-		    if( children[ l_oNode ].culled != CullingState.OUTSIDE )
-		    	children[ l_oNode ].render( p_oScene, p_oCamera );
-		    // --
-		    children[ l_oNode ].changed = false; // default value is set to not changed.
-		    children[ l_oNode ].culled = CullingState.INSIDE; // Default value is inside.
 		}
 	}
 	

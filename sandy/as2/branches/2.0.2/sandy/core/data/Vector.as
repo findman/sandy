@@ -279,7 +279,7 @@ class sandy.core.data.Vector
 	 *
 	 * @return The angle in radians.
 	 */
-	public function getAngle ( w:Vector ) : Number
+	public function getAngle( w:Vector ) : Number
 	{
 		var n1:Number = getNorm();
 		var n2:Number =  w.getNorm();

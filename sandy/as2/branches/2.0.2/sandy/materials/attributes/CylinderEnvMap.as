@@ -24,12 +24,9 @@ import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
-import sandy.core.light.Light3D;
-import sandy.materials.Material;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.attributes.AAttributes;
-import sandy.math.VertexMath;
-import sandy.util.NumberUtil;
+import sandy.materials.Material;
 
 /**
  * Applies cylindric environment map.

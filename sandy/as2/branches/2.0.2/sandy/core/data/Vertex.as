@@ -34,6 +34,15 @@ class sandy.core.data.Vertex
 		
 	private static var ID:Number = 0;
 		
+	/**   
+	 * Vertex flags that can be SandyFlags.VERTEX_WORLD, SandyFlags.VERTEX_CAMERA or SandyFlags.VERTEX_PROJECTED   
+	 * Need to avoid unecessary computations   
+	 */   
+	public var flags:Number;   
+	
+	public var projected:Boolean;   
+	public var transformed:Boolean; 
+	
 	/**
 	 * The unique identifier for the vertex.
 	 */
@@ -99,6 +108,10 @@ class sandy.core.data.Vertex
 	*/
 	public function Vertex( p_nx:Number, p_ny:Number, p_nz:Number )
 	{
+		flags = 0;
+		projected = false;
+		transformed = false;
+		// --
 		nbFaces = 0;
 		aFaces = new Array();
 		id = ID++;
@@ -494,8 +507,5 @@ class sandy.core.data.Vertex
 		
 	private var m_oWorld:Vector;
 	private var m_oLocal:Vector;
-	
-	public var lastTimeSCoordsComputed:Number;   
-	public var lastTimeWCoordsComputed:Number; 
 	
 }

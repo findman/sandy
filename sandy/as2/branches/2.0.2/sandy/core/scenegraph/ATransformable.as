@@ -47,6 +47,13 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 */
 	public var disable:Boolean;
 	
+	/**   
+	 * <p>Inverse of the model matrix   
+	 * The matrix is inverted in comparison of the real model matrix.<br/>   
+	 * For example, this allows replacement of the objects in the correct camera frame before projection</p>   
+	 */  
+	public var invModelMatrix:Matrix4;
+	
 	/**
 	 * Creates a transformable node in the object tree of the world.
 	 *
@@ -54,10 +61,11 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 *
 	 * @param p_sName	A string identifier for this object
 	 */
-	public function ATransformable ( p_sName:String )
+	public function ATransformable( p_sName:String )
 	{
 		super( p_sName );
 		disable = false;
+		invModelMatrix = new Matrix4;
 		resetCoords();
 	}
 	
@@ -433,7 +441,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, paralell to the x axis of the parent frame.</p>
 	 */
-	public function set rotateX ( p_nAngle:Number ) : Void
+	public function set rotateX( p_nAngle:Number ) : Void
 	{
 		var l_nAngle:Number = ( p_nAngle - _vRotation.x );
 		if( l_nAngle == 0 ) return;
@@ -461,7 +469,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, parallel to the y axis of the parent frame.</p>
 	 */
-	public function set rotateY ( p_nAngle:Number ) : Void
+	public function set rotateY( p_nAngle:Number ) : Void
 	{
 		var l_nAngle:Number = ( p_nAngle - _vRotation.y );
 		if( l_nAngle == 0 ) return;
@@ -489,7 +497,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 * <p>The object rotates a specified angle ( degrees ) around an axis through the
 	 * objects reference point, paralell to the z axis of the parent frame.</p>
 	 */
-	public function set rotateZ ( p_nAngle:Number ) : Void
+	public function set rotateZ( p_nAngle:Number ) : Void
 	{
 		var l_nAngle:Number = ( p_nAngle - _vRotation.z );
 		if( l_nAngle == 0 ) return;
@@ -522,7 +530,7 @@ class sandy.core.scenegraph.ATransformable extends Node
 	 */
 	public function set roll( p_nAngle:Number ) : Void
 	{
-		var l_nAngle:Number = ( p_nAngle - _nRoll )
+		var l_nAngle:Number = ( p_nAngle - _nRoll );
 		if( l_nAngle == 0 ) return;
 		changed = true;
 		// --
@@ -641,6 +649,20 @@ class sandy.core.scenegraph.ATransformable extends Node
 			 {
 				modelMatrix.copy( m_oMatrix );
 			 }
+			 
+			 // -- fast model matrix inversion
+			invModelMatrix.n11 = modelMatrix.n11;
+			invModelMatrix.n12 = modelMatrix.n21;
+			invModelMatrix.n13 = modelMatrix.n31;
+			invModelMatrix.n21 = modelMatrix.n12;
+			invModelMatrix.n22 = modelMatrix.n22;
+			invModelMatrix.n23 = modelMatrix.n32;
+			invModelMatrix.n31 = modelMatrix.n13;
+			invModelMatrix.n32 = modelMatrix.n23;
+			invModelMatrix.n33 = modelMatrix.n33;
+			invModelMatrix.n14 = -( modelMatrix.n11 * modelMatrix.n14 + modelMatrix.n21 * modelMatrix.n24 + modelMatrix.n31 * modelMatrix.n34 );
+			invModelMatrix.n24 = -( modelMatrix.n12 * modelMatrix.n14 + modelMatrix.n22 * modelMatrix.n24 + modelMatrix.n32 * modelMatrix.n34 );
+			invModelMatrix.n34 = -( modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34 );
 		}
 		// --
 		super.update( p_oScene, modelMatrix, p_bChanged );
@@ -667,13 +689,10 @@ class sandy.core.scenegraph.ATransformable extends Node
 			m_oMatrix.n32 = _vUp.z * _oScale.y;
 			m_oMatrix.n33 = _vOut.z * _oScale.z;
 			m_oMatrix.n34 = _p.z;
-
 			// -- normalization of the frame to make sure the rotation error will not become too big.
 			_vOut.normalize();
 			_vSide.normalize();
 			_vUp.normalize();
-			//m_oMatrix.n41 = m_oMatrix.n42 = m_oMatrix.n43 = 0;
-			//m_oMatrix.n44 = 1;
 		}
 	}
 

@@ -16,7 +16,9 @@ limitations under the License.
 
 import com.bourre.events.EventBroadcaster;
 
+import sandy.core.Renderer;
 import sandy.core.data.Vector;
+import sandy.core.data.Pool;
 import sandy.core.light.Light3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
@@ -148,6 +150,13 @@ class sandy.core.Scene3D extends EventBroadcaster
 	 */
 	public var materialManager:MaterialManager;
 		
+	/**   
+	 * The renerer choosed for render this scene.   
+	 * In the future, the actual renderer will implement an interface that developers could use to create their own   
+	 * rendering process.  
+	 */   
+	public var renderer:Renderer;
+	
 	/**
 	 * Creates a new 3D scene.
 	 *
@@ -183,6 +192,7 @@ class sandy.core.Scene3D extends EventBroadcaster
 		materialManager = new MaterialManager();
 		// --
 		_light = new Light3D( new Vector( 0, 0, 1 ), 100 );
+		renderer = new Renderer(); 
 	}
 
 	/**
@@ -198,10 +208,11 @@ class sandy.core.Scene3D extends EventBroadcaster
 	 */
 	public function render( p_oEvt:SandyEvent ) : Void
 	{
-		lastRenderTime = Math.max( lastRenderTime + 1, getTimer() );   
-		// -- 
 		if( root && camera && container )
 		{
+			Pool.getInstance().init();   
+			renderer.init(); 
+			// --
 			dispatchEvent( new SandyEvent( SandyEvent.SCENE_UPDATE ) );
 			root.update( this, null, false );
 			// --
@@ -209,11 +220,12 @@ class sandy.core.Scene3D extends EventBroadcaster
 			root.cull( this, camera.frustrum, camera.invModelMatrix, camera.changed );
 			// --
 			dispatchEvent( new SandyEvent( SandyEvent.SCENE_RENDER ) );
-			root.render( this, camera );
+			materialManager.begin( this );   
+			renderer.render( this ); 
 			// -- clear the polygon's container and the projection vertices list
 			dispatchEvent( new SandyEvent( SandyEvent.SCENE_RENDER_DISPLAYLIST ) );
-            materialManager.begin( this );
-            camera.renderDisplayList( this );
+            renderer.renderDisplayList( this );
+			// --
             materialManager.finish( this );
 		}
 	} 
@@ -317,10 +329,5 @@ class sandy.core.Scene3D extends EventBroadcaster
 	private var m_bRectClipped:Boolean = true;
 	private var _light:Light3D; 	//the unique light instance of the world
 	private static var _version:String = "2.0.2";
-	
-	/**   
-	 * Value returned by getTimer() in the last render() call, or greater one.   
-	 */   
-	public var lastRenderTime:Number; 
 	
 }

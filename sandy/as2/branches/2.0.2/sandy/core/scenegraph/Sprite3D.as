@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
+Copyright the original Thomas Pfeiffer (thomas.pfeiffer AT gmail DOT com) flashsandy.org
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 ( the "License" );
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -14,19 +14,10 @@ limitations under the License.
 # ***** END LICENSE BLOCK *****
 */
 
-import com.bourre.events.BasicEvent;
-import com.bourre.events.EventType;
-	
-import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
-import sandy.core.data.Vector;
-import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Sprite2D;
-import sandy.core.scenegraph.Camera3D;
-import sandy.events.MouseEvent;
-import sandy.view.CullingState;
-import sandy.view.Frustum;
+import sandy.core.scenegraph.Camera3D;;
 
 /**
  * The Sprite3D class is used to create a 3D sprite.
@@ -66,8 +57,6 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	{
 		super( p_sName||"", p_oContent, p_nScale||1 );
 		offset = 0;
-		// --
-		m_oNormale = new Vector();
 		// -- set the offset
 		offset = p_nOffset||0;
 	}
@@ -88,17 +77,10 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 		}
 	}
 
-	/**
-	 * Renders this 3D sprite
-	 *
-	 * @param p_oScene The current scene
-	 * @param p_oCamera	The current camera
-	 */
-	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
+	public function display( p_oScene:Scene3D, p_oContainer:MovieClip ) : Void
 	{
-		super.render( p_oScene, p_oCamera );
-		// --
 		MovieClip( m_oContainer ).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
+		super.display( p_oScene, p_oContainer );
 	}
 
 	// Returns the frame to show at the current camera angle
@@ -115,7 +97,6 @@ class sandy.core.scenegraph.Sprite3D extends Sprite2D
 	}
 
 	// -- frames offset
-	private var m_oNormale:Vector;
 	private var m_nAutoOffset:Number;
 	
 }

@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import sandy.core.data.Matrix4;
+import sandy.core.data.Pool;
 import sandy.core.data.Vector;
 	
 /**
@@ -70,8 +71,8 @@ class sandy.bounds.BBox
 		uptodate = false;
 		min		= ( p_min != null ) ? p_min : new Vector( -0.5, -0.5, -0.5 );
 		max		= ( p_max != null ) ? p_max : new Vector(  0.5,  0.5,  0.5 );
-		tmin = new Vector();
-		tmax = new Vector();
+		tmin = Pool.getInstance().nextVector;
+		tmax = Pool.getInstance().nextVector;
 		aCorners = new Array( 8 );
 		aTCorners = new Array( 8 );
 		__computeCorners( false );
@@ -89,8 +90,8 @@ class sandy.bounds.BBox
 		if( p_aVertices.length == 0 ) return null;
 	   
 	    var l:Number = p_aVertices.length;
-	    var l_min:Vector = new Vector();
-	    var l_max:Vector = new Vector();
+	    var l_min:Vector = Pool.getInstance().nextVector;
+	    var l_max:Vector = Pool.getInstance().nextVector;
 		
 		var lTmp:Array;
 		lTmp = p_aVertices.sortOn( [ "x" ], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
@@ -156,14 +157,14 @@ class sandy.bounds.BBox
 		    maxx = max.x;    maxy = max.y;    maxz = max.z;
 		}
 		// --
-		aTCorners[ 0 ] = new Vector(); aCorners[ 0 ] = new Vector( ( minx ), ( maxy ), ( maxz ) );
-		aTCorners[ 1 ] = new Vector(); aCorners[ 1 ] = new Vector( ( maxx ), ( maxy ), ( maxz ) );
-		aTCorners[ 2 ] = new Vector(); aCorners[ 2 ] = new Vector( ( maxx ), ( miny ), ( maxz ) );
-		aTCorners[ 3 ] = new Vector(); aCorners[ 3 ] = new Vector( ( minx ), ( miny ), ( maxz ) );
-		aTCorners[ 4 ] = new Vector(); aCorners[ 4 ] = new Vector( ( minx ), ( maxy ), ( minz ) );
-		aTCorners[ 5 ] = new Vector(); aCorners[ 5 ] = new Vector( ( maxx ), ( maxy ), ( minz ) );
-		aTCorners[ 6 ] = new Vector(); aCorners[ 6 ] = new Vector( ( maxx ), ( miny ), ( minz ) );
-		aTCorners[ 7 ] = new Vector(); aCorners[ 7 ] = new Vector( ( minx ), ( miny ), ( minz ) );
+		aTCorners[ 0 ] = Pool.getInstance().nextVector; aCorners[ 0 ] = new Vector( ( minx ), ( maxy ), ( maxz ) );
+		aTCorners[ 1 ] = Pool.getInstance().nextVector; aCorners[ 1 ] = new Vector( ( maxx ), ( maxy ), ( maxz ) );
+		aTCorners[ 2 ] = Pool.getInstance().nextVector; aCorners[ 2 ] = new Vector( ( maxx ), ( miny ), ( maxz ) );
+		aTCorners[ 3 ] = Pool.getInstance().nextVector; aCorners[ 3 ] = new Vector( ( minx ), ( miny ), ( maxz ) );
+		aTCorners[ 4 ] = Pool.getInstance().nextVector; aCorners[ 4 ] = new Vector( ( minx ), ( maxy ), ( minz ) );
+		aTCorners[ 5 ] = Pool.getInstance().nextVector; aCorners[ 5 ] = new Vector( ( maxx ), ( maxy ), ( minz ) );
+		aTCorners[ 6 ] = Pool.getInstance().nextVector; aCorners[ 6 ] = new Vector( ( maxx ), ( miny ), ( minz ) );
+		aTCorners[ 7 ] = Pool.getInstance().nextVector; aCorners[ 7 ] = new Vector( ( minx ), ( miny ), ( minz ) );
 		// --
 		return aCorners;
 	}	
@@ -184,7 +185,7 @@ class sandy.bounds.BBox
 	    // --
 	    for( lId = 1; lId < 8; lId ++ )
 	    {
-	        aTCorners[ lId ].copy( aCorners[ lId ] )
+	        aTCorners[ lId ].copy( aCorners[ lId ] );
 	        p_oMatrix.vectorMult( aTCorners[ lId ] );
 	    
 			lVector = aTCorners[ lId ];

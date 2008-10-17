@@ -69,6 +69,21 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	 * This property has no effect when autoCenter is enabled.
 	 */
 	public var floorCenter:Boolean;
+	
+	/**   
+	 * @private  
+	 */   
+	public var v:Vertex;  
+	
+	/**   
+	 * @private  
+	 */ 
+	public var vx:Vertex; 
+	
+	/**  
+	 * @private  
+	 */  
+	public var vy:Vertex; 
 		
 	/**
 	 * Creates a Sprite2D.
@@ -90,7 +105,7 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 		
 		m_oContainer = new MovieClip();
 		// --
-		_v = new Vertex(); _vx = new Vertex(); _vy = new Vertex();
+		v = new Vertex(); vx = new Vertex(); vy = new Vertex();
 		boundingSphere 	= new BSphere();
         boundingBox		= null;
         // --
@@ -121,7 +136,6 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	 */
 	public function set content( p_content:MovieClip ) : Void
 	{
-		// if( p_content.transform ) p_content.transform.matrix.identity();
 		p_content.transform.matrix.identity();
 		m_oContainer = p_content;
 		m_nW2 = m_oContainer._width / 2;
@@ -172,7 +186,15 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	{
 		return m_nDepth;
 	}
-		  
+	
+	/**  
+	 * @private   
+	 */
+	public function set depth( p_nDepth:Number ) : Void   
+	{
+		m_nDepth = p_nDepth;
+	} 
+	
 	/**
 	 * Tests this node against the camera frustum to get its visibility.
 	 *
@@ -206,48 +228,40 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	        culled = p_oFrustum.sphereInFrustum( boundingSphere );
 		}
 		// --
-		if( culled == CullingState.OUTSIDE ) 	
+		if( culled == CullingState.OUTSIDE )
+		{
 			container.visible = false;
-		else if( culled == CullingState.INTERSECT ) 
+		}
+		else 
 		{
-			if( boundingSphere.position.z <= p_oScene.camera.near ) 
-				container.visible = false;
-			else 
+			if( culled == CullingState.INTERSECT ) 
+			{
+				if( boundingSphere.position.z <= p_oScene.camera.near )
+				{
+					container.visible = false;
+				}
+				else 
+				{
+					container.visible = true;
+					if( ( m_oMaterial != null ) && !p_oScene.materialManager.isRegistered( m_oMaterial ) )
+					{
+						p_oScene.materialManager.register( m_oMaterial );
+					}
+					// --
+					p_oScene.renderer.addToDisplayList( this ); 
+				}
+			}
+			else
+			{
 				container.visible = true;
+				if( ( m_oMaterial != null ) && !p_oScene.materialManager.isRegistered( m_oMaterial ) )
+				{
+					p_oScene.materialManager.register( m_oMaterial );
+				}
+				// --
+				p_oScene.renderer.addToDisplayList( this ); 
+			}
 		}
-		else	
-			container.visible = true;
-	}
-	
-	/**
-	 * Renders this 2D sprite
-	 *
-	 * @param p_oScene The current scene
-	 * @param p_oCamera	The current camera
-	 */
-	public function render( p_oScene:Scene3D, p_oCamera:Camera3D ) : Void
-	{
-		if( ( m_oMaterial != null ) && !p_oScene.materialManager.isRegistered( m_oMaterial ) )
-		{
-			p_oScene.materialManager.register( m_oMaterial );
-		}
-
-		_v.wx = _v.x * viewMatrix.n11 + _v.y * viewMatrix.n12 + _v.z * viewMatrix.n13 + viewMatrix.n14;
-		_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
-		_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
-
-		m_nDepth = enableForcedDepth ? forcedDepth:_v.wz;
-
-		p_oCamera.projectVertex( _v );
-		p_oCamera.addToDisplayList( this );
-
-		_vx.copy ( _v ); _vx.wx++; p_oCamera.projectVertex ( _vx );
-		_vy.copy ( _v ); _vy.wy++; p_oCamera.projectVertex ( _vy );
-
-		m_nPerspScaleX = _nScale * ( _vx.sx - _v.sx );
-		m_nPerspScaleY = _nScale * ( _v.sy - _vy.sy );
-
-		m_nRotation = Math.atan2( viewMatrix.n12, viewMatrix.n22 );
 	}
 
 	/**
@@ -297,14 +311,14 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	 */
 	public function display( p_oScene:Scene3D, p_oContainer:MovieClip ) : Void
 	{
+		m_nPerspScaleX = ( _nScale == 0 ) ? 1 : _nScale * ( vx.sx - v.sx );
+		m_nPerspScaleY = ( _nScale == 0 ) ? 1 : _nScale * ( v.sy - vy.sy );
+		m_nRotation = Math.atan2( viewMatrix.n12, viewMatrix.n22 );
+		// --
 		m_oContainer._xscale = m_nPerspScaleX;
 		m_oContainer._yscale = m_nPerspScaleY;
-			
-		m_oContainer.x = _v.sx - ( autoCenter ? m_oContainer._width / 2 : 0 );
-		m_oContainer.y = _v.sy - ( autoCenter ? m_oContainer._height / 2 : 0 );
-		
-		m_oContainer.y = _v.sy - ( autoCenter ? m_oContainer._height / 2 : ( floorCenter ? m_oContainer._height : 0 ) );
-		
+		m_oContainer.x = v.sx - ( autoCenter ? m_oContainer._width / 2 : 0 );	
+		m_oContainer.y = v.sy - ( autoCenter ? m_oContainer._height / 2 : ( floorCenter ? m_oContainer._height : 0 ) );
 		// --
 		if( fixedAngle ) m_oContainer.rotation = m_nRotation * 180 / Math.PI;
 		// --
@@ -395,11 +409,8 @@ class sandy.core.scenegraph.Sprite2D extends ATransformable implements IDisplaya
 	private var m_nW2:Number = 0;
 	private var m_nH2:Number = 0;
 	private var m_oContainer:MovieClip;
-	private var m_bLightingEnabled:Boolean = false;
-
 	private var m_nPerspScaleX:Number = 0, m_nPerspScaleY:Number = 0;
 	private var m_nRotation:Number = 0;
-	private var _v:Vertex, _vx:Vertex, _vy:Vertex;
 	private var m_nDepth:Number;
 	private var _nScale:Number;
 	private var m_oMaterial:Material;

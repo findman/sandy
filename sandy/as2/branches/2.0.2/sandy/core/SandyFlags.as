@@ -16,6 +16,10 @@ limitations under the License.
 class sandy.core.SandyFlags
 {
 	
+	public static var VERTEX_WORLD:Number = 1 << 1;   
+	public static var VERTEX_CAMERA:Number = 1 << 2;  
+	public static var VERTEX_PROJECTED:Number = 1 << 3; 
+	
 	public static var POLYGON_NORMAL_WORLD:Number = 1;
 	public static var VERTEX_NORMAL_WORLD:Number = 2;
 	//public static var INVERT_MODEL_MATRIX:Number = 4;

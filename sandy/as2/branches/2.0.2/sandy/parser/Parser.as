@@ -17,6 +17,7 @@ limitations under the License.
 import sandy.parser.ASEParser;
 import sandy.parser.ColladaParser;
 import sandy.parser.IParser;
+import sandy.parser.OBJParser;
 
 /**
  * Dispatched when parsing fails.
@@ -73,7 +74,12 @@ class sandy.parser.Parser
 {
 	
 	/**
-	 * Specifies that the ASE (ASCII Scene Export) parser should be used.
+	 * Specifies that the OBJ ( ASCII Wavefront ) parser should be used.
+	 */
+	public static var OBJ:String = "OBJ";
+	
+	/**
+	 * Specifies that the ASE ( ASCII Scene Export ) parser should be used.
 	 */
 	public static var ASE:String = "ASE";
 
@@ -121,6 +127,9 @@ class sandy.parser.Parser
 				break;
 			case COLLADA:
 				 l_iParser = new ColladaParser( p_sFile, p_nScale, p_sTextureExtension );
+				break;
+			case OBJ:
+				l_iParser = new OBJParser( p_sFile, p_nScale, p_sTextureExtension );
 				break;
 			default:
 				break;
