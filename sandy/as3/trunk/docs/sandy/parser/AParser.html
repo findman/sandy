@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="AParser,sandy.parser.AParser,standardAppearance,parse" name="keywords">
+<meta content="AParser,sandy.parser.AParser,RELATIVE_TEXTURE_PATH,standardAppearance,parse" name="keywords">
 <title>sandy.parser.AParser</title>
 </head>
 <body>
@@ -64,6 +64,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#RELATIVE_TEXTURE_PATH">RELATIVE_TEXTURE_PATH</a> : String = "."<div class="summaryTableDescription">
+   Default path for images.</div>
+</td><td class="summaryTableOwnerCol">AParser</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#standardAppearance">standardAppearance</a> : <a href="../materials/Appearance.html">Appearance</a>
 <div class="summaryTableDescription">[write-only]
    Set the standard appearance for all the parsed objects.</div>
@@ -81,7 +86,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#AParser()">AParser</a>(p_sFile:*, p_nScale:Number)</div>
+<a class="signatureLink" href="#AParser()">AParser</a>(p_sFile:*, p_nScale:Number = 1, p_sTextureExtension:String = null)</div>
 <div class="summaryTableDescription">
    Creates a parser object.</div>
 </td><td class="summaryTableOwnerCol">AParser</td>
@@ -103,10 +108,20 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
+<a name="RELATIVE_TEXTURE_PATH"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">RELATIVE_TEXTURE_PATH</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var RELATIVE_TEXTURE_PATH:String = "."</code><p>
+   Default path for images.
+   </p></div>
 <a name="standardAppearance"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">standardAppearance</td><td class="detailHeaderType">property</td>
+<td class="detailHeaderName">standardAppearance</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
@@ -126,7 +141,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function AParser(p_sFile:*, p_nScale:Number)</code><p>
+<code>public function AParser(p_sFile:*, p_nScale:Number = 1, p_sTextureExtension:String = null)</code><p>
    Creates a parser object. Creates a root Group, default appearance
    and sets up an URLLoader.
       </p><span class="label">Parameters</span>
@@ -140,7 +155,14 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nScale</span>:Number</code> &mdash;  The scale amount.
+<td width="20px"></td><td><code><span class="label">p_nScale</span>:Number</code> (default = <code>1</code>)<code></code> &mdash;  The scale amount.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_sTextureExtension</span>:String</code> (default = <code>null</code>)<code></code> &mdash; Overrides texture extension.
    </td>
 </tr>
 </table>

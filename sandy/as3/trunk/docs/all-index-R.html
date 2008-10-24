@@ -77,11 +77,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Registers a scene.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ColladaParser.html#RELATIVE_TEXTURE_PATH">RELATIVE_TEXTURE_PATH</a> &mdash; Property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/ColladaParser.html">ColladaParser</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html#RELATIVE_TEXTURE_PATH">RELATIVE_TEXTURE_PATH</a> &mdash; Property in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/AParser.html">AParser</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Default path for COLLADA images.</td>
+   Default path for images.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#remove()">remove</a>() &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -92,13 +92,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html#remove()">remove</a>() &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Provide the classical remove behaviour, plus remove the container to the display list.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#remove()">remove</a>() &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -147,6 +140,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Removes listeners from the event broadcaster of the given type.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#render()">render</a>(p_oEvt:<a href="sandy/events/SandyEvent.html" onclick="javascript:loadClassListFrame('sandy/events./class-list.html');">sandy.events:SandyEvent</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
@@ -154,71 +153,31 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Renders the scene in its container.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Nothing is done here - the camera is not rendered
-   </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html">Group</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders all children of this group.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders this node.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders this 3D object.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders this 2D sprite
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite3D.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite3D.html">Sprite3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders this 3D sprite
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders the starfield
-      </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html">TransformGroup</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Renders all children of this transformgroup.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#renderDisplayList()">renderDisplayList</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#renderDisplayList()">renderDisplayList</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Process the rendering of the scene.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#renderer">renderer</a> &mdash; Property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   The renerer choosed for render this scene.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/package-detail.html">sandy.core</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#Renderer()">Renderer</a>() &mdash; Constructor in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html#renderPolygon()">renderPolygon</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_mcContainer) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html">Material</a></td>

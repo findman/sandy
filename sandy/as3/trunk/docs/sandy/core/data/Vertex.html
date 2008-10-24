@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Vertex,sandy.core.data.Vertex,aFaces,id,nbFaces,sx,sy,wx,wy,wz,x,y,z,add,clone,clone2,copy,createFromVector,cross,deserialize,dot,equals,getAngle,getNorm,getScreenPoint,getVector,getWorldVector,negate,normalize,pow,reset,scale,serialize,sub,toString" name="keywords">
+<meta content="Vertex,sandy.core.data.Vertex,aFaces,flags,id,nbFaces,projected,sx,sy,transformed,wx,wy,wz,x,y,z,add,clone,clone2,copy,createFromVector,cross,deserialize,dot,equals,getAngle,getNorm,getScreenPoint,getVector,getWorldVector,negate,normalize,pow,reset,scale,serialize,sub,toString" name="keywords">
 <title>sandy.core.data.Vertex</title>
 </head>
 <body>
@@ -64,8 +64,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#flags">flags</a> : int = 0<div class="summaryTableDescription">
+   Vertex flags that can be SandyFlags.VERTEX_WORLD, SandyFlags.VERTEX_CAMERA or SandyFlags.VERTEX_PROJECTED
+   Need to avoid unecessary computations
+   </div>
+</td><td class="summaryTableOwnerCol">Vertex</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#nbFaces">nbFaces</a> : uint = 0<div class="summaryTableDescription">
    The number of polygons the vertex belongs to.</div>
+</td><td class="summaryTableOwnerCol">Vertex</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#projected">projected</a> : Boolean = false<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -76,6 +87,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#sy">sy</a> : Number<div class="summaryTableDescription">
   The transformed y coordinate on the screen.</div>
+</td><td class="summaryTableOwnerCol">Vertex</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#transformed">transformed</a> : Boolean = false<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Vertex</td>
 </tr>
 <tr class="">
@@ -341,6 +356,17 @@ showHideInherited();
 <code>public var aFaces:Array</code><p>
    An array of polygons that use the vertex</p>
    </p></div>
+<a name="flags"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">flags</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var flags:int = 0</code><p>
+   Vertex flags that can be SandyFlags.VERTEX_WORLD, SandyFlags.VERTEX_CAMERA or SandyFlags.VERTEX_PROJECTED
+   Need to avoid unecessary computations
+   </p></div>
 <a name="nbFaces"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -351,6 +377,15 @@ showHideInherited();
 <code>public var nbFaces:uint = 0</code><p>
    The number of polygons the vertex belongs to.
    </p></div>
+<a name="projected"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">projected</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var projected:Boolean = false</code>
+</div>
 <a name="sx"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -371,6 +406,15 @@ showHideInherited();
 <code>public var sy:Number</code><p>
   The transformed y coordinate on the screen.
   </p></div>
+<a name="transformed"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">transformed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public var transformed:Boolean = false</code>
+</div>
 <a name="wx"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>

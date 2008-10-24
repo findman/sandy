@@ -90,7 +90,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
   Transforms a 3DS file into Sandy geometries.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html#Parser3DS()">Parser3DS</a>(p_sUrl, p_nScale) &mdash; Constructor in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html">Parser3DS</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html#Parser3DS()">Parser3DS</a>(p_sUrl, p_nScale, p_sTextureExtension) &mdash; Constructor in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser3DS.html">Parser3DS</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -249,7 +249,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
  The Plane3D is used for creating a plane primitive.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Plane3D.html#Plane3D()">Plane3D</a>(p_sName, p_nHeight, p_nWidth, p_nQualityH, p_nQualityV, p_sType) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Plane3D.html">Plane3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Plane3D.html#Plane3D()">Plane3D</a>(p_sName, p_nHeight, p_nWidth, p_nQualityH, p_nQualityV, p_sType, p_sMode) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Plane3D.html">Plane3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -305,6 +305,20 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
    Creates a new polygon.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Polygon2D.html">Polygon2D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/package-detail.html">sandy.extrusion.data</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  2D polygon class.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Polygon2D.html#Polygon2D()">Polygon2D</a>(points) &mdash; Constructor in class sandy.extrusion.data.<a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Polygon2D.html">Polygon2D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Creates Polygon2D instance.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#POLYGON_MAP">POLYGON_MAP</a> &mdash; Static property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
@@ -313,6 +327,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html#POLYGON_NORMAL_WORLD">POLYGON_NORMAL_WORLD</a> &mdash; Constant static property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SandyFlags.html">SandyFlags</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html">Pool</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/package-detail.html">sandy.core.data</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+  </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html#Pool()">Pool</a>() &mdash; Constructor in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html">Pool</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
@@ -457,11 +484,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("PÂ
    <p>Project the vertices list given in parameter.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#projectDico()">projectDico</a>(p_oList) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#projected">projected</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
-<td width="20"></td><td>
-   <p>Does the same thing as projectArray but allows the use of a dictionnary object to store reference to Vertex instances.</td>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#projectionMatrix">projectionMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>

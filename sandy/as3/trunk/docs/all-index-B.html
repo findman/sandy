@@ -42,6 +42,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   The coordinate of the second plane.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html#b">b</a> &mdash; Property in class sandy.extrusion.data.<a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html">Curve3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Array of binormal unit vectors at curve points.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/SkyBox.html#back">back</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/SkyBox.html">SkyBox</a></td>
 </tr>
 <tr>
@@ -55,11 +62,25 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <td width="20"></td><td></td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/class-list.html');" href="sandy/extrusion/Extrusion.html#backFace">backFace</a> &mdash; Property in class sandy.extrusion.<a onclick="javascript:loadClassListFrame('sandy/extrusion/class-list.html');" href="sandy/extrusion/Extrusion.html">Extrusion</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Collection of polygons on the back surface of extruded shape.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Appearance.html#backMaterial">backMaterial</a> &mdash; Property in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Appearance.html">Appearance</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    The back material held by this appearance.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Polygon2D.html#bbox()">bbox</a>() &mdash; Method in class sandy.extrusion.data.<a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Polygon2D.html">Polygon2D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Bounding box.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/package-detail.html">sandy.bounds</a></td>
@@ -74,20 +95,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Creates a new BBox instance.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#event:beforeRender">beforeRender</a> &mdash; Event in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
- Dispatched when after BitmapData object is locked and normally about to be cleared.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html#BEFORE_RENDER">BEFORE_RENDER</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Defines the value of the <code>type</code> property of a <code>beforeRender</code> event object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html#begin()">begin</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html">Material</a></td>
@@ -152,13 +159,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Specifies a BitmapMaterial.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html#bitmapData">bitmapData</a> &mdash; Property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   The BitmapData object reference.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/BitmapMaterial.html">BitmapMaterial</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/package-detail.html">sandy.materials</a></td>
@@ -240,29 +240,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
  The Box class is used for creating a cube or box primitive ( cuboid ).</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#Box()">Box</a>(p_sName, p_nWidth, p_nHeight, p_nDepth, p_nQuality) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#Box()">Box</a>(p_sName, p_nWidth, p_nHeight, p_nDepth, p_sMode, p_nQuality) &mdash; Constructor in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
   Creates a Box primitive.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxDepth">boxDepth</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   READ-ONLY
-   This getter allows to retrieve the original box depth specified at the geometry creation
-   IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxHeight">boxHeight</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   READ-ONLY
-   This getter allows to retrieve the original box height specified at the geometry creation
-   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#boxInFrustum()">boxInFrustum</a>(box:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
@@ -270,15 +252,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Returns the culling state for the passed bounding box.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html#boxWidth">boxWidth</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/Box.html">Box</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   READ-ONLY
-   This getter allows to retrieve the original box width specified at the geometry creation
-   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#broadcaster">broadcaster</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -346,6 +319,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Constructor.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/BitmapUtil.html#burnShapeTexture()">burnShapeTexture</a>(obj:<a href="sandy/core/scenegraph/Shape3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Shape3D</a>, scene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, srcTexture, dstTexture, ambient, diffuse, specular, gloss) &mdash; Static method in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/BitmapUtil.html">BitmapUtil</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Computes shape texture map pre-lit with Phong directional light source.</td>
 </tr>
 <tr>
 <td style="padding-bottom:20px" colspan="2"></td>

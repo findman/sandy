@@ -112,6 +112,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Returns the index of the Nth occurance of sub string.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#init()">init</a>() &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html#init()">init</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html">Pool</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/interaction/class-list.html');" href="sandy/core/interaction/TextLink.html#_init()">_init</a>() &mdash; Method in class sandy.core.interaction.<a onclick="javascript:loadClassListFrame('sandy/core/interaction/class-list.html');" href="sandy/core/interaction/TextLink.html">TextLink</a></td>
 </tr>
 <tr>
@@ -250,23 +262,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
   Inverts this matrix.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#invModelMatrix">invModelMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/ATransformable.html#invModelMatrix">invModelMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/ATransformable.html">ATransformable</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    <p>Inverse of the model matrix
-   This is apply at the culling phasis
-   The matrix is inverted in comparison of the real model view matrix.<br/>
-   This allows replacement of the objects in the correct camera frame before projection</p>
-   </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#invModelMatrix">invModelMatrix</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
-   In that case, that property will return the invert model matrix on that node
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
    </td>
 </tr>
 <tr>

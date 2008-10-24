@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Camera3D,sandy.core.scenegraph.Camera3D,frustrum,invModelMatrix,viewport,invProjectionMatrix,projectionMatrix,far,fov,near,addArrayToDisplayList,addToDisplayList,cull,destroy,projectArray,projectDico,projectVertex,render,renderDisplayList,setPerspectiveProjection,toString,update,updatePerspective" name="keywords">
+<meta content="Camera3D,sandy.core.scenegraph.Camera3D,frustrum,viewport,invProjectionMatrix,projectionMatrix,far,fov,near,cull,destroy,projectArray,projectVertex,setPerspectiveProjection,toString,update,updatePerspective" name="keywords">
 <title>sandy.core.scenegraph.Camera3D</title>
 </head>
 <body>
@@ -147,15 +147,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    The frustum of the camera.</div>
 </td><td class="summaryTableOwnerCol">Camera3D</td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#invModelMatrix">invModelMatrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="ATransformable.html#invModelMatrix">invModelMatrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
 <div class="summaryTableDescription">
    <p>Inverse of the model matrix
-   This is apply at the culling phasis
-   The matrix is inverted in comparison of the real model view matrix.<br/>
-   This allows replacement of the objects in the correct camera frame before projection</p>
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
    </div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
+</td><td class="summaryTableOwnerCol"><a href="ATransformable.html">ATransformable</a></td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#invProjectionMatrix">invProjectionMatrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
@@ -374,17 +373,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Camera3D()">Camera3D</a>(p_nWidth:Number, p_nHeight:Number, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000)</div>
+<a class="signatureLink" href="#Camera3D()">Camera3D</a>(p_nWidth:Number = 550, p_nHeight:Number = 400, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000)</div>
 <div class="summaryTableDescription">
    Creates a camera for projecting visible objects in the world.</div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#addArrayToDisplayList()">addArrayToDisplayList</a>(p_aShapeArray:Array):void</div>
-<div class="summaryTableDescription">
-         Adds a displayable array of object to the display list.</div>
 </td><td class="summaryTableOwnerCol">Camera3D</td>
 </tr>
 <tr class="hideInheritedMethod">
@@ -402,14 +393,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    Adds a listener for the specified event.</div>
 </td><td class="summaryTableOwnerCol"><a href="Node.html">Node</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#addToDisplayList()">addToDisplayList</a>(p_oShape:<a href="IDisplayable.html">IDisplayable</a>):void</div>
-<div class="summaryTableDescription">
-   Adds a displayable object to the display list.</div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
@@ -554,14 +537,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#projectDico()">projectDico</a>(p_oList:Dictionary):void</div>
-<div class="summaryTableDescription">
-   <p>Does the same thing as projectArray but allows the use of a dictionnary object to store reference to Vertex instances.</div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
 <a class="signatureLink" href="#projectVertex()">projectVertex</a>(p_oVertex:<a href="../data/Vertex.html">Vertex</a>):void</div>
 <div class="summaryTableDescription">
    <p>Project the vertex passed as parameter.</div>
@@ -590,23 +565,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    Removes a listener for the specified event.</div>
 </td><td class="summaryTableOwnerCol"><a href="Node.html">Node</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#render()">render</a>(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oCamera:<a href="Camera3D.html">Camera3D</a>):void</div>
-<div class="summaryTableDescription">
-   Nothing is done here - the camera is not rendered
-   </div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#renderDisplayList()">renderDisplayList</a>(p_oScene:<a href="../Scene3D.html">Scene3D</a>):void</div>
-<div class="summaryTableDescription">
-   Process the rendering of the scene.</div>
-</td><td class="summaryTableOwnerCol">Camera3D</td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
@@ -788,19 +746,6 @@ showHideInherited();
 <code>public var frustrum:<a href="../../view/Frustum.html">Frustum</a></code><p>
    The frustum of the camera.
    </p></div>
-<a name="invModelMatrix"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">invModelMatrix</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var invModelMatrix:<a href="../data/Matrix4.html">Matrix4</a></code><p>
-   </p><p>Inverse of the model matrix
-   This is apply at the culling phasis
-   The matrix is inverted in comparison of the real model view matrix.<br/>
-   This allows replacement of the objects in the correct camera frame before projection</p>
-   </div>
 <a name="invProjectionMatrix"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -865,7 +810,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Camera3D(p_nWidth:Number, p_nHeight:Number, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000)</code><p>
+<code>public function Camera3D(p_nWidth:Number = 550, p_nHeight:Number = 400, p_nFov:Number = 45, p_nNear:Number = 50, p_nFar:Number = 10000)</code><p>
    Creates a camera for projecting visible objects in the world.
       </p><p>By default the camera shows a perspective projection. <br />
    The camera is at -300 in z axis and look at the world 0,0,0 point.</p>
@@ -873,14 +818,14 @@ showHideInherited();
    <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nWidth</span>:Number</code> &mdash; Width of the camera viewport in pixels
+<td width="20px"></td><td><code><span class="label">p_nWidth</span>:Number</code> (default = <code>550</code>)<code></code> &mdash; Width of the camera viewport in pixels
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nHeight</span>:Number</code> &mdash; Height of the camera viewport in pixels
+<td width="20px"></td><td><code><span class="label">p_nHeight</span>:Number</code> (default = <code>400</code>)<code></code> &mdash; Height of the camera viewport in pixels
    </td>
 </tr>
 <tr>
@@ -908,44 +853,10 @@ showHideInherited();
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
-<a name="addArrayToDisplayList()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">addArrayToDisplayList</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public function addArrayToDisplayList(p_aShapeArray:Array):void</code><p>
-         Adds a displayable array of object to the display list.
-                  </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_aShapeArray</span>:Array</code> &mdash;  The object to add
-         </td>
-</tr>
-</table>
-</div>
-<a name="addToDisplayList()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">addToDisplayList</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public function addToDisplayList(p_oShape:<a href="IDisplayable.html">IDisplayable</a>):void</code><p>
-   Adds a displayable object to the display list.
-      </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oShape</span>:<a href="IDisplayable.html">IDisplayable</a></code> &mdash; The object to add
-   </td>
-</tr>
-</table>
-</div>
 <a name="cull()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">cull</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">cull</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
 </tr>
 </table>
 <div class="detailBody">
@@ -1007,24 +918,6 @@ showHideInherited();
 </tr>
 </table>
 </div>
-<a name="projectDico()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">projectDico</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public function projectDico(p_oList:Dictionary):void</code><p>
-   </p><p>Does the same thing as projectArray but allows the use of a dictionnary object to store reference to Vertex instances.
-   As a performance note, looping through a Dictionnary may be faster than an array.
-   </p>
-   <span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oList</span>:Dictionary</code></td>
-</tr>
-</table>
-</div>
 <a name="projectVertex()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -1040,48 +933,6 @@ showHideInherited();
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oVertex</span>:<a href="../data/Vertex.html">Vertex</a></code></td>
-</tr>
-</table>
-</div>
-<a name="render()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">render</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public override function render(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oCamera:<a href="Camera3D.html">Camera3D</a>):void</code><p>
-   Nothing is done here - the camera is not rendered
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../Scene3D.html">Scene3D</a></code></td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oCamera</span>:<a href="Camera3D.html">Camera3D</a></code></td>
-</tr>
-</table>
-</div>
-<a name="renderDisplayList()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderDisplayList</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public function renderDisplayList(p_oScene:<a href="../Scene3D.html">Scene3D</a>):void</code><p>
-   Process the rendering of the scene.
-   The camera has all the information needed about the objects to render.
-   
-   The camera stores all the visible shape/polygons into an array, and loop through it calling their display method.
-   Before the display call, the container graphics is cleared.
-   </p><span class="label">Parameters</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../Scene3D.html">Scene3D</a></code></td>
 </tr>
 </table>
 </div>

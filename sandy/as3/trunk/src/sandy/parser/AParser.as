@@ -22,7 +22,7 @@ package sandy.parser
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
-	
+
 	import sandy.core.scenegraph.Group;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.events.QueueEvent;
@@ -51,32 +51,32 @@ package sandy.parser
 		 * @private
 		 */
 		protected const m_oLoader:URLLoader = new URLLoader();
-		
+
 		/**
 		 * @private
 		 */
 		protected var m_oGroup:Group;
-		
+
 		/**
 		 * @private
 		 */
 		protected var m_oFile:Object;
-		
+
 		/**
 		 * @private
 		 */
 		protected var m_oFileLoader:URLLoader
-		
+
 		/**
 		 * @private
 		 */
 		protected var m_sDataFormat:String;
-		
+
 		/**
 		 * @private
 		 */
 		protected var m_nScale:Number;
-		
+
 		/**
 		 * @private
 		 */
@@ -206,7 +206,7 @@ package sandy.parser
 		/**
 		 * @private used internally to load textures
 		 */
-		protected function applyTextureToShape (shape:Object, texture:String)
+		protected function applyTextureToShape (shape:Object, texture:String):void
 		{
 			var texName:String = changeExt (texture);
 			var texId:int = -1;
@@ -228,7 +228,7 @@ package sandy.parser
 				m_aShapes [texId].push (shape);
 			}
 		}
-		
+
 		/**
 		 * @private Collada parser already loads textures on its own, so it needs this protected
 		 */

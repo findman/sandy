@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Parser3DSChunkTypes,sandy.parser.Parser3DSChunkTypes,BACK,BOGUS,BOTTOM,CAMERA,CAM_UNKNWN01,CAM_UNKNWN02,COL_RGB,COL_TRU,COL_UNK,DISABLED,EDIT3DS,EDIT_AMBIENT,EDIT_BACKGR,EDIT_CONFIG1,EDIT_CONFIG2,EDIT_MATERIAL,EDIT_OBJECT,EDIT_UNKNW01,EDIT_UNKNW02,EDIT_UNKNW03,EDIT_UNKNW04,EDIT_UNKNW05,EDIT_UNKNW06,EDIT_UNKNW07,EDIT_UNKNW08,EDIT_UNKNW09,EDIT_UNKNW10,EDIT_UNKNW11,EDIT_UNKNW12,EDIT_UNKNW13,EDIT_UNKNW14,EDIT_VIEW1,EDIT_VIEW_P1,EDIT_VIEW_P2,EDIT_VIEW_P3,FRONT,KEYF3DS,KEYF_FRAMES,KEYF_OBJDES,KEYF_UNKNWN01,KEYF_UNKNWN02,LEFT,LIGHT,LIT_OFF,LIT_SPOT,LIT_UNKNWN01,MAIN3DS,NODE_HDR,NODE_ID,OBJ_CAMERA,OBJ_LIGHT,OBJ_TRIMESH,OBJ_UNKNWN01,OBJ_UNKNWN02,PIVOT,POS_TRACK_TAG,RIGHT,ROT_TRACK_TAG,SCL_TRACK_TAG,TOP,TRI_FACEL1,TRI_FACEL2,TRI_LOCAL,TRI_SMOOTH,TRI_TEXCOORD,TRI_VERTEXL,TRI_VISIBLE,USER" name="keywords">
+<meta content="Parser3DSChunkTypes,sandy.parser.Parser3DSChunkTypes,BACK,BOGUS,BOTTOM,CAMERA,CAM_UNKNWN01,CAM_UNKNWN02,COL_RGB,COL_TRU,COL_UNK,DISABLED,EDIT3DS,EDIT_AMBIENT,EDIT_BACKGR,EDIT_CONFIG1,EDIT_CONFIG2,EDIT_MATERIAL,EDIT_OBJECT,EDIT_UNKNW01,EDIT_UNKNW02,EDIT_UNKNW03,EDIT_UNKNW04,EDIT_UNKNW05,EDIT_UNKNW06,EDIT_UNKNW07,EDIT_UNKNW08,EDIT_UNKNW09,EDIT_UNKNW10,EDIT_UNKNW11,EDIT_UNKNW12,EDIT_UNKNW13,EDIT_UNKNW14,EDIT_VIEW1,EDIT_VIEW_P1,EDIT_VIEW_P2,EDIT_VIEW_P3,FRONT,KEYF3DS,KEYF_FRAMES,KEYF_OBJDES,KEYF_UNKNWN01,KEYF_UNKNWN02,LEFT,LIGHT,LIT_OFF,LIT_SPOT,LIT_UNKNWN01,MAIN3DS,MAT_NAME,MAT_TEXFLNM,MAT_TEXMAP,NODE_HDR,NODE_ID,OBJ_CAMERA,OBJ_LIGHT,OBJ_TRIMESH,OBJ_UNKNWN01,OBJ_UNKNWN02,PIVOT,POS_TRACK_TAG,RIGHT,ROT_TRACK_TAG,SCL_TRACK_TAG,TOP,TRI_FACEL1,TRI_FACEL2,TRI_LOCAL,TRI_MATERIAL,TRI_SMOOTH,TRI_TEXCOORD,TRI_VERTEXL,TRI_VISIBLE,USER" name="keywords">
 <title>sandy.parser.Parser3DSChunkTypes</title>
 </head>
 <body>
@@ -240,6 +240,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MAT_NAME">MAT_NAME</a> : uint = 0xA000<div class="summaryTableDescription">[static]</div>
+</td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MAT_TEXFLNM">MAT_TEXFLNM</a> : uint = 0xA300<div class="summaryTableDescription">[static]</div>
+</td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#MAT_TEXMAP">MAT_TEXMAP</a> : uint = 0xA200<div class="summaryTableDescription">[static]</div>
+</td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#NODE_HDR">NODE_HDR</a> : uint = 0xB010<div class="summaryTableDescription">[static]</div>
 </td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
 </tr>
@@ -301,6 +313,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TRI_LOCAL">TRI_LOCAL</a> : uint = 0x4160<div class="summaryTableDescription">[static]</div>
+</td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TRI_MATERIAL">TRI_MATERIAL</a> : uint = 0x4130<div class="summaryTableDescription">[static]</div>
 </td><td class="summaryTableOwnerCol">Parser3DSChunkTypes</td>
 </tr>
 <tr class="">
@@ -755,6 +771,33 @@ showHideInherited();
 <div class="detailBody">
 <code>public static const MAIN3DS:uint = 0x4D4D</code>
 </div>
+<a name="MAT_NAME"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MAT_NAME</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MAT_NAME:uint = 0xA000</code>
+</div>
+<a name="MAT_TEXFLNM"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MAT_TEXFLNM</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MAT_TEXFLNM:uint = 0xA300</code>
+</div>
+<a name="MAT_TEXMAP"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">MAT_TEXMAP</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const MAT_TEXMAP:uint = 0xA200</code>
+</div>
 <a name="NODE_HDR"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -898,6 +941,15 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const TRI_LOCAL:uint = 0x4160</code>
+</div>
+<a name="TRI_MATERIAL"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">TRI_MATERIAL</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const TRI_MATERIAL:uint = 0x4130</code>
 </div>
 <a name="TRI_SMOOTH"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">

@@ -208,12 +208,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#invModelMatrix">invModelMatrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#invModelMatrix">invModelMatrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
 <div class="summaryTableDescription">
-   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
-   In that case, that property will return the invert model matrix on that node
+   <p>Inverse of the model matrix
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
    </div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#matrix">matrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
@@ -317,12 +318,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#visiblePolygonsCount">visiblePolygonsCount</a> : uint<div class="summaryTableDescription">
-   <p>Returns the number of visible polygons of that shape</p>
-   </div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#x">x</a> : Number<div class="summaryTableDescription">
    x position of this object in its parent frame.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
@@ -360,10 +355,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProtectedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_nDepth">m_nDepth</a> : Number = 0<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_oCache">m_oCache</a> : Dictionary<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProtectedProperty">
@@ -649,14 +640,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="../core/scenegraph/Shape3D.html#render()">render</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oCamera:<a href="../core/scenegraph/Camera3D.html">Camera3D</a>):void</div>
-<div class="summaryTableDescription">
-   Renders this 3D object.</div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
 <a class="signatureLink" href="../core/scenegraph/ATransformable.html#resetCoords()">resetCoords</a>():void</div>
 <div class="summaryTableDescription">
    Resets the coordinate system for this object.</div>
@@ -774,6 +757,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <table id="summaryTableConstant" class="summaryTable hideInheritedConstant" cellpadding="3" cellspacing="0">
 <tr>
 <th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="hideInheritedConstant">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#aVisiblePolygons">aVisiblePolygons</a> : Array<div class="summaryTableDescription">
+   Array containing the visible polygons of that shape.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedConstant">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Node.html#children">children</a> : Array<div class="summaryTableDescription">

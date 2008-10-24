@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="BitmapUtil,sandy.util.BitmapUtil,concatBitmapMatrix,getScaledBitmap,movieToBitmap,ripShapeTexture" name="keywords">
+<meta content="BitmapUtil,sandy.util.BitmapUtil,burnShapeTexture,concatBitmapMatrix,getScaledBitmap,movieToBitmap,ripShapeTexture" name="keywords">
 <title>sandy.util.BitmapUtil</title>
 </head>
 <body>
@@ -55,6 +55,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
+<a class="signatureLink" href="#burnShapeTexture()">burnShapeTexture</a>(obj:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, scene:<a href="../core/Scene3D.html">Scene3D</a>, srcTexture:BitmapData, dstTexture:BitmapData, ambient:Number = 0.3, diffuse:Number = 1.0, specular:Number = 0.0, gloss:Number = 5.0):void</div>
+<div class="summaryTableDescription">[static]
+   Computes shape texture map pre-lit with Phong directional light source.</div>
+</td><td class="summaryTableOwnerCol">BitmapUtil</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
 <a class="signatureLink" href="#concatBitmapMatrix()">concatBitmapMatrix</a>(p_oM1:Object, p_oM2:Object):Object</div>
 <div class="summaryTableDescription">[static]
    Returns a concatenation of two bitmap matrices.</div>
@@ -71,7 +79,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#movieToBitmap()">movieToBitmap</a>(p_oSprite:Sprite, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</div>
+<a class="signatureLink" href="#movieToBitmap()">movieToBitmap</a>(p_oSprite:DisplayObject, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</div>
 <div class="summaryTableDescription">[static]
    Converts a sprite to a bitmap respecting the sprite position.</div>
 </td><td class="summaryTableOwnerCol">BitmapUtil</td>
@@ -93,10 +101,104 @@ showHideInherited();
 <div class="MainContent">
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
+<a name="burnShapeTexture()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">burnShapeTexture</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static function burnShapeTexture(obj:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, scene:<a href="../core/Scene3D.html">Scene3D</a>, srcTexture:BitmapData, dstTexture:BitmapData, ambient:Number = 0.3, diffuse:Number = 1.0, specular:Number = 0.0, gloss:Number = 5.0):void</code><p>
+   Computes shape texture map pre-lit with Phong directional light source. Shape must be made of triangles.
+      </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">obj</span>:<a href="../core/scenegraph/Shape3D.html">Shape3D</a></code> &mdash; Shape for texture to be applied to.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">scene</span>:<a href="../core/Scene3D.html">Scene3D</a></code> &mdash; Scene you are going to render shape in.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">srcTexture</span>:BitmapData</code> &mdash; Source texture.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">dstTexture</span>:BitmapData</code> &mdash; Destination texture.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">ambient</span>:Number</code> (default = <code>0.3</code>)<code></code> &mdash; Ambient reflection factor.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">diffuse</span>:Number</code> (default = <code>1.0</code>)<code></code> &mdash; Diffuse reflection factor.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">specular</span>:Number</code> (default = <code>0.0</code>)<code></code> &mdash; Specular reflection factor.
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">gloss</span>:Number</code> (default = <code>5.0</code>)<code></code> &mdash; Specular exponent.
+      </td>
+</tr>
+</table>
+<br>
+<span class="label">Example</span>
+<br>The following CS3 code does sphere per-pixel lighting: <div class='listing'><pre>
+import sandy.core.Scene3D;
+import sandy.core.scenegraph.
+import sandy.primitive.
+import sandy.materials.
+import sandy.util.
+ 
+var tex:BitmapData = new Texture (0, 0); // tex.fillRect (tex.rect, 0xFFFFFF00);
+
+// code from "simplest sandy tutorial"
+var scene:Scene3D = new Scene3D( "myScene", this, new Camera3D( 550, 400 ), new Group("root") );
+var sphere:Sphere = new Sphere("mySphere");
+var mat:BitmapMaterial = new BitmapMaterial( tex.clone () ); mat.smooth = true;
+sphere.appearance = new Appearance( mat );
+scene.root.addChild( sphere );
+scene.render();
+
+// apply lighting
+function click (e: {
+ scene.light.setDirection(stage.stageWidth / 2 - stage.mouseX, stage.mouseY - stage.stageHeight / 2, 100);
+ BitmapUtil.burnShapeTexture (sphere, scene, tex, mat.texture, 0.3, 1.0, 2, 15.0);
+}
+
+stage.addEventListener ("click", click);
+</pre></div>
+   <p></p>
+</div>
 <a name="concatBitmapMatrix()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">concatBitmapMatrix</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+<td class="detailHeaderName">concatBitmapMatrix</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
@@ -177,7 +279,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function movieToBitmap(p_oSprite:Sprite, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</code><p>
+<code>public static function movieToBitmap(p_oSprite:DisplayObject, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</code><p>
    Converts a sprite to a bitmap respecting the sprite position.
    
    </p><p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
@@ -186,7 +288,7 @@ showHideInherited();
    <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oSprite</span>:Sprite</code> &mdash;   The sprite to convert.
+<td width="20px"></td><td><code><span class="label">p_oSprite</span>:DisplayObject</code> &mdash;   The sprite or other DisplayObject to convert to BitmapData. (DisplayObject allows support for AVM1Movie)
    </td>
 </tr>
 <tr>

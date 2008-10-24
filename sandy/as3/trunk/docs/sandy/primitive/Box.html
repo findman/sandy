@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Box,sandy.primitive.Box,FACE_BACK,FACE_BOTTOM,FACE_FRONT,FACE_LEFT,FACE_RIGHT,FACE_TOP,boxDepth,boxHeight,boxWidth,generate,getFace" name="keywords">
+<meta content="Box,sandy.primitive.Box,FACE_BACK,FACE_BOTTOM,FACE_FRONT,FACE_LEFT,FACE_RIGHT,FACE_TOP,generate,getFace" name="keywords">
 <title>sandy.primitive.Box</title>
 </head>
 <body>
@@ -50,9 +50,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <br>
 <span class="label">Example</span>
 <br>To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
- with a quality of 2, use the following statement:
+ in 'tri' mode and a with a quality of 2, use the following statement:
   <div class='listing'><pre>
-     var myBox:Box = new Box( "theBox", 50, 100, 150, 2 );
+     var myBox:Box = new Box( "theBox", 50, 100, 150, PrimitiveMode.TRI, 2 );
   </pre></div>
  <p></p>
 <br>
@@ -69,7 +69,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a onclick="javascript:setInheritedVisible(true,'Property');" href="#propertySummary" class="showHideLink"><img src="../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Public Properties</a>
 </div>
 </div>
-<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<table id="summaryTableProperty" class="summaryTable hideInheritedProperty" cellpadding="3" cellspacing="0">
 <tr>
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
@@ -104,27 +104,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    IMPORTANT: Do not modify it unless you perfectly know what you are doing
    </div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#boxDepth">boxDepth</a> : Number<div class="summaryTableDescription">[read-only]
-   READ-ONLY
-   This getter allows to retrieve the original box depth specified at the geometry creation
-   IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.</div>
-</td><td class="summaryTableOwnerCol">Box</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#boxHeight">boxHeight</a> : Number<div class="summaryTableDescription">[read-only]
-   READ-ONLY
-   This getter allows to retrieve the original box height specified at the geometry creation
-   </div>
-</td><td class="summaryTableOwnerCol">Box</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#boxWidth">boxWidth</a> : Number<div class="summaryTableDescription">[read-only]
-   READ-ONLY
-   This getter allows to retrieve the original box width specified at the geometry creation
-   </div>
-</td><td class="summaryTableOwnerCol">Box</td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Node.html#broadcaster">broadcaster</a> : <a href="../events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a>
@@ -229,12 +208,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#invModelMatrix">invModelMatrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#invModelMatrix">invModelMatrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
 <div class="summaryTableDescription">
-   This property will remains null until a material needs it, defining the SandyFlag INVERT_MODEL_MATRIX
-   In that case, that property will return the invert model matrix on that node
+   <p>Inverse of the model matrix
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
    </div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#matrix">matrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
@@ -338,12 +318,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#visiblePolygonsCount">visiblePolygonsCount</a> : uint<div class="summaryTableDescription">
-   <p>Returns the number of visible polygons of that shape</p>
-   </div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#x">x</a> : Number<div class="summaryTableDescription">
    x position of this object in its parent frame.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
@@ -381,10 +355,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProtectedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_nDepth">m_nDepth</a> : Number = 0<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedProtectedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#m_oCache">m_oCache</a> : Dictionary<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr class="hideInheritedProtectedProperty">
@@ -456,7 +426,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Box()">Box</a>(p_sName:String = null, p_nWidth:Number = 6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_nQuality:Number = 1)</div>
+<a class="signatureLink" href="#Box()">Box</a>(p_sName:String = null, p_nWidth:Number = 6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_sMode:String = "tri", p_nQuality:Number = 1)</div>
 <div class="summaryTableDescription">
   Creates a Box primitive.</div>
 </td><td class="summaryTableOwnerCol">Box</td>
@@ -679,14 +649,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="../core/scenegraph/Shape3D.html#render()">render</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oCamera:<a href="../core/scenegraph/Camera3D.html">Camera3D</a>):void</div>
-<div class="summaryTableDescription">
-   Renders this 3D object.</div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
-</tr>
-<tr class="hideInheritedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
 <a class="signatureLink" href="../core/scenegraph/ATransformable.html#resetCoords()">resetCoords</a>():void</div>
 <div class="summaryTableDescription">
    Resets the coordinate system for this object.</div>
@@ -806,6 +768,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Constant</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="hideInheritedConstant">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Shape3D.html#aVisiblePolygons">aVisiblePolygons</a> : Array<div class="summaryTableDescription">
+   Array containing the visible polygons of that shape.</div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr class="hideInheritedConstant">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/Node.html#children">children</a> : Array<div class="summaryTableDescription">
    The children of this node are stored inside this array.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
@@ -866,54 +833,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 showHideInherited();
 --></script>
 <div class="MainContent">
-<a name="propertyDetail"></a>
-<div class="detailSectionHeader">Property detail</div>
-<a name="boxDepth"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">boxDepth</td><td class="detailHeaderType">property</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>boxDepth:Number</code>&nbsp;&nbsp;[read-only]<p>
-   READ-ONLY
-   This getter allows to retrieve the original box depth specified at the geometry creation
-   IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get boxDepth():Number</code>
-<br>
-</div>
-<a name="boxHeight"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">boxHeight</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>boxHeight:Number</code>&nbsp;&nbsp;[read-only]<p>
-   READ-ONLY
-   This getter allows to retrieve the original box height specified at the geometry creation
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get boxHeight():Number</code>
-<br>
-</div>
-<a name="boxWidth"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">boxWidth</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>boxWidth:Number</code>&nbsp;&nbsp;[read-only]<p>
-   READ-ONLY
-   This getter allows to retrieve the original box width specified at the geometry creation
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get boxWidth():Number</code>
-<br>
-</div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Box()"></a>
@@ -923,7 +842,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Box(p_sName:String = null, p_nWidth:Number = 6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_nQuality:Number = 1)</code><p>
+<code>public function Box(p_sName:String = null, p_nWidth:Number = 6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_sMode:String = "tri", p_nQuality:Number = 1)</code><p>
   Creates a Box primitive.
     </p><p>The Box is created centered at the origin of the world coordinate system,
   and with its edges parallel to world coordinate axes.</p>
@@ -958,8 +877,16 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nQuality</span>:Number</code> (default = <code>1</code>)<code></code> &mdash; The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
+<td width="20px"></td><td><code><span class="label">p_sMode</span>:String</code> (default = "<code>tri</code>")<code></code> &mdash; One of two available face generation modes:
+                       "tri" generates faces with 3 vertices,
+     "quad" generates faces with 4 vertices.
     </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_nQuality</span>:Number</code> (default = <code>1</code>)<code></code></td>
 </tr>
 </table>
 <p>
@@ -990,11 +917,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code> &mdash; 
-                        The geometry object for the box.
-    
-                        
-                     </td>
+<td width="20"></td><td><code><a href="../core/scenegraph/Geometry3D.html">Geometry3D</a></code></td>
 </tr>
 </table>
 <p>

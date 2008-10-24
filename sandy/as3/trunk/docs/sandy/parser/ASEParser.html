@@ -81,6 +81,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AParser.html#RELATIVE_TEXTURE_PATH">RELATIVE_TEXTURE_PATH</a> : String = "."<div class="summaryTableDescription">
+   Default path for images.</div>
+</td><td class="summaryTableOwnerCol"><a href="AParser.html">AParser</a></td>
+</tr>
+<tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="AParser.html#standardAppearance">standardAppearance</a> : <a href="../materials/Appearance.html">Appearance</a>
 <div class="summaryTableDescription">
    Set the standard appearance for all the parsed objects.</div>
@@ -106,7 +111,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#ASEParser()">ASEParser</a>(p_sUrl:*, p_nScale:Number)</div>
+<a class="signatureLink" href="#ASEParser()">ASEParser</a>(p_sUrl:*, p_nScale:Number = 1, p_sTextureExtension:String = null)</div>
 <div class="summaryTableDescription">
    Creates a new ASEParser instance
       </div>
@@ -136,7 +141,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function ASEParser(p_sUrl:*, p_nScale:Number)</code><p>
+<code>public function ASEParser(p_sUrl:*, p_nScale:Number = 1, p_sTextureExtension:String = null)</code><p>
    Creates a new ASEParser instance
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -149,7 +154,15 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nScale</span>:Number</code> &mdash;  The scale factor
+<td width="20px"></td><td><code><span class="label">p_nScale</span>:Number</code> (default = <code>1</code>)<code></code> &mdash;  The scale factor
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_sTextureExtension</span>:String</code> (default = <code>null</code>)<code></code> &mdash; Overrides texture extension. You might want to use it for models that
+   specify PSD or TGA textures.
    </td>
 </tr>
 </table>

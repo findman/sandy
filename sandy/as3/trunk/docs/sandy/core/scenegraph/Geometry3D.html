@@ -151,7 +151,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextFaceID()">getNextFaceID</a>():Number</div>
+<a class="signatureLink" href="#getNextFaceID()">getNextFaceID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused face id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -159,7 +159,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextFaceNormalID()">getNextFaceNormalID</a>():Number</div>
+<a class="signatureLink" href="#getNextFaceNormalID()">getNextFaceNormalID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused normal id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -167,7 +167,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextFaceUVCoordID()">getNextFaceUVCoordID</a>():Number</div>
+<a class="signatureLink" href="#getNextFaceUVCoordID()">getNextFaceUVCoordID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused face UV coordinates id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -175,7 +175,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextUVCoordID()">getNextUVCoordID</a>():Number</div>
+<a class="signatureLink" href="#getNextUVCoordID()">getNextUVCoordID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused UV coordinates id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -183,7 +183,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextVertexID()">getNextVertexID</a>():Number</div>
+<a class="signatureLink" href="#getNextVertexID()">getNextVertexID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused vertex id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -191,7 +191,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getNextVertexNormalID()">getNextVertexNormalID</a>():Number</div>
+<a class="signatureLink" href="#getNextVertexNormalID()">getNextVertexNormalID</a>():int</div>
 <div class="summaryTableDescription">
    Returns the next unused vertex normal id.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -199,7 +199,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getVertexId()">getVertexId</a>(p_point:<a href="../data/Vertex.html">Vertex</a>):Number</div>
+<a class="signatureLink" href="#getVertexId()">getVertexId</a>(p_point:<a href="../data/Vertex.html">Vertex</a>):int</div>
 <div class="summaryTableDescription">
    Returns the index of a specified point in the vertex list.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -215,7 +215,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setFaceNormal()">setFaceNormal</a>(p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</div>
+<a class="signatureLink" href="#setFaceNormal()">setFaceNormal</a>(p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</div>
 <div class="summaryTableDescription">
    Adds new normal at the specified index of the face normal list.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -223,7 +223,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setFaceUVCoordsIds()">setFaceUVCoordsIds</a>(p_nFaceID:Number, ... arguments):Number</div>
+<a class="signatureLink" href="#setFaceUVCoordsIds()">setFaceUVCoordsIds</a>(p_nFaceID:int, ... arguments):int</div>
 <div class="summaryTableDescription">
    Set the ID's of face UV coordinates.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -231,7 +231,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setFaceVertexIds()">setFaceVertexIds</a>(p_nFaceID:Number, ... arguments):Number</div>
+<a class="signatureLink" href="#setFaceVertexIds()">setFaceVertexIds</a>(p_nFaceID:int, ... arguments):int</div>
 <div class="summaryTableDescription">
    Sets the ID's of the face vertices.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -239,7 +239,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setUVCoords()">setUVCoords</a>(p_nID:Number, p_UValue:Number, p_nVValue:Number):Number</div>
+<a class="signatureLink" href="#setUVCoords()">setUVCoords</a>(p_nID:int, p_UValue:Number, p_nVValue:Number):int</div>
 <div class="summaryTableDescription">
    Adds UV coordinates for single face.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -247,7 +247,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setVertex()">setVertex</a>(p_nVertexID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</div>
+<a class="signatureLink" href="#setVertex()">setVertex</a>(p_nVertexID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</div>
 <div class="summaryTableDescription">
    Adds new point at the specified index of the vertex list.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -255,7 +255,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#setVertexNormal()">setVertexNormal</a>(p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</div>
+<a class="signatureLink" href="#setVertexNormal()">setVertexNormal</a>(p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</div>
 <div class="summaryTableDescription">
    Add new point the specified index of the vertex normal list.</div>
 </td><td class="summaryTableOwnerCol">Geometry3D</td>
@@ -429,14 +429,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextFaceID():Number</code><p>
+<code>public function getNextFaceID():int</code><p>
    Returns the next unused face id.
       </p><p>This is the next free index in the faces list, and used by setFaceVertexIds</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The index
+<td width="20"></td><td><code>int</code> &mdash;  The index
    </td>
 </tr>
 </table>
@@ -448,14 +448,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextFaceNormalID():Number</code><p>
+<code>public function getNextFaceNormalID():int</code><p>
    Returns the next unused normal id.
       </p><p>This is the next free index in the normal list, and used by setFaceNormal</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The normal id
+<td width="20"></td><td><code>int</code> &mdash;  The normal id
    </td>
 </tr>
 </table>
@@ -467,14 +467,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextFaceUVCoordID():Number</code><p>
+<code>public function getNextFaceUVCoordID():int</code><p>
    Returns the next unused face UV coordinates id.
       </p><p>This is the next free index in the UV coordinate id list, and used by setFaceUVCoords</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The index
+<td width="20"></td><td><code>int</code> &mdash;  The index
    </td>
 </tr>
 </table>
@@ -486,7 +486,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextUVCoordID():Number</code><p>
+<code>public function getNextUVCoordID():int</code><p>
    Returns the next unused UV coordinates id.
    
    </p><p>This is the next free index in the UV coordinates list, and used by setUVCoords</p>
@@ -494,7 +494,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The index
+<td width="20"></td><td><code>int</code> &mdash;  The index
    </td>
 </tr>
 </table>
@@ -506,14 +506,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextVertexID():Number</code><p>
+<code>public function getNextVertexID():int</code><p>
    Returns the next unused vertex id.
       </p><p>this is the next free index in the verex list, and used by setVertex</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The vertex id
+<td width="20"></td><td><code>int</code> &mdash;  The vertex id
    </td>
 </tr>
 </table>
@@ -525,14 +525,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getNextVertexNormalID():Number</code><p>
+<code>public function getNextVertexNormalID():int</code><p>
    Returns the next unused vertex normal id.
       </p><p>This is the next free index in the vertex normal list, and used by setVertexNormal</p>
       <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The vertex normal id
+<td width="20"></td><td><code>int</code> &mdash;  The vertex normal id
    </td>
 </tr>
 </table>
@@ -544,7 +544,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getVertexId(p_point:<a href="../data/Vertex.html">Vertex</a>):Number</code><p>
+<code>public function getVertexId(p_point:<a href="../data/Vertex.html">Vertex</a>):int</code><p>
    Returns the index of a specified point in the vertex list.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -556,7 +556,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;  The index
+<td width="20"></td><td><code>int</code> &mdash;  The index
    </td>
 </tr>
 </table>
@@ -578,13 +578,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setFaceNormal(p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</code><p>
+<code>public function setFaceNormal(p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</code><p>
    Adds new normal at the specified index of the face normal list.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nNormalID</span>:Number</code> &mdash; Index at which to save the normal
+<td width="20px"></td><td><code><span class="label">p_nNormalID</span>:int</code> &mdash; Index at which to save the normal
    </td>
 </tr>
 <tr>
@@ -613,7 +613,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied   
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied   
    </td>
 </tr>
 </table>
@@ -625,12 +625,12 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setFaceUVCoordsIds(p_nFaceID:Number, ... arguments):Number</code><p>
+<code>public function setFaceUVCoordsIds(p_nFaceID:int, ... arguments):int</code><p>
    Set the ID's of face UV coordinates.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nFaceID</span>:Number</code> &mdash; The id of the face
+<td width="20px"></td><td><code><span class="label">p_nFaceID</span>:int</code> &mdash; The id of the face
    </td>
 </tr>
 <tr>
@@ -645,7 +645,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied
    </td>
 </tr>
 </table>
@@ -657,13 +657,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setFaceVertexIds(p_nFaceID:Number, ... arguments):Number</code><p>
+<code>public function setFaceVertexIds(p_nFaceID:int, ... arguments):int</code><p>
    Sets the ID's of the face vertices.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nFaceID</span>:Number</code> &mdash; Id of the face
+<td width="20px"></td><td><code><span class="label">p_nFaceID</span>:int</code> &mdash; Id of the face
    </td>
 </tr>
 <tr>
@@ -677,7 +677,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied
    </td>
 </tr>
 </table>
@@ -689,14 +689,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setUVCoords(p_nID:Number, p_UValue:Number, p_nVValue:Number):Number</code><p>
+<code>public function setUVCoords(p_nID:int, p_UValue:Number, p_nVValue:Number):int</code><p>
    Adds UV coordinates for single face.
    
    [<b>ToDo</b>: Explain this ]
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nID</span>:Number</code> &mdash;  The id of the face
+<td width="20px"></td><td><code><span class="label">p_nID</span>:int</code> &mdash;  The id of the face
    </td>
 </tr>
 <tr>
@@ -718,7 +718,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied
    </td>
 </tr>
 </table>
@@ -730,13 +730,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setVertex(p_nVertexID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</code><p>
+<code>public function setVertex(p_nVertexID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</code><p>
    Adds new point at the specified index of the vertex list.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nVertexID</span>:Number</code> &mdash; Index at which to save the vertex
+<td width="20px"></td><td><code><span class="label">p_nVertexID</span>:int</code> &mdash; Index at which to save the vertex
    </td>
 </tr>
 <tr>
@@ -765,7 +765,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied   
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied   
    </td>
 </tr>
 </table>
@@ -777,13 +777,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function setVertexNormal(p_nNormalID:Number, p_nX:Number, p_nY:Number, p_nZ:Number):Number</code><p>
+<code>public function setVertexNormal(p_nNormalID:int, p_nX:Number, p_nY:Number, p_nZ:Number):int</code><p>
    Add new point the specified index of the vertex normal list.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_nNormalID</span>:Number</code> &mdash; Index at which to save the vertex normal
+<td width="20px"></td><td><code><span class="label">p_nNormalID</span>:int</code> &mdash; Index at which to save the vertex normal
    </td>
 </tr>
 <tr>
@@ -812,7 +812,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash;   The next free index or -1 it the index is already occupied
+<td width="20"></td><td><code>int</code> &mdash;   The next free index or -1 it the index is already occupied
    </td>
 </tr>
 </table>

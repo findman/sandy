@@ -169,6 +169,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
   The front plane of the SkyBox.</div>
 </td><td class="summaryTableOwnerCol">SkyBox</td>
 </tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/scenegraph/ATransformable.html#invModelMatrix">invModelMatrix</a> : <a href="../core/data/Matrix4.html">Matrix4</a>
+<div class="summaryTableDescription">
+   <p>Inverse of the model matrix
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/ATransformable.html">ATransformable</a></td>
+</tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#left">left</a> : <a href="../primitive/Plane3D.html">Plane3D</a>
 <div class="summaryTableDescription">[read-only]
@@ -563,14 +572,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    Removes a listener for the specified event.</div>
 </td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/Node.html">Node</a></td>
-</tr>
-<tr class="hideInheritedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../core/scenegraph/TransformGroup.html#render()">render</a>(p_oScene:<a href="../core/Scene3D.html">Scene3D</a>, p_oCamera:<a href="../core/scenegraph/Camera3D.html">Camera3D</a>):void</div>
-<div class="summaryTableDescription">
-   Renders all children of this transformgroup.</div>
-</td><td class="summaryTableOwnerCol"><a href="../core/scenegraph/TransformGroup.html">TransformGroup</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
