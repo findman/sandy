@@ -260,7 +260,13 @@ class sandy.materials.attributes.OutlineAttributes extends AAttributes
 	{
 		var g:MovieClip = p_oSprite.container; g.clear();
 		var r:Object = p_oSprite.container.getBounds( p_oSprite.container );
-		g.lineStyle( m_nThickness, m_nColor, m_nAlpha ); g.drawRect( r.xMin, r.yMin, ( r.xMax - r.xMin ), ( r.yMax - r.yMin )  );
+		g.lineStyle( m_nThickness, m_nColor, m_nAlpha ); 
+		g.beginFill();
+		g.moveTo( r.xMin, r.yMin );
+		g.lineTo( r.xMin, r.yMax );
+		g.lineTo( r.xMax, r.yMax );
+		g.lineTo( r.xMax, r.yMin );
+		g.endFill();
 	}
 	
 }
