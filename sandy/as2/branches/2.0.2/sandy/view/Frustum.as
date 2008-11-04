@@ -102,17 +102,17 @@ class sandy.view.Frustum
 	/**
 	* Alias of CullingState.INSIDE.
 	*/
-	public static var INSIDE:CullingState;
+	public static var INSIDE:CullingState = CullingState.INSIDE;
 		
 	/**
 	 * Alias of CullingState.OUTSIDE.
 	 */
-	public static var OUTSIDE:CullingState;
+	public static var OUTSIDE:CullingState = CullingState.OUTSIDE;
 		
 	/**
 	 * Alias of CullingState.INTERSECT.
 	 */
-	public static var INTERSECT:CullingState;
+	public static var INTERSECT:CullingState = CullingState.INTERSECT;
 	public static var EPSILON:Number = 0.005;
 	
 	/**
@@ -126,10 +126,6 @@ class sandy.view.Frustum
 		aPoints 	= new Array( 8 );
 		aNormals 	= new Array( 6 );
 		aConstants 	= new Array( 6 );
-		// -- define some vars
-		INSIDE = CullingState.INSIDE;
-		OUTSIDE = CullingState.OUTSIDE;
-		INTERSECT = CullingState.INTERSECT;
 	}
 		
 	/**
@@ -212,7 +208,7 @@ class sandy.view.Frustum
 	 */
 	public function sphereInFrustum( p_oS:BSphere ) : CullingState
 	{
-        var d:Number = 0, c:Number=0;
+        var d:Number = 0, c:Number = 0;
         var x:Number = p_oS.position.x, y:Number = p_oS.position.y, z:Number = p_oS.position.z, radius:Number = p_oS.radius;
         // --
 		var plane:Plane;

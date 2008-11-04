@@ -32,17 +32,17 @@ class sandy.view.CullingState
 	/**
 	 * Specifies that the object intersects one or more planes of the frustum and should be partly rendered.
 	 */
-	public static var INTERSECT:CullingState;
+	public static var INTERSECT:CullingState = new CullingState( "intersect" );
 		
 	/**
 	 * Specifies that the object completely inside the frustum and should be rendered.
 	 */
-	public static var INSIDE:CullingState;
+	public static var INSIDE:CullingState = new CullingState( "inside" );
 		
 	/**
 	 * Specifies that the object completely outside the frustum and should not be rendered.
 	 */
-	public static var OUTSIDE:CullingState;
+	public static var OUTSIDE:CullingState = new CullingState( "outside" );
 		
 	/**
 	 * Returns the string representation of the CullingState object.
@@ -56,11 +56,7 @@ class sandy.view.CullingState
 	 * Sets the value of this culling state.
 	 */
 	public function CullingState( p_sState:String )
-	{
-		INTERSECT = new CullingState( "intersect" );
-		INSIDE 	  = new CullingState( "inside" );
-		OUTSIDE	  = new CullingState( "outside" );
-		
+	{		
 		m_sState = p_sState;
 	}
 	

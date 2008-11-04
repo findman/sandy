@@ -252,7 +252,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 * the bounding box is updated to perform the more precise culling.</p>
 	 * <p><b>[ MANDATORY ] The update method must be called first!</b></p>
 	 *
-	 * @param p_oScene The current scene
+	 * @param p_oScene 		The current scene
 	 * @param p_oFrustum	The frustum of the current camera
 	 * @param p_oViewMatrix	The view martix of the curren camera
 	 * @param p_bChanged

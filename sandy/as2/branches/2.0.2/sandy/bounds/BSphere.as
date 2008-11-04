@@ -128,8 +128,8 @@ class sandy.bounds.BSphere
 			j = i + 1;
 			while( j < l )
 			{
-				pA = p_aVertices[ Math.round( i ) ];
-				pB = p_aVertices[ Math.round( j ) ];
+				pA = p_aVertices[ int( i ) ];
+				pB = p_aVertices[ int( j ) ];
 				x = pB.x - pA.x;
 				y = pB.y - pA.y;
 				z = pB.z - pA.z;

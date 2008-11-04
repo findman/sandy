@@ -23,7 +23,7 @@ import sandy.core.Scene3D;
  * 
  * @author		Thomas Pfeiffer - kiroukou
  * @author		(porting) Floris - xdevltd
- * @version		2.0
+ * @version		2.0.2
  * @date 		26.07.2007
  */
  

@@ -110,10 +110,8 @@ class sandy.core.scenegraph.Node
 	 */
 	public function Node( p_sName:String )
 	{
-		changed = false;
 		id = _ID_++;
 		children = new Array();
-		culled = CullingState.OUTSIDE;
 		modelMatrix = new Matrix4();
 		viewMatrix = new Matrix4();
 		// --
