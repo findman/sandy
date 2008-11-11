@@ -255,15 +255,18 @@ package sandy.parser
 				var s:Shape3D = Shape3D (m_oGroup.children[i]);
 				currentMatId = recToGet2 [i];
 				// have any submaterials?
-				if (m_subMaterials [currentMatId].length > 0)
+				if( m_subMaterials [currentMatId] )
 				{
-					l_aPolySubmatId = l_aPolySubmatIds [i];
-					for (var j:int = 0; j < s.aPolygons.length; j++)
+					if (m_subMaterials [currentMatId].length > 0)
 					{
-						//trace ("shape " + i + " mat " + currentMatId + " poly " + j +
-						// " submat id " + l_aPolySubmatId [j] + " bitmap " + m_subMaterials [currentMatId] [l_aPolySubmatId [j]]);
-						applyTextureToShape (s.aPolygons [j],
-							m_subMaterials [currentMatId] [l_aPolySubmatId [j]] );
+						l_aPolySubmatId = l_aPolySubmatIds [i];
+						for (var j:int = 0; j < s.aPolygons.length; j++)
+						{
+							//trace ("shape " + i + " mat " + currentMatId + " poly " + j +
+							// " submat id " + l_aPolySubmatId [j] + " bitmap " + m_subMaterials [currentMatId] [l_aPolySubmatId [j]]);
+							applyTextureToShape (s.aPolygons [j],
+								m_subMaterials [currentMatId] [l_aPolySubmatId [j]] );
+						}
 					}
 				}
 				else

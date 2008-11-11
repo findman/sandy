@@ -16,21 +16,22 @@ limitations under the License.
 
 package sandy.core 
 {
-	import sandy.core.data.Pool;	
-	
-	import flash.display.Sprite;	
-	
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
+	import sandy.core.data.Pool;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Camera3D;
 	import sandy.core.scenegraph.IDisplayable;
 	import sandy.core.scenegraph.Node;
+	import sandy.core.scenegraph.Renderable;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.Sprite2D;
+	import sandy.materials.Appearance;
 	import sandy.view.CullingState;
-	import sandy.view.Frustum;	
+	import sandy.view.Frustum;
+	
+	import flash.display.Sprite;		
 
 	/**
 	 * @author thomas
@@ -176,9 +177,13 @@ package sandy.core
 		                l_oVertex = l_oFace.d;
 						if( l_oVertex )
 		                {
-							l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
-							l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-							l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
+							if( l_oVertex.transformed == false )
+							{
+								l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
+								l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
+								l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
+								l_oVertex.transformed = true;
+							}
 		                }
 
 		                // --               	
@@ -218,6 +223,23 @@ package sandy.core
 							l_oShape.aVisiblePolygons[int(l_oShape.aVisiblePolygons.length)] = l_oFace;
 							// --
 							l_nPolyFlags |= l_nFlags;
+							// --
+							if( l_oFace.hasAppearanceChanged )
+							{
+								var l_oApp:Appearance = l_oFace.appearance;
+								if( p_oScene.materialManager.isRegistered( l_oApp.frontMaterial ) == false )
+								{
+									p_oScene.materialManager.register( l_oApp.frontMaterial );
+								}
+								if( l_oApp.frontMaterial != l_oApp.backMaterial )
+								{
+									if( p_oScene.materialManager.isRegistered( l_oApp.backMaterial ) == false )
+									{
+										p_oScene.materialManager.register( l_oApp.backMaterial );
+									}
+								}
+								l_oFace.hasAppearanceChanged = false;
+							}
 							// --
 							if( l_oShape.useSingleContainer == false )
 								m_aRenderingList[int(m_nRenderingListCount++)] = l_oFace;
@@ -290,6 +312,11 @@ package sandy.core
 		
 					l_oSprite2D.vx.copy (l_oVertex); l_oSprite2D.vx.wx++; l_oCamera.projectVertex (l_oSprite2D.vx);
 					l_oSprite2D.vy.copy (l_oVertex); l_oSprite2D.vy.wy++; l_oCamera.projectVertex (l_oSprite2D.vy);
+				}
+				else if( m_aDisplayList[int(i)] is Renderable )
+				{
+					(m_aDisplayList[int(i)] as Renderable).render(p_oScene, l_oCamera);
+					m_aRenderingList[int(m_nRenderingListCount++)] = m_aDisplayList[int(i)] as Renderable;
 				}
 			}
 		}

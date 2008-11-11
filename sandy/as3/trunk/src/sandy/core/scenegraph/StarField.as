@@ -15,22 +15,15 @@ limitations under the License.
 */
 
 package sandy.core.scenegraph 
-{	
-	import flash.display.*;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
+{	import flash.display.*;
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
 	
-	import sandy.bounds.BSphere;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Vertex;
 	import sandy.events.StarFieldRenderEvent;
-	import sandy.materials.Material;
-	import sandy.view.CullingState;
-	import sandy.view.Frustum;
-	
+	import sandy.view.Frustum;	
 	/**
 	* Dispatched when after BitmapData object is locked and normally about to be cleared.
 	*
@@ -52,7 +45,7 @@ package sandy.core.scenegraph
 	 * @version		3.0.3
 	 * @date 		03.03.2008
 	 */
-	public class StarField extends ATransformable implements IDisplayable
+	public class StarField extends ATransformable implements IDisplayable, Renderable
 	{
 		/**
 		 * Distance from screen where stars start to fade out
@@ -152,6 +145,8 @@ package sandy.core.scenegraph
 				m_oBitmapData = new BitmapData (p_oScene.camera.viewport.width,
 					p_oScene.camera.viewport.height, true, 0); makeEvents ();
 				m_oBitmap.bitmapData = m_oBitmapData;
+				// --
+				p_oScene.renderer.addToDisplayList( this ); 
 			}
 		}
 		
@@ -161,7 +156,7 @@ package sandy.core.scenegraph
 		 * @param p_oScene The current scene
 		 * @param p_oCamera	The current camera
 		 */
-		public override function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
+		public function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
 		{
 			resetEvents ();
 
@@ -229,7 +224,6 @@ package sandy.core.scenegraph
 			if (m_oEventAfter.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			m_oBitmapData.unlock();
 
-			p_oCamera.addToDisplayList (this);
 		}
 
 		/**
