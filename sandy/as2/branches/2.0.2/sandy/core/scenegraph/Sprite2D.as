@@ -12,25 +12,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import com.bourre.commands.Delegate;
-import com.bourre.events.BasicEvent;
-import com.bourre.events.EventBroadcaster;
-import com.bourre.events.EventType;
-	
+ */
 import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.ATransformable;
-import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Camera3D;
+import sandy.core.scenegraph.IDisplayable;
 import sandy.events.MouseEvent;
 import sandy.materials.Material;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
-	
+
+import com.bourre.commands.Delegate;
+import com.bourre.events.BasicEvent;
+import com.bourre.events.EventType;
+
 /**
  * The Sprite2D class is used to create a 2D sprite.
  *

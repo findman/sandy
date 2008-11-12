@@ -72,8 +72,9 @@ class sandy.core.data.PrimitiveFace
 		if( m_iPrimitive.geometry )	// ?? is it needed?
 		{
 			var v:Polygon;
-			for( v in aPolygons )
-				aPolygons[ v ].appearance = m_oAppearance;
+			var i:Number = aPolygons.length;
+			while( v = aPolygons[--i] )
+				v.appearance = m_oAppearance;
 		}	
 	}
 	

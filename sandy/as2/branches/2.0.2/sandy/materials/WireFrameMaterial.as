@@ -52,7 +52,7 @@ class sandy.materials.WireFrameMaterial extends Material
 		// --
 		m_oType = MaterialType.WIREFRAME;
 		// --
-		attributes.attributes.push( new LineAttributes( p_nThickness||1, p_nColor||0, p_nAlpha||1 ) ) ;
+		attributes.attributes.push( new LineAttributes( p_nThickness||1, p_nColor||0, p_nAlpha||100 ) ) ;
 
 	}
 

@@ -12,18 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import flash.geom.Matrix;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-	
-import com.bourre.commands.Delegate;
-import com.bourre.data.collections.Map;
-import com.bourre.events.BubbleEvent;
-import com.bourre.events.BubbleEventBroadcaster;
-import com.bourre.events.EventType;
-
+ */
 import sandy.core.Scene3D;
 import sandy.core.data.Edge3D;
 import sandy.core.data.UVCoord;
@@ -34,13 +23,22 @@ import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.sorters.IDepthSorter;
 import sandy.core.sorters.MeanDepthSorter;
-import sandy.events.Shape3DEvent;
-import sandy.events.MouseEvent;
 import sandy.events.KeyboardEvent;
+import sandy.events.MouseEvent;
+import sandy.events.Shape3DEvent;
 import sandy.materials.Appearance;
 import sandy.math.IntersectionMath;
 import sandy.math.VectorMath;
 import sandy.view.Frustum;
+
+import com.bourre.commands.Delegate;
+import com.bourre.data.collections.Map;
+import com.bourre.events.BubbleEventBroadcaster;
+import com.bourre.events.EventType;
+
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 /**
  * Polygon's are the building blocks of visible 3D shapes.
@@ -178,12 +176,11 @@ class sandy.core.data.Polygon implements IDisplayable
 		m_oGeometry = p_geometry;
 		// --
 		__update( p_aVertexID, p_aUVCoordsID, p_nFaceNormalID, p_nEdgesID );
-		m_oContainer = new MovieClip();
 		depthSorter = new MeanDepthSorter();
 		// --
 		POLYGON_MAP = new Map();
 		POLYGON_MAP.put( id, this );
-		m_oEB = new BubbleEventBroadcaster( this, p_oOwner.broadcaster )
+		m_oEB = new BubbleEventBroadcaster( this, p_oOwner.broadcaster );
 	}
 	
 	/**
@@ -263,9 +260,11 @@ class sandy.core.data.Polygon implements IDisplayable
 		// --
 		aEdges = new Array();
 		var l_nEdgeId:Number;
-		for( l_nEdgeId in m_oGeometry.aFaceEdges[ p_nEdgeListID ] )
+		var edges:Array = m_oGeometry.aFaceEdges[ p_nEdgeListID ];
+		i = edges.length;
+		while( l_nEdgeId = edges[--i] )
 		{
-			var l_oEdge:Edge3D = m_oGeometry.aEdges[ m_oGeometry.aFaceEdges[ p_nEdgeListID ][ l_nEdgeId ] ];
+			var l_oEdge:Edge3D = m_oGeometry.aEdges[ l_nEdgeId ];
 			l_oEdge.vertex1 = m_oGeometry.aVertex[ l_oEdge.vertexId1 ];
 			l_oEdge.vertex2 = m_oGeometry.aVertex[ l_oEdge.vertexId2 ];
 			aEdges.push( l_oEdge );
@@ -534,6 +533,11 @@ class sandy.core.data.Polygon implements IDisplayable
 		return m_oContainer;
 	}
 
+	public function set container(p_oContainer : MovieClip)
+	{
+		m_oContainer = p_oContainer;
+	}
+	
 	/**
 	 * Returns a string representation of this object.
 	 *

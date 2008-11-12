@@ -937,21 +937,31 @@ class sandy.core.data.Matrix4
 		var s:Number, c:Number, r:Number, t:Number, u:Number;
 		if( b == 0 )
 		{
-			c = ( a > 0 ) ? 1 : -1; s = 0; r = Math.abs( a );
+			c = ( a > 0 ) ? 1 : -1; 
+			s = 0; 
+			r = Math.abs( a );
 		} 
 		else if( a == 0 ) 
 		{
-			c = 0; s = ( b > 0 ) ? 1 : -1; r < Math.abs( b );
+			c = 0; 
+			s = ( b > 0 ) ? 1 : -1; 
+			//r < Math.abs( b ); //TODO Thomas, what this is for?
 		} 
 		else if( Math.abs( b ) > Math.abs( a ) )
 		{
-			t = a / b; u = Math.sqrt( 1 + t * t ) * ( ( b > 0 ) ? 1 : -1 );
-			s = 1 / u; c = s * t; r = b * u;
+			t = a / b; 
+			u = Math.sqrt( 1 + t * t ) * ( ( b > 0 ) ? 1 : -1 );
+			s = 1 / u; 
+			c = s * t; 
+			r = b * u;
 		}
 		else 
 		{
-			t = b / a; u = Math.sqrt( 1 + t * t ) * ( ( a > 0 ) ? 1 : -1 );
-			c = 1 / u; s = c * t; r = a * u;
+			t = b / a; 
+			u = Math.sqrt( 1 + t * t ) * ( ( a > 0 ) ? 1 : -1 );
+			c = 1 / u; 
+			s = c * t; 
+			r = a * u;
 		}
 		return new Vector( s, c, r );
 	}

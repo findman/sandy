@@ -12,16 +12,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
+ */
+import sandy.core.Scene3D;
+import sandy.core.data.Matrix4;
+import sandy.core.scenegraph.ATransformable;
+import sandy.view.Frustum;
 
 import com.bourre.events.BubbleEvent;
-import com.bourre.events.EventBroadcaster;
 import com.bourre.events.EventType;
-
-import sandy.core.Scene3D;
-import sandy.core.scenegraph.ATransformable;
-import sandy.core.data.Matrix4;
-import sandy.view.Frustum;
 
 /**
  * Transform audio volume and pan relative to the Camera3D 
@@ -168,9 +166,9 @@ class sandy.core.scenegraph.Sound3D extends ATransformable
 	{
 		if( !_isPlaying ) 
 		{
-			if( p_nStartTime != -1 and p_nStartTime ) lastPosition = p_nStartTime;
-			if( p_iLoops != -1 and p_iLoops ) loops = p_iLoops;
-			if( p_nLoopStartTime != -1 and p_nLoopStartTime ) loopStartTime = p_nLoopStartTime;
+			if( p_nStartTime != -1 && p_nStartTime ) lastPosition = p_nStartTime;
+			if( p_iLoops != -1 && p_iLoops ) loops = p_iLoops;
+			if( p_nLoopStartTime != -1 && p_nLoopStartTime ) loopStartTime = p_nLoopStartTime;
 			
 			if( !p_bResume ) 
 			{

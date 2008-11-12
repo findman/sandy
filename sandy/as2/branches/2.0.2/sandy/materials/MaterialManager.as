@@ -67,7 +67,7 @@ class sandy.materials.MaterialManager
 	 */
 	public function begin( p_oScene:Scene3D ) : Void
 	{
-		var l_oMaterial:Material;
+		var l_oMaterial:String;
 		for( l_oMaterial in m_aList )
 			m_aList[ l_oMaterial ].begin( p_oScene );
 	}
@@ -79,7 +79,7 @@ class sandy.materials.MaterialManager
 	 */
 	public function finish( p_oScene:Scene3D ) : Void
 	{
-		var l_oMaterial:Material;
+		var l_oMaterial:String;
 		for( l_oMaterial in m_aList )
 			m_aList[ l_oMaterial ].finish( p_oScene );
 	}

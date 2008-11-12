@@ -12,19 +12,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import flash.geom.Rectangle;
-	
-import sandy.core.scenegraph.IDisplayable;
-import sandy.core.scenegraph.ATransformable;
+ */
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Vertex;
+import sandy.core.scenegraph.ATransformable;
 import sandy.util.NumberUtil;
 import sandy.view.Frustum;
 import sandy.view.ViewPort;
-	
+
+import flash.geom.Rectangle;
+
 /**
  * The Camera3D class is used to create a camera for the Sandy world.
  *
@@ -73,8 +71,8 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		viewport.height = p_nHeight||400;
 		// --
 		_nFov = p_nFov||45;
-		_nFar = p_nFar||50;
-		_nNear = p_nNear||10000;
+		_nFar = p_nFar||10000;
+		_nNear = p_nNear||50;
 		// --
 		setPerspectiveProjection( _nFov, viewport.ratio, _nNear, _nFar );
 		m_nOffx = viewport.width2; 
@@ -141,7 +139,8 @@ class sandy.core.scenegraph.Camera3D extends ATransformable
 		var l_mp11_offx:Number = mp11 * m_nOffx;   
 		var l_mp22_offy:Number = mp22 * m_nOffy; 
 		var l_oVertex:Vertex;
-		for( l_oVertex in p_oList )
+		var i:Number = p_oList.length;
+       	while( l_oVertex = p_oList[--i] )
 		{
 			if( l_oVertex.projected == false )//(l_oVertex.flags & SandyFlags.VERTEX_PROJECTED) == 0)
 			{ 

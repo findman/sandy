@@ -12,17 +12,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
+ */
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.materials.IAlphaMaterial;
 import sandy.materials.Material;
 import sandy.materials.MaterialType;
 import sandy.materials.attributes.MaterialAttributes;
-import sandy.util.NumberUtil;
 
 /**
  * Displays a color with on the faces of a 3D shape.
@@ -57,7 +54,7 @@ class sandy.materials.ColorMaterial extends Material implements IAlphaMaterial
 		m_oType = MaterialType.COLOR;
 		// --
 		m_nColor = p_nColor||0x00;
-		m_nAlpha = p_nAlpha||1;
+		m_nAlpha = p_nAlpha||100;
 	}
 
 	/**

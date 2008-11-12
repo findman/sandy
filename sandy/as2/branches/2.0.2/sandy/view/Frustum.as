@@ -12,11 +12,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
+ */
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
-import sandy.core.data.Matrix4;
 import sandy.core.data.Plane;
 import sandy.core.data.Pool;
 import sandy.core.data.UVCoord;
@@ -25,7 +23,7 @@ import sandy.core.data.Vertex;
 import sandy.math.PlaneMath;
 import sandy.util.NumberUtil;
 import sandy.view.CullingState;
-	
+
 /**
  * Used to create the frustum of the camera.
  * 
@@ -186,9 +184,10 @@ class sandy.view.Frustum
 	public function pointInFrustum( p_oPoint:Vector ) : CullingState
 	{
 		var plane:Plane;
-        for( plane in aPlanes ) 
+		var i:Number = aPlanes.length;
+       	while( plane = aPlanes[--i] )
 		{
-			if ( PlaneMath.classifyPoint( aPlanes[ plane ], p_oPoint ) == PlaneMath.NEGATIVE )
+			if ( PlaneMath.classifyPoint( plane, p_oPoint ) == PlaneMath.NEGATIVE )
 			{
 				return Frustum.OUTSIDE;
 			}
@@ -212,9 +211,10 @@ class sandy.view.Frustum
         var x:Number = p_oS.position.x, y:Number = p_oS.position.y, z:Number = p_oS.position.z, radius:Number = p_oS.radius;
         // --
 		var plane:Plane;
-        for( plane in aPlanes ) 
-        { 
-            d = aPlanes[ plane ].a * x + aPlanes[ plane ].b * y + aPlanes[ plane ].c * z + aPlanes[ plane ].d; 
+        var i:Number = aPlanes.length;
+       	while( plane = aPlanes[--i] )
+        {
+            d = plane.a * x + plane.b * y + plane.c * z + plane.d; 
             if( d <= -radius )
             {
 	                return Frustum.OUTSIDE;
@@ -244,7 +244,8 @@ class sandy.view.Frustum
 		var out:Number, iin:Number, lDist:Number;
 		// for each plane do ...
 		var plane:Plane;
-		for( plane in aPlanes )
+		var i:Number = aPlanes.length;
+       	while( plane = aPlanes[--i] )
 		{
 			// reset counters for corners in and out
 			out = 0; iin = 0;
@@ -252,10 +253,10 @@ class sandy.view.Frustum
 			// get out of the cycle as soon as a box as corners
 			// both inside and out of the frustum
 			var v:Vector;
-			for( v in box.aTCorners )
+			var j:Number = box.aTCorners.length;
+      	 	while( v = box.aTCorners[--j] )
 			{
-				v = box.aTCorners[ v ];
-				lDist = aPlanes[ plane ].a * v.x + aPlanes[ plane ].b * v.y + aPlanes[ plane ].c * v.z + aPlanes[ plane ].d;
+				lDist = plane.a * v.x + plane.b * v.y + plane.c * v.z + plane.d;
 				// is the corner outside or inside
 				if( lDist < 0 )
 				{
@@ -301,13 +302,13 @@ class sandy.view.Frustum
 		var l_bResult:Boolean, l_bClipped:Boolean;
 		l_bResult =  clipPolygon( aPlanes[ NEAR ], p_aCvert, p_aUVCoords ); // near
 		l_bClipped = clipPolygon( aPlanes[ LEFT ], p_aCvert, p_aUVCoords ); // left
-		l_bResult ^= l_bClipped;
+		l_bResult = l_bResult || l_bClipped;
 		l_bClipped = clipPolygon( aPlanes[ RIGHT ], p_aCvert, p_aUVCoords ); // right
-		l_bResult ^= l_bClipped;
+		l_bResult = l_bResult || l_bClipped;
         l_bClipped = clipPolygon( aPlanes[ BOTTOM ], p_aCvert, p_aUVCoords ); // top
-        l_bResult ^= l_bClipped;
+        l_bResult = l_bResult || l_bClipped;
 	    l_bClipped = clipPolygon( aPlanes[ TOP ], p_aCvert, p_aUVCoords ); // bottom	
-	    l_bResult ^= l_bClipped;
+	    l_bResult = l_bResult || l_bClipped;
 
 		return l_bResult;
 	}
@@ -393,7 +394,7 @@ class sandy.view.Frustum
 	public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ) : Boolean
 	{	
 		var allin:Boolean = true, allout:Boolean = true;
-		var v:Vertex;
+		var v:String;
 		var i:Number, l:Number = p_aCvert.length, lDist:Number;
 		// -- If no points, we return null
 		var aDist:Array = new Array();

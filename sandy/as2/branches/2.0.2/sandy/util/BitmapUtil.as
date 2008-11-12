@@ -128,9 +128,9 @@ class sandy.util.BitmapUtil
 		tex.beginFill( 0 ); tex.drawRect( 0, 0, size, size ); tex.endFill();
 		tex.lineStyle( 1, 0xFF0000 );
 		var p:Polygon;
-		for( p in obj.aPolygons ) 
+		var j:Number = obj.aPolygons.length;
+		while( p = obj.aPolygons[--j] )
 		{
-			p = obj.aPolygons[ p ];
 			var i:Number = p.vertices.length - 1;
 			tex.moveTo( size * p.aUVCoord[ i ].u, size * p.aUVCoord[ i ].v );
 			for( i = 0; i < p.vertices.length; i++ )
@@ -220,7 +220,8 @@ class sandy.util.BitmapUtil
 			var v:Number = j / dstTexture.width;
 			// loop through every polygon
 			var p:Polygon;
-			for( p in obj.aPolygons ) 
+			var k:Number = obj.aPolygons.length;
+			while( p = obj.aPolygons[--k] )
 			{
 	/*					// see if we're inside
 				// http://board.flashkit.com/board/showpost.php?p=4037392&postcount=5
@@ -253,9 +254,9 @@ class sandy.util.BitmapUtil
 				{
 					// we're inside
 					// interpolate normal vector from vertex normals
-					var vn0:Vertex = Vertex( obj.aPolygons[ p ].vertexNormals[ 0 ] );
-					var vn1:Vertex = Vertex( obj.aPolygons[ p ].vertexNormals[ 1 ] );
-					var vn2:Vertex = Vertex( obj.aPolygons[ p ].vertexNormals[ 2 ] );
+					var vn0:Vertex = Vertex( p.vertexNormals[ 0 ] );
+					var vn1:Vertex = Vertex( p.vertexNormals[ 1 ] );
+					var vn2:Vertex = Vertex( p.vertexNormals[ 2 ] );
 					vn.x = vn0.x + A * ( vn1.x - vn0.x ) + B * ( vn2.x - vn0.x );
 					vn.y = vn0.y + A * ( vn1.y - vn0.y ) + B * ( vn2.y - vn0.y );
 					vn.z = vn0.z + A * ( vn1.z - vn0.z ) + B * ( vn2.z - vn0.z );

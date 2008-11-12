@@ -12,40 +12,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import com.bourre.events.EventType;
-import com.bourre.events.EventBroadcaster;
-
-import flash.display.BitmapData;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
-
-import sandy.bounds.BSphere;
+ */
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.ATransformable;
+import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.IDisplayable;
-import sandy.events.MouseEvent;
 import sandy.events.StarFieldRenderEvent;
-import sandy.materials.Material;
-import sandy.view.CullingState;
 import sandy.view.Frustum;
-	
-/**
- * Dispatched when after BitmapData object is locked and normally about to be cleared.
- *
- * @eventType sandy.events.StarFieldRenderEvent.BEFORE_RENDER
- */
-[ Event( name = "beforeRender", type = "sandy.events.StarFieldRenderEvent" ) ]
-	
-/**
- * Dispatched when after BitmapData object is unlocked.
- *
- * @eventType sandy.events.StarFieldRenderEvent.AFTER_RENDER
- */
-[ Event( name = "afterRender", type = "sandy.events.StarFieldRenderEvent" ) ]
+
+import flash.display.BitmapData;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
 
 /**
  * The StarField class renders dense star field at reasonable FPS.
@@ -234,7 +213,7 @@ class sandy.core.scenegraph.StarField extends ATransformable implements IDisplay
 			}
 		}
 		m_oEB.broadcastEvent( m_oEventAfter );
-		if( m_oEventAfter.clear ) m_oBitmapData.fillRect( m_oBitmapData.rect, 0 );
+		if( m_oEventAfter.clear ) m_oBitmapData.fillRect( m_oBitmapData.rectangle, 0 );
 
 		p_oCamera.addToDisplayList( this );
 	}
@@ -254,7 +233,7 @@ class sandy.core.scenegraph.StarField extends ATransformable implements IDisplay
 	{
 		m_oBitmapData.dispose();
 		if( m_oContainer )
-			m_oContainer.clear()
+			m_oContainer.clear();
 		super.remove();
 	}
 
@@ -263,7 +242,8 @@ class sandy.core.scenegraph.StarField extends ATransformable implements IDisplay
 	 */
 	public function destroy() : Void
 	{
-		remove(); super.destroy();
+		remove(); 
+		super.destroy();
 	}
 		
 	/**

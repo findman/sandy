@@ -59,7 +59,7 @@ class sandy.materials.attributes.MaterialAttributes
 	 */
 	public function init( p_oPolygon:Polygon ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].init( p_oPolygon );
@@ -76,7 +76,7 @@ class sandy.materials.attributes.MaterialAttributes
 	 */
 	public function unlink( p_oPolygon:Polygon ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].unlink( p_oPolygon );
@@ -93,7 +93,7 @@ class sandy.materials.attributes.MaterialAttributes
 	 */
 	public function begin( p_oScene:Scene3D ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].begin( p_oScene );
@@ -110,7 +110,7 @@ class sandy.materials.attributes.MaterialAttributes
 	  */
 	public function finish( p_oScene:Scene3D ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].finish( p_oScene );
@@ -131,7 +131,7 @@ class sandy.materials.attributes.MaterialAttributes
 	*/
 	public function draw( p_oMovieClip:MovieClip, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].draw( p_oMovieClip, p_oPolygon, p_oMaterial, p_oScene );
@@ -151,7 +151,7 @@ class sandy.materials.attributes.MaterialAttributes
 	 */
 	public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ) : Void
 	{
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			attributes[ l_oAttr ].drawOnSprite( p_oSprite, p_oMaterial, p_oScene );
@@ -166,7 +166,7 @@ class sandy.materials.attributes.MaterialAttributes
 	public function get flags() : Number
 	{
 		var l_nFlags:Number = 0;
-		var l_oAttr:IAttributes;
+		var l_oAttr:String;
 		for( l_oAttr in attributes )
 		{
 			l_nFlags |= int( attributes[ l_oAttr ].flags ); //remove the int() function here?

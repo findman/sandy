@@ -12,36 +12,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import flash.geom.Point;
-	
-import com.bourre.commands.Delegate;
-import com.bourre.events.BubbleEvent;
-import com.bourre.events.BubbleEventBroadcaster;
-import com.bourre.events.EventType;
-	
+ */
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Polygon;
+import sandy.core.data.UVCoord;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
+import sandy.core.scenegraph.ATransformable;
+import sandy.core.scenegraph.Geometry3D;
+import sandy.core.scenegraph.IDisplayable;
 import sandy.core.sorters.IDepthSorter;
 import sandy.events.MouseEvent;
+import sandy.events.Shape3DEvent;
 import sandy.materials.Appearance;
 import sandy.materials.Material;
 import sandy.materials.WireFrameMaterial;
 import sandy.math.IntersectionMath;
-import sandy.core.scenegraph.ATransformable;
-import sandy.core.scenegraph.Camera3D;
-import sandy.core.scenegraph.Geometry3D;
-import sandy.core.scenegraph.IDisplayable;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
-import sandy.core.data.UVCoord;
-import sandy.events.Shape3DEvent;
+
+import com.bourre.commands.Delegate;
+import com.bourre.events.BubbleEventBroadcaster;
+import com.bourre.events.EventType;
+
+import flash.geom.Point;
 
 /**
  * The Shape3D class is the base class of all true 3D shapes.
@@ -153,7 +150,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 */	
 	public function Shape3D( p_sName:String, p_oGeometry:Geometry3D, p_oAppearance:Appearance, p_bUseSingleContainer:Boolean )
 	{
-		super( p_sName||"" )
+		super( p_sName|| "" );
 		
 		aPolygons = new Array();
 		enableNearClipping = false;
@@ -169,7 +166,6 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		DEFAULT_MATERIAL = new WireFrameMaterial();
 		DEFAULT_APPEARANCE = new Appearance( DEFAULT_MATERIAL );
 		// -- Add this graphical object to the World display list
-		container = new MovieClip();
 		// --
         geometry = p_oGeometry;
         // -- HACK to make sure that the correct container system will be applied
@@ -191,19 +187,20 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
    	 */
    	public function set useSingleContainer( p_bUseSingleContainer:Boolean ) : Void
    	{
-   		var l_oFace:Polygon;
+   		var l_oFace:Polygon, i:Number;
    		// --
    		if( p_bUseSingleContainer == m_bUseSingleContainer ) return;
    		// --
    		if( p_bUseSingleContainer )
    		{
-   			for( l_oFace in aPolygons )
+			i = aPolygons.length;
+			while( l_oFace = aPolygons[--i] )
    			{
-				if( aPolygons[ l_oFace ].container ) 
+				if( l_oFace.container ) 
 				{
-					aPolygons[ l_oFace ].container.clear();
-					aPolygons[ l_oFace ].container = container;
-					this.broadcaster.removeChild( aPolygons[ l_oFace ].broadcaster );
+					l_oFace.container.clear();
+					l_oFace.container = container;
+					this.broadcaster.removeChild( l_oFace.broadcaster );
 				}
    			}
    		}
@@ -214,11 +211,12 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
    				container.clear();
    			}
    			// --
-   			for( l_oFace in aPolygons )
+   			i = aPolygons.length;
+			while( l_oFace = aPolygons[--i] )
    			{
-				this.broadcaster.addChild( aPolygons[ l_oFace ].broadcaster );
+				this.broadcaster.addChild( l_oFace.broadcaster );
 				// we reset the polygon container to the original one, and add it to the world container
-				aPolygons[ l_oFace ].container.clear();
+				l_oFace.container.clear();
    			}
    		}
    		m_bUseSingleContainer = p_bUseSingleContainer;
@@ -275,6 +273,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			if( !boundingBox.uptodate ) boundingBox.transform( viewMatrix );
 			culled = p_oFrustum.boxInFrustum( boundingBox );
 		}
+		
 		if( culled != CullingState.OUTSIDE && m_oAppearance != null )
 		{
 			p_oScene.renderer.addToDisplayList( this );
@@ -306,10 +305,11 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	{
 		aVisiblePolygons.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
 	    // --
+		var i:Number;
 		var l_oFace:Polygon;
-		for( var i in aVisiblePolygons )
+		i = aVisiblePolygons.length;
+		while( l_oFace = aVisiblePolygons[--i] )
 		{
-			l_oFace = aVisiblePolygons[ i ];
 			if( l_oFace.hasAppearanceChanged )
 			{
 				var l_oApp:Appearance = l_oFace.appearance;
@@ -366,10 +366,11 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		// --
 		if( m_oGeometry )
 		{
+			var i:Number;
 			var l_oVertex:Vertex;
-			for( l_oVertex in m_oGeometry.aVertex )
+			i = m_oGeometry.aVertex.length;
+			while( l_oVertex = m_oGeometry.aVertex[--i] )
 			{
-				l_oVertex = m_oGeometry.aVertex[ l_oVertex ];
 				l_oVertex.x += l_oDiff.x;
 				l_oVertex.y += l_oDiff.y;
 				l_oVertex.z += l_oDiff.z;
@@ -391,9 +392,11 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		// --
 		if( m_oGeometry )
 		{
+			var i:Number;
 			var v:Polygon;
-			for( v in aPolygons )
-				aPolygons[ v ].appearance = m_oAppearance;
+			i = aPolygons.length;
+			while( v = aPolygons[--i] )
+				v.appearance = m_oAppearance;
 		}
 	}
 		
@@ -403,10 +406,12 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	 */
 	public function set depthSorter( p_iSorter:IDepthSorter ) : Void
    	{
+   		var i:Number;
 		var l_oPoly:Polygon;
-   		for( l_oPoly in aPolygons )
+   		i = aPolygons.length;
+		while( l_oPoly= aPolygons[--i] )
 		{
-			aPolygons[ l_oPoly ].depthSorter = p_iSorter;
+			l_oPoly.depthSorter = p_iSorter;
 		}
    	}
 		
@@ -496,9 +501,10 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			}
 			// --
 			var l_oPolygon:Polygon;
-			for( l_oPolygon in aPolygons )
+			var i:Number = aPolygons.length;
+			while( l_oPolygon = aPolygons[--i] )
 			{
-	    		aPolygons[ l_oPolygon ].enableInteractivity = p_bState;
+	    		l_oPolygon.enableInteractivity = p_bState;
 	    	}
 	    			
 			m_bMouseInteractivity = p_bState;
@@ -538,16 +544,18 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	{
 		// To use only when use Single container is disabled 
 		var v:Polygon = null;
-		
+		var i:Number;
+		// --
 		if( b )
 		{
 			if( !m_bEv )
 			{
     			if( m_bUseSingleContainer == false )
     			{
-	    			for( v in aPolygons )
+	    			i = aPolygons.length;
+					while( v = aPolygons[--i] )
 					{
-	    			    aPolygons[ v ].enableEvents = true;
+	    			    v.enableEvents = true;
 	    			}
     			}
     			else
@@ -569,9 +577,10 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 		{
 			if( m_bUseSingleContainer == false )
    			{
-    			for( v in aPolygons )
+    			i = aPolygons.length;
+				while( v = aPolygons[--i] )
 				{
-    			   aPolygons[ v ].enableEvents = false;
+    			   v.enableEvents = false;
     			}
    			}
    			else
@@ -609,7 +618,7 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 			var l_nSize:Number = l_oPoly.vertices.length;
 			var l_nTriangles:Number = l_nSize - 2;
 			var i:Number;
-			for( var i:Number = 0; i < l_nTriangles; i++ )
+			for( i = 0; i < l_nTriangles; i++ )
 			{
 				l_oA.x = l_oPoly.vertices[ i ].sx; l_oA.y = l_oPoly.vertices[ i ].sy;
 				l_oB.x = l_oPoly.vertices[ i + 1 ].sx; l_oB.y = l_oPoly.vertices[ i + 1 ].sy;
@@ -645,9 +654,10 @@ class sandy.core.scenegraph.Shape3D extends ATransformable implements IDisplayab
 	public function swapCulling() : Void
 	{
 		var v:Polygon;
-		for( v in aPolygons )
+		var i:Number = aPolygons.length;
+		while( v = aPolygons[--i] )
 		{
-			aPolygons[ v ].swapCulling();
+			v.swapCulling();
 		}
 		changed = true;
 	}

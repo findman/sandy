@@ -141,7 +141,7 @@ class sandy.util.NumberUtil
 	 */
 	public static function roundTo( p_nN:Number, p_nRoundToInterval:Number ) : Number 
 	{
-		if( p_nRoundToInterval == 0 or !p_nRoundToInterval ) 
+		if( p_nRoundToInterval == 0 || !p_nRoundToInterval ) 
 		{
 			p_nRoundToInterval = 1;
 		}

@@ -86,7 +86,7 @@ class sandy.materials.BitmapMaterial extends Material implements IAlphaMaterial
 		super( p_oAttr );
 		smooth = false;
 		maxRecurssionDepth = 5;
-		map = new Matrix()
+		map = new Matrix();
 		matrix = new Matrix();
 		m_oPoint = new Point();
 		m_oOffset = new Point( 0, 0 );

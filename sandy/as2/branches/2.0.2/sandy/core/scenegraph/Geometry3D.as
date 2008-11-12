@@ -366,15 +366,16 @@ class sandy.core.scenegraph.Geometry3D
 		else
 		{
 			var a:Array;
-			for( a in aFacesVertexID )
-			{
+			var i:Number = aFacesVertexID.length;
+       		while( a = aFacesVertexID[--i] )
+       		{
 				// If face is linear, as Line3D, no face normal to process
-				if( aFacesVertexID[ a ].length < 3 ) continue;
+				if( a.length < 3 ) continue;
 				// --
 				var lA:Vertex, lB:Vertex, lC:Vertex;
-				lA = aVertex[ aFacesVertexID[ a ][ 0 ] ];
-				lB = aVertex[ aFacesVertexID[ a ][ 1 ] ];
-				lC = aVertex[ aFacesVertexID[ a ][ 2 ] ];
+				lA = aVertex[ a[ 0 ] ];
+				lB = aVertex[ a[ 1 ] ];
+				lC = aVertex[ a[ 2 ] ];
 				// --
 				var lV:Vector = new Vector( lB.wx - lA.wx, lB.wy - lA.wy, lB.wz - lA.wz );
 				var lW:Vector = new Vector( lB.wx - lC.wx, lB.wy - lC.wy, lB.wz - lC.wz );
@@ -461,67 +462,63 @@ class sandy.core.scenegraph.Geometry3D
 		var l_result:Geometry3D = new Geometry3D();
 		var i:Number = 0, l_oVertex:Vertex;
 		// Points
-		for( l_oVertex in aVertex )
+		i = aVertex.length;
+		while( l_oVertex = aVertex[--i] )
 		{
-			l_result.aVertex[ i ] = aVertex[ l_oVertex ].clone();
-			i++;
+			l_result.aVertex[ i ] = l_oVertex.clone();
 		}
 		
 		// Faces
 		i = 0;
 		var a:Array;
-		for( a in aFacesVertexID )
+		i = aFacesVertexID.length;
+		while( a = aFacesVertexID[--i] )
 		{
-			l_result.aFacesVertexID[ i ] = aFacesVertexID[ a ].concat();
-			i++;
+			l_result.aFacesVertexID[ i ] = a.concat();
 		}
 		
 		// Normals
-		i = 0;
-		for( l_oVertex in aFacesNormals )
+		i = aFacesNormals.length;
+		while( l_oVertex = aFacesNormals[--i] )
 		{
-			l_result.aFacesNormals[ i ] = aFacesNormals[ l_oVertex ].clone();
-			i++;
+			l_result.aFacesNormals[ i ] = l_oVertex.clone();
 		}
 		
 		// Normals
-		i = 0;
-		for( l_oVertex in aVertexNormals )
+		i = aVertexNormals.length;
+		while( l_oVertex = aVertexNormals[--i] )
 		{
-			l_result.aVertexNormals[ i ] = aVertexNormals[ l_oVertex ].clone();
-			i++;
+			l_result.aVertexNormals[ i ] = l_oVertex.clone();
 		}
 		
 		// UVs face
-		i = 0;
 		var b:Array;
-		for( b in aFacesUVCoordsID )
+		i = aFacesUVCoordsID.length;
+		while( b = aFacesUVCoordsID[--i] )
 		{
-			l_result.aFacesUVCoordsID[ i ] = aFacesUVCoordsID[ b ].concat();
-			i++;
+			l_result.aFacesUVCoordsID[ i ] = b.concat();
 		}
 			
 		// UVs coords
-		i = 0;
 		var u:UVCoord;
-		for( u in aUVCoords )
+		i = aUVCoords.length;
+		while( u = aUVCoords[--i] )
 		{
-			l_result.aUVCoords[ i ] = aUVCoords[ u ].clone();
-			i++;
+			l_result.aUVCoords[ i ] = u.clone();
 		}
 		
 		var l_oEdge:Edge3D;
-		for( l_oEdge in aEdges )
+		i = aEdges.length;
+		while( l_oEdge = aEdges[--i] )
 		{
-			l_result.aEdges[ i ] = aEdges[ l_oEdge ].clone();
-			i++;
+			l_result.aEdges[ i ] = l_oEdge.clone();
 		}
 			
-		i = 0;
 		var l_oEdges:Array;
-		for( l_oEdges in aFaceEdges )
+		i = aFaceEdges.length;
+		while( l_oEdge = aFaceEdges[--i] )
 		{
-			l_result.aFaceEdges[ i ] = aFaceEdges[ l_oEdges ].concat();
+			l_result.aFaceEdges[ i ] = l_oEdges.concat();
 			i++;
 		}
 		
@@ -535,7 +532,7 @@ class sandy.core.scenegraph.Geometry3D
 	 */
 	public function dispose() : Void
 	{
-		var a:Array, l_oVertex:Vertex;
+		var a:String, l_oVertex:String;
 		// Points
 		for( l_oVertex in aVertex )
 		{
@@ -561,17 +558,16 @@ class sandy.core.scenegraph.Geometry3D
 		}
 		aVertexNormals = null;
 		// UVs face
-		var b:Array;
-		for( b in aFacesUVCoordsID )
+		for( a in aFacesUVCoordsID )
 		{
-			aFacesUVCoordsID[ b ] = null;
+			aFacesUVCoordsID[ a ] = null;
 		}
 		aFacesUVCoordsID = null;
 		// UVs coords
-		var u:UVCoord;
-		for( u in aUVCoords )
+
+		for( a in aUVCoords )
 		{
-			aUVCoords[ u ] = null;
+			aUVCoords[ a ] = null;
 		}	
 		aUVCoords = null;		
 	}

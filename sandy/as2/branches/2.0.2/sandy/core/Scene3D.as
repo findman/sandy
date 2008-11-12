@@ -12,19 +12,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import com.bourre.events.EventBroadcaster;
-
+ */
 import sandy.core.Renderer;
-import sandy.core.data.Vector;
+import sandy.core.SceneLocator;
 import sandy.core.data.Pool;
+import sandy.core.data.Vector;
 import sandy.core.light.Light3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.events.SandyEvent;
 import sandy.materials.MaterialManager;
-import sandy.core.SceneLocator;
+
+import com.bourre.events.EventBroadcaster;
 
 /**
  * The Sandy 3D scene.
@@ -58,40 +57,6 @@ import sandy.core.SceneLocator;
  * @date 		25.08.2008
  */
 
-/**
- * Dispatched when a light is added to the scene.
- *
- * @eventType sandy.events.SandyEvent.LIGHT_ADDED
- */
-[ Event( name = "lightAdded", type = "sandy.events.SandyEvent" ) ]
-
-/**
- * Dispatched when the scene is rendered.
- *
- * @eventType sandy.events.SandyEvent.SCENE_RENDER
- */
-[ Event( name = "scene_render", type = "sandy.events.SandyEvent" ) ]
-
-/**
- * Dispatched when the scene is culled.
- *
- * @eventType sandy.events.SandyEvent.SCENE_CULL
- */
-[ Event( name = "scene_cull", type = "sandy.events.SandyEvent" ) ]
-
-/**
- * Dispatched when the scene is updated.
- *
- * @eventType sandy.events.SandyEvent.SCENE_UPDATE
- */
-[ Event( name = "scene_update", type = "sandy.events.SandyEvent" ) ]
-
-/**
- * Dispatched when the display list is rendered.
- *
- * @eventType sandy.events.SandyEvent.SCENE_RENDER_DISPLAYLIST
- */
-[ Event( name = "scene_render_display_list", type = "sandy.events.SandyEvent" ) ]
 
 /**
  * The Scene3D object is the central point of a Sandy world.

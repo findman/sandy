@@ -12,18 +12,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import sandy.core.Scene3D;
-import sandy.core.data.Matrix4;
-import sandy.core.scenegraph.Camera3D;
-import sandy.core.scenegraph.Node;
-import sandy.core.scenegraph.Shape3D;
-import sandy.core.scenegraph.TransformGroup;
-import sandy.view.CullingState;
-import sandy.view.Frustum;
-
-/**
+ */
+import sandy.core.Scene3D;import sandy.core.data.Matrix4;import sandy.core.scenegraph.Node;import sandy.core.scenegraph.Shape3D;import sandy.core.scenegraph.TransformGroup;import sandy.view.CullingState;import sandy.view.Frustum;
+/**
  * The Group class is used for branch nodes in the Sandy object tree.
  *
  * <p>This class is fianl, and can not be sub classed</p>
@@ -71,6 +62,7 @@ class sandy.core.scenegraph.Group extends Node
 		// TODO
 		// Parse the children, take their bounding volume and merge it with the current node recurssively.
 		// After that call the super cull method to get the correct cull value.
+		
 		if( visible == false )
 		{
 			culled = CullingState.OUTSIDE;
@@ -79,10 +71,11 @@ class sandy.core.scenegraph.Group extends Node
 		{
 		    var lChanged:Boolean = p_bChanged || changed;
 			var l_oNode:Node;
-		    for( l_oNode in children )
+			var i:Number = children.length;
+       		for( i=0; l_oNode = children[i]; i++)
 			{
-		        children[ l_oNode ].cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
-				children[ l_oNode ].changed = false;
+		        l_oNode.cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+				l_oNode.changed = false;
 			}
 		}
 	}
@@ -91,15 +84,23 @@ class sandy.core.scenegraph.Group extends Node
 	public function clone( p_sName:String ) : Group
 	{
 		var l_oGroup:Group = new Group( p_sName );
-		var l_oNode;
-		for( l_oNode in children )
+		var l_oNode:Node;
+		var i:Number = children.length;
+       	for( i=0; l_oNode = children[i]; i++)
 		{
-			if( children[ l_oNode ] instanceof Shape3D || children[ l_oNode ] instanceof Group || children[ l_oNode ] instanceof TransformGroup )
+			if( l_oNode instanceof Shape3D )
 			{
-				l_oGroup.addChild( children[ l_oNode ].clone( p_sName + "_" + children[ l_oNode ].name ) );
+				l_oGroup.addChild( Shape3D(l_oNode).clone( p_sName + "_" + l_oNode.name ) );
 			} 
-		}
-		
+			else if( l_oNode instanceof Group )
+			{
+				l_oGroup.addChild( Group(l_oNode).clone( p_sName + "_" + l_oNode.name ) );
+			} 
+			else if( l_oNode instanceof TransformGroup )
+			{
+				l_oGroup.addChild( TransformGroup(l_oNode).clone( p_sName + "_" + l_oNode.name ) );
+			} 
+		}		
 		return l_oGroup;
 	}
 	

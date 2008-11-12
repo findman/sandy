@@ -12,12 +12,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
+ */
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.scenegraph.Sprite2D;
-import sandy.core.scenegraph.Camera3D;;
 
 /**
  * The Sprite3D class is used to create a 3D sprite.

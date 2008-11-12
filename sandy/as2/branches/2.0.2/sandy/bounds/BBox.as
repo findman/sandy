@@ -89,20 +89,19 @@ class sandy.bounds.BBox
 	{
 		if( p_aVertices.length == 0 ) return null;
 	   
-	    var l:Number = p_aVertices.length;
 	    var l_min:Vector = Pool.getInstance().nextVector;
 	    var l_max:Vector = Pool.getInstance().nextVector;
 		
 		var lTmp:Array;
-		lTmp = p_aVertices.sortOn( [ "x" ], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		lTmp = p_aVertices.sortOn( [ "x" ], Array.NUMERIC|Array.RETURNINDEXEDARRAY );
 		l_min.x = p_aVertices[ lTmp[ 0 ] ].x;
 		l_max.x = p_aVertices[ lTmp[ lTmp.length - 1 ] ].x;
 		  
-		lTmp = p_aVertices.sortOn( [ "y" ], [ Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		lTmp = p_aVertices.sortOn( [ "y" ], Array.NUMERIC|Array.RETURNINDEXEDARRAY );
 		l_min.y = p_aVertices[ lTmp[ 0 ] ].y;
 		l_max.y = p_aVertices[ lTmp[ lTmp.length - 1 ] ].y;
 		  
-		lTmp = p_aVertices.sortOn( [ "z" ], [ Array.NUMERIC|Array.RETURNINDEXEDARRAY ] );
+		lTmp = p_aVertices.sortOn( [ "z" ], Array.NUMERIC|Array.RETURNINDEXEDARRAY );
 		l_min.z = p_aVertices[ lTmp[ 0 ] ].z;
 		l_max.z = p_aVertices[ lTmp[ lTmp.length - 1 ] ].z;
 		 

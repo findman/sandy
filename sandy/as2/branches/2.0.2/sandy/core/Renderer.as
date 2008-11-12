@@ -12,13 +12,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
+ */
 import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Polygon;
-import sandy.core.data.Pool;	
+import sandy.core.data.Pool;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Camera3D;
@@ -27,7 +26,8 @@ import sandy.core.scenegraph.Node;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.view.CullingState;
-import sandy.view.Frustum;	
+import sandy.view.Frustum;
+
 
 /**
  * @author  	Thomas Pfeiffer - kiroukou
@@ -69,10 +69,17 @@ class sandy.core.Renderer
 	    // --
 	    m_aRenderingList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
 	    // -- This is the new list to be displayed.
-		for( var i in m_aRenderingList )
+		var l_oObj:Object;
+		var l:Number = m_aRenderingList.length;
+		for( var i:Number = 0; i < l; i++)
 		{
-			m_aRenderingList[ i ].display( p_oScene );
-			l_mcContainer.addChild( m_aRenderingList[ i ].container );
+			l_oObj = m_aRenderingList[i] ;
+			// --
+			if( l_oObj.container == null )
+				l_oObj.container = l_mcContainer.createEmptyMovieClip("shape_"+l_oObj.name, l_mcContainer.getNextHighestDepth() );
+			// --
+			l_oObj.display( p_oScene );
+			l_oObj.container.swapDepths( i );
 		}
 	}
 		
@@ -87,7 +94,7 @@ class sandy.core.Renderer
 			m12:Number, m22:Number, m32:Number,
 			m13:Number, m23:Number, m33:Number,
 			m14:Number, m24:Number, m34:Number,
-			x:Number, y:Number, z:Number;
+			x:Number, y:Number, z:Number, i:Number, j:Number;
 			
 		var	l_oCamera:Camera3D = p_oScene.camera;		
 		
@@ -98,8 +105,11 @@ class sandy.core.Renderer
 		var l_nVisiblePolyCount:Number = 0, n:Number;
 	
 		// -- Note, this is the displayed list from the previous iteration!
-		for( var i in m_aRenderingList )
+		i = m_aRenderingList.length;
+		while( --i > -1 )
+		{
 			m_aRenderingList[ i ].clear();
+		}
 		// --
 		m_nRenderingListCount = 0;
 		m_aRenderingList.length = 0;
@@ -124,14 +134,15 @@ class sandy.core.Renderer
 				// --
 				var l_bClipped:Boolean = ( ( l_oShape.culled == CullingState.INTERSECT ) && ( l_oShape.enableClipping || l_oShape.enableNearClipping ) );
 				// --
-				for( var i in l_oShape.geometry.aVertex )
+				i = l_oShape.geometry.aVertex.length;
+				while( --i > -1 )
 				{
 					l_oShape.geometry.aVertex[ i ].projected = l_oShape.geometry.aVertex[ i ].transformed = false;
 				}
 				// --
-				for( i in l_oShape.aPolygons )
+				i = l_oShape.aPolygons.length;
+				while( (l_oFace = l_oShape.aPolygons[ --i ]) != null )
 	            {
-					l_oFace = l_oShape.aPolygons[ i ];
 					if( l_oShape.animated )
 						l_oFace.updateNormal();
 	                // -- visibility test
@@ -250,9 +261,10 @@ class sandy.core.Renderer
 			            	m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
 			            	m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
 			                // -- Now we transform the normals.
-			                for( var i in l_oShape.aVisiblePolygons )
+			                j = l_oShape.aVisiblePolygons.length;
+							while( --j > -1 )
 							{
-			                    l_oVertex = l_oShape.aVisiblePolygons[ i ];
+			                    l_oVertex = l_oShape.aVisiblePolygons[ j ];
 			                    l_oVertex.wx  = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13;
 			                    l_oVertex.wy  = x * m21 + y * m22 + z * m23;
 			                    l_oVertex.wz  = x * m31 + y * m32 + z * m33;
@@ -265,9 +277,10 @@ class sandy.core.Renderer
 			            	m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
 			            	m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
 			                // -- Now we transform the normals.
-			                for( var i in l_oShape.geometry.aVertexNormals )
+			                j = l_oShape.geometry.aVertexNormals.length;
+							while( --j > -1 )
 			                {
-								l_oVertex = l_oShape.geometry.aVertexNormals[ i ];
+								l_oVertex = l_oShape.geometry.aVertexNormals[ j ];
 			                    l_oVertex.wx  = ( x = l_oVertex.x ) * m11 + ( y = l_oVertex.y ) * m12 + ( z = l_oVertex.z ) * m13;
 			                    l_oVertex.wy  = x * m21 + y * m22 + z * m23;
 			                    l_oVertex.wz  = x * m31 + y * m32 + z * m33;

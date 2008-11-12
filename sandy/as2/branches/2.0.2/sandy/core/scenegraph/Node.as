@@ -12,21 +12,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 # ***** END LICENSE BLOCK *****
-*/
-
-import com.bourre.events.BubbleEventBroadcaster;
-import com.bourre.events.BubbleEvent;
-import com.bourre.events.EventType;
-
-import sandy.core.scenegraph.Camera3D;
+ */
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 import sandy.core.scenegraph.INodeOperation;
+import sandy.materials.Appearance;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
-import sandy.materials.Appearance;
+
+import com.bourre.events.BubbleEventBroadcaster;
+import com.bourre.events.EventType;
 
 /**
  * ABSTRACT CLASS - Base class for all nodes in the object tree.
@@ -185,9 +182,10 @@ class sandy.core.scenegraph.Node
 	public function set useSingleContainer( p_bUseSingleContainer:Boolean ) : Void
 	{
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].useSingleContainer = p_bUseSingleContainer;
+			l_oNode.useSingleContainer = p_bUseSingleContainer;
 		}
 	}
 		
@@ -197,9 +195,10 @@ class sandy.core.scenegraph.Node
 	public function set enableBackFaceCulling( b:Boolean ) : Void
 	{
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].enableBackFaceCulling = b;
+			l_oNode.enableBackFaceCulling = b;
 		}
 	}
 		
@@ -209,9 +208,10 @@ class sandy.core.scenegraph.Node
 	public function set enableInteractivity( p_bState:Boolean ) : Void
 	{
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].enableInteractivity = p_bState;
+			l_oNode.enableInteractivity = p_bState;
 		}
 	}
 		
@@ -221,9 +221,10 @@ class sandy.core.scenegraph.Node
 	public function set enableEvents( b:Boolean ) : Void
 	{
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].enableEvents = b;
+			l_oNode.enableEvents = b;
 		}
 	}
 		
@@ -233,9 +234,10 @@ class sandy.core.scenegraph.Node
 	public function set appearance( p_oApp:Appearance ) : Void
 	{
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].appearance = p_oApp;
+			l_oNode.appearance = p_oApp;
 		}
 	}
 		
@@ -302,20 +304,22 @@ class sandy.core.scenegraph.Node
 	 */
 	public function getChildByName( p_sName:String, p_bRecurs:Boolean ) : Node
 	{
-		for( l_oNode in children )
+		var l_oNode:Node;
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			if( children[ l_oNode ].name == p_sName )
+			if( l_oNode.name == p_sName )
 			{
-				return children[ l_oNode ];
+				return l_oNode;
 			}
 		}
 		if( p_bRecurs )
 		{
 			var node:Node = null;
-			var l_oNode:Node;
-			for( l_oNode in children )
+			i = children.length;
+			while( (l_oNode = children[--i]) != null )
 			{
-				node = children[ l_oNode ].getChildByName( p_sName, p_bRecurs );
+				node = l_oNode.getChildByName( p_sName, p_bRecurs );
 				if( node != null )
 				{
 					 return node;
@@ -383,10 +387,11 @@ class sandy.core.scenegraph.Node
 		
 		// should we kill all the childs, or just make them childs of current node parent ?
 		var l_aTmp:Array = children.concat();
-		var lNode:Node;
-		for( lNode in l_aTmp )
+		var l_oNode:Node;
+		var i:Number = l_aTmp.length;
+		while( l_oNode = l_aTmp[--i] )
 		{
-			l_aTmp[ lNode ].destroy();
+			 l_oNode.destroy();
 		}
 		children.splice( 0 );
 		m_oEB = null;
@@ -407,10 +412,11 @@ class sandy.core.scenegraph.Node
 		
 		// now we make current node children the current parent's node children
 		var l_aTmp:Array = children.concat();
-		var lNode:Node;
-		for( lNode in l_aTmp )
+		var l_oNode:Node;
+		var i:Number = l_aTmp.length;
+		while( l_oNode = l_aTmp[--i] )
 		{
-			parent.addChild( lNode );
+			 parent.addChild(l_oNode );
 		}
 		children.splice( 0 );
 		m_oEB = null;
@@ -439,11 +445,11 @@ class sandy.core.scenegraph.Node
 		/* Shall be overriden */
 		changed = changed || p_bChanged;
 		var l_oNode:Node;
-		for( l_oNode in children )
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oNode ].update( p_oScene, p_oModelMatrix, changed );
+			l_oNode.update( p_oScene, p_oModelMatrix, changed );
 		}
-	
 	}
 
 	/**
@@ -507,11 +513,11 @@ class sandy.core.scenegraph.Node
 	public function perform( p_iOperation:INodeOperation ) : Void 
 	{
 		p_iOperation.performOnEntry( this );
-		var l_oChild:Node;
-		// perform operation on all child nodes
-		for( l_oChild in children ) 
+		var l_oNode:Node;
+		var i:Number = children.length;
+		while( (l_oNode = children[--i]) != null )
 		{
-			children[ l_oChild ].perform( p_iOperation );
+			l_oNode.perform( p_iOperation );
 		}
 			
 		p_iOperation.performOnExit( this );
