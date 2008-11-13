@@ -41,7 +41,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">StarField <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="ATransformable.html">ATransformable</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="Node.html">Node</a></td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Implements</td><td><a href="IDisplayable.html">IDisplayable</a></td>
+<td class="classHeaderTableLabel">Implements</td><td><a href="IDisplayable.html">IDisplayable</a>, <a href="Renderable.html">Renderable</a></td>
 </tr>
 </table>
 <p></p>
@@ -158,6 +158,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    Distance from fadeFrom to the point where stars fade out completely
    </div>
 </td><td class="summaryTableOwnerCol">StarField</td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="ATransformable.html#invModelMatrix">invModelMatrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
+<div class="summaryTableDescription">
+   <p>Inverse of the model matrix
+   The matrix is inverted in comparison of the real model matrix.<br/>
+   For example, this allows replacement of the objects in the correct camera frame before projection</p>
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="ATransformable.html">ATransformable</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="ATransformable.html#matrix">matrix</a> : <a href="../data/Matrix4.html">Matrix4</a>
@@ -924,7 +933,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public override function render(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oCamera:<a href="Camera3D.html">Camera3D</a>):void</code><p>
+<code>public function render(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oCamera:<a href="Camera3D.html">Camera3D</a>):void</code><p>
    Renders the starfield
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
