@@ -152,8 +152,10 @@ package sandy.util
 		 */
 		public function start() : void
 		{
+			var noLoaders:Boolean = true;
 			for each( var l_oLoader:QueueElement in m_oLoaders )
 			{
+				noLoaders = false;
 				if (l_oLoader.loader != null) {
 					l_oLoader.loader.load( l_oLoader.urlRequest );
 					l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
@@ -163,6 +165,12 @@ package sandy.util
 					l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
 	            	l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 				}
+			}
+
+			if (noLoaders) {
+				// still need to dispatch complete event
+				m_oQueueCompleteEvent.loaders = m_oLoaders;
+				dispatchEvent( m_oQueueCompleteEvent );
 			}
 		}
 		
