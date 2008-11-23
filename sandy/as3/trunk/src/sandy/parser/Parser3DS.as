@@ -41,7 +41,7 @@ package sandy.parser
 	 * @example To parse a 3DS file at runtime:
 	 *
 	 * <listing version="3.0">
-	 *     var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.3DS );
+	 *     var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.MAX_3DS );
 	 * </listing>
 	 *
 	 */
