@@ -279,8 +279,11 @@ package sandy.materials
 			matrix.tx = tx*a2 + ty*c2 + v0x;
 			matrix.ty = tx*b2 + ty*d2 + v0y;
 
+			// smooth threshold
+			var st:Number = v0x*(d2 - b2) - v1x*d2 + v2x*b2; if (st < 0) st = -st;
+
 			graphics.lineStyle();
-			graphics.beginBitmapFill(m_oTexture, matrix, repeat, smooth);
+			graphics.beginBitmapFill(m_oTexture, matrix, repeat, smooth && (st > 100));
 			graphics.moveTo(v0x, v0y);
 			graphics.lineTo(v1x, v1y);
 			graphics.lineTo(v2x, v2y);
