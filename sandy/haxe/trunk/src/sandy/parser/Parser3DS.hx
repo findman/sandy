@@ -35,7 +35,6 @@ import flash.events.MouseEvent;
 import flash.events.NetFilterEvent;
 import flash.events.NetStatusEvent;
 import flash.events.ProgressEvent;
-import flash.events.SamplesCallbackEvent;
 import flash.events.SecurityErrorEvent;
 import flash.events.ShaderEvent;
 import flash.events.StatusEvent;
