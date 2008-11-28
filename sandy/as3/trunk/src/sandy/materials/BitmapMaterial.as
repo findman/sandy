@@ -83,9 +83,7 @@ package sandy.materials
 			// --
 			m_oType = MaterialType.BITMAP;
 			// --
-			var temp:BitmapData = new BitmapData( p_oTexture.width, p_oTexture.height, true, 0 );
-			temp.draw( p_oTexture );
-			texture = temp;
+			texture = p_oTexture;
 			// --
 			m_oCmf = new ColorMatrixFilter();
 			m_oPolygonMatrixMap = new Dictionary( true );
@@ -385,7 +383,7 @@ package sandy.materials
 		/**
 		 * Changes the transparency of the texture.
 		 *
-		 * <p>The passed value is the percentage of opacity.</p>
+		 * <p>The passed value is the percentage of opacity. Note that this does not work with animated texture.</p>
 		 *
 		 * @param p_nValue 	A value between 0 and 1. (automatically constrained)
 		 */
