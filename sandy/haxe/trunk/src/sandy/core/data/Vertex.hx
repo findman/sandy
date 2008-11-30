@@ -220,6 +220,29 @@ class Vertex
 	{
 		return Math.sqrt( x*x + y*y + z*z );
 	}
+#if flash10
+	public function getNormInvSqrt():Float
+		{
+				return invSqrt( x*x + y*y + z*z );
+		}
+	public function prepare() {
+			var b = new flash.utils.ByteArray();
+			b.length = 1024;
+			flash.Memory.select(b);
+	}
+
+	public function invSqrt( x : Float ) : Float {
+			var half = 0.5 * x;
+			flash.Memory.setFloat(0,x);
+			var i = flash.Memory.getI32(0);
+			i = 0x5f3759df - (i>>1);
+			flash.Memory.setI32(0,i);
+			x = flash.Memory.getFloat(0);
+			x = x * (1.5 - half*x*x);
+			return x;
+	}
+#end
+
 
 	/**
 	 * Return the invers of this vertex.
@@ -344,16 +367,31 @@ class Vertex
 	public function normalize():Void
 	{
 		// -- We get the norm of the vector
+#if flash10
+		var norm:Float = getNormInvSqrt();
+#else
 		var norm:Float = getNorm();
+#end
 		// -- We escape the process is norm is null or equal to 1
 		if( norm == 0 || norm == 1) return;
-		x /= norm;
-		y /= norm;
-		z /= norm;
+#if flash10
+		x = x * norm;
+		y = y * norm;
+		z = z * norm;
+
+		wx *= norm;
+		wy *= norm;
+		wz *= norm;
+#else
+		x = x / norm;
+		y = y / norm;
+		z = z / norm;
 
 		wx /= norm;
 		wy /= norm;
 		wz /= norm;
+#end
+
 	}
 
 	/**
@@ -364,7 +402,11 @@ class Vertex
 	 */
 	public function getAngle ( w:Vertex ):Float
 	{
+#if flash10
+		var ncos:Float = dot( w ) * ( getNormInvSqrt() * w.getNormInvSqrt() );
+#else
 		var ncos:Float = dot( w ) / ( getNorm() * w.getNorm() );
+#end
 		var sin2:Float = 1 - ncos * ncos;
 		if (sin2<0)
 		{

@@ -36,10 +36,33 @@ class VectorMath
 	 * @param p_oV 	The vector.
 	 * @return 	The norm of the vector.
 	 */
-	public static function getNorm( p_oV:Vector ):Float
+	public static inline function getNorm( p_oV:Vector ):Float
 	{
 		return Math.sqrt( p_oV.x*p_oV.x + p_oV.y*p_oV.y + p_oV.z*p_oV.z );
 	}
+
+#if flash10
+	public static inline function getNormInvSqrt( p_oV:Vector ):Float
+		{
+		return invSqrt( p_oV.x*p_oV.x + p_oV.y*p_oV.y + p_oV.z*p_oV.z );
+		}
+	public static inline function prepare() {
+			var b = new flash.utils.ByteArray();
+			b.length = 1024;
+			flash.Memory.select(b);
+	}
+
+	public static inline function invSqrt( x : Float ) : Float {
+			var half = 0.5 * x;
+			flash.Memory.setFloat(0,x);
+			var i = flash.Memory.getI32(0);
+			i = 0x5f3759df - (i>>1);
+			flash.Memory.setI32(0,i);
+			x = flash.Memory.getFloat(0);
+			x = x * (1.5 - half*x*x);
+			return x;
+	}
+#end
 	
 	/**
 	 * Computes the oposite vector of a specified 3D vector.
@@ -147,17 +170,30 @@ class VectorMath
 	 * @param p_oV 	The vector to normalize
 	 * @return 	true if the normalization was successful, false otherwise.
 	 */	
-	public static function normalize( p_oV:Vector ): Bool
+	public inline static function normalize( p_oV:Vector ): Bool
 	{
 		// -- We get the norm of the vector
+#if flash10
+		var norm:Float = VectorMath.getNormInvSqrt( p_oV );
+#else
 		var norm:Float = VectorMath.getNorm( p_oV );
+#end
 		// -- We escape the process is norm is null or equal to 1
-		if( norm == 0 || norm == 1) return false;
-		p_oV.x /= norm;
-		p_oV.y /= norm;
-		p_oV.z /= norm;
+		if( norm == 0 || norm == 1) {
+				return false; 
+		} else {
+#if flash10
+				p_oV.x *= norm;
+				p_oV.y *= norm;
+				p_oV.z *= norm;
+#else
+				p_oV.x /= norm;
+				p_oV.y /= norm;
+				p_oV.z /= norm;
+#end
 
-		return true;
+				return true;
+		}
 	}
 	
 	/**
