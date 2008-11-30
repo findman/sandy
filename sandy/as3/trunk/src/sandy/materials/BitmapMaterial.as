@@ -18,7 +18,7 @@ package sandy.materials
 	import flash.display.BitmapData;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
-	import flash.filters.ColorMatrixFilter;
+	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -85,7 +85,6 @@ package sandy.materials
 			// --
 			texture = p_oTexture;
 			// --
-			m_oCmf = new ColorMatrixFilter();
 			m_oPolygonMatrixMap = new Dictionary( true );
 			precision = p_nPrecision;
 		}
@@ -281,7 +280,7 @@ package sandy.materials
 			var st:Number = v0x*(d2 - b2) - v1x*d2 + v2x*b2; if (st < 0) st = -st;
 
 			graphics.lineStyle();
-			graphics.beginBitmapFill(m_oTexture, matrix, repeat, smooth && (st > 100));
+			graphics.beginBitmapFill((m_nAlpha == 1) ? m_oTexture : m_oTextureClone, matrix, repeat, smooth && (st > 100));
 			graphics.moveTo(v0x, v0y);
 			graphics.lineTo(v1x, v1y);
 			graphics.lineTo(v2x, v2y);
@@ -336,7 +335,6 @@ package sandy.materials
 			else
 			{
 				if( m_oTexture ) m_oTexture.dispose();
-				if( m_orgTexture ) m_orgTexture.dispose();
 			}
 			// --
 			var l_bReWrap:Boolean = false;
@@ -344,7 +342,6 @@ package sandy.materials
 			else if( m_nWidth != p_oTexture.width) l_bReWrap = true;
 			// --
 			m_oTexture = p_oTexture;
-			m_orgTexture = p_oTexture.clone();
 			
 			m_nHeight = m_oTexture.height;
 			m_nWidth = m_oTexture.width;
@@ -383,27 +380,49 @@ package sandy.materials
 		/**
 		 * Changes the transparency of the texture.
 		 *
-		 * <p>The passed value is the percentage of opacity. Note that this does not work with animated texture.</p>
+		 * <p>The passed value is the percentage of opacity. Note that in order for this to work with animated texture,
+		 * you need set material transparency every time after new texture frame is rendered.</p>
 		 *
 		 * @param p_nValue 	A value between 0 and 1. (automatically constrained)
 		 */
 		public function setTransparency( p_nValue:Number ):void
 		{
-			p_nValue = NumberUtil.constrain( p_nValue, 0, 1 );
-			if( m_oCmf ) m_oCmf = null;
-			var matrix:Array = [	1, 0, 0, 0, 0,
-							    	0, 1, 0, 0, 0,
-							    	0, 0, 1, 0, 0,
-							    	0, 0, 0, p_nValue, 0];
+			if (m_oTexture == null) {
+				throw new Error ("Setting transparency requires setting texture first.");
+			}
+			
+			p_nValue = NumberUtil.constrain( p_nValue, 0, 1 ); m_nAlpha = p_nValue;
 
-			m_oCmf = new ColorMatrixFilter( matrix );
-			texture.applyFilter( m_orgTexture, texture.rect, m_oPoint, m_oCmf );
+			if (p_nValue == 1) return;
+
+			if (m_oTextureClone != null) {
+				if ((m_oTextureClone.height != m_oTexture.height) ||
+					(m_oTextureClone.width != m_oTexture.width)) {
+						m_oTextureClone.dispose ();
+						m_oTextureClone = null;
+				}
+			}
+
+			if (m_oTextureClone == null) {
+				m_oTextureClone = new BitmapData (m_oTexture.width, m_oTexture.height, true, 0);
+			}
+
+			m_oColorTransform.alphaMultiplier = p_nValue;
+			m_oTextureClone.lock ();
+			m_oTextureClone.fillRect (m_oTextureClone.rect, 0);
+			m_oTextureClone.draw (m_oTexture, m_oDrawMatrix, m_oColorTransform);
+			m_oTextureClone.unlock ();
 		}
+
+		private var m_oTextureClone:BitmapData;
+		private var m_oDrawMatrix:Matrix = new Matrix;
+		private var m_oColorTransform:ColorTransform = new ColorTransform;
 
 		/**
 		 * Indicates the alpha transparency value of the material. Valid values are 0 (fully transparent) to 1 (fully opaque).
 		 *
 		 * @default 1.0
+		 * @see setTransparency()
 		 */
 		public function get alpha():Number 
 		{
@@ -416,7 +435,6 @@ package sandy.materials
 		public function set alpha(p_nValue:Number):void	
 		{
 			setTransparency(p_nValue);
-			m_nAlpha = p_nValue;
 			m_bModified = true;
 		}
 
@@ -485,10 +503,6 @@ package sandy.materials
 		 */
 		protected var m_oTexture:BitmapData;
 		
-		/**
-		 * @private
-		 */
-		protected var m_orgTexture:BitmapData;
 		
 		private var m_nHeight:Number;
 		private var m_nWidth:Number;
@@ -507,11 +521,6 @@ package sandy.materials
 		 * @private
 		 */
 		protected var m_oPoint:Point = new Point();
-		
-		/**
-		 * @private
-		 */
-		protected var m_oCmf:ColorMatrixFilter;
 		
 		/**
 		 * @private
