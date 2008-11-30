@@ -52,8 +52,6 @@ import flash.events.ProgressEvent;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 
  */
 class AParser extends EventDispatcher, implements IParser
 {
@@ -151,9 +149,9 @@ class AParser extends EventDispatcher, implements IParser
 			// Construction d'un objet URLRequest qui encapsule le chemin d'acces
 			var urlRequest:URLRequest = new URLRequest( m_sUrl );
 			// Ecoute de l'evennement COMPLETE
-			untyped( m_oFileLoader.addEventListener( Event.COMPLETE, parseData ) );
-			untyped( m_oFileLoader.addEventListener( ProgressEvent.PROGRESS, onProgress ) );
-			untyped( m_oFileLoader.addEventListener( IOErrorEvent.IO_ERROR , _io_error ) );
+			m_oFileLoader.addEventListener( Event.COMPLETE, parseData );
+			m_oFileLoader.addEventListener( ProgressEvent.PROGRESS, onProgress );
+			m_oFileLoader.addEventListener( IOErrorEvent.IO_ERROR , _io_error );
 			// Lancer le chargement
 			m_oFileLoader.dataFormat = m_sDataFormat;
 			m_oFileLoader.load(urlRequest);

@@ -16,10 +16,6 @@ limitations under the License.
 
 package sandy.core.scenegraph;
 
-//import flash.utils.Dictionary;
-
-import flash.utils.Dictionary;
-
 import sandy.core.data.Edge3D;
 import sandy.core.data.UVCoord;
 import sandy.core.data.Vector;
@@ -296,7 +292,7 @@ class Geometry3D
 	 * @param ...rest 	An array of data containing the ID's of the UV coords list for the face
 	 * @return 		The next free index or -1 it the index is already occupied
 	 */
-	public function setFaceUVCoordsIds( p_nFaceID:Int, ?arguments:Dynamic /* Arguments */ ):Int
+	public function setFaceUVCoordsIds( p_nFaceID:Int, ?arguments:Dynamic ):Int
 	{
 		if (arguments == null) arguments = [];
 

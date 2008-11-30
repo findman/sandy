@@ -19,7 +19,6 @@ package sandy.materials.attributes;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
@@ -76,7 +75,7 @@ class PhongAttributes extends ALightAttributes
 	{
 		if (_useBright != p_bUseBright)
 		{
-			_useBright = p_bUseBright; m_oLightMaps = new Dictionary ();
+			_useBright = p_bUseBright; m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
 		}
 		return p_bUseBright;
 	}
@@ -215,9 +214,7 @@ class PhongAttributes extends ALightAttributes
 		}
 
 		// store light map
-		untyped { 
-				m_oLightMaps [p_oLight] = l_oLightMap;
-  }
+		m_oLightMaps.add( l_oLightMap );
 	}
 	
 	/**
@@ -230,7 +227,7 @@ class PhongAttributes extends ALightAttributes
 	 */
 	public function new (p_bBright:Bool = false, p_nAmbient:Float = 0.0, p_nQuality:Int = 15, p_nSamples:Int = 4)
 	{
-	 m_oLightMaps = new Dictionary ();
+	 m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
 
 	 _useBright = true;
 
@@ -262,13 +259,13 @@ class PhongAttributes extends ALightAttributes
 	// default samples to pass to computeLightMap (set in constructor)
 	private var m_nSamples:Int;
 
-	// dictionary to hold light maps
-	private var m_oLightMaps:Dictionary;
+	// fastlist to hold light maps 
+	private var m_oLightMaps:haxe.FastList<PhongAttributesLightMap>;
 
 	// on SandyEvent.LIGHT_UPDATED we update the light map for this light *IF* we have it
 	private function watchForUpdatedLights (p_oEvent:SandyEvent):Void
 	{
-		if (untyped( m_oLightMaps [p_oEvent.target] ) != null)
+		if ( m_oLightMaps.first() != null )
 		{
 			computeLightMap (p_oEvent.target, m_nQuality, m_nSamples);
 		}
@@ -284,14 +281,15 @@ class PhongAttributes extends ALightAttributes
 
 		var l_oLight:Light3D = p_oScene.light;
 
-		if (untyped( m_oLightMaps [l_oLight] ) == null)
+		// first entry is always Scene3D light
+		if ( m_oLightMaps.first() == null)
 		{
 			// if we have no map yet, subscribe to this light updates and make the map
 			l_oLight.addEventListener (SandyEvent.LIGHT_UPDATED, watchForUpdatedLights);
 			computeLightMap (l_oLight, m_nQuality, m_nSamples);
 		}
 
-		m_oCurrentLightMap = untyped m_oLightMaps[l_oLight];
+		m_oCurrentLightMap = m_oLightMaps.first();
 	}
 
 	override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):Void
@@ -450,7 +448,7 @@ class PhongAttributes extends ALightAttributes
 	 */
 	override private function onPropertyChange ():Void
 	{
-		m_oLightMaps = new Dictionary ();
+		m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
 	}
 
 	// --

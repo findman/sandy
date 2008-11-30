@@ -5,7 +5,9 @@ package sandy.core.interaction;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
+#if flash9
 import flash.display.SimpleButton;
+#end
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -29,8 +31,7 @@ import sandy.materials.MovieMaterial;
  * 
  * 
  */
-class VirtualMouse
-	extends EventDispatcher 
+class VirtualMouse extends EventDispatcher 
 {
 	private static var _oI		: VirtualMouse;
 	
@@ -78,6 +79,7 @@ class VirtualMouse
 		//		2) is InteractiveObject
 		//		3) mouseEnabled
 		var objectsUnderPoint:Array<DisplayObject> = m_ioTarget.getObjectsUnderPoint( m_ioTarget.localToGlobal( location ) );
+
 		var currentTarget:Sprite = null;
 		var currentParent:DisplayObject;
 		
@@ -90,14 +92,16 @@ class VirtualMouse
 			while (currentParent != null) 
 			{		
 				// invalid target if in a SimpleButton
+#if flash9
 				if (currentTarget != null && Std.is(currentParent, SimpleButton)) 
 				{
 					currentTarget = null;
 					
 				// invalid target if a parent has a
 				// false mouseChildren
-				} 
-				else if ( currentTarget != null && Std.is(currentParent, DisplayObjectContainer) && !cast(currentParent, DisplayObjectContainer).mouseChildren ) 
+				} else
+#end
+				if ( currentTarget != null && Std.is(currentParent, DisplayObjectContainer) && !cast(currentParent, DisplayObjectContainer).mouseChildren ) 
 				{
 					currentTarget = null;
 				}
@@ -203,12 +207,14 @@ class VirtualMouse
 			// clear last down
 			lastDownTarget = null;
 		} 
+#if flash9
 		else if ( p_event.type == MouseEvent.DOUBLE_CLICK && currentTarget.doubleClickEnabled )
 		{
 			_lastEvent = new MouseEvent(MouseEvent.DOUBLE_CLICK, true, false, currentTargetLocal.x, currentTargetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			currentTarget.dispatchEvent(_lastEvent);
 			dispatchEvent(_lastEvent);
 		}
+#end
 		
 		// remember last values
 		lastLocation = location.clone();

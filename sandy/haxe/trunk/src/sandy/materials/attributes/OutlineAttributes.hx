@@ -18,7 +18,6 @@ package sandy.materials.attributes;
 
 import flash.display.Graphics;
 import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Edge3D;
@@ -39,7 +38,7 @@ import sandy.materials.Material;
  */
 class OutlineAttributes extends AAttributes
 {
-	private var SHAPE_MAP:Dictionary;
+	private var SHAPE_MAP:IntHash<Bool>;
 	// --
 	private var m_nThickness:Int;
 	private var m_nColor:Int;
@@ -59,10 +58,10 @@ class OutlineAttributes extends AAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( p_nThickness:UInt = 1, p_nColor:UInt = 0, p_nAlpha:Float = 1.0 )
+	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha:Float = 1.0 )
 	{
 
-	 SHAPE_MAP = new Dictionary(true);
+	 SHAPE_MAP = new IntHash();
 		m_nThickness = p_nThickness;
 		m_nAlpha = p_nAlpha;
 		m_nColor = p_nColor;
@@ -155,12 +154,12 @@ class OutlineAttributes extends AAttributes
 	{
 		// to keep reference to the shapes/polygons that use this attribute
 		// -- attempt to create the neighboors relation between polygons
-		if( SHAPE_MAP[p_oPolygon.shape.id] == null )
+		if( SHAPE_MAP.get(p_oPolygon.shape.id) == null )
 		{
 			// if this shape hasn't been registered yet, we compute its polygon relation to be able
 			// to draw the outline.
 			var l_aPoly:Array<Polygon> = p_oPolygon.shape.aPolygons;
-			var a:Int = l_aPoly.length, lCount:UInt = 0, i:Int, j:Int;
+			var a:Int = l_aPoly.length, lCount:Int = 0, i:Int, j:Int;
 			var lP1:Polygon, lP2:Polygon;
 			var l_aEdges:Array<Edge3D>;
 			// if any of polygons of this shape have neighbour information, do not re-calculate it
@@ -195,7 +194,7 @@ class OutlineAttributes extends AAttributes
 				}
 			}
 			// --
-			SHAPE_MAP[p_oPolygon.shape.id] = true;
+			SHAPE_MAP.set(p_oPolygon.shape.id, true);
 		}
 	}
 

@@ -17,7 +17,6 @@ limitations under the License.
 package sandy.events;
 
 import flash.events.Event;
-import flash.utils.Dictionary;
 
 import sandy.commands.Delegate;
 

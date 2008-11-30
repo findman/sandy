@@ -22,11 +22,6 @@ import sandy.core.data.Vector;
 import sandy.events.SandyEvent;
 import sandy.util.NumberUtil;
 
-/*
-[Event(name="lightUpdated", type="sandy.events.SandyEvent")]
-[Event(name="lightColorChanged", type="sandy.events.SandyEvent")]
-*/
-
  /**
  * The Light3D class is used for creating the light of the world.
  *
@@ -36,7 +31,6 @@ import sandy.util.NumberUtil;
  * @author	Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
  */
 class Light3D extends EventDispatcher
 {
@@ -44,7 +38,7 @@ class Light3D extends EventDispatcher
 	* Maximum value accepted. If the default value (150) seems too big or too small for you, you can change it.
 	* But be aware that the actual lighting calculations are normalised i.e. 0 -> MAX_POWER becomes 0 -> 1
 	*/
-	public static var MAX_POWER:Float = 150;
+	public static inline var MAX_POWER:Float = 150;
 
 	/**
 	 * Creates a new light source.
@@ -52,7 +46,7 @@ class Light3D extends EventDispatcher
 	 * @param p_oD		The direction of the emitted light.
 	 * @param p_nPow	Intensity of the emitted light.
 	 *
-     * @see sandy.core.data.Vector
+		* @see sandy.core.data.Vector
 	 */
 	public function new(p_oD:Vector, p_nPow:Float)
 	{

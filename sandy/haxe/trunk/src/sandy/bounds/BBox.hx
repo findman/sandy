@@ -74,20 +74,38 @@ class BBox
 	    var l_min:Vector = new Vector();
 	    var l_max:Vector = new Vector();
 		
-		var lTmp:Array<Dynamic>;
-		lTmp = untyped p_aVertices.sortOn (["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-		l_min.x = p_aVertices[lTmp[0]].x;
-		l_max.x = p_aVertices[lTmp[lTmp.length-1]].x;
+					var lTmp:Array<Dynamic> = [];
+#if flash
+					lTmp = untyped p_aVertices.sortOn (["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
+#else
+					var t:Array<Dynamic> = p_aVertices.copy();
+					t.sort( function(a,b) {return (a.x>b.x)?1:a.x<b.x?-1:0;} );
+					for ( i in 0...t.length ) lTmp.push( i );
+#end
+					l_min.x = p_aVertices[lTmp[0]].x;
+					l_max.x = p_aVertices[lTmp[lTmp.length-1]].x;
 		  
-		lTmp = untyped p_aVertices.sortOn (["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-		l_min.y = p_aVertices[lTmp[0]].y;
-		l_max.y = p_aVertices[lTmp[lTmp.length-1]].y;
-		  
-		lTmp = untyped p_aVertices.sortOn (["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-		l_min.z = p_aVertices[lTmp[0]].z;
-		l_max.z = p_aVertices[lTmp[lTmp.length-1]].z;
+#if flash
+					lTmp = untyped p_aVertices.sortOn (["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
+#else
+					var t:Array<Dynamic> = p_aVertices.copy();
+					t.sort( function(a,b) {return (a.y>b.y)?1:a.y<b.y?-1:0;} );
+					for ( i in 0...t.length ) lTmp.push( i );
+#end
+					l_min.y = p_aVertices[lTmp[0]].y;
+					l_max.y = p_aVertices[lTmp[lTmp.length-1]].y;
+
+#if flash
+					lTmp = untyped p_aVertices.sortOn (["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
+#else
+					var t:Array<Dynamic> = p_aVertices.copy();
+					t.sort( function(a,b) {return (a.z>b.z)?1:a.z<b.z?-1:0;} );
+					for ( i in 0...t.length ) lTmp.push( i );
+#end
+					l_min.z = p_aVertices[lTmp[0]].z;
+					l_max.z = p_aVertices[lTmp[lTmp.length-1]].z;
 		 
-		return new BBox( l_min, l_max );
+					return new BBox( l_min, l_max );
 	}
 
 	/**

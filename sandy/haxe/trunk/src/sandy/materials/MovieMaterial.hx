@@ -18,12 +18,17 @@ package sandy.materials;
 
 import flash.display.BitmapData;
 import flash.display.Sprite;
-
 import flash.events.Event;
+#if flash9
 import flash.events.TimerEvent;
+#end
 import flash.geom.ColorTransform;
 import flash.geom.Rectangle;
+#if flash9
 import flash.utils.Timer;
+#else
+import haxe.Timer;
+#end
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
@@ -98,9 +103,14 @@ class MovieMaterial extends BitmapMaterial
 		m_oType = MaterialType.MOVIE;
 		// --
 		m_bUpdate = true;
+#if flash9
 		m_oTimer = new Timer( p_nUpdateMS );
 		m_oTimer.addEventListener(TimerEvent.TIMER, _update );
 		m_oTimer.start();
+#else
+		m_oTimer = new Timer( p_nUpdateMS );
+		m_oTimer.run();
+#end
 
 		if( tmpBmp != null ) 
 		{
@@ -158,7 +168,11 @@ class MovieMaterial extends BitmapMaterial
 	 */
 	public function start():Void
 	{
+#if flash9
 		m_oTimer.start();
+#else
+		m_oTimer.run();
+#end
 	}
 
 	/**

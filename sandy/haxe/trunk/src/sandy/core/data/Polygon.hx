@@ -23,7 +23,6 @@ import flash.events.MouseEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.interaction.VirtualMouse;
@@ -44,8 +43,6 @@ import sandy.events.Shape3DEvent;
  * @author		Thomas Pfeiffer - kiroukou
  * @author		Mirek Mencel
  * @author Niel Drummond - haXe port 
- * 
- *
  * 
  */
 class Polygon implements IDisplayable
@@ -99,7 +96,7 @@ class Polygon implements IDisplayable
 	/**
 	 * [READ-ONLY] property.
 	 */
-	public var vertexNormals:Array<Dynamic>;
+	public var vertexNormals:Array<Vertex>;
 	/**
 	 * [READ-ONLY] property.
 	 */

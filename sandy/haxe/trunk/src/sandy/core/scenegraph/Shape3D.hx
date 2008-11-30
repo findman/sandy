@@ -451,7 +451,11 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 */
 	public function display(  p_oScene:Scene3D, ?p_oContainer:Sprite  ):Void
 	{
+#if flash
 		untyped m_aVisiblePoly.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
+#else
+		m_aVisiblePoly.sort( function(a,b) {return a.depth>b.depth?1:a.depth<b.depth?-1:0;} );
+#end
 
 		for ( l_oPoly in m_aVisiblePoly )
 		{

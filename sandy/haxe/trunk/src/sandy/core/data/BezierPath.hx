@@ -55,7 +55,7 @@ class BezierPath
 	 * @param	p_nId The number of the segment to return
 	 * @return	An array containing the bezierCurve points [startPoint, controlPoint, endPoint]
 	 */
-	public function getSegment( p_nId:UInt ):Array<Vector>
+	public function getSegment( p_nId:Int ):Array<Vector>
 	{
 		if( p_nId >= 0 && p_nId < _nNbSegments )
 		{
@@ -159,7 +159,7 @@ class BezierPath
 	 *
 	 * @return The number of segments
 	 */
-	public function getNumberOfSegments():UInt
+	public function getNumberOfSegments():Int
 	{
 		return _nNbSegments;
 	}
@@ -188,17 +188,17 @@ class BezierPath
 	/**
 	 * Current segment id.
 	 */
-	private var _nCrtSegment:UInt;
+	private var _nCrtSegment:Int;
 
 	/**
 	 * Number of segments of this path.
 	 */
-	private var _nNbSegments:UInt;
+	private var _nNbSegments:Int;
 
 	/**
 	 * Number of points of this path.
 	 */
-	private var _nNbPoints:UInt;
+	private var _nNbPoints:Int;
 
 	/**
 	 * Should this path be closed? True if it should false otherwise, default - false

@@ -18,7 +18,6 @@ package sandy.materials.attributes;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.geom.ColorTransform;
-import flash.utils.Dictionary;
 
 import sandy.core.SandyFlags;
 import sandy.core.Scene3D;
@@ -51,7 +50,6 @@ class ALightAttributes implements IAttributes
 	 _diffuse = 1.0;
 	 _specular = 0.0;
 	 _gloss = 5.0;
-	 _scenes = new Dictionary (true);
 
 	 m_oCurrentL = new Vector ();
 	 m_oCurrentV = new Vector ();
@@ -236,7 +234,7 @@ class ALightAttributes implements IAttributes
 		}
 	}
 
-	private function applyColorToDisplayObject (s:DisplayObject, c:UInt, b:Float):Void
+	private function applyColorToDisplayObject (s:DisplayObject, c:Int, b:Float):Void
 	{
 		// to avoid color darkening, we will normalize color; pitch-black is "normalized" to white
 		if ((c < 1) || (c > 0xFFFFFF))
@@ -313,13 +311,13 @@ class ALightAttributes implements IAttributes
 	/**
 	* Flags for the attribute.
 	*/
-	public var flags(__getFlags,null):UInt;
-	private function __getFlags():UInt
+	public var flags(__getFlags,null):Int;
+	private function __getFlags():Int
 	{
 		return m_nFlags;
 	}
 	
-	private var m_nFlags:UInt;
+	private var m_nFlags:Int;
 	
 	// --
 	private var _ambient:Float;
@@ -327,6 +325,5 @@ class ALightAttributes implements IAttributes
 	private var _specular:Float;
 	private var _gloss:Float;
 	
-	private var _scenes:Dictionary;
 }
 

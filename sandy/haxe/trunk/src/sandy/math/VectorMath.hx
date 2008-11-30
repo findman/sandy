@@ -24,8 +24,6 @@ import sandy.core.data.Vector;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 
  */
 class VectorMath
 {

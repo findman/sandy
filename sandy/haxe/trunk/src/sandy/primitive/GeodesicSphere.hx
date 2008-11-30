@@ -76,8 +76,8 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 		var aPacificFaces:Array<Array<Int>> = [], aVertexNormals:Array<Vector> = [];
 		
 		// Set up variables for keeping track of the number of iterations and the angles
-		var iVerts:UInt = fractures_in + 1, jVerts:UInt;
-		var j:UInt, Theta:Float=0.0, Phi:Float=0.0, ThetaDel:Float, PhiDel:Float;
+		var iVerts:Int = fractures_in + 1, jVerts:Int;
+		var j:Int, Theta:Float=0.0, Phi:Float=0.0, ThetaDel:Float, PhiDel:Float;
 		var cosTheta:Float, sinTheta:Float, cosPhi:Float, sinPhi:Float;
 
 		// Although original code used quite clever diamond projection, let's change it to
@@ -126,8 +126,8 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 
 		// Build the faces for the sphere
 		// Build the upper four sections
-		var k:UInt, L_Ind_s:UInt, U_Ind_s:UInt, U_Ind_e:UInt, L_Ind_e:UInt, L_Ind:UInt, U_Ind:UInt;
-		var isUpTri:Bool, Pt0:UInt, Pt1:UInt, Pt2:UInt, tPt:UInt, triInd:UInt, tris:UInt;
+		var k:Int, L_Ind_s:Int, U_Ind_s:Int, U_Ind_e:Int, L_Ind_e:Int, L_Ind:Int, U_Ind:Int;
+		var isUpTri:Bool, Pt0:Int, Pt1:Int, Pt2:Int, tPt:Int, triInd:Int, tris:Int;
 		tris = 1;
 		L_Ind_s = 0; L_Ind_e = 0;
 		for( i in 0...iVerts ){

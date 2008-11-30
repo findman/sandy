@@ -32,8 +32,7 @@ import sandy.util.NumberUtil;
  * 
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
- * 
- * 
+	*
  */
 class IntersectionMath
 {
@@ -55,7 +54,7 @@ class IntersectionMath
 	/**
 	 * Computes the smallest distance between these 3D lines.
 	 * As 3D lines can be not intersecting, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.
-	 * The 2 points define a segment which length represents hte shortest distance between these 2 lines.
+	 * The 2 points define a segment which length represents the shortest distance between these 2 lines.
 	 */
 	public static function intersectionLine3D( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector, p_oPointD:Vector ):Array<Vector>
 	{
@@ -137,10 +136,10 @@ class IntersectionMath
 	}
 	
 	/*
-     	** From http://www.blackpawn.com/texts/pointinpoly/default.html
-     	** Points right on the perimeter are NOT treated as in.
-     	** AS3 implementation : tcorbet
-     	*/
+		** From http://www.blackpawn.com/texts/pointinpoly/default.html
+		** Points right on the perimeter are NOT treated as in.
+		** AS3 implementation : tcorbet
+		*/
 	public static function isPointInTriangle2D ( p_oPoint:Point, p_oA:Point, p_oB:Point, p_oC:Point ):Bool
     {
 	    var oneOverDenom:Float = (1 /

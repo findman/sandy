@@ -36,7 +36,7 @@ import sandy.materials.Material;
 class LineAttributes extends AAttributes, implements IAttributes
 {
 	private var m_nThickness:Float;
-	private var m_nColor:UInt;
+	private var m_nColor:Int;
 	private var m_nAlpha:Float;
 	// --
 	/**
@@ -51,7 +51,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( p_nThickness:Float = 1.0, p_nColor:UInt = 1, p_nAlpha:Float = 1.0 )
+	public function new( p_nThickness:Float = 1.0, p_nColor:Int = 1, p_nAlpha:Float = 1.0 )
 	{
 		m_nThickness = p_nThickness;
 		m_nAlpha = p_nAlpha;
@@ -76,8 +76,8 @@ class LineAttributes extends AAttributes, implements IAttributes
 	/**
 	 * The line color.
 	 */
-	public var color(__getColor,__setColor):UInt;
-	private function __getColor():UInt
+	public var color(__getColor,__setColor):Int;
+	private function __getColor():Int
 	{
 		return m_nColor;
 	}
@@ -106,7 +106,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	/**
 	 * The line color
 	 */
-	private function __setColor(p_nValue:UInt):UInt
+	private function __setColor(p_nValue:Int):Int
 	{
 		m_nColor = p_nValue; 
 		modified = true;
@@ -138,6 +138,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 		p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
 		// --
 		p_oGraphics.moveTo( l_aPoints[0].sx, l_aPoints[0].sy );
+
 		var lId:Int = l_aPoints.length;
 		while( (l_oVertex = l_aPoints[ --lId ]) != null ) {
 			p_oGraphics.lineTo( l_oVertex.sx, l_oVertex.sy );

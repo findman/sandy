@@ -23,7 +23,6 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.net.URLRequest;
-import flash.utils.Dictionary;
 
 import sandy.events.QueueEvent;
 import sandy.events.SandyEvent;
@@ -101,7 +100,7 @@ class LoaderQueue extends EventDispatcher
 		{
 			l_oLoader.loader.load( l_oLoader.urlRequest );
 			l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
-            l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+			l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 		}
 	}
 	

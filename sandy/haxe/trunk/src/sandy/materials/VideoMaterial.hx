@@ -45,7 +45,11 @@ class VideoMaterial extends BitmapMaterial
 	 * Default color used to draw the bitmapdata content.
 	 * In case you need a specific color, change this value at your application initialization.
 	 */
+#if js
+	public static inline var DEFAULT_FILL_COLOR:Int = 0;
+#else
 	public static inline var DEFAULT_FILL_COLOR:UInt = 0;
+#end
 
 	private var m_oTimer:Timer;
 	private var m_oVideo:Video;
@@ -64,7 +68,7 @@ class VideoMaterial extends BitmapMaterial
 	 *
 	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( p_oVideo:Video, p_nUpdateMS:UInt = 40, ?p_oAttr:MaterialAttributes )
+	public function new( p_oVideo:Video, p_nUpdateMS:Int = 40, ?p_oAttr:MaterialAttributes )
 	{
 		super( new BitmapData( Std.int( p_oVideo.width ), Std.int( p_oVideo.height ), true, DEFAULT_FILL_COLOR ), p_oAttr );
 		m_oAlpha = new ColorTransform ();

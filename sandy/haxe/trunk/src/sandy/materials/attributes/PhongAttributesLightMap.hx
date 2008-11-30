@@ -32,7 +32,7 @@ class PhongAttributesLightMap
 	/**
 	 * An array of an array which contains the colors of the strata.
 	 */
-	public var colors:Array<Array<UInt>>;
+	public var colors:Array<Array<Int>>;
 	
 	/**
 	 * An array of an array which contains the ratios (length) of each strata.

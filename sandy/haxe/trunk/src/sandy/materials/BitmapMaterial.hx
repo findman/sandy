@@ -19,11 +19,12 @@ package sandy.materials;
 import flash.display.BitmapData;
 import flash.display.Graphics;
 import flash.display.Sprite;
+#if flash9
 import flash.filters.ColorMatrixFilter;
+#end
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
@@ -104,7 +105,9 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		temp.draw( p_oTexture );
 		texture = temp;
 		// --
+#if flash9
 		m_oCmf = new ColorMatrixFilter();
+#end
 		m_oPolygonMatrixMap = new Array();
 		precision = p_nPrecision;
 	}
@@ -309,7 +312,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		var b2:Float = v1y - v0y;
 		var c2:Float = v2x - v0x;
 		var d2:Float = v2y - v0y;
-		
+
 		matrix.a = a*a2 + b*c2;
 		matrix.b = a*b2 + b*d2;
 		matrix.c = c*a2 + d*c2;
@@ -326,14 +329,14 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 	}
 
 
-	private function _createTextureMatrix( p_aUv:Array<Dynamic> ):Matrix
+	private function _createTextureMatrix( p_aUv:Array<UVCoord> ):Matrix
 	{
-		var u0: Float = (Std.parseFloat(p_aUv[0].u) * m_oTiling.x + m_oOffset.x) * m_nWidth,
-			v0: Float = (Std.parseFloat(p_aUv[0].v) * m_oTiling.y + m_oOffset.y) * m_nHeight,
-			u1: Float = (Std.parseFloat(p_aUv[1].u) * m_oTiling.x + m_oOffset.x) * m_nWidth,
-			v1: Float = (Std.parseFloat(p_aUv[1].v) * m_oTiling.y + m_oOffset.y) * m_nHeight,
-			u2: Float = (Std.parseFloat(p_aUv[2].u) * m_oTiling.x + m_oOffset.x) * m_nWidth,
-			v2: Float = (Std.parseFloat(p_aUv[2].v) * m_oTiling.y + m_oOffset.y) * m_nHeight;
+		var u0: Float = (p_aUv[0].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
+			v0: Float = (p_aUv[0].v * m_oTiling.y + m_oOffset.y) * m_nHeight,
+			u1: Float = (p_aUv[1].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
+			v1: Float = (p_aUv[1].v * m_oTiling.y + m_oOffset.y) * m_nHeight,
+			u2: Float = (p_aUv[2].u * m_oTiling.x + m_oOffset.x) * m_nWidth,
+			v2: Float = (p_aUv[2].v * m_oTiling.y + m_oOffset.y) * m_nHeight;
 		// -- Fix perpendicular projections. Not sure it is really useful here since there's no texture prjection. This will certainly solve the freeze problem tho
 		if( (u0 == u1 && v0 == v1) || (u0 == u2 && v0 == v2) )
 		{
@@ -435,8 +438,10 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 						    	0, 0, 1, 0, 0,
 						    	0, 0, 0, p_nValue, 0];
 
+#if flash9
 		m_oCmf = new ColorMatrixFilter( matrix );
 		texture.applyFilter( m_orgTexture, texture.rect, m_oPoint, m_oCmf );
+#end
 	}
 
 	/**
@@ -515,7 +520,11 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 	private var m_nRecLevel:Int;
 	private var m_oPolygonMatrixMap:Array<Matrix>;
 	private var m_oPoint:Point;
+#if flash9
 	private var m_oCmf:ColorMatrixFilter;
+#else
+	private var m_oCmf:Dynamic;
+#end
 	private var matrix:Matrix;
 	private var m_oTiling:Point;
 	private var m_oOffset:Point;

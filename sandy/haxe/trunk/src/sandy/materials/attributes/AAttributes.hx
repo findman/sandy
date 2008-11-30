@@ -30,7 +30,6 @@ import sandy.materials.Material;
  * @author		makc
  * @author Niel Drummond - haXe port 
  * 
- * 
  **/
 class AAttributes implements IAttributes
 {
@@ -123,12 +122,12 @@ class AAttributes implements IAttributes
 	*
 	* @see sandy.core.SandyFlags
 	*/
-	public var flags(__getFlags,null):UInt;
-	private function __getFlags():UInt
+	public var flags(__getFlags,null):Int;
+	private function __getFlags():Int
 	{
 		return m_nFlags;
 	}
 	
-	private var m_nFlags:UInt;
+	private var m_nFlags:Int;
 }
 

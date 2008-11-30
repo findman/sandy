@@ -27,8 +27,6 @@ import sandy.core.data.Vector;
  * It gives some useful information about the clicked object such as the polygon clicked, and real 3D position of the point under mouse, the Uv coordinate under mouse.
  * It allows some advanced interaction with the object and its texture.
  *
- * 
- *
  * @see sandy.core.scenegraph.Shape3D
  */
 class Shape3DEvent extends BubbleEvent

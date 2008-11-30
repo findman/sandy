@@ -15,7 +15,6 @@ limitations under the License.
 */
 package sandy.parser;
 
-import flash.display.Bitmap;
 import flash.events.Event;
 import flash.net.URLRequest;
 
@@ -37,7 +36,6 @@ import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Node;
-import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sound3D;
 import sandy.core.scenegraph.Sprite2D;
@@ -451,8 +449,8 @@ class ColladaParser extends AParser, implements IParser
 	{
 		//var l_aFloatArray : Array = new XPath( './/..source/.( @id == p_sSourceID ).float_array ).selectNode(p_oGeometry).getStringValue().split(/\s+/);
 		var l_aFloatArray : Array<String> = new XPath( './/source[ @id = "' + p_sSourceID + '" ]/float_array' ).selectNode(p_oGeometry).getStringValue().split(" ");
-		var l_nCount:UInt = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@count' ).selectNode(p_oGeometry).getStringValue() );
-		var l_nOffset:UInt = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@stride' ).selectNode(p_oGeometry).getStringValue() );
+		var l_nCount:Int = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@count' ).selectNode(p_oGeometry).getStringValue() );
+		var l_nOffset:Int = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@stride' ).selectNode(p_oGeometry).getStringValue() );
 
 		var l_nFloatArray : Int = l_aFloatArray.length;
 		var l_aOutput : Array<Vector> = new Array();
@@ -675,7 +673,6 @@ class ColladaParser extends AParser, implements IParser
 			if( l_oLoader.loader.content != null && Reflect.hasField( l_oLoader.loader.content, "bitmapData" ) )
 				m_oMaterials.get( l_oLoader.name ).bitmapData = Reflect.field( l_oLoader.loader.content, "bitmapData" );
 		}
-
 		parseScene( new XPath('/COLLADA/library_visual_scenes/visual_scene').selectNode(m_oCollada) );
 	}
 }

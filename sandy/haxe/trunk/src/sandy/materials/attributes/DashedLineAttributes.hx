@@ -23,7 +23,6 @@ import sandy.core.data.Polygon;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 import sandy.core.data.Vector;
-import flash.media.Camera;
 import sandy.core.scenegraph.Camera3D;
 
 /**
@@ -50,7 +49,7 @@ class DashedLineAttributes extends LineAttributes
 	 * @param p_length		The length of the line
 	 * @param p_gap			The length of the gaps
 	 */
-	public function new( p_nThickness:UInt = 1, p_nColor:UInt = 0, p_nAlpha:Float = 1.0, p_length:Float = 10.0, p_gap:Float = 10.0 )
+	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha:Float = 1.0, p_length:Float = 10.0, p_gap:Float = 10.0 )
 	{
 		super(p_nThickness,p_nColor,p_nAlpha);
 		thisLength = p_length;

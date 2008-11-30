@@ -48,7 +48,7 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
-	private function __setColor (p_nColor:UInt):UInt
+	private function __setColor (p_nColor:Int):Int
 	{
 		_c = p_nColor & 0xFFFFFF;
 		_a = (p_nColor - _c) / 0x1000000 / 255.0;
@@ -59,8 +59,8 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
-	public var color (__getColor,__setColor):UInt;
-	private function __getColor ():UInt
+	public var color (__getColor,__setColor):Int;
+	private function __getColor ():Int
 	{
 		return _c + Math.floor (0xFF * _a) * 0x1000000;
 	}
@@ -256,7 +256,7 @@ class MediumAttributes extends AAttributes
 
 	// --
 	private var _m:Matrix;
-	private var _c:UInt;
+	private var _c:Int;
 	private var _a:Float;
 	private var _fadeTo:Vector;
 	private var _fadeToN2:Float;

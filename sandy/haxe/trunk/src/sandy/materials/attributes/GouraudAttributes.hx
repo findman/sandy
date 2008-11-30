@@ -150,7 +150,7 @@ class GouraudAttributes extends ALightAttributes
 		m1.concat (m2);
 		// draw the map
 
-		p_oGraphics.beginGradientFill (LINEAR, m_aColors, m_aAlphas, m_aRatios, m1);
+		p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, m_aColors, m_aAlphas, m_aRatios, m1);
 		p_oGraphics.moveTo( m2.tx, m2.ty );
 		for ( m_oVertex in l_aPoints )
 		{
@@ -161,7 +161,7 @@ class GouraudAttributes extends ALightAttributes
 
 	private var _useBright:Bool;
 
-	private var m_aColors:Array<UInt>;
+	private var m_aColors:Array<Int>;
 	private var m_aAlphas:Array<Float>;
 	private var m_aRatios:Array<Int>;
 }

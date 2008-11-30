@@ -27,8 +27,6 @@ import sandy.errors.SingletonError;
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port 
  * 
- * 
- * 
  */
 class VertexMath extends VectorMath
 {

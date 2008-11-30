@@ -42,7 +42,7 @@ interface IAttributes
 	
 	function finish( p_oScene:Scene3D ):Void;	
 	
-	var flags(__getFlags,null):UInt;	
-	private function __getFlags():UInt;	
+	var flags(__getFlags,null):Int;	
+	private function __getFlags():Int;	
 }
 

@@ -16,8 +16,6 @@ limitations under the License.
 
 package sandy.core;
 
-import flash.utils.Dictionary;
-
 /**
  * The SceneLocator serves as a registry of all scenes in the application.
  *

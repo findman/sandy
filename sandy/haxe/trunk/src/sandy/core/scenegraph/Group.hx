@@ -113,7 +113,7 @@ class Group extends Node
 		{
 			if( Std.is(l_oNode, Shape3D) || Std.is(l_oNode, Group) || Std.is(l_oNode, TransformGroup) )
 			{
-				l_oGroup.addChild( l_oNode.clone(  p_sName+"_"+l_oNode.name ) );
+				l_oGroup.addChild( Reflect.callMethod( l_oNode, 'clone',  [p_sName+"_"+l_oNode.name] ) );
 			} 
 		}
 		

@@ -76,8 +76,8 @@ class ASEParser extends AParser, implements IParser
 		// --
 		//var lines:Array = unescapeMultiByte( String( m_oFile ) ).split( '\n' );
 		var lines:Array<String> = m_oFile.split( '\n' );
-		var lineLength:UInt = lines.length;
-		var id:UInt;
+		var lineLength:Int = lines.length;
+		var id:Int;
 		// -- local vars
 		var line:String;
 		var content:String;
@@ -136,9 +136,9 @@ class ASEParser extends AParser, implements IParser
 						//"MESH_FACE    0:    A:    777 B:    221 C:    122 AB:    1 BC:    1 CA:    1"
 						var faceReg:EReg = ~/MESH_FACE\s*(\d+):\s*A:\s*(\d+)\s*B:\s*(\d+)\s*C:\s*(\d+)\s*AB:\s*(\d+)\s*BC:\s*(\d+)\s*CA:\s*(\d+)\s*/;
 						id = Std.parseInt( faceReg.replace(mfl, "$1") );
-						var p1:UInt = Std.parseInt(faceReg.replace(mfl, "$2"));
-						var p2:UInt = Std.parseInt(faceReg.replace(mfl, "$3"));
-						var p3:UInt = Std.parseInt(faceReg.replace(mfl, "$4"));
+						var p1:Int = Std.parseInt(faceReg.replace(mfl, "$2"));
+						var p2:Int = Std.parseInt(faceReg.replace(mfl, "$3"));
+						var p3:Int = Std.parseInt(faceReg.replace(mfl, "$4"));
 
 						l_oGeometry.setFaceVertexIds(id, [p1, p2, p3] );
 					}
@@ -164,9 +164,9 @@ class ASEParser extends AParser, implements IParser
 						content = content.substr( content.indexOf( '*' ) + 1 );
 						var faceReg:EReg = ~/MESH_TFACE\s*(\d+)\s*(\d+)\s*(\d+)\s*(\d+)/;
 						id = Std.parseInt(faceReg.replace(content, "$1"));
-						var f1:UInt = Std.parseInt(faceReg.replace(content, "$2"));
-						var f2:UInt = Std.parseInt(faceReg.replace(content, "$3"));
-						var f3:UInt = Std.parseInt(faceReg.replace(content, "$4"));
+						var f1:Int = Std.parseInt(faceReg.replace(content, "$2"));
+						var f2:Int = Std.parseInt(faceReg.replace(content, "$3"));
+						var f3:Int = Std.parseInt(faceReg.replace(content, "$4"));
 						l_oGeometry.setFaceUVCoordsIds( id, [f1, f2, f3] );
 					}
 				}

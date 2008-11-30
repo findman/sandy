@@ -175,7 +175,11 @@ class Camera3D extends ATransformable
 	    // --
 					
 					/* we need to bypass visibility - untyped does not work on getters/setters */
+#if flash
 					untyped m_aDisplayList.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
+#else
+					m_aDisplayList.sort(function(a,b){return (a.depth>b.depth)?1:a.depth<b.depth?-1:0;} );
+#end
 					for ( l_oShape in m_aDisplayList )
 					{
 							l_oShape.display( p_oScene );

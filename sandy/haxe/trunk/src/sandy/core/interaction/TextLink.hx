@@ -9,13 +9,17 @@ package sandy.core.interaction;
 
 import flash.geom.Rectangle;
 import flash.text.TextField;
+#if flash9
 import flash.utils.Dictionary;
+#end
 
 class TextLink 
 {
 	
 	
+#if flash9
 	public static var textLinks : Dictionary;
+#end
 	
 	public var x 				: Float;
 	public var y 				: Float;
@@ -47,6 +51,7 @@ class TextLink
 	 */
 	public static function getTextLinks( t : TextField, ?force : Bool ) : Array<TextLink>
 	{
+#if flash9
 		if ( force == null ) force = false;
 		if ( t.htmlText == null ) return null;
 		if ( textLinks == null ) textLinks = new Dictionary();
@@ -106,6 +111,9 @@ class TextLink
 		}
 		
 		return untyped( textLinks[t] );
+#else
+		return [];
+#end
 	}
 	
 	public function getBounds() : Rectangle

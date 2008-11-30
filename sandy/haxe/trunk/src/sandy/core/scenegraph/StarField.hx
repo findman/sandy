@@ -65,7 +65,11 @@ class StarField extends ATransformable, implements IDisplayable
 	/**
 	 * Array of star colors (if not specified, white is used).
 	 */
+#if js
+	public var starColors:Array<Int>;
+#else
 	public var starColors:Array<UInt>;
+#end
 
 	/**
 	 * Array of star sprites (any IBitmapDrawable-s; if not specified, StarField uses setPixel to draw a star).
@@ -185,7 +189,11 @@ class StarField extends ATransformable, implements IDisplayable
 		m_oEB.broadcastEvent (m_oEventBefore);
 		if (m_oEventBefore.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 		// --
+#if js
+		var c32:Int, a:Float, c:Int, r:Float, rgb_r:Float, rgb_g:Float, rgb_b:Float, bY:Float;
+#else
 		var c32:UInt, a:Float, c:UInt, r:Float, rgb_r:Float, rgb_g:Float, rgb_b:Float, bY:Float;
+#end
 		for (i in 0 ... stars.length)
 		{
 			var _v:Vertex = stars [i];

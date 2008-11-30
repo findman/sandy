@@ -19,13 +19,11 @@ package sandy.materials.attributes;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
-import sandy.core.light.Light3D;
 import sandy.materials.Material;
 import sandy.math.VertexMath;
 import sandy.util.NumberUtil;
@@ -161,7 +159,7 @@ class CelShadeAttributes extends ALightAttributes
 		{
 			// no reflection here - render the face in solid color
 			var l:Int = lightmap.colors[0].length;
-			var c:UInt = lightmap.colors[0][l -1];
+			var c:Int = lightmap.colors[0][l -1];
 			a = lightmap.alphas[0][l -1];
 			p_oGraphics.beginFill( c, a );
 		}

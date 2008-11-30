@@ -325,7 +325,7 @@ class Box extends Shape3D, implements Primitive3D
 	private function _generateFaces() : Void
 	{
 		m_aFaces = new Array();
-		var m : UInt = 2;
+		var m : Int = 2;
 		var multi : Int = Std.int(m * Math.pow( 4, _q-1 ));
 		for ( i in 0...6 )
 		{

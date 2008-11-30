@@ -16,12 +16,8 @@ limitations under the License.
 
 package sandy.parser;
 
-import flash.events.ActivityEvent;
-import flash.events.AsyncErrorEvent;
-import flash.events.ContextMenuEvent;
-import flash.events.DataEvent;
-import flash.events.ErrorEvent;
 import flash.events.Event;
+#if !js
 import flash.events.EventDispatcher;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
@@ -43,6 +39,7 @@ import flash.events.TextEvent;
 import flash.events.TimerEvent;
 import flash.events.WeakFunctionClosure;
 import flash.events.WeakMethodClosure;
+#end
 import flash.net.URLLoaderDataFormat;
 import flash.utils.ByteArray;
 import flash.utils.Endian;
@@ -77,8 +74,8 @@ class Parser3DS extends AParser, implements IParser
 	private var currentObjectName:String;
 	private var data:ByteArray;
 	/* private var _animation:Hash<Keyframer>; */
-	private var startFrame:UInt;
-	private var endFrame:UInt;
+	private var startFrame:Int;
+	private var endFrame:Int;
 	private var lastRotation:Quaternion;
 
 	/**
@@ -115,12 +112,12 @@ class Parser3DS extends AParser, implements IParser
 		var l_oMatrix:Matrix4 = null;
 		// --
 		var x:Float, y:Float, z:Float;
-		var l_qty:UInt;
+		var l_qty:Int;
 		// --
 		while( data.bytesAvailable > 0 )
 		{
-			var id:UInt = data.readUnsignedShort();
-			var l_chunk_length:UInt = data.readUnsignedInt();
+			var id:Int = data.readUnsignedShort();
+			var l_chunk_length:Int = data.readUnsignedInt();
 
 			switch( id )
 			{
@@ -271,7 +268,7 @@ class Parser3DS extends AParser, implements IParser
 	 *
 	 * @return A character
 	 */
-	private function readChar():UInt
+	private function readChar():Int
 	{
 		return data.readUnsignedByte();
 	}
@@ -281,9 +278,9 @@ class Parser3DS extends AParser, implements IParser
 	 *
 	 * @return	An integer
 	 */
-	private function readInt():UInt
+	private function readInt():Int
 	{
-			var temp:UInt = readChar();
+			var temp:Int = readChar();
 			return ( temp | (readChar() << 8));
 	}
 
@@ -295,7 +292,7 @@ class Parser3DS extends AParser, implements IParser
 	private function readString():String
 	{
 			var name:String = "";
-			var ch:UInt;
+			var ch:Int;
 			while((ch = readChar()) != 0)
 			{
 				if (ch == 0)

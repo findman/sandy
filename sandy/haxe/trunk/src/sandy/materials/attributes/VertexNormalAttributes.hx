@@ -47,7 +47,7 @@ class VertexNormalAttributes extends LineAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( p_nLength:Float = 10.0, p_nThickness:UInt = 1, p_nColor:UInt = 0, p_nAlpha:Float = 1.0)
+	public function new( p_nLength:Float = 10.0, p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha:Float = 1.0)
 	{
 		m_nLength = p_nLength;
 		// reuse LineAttributes setters

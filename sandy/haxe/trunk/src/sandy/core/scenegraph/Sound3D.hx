@@ -17,7 +17,6 @@ limitations under the License.
 package sandy.core.scenegraph;
 
 import flash.events.Event;
-import flash.utils.Timer;
 import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
