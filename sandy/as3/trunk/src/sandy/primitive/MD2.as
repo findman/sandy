@@ -1,12 +1,12 @@
 package sandy.primitive
 {
-	import flash.utils.ByteArray;
-	import flash.utils.Endian;
-
 	import sandy.core.data.*;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.primitive.Primitive3D;
+	
+	import flash.utils.ByteArray;
+	import flash.utils.Endian;	
 
 	/**
 	* MD2 primitive.
@@ -24,11 +24,22 @@ package sandy.primitive
 		*/
 		public function MD2 ( p_sName:String, data:ByteArray, scale:Number = 1 )
 		{
+			m_oBinaryData = data;
 			super (p_sName); scaling = scale; geometry = generate (data); frame = 0;
 			//animated = true;
 		}
 
-		/**
+		public override function clone(  p_sName:String="", p_bKeepTransform:Boolean = false ):Shape3D
+		{
+			var l_oCopy:MD2 = new MD2(p_sName, m_oBinaryData, scaling);
+			if( p_bKeepTransform == true ) l_oCopy.matrix = this.matrix;
+			l_oCopy.useSingleContainer = this.useSingleContainer;
+			l_oCopy.appearance = this.appearance;
+			return l_oCopy;			
+		}
+		
+		private var m_oBinaryData:ByteArray;
+		/**
 		* Generates the geometry for MD2. Sandy never actually calls this method,
 		* but we still implement it according to Primitive3D, just in case :)
 		*
