@@ -39,7 +39,8 @@ package sandy.primitive
 		}
 		
 		private var m_oBinaryData:ByteArray;
-		/**
+
+		/**
 		* Generates the geometry for MD2. Sandy never actually calls this method,
 		* but we still implement it according to Primitive3D, just in case :)
 		*
@@ -54,7 +55,7 @@ package sandy.primitive
 			// okay, let's read out header 1st
 			var data:ByteArray = ByteArray (arguments [0]);
 			data.endian = Endian.LITTLE_ENDIAN;
-
+			data.position = 0;
 			ident = data.readInt();
 			version = data.readInt();
 
