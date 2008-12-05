@@ -60,9 +60,7 @@ import sandy.materials.ZShaderMaterial;
 import sandy.util.LoaderQueue;
 import sandy.util.NumberUtil;
 
-import xpath.XPath;
-import xpath.xml.XPathHxXml;
-import xpath.xml.XPathXml;
+import haxe.xml.Fast;
 
 /**
  * Transforms a COLLADA XML document into Sandy geometries.
@@ -75,9 +73,7 @@ import xpath.xml.XPathXml;
  * </ul>
  *
  * @author		Dennis Ippel - ippeldv
- * @since		1.0
- * @version		3.0
- * @date 		26.07.2007
+ * @author		Niel Drummond
  *
  * @example To parse a COLLADA object at runtime:
  *
@@ -99,7 +95,7 @@ import xpath.xml.XPathXml;
 
 class ColladaParser extends AParser, implements IParser
 {
-	private var m_oCollada : XPathHxXml;
+	private var m_oCollada : haxe.xml.Fast;
 	private var m_oUp:UpAxis;
 
 	private var m_oMaterials : Hash<Dynamic>;
@@ -134,26 +130,26 @@ class ColladaParser extends AParser, implements IParser
 		super.parseData( e );
 
 		// -- read the XML
-		m_oCollada = XPathHxXml.wrapNode( Xml.parse( m_oFile ) );
+		m_oCollada = new haxe.xml.Fast( Xml.parse( m_oFile ).firstElement() );
 
-		switch ( (new XPath('/COLLADA/asset/up_axis')).selectNode(m_oCollada).getStringValue() ) 
-		{
+		var l_sAxis = m_oCollada.node.asset.node.up_axis.innerData;
+		switch ( l_sAxis ) {
 				case "Y_UP":	m_oUp = Y_UP;
 				case "Z_UP":	m_oUp = Z_UP;
 				case "X_UP":	m_oUp = X_UP;
 				default:				 m_oUp = NONE;
 		}
 
-		if( Lambda.count( (new XPath('/COLLADA/library_images')).selectNodes(m_oCollada)) > 0 )
-			m_oMaterials = loadImages( new XPath('/COLLADA/library_images/image').selectNodes(m_oCollada));
+		if( m_oCollada.hasNode.library_images )
+			m_oMaterials = loadImages( m_oCollada.node.library_images.nodes.image );
 		else
-			parseScene( new XPath('/COLLADA/library_visual_scenes/visual_scene').selectNode(m_oCollada));
+			parseScene( m_oCollada.node.library_visual_scenes.node.visual_scene );
 	}
 
-	private function parseScene( p_oScene : XPathXml ) : Void
+	private function parseScene( p_oScene : haxe.xml.Fast ) : Void
 	{
 		// -- local variables
-		var l_oNodes : Iterable<XPathXml> = (new XPath('node')).selectNodes(p_oScene);
+		var l_oNodes : List<Fast> = p_oScene.nodes.node;
 
 		for( l_oN in l_oNodes )
 		{
@@ -169,13 +165,13 @@ class ColladaParser extends AParser, implements IParser
 		dispatchEvent( l_eOnInit );
 	}
 
-	private function parseNode( p_oNode : XPathXml ) : Node
+	private function parseNode( p_oNode : haxe.xml.Fast ) : Node
 	{
 		// -- local variables
 		var l_oNode:ATransformable = null;
 		//var l_oMatrix : Matrix4 = new Matrix4();
 		var l_sGeometryID : String;
-		var l_oNodes : Iterable<XPathXml>;
+		var l_oNodes : List<Fast>;
 		var l_nNodeLen : Int;
 		var l_oVector : Vector;
 		//var l_oPivot:Vector = new Vector();
@@ -183,31 +179,31 @@ class ColladaParser extends AParser, implements IParser
 		//var l_oScale : Transform3D;
 		var i:Int;
 		
-		if( Lambda.count( new XPath('./instance_geometry').selectNodes(p_oNode) ) != 0 )
+		if( p_oNode.hasNode.instance_geometry )
 		{
 			var l_aGeomArray:Array<String>;
 			var l_oAppearance : Appearance = m_oStandardAppearance;
 			l_oGeometry = new Geometry3D();
 			l_oAppearance = getAppearance( p_oNode );
 
-			l_aGeomArray = new XPath('instance_geometry/@url').selectNode(p_oNode).getStringValue().split( "#" );
+			l_aGeomArray = p_oNode.node.instance_geometry.att.url.split( "#" );
 			l_sGeometryID = l_aGeomArray[ 1 ];
 			// -- get the vertices
 			l_oGeometry = getGeometry( l_sGeometryID, m_oMaterials );
 
 			if( l_oGeometry == null ) return null;
 			// -- create the new shape
-			l_oNode = new Shape3D( new XPath('@name').selectNode(p_oNode).getStringValue(), l_oGeometry, l_oAppearance );
+			l_oNode = new Shape3D( p_oNode.att.name, l_oGeometry, l_oAppearance );
 		}
 		else
 		{
-			l_oNode = new TransformGroup( new XPath('@name').selectNode(p_oNode).getStringValue() );
+			l_oNode = new TransformGroup( p_oNode.att.name );
 		}
 		
 		// -- scale
-		if( Lambda.count( new XPath( './scale' ).selectNodes(p_oNode) ) > 0 ) 
+		if( p_oNode.hasNode.scale )
 		{
-			l_oVector = stringToVector( new XPath( './scale' ).selectNode(p_oNode).getStringValue() );
+			l_oVector = stringToVector( p_oNode.node.scale.innerData );
 			// --
 			formatVector( l_oVector );
 			// --
@@ -217,21 +213,24 @@ class ColladaParser extends AParser, implements IParser
 
 		}
 		// -- translation
-		if( Lambda.count( new XPath( './translate' ).selectNodes(p_oNode) ) >= 1 ) 
+		if( p_oNode.hasNode.translate )
 		{
-			var l_aTransAtt:Iterable<XPathXml> = new XPath( './translate' ).selectNodes(p_oNode);
+			var l_aTransAtt:List<Fast> = p_oNode.nodes.translate;
 			for( l_oT in l_aTransAtt )
 			{
 				var l_sTranslationValue:String = "";
 				// --
-				var l_oAttTranslateNode:XPathXml = new XPath('./@sid').selectNode( l_oT );
+				var l_oAttTranslateNode:String = null;
 				var l_sAttTranslateValue:String = "";
-				if( l_oAttTranslateNode != null ) l_sAttTranslateValue = l_oAttTranslateNode.getStringValue().toLowerCase();
+				if( l_oT.has.sid ) {
+						l_oAttTranslateNode = l_oT.att.sid;
+						l_sAttTranslateValue = l_oAttTranslateNode.toLowerCase();
+				}
 				
 				if( l_sAttTranslateValue == "translation" || l_sAttTranslateValue ==  "translate" )
-						l_sTranslationValue = l_oT.getStringValue();
-				else if( l_sAttTranslateValue.length == 0 ) 
-						l_sTranslationValue = l_oT.getStringValue();
+						l_sTranslationValue = l_oT.innerData;
+				else if( l_sAttTranslateValue.length == 0 )
+						l_sTranslationValue = l_oT.innerData;
 
 				if( l_sTranslationValue.length > 0 )
 				{
@@ -248,31 +247,31 @@ class ColladaParser extends AParser, implements IParser
 			}
 		}
 		// -- rotate
-		if( Lambda.count( new XPath( './rotate' ).selectNodes(p_oNode) ) == 1 ) 
+		if( Lambda.count( p_oNode.nodes.rotate ) == 1 )
 		{
-			var l_oRotations : Array<Float> = stringToArray( new XPath( './rotate' ).selectNode(p_oNode).getStringValue() );
+			var l_oRotations : Array<Float> = stringToArray( p_oNode.node.rotate.innerData );
 			
-			switch (m_oUp) 
+			switch (m_oUp)
 			{
-				case X_UP: 
+				case X_UP:
 						// not implemented
-				case Y_UP: 
+				case Y_UP:
 						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
-				case Z_UP: 
+				case Z_UP:
 						// not implemented
 				case NONE:
 						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
 			}
 
 		} 
-		else if( Lambda.count( new XPath( './rotate' ).selectNodes(p_oNode) ) == 3 ) 
+		else if( Lambda.count( p_oNode.nodes.rotate ) == 3 )
 		{
-			var l_oRotateNodes = (new XPath( './rotate' ).selectNodes(p_oNode));
+			var l_oRotateNodes : List<Fast> = p_oNode.nodes.rotate;
 			for( l_oN in l_oRotateNodes )
 			{
-				var l_oRot : Array<Float> = stringToArray( l_oN.getStringValue() );
+				var l_oRot : Array<Float> = stringToArray( l_oN.innerData );
 
-				switch( new XPath('@sid').selectNode( l_oN ).getStringValue().toLowerCase() )
+				switch( l_oN.att.sid.toLowerCase() )
 				{
 					case "rotatex":
 					{
@@ -318,18 +317,13 @@ class ColladaParser extends AParser, implements IParser
 		}
 
 		// -- baked matrix
-		if( Lambda.count( new XPath( './matrix' ).selectNodes(p_oNode) ) > 0 ) 
+		if( p_oNode.hasNode.matrix ) 
 		{
-			stringToMatrix( new XPath( './matrix' ).selectNode(p_oNode).getStringValue() );
-			//l_oShape.setPosition( l_oMatrix.n14, l_oMatrix.n34, l_oMatrix.n24 );
-			//l_oNode.scaleX = l_oMatrix.n11;
-			//l_oNode.scaleY = l_oMatrix.n33;
-			//l_oNode.scaleZ = l_oMatrix.n22;
+			stringToMatrix( p_oNode.node.matrix.innerData );
 		}
 
 		// -- loop through subnodes
-		l_oNodes = new XPath( './node' ).selectNodes(p_oNode);
-		//l_nNodeLen = l_oNodes.length();
+		l_oNodes = p_oNode.nodes.node;
 
 		for( l_oN in l_oNodes )
 		{
@@ -340,18 +334,20 @@ class ColladaParser extends AParser, implements IParser
 		}
 
 		// quick hack to get url-ed nodes parsed
-		if( Lambda.count( new XPath( './instance_node' ).selectNodes(p_oNode) ) != 0 )
+		if( p_oNode.hasNode.instance_node )
 		{
-			var l_sNodeId:String = new XPath( 'instance_node/@url' ).selectNode(p_oNode).getStringValue();
+			var l_sNodeId:String = p_oNode.node.instance_node.att.url;
 			if ((l_sNodeId != "") && (l_sNodeId.charAt(0) == "#"))
 			{
 				l_sNodeId = l_sNodeId.substr(1);
-				var l_oMatchingNodes:Iterable<XPathXml> = new XPath( '//library_nodes/node[ @id = "' + l_sNodeId + '"' ).selectNodes(m_oCollada);
+				var l_oMatchingNodes:List<Fast> = m_oCollada.node.library_nodes.nodes.node; 
 				for ( l_oMatchingNode in l_oMatchingNodes ) {
-					var l_oNode3D:Node = parseNode( l_oMatchingNode );
-					// -- add the shape to the group node
-					if( l_oNode3D != null )
-						l_oNode.addChild( l_oNode3D );
+					if ( l_oMatchingNode.att.id == l_sNodeId ) {
+						var l_oNode3D:Node = parseNode( l_oMatchingNode );
+						// -- add the shape to the group node
+						if( l_oNode3D != null )
+							l_oNode.addChild( l_oNode3D );
+					}
 				}
 			}
 		}
@@ -364,22 +360,68 @@ class ColladaParser extends AParser, implements IParser
 	{
 		var i : Int;
 		var l_oOutpGeom : Geometry3D = new Geometry3D();
-		var l_oGeometry : XPathXml = new XPath( '/COLLADA/library_geometries/geometry[ ./@id = "' + p_sGeometryID + '" ]' ).selectNode( m_oCollada );
+		var l_oGeometries : List<Fast> = m_oCollada.node.library_geometries.nodes.geometry;
+		var l_oGeometry : haxe.xml.Fast = null;
+
+		// -- parse geometry node
+		for ( l_oNode in l_oGeometries ) {
+			if ( l_oNode.att.id == p_sGeometryID ) {
+					if ( l_oGeometry == null ) 
+							l_oGeometry = l_oNode;
+			}
+		}
+		if ( l_oGeometry == null ) return null;
 
 		// -- triangles
-		var l_oTriangles : XPathXml = new XPath( './mesh/triangles' ).selectNode(l_oGeometry);
+		var l_oTriangles : haxe.xml.Fast = l_oGeometry.node.mesh.node.triangles;
 		if( l_oTriangles == null ) return null;
-		var l_aTriangles : Array<Float> = stringToArray( new XPath( './p' ).selectNode(l_oTriangles).getStringValue() );
-		var l_sMaterial : String = new XPath( './@material' ).selectNode(l_oTriangles).getStringValue();
-		var l_nCount : Int = Std.parseInt( new XPath( './@count' ).selectNode(l_oTriangles).getStringValue() );
-		var l_nStep : Int = Lambda.count( new XPath( './input' ).selectNodes(l_oTriangles) );
+		var l_aTriangles : Array<Float> = stringToArray( l_oTriangles.node.p.innerData );
+		var l_sMaterial : String = l_oTriangles.att.material;
+		var l_nCount : Int = Std.parseInt( l_oTriangles.att.count );
+		var l_nStep : Int = Lambda.count( l_oTriangles.nodes.input );
+
+		// -- parse xml semantics
+		var l_sVerticesID : String = null;
+		var l_oTexCoord : haxe.xml.Fast = null;
+		var l_oNormal : haxe.xml.Fast = null;
+		var l_aInput = l_oTriangles.nodes.input;
+		for ( l_oInput in l_aInput ) {
+				switch (l_oInput.att.semantic) {
+						case "VERTEX":
+								if ( l_sVerticesID == null )
+										l_sVerticesID = l_oInput.att.source.split("#")[1];
+						case "TEXCOORD":
+								if ( l_oTexCoord == null )
+										l_oTexCoord = l_oInput;
+						case "NORMAL":
+								if ( l_oNormal == null )
+										l_oNormal = l_oInput;
+						default:
+						// log warning ?
+				}
+		}
 
 		// -- get vertices float array
-		var l_sVerticesID : String = new XPath( './input[ ./@semantic = "VERTEX" ]/@source' ).selectNode(l_oTriangles).getStringValue().split("#")[1];
-		var l_sPosSourceID : String = new XPath( './mesh/vertices[ ./@id = "' + l_sVerticesID + '"]/input[ ./@semantic = "POSITION" ]/@source' ).selectNode(l_oGeometry).getStringValue().split("#")[1];
+		var l_sPosSourceID : String = null;
+		var l_aVertices = l_oGeometry.node.mesh.nodes.vertices;
+
+		// -- check that the VerticesID was parsed correctly
+		if ( l_aVertices.length > 0 && l_sVerticesID == null ) return null;
+
+		for ( l_oNode in l_aVertices ) {
+				if ( l_oNode.att.id == l_sVerticesID ) {
+						var l_aInput = l_oNode.nodes.input;
+						for ( l_oInput in l_aInput ) {
+								if ( l_oInput.att.semantic == "POSITION" ) {
+										if ( l_sPosSourceID == null )
+												l_sPosSourceID = l_oInput.att.source.split("#")[1];
+								}
+						}
+				}
+		}
+		
 		var l_aVertexFloats : Array<Vector> = getFloatArray( l_sPosSourceID, l_oGeometry );
 		var l_nVertexFloat : Int = l_aVertexFloats.length;
-
 		// -- set vertices
 		for( i in 0...l_nVertexFloat )
 		{
@@ -394,10 +436,10 @@ class ColladaParser extends AParser, implements IParser
 									l_oVertex.z );
 		}
 
-		if( Lambda.count( new XPath( './input[ ./@semantic = "TEXCOORD" ]' ).selectNodes(l_oTriangles) ) > 0 )
+		if( l_oTexCoord != null )
 		{
 			// -- get uvcoords float array
-			var l_sUVCoordsID : String = new XPath( './input[ @semantic = "TEXCOORD" ]/@source' ).selectNode(l_oTriangles).getStringValue().split("#")[1];
+			var l_sUVCoordsID : String = l_oTexCoord.att.source.split("#")[1];
 			var l_aUVCoordsFloats : Array<Vector> = getFloatArray( l_sUVCoordsID, l_oGeometry );
 			var l_nUVCoordsFloats : Int = l_aUVCoordsFloats.length;
 
@@ -412,9 +454,9 @@ class ColladaParser extends AParser, implements IParser
 
 		// -- get normals float array
 		// THOMAS TODO: Why using VertexNormal?  It is face normal !
-		if( Lambda.count( new XPath( './input[ @semantic = "NORMAL" ]' ).selectNodes(l_oTriangles) ) > 0 )
+		if( l_oNormal != null )
 		{
-			var l_sNormalsID : String = new XPath( './input[ @semantic = "NORMAL" ]/@source' ).selectNode(l_oTriangles).getStringValue().split("#")[1];
+			var l_sNormalsID : String = l_oNormal.att.source.split("#")[1];
 			var l_aNormalFloats : Array<Vector> = getFloatArray( l_sNormalsID, l_oGeometry );
 			var l_nNormalFloats : Int = l_aNormalFloats.length;
 
@@ -429,7 +471,9 @@ class ColladaParser extends AParser, implements IParser
 
 			}
 		}
-		var l_aTrianglez:Array<Hash<Array<Float>>> = convertTriangleArray( new XPath( './input' ).selectNodes(l_oTriangles), l_aTriangles, l_nCount );
+		
+		
+		var l_aTrianglez:Array<Hash<Array<Float>>> = convertTriangleArray( l_oTriangles.nodes.input, l_aTriangles, l_nCount );
 		var l_nTriangeLength : Int = l_aTrianglez.length;
 
 		for( i in 0...l_nTriangeLength )
@@ -445,12 +489,22 @@ class ColladaParser extends AParser, implements IParser
 		return l_oOutpGeom;
 	}
 
-	private function getFloatArray( p_sSourceID : String, p_oGeometry : XPathXml ) : Array<Vector>
+	private function getFloatArray( p_sSourceID : String, p_oGeometry : haxe.xml.Fast ) : Array<Vector>
 	{
-		//var l_aFloatArray : Array = new XPath( './/..source/.( @id == p_sSourceID ).float_array ).selectNode(p_oGeometry).getStringValue().split(/\s+/);
-		var l_aFloatArray : Array<String> = new XPath( './/source[ @id = "' + p_sSourceID + '" ]/float_array' ).selectNode(p_oGeometry).getStringValue().split(" ");
-		var l_nCount:Int = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@count' ).selectNode(p_oGeometry).getStringValue() );
-		var l_nOffset:Int = Std.parseInt( new XPath( './/source[ @id = "' + p_sSourceID + '"]/technique_common/accessor/@stride' ).selectNode(p_oGeometry).getStringValue() );
+		var l_aSources : List<Fast> = p_oGeometry.node.mesh.nodes.source;
+		var l_oSource : haxe.xml.Fast = null;
+		for ( l_oNode in l_aSources )
+		{
+			if ( l_oNode.att.id == p_sSourceID ) {
+				l_oSource = l_oNode;
+				break;
+			}
+		}
+		if ( l_oSource == null ) return null;
+
+		var l_aFloatArray : Array<String> = l_oSource.node.float_array.innerData.split(" ");
+		var l_nCount:Int = Std.parseInt( l_oSource.node.technique_common.node.accessor.att.count );
+		var l_nOffset:Int = Std.parseInt( l_oSource.node.technique_common.node.accessor.att.stride );
 
 		var l_nFloatArray : Int = l_aFloatArray.length;
 		var l_aOutput : Array<Vector> = new Array();
@@ -478,23 +532,21 @@ class ColladaParser extends AParser, implements IParser
 		return l_aOutput;
 	}
 
-	private function convertTriangleArray( p_oInput : Iterable<XPathXml>, p_aTriangles : Array<Float>, p_nTriangleCount : Int ) : Array<Hash<Array<Float>>>
+	private function convertTriangleArray( p_oInput : List<Fast>, p_aTriangles : Array<Float>, p_nTriangleCount : Int ) : Array<Hash<Array<Float>>>
 	{
 		var l_nTriangles : Int = p_aTriangles.length;
 		var l_aOutput : Array<Hash<Array<Float>>> = new Array();
 		var l_nValuesPerTriangle : Int = Std.int( l_nTriangles / p_nTriangleCount );
 		var l_nMaxOffset : Int = 0;
 
-		var l_aInputA:Array<XPathXml> = Lambda.array(p_oInput);
-		var l_aInputB:Array<XPathXml> = l_aInputA.copy();
+		var l_aInputA:Array<haxe.xml.Fast> = Lambda.array(p_oInput);
+		var l_aInputB:Array<haxe.xml.Fast> = l_aInputA.copy();
 		for( l_oI in l_aInputA )
 		{
-			l_nMaxOffset = Std.int( Math.max( l_nMaxOffset, Std.parseFloat( new XPath( './@offset' ).selectNode(l_oI).getStringValue() ) ) );
+			l_nMaxOffset = Std.int( Math.max( l_nMaxOffset, Std.parseFloat( l_oI.att.offset ) ) );
 		}
 		l_nMaxOffset += 1;
 		// -- iterate through all triangles
-		var l_oSemantic:XPath = new XPath( './@semantic' );
-		var l_oOffset:XPath = new XPath( './@offset' );
 		for( i in 0...p_nTriangleCount )
 		{
 			var semantic : Hash<Array<Float>> = new Hash();
@@ -503,13 +555,15 @@ class ColladaParser extends AParser, implements IParser
 			{
 				for( l_oI in l_aInputB )
 				{
-					if( Std.parseInt( l_oOffset.selectNode( l_oI ).getStringValue() ) == j % l_nMaxOffset )
+					var l_oSemantic:String = l_oI.att.semantic;
+					var l_oOffset:String = l_oI.att.offset;
+					if( Std.parseInt( l_oOffset ) == j % l_nMaxOffset )
 					{
-						if( semantic.get( l_oSemantic.selectNode(l_oI).getStringValue() ) == null )
-							semantic.set( l_oSemantic.selectNode(l_oI).getStringValue(), new Array() );
+						if( semantic.get( l_oSemantic ) == null )
+							semantic.set( l_oSemantic, new Array() );
 
 						var index:Int = ( i * l_nValuesPerTriangle ) + j;
-						semantic.get( l_oSemantic.selectNode(l_oI).getStringValue() ).push( p_aTriangles[ index ] );
+						semantic.get( l_oSemantic ).push( p_aTriangles[ index ] );
 					}
 				}
 			}
@@ -582,46 +636,125 @@ class ColladaParser extends AParser, implements IParser
 		}
 	}
 
-	private function getAppearance( p_oNode : XPathXml ) : Appearance
+	private function getAppearance( p_oNode : haxe.xml.Fast ) : Appearance
 	{
 		// -- local variables
 		var l_oAppearance : Appearance = null;
 
 		// -- Get this node's instance materials
-		var l_oMaterials = (new XPath( './/instance_material' ).selectNodes(p_oNode));
+		var l_aInstance : List<Fast> = p_oNode.nodes.instance_geometry;
+		var l_aBind : List<Fast> = null;
+		var l_aTechnique : List<Fast> = null;
+		var l_oMaterials : Array<haxe.xml.Fast> = [];
+		for ( l_oInstance in l_aInstance ) {
+				l_aBind = l_oInstance.nodes.bind_material;
+				for ( l_oBind in l_aBind ) {
+						l_aTechnique = l_oBind.nodes.technique_common;
+						for ( l_oTechnique in l_aTechnique ) {
+								var l_aMaterials = l_oTechnique.nodes.instance_material;
+								for ( l_oMaterial in l_aMaterials ) 
+										l_oMaterials.push( l_oMaterial );
+						}
+				}
+		}
 		for ( l_oInstMat in l_oMaterials )
 		{
 			// -- get the corresponding material from the library
-			var l_oMaterial : XPathXml = new XPath( '//library_materials/material[ ./@id = "' + new XPath( '@target' ).selectNode(l_oInstMat).getStringValue().split( "#" )[ 1 ] + '" ]' ).selectNode(m_oCollada);
+			var l_sId :String = l_oInstMat.att.target.split( "#" )[ 1 ];
+			var l_oMaterial : haxe.xml.Fast = null;
+			var l_aMaterials : List<Fast> = m_oCollada.node.library_materials.nodes.material;
+			for ( l_oNode in l_aMaterials ) {
+					if ( l_oNode.att.id == l_sId ) {
+							l_oMaterial = l_oNode;
+							break;
+					}
+			}
+			if ( l_oMaterial == null ) return null;
 			// -- get the corresponding effect
-			var l_sEffectID : String = new XPath( './instance_effect/@url' ).selectNode(l_oMaterial).getStringValue().split( "#" )[ 1 ];
+			var l_sEffectID : String = null;
+			try {
+					// am I mistaken, is there no way of knowing whether innerData is filled ?
+					l_sEffectID = l_oMaterial.node.instance_effect.innerData.split( "#" )[ 1 ];
+			} catch (e:Dynamic) {
+					l_sEffectID = "";
+			}
 
-				//? new XPath( './library_effects/effect//' ).selectNode(m_oCollada)
-			var l_oEffect : XPathXml = ( l_sEffectID == "" )
-				? new XPath( '//library_effects/effect/' ).selectNode(m_oCollada)
-				: new XPath( '//library_effects/effect[ ./@id = "' + l_sEffectID + '" ]' ).selectNode(m_oCollada);
+			var l_oEffect : haxe.xml.Fast = null;
+			if ( l_sEffectID == "" )
+			{
+				l_oEffect = m_oCollada.node.library_effects.node.effect;
+			} else {
+					var l_aEffect : List<Fast> = m_oCollada.node.library_effects.nodes.effect;
+					for ( l_oNode in l_aEffect ) {
+							if ( l_oNode.node.effect.att.id == l_sEffectID ) {
+									l_oEffect = l_oNode;
+									break;
+							}
+					}
+			}
+			if ( l_oEffect == null ) return null;
 
+			var l_oTechnique : haxe.xml.Fast;
+			var l_aTexture : Array<haxe.xml.Fast> = [];
+			var l_aPhong : Array<haxe.xml.Fast> = [];
+			var l_aTechnique : Array<Fast> = [];
+			var l_oNode : haxe.xml.Fast = l_oEffect.node.profile_COMMON.node.technique;
+			switch (true) {
+					case l_oNode.hasNode.asset:
+					l_aTexture.push( l_oNode.node.asset.node.diffuse.node.texture );
+					case l_oNode.hasNode.annotate:
+					l_aTexture.push( l_oNode.node.annotate.node.diffuse.node.texture );
+					case l_oNode.hasNode.blinn:
+					l_aTexture.push( l_oNode.node.blinn.node.diffuse.node.texture );
+					case l_oNode.hasNode.constant:
+					l_aTexture.push( l_oNode.node.constant.node.diffuse.node.texture );
+					case l_oNode.hasNode.lambert:
+					l_aTexture.push( l_oNode.node.lambert.node.diffuse.node.texture );
+					case l_oNode.hasNode.phong:
+					l_aTexture.push( l_oNode.node.phong.node.diffuse.node.texture );
+					case l_oNode.hasNode.extra:
+					l_aTexture.push( l_oNode.node.extra.node.diffuse.node.texture );
+			}
+
+			var l_oNodes : List<Fast> = l_oNode.nodes.phong;
+			for ( l_oPhong in l_oNodes ) {
+					l_aPhong.push( l_oPhong );
+			}
 			// -- no textures here or colors defined
-			if( Lambda.count( new XPath( './/texture' ).selectNodes(l_oEffect) ) == 0 && Lambda.count( new XPath( './/phong' ).selectNodes(l_oEffect) ) == 0 ) return m_oStandardAppearance;
+			if( l_aTexture.length == 0 && l_aPhong.length == 0 ) return m_oStandardAppearance;
 
-			if( Lambda.count( new XPath( './/texture' ).selectNodes(l_oEffect) ) > 0 )
+			if( l_aTexture.length > 0 )
 			{
 				// -- get the texture ID and use it to get the surface source
-				var l_sTextureID : String = new XPath( './/texture/@texture' ).selectNode(l_oEffect).getStringValue();
-				var l_sSurfaceID : String = new XPath( './/newparam[ ./@sid = "' + l_sTextureID + '" ]/sampler2D/source' ).selectNode(l_oEffect).getStringValue();
+				var l_sTextureID : String = l_aTexture[0].att.texture;
+				var l_aNewParam : List<Fast> = l_oEffect.node.profile_COMMON.nodes.newparam;
+				var l_oNewParam : haxe.xml.Fast = null;
+				var l_sSurfaceID : String = null;
+				var l_sImageID : String = null;
+				for ( l_oNode in l_aNewParam ) {
+						if ( l_oNode.att.sid == l_sTextureID ) {
+										l_oNewParam = l_oNode;
+										l_sSurfaceID = l_oNewParam.node.sampler2D.node.source.innerData;
+						}
+				}
+				for ( l_oNode in l_aNewParam ) {
+						if ( l_oNode.att.sid == l_sSurfaceID ) {
+										l_oNewParam = l_oNode;
+										l_sImageID = l_oNewParam.node.surface.node.init_from.innerData;
+						}
+				}
+				if ( l_sImageID == null ) return null;
 
 				// -- now get the image ID
-				var l_sImageID : String = new XPath( './/newparam[ ./@sid = "' + l_sSurfaceID + '" ]/surface/init_from' ).selectNode(l_oEffect).getStringValue();
 				// -- get image's location on the hard drive
 
 				if( m_oMaterials.get( l_sImageID ).bitmapData != null) l_oAppearance = new Appearance( new BitmapMaterial( m_oMaterials.get( l_sImageID ).bitmapData ) );
 				if( l_oAppearance == null ) l_oAppearance = m_oStandardAppearance;
 			}
-			else if( Lambda.count( new XPath( './/phong' ).selectNodes(l_oEffect) ) > 0 )
+			else if( l_aPhong.length > 0 )
 			{
 				// -- get the ambient color
-				//var l_aColors : Array<Float> = stringToArray( new XPath( './//phong/ambient/color' ).selectNode(l_oEffect).getStringValue() );
-				var l_aColors : Array<Float> = stringToArray( new XPath( './/phong/ambient/color' ).selectNode(l_oEffect).getStringValue() );
+				var l_aColors : Array<Float> = stringToArray( l_aPhong[0].node.ambient.node.color.innerData );
 				var l_nColor : Int;
 
 				var r : Int = Std.int( NumberUtil.constrain( l_aColors[0] * 255, 0, 255 ) );
@@ -639,23 +772,24 @@ class ColladaParser extends AParser, implements IParser
 	}
 
 
-	private function loadImages( p_oLibImages : Iterable<XPathXml> ) : Hash<Dynamic>
+	private function loadImages( p_oLibImages : List<Fast> ) : Hash<Dynamic>
 	{
 		var l_oImages : Hash<Dynamic> = new Hash();
 		var l_oQueue : LoaderQueue = new LoaderQueue();
 
 		for ( l_oImage in p_oLibImages )
 		{
-			var l_oInitFrom : String = new XPath('init_from').selectNode(l_oImage).getStringValue();
-			l_oImages.set( new XPath('@id').selectNode(l_oImage).getStringValue() , {
+			var l_oInitFrom : String = l_oImage.node.init_from.innerData;
+			var l_sId : String = l_oImage.att.id;
+			l_oImages.set( l_sId, {
 				bitmapData: null,
-				id : new XPath('@id').selectNode(l_oImage).getStringValue(),
+				id : l_sId,
 				fileName : l_oInitFrom.substr( l_oInitFrom.lastIndexOf( "/" ) + 1, l_oInitFrom.length )
 			});
 
 			l_oQueue.add(
-				new XPath('@id').selectNode(l_oImage).getStringValue(),
-				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( new XPath('@id').selectNode(l_oImage).getStringValue() ).fileName )
+				l_sId,
+				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( l_sId ).fileName )
 			);
 		}
 		l_oQueue.addEventListener( QueueEvent.QUEUE_COMPLETE, imageQueueCompleteHandler );
@@ -673,7 +807,7 @@ class ColladaParser extends AParser, implements IParser
 			if( l_oLoader.loader.content != null && Reflect.hasField( l_oLoader.loader.content, "bitmapData" ) )
 				m_oMaterials.get( l_oLoader.name ).bitmapData = Reflect.field( l_oLoader.loader.content, "bitmapData" );
 		}
-		parseScene( new XPath('/COLLADA/library_visual_scenes/visual_scene').selectNode(m_oCollada) );
+		parseScene( m_oCollada.node.library_visual_scenes.node.visual_scene );
 	}
 }
 
