@@ -33,7 +33,7 @@ package sandy.parser;
  * 
  */	
 
-class Parser
+class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 {
 	/**
 	 * Parameter that is used to specify that the ASE (ASCII Scene Export)
@@ -68,7 +68,7 @@ class Parser
 	 * @param p_nScale			The scale factor
 	 * @return					The parser to be used
 	 */		
-	public static function create( p_sFile:Dynamic, ?p_sParserType:String, ?p_nScale:Float ):IParser
+	public static function create<ParserClass,URL>( p_sFile:URL, ?p_sParserType:String, ?p_nScale:Float ): ParserClass
 	{
         if ( p_nScale == null ) p_nScale = 1;
 
@@ -76,7 +76,7 @@ class Parser
 		// --
 		if( Std.is( p_sFile, String ) && p_sParserType == null )
 		{
-			l_sExt = (p_sFile.split('.')).reverse()[0];
+			l_sExt = (untyped p_sFile.split('.')).reverse()[0];
 		}  
 		else 
 		{
@@ -95,7 +95,7 @@ class Parser
 			default:
 		}
 		// --
-		return l_iParser;
+		return untyped l_iParser;
 	}
 }
 

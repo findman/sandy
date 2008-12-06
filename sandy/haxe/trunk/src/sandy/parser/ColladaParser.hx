@@ -93,12 +93,18 @@ import haxe.xml.Fast;
  * </listing>
  */
 
+typedef ColladaImage = {
+				bitmapData: flash.display.BitmapData,
+				id : String,
+				fileName : String
+}
+
 class ColladaParser extends AParser, implements IParser
 {
 	private var m_oCollada : haxe.xml.Fast;
 	private var m_oUp:UpAxis;
 
-	private var m_oMaterials : Hash<Dynamic>;
+	private var m_oMaterials : Hash<ColladaImage>;
 
 	/**
 	 * Default path for COLLADA images.
@@ -113,7 +119,7 @@ class ColladaParser extends AParser, implements IParser
 	 * 						COLLADA file or an instance of an embedded COLLADA file.
 	 * @param p_nScale		The scale factor.
 	 */
-	public function new( p_sUrl:Dynamic, p_nScale:Float )
+	public function new<URL>( p_sUrl:URL, p_nScale:Float )
 	{
 		RELATIVE_TEXTURE_PATH  = ".";
 		super( p_sUrl, p_nScale );
@@ -356,7 +362,7 @@ class ColladaParser extends AParser, implements IParser
 		return l_oNode;
 	}
 
-	private function getGeometry( p_sGeometryID : String, p_oMaterials : Hash<Dynamic> ) :  Geometry3D
+	private function getGeometry( p_sGeometryID : String, p_oMaterials : Hash<ColladaImage> ) :  Geometry3D
 	{
 		var i : Int;
 		var l_oOutpGeom : Geometry3D = new Geometry3D();
@@ -772,9 +778,9 @@ class ColladaParser extends AParser, implements IParser
 	}
 
 
-	private function loadImages( p_oLibImages : List<Fast> ) : Hash<Dynamic>
+	private function loadImages( p_oLibImages : List<Fast> ) : Hash<ColladaImage>
 	{
-		var l_oImages : Hash<Dynamic> = new Hash();
+		var l_oImages : Hash<ColladaImage> = new Hash();
 		var l_oQueue : LoaderQueue = new LoaderQueue();
 
 		for ( l_oImage in p_oLibImages )

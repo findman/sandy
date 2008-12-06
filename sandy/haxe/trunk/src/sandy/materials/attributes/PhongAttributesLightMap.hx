@@ -27,7 +27,7 @@ class PhongAttributesLightMap
 	/**
 	 * An array of an array which contains the alphas of the strata. The values of the inner array must be between 0 and 1.
 	 */
-	public var alphas:Array<Array<Dynamic>>;
+	public var alphas:Array<Array<Float>>;
 	
 	/**
 	 * An array of an array which contains the colors of the strata.
@@ -37,7 +37,7 @@ class PhongAttributesLightMap
 	/**
 	 * An array of an array which contains the ratios (length) of each strata.
 	 */
-	public var ratios:Array<Array<Dynamic>>;
+	public var ratios:Array<Array<Float>>;
 
 	public function new () {
 	 alphas = [[], []];

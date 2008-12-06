@@ -17,6 +17,7 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
+import sandy.core.data.Vector;
 
 /**
 * The Sphere class is used for creating a sphere primitive
@@ -106,7 +107,7 @@ class Sphere extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Dynamic>):Geometry3D
+	public function generate(?arguments:Array<Vector>):Geometry3D
 	{
 		if (arguments == null) arguments = new Array();
 

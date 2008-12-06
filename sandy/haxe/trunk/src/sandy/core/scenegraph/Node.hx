@@ -16,6 +16,7 @@ limitations under the License.
 
 package sandy.core.scenegraph;
 
+import flash.events.Event;
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
@@ -53,7 +54,7 @@ class Node
 	 * The children of this node are stored inside this array.
 	 * IMPORTANT: Use this property mainly as READ ONLY. To add, delete or search a specific child, you can use the specific method to do that
 	 */
-	public var children:Array<Dynamic>;
+	public var children:Array<Node>;
 	
 	/**
 	 *  Cached matrix corresponding to the transformation to the 0,0,0 frame system
@@ -113,7 +114,6 @@ class Node
 	 modelMatrix = new Matrix4();
 	 viewMatrix = new Matrix4();
 	
-	 m_oEB = new BubbleEventBroadcaster();
 	 changed = false;
 
 		p_sName = (p_sName != null)?p_sName:"";
@@ -149,10 +149,10 @@ class Node
 	 * @param p_sEvt Name of the Event.
 	 * @param p_oL Listener object.
 	 */
-	public function addEventListener(p_sEvt:String, p_oL:Dynamic ) : Void
+	public function addEventListener<T>(p_sEvt:String, p_oL:T->Void ) : Void
 	{
-		//Reflect.callMethod(m_oEB.addEventListener, p_sEvt, [p_oL] );
-		untyped( m_oEB.addEventListener.apply(p_sEvt, [p_sEvt,p_oL]) );
+		Reflect.callMethod( p_sEvt, m_oEB.addEventListener, [p_sEvt,p_oL] );
+		//untyped( m_oEB.addEventListener.apply(p_sEvt, [p_sEvt,p_oL]) );
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Node
 	 * @param p_sEvt Name of the Event.
 	 * @param oL Listener object.
 	 */
-	public function removeEventListener(p_sEvt:String, p_oL:Dynamic) : Void
+	public function removeEventListener(p_sEvt:String, p_oL:Event->Void) : Void
 	{
 		m_oEB.removeEventListener(p_sEvt, p_oL);
 	}
@@ -419,7 +419,7 @@ class Node
 
 		// should we kill all the childs, or just make them childs of current node parent ?
 		//var l_aTmp:Array = children.concat();
-		var l_aTmp:Array<Dynamic> = children;
+		var l_aTmp:Array<Node> = children;
 		for ( lNode in l_aTmp )
 		{
 			lNode.destroy();
@@ -443,7 +443,7 @@ class Node
 		
 		// now we make current node children the current parent's node children
 		//var l_aTmp:Array = children.concat();
-		var l_aTmp:Array<Dynamic> = children;
+		var l_aTmp:Array<Node> = children;
 		for ( lNode in l_aTmp )
 		{
 			parent.addChild( lNode );

@@ -50,8 +50,8 @@ class Frustum
 	//    |/  |/
 	//    2---3 	
 	public var aPoints:Array<Vector>;
-	public var aNormals:Array<Dynamic>;
-	public var aConstants:Array<Dynamic>;
+	public var aNormals:Array<Vertex>;
+	public var aConstants:Array<Float>;
 	// front plane : aNormals[0], aConstants[0] <-> aPoints[0], aPoints[1], aPoints[2], aPoints[3]
 	// upper plane : aNormals[1], aConstants[1] <-> aPoints[0], aPoints[1], aPoints[4], aPoints[5]
 	// lower plane : aNormals[2], aConstants[2] <-> aPoints[2], aPoints[3], aPoints[6], aPoints[7]

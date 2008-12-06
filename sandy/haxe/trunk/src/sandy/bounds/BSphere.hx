@@ -57,7 +57,7 @@ class BSphere
 	 * @param p_aVertices		The vertices of the 3D object
 	 * @return 					A <code>BSphere</code> instance
 	 */	
-	public static function create( p_aVertices:Array<Dynamic> ):BSphere
+	public static function create( p_aVertices:Array<Vertex> ):BSphere
 	{
 	    var l_sphere:BSphere = new BSphere();
 	    /*
@@ -131,7 +131,7 @@ class BSphere
 	 * 
 	 * @param p_aVertices		The vertices of the 3D object
 	 */		
-	public function compute( p_aVertices:Array<Dynamic> ):Void
+	public function compute( p_aVertices:Array<Vertex> ):Void
 	{
 		if(p_aVertices.length == 0) return;
 		var x:Float, y:Float, z:Float, d:Float, i:Int = 0, j:Int = 0, l:Int = p_aVertices.length;
@@ -210,7 +210,7 @@ class BSphere
 	 * @param p_aPoints		An array containing the sphere's points
 	 * @return 				The bounding sphere's radius
 	 */		
-	private function computeRadius(p_aPoints:Array<Dynamic>):Float
+	private function computeRadius(p_aPoints:Array<Vertex>):Float
 	{
 		var x:Float, y:Float, z:Float, d:Float, dmax:Float = 0;
 		var i:Int = 0, l:Int = p_aPoints.length;

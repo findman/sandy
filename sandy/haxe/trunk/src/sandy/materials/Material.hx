@@ -17,11 +17,13 @@ limitations under the License.
 package sandy.materials;
 
 import flash.display.Sprite;
+import flash.filters.BitmapFilter;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.attributes.MaterialAttributes;
+
 
 /**
  * The Material class is the base class for all materials.
@@ -180,7 +182,7 @@ class Material
 	 * <p>You use this property to add an array of filters you want to apply to this material<br>
 	 * To remove the filters, just assign an empty array.</p>
 	 */
-	private function __setFilters( a:Array<Dynamic> ):Array<Dynamic>
+	private function __setFilters( a:Array<BitmapFilter> ):Array<BitmapFilter>
 	{ 
 		_filters = a;
 		m_bModified = true;
@@ -203,8 +205,8 @@ class Material
 	 * <p>You use this property to add an array of filters you want to apply to this material<br>
 	 * To remove the filters, just assign an empty array.</p>
 	 */
-	public var filters(__getFilters,__setFilters):Array<Dynamic>;
-	public function __getFilters():Array<Dynamic>
+	public var filters(__getFilters,__setFilters):Array<BitmapFilter>;
+	public function __getFilters():Array<BitmapFilter>
 	{ 
 		return _filters; 
 	}
@@ -238,7 +240,7 @@ class Material
 	private var m_bModified:Bool;
 	private var _useLight : Bool;
 	private var m_oType:MaterialType;
-	private var _filters:Array<Dynamic>;
+	private var _filters:Array<BitmapFilter>;
 	private var _id:Float;
 	private static var _ID_:Float = 0;
 	private static var create:Bool;

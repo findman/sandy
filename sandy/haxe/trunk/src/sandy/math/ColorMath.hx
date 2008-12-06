@@ -16,6 +16,11 @@ limitations under the License.
 
 package sandy.math;
 
+typedef ColorMathRGB = {
+		r:Float,
+		g:Float,
+		b:Float
+}
 /**
  * Math functions for colors.
  *  
@@ -60,7 +65,7 @@ class ColorMath
 	 * @param	hex	hexadecimal color.
 	 * @return	The rgb color of the hexadecimal given.
 	 */   
-	public static function hex2rgb(hex:Int):Dynamic 
+	public static function hex2rgb(hex:Int):ColorMathRGB 
 	{
 		var r:Float;
 		var g:Float;

@@ -41,7 +41,7 @@ class MaterialAttributes
 	/**
 	 * Creates a new LightAttributes object.
 	 */
-	public function new( ?args:Array<Dynamic> )
+	public function new<T>( ?args:Array<T> )
 	{
 	 if ( args == null ) args = new Array();
 		
@@ -51,7 +51,7 @@ class MaterialAttributes
 		{
 				if( Std.is( attr, IAttributes ) )
 				{
-						attributes.push( attr );
+						attributes.push( untyped attr );
 				}
 		}
 	}

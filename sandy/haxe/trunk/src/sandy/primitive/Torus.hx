@@ -129,7 +129,7 @@ class Torus extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Dynamic>) : Geometry3D
+	public function generate(?arguments:Array<Vector>) : Geometry3D
 	{
 		if (arguments == null) arguments = [];
 

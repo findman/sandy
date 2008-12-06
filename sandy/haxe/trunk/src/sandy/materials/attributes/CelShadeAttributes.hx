@@ -89,10 +89,10 @@ class CelShadeAttributes extends ALightAttributes
 				0x666666, 0x666666,
 				0x444444, 0x444444];
 			lightmap.ratios[0] = [
-				   0,  40,
-				  40,  80,
-				  80, 120,
-				 120, 180];
+				   0.,  40.,
+				  40.,  80.,
+				  80., 120.,
+				 120., 180.];
 		}
 	}
 

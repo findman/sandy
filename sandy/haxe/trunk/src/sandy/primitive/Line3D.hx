@@ -47,13 +47,9 @@ class Line3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.data.Vector
 	*/
-	public function new ( p_sName:String=null, rest : Array<Dynamic> )
+	public function new ( p_sName:String=null, rest : Array<Vector> )
 	{
 		super ( p_sName );
-		// "rest" can be a two-or-more-element array of vectors. Or the first element can itself be an array
-		if (rest.length == 1 && Std.is(rest[0], Array)) {
-			rest = rest[0];
-		}
 			
 		if( rest.length < 2)
 		{
@@ -62,7 +58,7 @@ class Line3D extends Shape3D, implements Primitive3D
 		}
 		else
 		{
-			geometry = generate( [rest] );
+			geometry = generate( rest );
 			enableBackFaceCulling = false;
 		}
 	}
@@ -74,12 +70,12 @@ class Line3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate ( ?arguments:Array<Dynamic> ) : Geometry3D
+	public function generate ( ?arguments:Array<Vector> ) : Geometry3D
 	{
 		if ( arguments == null ) arguments = [];
 
 		var l_oGeometry:Geometry3D = new Geometry3D();
-		var l_aPoints:Array<Dynamic> = arguments[0];
+		var l_aPoints:Array<Vector> = arguments;
 		// --
 		var i:Int = 0;
 		var l:Int = l_aPoints.length;

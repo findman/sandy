@@ -17,6 +17,7 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
+import sandy.core.data.Vector;
 
 /**
 * The Hedra class is used for creating a hedra. A hedra can be seen as two pyramids joined at their bases.
@@ -67,7 +68,7 @@ class Hedra extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate (?arguments:Array<Dynamic>):Geometry3D
+	public function generate (?arguments:Array<Vector>):Geometry3D
 	{
 		if (arguments == null) arguments = [];
 

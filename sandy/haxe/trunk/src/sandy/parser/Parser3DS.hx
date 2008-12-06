@@ -84,7 +84,7 @@ class Parser3DS extends AParser, implements IParser
 	 * @param p_sUrl		A String pointing to the location of the 3DS file
 	 * @param p_nScale		The scale factor
 	 */
-	public function new( p_sUrl:String, p_nScale:Float )
+	public function new<URL>( p_sUrl:URL, p_nScale:Float )
 	{
 		super( p_sUrl, p_nScale );
 		m_sDataFormat = URLLoaderDataFormat.BINARY;

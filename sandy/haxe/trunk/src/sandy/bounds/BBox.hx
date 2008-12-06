@@ -17,6 +17,7 @@ package sandy.bounds;
 
 import sandy.core.data.Matrix4;
 import sandy.core.data.Vector;
+import sandy.core.data.Vertex;
 
 /**
  * The <code>BBox</code> object is used to clip the object faster.
@@ -66,7 +67,7 @@ class BBox
 	 * @param p_aVertices		The vertices of the 3D object
 	 * @return 					A <code>BBox</code> instance
 	 */		
-	public static function create( p_aVertices:Array<Dynamic> ):BBox
+	public static function create( p_aVertices:Array<Vertex> ):BBox
 	{
 		if(p_aVertices.length == 0) return null;
 	   
@@ -74,11 +75,11 @@ class BBox
 	    var l_min:Vector = new Vector();
 	    var l_max:Vector = new Vector();
 		
-					var lTmp:Array<Dynamic> = [];
+					var lTmp:Array<Int> = [];
 #if flash
 					lTmp = untyped p_aVertices.sortOn (["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
 #else
-					var t:Array<Dynamic> = p_aVertices.copy();
+					var t:Array<Vertex> = p_aVertices.copy();
 					t.sort( function(a,b) {return (a.x>b.x)?1:a.x<b.x?-1:0;} );
 					for ( i in 0...t.length ) lTmp.push( i );
 #end
@@ -88,7 +89,7 @@ class BBox
 #if flash
 					lTmp = untyped p_aVertices.sortOn (["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
 #else
-					var t:Array<Dynamic> = p_aVertices.copy();
+					var t:Array<Vertex> = p_aVertices.copy();
 					t.sort( function(a,b) {return (a.y>b.y)?1:a.y<b.y?-1:0;} );
 					for ( i in 0...t.length ) lTmp.push( i );
 #end
@@ -98,7 +99,7 @@ class BBox
 #if flash
 					lTmp = untyped p_aVertices.sortOn (["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
 #else
-					var t:Array<Dynamic> = p_aVertices.copy();
+					var t:Array<Vertex> = p_aVertices.copy();
 					t.sort( function(a,b) {return (a.z>b.z)?1:a.z<b.z?-1:0;} );
 					for ( i in 0...t.length ) lTmp.push( i );
 #end

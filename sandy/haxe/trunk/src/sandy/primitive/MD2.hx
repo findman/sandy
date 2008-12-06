@@ -42,7 +42,7 @@ class MD2 extends Shape3D, implements Primitive3D
 	*
 	* @return The geometry object.
 	*/
-	public function generate (?arguments:Array<Dynamic>):Geometry3D
+	public function generate <T>(?arguments:Array<T>):Geometry3D
 	{
 		var i:Int, j:Int, char:Int;
 		var uvs:Array<UVCoord> = [];

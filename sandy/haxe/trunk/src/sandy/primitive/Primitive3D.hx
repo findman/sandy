@@ -16,6 +16,7 @@ limitations under the License.
 package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
+import sandy.core.data.Vector;
 
 /**
 * An interface implemented by all 3D primitive classes.
@@ -35,6 +36,6 @@ interface Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Dynamic>):Geometry3D;
+	public function generate(?arguments:Array<Vector>):Geometry3D;
 }
 

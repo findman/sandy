@@ -30,7 +30,6 @@ import flash.events.Event;
 class BubbleEvent extends Event
 {
 	private var m_oTarget:Dynamic;
-	//private var m_sType:String;
 
 	/**
 	 * Creates a new BubbleEvent instance.

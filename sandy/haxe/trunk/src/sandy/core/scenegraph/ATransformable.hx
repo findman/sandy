@@ -40,6 +40,7 @@ import sandy.core.data.Vector;
  **/
 class ATransformable extends Node
 {
+
 	/**
 	 * Disable the local transformations applied to this Node if set to false.
 	 * They will be applied back once et back to true.

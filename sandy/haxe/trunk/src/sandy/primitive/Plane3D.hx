@@ -17,6 +17,7 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
+import sandy.core.data.Vector;
 
 /**
 * The Plane3D is used for creating a plane primitive.
@@ -96,7 +97,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate( ?arguments:Array<Dynamic> ):Geometry3D
+	public function generate( ?arguments:Array<Vector> ):Geometry3D
 	{
 		if ( arguments == null ) arguments = [];
 

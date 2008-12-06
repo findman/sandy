@@ -17,7 +17,6 @@ limitations under the License.
 package sandy.parser;
 
 import flash.events.Event;
-//import flash.utils.unescapeMultiByte;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
@@ -60,7 +59,7 @@ class ASEParser extends AParser, implements IParser
 	 * 						an embedded object
 	 * @param p_nScale		The scale factor
 	 */
-	public function new( p_sUrl:Dynamic, p_nScale:Float )
+	public function new<URL>( p_sUrl:URL, p_nScale:Float )
 	{
 		super( p_sUrl, p_nScale );
 	}

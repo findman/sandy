@@ -17,6 +17,7 @@ package sandy.primitive;
 
 import sandy.core.data.PrimitiveFace;
 import sandy.core.data.Vertex;
+import sandy.core.data.Vector;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
@@ -176,7 +177,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Dynamic>):Geometry3D
+	public function generate(?arguments:Array<Vector>):Geometry3D
 	{
 		var l_oGeometry3D:Geometry3D = new Geometry3D();
 		// --

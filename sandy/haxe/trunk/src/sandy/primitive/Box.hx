@@ -19,6 +19,7 @@ import sandy.core.data.Polygon;
 import sandy.core.data.PrimitiveFace;
 import sandy.core.data.UVCoord;
 import sandy.core.data.Vertex;
+import sandy.core.data.Vector;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
@@ -157,7 +158,7 @@ class Box extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate (?arguments:Array<Dynamic>) :Geometry3D
+	public function generate (?arguments:Array<Vector>) :Geometry3D
 	{
 		if (arguments == null) arguments = [];
 
