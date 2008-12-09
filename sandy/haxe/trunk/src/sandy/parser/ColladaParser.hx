@@ -707,19 +707,47 @@ class ColladaParser extends AParser, implements IParser
 			var l_oNode : haxe.xml.Fast = l_oEffect.node.profile_COMMON.node.technique;
 			switch (true) {
 					case l_oNode.hasNode.asset:
-					l_aTexture.push( l_oNode.node.asset.node.diffuse.node.texture );
+					if ( l_oNode.node.asset.hasNode.diffuse && l_oNode.node.asset.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.asset.node.diffuse.node.texture );
+					} else if ( l_oNode.node.asset.hasNode.emission && l_oNode.node.asset.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.asset.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.annotate:
-					l_aTexture.push( l_oNode.node.annotate.node.diffuse.node.texture );
+					if ( l_oNode.node.annotate.hasNode.diffuse && l_oNode.node.annotate.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.annotate.node.diffuse.node.texture );
+					} else if ( l_oNode.node.annotate.hasNode.emission && l_oNode.node.annotate.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.annotate.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.blinn:
-					l_aTexture.push( l_oNode.node.blinn.node.diffuse.node.texture );
+					if ( l_oNode.node.blinn.hasNode.diffuse && l_oNode.node.blinn.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.blinn.node.diffuse.node.texture );
+					} else if ( l_oNode.node.blinn.hasNode.emission && l_oNode.node.blinn.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.blinn.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.constant:
-					l_aTexture.push( l_oNode.node.constant.node.diffuse.node.texture );
+					if ( l_oNode.node.constant.hasNode.diffuse && l_oNode.node.constant.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.constant.node.diffuse.node.texture );
+					} else if ( l_oNode.node.constant.hasNode.emission && l_oNode.node.constant.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.constant.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.lambert:
-					l_aTexture.push( l_oNode.node.lambert.node.diffuse.node.texture );
+					if ( l_oNode.node.lambert.hasNode.diffuse && l_oNode.node.lambert.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.lambert.node.diffuse.node.texture );
+					} else if ( l_oNode.node.lambert.hasNode.emission && l_oNode.node.lambert.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.lambert.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.phong:
-					l_aTexture.push( l_oNode.node.phong.node.diffuse.node.texture );
+					if ( l_oNode.node.phong.hasNode.diffuse && l_oNode.node.phong.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.phong.node.diffuse.node.texture );
+					} else if ( l_oNode.node.phong.hasNode.emission && l_oNode.node.phong.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.phong.node.emission.node.texture );
+					}
 					case l_oNode.hasNode.extra:
-					l_aTexture.push( l_oNode.node.extra.node.diffuse.node.texture );
+					if ( l_oNode.node.extra.hasNode.diffuse && l_oNode.node.extra.node.diffuse.hasNode.texture ) {
+							l_aTexture.push( l_oNode.node.extra.node.diffuse.node.texture );
+					} else if ( l_oNode.node.extra.hasNode.emission && l_oNode.node.extra.node.emission.hasNode.texture  ) {
+							l_aTexture.push( l_oNode.node.extra.node.emission.node.texture );
+					}
 			}
 
 			var l_oNodes : List<Fast> = l_oNode.nodes.phong;
