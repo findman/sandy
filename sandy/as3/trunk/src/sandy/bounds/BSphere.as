@@ -73,6 +73,26 @@ package sandy.bounds
 			;
 		}
 		
+		public function resetFromBox(box:BBox):void 
+		{
+			this.center.x = (box.min.x + box.max.x) / 2;
+			this.center.y = (box.min.y + box.max.y) / 2;
+			this.center.z = (box.min.z + box.max.z) / 2;
+			this.radius = Math.sqrt(((box.max.x - this.center.x) * (box.max.x - this.center.x)) + ((box.max.y - this.center.y) * (box.max.y - this.center.y)) + ((box.max.z - this.center.z) * (box.max.z - this.center.z)));
+		}
+		
+		/**
+		 * Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+		 */
+		public function reset():void
+		{
+			center.reset();
+			radius = 0;
+			position.reset();
+			uptodate = false;
+		}
+		
+		
 		/**
 	     * Applies a transformation to the bounding sphere.
 	     * 

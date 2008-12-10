@@ -59,7 +59,7 @@ package sandy.core.scenegraph
 		 * @param p_oViewMatrix	The view martix of the curren camera
 		 * @param p_bChanged
 		 */
-		public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
+		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
 		{
 			// TODO
 			// Parse the children, take their bounding volume and merge it with the current node recurssively.
@@ -73,7 +73,7 @@ package sandy.core.scenegraph
 			    const lChanged:Boolean = p_bChanged || changed;
 			    for each( var l_oNode:Node in children )
 			    {
-			        l_oNode.cull( p_oScene, p_oFrustum, p_oViewMatrix, lChanged );
+			        l_oNode.cull( p_oFrustum, p_oViewMatrix, lChanged );
 			        l_oNode.changed = false;
 			    }
 			}

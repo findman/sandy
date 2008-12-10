@@ -134,19 +134,19 @@ package sandy.core.scenegraph
 		 * @param p_oViewMatrix	The view martix of the curren camera
 		 * @param p_bChanged
 		 */
-		public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
+		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
 		{
-			super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );
+			super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );
 			// check if we need to resize our canvas
-			if ((m_oBitmapData.width  != p_oScene.camera.viewport.width)
-			 || (m_oBitmapData.height != p_oScene.camera.viewport.height))
+			if ((m_oBitmapData.width  != scene.camera.viewport.width)
+			 || (m_oBitmapData.height != scene.camera.viewport.height))
 			{
 				m_oBitmap.bitmapData.dispose ();
-				m_oBitmapData = new BitmapData (p_oScene.camera.viewport.width,
-					p_oScene.camera.viewport.height, true, 0); makeEvents ();
+				m_oBitmapData = new BitmapData (scene.camera.viewport.width, scene.camera.viewport.height, true, 0); 
+				makeEvents ();
 				m_oBitmap.bitmapData = m_oBitmapData;
 				// --
-				p_oScene.renderer.addToDisplayList( this ); 
+				scene.renderer.addToDisplayList( this ); 
 			}
 		}
 		
@@ -156,12 +156,12 @@ package sandy.core.scenegraph
 		 * @param p_oScene The current scene
 		 * @param p_oCamera	The current camera
 		 */
-		public function render( p_oScene:Scene3D, p_oCamera:Camera3D ):void
+		public function render( p_oCamera:Camera3D ):void
 		{
 			resetEvents ();
 
 			m_oBitmapData.lock();
-			m_oEB.broadcastEvent (m_oEventBefore);
+			m_oEB.dispatchEvent (m_oEventBefore);
 			if (m_oEventBefore.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			// --
 			var i:int = 0;
@@ -173,7 +173,7 @@ package sandy.core.scenegraph
 				_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
 				_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
 
-				if (_v.wz >= p_oScene.camera.near)
+				if (_v.wz >= p_oCamera.near)
 				{
 					r = Math.min(1, Math.max (0, (_v.wz - fadeFrom) / fadeTo));
 					if (r < 1)
@@ -220,7 +220,7 @@ package sandy.core.scenegraph
 					}
 				}
 			}
-			m_oEB.broadcastEvent (m_oEventAfter);
+			m_oEB.dispatchEvent (m_oEventAfter);
 			if (m_oEventAfter.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			m_oBitmapData.unlock();
 
@@ -259,7 +259,7 @@ package sandy.core.scenegraph
 		 * @param p_oScene The current scene
 		 * @param p_oContainer	The container to draw on
 		 */
-		public function display( p_oScene:Scene3D, p_oContainer:Sprite = null  ):void
+		public function display( p_oContainer:Sprite = null  ):void
 		{
 			// viewport upper left?
 			m_oContainer.x = 0;

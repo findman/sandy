@@ -78,10 +78,10 @@ package sandy.core.scenegraph
 			}
 		}
 		
-		override public function display( p_oScene:Scene3D, p_oContainer:Sprite = null ):void
+		override public function display( p_oContainer:Sprite = null ):void
 		{
 			(m_oContent as MovieClip).gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
-			super.display( p_oScene, p_oContainer );
+			super.display( p_oContainer );
 		}
 
 		// Returns the frame to show at the current camera angle

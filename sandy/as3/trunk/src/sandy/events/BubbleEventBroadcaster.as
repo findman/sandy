@@ -28,14 +28,22 @@ package sandy.events
 	{
 		private var m_oParent:BubbleEventBroadcaster = null;
 
+		private var m_oTarget:Object;
+		
 	 	/**
 		 * Constructor.
 	     */
-		public function BubbleEventBroadcaster()
+		public function BubbleEventBroadcaster( p_oTarget:Object )
 		{
 			super();
+			m_oTarget = p_oTarget;
 		}
 
+		public function get target():Object
+		{
+			return m_oTarget;
+		}
+		
 		/**
 		 * Starts receiving bubble events from specified child.
 		 *
@@ -76,21 +84,24 @@ package sandy.events
 		/**
 		 * @private
 		 */
-		public override function broadcastEvent(e:Event):void
+		override public function dispatchEvent(e:Event):Boolean
 		{
 			if (e is BubbleEvent)
 			{
-				super.broadcastEvent(e);
+				super.dispatchEvent(e);
 
 				if (parent)
 				{
-					parent.broadcastEvent(e);
+					parent.dispatchEvent(e);
 				}
 			}
 			else
 			{
-				parent.broadcastEvent(e); // used for regular event dispatching
+				// why parent?
+				//parent.dispatchEvent(e); // used for regular event dispatching
+				super.dispatchEvent(e);
 			}
+			return true;
 		}
 
 	}

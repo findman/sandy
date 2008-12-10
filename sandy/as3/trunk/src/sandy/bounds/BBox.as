@@ -87,6 +87,36 @@ package sandy.bounds
 		}
 	
 		/**
+		 * Merge the current BoundingBox with the one given in argument
+		 * @param pBounds The BBox object to merge the current BBox with
+		 */
+		public function merge( pBounds:BBox ):void
+		{
+			if(pBounds.max.x > max.x ) max.x = pBounds.max.x;
+			if(pBounds.max.y > max.y ) max.y = pBounds.max.y;
+			if(pBounds.max.z > max.z ) max.z = pBounds.max.z;
+			
+			if(pBounds.min.x < min.x ) min.x = pBounds.min.x;
+			if(pBounds.min.y < min.y ) min.y = pBounds.min.y;
+			if(pBounds.min.z < min.z ) min.z = pBounds.min.z;
+			
+			uptodate = false;
+		}
+		
+		/**
+		 * Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+		 */
+		public function reset():void
+		{
+			min.reset();
+			max.reset();
+			
+			tmin.reset();
+			tmax.reset();
+			uptodate = false;
+		}
+		
+		/**
 		 * Creates a new BBox instance.
 		 * 
 		 * @param p_min		A vector representing the lowest point of the cube volume.

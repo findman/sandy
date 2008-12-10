@@ -233,7 +233,7 @@ package sandy.core.scenegraph
 			return sMode;
 		}
 		
-		private function updateSoundTransform (p_oScene:Scene3D) :void 
+		private function updateSoundTransform () :void 
 		{
 			var gv:Matrix4 = modelMatrix;
 			var rv:Matrix4 = p_oScene.camera.modelMatrix;
@@ -275,12 +275,10 @@ package sandy.core.scenegraph
 		}
 		
 		// updates the sound channel and also set stereo panning in sound transform
-		private function updateChannelRef (p_oScene:Scene3D) :void 
+		private function updateChannelRef () :void 
 		{
-			
 			if(stereo) 
-			{
-				
+			{				
 				var span:Number = m_oSoundTransform.pan;
 				var pa:Number;
 				
@@ -344,7 +342,7 @@ package sandy.core.scenegraph
 				lastPosition = loopStartTime;
 				lastStopTime = getTimer();
 				cPlay();
-				m_oEB.broadcastEvent( new BubbleEvent( LOOP, this ) );
+				m_oEB.dispatchEvent( new BubbleEvent( LOOP, this ) );
 			}
 			else
 			{
@@ -372,7 +370,6 @@ package sandy.core.scenegraph
 		{
 			if(!cPlaying) 
 			{
-				
 				cPlaying = true;
 				
 				if(channelRef != null) channelRef.stop();
@@ -431,13 +428,11 @@ package sandy.core.scenegraph
 			}
 		}
 		
-		public override function cull (p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean) :void 
+		public override function cull ( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean) :void 
 		{
-			
 			if(_isPlaying) 
 			{
-				
-				updateSoundTransform(p_oScene);
+				updateSoundTransform();
 				
 				var isUrl:Boolean = sMode == "url";
 				
@@ -448,7 +443,7 @@ package sandy.core.scenegraph
 						if(!cPlaying) 
 						{
 							cPlay(isUrl);
-							m_oEB.broadcastEvent( new BubbleEvent( CULL_PLAY, this ) );
+							m_oEB.dispatchEvent( new BubbleEvent( CULL_PLAY, this ) );
 						}
 					}
 					else
@@ -456,12 +451,12 @@ package sandy.core.scenegraph
 						if(cPlaying) 
 						{
 							cStop(isUrl);
-							m_oEB.broadcastEvent( new BubbleEvent( CULL_STOP, this ) );
+							m_oEB.dispatchEvent( new BubbleEvent( CULL_STOP, this ) );
 						}
 					}
 				}
 				
-				updateChannelRef(p_oScene);
+				updateChannelRef();
 			}
 		}
 		

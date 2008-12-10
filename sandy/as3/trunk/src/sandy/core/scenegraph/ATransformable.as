@@ -640,7 +640,7 @@ package sandy.core.scenegraph
 		 * @param p_oModelMatrix The matrix which represents the parent model matrix. Basically it stores the rotation/translation/scale of all the nodes above the current one.
 		 * @param p_bChanged	A boolean value which specify if the state has changed since the previous rendering. If false, we save some matrix multiplication process.
 		 */
-		public override function update( p_oScene:Scene3D, p_oModelMatrix:Matrix4, p_bChanged:Boolean ):void
+		public override function update( p_oModelMatrix:Matrix4, p_bChanged:Boolean ):void
 		{
 			updateTransform();
 			// --
@@ -670,7 +670,7 @@ package sandy.core.scenegraph
 				invModelMatrix.n34 = -(modelMatrix.n13 * modelMatrix.n14 + modelMatrix.n23 * modelMatrix.n24 + modelMatrix.n33 * modelMatrix.n34);
 			}
 			// --
-			super.update( p_oScene, modelMatrix, p_bChanged );
+			super.update( modelMatrix, p_bChanged );
 		}
 
 		/**

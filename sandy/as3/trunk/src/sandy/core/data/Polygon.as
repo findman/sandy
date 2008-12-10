@@ -29,8 +29,6 @@ package sandy.core.data
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.IDisplayable;
 	import sandy.core.scenegraph.Shape3D;
-	import sandy.core.sorters.IDepthSorter;
-	import sandy.core.sorters.MeanDepthSorter;
 	import sandy.events.BubbleEventBroadcaster;
 	import sandy.events.Shape3DEvent;
 	import sandy.materials.Appearance;
@@ -136,11 +134,6 @@ package sandy.core.data
 		public var a:Vertex, b:Vertex, c:Vertex, d:Vertex;
 		
 		/**
-		 * The depth sorter the polygon uses.
-		 */
-		public var depthSorter:IDepthSorter;
-		
-		/**
 		 * Specifies if the appearance of the polygon has changed since the previous rendering.
 		 * This is primarily used to update the scene material manager.
 		 * WARNING: Do not change manually.
@@ -164,9 +157,9 @@ package sandy.core.data
 			// --
 			__update( p_aVertexID, p_aUVCoordsID, p_nFaceNormalID, p_nEdgesID );
 			m_oContainer = new Sprite();
-			depthSorter = new MeanDepthSorter();
 			// --
 			POLYGON_MAP[id] = this;
+			m_oEB = new BubbleEventBroadcaster(this);
 		}
 
 		/**
@@ -343,7 +336,7 @@ package sandy.core.data
 				if (d.wz < minZ) minZ = d.wz;
 				m_nDepth += d.wz;
 			}
-			m_nDepth /= vertices.length;//depthSorter.getDepth(this);
+			m_nDepth /= vertices.length;
 		}
 	
 		/**
@@ -489,18 +482,16 @@ package sandy.core.data
 		 * @param p_oScene		The scene this polygon is rendered in.
 		 * @param p_oContainer	The container to draw on.
 		 */
-		public function display( p_oScene:Scene3D, p_oContainer:Sprite = null ):void
+		public function display( p_oContainer:Sprite = null ):void
 		{
-			scene = p_oScene;
-			// --
 			const lCont:Sprite = (p_oContainer)?p_oContainer:m_oContainer;
 			if( visible )
 			{
-				m_oAppearance.frontMaterial.renderPolygon( p_oScene, this, lCont );
+				m_oAppearance.frontMaterial.renderPolygon( scene, this, lCont );
 			}
 			else
 			{
-				m_oAppearance.backMaterial.renderPolygon( p_oScene, this, lCont );
+				m_oAppearance.backMaterial.renderPolygon( scene, this, lCont );
 			}
 		}
 
@@ -579,7 +570,7 @@ package sandy.core.data
 			var l_oClick:Point = new Point( m_oContainer.mouseX, m_oContainer.mouseY );
 			var l_oUV:UVCoord = getUVFrom2D( l_oClick );
 			var l_oPt3d:Vector = get3DFrom2D( l_oClick );
-			m_oEB.broadcastEvent( new Shape3DEvent( p_oEvt.type, shape, this, l_oUV, l_oPt3d, p_oEvt ) );
+			m_oEB.dispatchEvent( new Shape3DEvent( p_oEvt.type, shape, this, l_oUV, l_oPt3d, p_oEvt ) );
 		}
 		
 		/**
@@ -792,6 +783,7 @@ package sandy.core.data
 			m_oEB = null;
 			m_oGeometry = null;
 			shape = null;
+			scene = null;
 			// -- memory leak fix from nopmb on mediabox forums
 			delete POLYGON_MAP[id];
 		}
@@ -813,7 +805,7 @@ package sandy.core.data
 		/**
 		 * @private
 		 */
-		protected var m_oEB:BubbleEventBroadcaster = new BubbleEventBroadcaster();
+		protected var m_oEB:BubbleEventBroadcaster;
 
 		/** Boolean representing the state of the event activation */
 		private var mouseEvents:Boolean = false;

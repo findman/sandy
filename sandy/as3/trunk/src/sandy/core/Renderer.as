@@ -71,7 +71,7 @@ package sandy.core
 		    // -- This is the new list to be displayed.
 			for each( var l_oFace:IDisplayable in m_aRenderingList )
 			{
-				l_oFace.display( p_oScene );
+				l_oFace.display();
 				l_mcContainer.addChild( l_oFace.container );
 			}
 		}
@@ -315,7 +315,7 @@ package sandy.core
 				}
 				else if( m_aDisplayList[int(i)] is Renderable )
 				{
-					(m_aDisplayList[int(i)] as Renderable).render(p_oScene, l_oCamera);
+					(m_aDisplayList[int(i)] as Renderable).render(l_oCamera);
 					m_aRenderingList[int(m_nRenderingListCount++)] = m_aDisplayList[int(i)] as Renderable;
 				}
 			}

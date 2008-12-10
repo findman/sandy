@@ -202,9 +202,9 @@ package sandy.core.scenegraph
 		 * @param p_oViewMatrix	The view martix of the curren camera
 		 * @param p_bChanged
 		 */
-		public override function cull( p_oScene:Scene3D, p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
+		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void
 		{
-			super.cull( p_oScene, p_oFrustum, p_oViewMatrix, p_bChanged );			
+			super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );			
 			if( visible == false )
 			{
 				container.visible = visible;
@@ -228,30 +228,30 @@ package sandy.core.scenegraph
 			{
 				if( culled == CullingState.INTERSECT ) 
 				{
-					if( boundingSphere.position.z <= p_oScene.camera.near )
+					if( boundingSphere.position.z <= scene.camera.near )
 					{
 						container.visible = false;
 					}
 					else 
 					{
 						container.visible = true;
-						if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
+						if ((m_oMaterial != null) && !scene.materialManager.isRegistered( m_oMaterial ))
 						{
-							p_oScene.materialManager.register( m_oMaterial );
+							scene.materialManager.register( m_oMaterial );
 						}
 						// --
-						p_oScene.renderer.addToDisplayList( this ); 
+						scene.renderer.addToDisplayList( this ); 
 					}
 				}
 				else
 				{
 					container.visible = true;
-					if ((m_oMaterial != null) && !p_oScene.materialManager.isRegistered( m_oMaterial ))
+					if ((m_oMaterial != null) && !scene.materialManager.isRegistered( m_oMaterial ))
 					{
-						p_oScene.materialManager.register( m_oMaterial );
+						scene.materialManager.register( m_oMaterial );
 					}
 					// --
-					p_oScene.renderer.addToDisplayList( this ); 
+					scene.renderer.addToDisplayList( this ); 
 				}
 			}
 		}
@@ -301,7 +301,7 @@ package sandy.core.scenegraph
 		 * @param p_oScene The current scene
 		 * @param p_oContainer	The container to draw on
 		 */
-		public function display( p_oScene:Scene3D, p_oContainer:Sprite = null  ):void
+		public function display( p_oContainer:Sprite = null  ):void
 		{
 			m_nPerspScaleX = (_nScale == 0) ? 1 : _nScale * (vx.sx - v.sx);
 			m_nPerspScaleY = (_nScale == 0) ? 1 : _nScale * (v.sy - vy.sy);
@@ -314,7 +314,7 @@ package sandy.core.scenegraph
 			// --
 			if (fixedAngle) m_oContainer.rotation = m_nRotation * 180 / Math.PI;
 			// --
-			if (m_oMaterial) m_oMaterial.renderSprite( this, m_oMaterial, p_oScene );
+			if (m_oMaterial) m_oMaterial.renderSprite( this, m_oMaterial, scene );
 		}
 
 		/**
@@ -361,10 +361,10 @@ package sandy.core.scenegraph
 			if( b &&!m_bEv )
 			{
 				m_oContainer.addEventListener(MouseEvent.CLICK, _onInteraction);
-		    		m_oContainer.addEventListener(MouseEvent.MOUSE_UP, _onInteraction);
-		    		m_oContainer.addEventListener(MouseEvent.MOUSE_DOWN, _onInteraction);
-	    			m_oContainer.addEventListener(MouseEvent.ROLL_OVER, _onInteraction);
-	    			m_oContainer.addEventListener(MouseEvent.ROLL_OUT, _onInteraction);
+		    	m_oContainer.addEventListener(MouseEvent.MOUSE_UP, _onInteraction);
+		    	m_oContainer.addEventListener(MouseEvent.MOUSE_DOWN, _onInteraction);
+	    		m_oContainer.addEventListener(MouseEvent.ROLL_OVER, _onInteraction);
+	    		m_oContainer.addEventListener(MouseEvent.ROLL_OUT, _onInteraction);
 	    		
 				m_oContainer.addEventListener(MouseEvent.DOUBLE_CLICK, _onInteraction);
 				m_oContainer.addEventListener(MouseEvent.MOUSE_MOVE, _onInteraction);
@@ -390,7 +390,7 @@ package sandy.core.scenegraph
 		
 		protected function _onInteraction( p_oEvt:Event ):void
 		{
-			m_oEB.broadcastEvent( new BubbleEvent( p_oEvt.type, this ) );
+			m_oEB.dispatchEvent( new BubbleEvent( p_oEvt.type, this ) );
 		}
 		
 		override public function toString():String

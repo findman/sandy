@@ -37,6 +37,6 @@ package sandy.core.scenegraph
 		// The depth of this object
 		function get depth():Number;
 		// Called only if the useSignelContainer property is enabled!
-		function display( p_oScene:Scene3D, p_oContainer:Sprite = null  ):void;
+		function display( p_oContainer:Sprite = null  ):void;
 	}
 }

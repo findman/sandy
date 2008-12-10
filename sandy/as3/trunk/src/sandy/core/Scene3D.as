@@ -16,7 +16,7 @@ limitations under the License.
 
 package sandy.core
 {
-	import sandy.core.data.Pool;			import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	import sandy.materials.MaterialManager;	
+	import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Pool;	import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	import sandy.materials.MaterialManager;	
 	/**
 	 * The Sandy 3D scene.
 	 *
@@ -121,13 +121,6 @@ package sandy.core
 		public var camera:Camera3D;
 
 		/**
-		 * The root of the scene graph for this scene.
-		 *
-	     * @see sandy.core.scenegraph.Group
-		 */
-		public var root:Group;
-
-		/**
 		 * The container that stores all displayable objects for this scene.
 		 */
 		public var container:Sprite;
@@ -199,10 +192,10 @@ package sandy.core
 				renderer.init();
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_UPDATE));
-				root.update(this, null, false);
+				root.update(null, false);
 				// --
 				dispatchEvent(new SandyEvent( SandyEvent.SCENE_CULL));
-				root.cull(this, camera.frustrum, camera.invModelMatrix, camera.changed);
+				root.cull(camera.frustrum, camera.invModelMatrix, camera.changed);
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
 				materialManager.begin(this);
@@ -215,6 +208,32 @@ package sandy.core
 			}
 		} // end method
 
+
+		/**
+		 * The root of the scene graph for this scene.
+		 *
+	     * @see sandy.core.scenegraph.Group
+		 */
+		public function set root(p_oGroup:Group):void
+		{
+			if( m_oRoot )
+			{
+				m_oRoot.scene = null;
+				m_oRoot = null;
+				//m_oRoot.destroy();
+			}
+			m_oRoot = p_oGroup;
+			m_oRoot.scene = this;
+		}
+		
+		public function get root():Group
+		{
+			return m_oRoot;
+		}
+		
+		
+		protected var m_oRoot:Group;
+		
 		/**
 		 * Disposes of all the scene's resources.
 		 *
