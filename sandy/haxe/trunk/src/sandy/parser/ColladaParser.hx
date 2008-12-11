@@ -680,7 +680,7 @@ class ColladaParser extends AParser, implements IParser
 			var l_sEffectID : String = null;
 			try {
 					// am I mistaken, is there no way of knowing whether innerData is filled ?
-					l_sEffectID = l_oMaterial.node.instance_effect.innerData.split( "#" )[ 1 ];
+					l_sEffectID = l_oMaterial.node.instance_effect.att.url.split( "#" )[ 1 ];
 			} catch (e:Dynamic) {
 					l_sEffectID = "";
 			}
@@ -692,7 +692,7 @@ class ColladaParser extends AParser, implements IParser
 			} else {
 					var l_aEffect : List<Fast> = m_oCollada.node.library_effects.nodes.effect;
 					for ( l_oNode in l_aEffect ) {
-							if ( l_oNode.node.effect.att.id == l_sEffectID ) {
+							if ( l_oNode.att.id == l_sEffectID ) {
 									l_oEffect = l_oNode;
 									break;
 							}
@@ -818,12 +818,12 @@ class ColladaParser extends AParser, implements IParser
 			l_oImages.set( l_sId, {
 				bitmapData: null,
 				id : l_sId,
-				fileName : l_oInitFrom.substr( l_oInitFrom.lastIndexOf( "/" ) + 1, l_oInitFrom.length )
+				fileName : l_oInitFrom
 			});
 
 			l_oQueue.add(
 				l_sId,
-				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( l_sId ).fileName )
+				new URLRequest( l_oImages.get( l_sId ).fileName )
 			);
 		}
 		l_oQueue.addEventListener( QueueEvent.QUEUE_COMPLETE, imageQueueCompleteHandler );

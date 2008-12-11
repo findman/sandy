@@ -357,7 +357,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 	/**
 	 * The texture ( bitmap ) of this material.
 	 */
-	public var texture(__getTexture,__setTexture):Null<BitmapData>;
+	public var texture(__getTexture,__setTexture):BitmapData;
 	private function __getTexture():BitmapData
 	{
 		return m_oTexture;
@@ -366,7 +366,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 	/**
 	 * @private
 	 */
-	private function __setTexture( p_oTexture:BitmapData ):Null<BitmapData>
+	private function __setTexture( p_oTexture:BitmapData ):BitmapData
 	{
 		if( p_oTexture == m_oTexture )
 		{
