@@ -16,7 +16,7 @@ limitations under the License.
 
 package sandy.core
 {
-	import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Pool;	import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	import sandy.materials.MaterialManager;	
+	import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Pool;	import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	
 	/**
 	 * The Sandy 3D scene.
 	 *
@@ -61,7 +61,14 @@ package sandy.core
 	* @eventType sandy.events.SandyEvent.SCENE_RENDER
 	*/
 	[Event(name="scene_render", type="sandy.events.SandyEvent")]
-
+	
+	/**
+	* Dispatched when the scene has finished its rendering process
+	*
+	* @eventType sandy.events.SandyEvent.SCENE_RENDER_FINISH
+	*/
+	[Event(name="scene_render_finish", type="sandy.events.SandyEvent")]
+	
 	/**
 	* Dispatched when the scene is culled.
 	*
@@ -124,11 +131,6 @@ package sandy.core
 		 * The container that stores all displayable objects for this scene.
 		 */
 		public var container:Sprite;
-
-		/**
-		 * The material manager for the scene.
-		 */
-		public var materialManager:MaterialManager = new MaterialManager();
 
 		/**
 		 * The renerer choosed for render this scene.
@@ -198,13 +200,11 @@ package sandy.core
 				root.cull(camera.frustrum, camera.invModelMatrix, camera.changed);
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
-				materialManager.begin(this);
 				renderer.render( this );
 				// -- clear the polygon's container and the projection vertices list
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
 	            renderer.renderDisplayList( this );
-	            // --
-	            materialManager.finish(this);
+	            dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_FINISH));
 			}
 		} // end method
 

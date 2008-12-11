@@ -109,7 +109,7 @@ package sandy.materials.attributes
 				new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 	
 			// sample ambient + diffuse and specular separately
-			var n:Vector = Pool.getInstance().nextVector;
+			var n:Vector = new Vector();
 			var l_aReflection:Array = [new Array (l_nQuality), new Array (l_nQuality)];
 			var S:Array = [0, 0], t:Array = [-1, -1];
 			for (i = 0; i < N; i++)
@@ -278,7 +278,7 @@ package sandy.materials.attributes
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
-
+			
 			var i:int, j:int, l_oVertex:Vertex,
 				v:Vector,
 				p:Point, p1:Point, p2:Point,
@@ -404,7 +404,7 @@ package sandy.materials.attributes
 					matrix.tx = p.x;
 					matrix.ty = p.y;
 					matrix.invert ();
-
+					
 					matrix.concat (matrix2);
 					p_oGraphics.beginGradientFill( "radial", m_oCurrentLightMap.colors [j], m_oCurrentLightMap.alphas [j], m_oCurrentLightMap.ratios [j], matrix );
 				}

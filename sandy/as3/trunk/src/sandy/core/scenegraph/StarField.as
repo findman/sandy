@@ -145,9 +145,9 @@ package sandy.core.scenegraph
 				m_oBitmapData = new BitmapData (scene.camera.viewport.width, scene.camera.viewport.height, true, 0); 
 				makeEvents ();
 				m_oBitmap.bitmapData = m_oBitmapData;
-				// --
-				scene.renderer.addToDisplayList( this ); 
 			}
+			// --
+			scene.renderer.addToDisplayList( this ); 
 		}
 		
 		/**
@@ -159,11 +159,11 @@ package sandy.core.scenegraph
 		public function render( p_oCamera:Camera3D ):void
 		{
 			resetEvents ();
-
 			m_oBitmapData.lock();
 			m_oEB.dispatchEvent (m_oEventBefore);
-			if (m_oEventBefore.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
-			// --
+			if (m_oEventBefore.clear) 
+				m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
+			// --			
 			var i:int = 0;
 			var c32:Number, a:Number, c:Number, r:Number, rgb_r:Number, rgb_g:Number, rgb_b:Number, bY:Number;
 			for (i = 0; i < stars.length; i++)
@@ -172,7 +172,7 @@ package sandy.core.scenegraph
 				_v.wx = _v.x * viewMatrix.n11 + _v.y * viewMatrix.n12 + _v.z * viewMatrix.n13 + viewMatrix.n14;
 				_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
 				_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
-
+				
 				if (_v.wz >= p_oCamera.near)
 				{
 					r = Math.min(1, Math.max (0, (_v.wz - fadeFrom) / fadeTo));
@@ -180,7 +180,8 @@ package sandy.core.scenegraph
 					{
 						// will uint and bit shift really make a difference?
 						c32 = (i < starColors.length) ? Number (starColors [i]) : 0xFFFFFFFF;
-						a = c32 / 0x1000000 * (1 - r); c = c32 & 0xFFFFFF;
+						a = c32 / 0x1000000 * (1 - r); 
+						c = c32 & 0xFFFFFF;
 						p_oCamera.projectVertex (_v);
 						if ((i < starSprites.length /* avoid array access */) && (starSprites [i] is IBitmapDrawable))
 						{
@@ -221,9 +222,9 @@ package sandy.core.scenegraph
 				}
 			}
 			m_oEB.dispatchEvent (m_oEventAfter);
-			if (m_oEventAfter.clear) m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
+			if (m_oEventAfter.clear) 
+				m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 			m_oBitmapData.unlock();
-
 		}
 
 		/**
@@ -250,7 +251,8 @@ package sandy.core.scenegraph
 		 */
 		public override function destroy():void
 		{
-			remove (); super.destroy ();
+			remove (); 
+			super.destroy ();
 		}
 		
 		/**

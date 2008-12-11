@@ -224,23 +224,6 @@ package sandy.core
 							// --
 							l_nPolyFlags |= l_nFlags;
 							// --
-							if( l_oFace.hasAppearanceChanged )
-							{
-								var l_oApp:Appearance = l_oFace.appearance;
-								if( p_oScene.materialManager.isRegistered( l_oApp.frontMaterial ) == false )
-								{
-									p_oScene.materialManager.register( l_oApp.frontMaterial );
-								}
-								if( l_oApp.frontMaterial != l_oApp.backMaterial )
-								{
-									if( p_oScene.materialManager.isRegistered( l_oApp.backMaterial ) == false )
-									{
-										p_oScene.materialManager.register( l_oApp.backMaterial );
-									}
-								}
-								l_oFace.hasAppearanceChanged = false;
-							}
-							// --
 							if( l_oShape.useSingleContainer == false )
 								m_aRenderingList[int(m_nRenderingListCount++)] = l_oFace;
 						}

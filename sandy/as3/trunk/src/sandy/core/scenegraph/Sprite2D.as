@@ -21,14 +21,14 @@ package sandy.core.scenegraph
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import sandy.bounds.BSphere;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Vertex;
 	import sandy.events.BubbleEvent;
+	import sandy.events.SandyEvent;
 	import sandy.materials.Material;
 	import sandy.view.CullingState;
-	import sandy.view.Frustum;	
+	import sandy.view.Frustum;
 
 	/**
 	 * The Sprite2D class is used to create a 2D sprite.
@@ -97,8 +97,6 @@ package sandy.core.scenegraph
 			m_oContainer = new Sprite();
 			// --
 			v = new Vertex(); vx = new Vertex(); vy = new Vertex();
-			boundingSphere 	= new BSphere();
-	        boundingBox		= null;
 	        // --
 			_nScale = p_nScale;
 			// --
@@ -135,6 +133,38 @@ package sandy.core.scenegraph
 		{
 			return m_oContent;
 		}
+		
+		
+		override public function set scene(p_oScene:Scene3D):void
+		{
+			if( p_oScene == null ) return;
+			if( scene )
+			{
+				scene.removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
+				scene.removeEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
+			}
+			super.scene = p_oScene;
+			// --
+			scene.addEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
+			scene.addEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
+		}
+		
+		private function _finishMaterial( pEvt:SandyEvent ):void
+		{
+			if( !m_oMaterial ) return;
+			if( !visible ) return;
+			// --
+			m_oMaterial.finish( scene );
+		}
+		
+		private function _beginMaterial( pEvt:SandyEvent ):void
+		{
+			if( !m_oMaterial ) return;
+			if( !visible ) return;
+			// --
+			m_oMaterial.begin( scene );
+		}
+
 		
 		/**
 		 * The container of this sprite ( canvas )
@@ -235,10 +265,6 @@ package sandy.core.scenegraph
 					else 
 					{
 						container.visible = true;
-						if ((m_oMaterial != null) && !scene.materialManager.isRegistered( m_oMaterial ))
-						{
-							scene.materialManager.register( m_oMaterial );
-						}
 						// --
 						scene.renderer.addToDisplayList( this ); 
 					}
@@ -246,10 +272,6 @@ package sandy.core.scenegraph
 				else
 				{
 					container.visible = true;
-					if ((m_oMaterial != null) && !scene.materialManager.isRegistered( m_oMaterial ))
-					{
-						scene.materialManager.register( m_oMaterial );
-					}
 					// --
 					scene.renderer.addToDisplayList( this ); 
 				}
@@ -276,10 +298,13 @@ package sandy.core.scenegraph
 			if( m_oContainer.parent ) m_oContainer.parent.removeChild( m_oContainer );
 			m_oContainer.graphics.clear();
 			enableEvents = false;
-			if ((m_oMaterial != null) && !scene.materialManager.isRegistered( m_oMaterial ))
+			
+			if( scene )
 			{
-				scene.materialManager.unregister( m_oMaterial );
+				scene.removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
+				scene.removeEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
 			}
+			
 			super.remove();
 		}
 

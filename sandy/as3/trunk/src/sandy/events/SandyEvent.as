@@ -64,6 +64,15 @@ package sandy.events
 	     */
 		public static const SCENE_RENDER:String = "scene_render";
 
+ 		/**
+		 * Defines the value of the <code>type</code> property of a <code>scene_render_finish</code> event object.
+	     *
+	     * @eventType scene_render_finish
+	     *
+	     * @see sandy.core.Scene3D
+	     */
+		public static const SCENE_RENDER_FINISH:String = "scene_render_finish";
+		
 	    /**
 		 * Defines the value of the <code>type</code> property of a <code>scene_cull</code> event object.
 	     *
