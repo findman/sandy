@@ -17,12 +17,11 @@ package sandy.view
 {
 	import sandy.bounds.BBox;
 	import sandy.bounds.BSphere;
-	import sandy.core.data.Matrix4;
 	import sandy.core.data.Plane;
+	import sandy.core.data.Pool;
 	import sandy.core.data.UVCoord;
 	import sandy.core.data.Vector;
 	import sandy.core.data.Vertex;
-	import sandy.core.data.Pool;
 	import sandy.math.PlaneMath;
 	import sandy.util.NumberUtil;	
 
@@ -59,13 +58,8 @@ package sandy.view
 		public var aPoints:Array;
 		public var aNormals:Array;
 		public var aConstants:Array;
-		// front plane : aNormals[0], aConstants[0] <-> aPoints[0], aPoints[1], aPoints[2], aPoints[3]
-		// upper plane : aNormals[1], aConstants[1] <-> aPoints[0], aPoints[1], aPoints[4], aPoints[5]
-		// lower plane : aNormals[2], aConstants[2] <-> aPoints[2], aPoints[3], aPoints[6], aPoints[7]
-		// right plane : aNormals[3], aConstants[3] <-> aPoints[0], aPoints[3], aPoints[4], aPoints[7]
-		// left plane  : aNormals[4], aConstants[4] <-> aPoints[1], aPoints[2], aPoints[5], aPoints[6]
-		// back plane  : aNormals[5], aConstants[5] <-> aPoints[4], aPoints[5], aPoints[6], aPoints[7] 	
-		
+		private const m_aBoxEdges:Array = new Array(8);
+		private var pool:Pool = new Pool();
 		/**
 		* Specifies the index of the far plane of the frustum in the aPlanes array.
 		*/
@@ -123,6 +117,9 @@ package sandy.view
 			aPoints = new Array(8);
 			aNormals = new Array(6);
 			aConstants = new Array(6);
+			for( var i:int = 0; i < 8; i++ )
+				m_aBoxEdges[int(i)] = new Vector();
+			
 		}
 		
 		/**
@@ -198,14 +195,17 @@ package sandy.view
 		 * <p>The method tests if the bounding sphere is within the frustum volume or not.
 		 * The returned culling state is either Frustum.INSIDE, Frustum.OUTSIDE or Frustum.INTERSECT</p>
 		 *
-		 * @param p_oS	The sphere to test.
+		 * @param p_oSphere	The sphere to test.
 		 *
 		 * @return The culling state of the sphere.
 		 */
-		public function sphereInFrustum( p_oS:BSphere ):CullingState
+		public function sphereInFrustum( p_oSphere:BSphere ):CullingState
 		{
 	        var d:Number = 0, c:int=0;
-	        const x:Number=p_oS.position.x, y:Number=p_oS.position.y, z:Number=p_oS.position.z, radius:Number = p_oS.radius;
+	        const 	x:Number = p_oSphere.position.x, 
+	        		y:Number = p_oSphere.position.y, 
+	        		z:Number = p_oSphere.position.z, 
+	        		radius:Number = p_oSphere.radius;
 	        // --
 	        for each( var plane:Plane in aPlanes ) 
 	        { 
@@ -232,12 +232,13 @@ package sandy.view
 		 * @param p_oS	The box to test.
 		 *
 		 * @return The culling state of the box.
-		 */
-		public function boxInFrustum( box:BBox ):CullingState
+		 */		
+		public function boxInFrustum( p_oBox:BBox ):CullingState
 		{
-			var result:CullingState = Frustum.INSIDE;
-			var out:Number, iin:Number, lDist:Number;
-			// for each plane do ...
+			var result:CullingState = Frustum.INSIDE, out:Number, iin:Number, lDist:Number;
+			// --
+			p_oBox.getEdges(m_aBoxEdges);
+			// for each plane do the test
 			for each( var plane:Plane in aPlanes )
 			{
 				// reset counters for corners in and out
@@ -245,7 +246,7 @@ package sandy.view
 				// for each corner of the box do ...
 				// get out of the cycle as soon as a box as corners
 				// both inside and out of the frustum
-				for each( var v:Vector in box.aTCorners )
+				for each( var v:Vector in m_aBoxEdges )
 				{
 					lDist = plane.a * v.x + plane.b * v.y + plane.c * v.z + plane.d;
 					// is the corner outside or inside
@@ -337,7 +338,7 @@ package sandy.view
 			var l_nDist1:Number = l_oPlane.a * v1.wx + l_oPlane.b * v1.wy + l_oPlane.c * v1.wz + l_oPlane.d;
 			// --
 			var d:Number = 0;
-			var t:Vertex = Pool.getInstance().nextVertex;
+			var t:Vertex = pool.nextVertex;
 			// --
 			if ( l_nDist0 < 0 && l_nDist1 >=0 )	// Coming in
 			{	 
@@ -346,8 +347,8 @@ package sandy.view
 				t.wy = (v0.wy+(v1.wy-v0.wy)*d);
 				t.wz = (v0.wz+(v1.wz-v0.wz)*d);
 				//
-				p_aCvert.push( t );
-				p_aCvert.push( v1 );
+				p_aCvert[p_aCvert.length] = ( t );
+				p_aCvert[p_aCvert.length] = ( v1 );
 				return true;
 			} 
 			else if ( l_nDist1 < 0 && l_nDist0 >=0 ) // Going out
@@ -358,8 +359,8 @@ package sandy.view
 				t.wy = (v0.wy+(v1.wy-v0.wy)*d);
 				t.wz = (v0.wz+(v1.wz-v0.wz)*d);
 				
-				p_aCvert.push( v0 );
-				p_aCvert.push( t );
+				p_aCvert[p_aCvert.length] = ( v0 );
+				p_aCvert[p_aCvert.length] = ( t );
 				return true;
 			} 
 			else if( l_nDist1 < 0 && l_nDist0 < 0 ) // ALL OUT
@@ -369,8 +370,8 @@ package sandy.view
 			}
 			else if( l_nDist1 > 0 && l_nDist0 > 0 ) // ALL IN
 			{
-				p_aCvert.push( v0 );
-				p_aCvert.push( v1 );
+				p_aCvert[p_aCvert.length] = ( v0 );
+				p_aCvert[p_aCvert.length] = ( v1 );
 				return false;
 			}
 			return true;
@@ -384,20 +385,21 @@ package sandy.view
 		 * @param p_aCvert	Vertices of the polygon. 
 		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
+		private const aDist:Array = new Array();
 		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):Boolean
 		{	
 			var allin:Boolean = true, allout:Boolean = true;
 			var v:Vertex;
 			var i:Number, l:Number = p_aCvert.length, lDist:Number;
 			// -- If no points, we return null
-			var aDist:Array = new Array();
+			aDist.length = 0;
 			// -- otherwise we compute the distances to frustum plane
 			for each( v in p_aCvert )
 			{
 				lDist = p_oPlane.a * v.wx + p_oPlane.b * v.wy + p_oPlane.c * v.wz + p_oPlane.d;
 				if (lDist < 0) allin = false;
 				if (lDist >= 0) allout = false;
-				aDist.push( lDist );		
+				aDist[int(aDist.length)] = ( lDist );		
 			}
 			
 			if (allin)
@@ -421,53 +423,53 @@ package sandy.view
 			var clipped:Boolean = false, inside:Boolean = (dist1 >= 0);
 			for (i=1; i <= l; i++)
 			{	 
-				v2 = tmp[i%l];
-				l_oUV2 = l_aTmpUv[i%l];
+				v2 = tmp[int(i%l)];
+				l_oUV2 = l_aTmpUv[int(i%l)];
 				//
-				dist2= aDist[i%l];
+				dist2= aDist[int(i%l)];
 				// Sutherland-hodgeman clipping
 				if ( inside && (dist2 >= 0) ) 
 				{
-					p_aCvert.push(v2);	// Both in
-					p_aUVCoords.push(l_oUV2);
+					p_aCvert[p_aCvert.length] = (v2);	// Both in
+					p_aUVCoords[p_aUVCoords.length] = (l_oUV2);
 				}
 				else if ( (!inside) && (dist2>=0) )		// Coming in
 				{	 
 					clipped = inside = true;
 					//
-					t = Pool.getInstance().nextVertex;
+					t = pool.nextVertex;
 					d = dist1/(dist1-dist2);
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					p_aCvert.push( t );
-					p_aCvert.push( v2 );
+					p_aCvert[p_aCvert.length] = ( t );
+					p_aCvert[p_aCvert.length] = ( v2 );
 					//
-					l_oUVTmp = Pool.getInstance().nextUV;
+					l_oUVTmp = pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
-					p_aUVCoords.push(l_oUVTmp);
-					p_aUVCoords.push(l_oUV2);
+					p_aUVCoords[int(p_aUVCoords.length)] = (l_oUVTmp);
+					p_aUVCoords[int(p_aUVCoords.length)] = (l_oUV2);
 				} 
 				else if ( inside && (dist2<0) )		// Going out
 				{	 
 					clipped=true;
 					inside=false;
-					t = Pool.getInstance().nextVertex;
+					t = pool.nextVertex;
 					d = dist1/(dist1-dist2);
 					//
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					l_oUVTmp = Pool.getInstance().nextUV;
+					l_oUVTmp = pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
-					p_aUVCoords.push(l_oUVTmp);
-					p_aCvert.push( t );
+					p_aUVCoords[int(p_aUVCoords.length)] = (l_oUVTmp);
+					p_aCvert[int(p_aCvert.length)] = ( t );
 				} 
 				else
 				{
@@ -479,7 +481,6 @@ package sandy.view
 				l_oUV1 = l_oUV2;
 			}
 			// we free the distance array
-			aDist = null;
 			return true;
 		}
 	}

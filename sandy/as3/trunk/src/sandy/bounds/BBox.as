@@ -15,7 +15,7 @@ limitations under the License.
 */
 package sandy.bounds 
 {
-	import sandy.core.data.Matrix4;	import sandy.core.data.Pool;	import sandy.core.data.Vector;	
+	import sandy.core.data.Matrix4;	import sandy.core.data.Pool;	import sandy.core.data.Vector;	import sandy.core.data.Vertex;
 	/**
 	 * The BBox class is used to quickly and easily clip an object in a 3D scene.
 	 * <p>It creates a bounding box that contains the whole object.</p>
@@ -42,19 +42,13 @@ package sandy.bounds
 		/**
 		 * A vector representing the highest point of the cube volume.
 		 */
-		public var max:Vector;		
+		public var maxEdge:Vector;		
 		
 		/**
 		 * A vector representing the lowest point of the cube volume.
 		 */
-		public var min:Vector;		
+		public var minEdge:Vector;		
 	
-		public var tmin:Vector;
-		public var tmax:Vector;
-		
-		public var aCorners:Array;
-		public var aTCorners:Array;
-		
 		/**
 		 * Creates a bounding box that encloses a 3D from an Array of the object's vertices.
 		 * 
@@ -66,54 +60,168 @@ package sandy.bounds
 		{
 			if(p_aVertices.length == 0) return null;
 		   
-		    var l:Number = p_aVertices.length;
-		    var l_min:Vector = Pool.getInstance().nextVector;
-		    var l_max:Vector = Pool.getInstance().nextVector;
-			
-			var lTmp:Array;
-			lTmp = p_aVertices.sortOn (["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-			l_min.x = p_aVertices[lTmp[0]].x;
-			l_max.x = p_aVertices[lTmp[lTmp.length-1]].x;
-			  
-			lTmp = p_aVertices.sortOn (["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-			l_min.y = p_aVertices[lTmp[0]].y;
-			l_max.y = p_aVertices[lTmp[lTmp.length-1]].y;
-			  
-			lTmp = p_aVertices.sortOn (["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-			l_min.z = p_aVertices[lTmp[0]].z;
-			l_max.z = p_aVertices[lTmp[lTmp.length-1]].z;
-			 
-			return new BBox( l_min, l_max );
+		    var l_oBox:BBox = new BBox(); 
+			for each( var l_oVertex:Vertex in p_aVertices )
+			{
+				l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
+			}
+			return l_oBox;
 		}
-	
+		
+		public function addInternalPoint(p_oPoint:Vector):void 
+		{
+			if(p_oPoint.x > this.maxEdge.x) 
+			{
+				this.maxEdge.x = p_oPoint.x;
+			}
+			if(p_oPoint.y > this.maxEdge.y) 
+			{
+				this.maxEdge.y = p_oPoint.y;
+			}
+			if(p_oPoint.z > this.maxEdge.z) 
+			{
+				this.maxEdge.z = p_oPoint.z;
+			}
+			if(p_oPoint.x < this.minEdge.x) 
+			{
+				this.minEdge.x = p_oPoint.x;
+			}
+			if(p_oPoint.y < this.minEdge.y) 
+			{
+				this.minEdge.y = p_oPoint.y;
+			}
+			if(p_oPoint.z < this.minEdge.z) 
+			{
+				this.minEdge.z = p_oPoint.z;
+			}
+		}
+
+		public function addInternalPointXYZ(x:Number,y:Number,z:Number):void 
+		{
+			if(x > this.maxEdge.x) 
+			{
+				this.maxEdge.x = x;
+			}
+			if(y > this.maxEdge.y) 
+			{
+				this.maxEdge.y = y;
+			}
+			if(z > this.maxEdge.z) 
+			{
+				this.maxEdge.z = z;
+			}
+			if(x < this.minEdge.x) 
+			{
+				this.minEdge.x = x;
+			}
+			if(y < this.minEdge.y) 
+			{
+				this.minEdge.y = y;
+			}
+			if(z < this.minEdge.z) 
+			{
+				this.minEdge.z = z;
+			}
+		}
+
+		
 		/**
 		 * Merge the current BoundingBox with the one given in argument
 		 * @param pBounds The BBox object to merge the current BBox with
 		 */
-		public function merge( pBounds:BBox ):void
+		public function merge(box:BBox):void 
 		{
-			if(pBounds.max.x > max.x ) max.x = pBounds.max.x;
-			if(pBounds.max.y > max.y ) max.y = pBounds.max.y;
-			if(pBounds.max.z > max.z ) max.z = pBounds.max.z;
-			
-			if(pBounds.min.x < min.x ) min.x = pBounds.min.x;
-			if(pBounds.min.y < min.y ) min.y = pBounds.min.y;
-			if(pBounds.min.z < min.z ) min.z = pBounds.min.z;
+			this.addInternalPointXYZ(box.maxEdge.x, box.maxEdge.y, box.maxEdge.z);
+			this.addInternalPointXYZ(box.minEdge.x, box.minEdge.y, box.minEdge.z);
 			
 			uptodate = false;
 		}
-		
+	
 		/**
 		 * Reset the current bounding box to an empoty box with 0,0,0 as max and min values
 		 */
 		public function reset():void
 		{
-			min.reset();
-			max.reset();
-			
-			tmin.reset();
-			tmax.reset();
+			minEdge.reset();
+			maxEdge.reset();
 			uptodate = false;
+		}
+		
+		public function isPointInsideXYZ(x:Number,y:Number,z:Number):Boolean 
+		{
+			return (x >= this.minEdge.x && x <= this.maxEdge.x && y >= this.minEdge.y && y <= this.maxEdge.y && z >= this.minEdge.z && z <= this.maxEdge.z);
+		}
+
+		public function isPointTotalInside(p_oPoint:Vector):Boolean 
+		{
+			return (p_oPoint.x > this.minEdge.x && p_oPoint.x < this.maxEdge.x && p_oPoint.y > this.minEdge.y && p_oPoint.y < this.maxEdge.y && p_oPoint.z > this.minEdge.z && p_oPoint.z < this.maxEdge.z);
+		}
+
+		public function intersectsBox(box:BBox):Boolean 
+		{
+			return (this.minEdge.x <= box.maxEdge.x && this.minEdge.y <= box.maxEdge.y && this.minEdge.z <= box.maxEdge.z && this.maxEdge.x >= box.minEdge.x && this.maxEdge.y >= box.minEdge.y && this.maxEdge.z >= box.minEdge.z);
+		}
+		
+		/**
+		 * Returns the center of the bounding box volume.
+		 * 
+		 * @return A Vector representing the center of the bounding box.
+		 */
+		public function getCenter():Vector
+		{
+			return new Vector((this.maxEdge.x + this.minEdge.x) / 2, (this.maxEdge.y + this.minEdge.y) / 2, (this.maxEdge.z + this.minEdge.z) / 2);
+		}
+		
+		public function getEdges(edges:Array):void 
+		{
+			if (edges == null) return;
+			// --
+			var centerX:Number = (this.maxEdge.x + this.minEdge.x) / 2;
+			var centerY:Number = (this.maxEdge.y + this.minEdge.y) / 2;
+			var centerZ:Number = (this.maxEdge.z + this.minEdge.z) / 2;
+			var diagX:Number = centerX - this.maxEdge.x;
+			var diagY:Number = centerY - this.maxEdge.y;
+			var diagZ:Number = centerZ - this.maxEdge.z;
+			
+			var _g:Vector = edges[0];
+			_g.x = centerX + diagX;
+			_g.y = centerY + diagY;
+			_g.z = centerZ + diagZ;
+			
+			_g = edges[1];
+			_g.x = centerX + diagX;
+			_g.y = centerY - diagY;
+			_g.z = centerZ + diagZ;
+
+			_g = edges[2];
+			_g.x = centerX + diagX;
+			_g.y = centerY + diagY;
+			_g.z = centerZ - diagZ;
+
+			_g = edges[3];
+			_g.x = centerX + diagX;
+			_g.y = centerY - diagY;
+			_g.z = centerZ - diagZ;
+
+			_g = edges[4];
+			_g.x = centerX - diagX;
+			_g.y = centerY + diagY;
+			_g.z = centerZ + diagZ;
+
+			_g = edges[5];
+			_g.x = centerX - diagX;
+			_g.y = centerY - diagY;
+			_g.z = centerZ + diagZ;
+
+			_g = edges[6];
+			_g.x = centerX - diagX;
+			_g.y = centerY + diagY;
+			_g.z = centerZ - diagZ;
+
+			_g = edges[7];
+			_g.x = centerX - diagX;
+			_g.y = centerY - diagY;
+			_g.z = centerZ - diagZ;
 		}
 		
 		/**
@@ -124,26 +232,9 @@ package sandy.bounds
 		 */		
 		public function BBox( p_min:Vector=null, p_max:Vector=null )
 		{
-			min		= (p_min != null) ? p_min : new Vector( -0.5,-0.5,-0.5 );
-			max		= (p_max != null) ? p_max : new Vector(  0.5, 0.5, 0.5 );
-			tmin = Pool.getInstance().nextVector;
-			tmax = Pool.getInstance().nextVector;
-			aCorners = new Array(8);
-			aTCorners = new Array(8);
-			__computeCorners(false);
+			minEdge		= (p_min != null) ? p_min : new Vector(-0.5, -0.5, -0.5);//Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
+			maxEdge		= (p_max != null) ? p_max : new Vector(0.5,0.5,0.5);//Number.MIN_VALUE, Number.MIN_VALUE, Number.MIN_VALUE);
 		}		
-		
-		/**
-		 * Returns the center of the bounding box volume.
-		 * 
-		 * @return A Vector representing the center of the bounding box.
-		 */
-		public function getCenter():Vector
-		{
-			return new Vector( 	(max.x + min.x) / 2,
-								(max.y + min.y) / 2,
-								(max.z + min.z) / 2);
-		}
 	
 		/**
 		 * Returns the size of the bounding box.
@@ -152,77 +243,34 @@ package sandy.bounds
 		 */
 		public function getSize():Vector
 		{
-			return new Vector(	Math.abs(max.x - min.x),
-								Math.abs(max.y - min.y),
-								Math.abs(max.z - min.z));
+			return new Vector(	Math.abs(maxEdge.x - minEdge.x),
+								Math.abs(maxEdge.y - minEdge.y),
+								Math.abs(maxEdge.z - minEdge.z));
 		}
 	
-		/**
-		 * Get all the eight corner vertices of the bounding box.
-		 * 
-		 * @param p_bRecalcVertices 	If set to true the vertices array will be recalculated.
-		 * 								Otherwise it will return the last calculated array.
-		 * @return The array containing eight vertices representing the Bounding Box corners.
-		 */
-		private function __computeCorners( p_bRecalcVertices:Boolean=false ):Array
-		{
-			var minx:Number,miny:Number,minz:Number,maxx:Number,maxy:Number,maxz:Number;
-			
-			if( p_bRecalcVertices == true )
-			{
-			    minx = tmin.x;    miny = tmin.y;    minz = tmin.z;
-			    maxx = tmax.x;    maxy = tmax.y;    maxz = tmax.z;
-			}
-			else
-			{
-			    minx = min.x;    miny = min.y;    minz = min.z;
-			    maxx = max.x;    maxy = max.y;    maxz = max.z;
-			}
-			// --
-			aTCorners[0] = Pool.getInstance().nextVector; aCorners[0] = new Vector((minx), (maxy), (maxz));
-			aTCorners[1] = Pool.getInstance().nextVector; aCorners[1] = new Vector((maxx), (maxy), (maxz));
-			aTCorners[2] = Pool.getInstance().nextVector; aCorners[2] = new Vector((maxx), (miny), (maxz));
-			aTCorners[3] = Pool.getInstance().nextVector; aCorners[3] = new Vector((minx), (miny), (maxz));
-			aTCorners[4] = Pool.getInstance().nextVector; aCorners[4] = new Vector((minx), (maxy), (minz));
-			aTCorners[5] = Pool.getInstance().nextVector; aCorners[5] = new Vector((maxx), (maxy), (minz));
-			aTCorners[6] = Pool.getInstance().nextVector; aCorners[6] = new Vector((maxx), (miny), (minz));
-			aTCorners[7] = Pool.getInstance().nextVector; aCorners[7] = new Vector((minx), (miny), (minz));
-			// --
-			return aCorners;
-		}	
-		
+				
 	    /**
 	     * Applies a transformation to the bounding box.
 	     * 
 	     * @param p_oMatrix		The transformation matrix.
+	     * @return the transformed Bounding box
 	     */		
-	    public function transform( p_oMatrix:Matrix4 ):void
+	    public function transform( p_oMatrix:Matrix4 ):BBox
 	    {
-		    aTCorners[0].copy( aCorners[0] );
-		    p_oMatrix.vectorMult( aTCorners[0] );
-			tmin.copy( aTCorners[0] ); tmax.copy( tmin );
-
-		    var lVector:Vector;
-		    // --
-		    for( var lId:uint = 1; lId < 8; lId ++ )
-		    {
-		        aTCorners[lId].copy( aCorners[lId] );
-		        p_oMatrix.vectorMult( aTCorners[lId] );
-		    
-				lVector = aTCorners[lId];
-
-				if( lVector.x < tmin.x )		tmin.x = lVector.x;
-				else if( lVector.x > tmax.x )	tmax.x = lVector.x;
-				// --
-				if( lVector.y < tmin.y )		tmin.y = lVector.y;
-				else if( lVector.y > tmax.y )	tmax.y = lVector.y;
-				// --
-				if( lVector.z < tmin.z )		tmin.z = lVector.z;
-				else if( lVector.z > tmax.z )	tmax.z = lVector.z;
-	    	}
-	    	
-	    	// --
-	    	uptodate = true;
+			var l_oBox:BBox = new BBox();
+			var l_aEdges:Array = [ 	Pool.getInstance().nextVector, Pool.getInstance().nextVector, Pool.getInstance().nextVector,
+									Pool.getInstance().nextVector, Pool.getInstance().nextVector, Pool.getInstance().nextVector,
+									Pool.getInstance().nextVector, Pool.getInstance().nextVector];			
+			// --
+			getEdges( l_aEdges );
+			// --
+			for each( var l_oEdge:Vector in l_aEdges )
+			{
+				p_oMatrix.vectorMult( l_oEdge );
+				l_oBox.addInternalPoint( l_oEdge );
+			}
+			// --
+			return l_oBox;
 	    }
 	    
 		/**
@@ -232,7 +280,7 @@ package sandy.bounds
 		 */
 		public function toString():String
 		{
-			return "sandy.bounds.BBox";
+			return "sandy.bounds.BBox "+minEdge+" "+maxEdge;
 		}
 		
 		/**
@@ -243,10 +291,8 @@ package sandy.bounds
 		public function clone():BBox
 		{
 		    var l_oBBox:BBox = new BBox();
-		    l_oBBox.max = max.clone();
-		    l_oBBox.min = min.clone();
-		    l_oBBox.tmax = tmax.clone();
-		    l_oBBox.tmin = tmin.clone();
+		    l_oBBox.maxEdge = maxEdge.clone();
+		    l_oBBox.minEdge = minEdge.clone();
 		    return l_oBBox;
 		}
 		

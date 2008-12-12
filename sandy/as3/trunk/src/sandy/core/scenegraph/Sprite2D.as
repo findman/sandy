@@ -181,7 +181,10 @@ package sandy.core.scenegraph
 		 */
 		public function setBoundingSphereRadius( p_nRadius:Number ):void
 		{
+			//boundingBox.maxEdge.reset( p_nRadius/2, p_nRadius/2, p_nRadius/2 );
+			//boundingBox.minEdge.reset(-p_nRadius/2,-p_nRadius/2,-p_nRadius/2 );
 			boundingSphere.radius = p_nRadius;
+			//updateBoundingVolumes();
 		}
 
 		/**

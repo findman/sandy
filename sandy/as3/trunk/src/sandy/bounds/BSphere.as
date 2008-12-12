@@ -75,10 +75,8 @@ package sandy.bounds
 		
 		public function resetFromBox(box:BBox):void 
 		{
-			this.center.x = (box.min.x + box.max.x) / 2;
-			this.center.y = (box.min.y + box.max.y) / 2;
-			this.center.z = (box.min.z + box.max.z) / 2;
-			this.radius = Math.sqrt(((box.max.x - this.center.x) * (box.max.x - this.center.x)) + ((box.max.y - this.center.y) * (box.max.y - this.center.y)) + ((box.max.z - this.center.z) * (box.max.z - this.center.z)));
+			this.center.copy( box.getCenter() );
+			this.radius = Math.sqrt(((box.maxEdge.x - this.center.x) * (box.maxEdge.x - this.center.x)) + ((box.maxEdge.y - this.center.y) * (box.maxEdge.y - this.center.y)) + ((box.maxEdge.z - this.center.z) * (box.maxEdge.z - this.center.z)));
 		}
 		
 		/**
@@ -102,8 +100,6 @@ package sandy.bounds
 	    {
 	        position.copy( center );
 	        p_oMatrix.vectorMult( position );
-	        //var l_ncale:Number = Math.sqrt( p_oMatrix.n11 * p_oMatrix.n11 + p_oMatrix.n22 * p_oMatrix.n22 + p_oMatrix.n33 * p_oMatrix.n33 );
-	        //tRadius = radius;// * l_ncale;
 	        uptodate = true;
 	    }
 	    

@@ -44,6 +44,7 @@ package sandy.core
 		
 		protected const m_aRenderingList:Array = new Array();
 		protected var m_nRenderingListCount:int;
+		private var pool:Pool = new Pool();
 		
 		public function Renderer() 
 		{
@@ -89,7 +90,7 @@ package sandy.core
 					m14:Number, m24:Number, m34:Number,
 					x:Number, y:Number, z:Number;
 			var		l_oCamera:Camera3D = p_oScene.camera;		
-			var  	l_nZNear:Number = l_oCamera.near, l_oCamPos:Vector = Pool.getInstance().nextVector, l_nPolyFlags:uint = 0,
+			var  	l_nZNear:Number = l_oCamera.near, l_oCamPos:Vector = pool.nextVector, l_nPolyFlags:uint = 0,
 	        		l_oMatrix:Matrix4, l_oFrustum:Frustum = l_oCamera.frustrum, 
 					l_oVertex:Vertex, l_aVertices:Array, l_oFace:Polygon, l_nMinZ:Number, l_nFlags:int;
 			var 	l_nVisiblePolyCount:int = 0, i:int;

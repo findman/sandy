@@ -17,10 +17,6 @@ package sandy.core
 {
 	public final class SandyFlags
 	{
-		public static const VERTEX_WORLD:uint = 1<<1;
-		public static const VERTEX_CAMERA:uint = 1<<2;
-		public static const VERTEX_PROJECTED:uint = 1<<3;
-		
 		public static const POLYGON_NORMAL_WORLD:uint = 1;
 		public static const VERTEX_NORMAL_WORLD:uint = 2;
 		//public static const INVERT_MODEL_MATRIX:uint = 4;
