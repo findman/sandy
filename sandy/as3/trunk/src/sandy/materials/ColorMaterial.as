@@ -20,7 +20,7 @@ package sandy.materials
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.materials.attributes.MaterialAttributes;
 	import sandy.util.NumberUtil;

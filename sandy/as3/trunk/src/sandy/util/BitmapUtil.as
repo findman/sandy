@@ -23,7 +23,7 @@ package sandy.util
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.data.UVCoord;
 	import sandy.core.Scene3D;
@@ -176,17 +176,17 @@ stage.addEventListener ("click", click);
 		 */
 		public static function burnShapeTexture (obj:Shape3D, scene:Scene3D, srcTexture:BitmapData, dstTexture:BitmapData, ambient:Number = 0.3, diffuse:Number = 1.0, specular:Number = 0.0, gloss:Number = 5.0):void {
 			var m1:Matrix= new Matrix;
-			var vn:Vector= new Vector;
+			var vn:Point3D= new Point3D;
 			// get light data (code borrowed from ALightAttributes)
 			var m_nI:Number = scene.light.getNormalizedPower ();
-			var m_oL:Vector = scene.light.getDirectionVector ();
-			var m_oV:Vector = scene.camera.getPosition ("absolute"); m_oV.scale (-1); m_oV.normalize ();
-			var m_oH:Vector = new Vector(); m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
+			var m_oL:Point3D = scene.light.getDirectionPoint3D ();
+			var m_oV:Point3D = scene.camera.getPosition ("absolute"); m_oV.scale (-1); m_oV.normalize ();
+			var m_oH:Point3D = new Point3D(); m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
 			// FIXME: currently shape needs to be rendered in order to have invModelMatrix calculated
 			const invModelMatrix:Matrix4 = obj.invModelMatrix;
-			var m_oCurrentL:Vector = new Vector (); m_oCurrentL.copy (m_oL); invModelMatrix.vectorMult3x3 (m_oCurrentL);
-			var m_oCurrentV:Vector = new Vector (); m_oCurrentV.copy (m_oV); invModelMatrix.vectorMult3x3 (m_oCurrentV);
-			var m_oCurrentH:Vector = new Vector (); m_oCurrentH.copy (m_oH); invModelMatrix.vectorMult3x3 (m_oCurrentH);
+			var m_oCurrentL:Point3D = new Point3D (); m_oCurrentL.copy (m_oL); invModelMatrix.Point3DMult3x3 (m_oCurrentL);
+			var m_oCurrentV:Point3D = new Point3D (); m_oCurrentV.copy (m_oV); invModelMatrix.Point3DMult3x3 (m_oCurrentV);
+			var m_oCurrentH:Point3D = new Point3D (); m_oCurrentH.copy (m_oH); invModelMatrix.Point3DMult3x3 (m_oCurrentH);
 			// compute color factors as in ALightAttributes.applyColorToDisplayObject with b = 1 argument
 			var c:Number = scene.light.color; if (c < 1) c = 0xFFFFFF;
 			var r:Number = (0xFF0000 & c) >> 16;
@@ -232,7 +232,7 @@ stage.addEventListener ("click", click);
 					var B:Number = m1.c * (u - uv0.u) + m1.d * (v - uv0.v);
 					if ((A >= 0) && (B >= 0) && (A + B <= 1)) {
 						// we're inside
-						// interpolate normal vector from vertex normals
+						// interpolate normal Point3D from vertex normals
 						var vn0:Vertex = Vertex (p.vertexNormals[0]);
 						var vn1:Vertex = Vertex (p.vertexNormals[1]);
 						var vn2:Vertex = Vertex (p.vertexNormals[2]);

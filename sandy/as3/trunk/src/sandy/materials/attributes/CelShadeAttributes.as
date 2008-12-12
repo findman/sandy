@@ -22,7 +22,7 @@ package sandy.materials.attributes
 
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.light.Light3D;
 	import sandy.materials.Material;
@@ -90,7 +90,7 @@ package sandy.materials.attributes
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 			var i:int, l_oVertex:Vertex,
-				v:Vector,
+				v:Point3D,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -120,13 +120,13 @@ package sandy.materials.attributes
 			var backside:Boolean = true;
 			for (i = 0; i < 3; i++)
 			{
-				v = aN [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getVector());
+				v = aN [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getPoint3D());
 
 				if (spherize > 0)
 				{
 					l_oVertex = l_aPoints [i];
 
-					dv.copy (l_oVertex.getVector ());
+					dv.copy (l_oVertex.getPoint3D ());
 					dv.sub (p_oPolygon.shape.geometryCenter);
 					dv.normalize ();
 					dv.scale (spherize);
@@ -154,7 +154,7 @@ package sandy.materials.attributes
 
 			else
 			{
-				// calculate two arbitrary vectors perpendicular to light direction
+				// calculate two arbitrary Point3Ds perpendicular to light direction
 				if ((m_oL.x != 0) || (m_oL.y != 0))
 				{
 					e1.x = m_oCurrentL.y; e1.y = -m_oCurrentL.x; e1.z = 0;
@@ -216,12 +216,12 @@ package sandy.materials.attributes
 		}
 
 		// --
-		private var aN:Array  = [new Vector (), new Vector (), new Vector ()];
+		private var aN:Array  = [new Point3D (), new Point3D (), new Point3D ()];
 		private var aNP:Array = [new Point (), new Point (), new Point ()];
 
-		private var dv:Vector = new Vector ();
-		private var e1:Vector = new Vector ();
-		private var e2:Vector = new Vector ();
+		private var dv:Point3D = new Point3D ();
+		private var e1:Point3D = new Point3D ();
+		private var e2:Point3D = new Point3D ();
 
 		private var matrix:Matrix = new Matrix();
 		private var matrix2:Matrix = new Matrix();

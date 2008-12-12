@@ -17,7 +17,7 @@ package sandy.core.scenegraph
 {
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
-	import sandy.core.data.Vector;	
+	import sandy.core.data.Point3D;	
 
 	/**
 	 * ABSTRACT CLASS - super class for all movable objects in the object tree.
@@ -73,11 +73,11 @@ package sandy.core.scenegraph
 			// --
 			initFrame();
 			// --
-			_p 		= new Vector();
-			_oScale = new Vector( 1, 1, 1 );
-			_vRotation = new Vector(0,0,0);
+			_p 		= new Point3D();
+			_oScale = new Point3D( 1, 1, 1 );
+			_vRotation = new Point3D(0,0,0);
 			// --
-			_vLookatDown = new Vector(0.00000000001, -1, 0);// value to avoid some colinearity problems.;
+			_vLookatDown = new Point3D(0.00000000001, -1, 0);// value to avoid some colinearity problems.;
 			// --
 			_nRoll 	= 0;
 			_nTilt 	= 0;
@@ -94,10 +94,10 @@ package sandy.core.scenegraph
 		 */
 		public function initFrame():void
 		{
-			_vSide 	= new Vector( 1, 0, 0 );
-			_vUp 	= new Vector( 0, 1 ,0 );
-			_vOut 	= new Vector( 0, 0, 1 );
-			_vRotation = new Vector(0,0,0);
+			_vSide 	= new Point3D( 1, 0, 0 );
+			_vUp 	= new Point3D( 0, 1 ,0 );
+			_vOut 	= new Point3D( 0, 0, 1 );
+			_vRotation = new Point3D(0,0,0);
 		}
 
 		public function get matrix():Matrix4
@@ -117,9 +117,9 @@ package sandy.core.scenegraph
 		{
 			m_oMatrix = p_oMatrix;
 		    // --
-		    m_oMatrix.vectorMult3x3(_vSide);
-		    m_oMatrix.vectorMult3x3(_vUp);
-		    m_oMatrix.vectorMult3x3(_vOut);
+		    m_oMatrix.Point3DMult3x3(_vSide);
+		    m_oMatrix.Point3DMult3x3(_vUp);
+		    m_oMatrix.Point3DMult3x3(_vOut);
 		    // --
 		    _vSide.normalize();
 		    _vUp.normalize();
@@ -184,14 +184,14 @@ package sandy.core.scenegraph
 		/**
 		 * getLookAt - obtain last value set via lookAt() method; may not be valid if other camera movement has occurred since then.
 		 */
-		public function getLookAt():Vector
+		public function getLookAt():Point3D
 		{
 			return _vLookAt;
 		}
 		/**
 		 * Forward direction ( local z ) in parent coordinates.
 		 */
-		public function get out():Vector
+		public function get out():Point3D
 		{
 			return _vOut;
 		}
@@ -199,7 +199,7 @@ package sandy.core.scenegraph
 		/**
 		 * Side direction ( local x ) in parent coordinates.
 		 */
-		public function get side():Vector
+		public function get side():Point3D
 		{
 			return _vSide;
 		}
@@ -207,7 +207,7 @@ package sandy.core.scenegraph
 		/**
 		 * Up direction ( local y ) in parent coordinates.
 		 */
-		public function get up():Vector
+		public function get up():Point3D
 		{
 			return _vUp;
 		}
@@ -273,7 +273,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Translates this object along its side vector ( local x ) in the parent frame.
+		 * Translates this object along its side Point3D ( local x ) in the parent frame.
 		 *
 		 * <p>If you imagine yourself in the world, it would be a step to your right or to your left</p>
 		 *
@@ -288,7 +288,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Translates this object along its up vector ( local y ) in the parent frame.
+		 * Translates this object along its up Point3D ( local y ) in the parent frame.
 		 *
 		 * <p>If you imagine yourself in the world, it would be a step up or down<br/>
 		 * in the direction of your body, not always vertically!</p>
@@ -304,7 +304,7 @@ package sandy.core.scenegraph
 		}
 
 		/**
-		 * Translates this object along its forward vector ( local z ) in the parent frame.
+		 * Translates this object along its forward Point3D ( local z ) in the parent frame.
 		 *
 		 * <p>If you imagine yourself in the world, it would be a step forward<br/>
 		 * in the direction you look, not always horizontally!</p>
@@ -395,9 +395,9 @@ package sandy.core.scenegraph
 			// --
 			m_tmpMt.axisRotation( p_nX/n, p_nY/n, p_nZ/n, p_nAngle );
 			// --
-			m_tmpMt.vectorMult3x3(_vSide);
-			m_tmpMt.vectorMult3x3(_vUp);
-			m_tmpMt.vectorMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vOut);
 		}
 
 		/**
@@ -406,7 +406,7 @@ package sandy.core.scenegraph
 		 * <p>Useful for following a moving object or a static object while this object is moving.<br/>
 		 * Normally used when this object is a camera</p>
 		 */
-		public function set target( p_oTarget:Vector ):void
+		public function set target( p_oTarget:Point3D ):void
 		{
 			lookAt( p_oTarget.x, p_oTarget.y, p_oTarget.z) ;
 		}
@@ -424,14 +424,14 @@ package sandy.core.scenegraph
 		public function lookAt( p_nX:Number, p_nY:Number, p_nZ:Number ):void
 		{
 			changed = true;
-			_vLookAt = new Vector (p_nX, p_nY, p_nZ);
+			_vLookAt = new Point3D (p_nX, p_nY, p_nZ);
 			
 			//
 			_vOut.x = p_nX; _vOut.y = p_nY; _vOut.z = p_nZ;
 			//
 			_vOut.sub( _p );
 			_vOut.normalize();
-			// -- the vOut vector should not be colinear with the reference down vector!
+			// -- the vOut Point3D should not be colinear with the reference down Point3D!
 			_vSide = null;
 			_vSide = _vOut.cross( _vLookatDown );
 			_vSide.normalize();
@@ -454,9 +454,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationX( l_nAngle );
-			m_tmpMt.vectorMult3x3(_vSide);
-			m_tmpMt.vectorMult3x3(_vUp);
-			m_tmpMt.vectorMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vOut);
 			// --
 			_vRotation.x = p_nAngle;
 		}
@@ -482,9 +482,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationY( l_nAngle );
-			m_tmpMt.vectorMult3x3(_vSide);
-			m_tmpMt.vectorMult3x3(_vUp);
-			m_tmpMt.vectorMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vOut);
 			// --
 			_vRotation.y = p_nAngle;
 		}
@@ -510,9 +510,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationZ( l_nAngle );
-			m_tmpMt.vectorMult3x3(_vSide);
-			m_tmpMt.vectorMult3x3(_vUp);
-			m_tmpMt.vectorMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vOut);
 			// --
 			_vRotation.z = p_nAngle;
 		}
@@ -541,8 +541,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vOut.x, _vOut.y, _vOut.z, l_nAngle );
-			m_tmpMt.vectorMult3x3(_vSide);
-			m_tmpMt.vectorMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vUp);
 			// --
 			_nRoll = p_nAngle;
 		}
@@ -571,8 +571,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vSide.x, _vSide.y, _vSide.z, l_nAngle );
-			m_tmpMt.vectorMult3x3(_vOut);
-			m_tmpMt.vectorMult3x3(_vUp);
+			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vUp);
 			// --
 			_nTilt = p_nAngle;
 		}
@@ -600,8 +600,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vUp.x, _vUp.y, _vUp.z, l_nAngle );
-			m_tmpMt.vectorMult3x3(_vOut);
-			m_tmpMt.vectorMult3x3(_vSide);
+			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.Point3DMult3x3(_vSide);
 			// --
 			_nYaw = p_nAngle;
 		}
@@ -705,7 +705,7 @@ package sandy.core.scenegraph
 		 * Returns the position of this group or object.
 		 *
 		 * <p>Choose which coordinate system the returned position refers to, by passing a mode string:<br/>
-		 * The position is returned as a vector in one of the following:<br/>
+		 * The position is returned as a Point3D in one of the following:<br/>
 		 * If "local", the position is coordinates of the parent frame.
 		 * If "absolute" the position is in world coordinates
 		 * If "camera" the position is relative to the camera's coordinate system.
@@ -713,15 +713,15 @@ package sandy.core.scenegraph
 		 *
 		 * @return 	The position of the group or object
 		 */
-		public function getPosition( p_sMode:String = "local" ):Vector
+		public function getPosition( p_sMode:String = "local" ):Point3D
 		{
-			var l_oPos:Vector;
+			var l_oPos:Point3D;
 			switch( p_sMode )
 			{
-				case "local" 	: l_oPos = new Vector( _p.x, _p.y, _p.z ); break;
-				case "camera" : l_oPos = new Vector( viewMatrix.n14, viewMatrix.n24, viewMatrix.n34 ); break;
-				case "absolute" 	: l_oPos = new Vector( modelMatrix.n14, modelMatrix.n24, modelMatrix.n34 ); break;
-				default 		: l_oPos = new Vector( _p.x, _p.y, _p.z ); break;
+				case "local" 	: l_oPos = new Point3D( _p.x, _p.y, _p.z ); break;
+				case "camera" : l_oPos = new Point3D( viewMatrix.n14, viewMatrix.n24, viewMatrix.n34 ); break;
+				case "absolute" 	: l_oPos = new Point3D( modelMatrix.n14, modelMatrix.n24, modelMatrix.n34 ); break;
+				default 		: l_oPos = new Point3D( _p.x, _p.y, _p.z ); break;
 			}
 			return l_oPos;
 		}
@@ -737,24 +737,24 @@ package sandy.core.scenegraph
 		}
 		//
 		private var m_oMatrix:Matrix4;
-		// Side Orientation Vector
-		protected var _vSide:Vector;
-		// view Orientation Vector
-		protected var _vOut:Vector;
-		// up Orientation Vector
-		protected var _vUp:Vector;
+		// Side Orientation Point3D
+		protected var _vSide:Point3D;
+		// view Orientation Point3D
+		protected var _vOut:Point3D;
+		// up Orientation Point3D
+		protected var _vUp:Point3D;
 		// current tilt value
 		private var _nTilt:Number;
 		// current yaw value
 		private var _nYaw:Number;
 		// current roll value
 		private var _nRoll:Number;
-		private var _vRotation:Vector;
-		private var _vLookatDown:Vector; // Private absolute down vector
-		private var _vLookAt:Vector; // Last set value via lookAt() method; may not be valid if other camera movement has occurred since then.
-		protected var _p:Vector;
-		protected var _oScale:Vector;
+		private var _vRotation:Point3D;
+		private var _vLookatDown:Point3D; // Private absolute down Point3D
+		private var _vLookAt:Point3D; // Last set value via lookAt() method; may not be valid if other camera movement has occurred since then.
+		protected var _p:Point3D;
+		protected var _oScale:Point3D;
 		protected var m_tmpMt:Matrix4; // temporary transform matrix used at updateTransform
-		protected var m_oPreviousOffsetRotation:Vector = new Vector();
+		protected var m_oPreviousOffsetRotation:Point3D = new Point3D();
 	}
 }

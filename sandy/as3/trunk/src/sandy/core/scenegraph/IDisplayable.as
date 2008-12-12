@@ -18,8 +18,6 @@ package sandy.core.scenegraph
 {
 	import flash.display.Sprite;
 	
-	import sandy.core.Scene3D;
-	
 	/**
 	 * The IDisplayable interface should be implemented by all visible objects.
 	 * 
@@ -36,6 +34,9 @@ package sandy.core.scenegraph
 		function get container():Sprite;	
 		// The depth of this object
 		function get depth():Number;
+		
+		function get changed():Boolean;
+		
 		// Called only if the useSignelContainer property is enabled!
 		function display( p_oContainer:Sprite = null  ):void;
 	}

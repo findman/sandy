@@ -16,7 +16,7 @@ limitations under the License.
 
 package sandy.core
 {
-	import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Pool;	import sandy.core.data.Vector;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	
+	import flash.display.Sprite;	import flash.events.EventDispatcher;		import sandy.core.data.Pool;	import sandy.core.data.Point3D;	import sandy.core.light.Light3D;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.Group;	import sandy.events.SandyEvent;	
 	/**
 	 * The Sandy 3D scene.
 	 *
@@ -172,7 +172,7 @@ package sandy.core
 				m_sName = p_sName;
 			}
 			// --
-			_light = new Light3D(new Vector(0, 0, 1), 100);
+			_light = new Light3D(new Point3D(0, 0, 1), 100);
 		}
 
 		/**
@@ -200,10 +200,13 @@ package sandy.core
 				root.cull(camera.frustrum, camera.invModelMatrix, camera.changed);
 				// --
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
-				renderer.render( this );
+				var l_bNeedDraw:Boolean = renderer.render( this );
 				// -- clear the polygon's container and the projection vertices list
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
-	            renderer.renderDisplayList( this );
+
+	            if( l_bNeedDraw )
+	            	renderer.renderDisplayList( this );
+	            	
 	            dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_FINISH));
 			}
 		} // end method
@@ -285,11 +288,10 @@ package sandy.core
 		}
 
 		/**
-		 * Enable this property to perfectly clip your 3D scene to the viewport's dimensions.
-		 * If set to <code>true</code>, the <code>enableClipping</code> property of any Shape3D
-		 * objects will be ignored and nothing will be drawn outside the viewport's dimensions.
+		 * Enable this property to perfectly clip your 3D scene to the viewport's dimensions with a 2D clipping
+		 * If set to <code>true</code>, nothing will be drawn outside the viewport's dimensions.
 		 *
-		 * @default true
+		 * @default false
 		 */
 		public function get rectClipping():Boolean
 		{
@@ -330,8 +332,8 @@ package sandy.core
 	     * @private
 		 */
 		protected var m_sName:String;
-		private var m_bRectClipped:Boolean = true;
+		private var m_bRectClipped:Boolean = false;
 		private var _light:Light3D; 	//the unique light instance of the world
-		private static var _version:String = "3.0.3";
+		private static var _version:String = "3.1";
 	}
 }

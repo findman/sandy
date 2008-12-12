@@ -16,10 +16,12 @@ limitations under the License.
 
 package sandy.core 
 {
+	import flash.display.Sprite;
+	
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Pool;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Camera3D;
 	import sandy.core.scenegraph.IDisplayable;
@@ -27,11 +29,8 @@ package sandy.core
 	import sandy.core.scenegraph.Renderable;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.Sprite2D;
-	import sandy.materials.Appearance;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;
-	
-	import flash.display.Sprite;		
 
 	/**
 	 * @author thomas
@@ -46,6 +45,8 @@ package sandy.core
 		protected var m_nRenderingListCount:int;
 		private var pool:Pool = new Pool();
 		
+		private var m_bGlobalRedraw:Boolean;
+		
 		public function Renderer() 
 		{
 			m_nRenderingListCount = 0;
@@ -55,6 +56,7 @@ package sandy.core
 		public function init():void
 		{
 			m_nDisplayListCount = 0;
+			m_bGlobalRedraw = false;
 		}
 		
 		/**
@@ -70,19 +72,36 @@ package sandy.core
 		    // --
 		    m_aRenderingList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
 		    // -- This is the new list to be displayed.
-			for each( var l_oFace:IDisplayable in m_aRenderingList )
+			var l_oFace:IDisplayable;
+			for( var i:int = 0; i < m_nRenderingListCount; i++ )
 			{
-				l_oFace.display();
-				l_mcContainer.addChild( l_oFace.container );
+				l_oFace = m_aRenderingList[int(i)];
+				if( l_oFace.changed || p_oScene.camera.changed )
+				{
+					l_oFace.display();
+				}
+				// --
+				if( i < l_mcContainer.numChildren )
+				{
+					if( l_mcContainer.getChildAt(i) != l_oFace.container )
+					{
+						l_mcContainer.addChildAt( l_oFace.container, i );
+					}
+				}
+				else
+				{
+					l_mcContainer.addChildAt( l_oFace.container, i );
+				}
 			}
 		}
 		
 		public function addToDisplayList( p_oObject:IDisplayable ):void
 		{
 			m_aDisplayList[m_nDisplayListCount++] = p_oObject;
+			m_bGlobalRedraw = m_bGlobalRedraw || p_oObject.changed;
 		}
 		
-		public function render( p_oScene:Scene3D ):void
+		public function render( p_oScene:Scene3D ):Boolean
 		{
 			var 	m11:Number, m21:Number, m31:Number,
 					m12:Number, m22:Number, m32:Number,
@@ -90,14 +109,28 @@ package sandy.core
 					m14:Number, m24:Number, m34:Number,
 					x:Number, y:Number, z:Number;
 			var		l_oCamera:Camera3D = p_oScene.camera;		
-			var  	l_nZNear:Number = l_oCamera.near, l_oCamPos:Vector = pool.nextVector, l_nPolyFlags:uint = 0,
+			var  	l_nZNear:Number = l_oCamera.near, l_oCamPos:Point3D = pool.nextPoint3D, l_nPolyFlags:uint = 0,
 	        		l_oMatrix:Matrix4, l_oFrustum:Frustum = l_oCamera.frustrum, 
 					l_oVertex:Vertex, l_aVertices:Array, l_oFace:Polygon, l_nMinZ:Number, l_nFlags:int;
 			var 	l_nVisiblePolyCount:int = 0, i:int;
 		
+			var l_bForceRedraw:Boolean = p_oScene.camera.changed;
+			
+			// -- return false because we do not even need to refresh display
+			if( m_bGlobalRedraw == false && l_bForceRedraw == false )
+				return false;
+			
 			// -- Note, this is the displayed list from the previous iteration!
 			for each( var l_oObj:IDisplayable in m_aRenderingList )
-				l_oObj.clear();
+			{
+				if( l_oObj )
+				{
+					if( l_bForceRedraw == true || l_oObj.changed == true )
+					{
+						l_oObj.clear();
+					}
+				}
+			}
 			// --
 			m_nRenderingListCount = 0;
 			m_aRenderingList.length = 0;
@@ -107,12 +140,24 @@ package sandy.core
 				if( m_aDisplayList[int(i)] is Shape3D )
 				{
 					var l_oShape:Shape3D = m_aDisplayList[int(i)] as Shape3D;
+					// if no change for that object, directly go to the draw level
+					if( l_oShape.changed == false && l_bForceRedraw == false )
+					{
+						if( l_oShape.useSingleContainer )
+							m_aRenderingList[int(m_nRenderingListCount++)] = l_oShape;
+						else
+						{
+							for each( l_oFace in l_oShape.aVisiblePolygons )
+								m_aRenderingList[int(m_nRenderingListCount++)] = l_oFace;
+						}
+						continue;
+					}
 					// --
 					l_nFlags = l_oShape.appearance.flags;
 					l_oShape.depth = 0;
 					l_oShape.aVisiblePolygons.length = 0;
 					l_oCamPos.reset(l_oCamera.modelMatrix.n14, l_oCamera.modelMatrix.n24, l_oCamera.modelMatrix.n34);
-					l_oShape.invModelMatrix.vectorMult( l_oCamPos );
+					l_oShape.invModelMatrix.Point3DMult( l_oCamPos );
 					// --
 					l_oMatrix = l_oShape.viewMatrix;
 					m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
@@ -303,6 +348,8 @@ package sandy.core
 					m_aRenderingList[int(m_nRenderingListCount++)] = m_aDisplayList[int(i)] as Renderable;
 				}
 			}
+			// true because need need to refresh display
+			return true;
 		}
 	}
 }

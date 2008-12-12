@@ -498,11 +498,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies a vector with this matrix.
+		 * Multiplies a Point3D with this matrix.
 		 *
-		 * @param pv	The vector to be mutliplied.
+		 * @param pv	The Point3D to be mutliplied.
 		 */
-		public final function vectorMult( pv:Vector ):void
+		public final function Point3DMult( pv:Point3D ):void
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			pv.x = (x * n11 + y * n12 + z * n13 + n14);
@@ -511,14 +511,14 @@ package sandy.core.data
 		}
 
 		/**
-		 * Creates transformation matrix from axis and translation vectors.
+		 * Creates transformation matrix from axis and translation Point3Ds.
 		 * 
-		 * @param	px X axis vector.
-		 * @param	py Y axis vector.
-		 * @param	pz Z axis vector.
-		 * @param	pt translation vector.
+		 * @param	px X axis Point3D.
+		 * @param	py Y axis Point3D.
+		 * @param	pz Z axis Point3D.
+		 * @param	pt translation Point3D.
 		 */
-		public final function fromVectors (px:Vector, py:Vector, pz:Vector, pt:Vector):void
+		public final function fromPoint3Ds (px:Point3D, py:Point3D, pz:Point3D, pt:Point3D):void
 		{
 			zero ();
 			n11 = px.x; n21 = px.y; n31 = px.z;
@@ -528,11 +528,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Multiplies a vector with the upper left 3x3 sub matrix of this matrix.
+		 * Multiplies a Point3D with the upper left 3x3 sub matrix of this matrix.
 		 *
-		 * @param pv	The vector to be mutliplied.
+		 * @param pv	The Point3D to be mutliplied.
 		 */
-		public final function vectorMult3x3( pv:Vector ):void
+		public final function Point3DMult3x3( pv:Point3D ):void
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			pv.x = (x * n11 + y * n12 + z * n13);
@@ -603,7 +603,7 @@ package sandy.core.data
 		 * @param v 	The axis of rotation.
 		 * @param angle	The angle of rotation in degrees.
 		 */
-		public final function axisRotationVector ( v:Vector, angle:Number ) : void
+		public final function axisRotationPoint3D ( v:Point3D, angle:Number ) : void
 		{
 			axisRotation( v.x, v.y, v.z, angle );
 		}
@@ -633,7 +633,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a translation matrix from a vector.
+		 * Makes this matrix a translation matrix from a Point3D.
 		 *
 		 * <pre>
 		 * 1   0   0   0
@@ -642,9 +642,9 @@ package sandy.core.data
 		 * v.x v.y v.z 1
 		 * </pre>
 		 *
-		 * @param v 	The translation vector.
+		 * @param v 	The translation Point3D.
 		 */
-		public final function translationVector( v:Vector ) : void
+		public final function translationPoint3D( v:Point3D ) : void
 		{
 			identity();
 			//
@@ -677,7 +677,7 @@ package sandy.core.data
 		}
 
 		/**
-		 * Makes this matrix a scale matrix from a vector.
+		 * Makes this matrix a scale matrix from a Point3D.
 		 *
 		 * <pre>
 		 * Sx 0  0  0
@@ -686,9 +686,9 @@ package sandy.core.data
 		 * 0  0  0  1
 		 * </pre>
 		 *
-		 * @param v	The scale vector.
+		 * @param v	The scale Point3D.
 		 */
-		public final function scaleVector( v:Vector) : void
+		public final function scalePoint3D( v:Point3D) : void
 		{
 			identity();
 			//
@@ -775,11 +775,11 @@ package sandy.core.data
 		 * <p>A rotation by a specified angle around a specified axis through a specific position (the reference point),
 		 * is applied to this matrix.</p>
 		 *
-		 * @param pAxis 	A vector representing the axis of the rotation.
+		 * @param pAxis 	A Point3D representing the axis of the rotation.
 		 * @param ref 		The reference point.
 		 * @param pAngle	The angle of rotation in degrees.
 		 */
-		public final function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Number ):void
+		public final function axisRotationWithReference( axis:Point3D, ref:Point3D, pAngle:Number ):void
 		{
 			var tmp:Matrix4 = new Matrix4();
 			var angle:Number = ( pAngle + 360 ) % 360;
@@ -807,13 +807,13 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns a vector that contains the 3D position information.
+		 * Returns a Point3D that contains the 3D position information.
 		 * 
-		 * @return A vector.
+		 * @return A Point3D.
 		 */
-		public final function getTranslation():Vector
+		public final function getTranslation():Point3D
 		{
-			return new Vector( n14, n24, n34 );
+			return new Point3D( n14, n24, n34 );
 		}
 		
 		/**
@@ -894,9 +894,9 @@ package sandy.core.data
 		/**
 		 * Get the Euler angles from the rotation matrix.
 		 *
-		 * @return A vector representing the Euler angles.
+		 * @return A Point3D representing the Euler angles.
 		 */
-		public final function getEulerAngles():Vector
+		public final function getEulerAngles():Point3D
 		{
 			// is there any point in NumberUtil.TO_DEGREE ?
 			var lToDegree:Number = 57.295779513;
@@ -921,7 +921,7 @@ package sandy.core.data
 			if( lAngleY < 0 ) lAngleY += 360;
 			if( lAngleZ < 0 ) lAngleZ += 360;
 			
-			return new Vector( lAngleX, lAngleY, lAngleZ );
+			return new Point3D( lAngleX, lAngleY, lAngleZ );
 		}
 
 		/**

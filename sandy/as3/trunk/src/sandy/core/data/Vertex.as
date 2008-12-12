@@ -134,22 +134,22 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns the 2D position of this vertex.  The function returns a vector with the x and y coordinates of the
+		 * Returns the 2D position of this vertex.  The function returns a Point3D with the x and y coordinates of the
 		 * vertex and the depth as the <code>z</code> property.
 		 *
 		 * @return The 2D position of this vertex once projected.
 		 */
-		public function getScreenPoint():Vector
+		public function getScreenPoint():Point3D
 		{
-			return new Vector( sx, sy, wz );
+			return new Point3D( sx, sy, wz );
 		}
 
 		/**
-		* Returns a vector of the transformed vertex.
+		* Returns a Point3D of the transformed vertex.
 		*
-		* @return A vector of the transformed vertex.
+		* @return A Point3D of the transformed vertex.
 		*/
-		public final function getWorldVector():Vector
+		public final function getWorldPoint3D():Point3D
 		{
 			m_oWorld.x = wx;
 			m_oWorld.y = wy;
@@ -158,11 +158,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns a vector representing the original x, y, z coordinates.
+		 * Returns a Point3D representing the original x, y, z coordinates.
 		 *
-		 * @return A vector representing the original x, y, z coordinates.
+		 * @return A Point3D representing the original x, y, z coordinates.
 		 */
-		public final function getVector():Vector
+		public final function getPoint3D():Point3D
 		{
 			m_oLocal.x = x;
 			m_oLocal.y = y;
@@ -201,13 +201,13 @@ package sandy.core.data
 		}
 
 		/**
-		 * Creates and returns a new vertex from the specified vector.
+		 * Creates and returns a new vertex from the specified Point3D.
 		 *
-		 * @param p_v	The vertex's position vector.
+		 * @param p_v	The vertex's position Point3D.
 		 *
 		 * @return 	The new vertex.
 		 */
-		static public function createFromVector( p_v:Vector ):Vertex
+		static public function createFromPoint3D( p_v:Point3D ):Vertex
 		{
 		    return new Vertex( p_v.x, p_v.y, p_v.z );
 		}
@@ -232,24 +232,24 @@ package sandy.core.data
 		 *
 		 * <p>All components of the specified vertex are copied to this vertex.</p>
 		 *
-		 * @param p_oVector	The vertex to copy.
+		 * @param p_oPoint3D	The vertex to copy.
 		 */
-		public final function copy( p_oVector:Vertex ):void
+		public final function copy( p_oPoint3D:Vertex ):void
 		{
-			x = p_oVector.x;
-			y = p_oVector.y;
-			z = p_oVector.z;
-			wx = p_oVector.wx;
-			wy = p_oVector.wy;
-			wz = p_oVector.wz;
-			sx = p_oVector.sx;
-			sy = p_oVector.sy;
+			x = p_oPoint3D.x;
+			y = p_oPoint3D.y;
+			z = p_oPoint3D.z;
+			wx = p_oPoint3D.wx;
+			wy = p_oPoint3D.wy;
+			wz = p_oPoint3D.wz;
+			sx = p_oPoint3D.sx;
+			sy = p_oPoint3D.sy;
 		}
 
 		/**
 		 * Returns the norm of this vertex.
 		 *
-		 * <p>The norm of the vertex is calculated as the length of its position vector.
+		 * <p>The norm of the vertex is calculated as the length of its position Point3D.
 		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>.</p>
 		 *
 		 * @return 	The norm.
@@ -364,7 +364,7 @@ package sandy.core.data
 		 */
 		public final function cross( v:Vertex):Vertex
 		{
-			// cross product vector that will be returned
+			// cross product Point3D that will be returned
 	        	// calculate the components of the cross product
 			return new Vertex( 	(y * v.z) - (z * v.y) ,
 	                            (z * v.x) - (x * v.z) ,
@@ -375,11 +375,11 @@ package sandy.core.data
 		 * Normalizes this vertex.
 		 *
 		 * <p>A vertex is normalized when its components are divided by its norm.
-		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>, which is the length of the position vector.</p>
+		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>, which is the length of the position Point3D.</p>
 		 */
 		public final function normalize():void
 		{
-			// -- We get the norm of the vector
+			// -- We get the norm of the Point3D
 			var norm:Number = getNorm();
 			// -- We escape the process is norm is null or equal to 1
 			if( norm == 0 || norm == 1) return;
@@ -479,7 +479,7 @@ package sandy.core.data
 			var tmp:Array = convertFrom.split(",");
 			if (tmp.length != 9)
 			{
-				trace ("Unexpected length of string to deserialize into a vector " + convertFrom);
+				trace ("Unexpected length of string to deserialize into a Point3D " + convertFrom);
 			}
 
 			x = tmp[0];
@@ -494,7 +494,7 @@ package sandy.core.data
 			sy = tmp[7];
 		}
 		
-		private const m_oWorld:Vector = new Vector();
-		private const m_oLocal:Vector = new Vector();
+		private const m_oWorld:Point3D = new Point3D();
+		private const m_oLocal:Point3D = new Point3D();
 	}
 }

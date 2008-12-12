@@ -15,7 +15,7 @@ limitations under the License.
 */
 package sandy.bounds 
 {
-	import sandy.core.data.Matrix4;	import sandy.core.data.Vector;	import sandy.core.data.Vertex;	
+	import sandy.core.data.Matrix4;	import sandy.core.data.Point3D;	import sandy.core.data.Vertex;	
 	/**
 	 * The BSphere class is used to quickly and easily clip an object in a 3D scene.
 	 * <p>It creates a bounding sphere that contains the whole object</p>
@@ -40,9 +40,9 @@ package sandy.bounds
 		public var uptodate:Boolean = false;
 		
 		/**
-		 * A Vector representing the center of the bounding sphere.
+		 * A Point3D representing the center of the bounding sphere.
 		 */
-		public var center:Vector = new Vector();
+		public var center:Point3D = new Point3D();
 		
 		/**
 		 * The radius of the bounding sphere.
@@ -50,7 +50,7 @@ package sandy.bounds
 		public var radius:Number = 1;
 		// -----------------------------
 		//    [TRANSFORMED]  -----------
-		public var position:Vector = new Vector();
+		public var position:Point3D = new Point3D();
 		
 		/**
 		 * Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.
@@ -99,7 +99,7 @@ package sandy.bounds
 	    public function transform( p_oMatrix:Matrix4 ):void
 	    {
 	        position.copy( center );
-	        p_oMatrix.vectorMult( position );
+	        p_oMatrix.Point3DMult( position );
 	        uptodate = true;
 	    }
 	    
@@ -149,7 +149,7 @@ package sandy.bounds
 				i += 1;
 			}
 			// --
-			center = new Vector((p1.x + p2.x) / 2, (p1.y + p2.y) / 2, (p1.z + p2.z) / 2);
+			center = new Point3D((p1.x + p2.x) / 2, (p1.y + p2.y) / 2, (p1.z + p2.z) / 2);
 			radius = Math.sqrt(dmax) / 2;
 		}
 	  
@@ -179,13 +179,13 @@ package sandy.bounds
 		}
 	  
 		/**
-		 * Returns the distance of a Vector from the surface of the bounding sphere.
-		 * The number returned will be positive if the vector is outside the sphere,
+		 * Returns the distance of a Point3D from the surface of the bounding sphere.
+		 * The number returned will be positive if the Point3D is outside the sphere,
 		 * negative if inside, or <code>0</code> if on the surface of the sphere.
 		 * 
-		 * @return The distance from the bounding sphere to the Vector.
+		 * @return The distance from the bounding sphere to the Point3D.
 		 */
-		public function distance(p_oPoint:Vector):Number
+		public function distance(p_oPoint:Point3D):Number
 		{
 			var x:Number = p_oPoint.x - center.x;
 			var y:Number = p_oPoint.y - center.y;

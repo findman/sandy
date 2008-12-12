@@ -21,7 +21,7 @@ package sandy.math
 	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.util.NumberUtil;
 	
@@ -44,7 +44,7 @@ package sandy.math
 		 */
 		public static function intersectionBSphere( p_oBSphereA:BSphere, p_oBSphereB:BSphere ):Boolean
 		{
-    		var l_oVec:Vector = p_oBSphereA.position.clone();
+    		var l_oVec:Point3D = p_oBSphereA.position.clone();
     		l_oVec.sub( p_oBSphereB.position );
     		var l_nDist:Number = p_oBSphereA.radius + p_oBSphereB.radius;
      		// --
@@ -58,18 +58,18 @@ package sandy.math
 		 * <p>As 3D lines cannot intersect, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.</p>
 		 * <p>The two points define a segment which length represents the shortest distance between these two lines.</p>
 		 *
-		 * @param p_oPointA	A vector of the first 3D line.
-		 * @param p_oPointB	Another vector of the first 3D line.
-		 * @param p_oPointC	A vector of the second 3D line.
-		 * @param p_oPointD	Another vector of the second 3D line.
+		 * @param p_oPointA	A Point3D of the first 3D line.
+		 * @param p_oPointB	Another Point3D of the first 3D line.
+		 * @param p_oPointC	A Point3D of the second 3D line.
+		 * @param p_oPointD	Another Point3D of the second 3D line.
 		 *
-		 * @return An array containing the vectors of the segment connecting the two 3D lines.
+		 * @return An array containing the Point3Ds of the segment connecting the two 3D lines.
 		 */
-		public static function intersectionLine3D( p_oPointA:Vector, p_oPointB:Vector, p_oPointC:Vector, p_oPointD:Vector ):Array
+		public static function intersectionLine3D( p_oPointA:Point3D, p_oPointB:Point3D, p_oPointC:Point3D, p_oPointD:Point3D ):Array
 		{
             var res:Array = [
-                new Vector (0.5 * (p_oPointA.x + p_oPointB.x), 0.5 * (p_oPointA.y + p_oPointB.y), 0.5 * (p_oPointA.z + p_oPointB.z)),
-                new Vector (0.5 * (p_oPointC.x + p_oPointD.x), 0.5 * (p_oPointC.y + p_oPointD.y), 0.5 * ( p_oPointC.z + p_oPointD.z))
+                new Point3D (0.5 * (p_oPointA.x + p_oPointB.x), 0.5 * (p_oPointA.y + p_oPointB.y), 0.5 * (p_oPointA.z + p_oPointB.z)),
+                new Point3D (0.5 * (p_oPointC.x + p_oPointD.x), 0.5 * (p_oPointC.y + p_oPointD.y), 0.5 * ( p_oPointC.z + p_oPointD.z))
             ];
 
             var p13_x:Number = p_oPointA.x - p_oPointC.x;
@@ -105,8 +105,8 @@ package sandy.math
             var mub:Number = (d1343 + d4321 * mua) / d4343;
 
             return [
-                new Vector (p_oPointA.x + mua * p21_x, p_oPointA.y + mua * p21_y, p_oPointA.z + mua * p21_z),
-                new Vector (p_oPointC.x + mub * p43_x, p_oPointC.y + mub * p43_y, p_oPointC.z + mub * p43_z)
+                new Point3D (p_oPointA.x + mua * p21_x, p_oPointA.y + mua * p21_y, p_oPointA.z + mua * p21_z),
+                new Point3D (p_oPointC.x + mub * p43_x, p_oPointC.y + mub * p43_y, p_oPointC.z + mub * p43_z)
             ];
 		}
 		

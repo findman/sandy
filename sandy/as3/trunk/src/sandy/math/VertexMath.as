@@ -28,7 +28,7 @@ package sandy.math
 	 * @version		3.0
 	 * @date 		26.07.2007
 	 */
-	public class VertexMath extends VectorMath
+	public class VertexMath extends Point3DMath
 	{
 		private static var instance:VertexMath;
 		private static var create:Boolean;
@@ -145,7 +145,7 @@ package sandy.math
 		 */
 		public static function cross(p_oW:Vertex, p_oV:Vertex):Vertex
 		{
-			// cross product vector that will be returned
+			// cross product Point3D that will be returned
 			return new Vertex (	(p_oW.y * p_oV.z) - (p_oW.z * p_oV.y) ,
 						(p_oW.z * p_oV.x) - (p_oW.x * p_oV.z) ,
 						(p_oW.x * p_oV.y) - (p_oW.y * p_oV.x)

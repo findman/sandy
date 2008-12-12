@@ -15,7 +15,7 @@ limitations under the License.
 */
 package sandy.primitive
 {
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 
@@ -217,13 +217,13 @@ package sandy.primitive
 			var centerx:Number = r1 * ca1;
 			var centerz:Number = -r1 * sa1;    // Note, y is zero
 
-			var n:Vector = new Vector();
+			var n:Point3D = new Point3D();
 			// Compute the surface normal
 			n.x = ca2 * ca1;          // x
 			n.y = sa2;                // y
 			n.z = -ca2 * sa1;         // z
 
-			var v:Vector = new Vector();
+			var v:Point3D = new Point3D();
 			// And the vertex
 			v.x = centerx + r2 * n.x;
 			v.y = r2 * n.y;

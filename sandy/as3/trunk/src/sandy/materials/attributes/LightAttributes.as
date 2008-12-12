@@ -19,7 +19,7 @@ package sandy.materials.attributes
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.materials.Material;
 	
@@ -63,7 +63,7 @@ package sandy.materials.attributes
 			if( p_oMaterial.lightingEnable )
 			{	
 				var l_aPoints:Array = (p_oPolygon.isClipped)?p_oPolygon.cvertices : p_oPolygon.vertices;
-				var l_oNormal:Vector = p_oPolygon.normal.getVector();
+				var l_oNormal:Point3D = p_oPolygon.normal.getPoint3D();
 				// --
 				var lightStrength:Number = calculate (l_oNormal, p_oPolygon.visible);
 				if (lightStrength > 1) lightStrength = 1; else if (lightStrength < ambient) lightStrength = ambient;

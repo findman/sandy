@@ -20,7 +20,7 @@ package sandy.view
 	import sandy.core.data.Plane;
 	import sandy.core.data.Pool;
 	import sandy.core.data.UVCoord;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.math.PlaneMath;
 	import sandy.util.NumberUtil;	
@@ -118,7 +118,7 @@ package sandy.view
 			aNormals = new Array(6);
 			aConstants = new Array(6);
 			for( var i:int = 0; i < 8; i++ )
-				m_aBoxEdges[int(i)] = new Vector();
+				m_aBoxEdges[int(i)] = new Point3D();
 			
 		}
 		
@@ -145,14 +145,14 @@ package sandy.view
 			p_nNear = -p_nNear;
 			p_nFar = -p_nFar;
 			var p:Array = aPoints;
-			p[0] = new Vector( xNear, yNear, p_nNear); // Near, right, top
-			p[1] = new Vector( xNear,-yNear, p_nNear); // Near, right, bottom
-			p[2] = new Vector(-xNear,-yNear, p_nNear); // Near, left, bottom
-			p[3] = new Vector(-xNear, yNear, p_nNear); // Near, left, top
-			p[4] = new Vector( xFar,  yFar,  p_nFar);  // Far, right, top
-			p[5] = new Vector( xFar, -yFar,  p_nFar);  // Far, right, bottom
-			p[6] = new Vector(-xFar, -yFar,  p_nFar);  // Far, left, bottom
-			p[7] = new Vector(-xFar,  yFar,  p_nFar);  // Far, left, top
+			p[0] = new Point3D( xNear, yNear, p_nNear); // Near, right, top
+			p[1] = new Point3D( xNear,-yNear, p_nNear); // Near, right, bottom
+			p[2] = new Point3D(-xNear,-yNear, p_nNear); // Near, left, bottom
+			p[3] = new Point3D(-xNear, yNear, p_nNear); // Near, left, top
+			p[4] = new Point3D( xFar,  yFar,  p_nFar);  // Far, right, top
+			p[5] = new Point3D( xFar, -yFar,  p_nFar);  // Far, right, bottom
+			p[6] = new Point3D(-xFar, -yFar,  p_nFar);  // Far, left, bottom
+			p[7] = new Point3D(-xFar,  yFar,  p_nFar);  // Far, left, top
 			
 			aPlanes[LEFT] 	= PlaneMath.computePlaneFromPoints( p[2], p[3], p[6] ); // Left
 			aPlanes[RIGHT] 	= PlaneMath.computePlaneFromPoints( p[0], p[1], p[4] ); // right
@@ -177,7 +177,7 @@ package sandy.view
 		 *
 		 * @return The culling state of the point.
 		 */
-		public function pointInFrustum( p_oPoint:Vector ):CullingState
+		public function pointInFrustum( p_oPoint:Point3D ):CullingState
 		{
 	        for each( var plane:Plane in aPlanes ) 
 			{
@@ -246,7 +246,7 @@ package sandy.view
 				// for each corner of the box do ...
 				// get out of the cycle as soon as a box as corners
 				// both inside and out of the frustum
-				for each( var v:Vector in m_aBoxEdges )
+				for each( var v:Point3D in m_aBoxEdges )
 				{
 					lDist = plane.a * v.x + plane.b * v.y + plane.c * v.z + plane.d;
 					// is the corner outside or inside

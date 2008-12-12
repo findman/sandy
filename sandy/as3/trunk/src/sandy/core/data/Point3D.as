@@ -31,7 +31,7 @@ package sandy.core.data
 	 * @version		3.0
 	 * @date 		24.08.2007
 	 */
-	public final class Vector
+	public final class Point3D
 	{
 		/**
 		 * The x coordinate.
@@ -47,13 +47,13 @@ package sandy.core.data
 		public var z:Number;
 
 		/**
-		* Creates a new vector.
+		* Creates a new Point3D.
 		*
 		* @param p_nX	The x coordinate.
 		* @param p_nY	The y coordinate.
 		* @param p_nZ	The z coordinate.
 		*/
-		public function Vector(p_nX:Number=0, p_nY:Number=0, p_nZ:Number=0)
+		public function Point3D(p_nX:Number=0, p_nY:Number=0, p_nZ:Number=0)
 		{
 			x = p_nX;
 			y = p_nY;
@@ -85,32 +85,32 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns a new Vector object that is a clone of the original instance. 
+		 * Returns a new Point3D object that is a clone of the original instance. 
 		 * 
-		 * @return A new Vector object that is identical to the original. 
+		 * @return A new Point3D object that is identical to the original. 
 		 */	
-		public final function clone():Vector
+		public final function clone():Point3D
 		{
-		    var l_oV:Vector = new Vector( x, y, z );
+		    var l_oV:Point3D = new Point3D( x, y, z );
 		    return l_oV;
 		}
 
 		/**
-		 * Makes this vector a copy of the specified vector.
+		 * Makes this Point3D a copy of the specified Point3D.
 		 *
-		 * <p>All components of the specified vector are copied to this vector.</p>
+		 * <p>All components of the specified Point3D are copied to this Point3D.</p>
 		 *
-		 * @param p_oVector	The vector to copy.
+		 * @param p_oPoint3D	The Point3D to copy.
 		 */
-		public final function copy( p_oVector:Vector ):void
+		public final function copy( p_oPoint3D:Point3D ):void
 		{
-			x = p_oVector.x;
-			y = p_oVector.y;
-			z = p_oVector.z;
+			x = p_oPoint3D.x;
+			y = p_oPoint3D.y;
+			z = p_oPoint3D.z;
 		}
 
 		/**
-		 * Returns the norm of this vector.
+		 * Returns the norm of this Point3D.
 		 *
 		 * <p>The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>.</p>
 		 *
@@ -122,22 +122,22 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns the inverse of this vector, will all properties as their negative values.
+		 * Returns the inverse of this Point3D, will all properties as their negative values.
 		 *
-		 * @return 	The inverse of the vector.
+		 * @return 	The inverse of the Point3D.
 		 */
-		public final function negate( /*v:Vector*/ ): Vector
+		public final function negate( /*v:Point3D*/ ): Point3D
 		{
 			// Commented out the argument as it is never used - Petit
-			return new Vector( - x, - y, - z );
+			return new Point3D( - x, - y, - z );
 		}
 
 		/**
-		 * Adds the specified vector to this vector.
+		 * Adds the specified Point3D to this Point3D.
 		 *
-		 * @param v 	The vector to add.
+		 * @param v 	The Point3D to add.
 		 */
-		public final function add( v:Vector ):void
+		public final function add( v:Point3D ):void
 		{
 			x += v.x;
 			y += v.y;
@@ -145,11 +145,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Substracts the specified vector from this vector.
+		 * Substracts the specified Point3D from this Point3D.
 		 *
-		 * @param v		The vector to subtract.
+		 * @param v		The Point3D to subtract.
 		 */
-		public final function sub( v:Vector ):void
+		public final function sub( v:Point3D ):void
 		{
 			x -= v.x;
 			y -= v.y;
@@ -157,11 +157,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Raises the vector to the specified power.
+		 * Raises the Point3D to the specified power.
 		 *
 		 * <p>All components of the vertex are raised to the specified power.</p>
 		 *
-		 * @param pow The power to raise the vector to.
+		 * @param pow The power to raise the Point3D to.
 		 */
 		public final function pow( pow:Number ):void
 		{
@@ -171,11 +171,11 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Multiplies this vector by the specified number.
+		 * Multiplies this Point3D by the specified number.
 		 *
-		 * <p>All components of the vector are multiplied by the specified number.</p>
+		 * <p>All components of the Point3D are multiplied by the specified number.</p>
 		 *
-		 * @param n 	The number to multiply the vector with.
+		 * @param n 	The number to multiply the Point3D with.
 		 */
 		public final function scale( n:Number ):void
 		{
@@ -185,28 +185,28 @@ package sandy.core.data
 		}
 
 		/**
-		 * Returns the dot product between this vector and the specified vector.
+		 * Returns the dot product between this Point3D and the specified Point3D.
 		 *
-		 * @param w 	The vector to make a dot product with.
+		 * @param w 	The Point3D to make a dot product with.
 		 *
 		 * @return The dot product.
 		 */
-		public final function dot( w: Vector):Number
+		public final function dot( w: Point3D):Number
 		{
 			return ( x * w.x + y * w.y + z * w.z );
 		}
 
 		/**
-		 * Returns the cross product between this vector and the specified vector.
+		 * Returns the cross product between this Point3D and the specified Point3D.
 		 *
-		 * @param v 	The vector to make a cross product with (right side).
+		 * @param v 	The Point3D to make a cross product with (right side).
 		 *
-		 * @return The resulting vector of the cross product.
+		 * @return The resulting Point3D of the cross product.
 		 */
-		public final function cross( v:Vector):Vector
+		public final function cross( v:Point3D):Point3D
 		{
-			// cross product vector that will be returned
-			return new Vector(
+			// cross product Point3D that will be returned
+			return new Point3D(
 								(y * v.z) - (z * v.y) ,
 			                 	(z * v.x) - (x * v.z) ,
 			               		(x * v.y) - (y * v.x)
@@ -214,11 +214,11 @@ package sandy.core.data
 		}
 
 		/**
-		 * Crosses this vector with the specified vector.
+		 * Crosses this Point3D with the specified Point3D.
 		 *
-		 * @param v 	The vector to make the cross product with (right side).
+		 * @param v 	The Point3D to make the cross product with (right side).
 		 */
-		public final function crossWith( v:Vector):void
+		public final function crossWith( v:Point3D):void
 		{
 			const cx:Number = (y * v.z) - (z * v.y);
 			const cy:Number = (z * v.x) - (x * v.z);
@@ -227,15 +227,15 @@ package sandy.core.data
 		}
 
 		/**
-		 * Normalizes this vector.
+		 * Normalizes this Point3D.
 		 *
-		 * <p>A vector is normalized when its components are divided by its norm.
+		 * <p>A Point3D is normalized when its components are divided by its norm.
 		 * The norm is calculated by <code>Math.sqrt( x*x + y*y + z*z )</code>. After normalizing
-		 * the vector, the direction is the same, but the length is <code>1</code>.</p>
+		 * the Point3D, the direction is the same, but the length is <code>1</code>.</p>
 		 */
 		public final function normalize():void
 		{
-			// -- We get the norm of the vector
+			// -- We get the norm of the Point3D
 			var norm:Number = getNorm();
 			// -- We escape the process is norm is null or equal to 1
 			if( norm == 0 || norm == 1) return;
@@ -245,12 +245,12 @@ package sandy.core.data
 		}
 
 		/**
-		 * Gives the biggest component of the current vector.
+		 * Gives the biggest component of the current Point3D.
 		 * <listing version="3.0">
-		 *     var lMax:Number = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
+		 *     var lMax:Number = new Point3D(5, 6.7, -4).getMaxComponent(); //returns 6.7
 		 *  </listing>
 		 * 
-		 * @return The biggest component value of the vector
+		 * @return The biggest component value of the Point3D
 		 */
 		public final function getMaxComponent():Number
 		{
@@ -258,12 +258,12 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Gives the smallest component of the current vector.
+		 * Gives the smallest component of the current Point3D.
 		 * <listing version="3.0">
-		 *     var lMin:Number = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
+		 *     var lMin:Number = new Point3D(5, 6.7, -4).getMinComponent(); //returns -4
 		 *  </listing>
 		 * 
-		 * @return The smallest component value of the vector
+		 * @return The smallest component value of the Point3D
 		 */
 		public final function getMinComponent():Number
 		{
@@ -271,13 +271,13 @@ package sandy.core.data
 		}
 		
 		/**
-		 * Returns the angle between this vector and the specified vector.
+		 * Returns the angle between this Point3D and the specified Point3D.
 		 *
-		 * @param w		The vector making an angle with this one.
+		 * @param w		The Point3D making an angle with this one.
 		 *
 		 * @return The angle in radians.
 		 */
-		public final function getAngle ( w:Vector ):Number
+		public final function getAngle ( w:Point3D ):Number
 		{
 			var n1:Number = getNorm();
 			var n2:Number =  w.getNorm();
@@ -305,7 +305,7 @@ package sandy.core.data
 		/**
 		 * Returns a string representation of this object.
 		 *
-		 * @param decPlaces	The number of decimal places to round the vector's components off to.
+		 * @param decPlaces	The number of decimal places to round the Point3D's components off to.
 		 *
 		 * @return	The fully qualified name of this object.
 		 */
@@ -327,29 +327,29 @@ package sandy.core.data
 		}
 		
 		// Useful for XML input
-		public static function deserialize(convertFrom:String):Vector
+		public static function deserialize(convertFrom:String):Point3D
 		{
 			var tmp:Array = convertFrom.split(",");
 			if (tmp.length != 3) {
-				trace ("Unexpected length of string to deserialize into a vector " + convertFrom);
+				trace ("Unexpected length of string to deserialize into a Point3D " + convertFrom);
 			}
 			for (var i:Number = 0; i < tmp.length; i++) {
 				tmp[i] = Number(tmp[i]);
 			}
-			return new Vector (tmp[0], tmp[1], tmp[2]);
+			return new Point3D (tmp[0], tmp[1], tmp[2]);
 		}
 
 		/**
-		 * Determines if this vector is equal to the specified vector.
+		 * Determines if this Point3D is equal to the specified Point3D.
 		 *
-		 * <p>This all properties of this vector is compared to the properties of the specified vector.
-		 * If all properties of the two vectors are equal, a value of <code>true</code> is returned.</p>
+		 * <p>This all properties of this Point3D is compared to the properties of the specified Point3D.
+		 * If all properties of the two Point3Ds are equal, a value of <code>true</code> is returned.</p>
 		 *
-		 * @return Whether the two vectors are equal.
+		 * @return Whether the two Point3Ds are equal.
 		 */
-		public final function equals(p_vector:Vector):Boolean
+		public final function equals(p_Point3D:Point3D):Boolean
 		{
-			return (p_vector.x == x && p_vector.y == y && p_vector.z == z);
+			return (p_Point3D.x == x && p_Point3D.y == y && p_Point3D.z == z);
 		}
 		
 

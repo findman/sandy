@@ -22,7 +22,7 @@ package sandy.core.scenegraph
 	
 	import sandy.core.data.Edge3D;
 	import sandy.core.data.UVCoord;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	
 	
@@ -366,11 +366,11 @@ package sandy.core.scenegraph
 					lB = aVertex[a[1]];
 					lC = aVertex[a[2]];
 					// --
-					var lV:Vector = new Vector( lB.wx - lA.wx, lB.wy - lA.wy, lB.wz - lA.wz );
-					var lW:Vector = new Vector( lB.wx - lC.wx, lB.wy - lC.wy, lB.wz - lC.wz );
+					var lV:Point3D = new Point3D( lB.wx - lA.wx, lB.wy - lA.wy, lB.wz - lA.wz );
+					var lW:Point3D = new Point3D( lB.wx - lC.wx, lB.wy - lC.wy, lB.wz - lC.wz );
 					// we compute de cross product
-					var lNormal:Vector = lV.cross( lW );
-					// we normalize the resulting vector
+					var lNormal:Point3D = lV.cross( lW );
+					// we normalize the resulting Point3D
 					lNormal.normalize();
 					// --
 					setFaceNormal( getNextFaceNormalID(), lNormal.x, lNormal.y, lNormal.z );

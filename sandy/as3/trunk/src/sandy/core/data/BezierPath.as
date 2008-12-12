@@ -76,7 +76,7 @@ package sandy.core.data
 		 *
 		 * @return The 3D position on the path at the desired position.
 		 */
-		public function getPosition( p_nP:Number ):Vector
+		public function getPosition( p_nP:Number ):Point3D
 		{
 			var id:Number = Math.floor(p_nP/_nRatio);
 			if( id == _nNbSegments )
@@ -111,7 +111,7 @@ package sandy.core.data
 			}
 			else
 			{
-				_aContainer.push( new Vector( p_nX, p_nY, p_nZ ) );
+				_aContainer.push( new Point3D( p_nX, p_nY, p_nZ ) );
 				return true;
 			}
 		}
@@ -131,7 +131,7 @@ package sandy.core.data
 			}
 			_bCompiled = true;
 			_nNbSegments = 0;
-			var a:Vector, b:Vector, c:Vector;
+			var a:Point3D, b:Point3D, c:Point3D;
 			for (var i:Number = 0; i <= _nNbPoints-2; i+=2 )
 			{
 				a = _aContainer[int(i)];

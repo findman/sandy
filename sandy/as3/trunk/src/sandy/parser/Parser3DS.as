@@ -22,7 +22,7 @@ package sandy.parser
 
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Quaternion;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.materials.Appearance;
@@ -242,10 +242,10 @@ package sandy.parser
 			         case Parser3DSChunkTypes.TRI_LOCAL:		//ParseLocalCoordinateSystem
 			         	//trace("0x4160 TRI_LOCAL");
 
-			         	var localX:Vector = readVector();
-			         	var localZ:Vector = readVector();
-			         	var localY:Vector = readVector();
-			         	var origin:Vector = readVector();
+			         	var localX:Point3D = readPoint3D();
+			         	var localZ:Point3D = readPoint3D();
+			         	var localY:Point3D = readPoint3D();
+			         	var origin:Point3D = readPoint3D();
 
 			         	/*
 			         	l_oMatrix = new Matrix4
@@ -303,7 +303,7 @@ package sandy.parser
 
 			         case Parser3DSChunkTypes.OBJ_LIGHT:		//Lights
 			         	//trace("0x4600 Light");
-			            //var light:Vector = readVector();
+			            //var light:Point3D = readPoint3D();
 			         	break;
 
 			         case Parser3DSChunkTypes.LIT_SPOT:			//Light Spot
@@ -404,7 +404,7 @@ package sandy.parser
 			            y = data.readFloat();
 			            z = data.readFloat();
 			            */
-			            //keyframer.pivot = new Vector(x,z,y);
+			            //keyframer.pivot = new Point3D(x,z,y);
 			            //trace("PIVOT: " + keyframer.pivot);
 			         	//var endFrame:uint = data.readInt();
 			         	break;
@@ -420,7 +420,7 @@ package sandy.parser
 			            var keys:uint = data.readInt();
 			            */
 			            /*
-			           	var frame0pos:Vector;
+			           	var frame0pos:Point3D;
 			            keyframer.track_data.pos_track_keys = keys;
 
 			            for (j = 0; j<keys; j++)
@@ -437,7 +437,7 @@ package sandy.parser
 				            posObj.key = key;
 				            posObj.acc = acc;
 
-				            posObj.position = new Vector(rx,rz,ry);
+				            posObj.position = new Point3D(rx,rz,ry);
 
 //							trace("keyframer ["+keyframer.name+"] pos => " + posObj.position);
 				         }
@@ -473,7 +473,7 @@ package sandy.parser
 				            rotObj.key = key;
 				            rotObj.acc = acc;
 
-				            var rotation:Quaternion = QuaternionMath.setAxisAngle(new Vector(rx,-rz,-ry), AnimAngle);
+				            var rotation:Quaternion = QuaternionMath.setAxisAngle(new Point3D(rx,-rz,-ry), AnimAngle);
 //				            trace("keyframer ["+keyframer.name+"] lastRotation1 => " + rotation);
 				            if (lastRotation != null)
 				            {
@@ -524,7 +524,7 @@ package sandy.parser
 
 				            sclObj.key = key;
 				            sclObj.acc = acc;
-				            sclObj.size = new Vector(rx,rz,ry);
+				            sclObj.size = new Point3D(rx,rz,ry);
 
 							//trace("keyframer ["+keyframer.name+"] scl => " + sclObj.size);
 				        }
@@ -570,25 +570,25 @@ package sandy.parser
 		private function _applyMatrixToShape( p_oShape:Shape3D, p_oMatrix:Matrix4 ):void
 		{
 			/*
-			p_oShape.setBasis(	new Vector( p_oMatrix.n11, p_oMatrix.n12, p_oMatrix.n13 ),
-								new Vector( p_oMatrix.n21, p_oMatrix.n22, p_oMatrix.n23 ),
-								new Vector( p_oMatrix.n31, p_oMatrix.n32, p_oMatrix.n33 ) );
+			p_oShape.setBasis(	new Point3D( p_oMatrix.n11, p_oMatrix.n12, p_oMatrix.n13 ),
+								new Point3D( p_oMatrix.n21, p_oMatrix.n22, p_oMatrix.n23 ),
+								new Point3D( p_oMatrix.n31, p_oMatrix.n32, p_oMatrix.n33 ) );
 			p_oShape.setPosition( p_oMatrix.n14, p_oMatrix.n24, p_oMatrix.n34 );
 			*/
 			p_oShape.matrix = p_oMatrix;
 		}
 
 		/**
-		 * Reads a vector from a ByteArray
+		 * Reads a Point3D from a ByteArray
 		 *
-		 * @return	A vector containing the x, y, z values
+		 * @return	A Point3D containing the x, y, z values
 		 */
-		private function readVector():Vector
+		private function readPoint3D():Point3D
 		{
 			var x:Number = data.readFloat();
 			var y:Number = data.readFloat();
 			var z:Number = data.readFloat();
-			return new Vector(x, z, y);
+			return new Point3D(x, z, y);
 		}
 
 		/**

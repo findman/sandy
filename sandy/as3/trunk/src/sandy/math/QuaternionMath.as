@@ -18,7 +18,7 @@ package sandy.math
 {
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Quaternion;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.util.NumberUtil;
 	
 	/**
@@ -34,12 +34,12 @@ package sandy.math
 	public class QuaternionMath 
 	{
 	
-		public static function getVector( q:Quaternion):Vector
+		public static function getPoint3D( q:Quaternion):Point3D
 		{
-			return new Vector( q.x,q.y,q.z );
+			return new Point3D( q.x,q.y,q.z );
 		}
 	
-		public static function setVector( q:Quaternion, v:Vector ):void
+		public static function setPoint3D( q:Quaternion, v:Point3D ):void
 		{
 			q.x = v.x;
 			q.y = v.y;
@@ -105,7 +105,7 @@ package sandy.math
 			
 		}
 	
-		public static function multiplyVector( q:Quaternion, v:Vector ):Quaternion
+		public static function multiplyPoint3D( q:Quaternion, v:Point3D ):Quaternion
 		{
 			var x1:Number, x2:Number;
 			var y1:Number, y2:Number;
@@ -121,7 +121,7 @@ package sandy.math
 		}
 	
 	
-		public static function toEuler( q:Quaternion ):Vector
+		public static function toEuler( q:Quaternion ):Point3D
 		{
 			var sqw:Number = q.w*q.w;
 			var sqx:Number = q.x*q.x;
@@ -129,7 +129,7 @@ package sandy.math
 			var sqz:Number = q.z*q.z;
 			var atan2:Function = Math.atan2;
 			var rds:Number = 180/Math.PI;
-			var euler:Vector = new Vector();
+			var euler:Point3D = new Point3D();
 			// heading = rotaton about z-axis
 			euler.z = atan2(2 * (q.x*q.y + q.z*q.w), (sqx - sqy - sqz + sqw) ) * rds ;
 			// bank = rotation about x-axis
@@ -250,7 +250,7 @@ package sandy.math
 		}
 	
 	
-		public static function setAxisAngle( axe:Vector, angle:Number):Quaternion
+		public static function setAxisAngle( axe:Point3D, angle:Number):Quaternion
 		{
 			axe.normalize();
 			var a2:Number = angle * 0.5;
@@ -272,10 +272,10 @@ package sandy.math
 			var a:Number = Math.acos( ca ) * 2 ;
 			var sa:Number = Math.sqrt( 1 - ca * ca ) ;
 			if( Math.abs( sa ) < 0.00005 ) sa = 1;
-			var axis:Vector = new Vector(q.x/sa, q.y/sa, q.z/sa);
+			var axis:Point3D = new Point3D(q.x/sa, q.y/sa, q.z/sa);
 			
 			var rq:Quaternion = new Quaternion();
-			QuaternionMath.setVector( rq, axis );
+			QuaternionMath.setPoint3D( rq, axis );
 			QuaternionMath.setScalar( rq, NumberUtil.toDegree( a ) );
 			return rq;
 		}
@@ -286,21 +286,21 @@ package sandy.math
 		}
 	
 	
-		public static function multiplyByVector( q:Quaternion, v:Vector ):Vector
+		public static function multiplyByPoint3D( q:Quaternion, v:Point3D ):Point3D
 		{
-			return new Vector( q.x * v.x * -q.x, q.y * v.y * -q.y, q.z * v.z * -q.z );
+			return new Point3D( q.x * v.x * -q.x, q.y * v.y * -q.y, q.z * v.z * -q.z );
 			/*
 			var q:Quaternion = this.clone();
 			var qc:Quaternion;
 			qc = q.getConjugate();
-			q.multiplyVector(v);
+			q.multiplyPoint3D(v);
 			q.multiply(qc);
-			return new Vector4(q.getX(), q.getY(), q.getZ(), 0);
+			return new Point3D4(q.getX(), q.getY(), q.getZ(), 0);
 			*/
 			/*
 			// nVidia SDK implementation adapted by kiroukou
-			var uv, uuv, qvec, v1, v2:Vector4;
-			qvec 	=  new Vector4(q.x, q.y, q.z, 0);
+			var uv, uuv, qvec, v1, v2:Point3D4;
+			qvec 	=  new Point3D4(q.x, q.y, q.z, 0);
 	
 			uv   	= qvec.crossV(v);
 	

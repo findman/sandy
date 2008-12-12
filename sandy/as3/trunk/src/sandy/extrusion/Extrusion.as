@@ -5,7 +5,7 @@ package sandy.extrusion {
 
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.PrimitiveFace;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.extrusion.data.Polygon2D;
@@ -27,7 +27,7 @@ package sandy.extrusion {
 		 * @see Polygon2D
 		 */
 		public function Extrusion (name:String, profile:Polygon2D, sections:Array = null, closeFront:Boolean = true, closeBack:Boolean = true) {
-			var a:Number = profile.area (), i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Vector = new Vector;
+			var a:Number = profile.area (), i:int, j:int, k:int, g:Geometry3D = new Geometry3D, v:Point3D = new Point3D;
 
 			// arrays to store face IDs
 			var backFaceIDs:Array = [], frontFaceIDs:Array = [], sideFaceIDs:Array = [];
@@ -55,7 +55,7 @@ package sandy.extrusion {
 						v.x = profile.vertices [j].x;
 						v.y = profile.vertices [j].y;
 						v.z = 0;
-						m.vectorMult (v);
+						m.Point3DMult (v);
 						g.setVertex (j + i * n, v.x, v.y, v.z);
 					}
 					g.setUVCoords (j + i * (n + 1), j / n, i / (l_sections.length - 1));

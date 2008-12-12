@@ -18,7 +18,7 @@ package sandy.core.light
 {
 	import flash.events.EventDispatcher;
 
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.events.SandyEvent;
 	import sandy.util.NumberUtil;
 	
@@ -61,9 +61,9 @@ package sandy.core.light
 		 * @param p_oD		The direction of the emitted light.
 		 * @param p_nPow	The intensity of the emitted light.
 		 *
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public function Light3D(p_oD:Vector, p_nPow:Number)
+		public function Light3D(p_oD:Point3D, p_nPow:Number)
 		{
 			_dir = p_oD;
 			_dir.normalize();
@@ -108,15 +108,15 @@ package sandy.core.light
 		 *
 		 * @return 	The light direction
 		 *
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public function getDirectionVector():Vector
+		public function getDirectionPoint3D():Point3D
 		{
 			return _dir;
 		}
 
 		/**
-		 * Uneeded? setDirectionVector() does the same thing...
+		 * Uneeded? setDirectionPoint3D() does the same thing...
 		 *
 		 * @param x	The x coordinate
 		 * @param y	The y coordinate
@@ -132,11 +132,11 @@ package sandy.core.light
 		/**
 		 * Sets the direction of the Light3D.
 		 *
-		 * @param x	A Vector object representing the direction of the light.
+		 * @param x	A Point3D object representing the direction of the light.
 		 *
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public function setDirectionVector(pDir:Vector):void
+		public function setDirectionPoint3D(pDir:Point3D):void
 		{
 			_dir = pDir;
 			_dir.normalize();
@@ -148,9 +148,9 @@ package sandy.core.light
 		 *
 		 * @return Number	The strength between 0 and 1
 		 *
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public function calculate(normal:Vector):Number
+		public function calculate(normal:Point3D):Number
 		{
 			var DP:Number = _dir.dot(normal);
 			DP = -DP;
@@ -194,9 +194,9 @@ package sandy.core.light
 			dispatchEvent(new SandyEvent(SandyEvent.LIGHT_COLOR_CHANGED));
 		}
 
-		// Direction of the light. It is 3D vector.
+		// Direction of the light. It is 3D Point3D.
 		//Please refer to the Light tutorial to learn more about Sandy's lights.
-		private var _dir:Vector;
+		private var _dir:Point3D;
 		private var _power:Number;
 		private var _nPower:Number;
 		private var _color:uint;

@@ -20,7 +20,7 @@ package sandy.events
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.UVCoord;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 
 	/**
 	 * This class represents the type of events broadcasted by shapes objects.
@@ -57,9 +57,9 @@ package sandy.events
 		/**
 		 * Real 3D position of the point under mouse click position.
 		 *
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public var point:Vector;
+		public var point:Point3D;
 
 		/**
 		 * Original Flash event instance.
@@ -78,15 +78,15 @@ package sandy.events
 		 * @param p_oShape		The Shape3D object reference
 		 * @param p_oPolygon	The Polygon object reference
 		 * @param p_oUV			The UVCoord object which corresponds to the UVCoord under mouse position
-		 * @param p_oPoint3d	The Vector object which is the real 3D position under the mouse position
+		 * @param p_oPoint3d	The Point3D object which is the real 3D position under the mouse position
 		 * @param p_oEvent		The original Flash event instance
 		 *
 	     * @see sandy.core.scenegraph.Scene3D
 	     * @see sandy.core.data.Polygon
 	     * @see sandy.core.data.UVCoord
-	     * @see sandy.core.data.Vector
+	     * @see sandy.core.data.Point3D
 		 */
-		public function Shape3DEvent(e:String, p_oShape:Shape3D, p_oPolygon:Polygon, p_oUV:UVCoord, p_oPoint3d:Vector, p_oEvent:Event )
+		public function Shape3DEvent(e:String, p_oShape:Shape3D, p_oPolygon:Polygon, p_oUV:UVCoord, p_oPoint3d:Point3D, p_oEvent:Event )
 		{
 			super(e, p_oShape);
 			shape = p_oShape;

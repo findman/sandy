@@ -24,7 +24,7 @@ package sandy.materials.attributes
 
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.Sprite2D;
@@ -63,18 +63,18 @@ package sandy.materials.attributes
 		/**
 		 * @private
 		 */
-		public function set fadeTo (p_oW:Vector):void
+		public function set fadeTo (p_oW:Point3D):void
 		{
 			_fadeTo = p_oW;
 			_fadeToN2 = p_oW.getNorm (); _fadeToN2 *= _fadeToN2;
 		}
 		
 		/**
-		 * Attenuation vector. This is the vector from transparent point to opaque point.
+		 * Attenuation Point3D. This is the Point3D from transparent point to opaque point.
 		 *
-		 * @see sandy.core.data.Vector
+		 * @see sandy.core.data.Point3D
 		 */
-		public function get fadeTo ():Vector
+		public function get fadeTo ():Point3D
 		{
 			return _fadeTo;
 		}
@@ -82,9 +82,9 @@ package sandy.materials.attributes
 		/**
 		 * Transparent point in wx, wy and wz coordinates.
 		 *
-		 * @see sandy.core.data.Vector
+		 * @see sandy.core.data.Point3D
 		 */
-		public var fadeFrom:Vector;
+		public var fadeFrom:Point3D;
 
 		/**
 		 * Maximum amount of blur to add. <b>Warning:</b> this feature is very expensive when shape useSingleContainer is false.
@@ -95,18 +95,18 @@ package sandy.materials.attributes
 		 * Creates a new MediumAttributes object.
 		 *
 		 * @param p_nColor		Medium color
-		 * @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
+		 * @param p_oFadeTo		Attenuation Point3D (500 pixels beyond the screen by default).
 		 * @param p_oFadeFrom	Transparent point (at the screen by default).
 		 * @param p_nBlurAmount	Maximum amount of blur to add
 		 *
-		 * @see sandy.core.data.Vector
+		 * @see sandy.core.data.Point3D
 		 */
-		public function MediumAttributes (p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:Vector = null, p_oFadeTo:Vector = null, p_nBlurAmount:Number = 0)
+		public function MediumAttributes (p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:Point3D = null, p_oFadeTo:Point3D = null, p_nBlurAmount:Number = 0)
 		{
 			if (p_oFadeFrom == null)
-				p_oFadeFrom = new Vector (0, 0, 0);
+				p_oFadeFrom = new Point3D (0, 0, 0);
 			if (p_oFadeTo == null)
-				p_oFadeTo = new Vector (0, 0, 500);
+				p_oFadeTo = new Point3D (0, 0, 500);
 			// --
 			color = p_nColor; fadeTo = p_oFadeTo; fadeFrom = p_oFadeFrom; blurAmount = p_nBlurAmount;
 		}
@@ -120,7 +120,7 @@ package sandy.materials.attributes
 			const n:int = l_points.length; if (n < 3) return;
 
 			const l_ratios:Array = new Array (n);
-			for (var i:int = 0; i < n; i++) l_ratios[i] = ratioFromWorldVector (l_points[i].getWorldVector ());
+			for (var i:int = 0; i < n; i++) l_ratios[i] = ratioFromWorldPoint3D (l_points[i].getWorldPoint3D ());
 
 			const zIndices:Array = l_ratios.sort (Array.NUMERIC | Array.RETURNINDEXEDARRAY);
 
@@ -167,7 +167,7 @@ package sandy.materials.attributes
 		 */
 		override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):void
 		{
-			const l_ratio:Number = Math.max (0, Math.min (1, ratioFromWorldVector (p_oSprite.getPosition ("camera")) * _a));
+			const l_ratio:Number = Math.max (0, Math.min (1, ratioFromWorldPoint3D (p_oSprite.getPosition ("camera")) * _a));
 			const l_color:Object = ColorMath.hex2rgb (_c);
 			const l_coltr:ColorTransform = p_oSprite.container.transform.colorTransform;
 			// --
@@ -185,7 +185,7 @@ package sandy.materials.attributes
 		}
 
 		// --
-		private function ratioFromWorldVector (p_oW:Vector):Number
+		private function ratioFromWorldPoint3D (p_oW:Point3D):Number
 		{
 			p_oW.sub (fadeFrom); return p_oW.dot (_fadeTo) / _fadeToN2;
 		}
@@ -238,7 +238,7 @@ package sandy.materials.attributes
 		private var _m:Matrix = new Matrix();
 		private var _c:uint;
 		private var _a:Number;
-		private var _fadeTo:Vector;
+		private var _fadeTo:Point3D;
 		private var _fadeToN2:Number;
 	}
 }

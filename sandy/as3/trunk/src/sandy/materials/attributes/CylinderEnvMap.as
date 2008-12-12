@@ -23,7 +23,7 @@ package sandy.materials.attributes
 	import sandy.core.SandyFlags;
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.materials.BitmapMaterial;
 	import sandy.materials.Material;	
@@ -65,7 +65,7 @@ package sandy.materials.attributes
 		override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):void
 		{
 			var l_oVertex:Vertex,
-				v:Vector, dv:Vector,
+				v:Point3D, dv:Point3D,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -87,19 +87,19 @@ package sandy.materials.attributes
 			// transform 1st three normals
 			for (var i:int = 0; i < 3; i++)
 			{
-				v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldVector());
+				v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldPoint3D());
 
 				if (spherize > 0)
 				{
-					// too bad, m_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-					// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
+					// too bad, m_aPoints [i].getWorldPoint3D () gives viewMatrix-based coordinates
+					// when vertexNormals [i].getWorldPoint3D () gives modelMatrix-based ones :(
 					// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
 					l_oVertex = m_aPoints [i];
 					if (m_oVertices [l_oVertex] == null)
 					{
-						dv = l_oVertex.getVector ().clone ();
+						dv = l_oVertex.getPoint3D ().clone ();
 						dv.sub (p_oPolygon.shape.geometryCenter);
-						p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
+						p_oPolygon.shape.modelMatrix.Point3DMult3x3 (dv);
 						dv.normalize ();
 						dv.scale (spherize);
 						m_oVertices [l_oVertex] = dv;
@@ -157,7 +157,7 @@ package sandy.materials.attributes
 		 */
 		protected function computeMapping ():void
 		{
-			var p:Point, v:Vector;
+			var p:Point, v:Point3D;
 			for (var i:int = 0; i < 3; i++)
 			{
 				p = aNP [i]; v = aN [i];
@@ -177,7 +177,7 @@ package sandy.materials.attributes
 		/**
 		 * @private
 		 */
-		protected var aN:Array  = [new Vector (), new Vector (), new Vector ()];
+		protected var aN:Array  = [new Point3D (), new Point3D (), new Point3D ()];
 
 		/**
 		 * @private

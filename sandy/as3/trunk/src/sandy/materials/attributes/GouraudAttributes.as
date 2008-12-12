@@ -20,7 +20,7 @@ package sandy.materials.attributes
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.materials.Material;
 
@@ -92,9 +92,9 @@ package sandy.materials.attributes
 			const l_bVisible:Boolean = p_oPolygon.visible;
 			const l_nAmbient:Number = ambient;
 
-			var v0L:Number = calculate (Vertex(p_oPolygon.vertexNormals[0]).getVector(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
-			var v1L:Number = calculate (Vertex(p_oPolygon.vertexNormals[1]).getVector(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
-			var v2L:Number = calculate (Vertex(p_oPolygon.vertexNormals[2]).getVector(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
+			var v0L:Number = calculate (Vertex(p_oPolygon.vertexNormals[0]).getPoint3D(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
+			var v1L:Number = calculate (Vertex(p_oPolygon.vertexNormals[1]).getPoint3D(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
+			var v2L:Number = calculate (Vertex(p_oPolygon.vertexNormals[2]).getPoint3D(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
 			// affine mapping
 			var v0:Number, v1:Number, v2:Number,
 				u0:Number, u1:Number, u2:Number, tmp:Number;

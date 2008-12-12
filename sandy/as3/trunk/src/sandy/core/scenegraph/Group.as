@@ -76,7 +76,6 @@ package sandy.core.scenegraph
 			    for each( var l_oNode:Node in children )
 			    {
 			        l_oNode.cull( p_oFrustum, p_oViewMatrix, lChanged );
-			        l_oNode.changed = false;
 			    }
 			}
 		}

@@ -17,7 +17,7 @@ package sandy.math
 {
 	
 	import sandy.core.data.Matrix4;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.util.NumberUtil;
 	
 	/**
@@ -211,31 +211,31 @@ package sandy.math
 		 * @param m		The matrix.
 		 * @param pv	The vertex.
 		 *
-		 * @return The resulting vector.
+		 * @return The resulting Point3D.
 		 */    
-		public static function vectorMult( m:Matrix4, pv:Vector ): Vector
+		public static function Point3DMult( m:Matrix4, pv:Point3D ): Point3D
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
-			return  new Vector( 	(x * m.n11 + y * m.n12 + z * m.n13 + m.n14),
+			return  new Point3D( 	(x * m.n11 + y * m.n12 + z * m.n13 + m.n14),
 						(x * m.n21 + y * m.n22 + z * m.n23 + m.n24),
 						(x * m.n31 + y * m.n32 + z * m.n33 + m.n34)
 					);
 		}
 	
 		/**
-		 * Multiplies a 3D vector by a Matrix4 matrix as a 3x3 matrix.
+		 * Multiplies a 3D Point3D by a Matrix4 matrix as a 3x3 matrix.
 		 *
 		 * <p>Uses the upper left 3 by 3 elements</p>
 		 *
 		 * @param m	The matrix.
-		 * @param v	The vector.
+		 * @param v	The Point3D.
 		 *
-		 * @return The resulting vector.
+		 * @return The resulting Point3D.
 		 */
-		public static function vectorMult3x3( m:Matrix4, pv:Vector ):Vector
+		public static function Point3DMult3x3( m:Matrix4, pv:Point3D ):Point3D
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
-			return  new Vector( 	(x * m.n11 + y * m.n12 + z * m.n13),
+			return  new Point3D( 	(x * m.n11 + y * m.n12 + z * m.n13),
 						(x * m.n21 + y * m.n22 + z * m.n23),
 						(x * m.n31 + y * m.n32 + z * m.n33)
 					);
@@ -350,7 +350,7 @@ package sandy.math
 		 *
 		 * @return The resulting matrix.
 		 */
-		public static function axisRotationVector ( v:Vector, angle:Number ) : Matrix4
+		public static function axisRotationPoint3D ( v:Point3D, angle:Number ) : Matrix4
 		{
 			return Matrix4Math.axisRotation( v.x, v.y, v.z, angle );
 		}
@@ -424,7 +424,7 @@ package sandy.math
 		}
 	
 		/**
-		 * Computes a translation Matrix4 matrix from a vector.
+		 * Computes a translation Matrix4 matrix from a Point3D.
 		 * 
 		 * <pre>
 		 * |1  0  0  0|
@@ -433,11 +433,11 @@ package sandy.math
 		 * |Tx Ty Tz 1|
 		 * </pre>
 		 * 
-		 * @param v		Translation Vector.
+		 * @param v		Translation Point3D.
 		 *
 		 * @return The resulting matrix.
 		 */
-		public static function translationVector( v:Vector ) : Matrix4 
+		public static function translationPoint3D( v:Point3D ) : Matrix4 
 		{
 			var m:Matrix4 = new Matrix4()
 			m.n14 = v.x;
@@ -472,7 +472,7 @@ package sandy.math
 		}
 		
 		/**
-		 * Computes a scale Matrix4 matrix from a scale vector.
+		 * Computes a scale Matrix4 matrix from a scale Point3D.
 		 * 
 		 * <pre>
 		 * |Sx 0  0  0|
@@ -481,11 +481,11 @@ package sandy.math
 		 * |0  0  0  1|
 		 * </pre>
 		 *
-		 * @param v	The vector containing the scale values.
+		 * @param v	The Point3D containing the scale values.
 		 *
 		 * @return The resulting matrix.
 		 */
-		public static function scaleVector( v:Vector) : Matrix4 
+		public static function scalePoint3D( v:Point3D) : Matrix4 
 		{
 			var matScale : Matrix4 = new Matrix4();
 			matScale.n11 = v.x;
@@ -584,13 +584,13 @@ package sandy.math
 		 * 
 		 * <p>NOTE - The axis must be normalized!</p>
 		 *
-		 * @param axis 		A vector representing the axis of rotation.
+		 * @param axis 		A Point3D representing the axis of rotation.
 		 * @param ref 		The center of rotation.
 		 * @param pAngle	The angle of rotation in degrees.
 		 *
 		 * @return The resulting matrix.
 		 */
-		public static function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Number ):Matrix4
+		public static function axisRotationWithReference( axis:Point3D, ref:Point3D, pAngle:Number ):Matrix4
 		{
 			var angle:Number = ( pAngle + 360 ) % 360;
 			var m:Matrix4 = Matrix4Math.translation ( ref.x, ref.y, ref.z );

@@ -12,8 +12,8 @@ package sandy.core.data
 		private const m_aUV:Array = new Array();
 		private var m_nIdUV:int = 0;
 		
-		private const m_aVectors:Array = new Array();
-		private var m_nIdVector:int = 0;
+		private const m_aPoint3Ds:Array = new Array();
+		private var m_nIdPoint3D:int = 0;
 		
 		private static var INSTANCE:Pool;
 
@@ -29,13 +29,13 @@ package sandy.core.data
 			{
 				m_aVertices[int(i)] = new Vertex();
 				m_aUV[int(i)] = new UVCoord();
-				m_aVectors[int(i)] = new Vector();
+				m_aPoint3Ds[int(i)] = new Point3D();
 			}
 		}
 		
 		public function init():void
 		{
-			m_nIdVertice = m_nIdUV = m_nIdVector = 0;
+			m_nIdVertice = m_nIdUV = m_nIdPoint3D = 0;
 		}
 		
 		public function get nextVertex():Vertex
@@ -57,12 +57,12 @@ package sandy.core.data
 			return m_aUV[int(m_nIdUV++)];
 		}
 		
-		public function get nextVector():Vector
+		public function get nextPoint3D():Point3D
 		{
-			if( m_nIdVector >= m_aVectors.length )
-				m_aVectors[m_aVectors.length] = new Vector();
+			if( m_nIdPoint3D >= m_aPoint3Ds.length )
+				m_aPoint3Ds[m_aPoint3Ds.length] = new Point3D();
 			// --
-			return m_aVectors[int(m_nIdVector++)];
+			return m_aPoint3Ds[int(m_nIdPoint3D++)];
 		}
 		
 	}

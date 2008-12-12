@@ -19,7 +19,7 @@ package sandy.materials.attributes
 	
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.materials.Material;
 	
@@ -87,12 +87,12 @@ package sandy.materials.attributes
 			var lId:int = l_aPoints.length;
 			while( l_oVertex = l_aPoints[ --lId ] )
 			{
-				var l_oDiff:Vector = p_oPolygon.vertexNormals[ lId ].getVector().clone();
-				p_oPolygon.shape.viewMatrix.vectorMult3x3( l_oDiff );
+				var l_oDiff:Point3D = p_oPolygon.vertexNormals[ lId ].getPoint3D().clone();
+				p_oPolygon.shape.viewMatrix.Point3DMult3x3( l_oDiff );
 				// --
 				l_oDiff.scale( m_nLength );
 				// --
-				var l_oNormal:Vertex = Vertex.createFromVector( l_oDiff );
+				var l_oNormal:Vertex = Vertex.createFromPoint3D( l_oDiff );
 				l_oNormal.add( l_oVertex );
 				// --
 				p_oScene.camera.projectVertex( l_oNormal );

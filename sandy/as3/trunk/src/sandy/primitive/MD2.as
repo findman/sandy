@@ -143,7 +143,7 @@ package sandy.primitive
 				vertices [i] = vi;
 				for (j = 0; j < num_vertices; j++)
 				{
-					var vec:Vector = new Vector ();
+					var vec:Point3D = new Point3D ();
 
 					// order of assignment is important here because of data reads...
 					vec.x = ((sx * data.readUnsignedByte()) + tx) * scaling;
@@ -188,8 +188,8 @@ package sandy.primitive
 			for (var i:int = 0; i < num_vertices; i++)
 			{
 				var v0:Vertex = Vertex (geometry.aVertex [i]);
-				var v1:Vector = Vector (f1 [i]);
-				var v2:Vector = Vector (f2 [i]);
+				var v1:Point3D = Point3D (f1 [i]);
+				var v2:Point3D = Point3D (f2 [i]);
 
 				// interpolate
 				v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
@@ -230,7 +230,7 @@ package sandy.primitive
 		private var vertices:Array = [];
 
 		// vars for quick normal computation
-		private var v:Vector = new Vector (), w:Vector = new Vector ();
+		private var v:Point3D = new Point3D (), w:Point3D = new Point3D ();
 
 		// original Philippe vars
 		private var ident:int;

@@ -15,7 +15,7 @@ limitations under the License.
 */
 package sandy.util 
 {
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.scenegraph.ATransformable;
 	import sandy.util.NumberUtil;
        	
@@ -65,27 +65,27 @@ package sandy.util
 		}
 
 		/**
-		 * Initial "out" vector.
+		 * Initial "out" Point3D.
 		 */
-		public function get out0():Vector { return _out0; }
+		public function get out0():Point3D { return _out0; }
 
 		/**
 		 * @private
 		 */
-		public function set out0(v:Vector):void
+		public function set out0(v:Point3D):void
 		{
 			_out0 = v; preCalculate ();
 		}
 
 		/**
-		 * Final "out" vector.
+		 * Final "out" Point3D.
 		 */
-		public function get out1():Vector { return _out1; }
+		public function get out1():Point3D { return _out1; }
 
 		/**
 		 * @private
 		 */
-		public function set out1(v:Vector):void
+		public function set out1(v:Point3D):void
 		{
 			_out1 = v; preCalculate ();
 		}
@@ -125,18 +125,18 @@ package sandy.util
 
 		// --
 		private var _t:Number = 0;
-		private var _out0:Vector;
-		private var _out1:Vector;
+		private var _out0:Point3D;
+		private var _out1:Point3D;
 		private var _dot:Number;
 		private var _ang:Number;
-		private var _axis:Vector;
+		private var _axis:Point3D;
 
 		private function preCalculate ():void
 		{
 			if ((_out0 != null) && (_out1 != null))
 			{
-				var _out0n:Vector = _out0.clone (); _out0n.normalize ();
-				var _out1n:Vector = _out1.clone (); _out1n.normalize ();
+				var _out0n:Point3D = _out0.clone (); _out0n.normalize ();
+				var _out1n:Point3D = _out1.clone (); _out1n.normalize ();
 
 				_dot = _out0n.dot (_out1n);
 				_ang = Math.acos (_dot);

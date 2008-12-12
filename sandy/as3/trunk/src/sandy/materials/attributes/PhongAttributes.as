@@ -23,7 +23,7 @@ package sandy.materials.attributes
 	import sandy.core.Scene3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Pool;
-	import sandy.core.data.Vector;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.light.Light3D;
 	import sandy.events.SandyEvent;
@@ -100,16 +100,16 @@ package sandy.materials.attributes
 			var l_nSamples:int = Math.max (p_nSamples, 1);
 			var N:int = l_nQuality * l_nSamples;
 
-			// store Blinn vector, and replace it with light direction
+			// store Blinn Point3D, and replace it with light direction
 			// this is to simplify specular map calculation
-			var l_oCurrentH:Vector = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
+			var l_oCurrentH:Point3D = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
 
-			// take arbitrary vector perpendicular to light direction and normalize it
-			var e:Vector = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
-				new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
+			// take arbitrary Point3D perpendicular to light direction and normalize it
+			var e:Point3D = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
+				new Point3D (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Point3D (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 	
 			// sample ambient + diffuse and specular separately
-			var n:Vector = new Vector();
+			var n:Point3D = new Point3D();
 			var l_aReflection:Array = [new Array (l_nQuality), new Array (l_nQuality)];
 			var S:Array = [0, 0], t:Array = [-1, -1];
 			for (i = 0; i < N; i++)
@@ -142,7 +142,7 @@ package sandy.materials.attributes
 				}
 			}
 
-			// restore original Blinn vector
+			// restore original Blinn Point3D
 			m_oCurrentH.copy (l_oCurrentH);
 
 			// compute the light map
@@ -280,7 +280,7 @@ package sandy.materials.attributes
 			super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 			
 			var i:int, j:int, l_oVertex:Vertex,
-				v:Vector,
+				v:Point3D,
 				p:Point, p1:Point, p2:Point,
 				m2a:Number, m2b:Number, m2c:Number, m2d:Number, a:Number;
 
@@ -306,13 +306,13 @@ package sandy.materials.attributes
 			// transform 1st three normals
 			for (i = 0; i < 3; i++)
 			{
-				v = aN0 [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getVector());
+				v = aN0 [i]; v.copy (Vertex(p_oPolygon.vertexNormals [i]).getPoint3D());
 
 				if (spherize > 0)
 				{
 					l_oVertex = l_aPoints [i];
 
-					dv.copy (l_oVertex.getVector ());
+					dv.copy (l_oVertex.getPoint3D ());
 					dv.sub (p_oPolygon.shape.geometryCenter);
 					dv.normalize ();
 					dv.scale (spherize);
@@ -328,8 +328,8 @@ package sandy.materials.attributes
 			// note we cannot correctly render specular with useBright off
 			for (j = onlySpecular ? 1 : 0; j < (_useBright ? 2 : 1); j++)
 			{
-				// get highlight direction vector
-				var d:Vector = (j == 0) ? m_oCurrentL : m_oCurrentH;
+				// get highlight direction Point3D
+				var d:Point3D = (j == 0) ? m_oCurrentL : m_oCurrentH;
 
 				// see if we are on the backside relative to d
 				var backside:Boolean = true;
@@ -360,7 +360,7 @@ package sandy.materials.attributes
 
 				else
 				{
-					// calculate two arbitrary vectors perpendicular to light direction
+					// calculate two arbitrary Point3Ds perpendicular to light direction
 					if ((d.x != 0) || (d.y != 0))
 					{
 						e1.x = d.y; e1.y = -d.x; e1.z = 0;
@@ -437,13 +437,13 @@ package sandy.materials.attributes
 		// --
 		private var _useBright:Boolean = true;
 
-		private var aN0:Array = [new Vector (), new Vector (), new Vector ()];
-		private var aN:Array  = [new Vector (), new Vector (), new Vector ()];
+		private var aN0:Array = [new Point3D (), new Point3D (), new Point3D ()];
+		private var aN:Array  = [new Point3D (), new Point3D (), new Point3D ()];
 		private var aNP:Array = [new Point (), new Point (), new Point ()];
 
-		private var dv:Vector = new Vector ();		
-		private var e1:Vector = new Vector ();
-		private var e2:Vector = new Vector ();
+		private var dv:Point3D = new Point3D ();		
+		private var e1:Point3D = new Point3D ();
+		private var e2:Point3D = new Point3D ();
 
 		private var matrix:Matrix = new Matrix();
 		private var matrix2:Matrix = new Matrix();

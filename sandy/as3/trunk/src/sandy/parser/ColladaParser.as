@@ -140,8 +140,8 @@ package sandy.parser
 			var l_sGeometryID : String;
 			var l_oNodes : XMLList;
 			var l_nNodeLen : int;
-			var l_oVector : Vector;
-			//var l_oPivot:Vector = new Vector();
+			var l_oPoint3D : Point3D;
+			//var l_oPivot:Point3D = new Point3D();
 			var l_oGeometry : Geometry3D = null;
 			//var l_oScale : Transform3D;
 			var i:int;
@@ -170,13 +170,13 @@ package sandy.parser
 			// -- scale
 			if( p_oNode.scale.length() > 0 ) 
 			{
-				l_oVector = stringToVector( p_oNode.scale );
+				l_oPoint3D = stringToPoint3D( p_oNode.scale );
 				// --
-				formatVector( l_oVector );
+				formatPoint3D( l_oPoint3D );
 				// --
-				l_oNode.scaleX = l_oVector.x;
-				l_oNode.scaleY = l_oVector.y;
-				l_oNode.scaleZ = l_oVector.z;
+				l_oNode.scaleX = l_oPoint3D.x;
+				l_oNode.scaleY = l_oPoint3D.y;
+				l_oNode.scaleZ = l_oPoint3D.z;
 
 			}
 			// -- translation
@@ -198,14 +198,14 @@ package sandy.parser
 					if( l_sTranslationValue.length )
 					{
 						// --
-						l_oVector = stringToVector( l_sTranslationValue );
-						l_oVector.scale(m_nScale);
+						l_oPoint3D = stringToPoint3D( l_sTranslationValue );
+						l_oPoint3D.scale(m_nScale);
 						// --
-						formatVector( l_oVector );
+						formatPoint3D( l_oPoint3D );
 						// --
-						l_oNode.x = l_oVector.x;
-						l_oNode.y = l_oVector.y;
-						l_oNode.z = l_oVector.z;
+						l_oNode.x = l_oPoint3D.x;
+						l_oNode.y = l_oPoint3D.y;
+						l_oNode.z = l_oPoint3D.z;
 					}
 				}
 			}
@@ -336,10 +336,10 @@ package sandy.parser
 			// -- set vertices
 			for( i = 0; i < l_nVertexFloat; i++ )
 			{
-				var l_oVertex:Vector = l_aVertexFloats[ i ];
+				var l_oVertex:Point3D = l_aVertexFloats[ i ];
 				l_oVertex.scale( m_nScale );
 				// --
-				formatVector( l_oVertex );
+				formatPoint3D( l_oVertex );
 				// --
 				l_oOutpGeom.setVertex(	i,
 										l_oVertex.x,
@@ -374,11 +374,11 @@ package sandy.parser
 				// -- set normals
 				for( i = 0; i < l_nNormalFloats; i++ )
 				{
-					var l_oNormal:Vector = l_aNormalFloats[ i ];
-					// STRANGE, AREN'T NORMAL VECTORS NORMALIZED?
+					var l_oNormal:Point3D = l_aNormalFloats[ i ];
+					// STRANGE, AREN'T NORMAL Point3DS NORMALIZED?
 					l_oNormal.normalize();
 					// --
-					formatVector(l_oNormal);
+					formatPoint3D(l_oNormal);
 					// --
 					if( !m_bYUp ) l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
 					/*
@@ -414,10 +414,10 @@ package sandy.parser
 		}
 
 		/**
-		 * Takes a space separated string from an XML node and turns it into a vector array
+		 * Takes a space separated string from an XML node and turns it into a Point3D array
 		 * @param p_sSourceID		The COLLADA node ID
 		 * @param p_oGeometry		And XMLList containing space separated values
-		 * @return 					An array containing parsed vectors
+		 * @return 					An array containing parsed Point3Ds
 		 */
 		private function getFloatArray( p_sSourceID : String, p_oGeometry : XMLList ) : Array
 		{
@@ -430,17 +430,17 @@ package sandy.parser
 
 			for( var i:int = 0; i < l_nFloatArray; i += l_nOffset )
 			{
-				var l_oCoords : Vector;
+				var l_oCoords : Point3D;
 				// FIX FROM THOMAS to solve the case there's only UV coords exported instead of UVW. To clean
 				if( l_nOffset == 3 )
 				{
-					l_oCoords = new Vector( Number( l_aFloatArray[ i ] ),
+					l_oCoords = new Point3D( Number( l_aFloatArray[ i ] ),
 											Number( l_aFloatArray[ i + 1 ] ),
 											Number( l_aFloatArray[ i + 2 ] ) );
 				}
 				else if( l_nOffset == 2 )
 				{
-					l_oCoords =	new Vector( Number( l_aFloatArray[ i ] ),
+					l_oCoords =	new Point3D( Number( l_aFloatArray[ i ] ),
 											Number( l_aFloatArray[ i + 1 ]) , 0 );
 				}
 				l_aOutput.push( l_oCoords );
@@ -521,20 +521,20 @@ package sandy.parser
 		}
 
 		/**
-		 * Converts a string to a vector
+		 * Converts a string to a Point3D
 		 *
 		 * @param p_sValues		A string containing space separated values
-		 * @return 				The resulting vector
+		 * @return 				The resulting Point3D
 		 */
-		private function stringToVector( p_sValues : String ) : Vector
+		private function stringToPoint3D( p_sValues : String ) : Point3D
 		{
 			var l_aValues : Array = p_sValues.split(/\s+/);
 			var l_nValues : int = l_aValues.length;
 			// --
 			if( l_nValues != 3 )
-				throw new Error( "ColladaParser.stringToVector(): A vector must have 3 values" );
+				throw new Error( "ColladaParser.stringToPoint3D(): A Point3D must have 3 values" );
 			// --
-			return new Vector( l_aValues[ 0 ], l_aValues[ 1 ], l_aValues[ 2 ] );
+			return new Point3D( l_aValues[ 0 ], l_aValues[ 1 ], l_aValues[ 2 ] );
 		}
 
 		/**
@@ -549,7 +549,7 @@ package sandy.parser
 			var l_nValues : int = l_aValues.length;
 
 			if( l_nValues != 16 )
-				throw new Error( "ColladaParser.stringToMatrix(): A vector must have 16 values" );
+				throw new Error( "ColladaParser.stringToMatrix(): A Point3D must have 16 values" );
 
 			var l_oMatrix4 : Matrix4 = new Matrix4(
 				l_aValues[ 0 ], l_aValues[ 1 ], l_aValues[ 2 ], l_aValues[ 3 ],
@@ -562,7 +562,7 @@ package sandy.parser
 		}
 		
 		
-		private function formatVector( p_oVect:Vector ):void
+		private function formatPoint3D( p_oVect:Point3D ):void
 		{
 			var tmp:Number;
 			if( m_bYUp )
