@@ -130,8 +130,6 @@ class AParser extends EventDispatcher, implements IParser
 			m_oFileLoader = e.target; //URLLoader( e.target );
 			m_oFile = m_oFileLoader.data;
 		}
-
-		m_oFile = m_oFile.toString ();
 	}
 
 	private function onProgress( p_oEvt:ProgressEvent ):Void

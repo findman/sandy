@@ -72,6 +72,9 @@ class ASEParser extends AParser, implements IParser
 	private override function parseData( ?e:Event ):Void
 	{
 		super.parseData( e );
+
+		m_oFile = m_oFile.toString ();
+
 		// --
 		//var lines:Array = unescapeMultiByte( String( m_oFile ) ).split( '\n' );
 		var lines:Array<String> = m_oFile.split( '\n' );
