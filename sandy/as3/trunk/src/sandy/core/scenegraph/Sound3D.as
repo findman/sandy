@@ -236,7 +236,7 @@ package sandy.core.scenegraph
 		private function updateSoundTransform () :void 
 		{
 			var gv:Matrix4 = modelMatrix;
-			var rv:Matrix4 = p_oScene.camera.modelMatrix;
+			var rv:Matrix4 = scene.camera.modelMatrix;
 			var dx:Number = gv.n14 - rv.n14;
 			var dy:Number = gv.n24 - rv.n24;
 			var dz:Number = gv.n34 - rv.n34;
@@ -306,7 +306,7 @@ package sandy.core.scenegraph
 					var y2:Number = modelMatrix.n21;
 					var z2:Number = modelMatrix.n31;
 					
-					var gv:Matrix4 = p_oScene.camera.modelMatrix;
+					var gv:Matrix4 = scene.camera.modelMatrix;
 					var mz:Number = -(x2*gv.n11 + y2*gv.n21 + z2*gv.n31);
 					
 					if(mz > 0) 

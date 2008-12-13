@@ -82,8 +82,8 @@
 		 * @param	hint
 		 * @return
 		 */
-		protected function orthogonalize (Point3D:Point3D, hint:Point3D):Point3D {
-			var w:Point3D = Point3D.cross (hint); w.crossWith (Point3D); return w;
+		protected function orthogonalize (p_oPoint:Point3D, hint:Point3D):Point3D {
+			var w:Point3D = p_oPoint.cross (hint); w.crossWith (p_oPoint); return w;
 		}
 
 		/**

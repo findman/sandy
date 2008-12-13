@@ -136,6 +136,7 @@ package sandy.core.scenegraph
 		 */
 		public function set x( p_nX:Number ):void
 		{
+			if( p_nX == _p.x ) return;
 			_p.x = p_nX;
 			changed = true;
 		}
@@ -152,6 +153,7 @@ package sandy.core.scenegraph
 		 */
 		public function set y( p_nY:Number ):void
 		{
+			if( p_nY == _p.y ) return;
 			_p.y = p_nY;
 			changed = true;
 		}
@@ -169,6 +171,7 @@ package sandy.core.scenegraph
 		 */
 		public function set z( p_nZ:Number ):void
 		{
+			if( p_nZ == _p.z ) return;
 			_p.z = p_nZ;
 			changed = true;
 		}
@@ -217,6 +220,7 @@ package sandy.core.scenegraph
 		 */
 		public function set scaleX( p_nScaleX:Number ):void
 		{
+			if( _oScale.x == p_nScaleX ) return;
 			_oScale.x = p_nScaleX;
 			changed = true;
 		}
@@ -235,9 +239,10 @@ package sandy.core.scenegraph
 		/**
 		 * @private
 		 */
-		public function set scaleY( p_scaleY:Number ):void
+		public function set scaleY( p_nScaleY:Number ):void
 		{
-			_oScale.y = p_scaleY;
+			if( _oScale.y == p_nScaleY ) return;
+			_oScale.y = p_nScaleY;
 			changed = true;
 		}
 
@@ -255,9 +260,10 @@ package sandy.core.scenegraph
 		/**
 		 * @private
 		 */
-		public function set scaleZ( p_scaleZ:Number ):void
+		public function set scaleZ( p_nScaleZ:Number ):void
 		{
-			_oScale.z = p_scaleZ;
+			if( _oScale.z == p_nScaleZ ) return;
+			_oScale.z = p_nScaleZ;
 			changed = true;
 		}
 

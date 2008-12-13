@@ -88,7 +88,8 @@ package sandy.materials
 		 */
 		public function begin( p_oScene:Scene3D ):void
 		{
-			attributes.begin( p_oScene );
+			if( attributes )
+				attributes.begin( p_oScene );
 		}
 		
 		/**
@@ -100,7 +101,8 @@ package sandy.materials
 		 */
 		public function finish( p_oScene:Scene3D ):void
 		{
-			attributes.finish(p_oScene );
+			if( attributes )
+				attributes.finish(p_oScene );
 		}
 		
 		/**
@@ -114,9 +116,7 @@ package sandy.materials
 		public function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):void
 		{
 			if( attributes )
-			{
-				attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene ) ;
-			}
+				attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene );
 		}
 			
 		/**
@@ -142,7 +142,8 @@ package sandy.materials
 		 */
 		public function init( p_oPolygon:Polygon ):void
 		{
-			attributes.init( p_oPolygon );
+			if( attributes )
+				attributes.init( p_oPolygon );
 		}
 	
 		/**
@@ -152,7 +153,8 @@ package sandy.materials
 		 */
 		public function unlink( p_oPolygon:Polygon ):void
 		{
-			attributes.unlink( p_oPolygon );
+			if( attributes )
+				attributes.unlink( p_oPolygon );
 		}
 		
 		/**
@@ -182,7 +184,8 @@ package sandy.materials
 		public function get flags():uint
 		{
 			var l_nFlags:uint = m_nFlags;
-			l_nFlags |= attributes.flags;
+			if( attributes ) 
+				l_nFlags |= attributes.flags;
 			return l_nFlags;
 		}
 		
