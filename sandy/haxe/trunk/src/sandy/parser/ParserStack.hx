@@ -130,8 +130,8 @@ class ParserStack extends EventDispatcher
 			m_oParser.addEventListener( ParserEvent.PROGRESS, onProgress );
 			m_oParser.addEventListener( ParserEvent.FAIL, onFail );
 			m_oParser.addEventListener( ParserEvent.INIT, goNext );
-			m_oParser.parse();
 			m_nId++;
+			m_oParser.parse();
 		}
 	}
 
