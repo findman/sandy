@@ -98,7 +98,10 @@ class Parser3DS extends AParser, implements IParser
 	{
 		super.parseData( e );
 		// --
-		data = m_oFileLoader.data;
+		if (m_oFileLoader != null)
+			data = m_oFileLoader.data;
+		else
+			data = cast m_oFile;
 		data.endian = Endian.LITTLE_ENDIAN;
 		// --
 		var currentObjectName:String = null;
