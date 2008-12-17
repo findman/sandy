@@ -119,6 +119,30 @@ class Camera3D extends ATransformable
 	public var fov(__getFov, __setFov):Float;
 	private function __getFov():Float
 	{return _nFov;}
+
+
+	/**
+	 * Focal length of camera.
+	 *
+	 * <p>This value is a function of fov angle and viewport dimensions.
+	 * Writing this value changes fov angle only.</p>
+	 */
+	public function __setFocalLength( f:Float ):Float
+	{
+		_nFov = Math.atan2 (viewport.height2, f) * 114.591559 /* 2 * (180 / Math.PI) */;
+		_perspectiveChanged = true;
+		return f;
+	}
+
+	/**
+	 * @private
+	 */
+	public var focalLength(__getFocalLength, __setFocalLength):Float;
+	private function __getFocalLength():Float
+	{
+		return viewport.height2 / Math.tan (_nFov * 0.00872664626 /* 1 / 2 * (Math.PI / 180) */ );
+	}
+
 	
 	/**
 	 * Near plane distance for culling/clipping.
