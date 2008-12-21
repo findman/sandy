@@ -47,12 +47,18 @@ package sandy.core
 		
 		private var m_bGlobalRedraw:Boolean;
 		
+		/**
+		 * Default renderer.
+		 */
 		public function Renderer() 
 		{
 			m_nRenderingListCount = 0;
 			m_nDisplayListCount = 0;
 		}
 
+		/**
+		 * Init the renderer internal data
+		 */
 		public function init():void
 		{
 			m_nDisplayListCount = 0;

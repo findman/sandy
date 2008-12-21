@@ -18,12 +18,13 @@ package sandy.view
 	import sandy.bounds.BBox;
 	import sandy.bounds.BSphere;
 	import sandy.core.data.Plane;
+	import sandy.core.data.Point3D;
+	import sandy.core.data.Polygon;
 	import sandy.core.data.Pool;
 	import sandy.core.data.UVCoord;
-	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.math.PlaneMath;
-	import sandy.util.NumberUtil;	
+	import sandy.util.NumberUtil;
 
 	/**
 	 * Used to create the frustum of the camera.
@@ -187,6 +188,44 @@ package sandy.view
 				}
 			}
 			return Frustum.INSIDE ;
+		}
+		
+		/**
+		 * Helping function to test a polygon against the frustum
+		 * <p>The method tests if the passed polygon is inside the frustum, outside or intersecting the frustum</p>
+		 * 
+		 * @param p_oPoly The polygon to test
+		 * 
+		 * @return The culling state of the polygon
+		 */
+		public function polygonInFrustum( p_oPoly:Polygon ):CullingState
+		{
+	        var l_nIn:int = 0, l_nOut:int = 0, l_nDist:Number;
+	        // --
+	        for each( var plane:Plane in aPlanes ) 
+			{
+				for each( var l_oVertex:Vertex in p_oPoly.vertices )
+		        {
+					l_nDist = plane.a * l_oVertex.wx + plane.b * l_oVertex.wy + plane.c * l_oVertex.wz + plane.d;
+					// is the corner outside or inside
+					if ( l_nDist < 0 )
+					{
+						if( l_nIn > 0 )
+							return Frustum.INTERSECT;
+						l_nOut++;
+					}
+					else
+					{
+						if( l_nOut > 0 )
+							return Frustum.INTERSECT;
+						l_nIn++;
+					}
+				}
+	        }
+	        if( l_nIn == 0 )
+				return Frustum.OUTSIDE ;
+			else
+				return Frustum.INSIDE ;
 		}
 		
 		/**
