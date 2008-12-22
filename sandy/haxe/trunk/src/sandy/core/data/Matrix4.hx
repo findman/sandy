@@ -440,6 +440,23 @@ class Matrix4
 	}
 
 	/**
+	 * Creates transformation matrix from axis and translation Vectors.
+	 * 
+	 * @param	px X axis Vector.
+	 * @param	py Y axis Vector.
+	 * @param	pz Z axis Vector.
+	 * @param	pt translation Vector.
+	 */
+	public function fromVectors(px:Vector, py:Vector, pz:Vector, pt:Vector):Void
+	{
+		zero ();
+		n11 = px.x; n21 = px.y; n31 = px.z;
+		n12 = py.x; n22 = py.y; n32 = py.z;
+		n13 = pz.x; n23 = pz.y; n33 = pz.z;
+		n14 = pt.x; n24 = pt.y; n34 = pt.z;
+	}
+
+	/**
 	 * Multiplies a 3D vector with this matrix.
 	 *
 	 * <p>The vector is multiplied with te upper left 3x3 sub matrix</p>

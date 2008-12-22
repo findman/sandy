@@ -43,16 +43,16 @@ class MaterialAttributes
 	 */
 	public function new<T>( ?args:Array<T> )
 	{
-	 if ( args == null ) args = new Array();
-		
-	 attributes = new Array();
+		if ( args == null ) args = new Array();
+
+		attributes = new Array();
 
 		for( attr in args )
 		{
-				if( Std.is( attr, IAttributes ) )
-				{
-						attributes.push( untyped attr );
-				}
+			if( Std.is( attr, IAttributes ) )
+			{
+					attributes.push( untyped attr );
+			}
 		}
 	}
 

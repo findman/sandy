@@ -32,6 +32,7 @@ import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 import sandy.math.ColorMath;
 import sandy.math.VertexMath;
+import sandy.util.ArrayUtil;
 
 /**
  * This attribute provides very basic simulation of partially opaque medium.
@@ -48,7 +49,7 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
-	private function __setColor (p_nColor:Int):Int
+	private function __setColor (p_nColor:UInt):UInt
 	{
 		_c = p_nColor & 0xFFFFFF;
 		_a = (p_nColor - _c) / 0x1000000 / 255.0;
@@ -59,8 +60,8 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
-	public var color (__getColor,__setColor):Int;
-	private function __getColor ():Int
+	public var color (__getColor,__setColor):UInt;
+	private function __getColor ():UInt
 	{
 		return _c + Math.floor (0xFF * _a) * 0x1000000;
 	}
@@ -108,7 +109,7 @@ class MediumAttributes extends AAttributes
 	 *
 	 * @see sandy.core.data.Vector
 	 */
-	public function new (p_nColor:Int = 0xFFFFFFFF, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, p_nBlurAmount:Float = 0.0)
+	public function new (p_nColor:UInt, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, ?p_nBlurAmount:Float = 0.0)
 	{
 		m_bWasNotBlurred = true;
 		_m = new Matrix();
@@ -134,33 +135,34 @@ class MediumAttributes extends AAttributes
 	{
 		var l_points:Array<Vertex> = ((p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices);
 		var n:Int = l_points.length; if (n < 3) return;
+		
+		var l_comparable:Array<ComparablePoint> = new Array();
+		for (i in 0...n) l_comparable[i] = { vertex : l_points[i], ratio : ratioFromWorldVector (l_points[i].getWorldVector ()) };
 
-		var l_ratios:Array<Float> = new Array ();
-		for (i in 0...n) l_ratios[i] = ratioFromWorldVector (l_points[i].getWorldVector ());
+		untyped l_comparable.sortOn( "ratio", Array.NUMERIC );
+		
+		var v0: Vertex = l_comparable[0].vertex;
+		var v1: Vertex = l_comparable[1].vertex;
+		var v2: Vertex = l_comparable[2].vertex;
 
-		var zIndices:Array<Int> = untyped Reflect.callMethod( l_ratios, "sort", [Array.NUMERIC | Array.RETURNINDEXEDARRAY] );
-
-		var v0: Vertex = l_points[zIndices[0]];
-		var v1: Vertex = l_points[zIndices[1]];
-		var v2: Vertex = l_points[zIndices[2]];
-
-		var r0: Float = l_ratios[zIndices[0]], ar0:Float = _a * r0;
-		var r1: Float = l_ratios[zIndices[1]];
-		var r2: Float = l_ratios[zIndices[2]], ar2:Float = _a * r2;
+		var r0: Float = l_comparable[0].ratio;
+		var ar0:Float = _a * r0;
+		var r1: Float = l_comparable[1].ratio;
+		var r2: Float = l_comparable[2].ratio;
+		var ar2:Float = _a * r2;
 
 		if (ar2 > 0)
 		{
+			var argb : UInt = cast( Std.int( _a * 0xFF ) << 24, UInt ) | _c;
 			if (ar0 < 1)
 			{
 				// gradient matrix
 				VertexMath.linearGradientMatrix (v0, v1, v2, r0, r1, r2, _m);
-
-				p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, [_c, _c], [ar0, ar2], [0, 0xFF], _m);
+				p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, [argb, argb], [ar0, ar2], [0, 0xFF], _m);
 			}
-
 			else
 			{
-				p_oGraphics.beginFill (_c, 1);
+				p_oGraphics.beginFill ( _c, 1 );
 			}
 
 			// --
@@ -262,3 +264,8 @@ class MediumAttributes extends AAttributes
 	private var _fadeToN2:Float;
 }
 
+typedef ComparablePoint =
+{
+	var vertex : Vertex;
+	var ratio : Float;
+}
