@@ -124,6 +124,7 @@ package sandy.core.scenegraph
 		public function set depth (p_nDepth:Number):void
 		{
 			m_nDepth = p_nDepth;
+			changed = true;
 		}
 		  
 		/**

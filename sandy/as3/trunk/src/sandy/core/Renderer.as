@@ -19,13 +19,12 @@ package sandy.core
 	import flash.display.Sprite;
 	
 	import sandy.core.data.Matrix4;
+	import sandy.core.data.Point3D;
 	import sandy.core.data.Polygon;
 	import sandy.core.data.Pool;
-	import sandy.core.data.Point3D;
 	import sandy.core.data.Vertex;
 	import sandy.core.scenegraph.Camera3D;
 	import sandy.core.scenegraph.IDisplayable;
-	import sandy.core.scenegraph.Node;
 	import sandy.core.scenegraph.Renderable;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.Sprite2D;
@@ -71,6 +70,8 @@ package sandy.core
 		 * 
 		 * The camera stores all the visible shape/polygons into an array, and loop through it calling their display method.
 		 * Before the display call, the container graphics is cleared.
+		 * 
+		 * @param p_oScene The Scene3D object to render
 		 */
 		public function renderDisplayList( p_oScene:Scene3D ):void
 		{
@@ -107,7 +108,14 @@ package sandy.core
 			m_bGlobalRedraw = m_bGlobalRedraw || p_oObject.changed;
 		}
 		
-		public function render( p_oScene:Scene3D ):Boolean
+		
+		/**
+		 * Render the given scene.
+		 * Objects are transformed, clipped and projected into that function.
+		 *  
+		 * @param p_bUseCache Boolean value, default to true, use a cache system to avoid unnecessary computation
+		 */
+		public function render( p_oScene:Scene3D, p_bUseCache:Boolean = true ):Boolean
 		{
 			var 	m11:Number, m21:Number, m31:Number,
 					m12:Number, m22:Number, m32:Number,
@@ -120,7 +128,7 @@ package sandy.core
 					l_oVertex:Vertex, l_aVertices:Array, l_oFace:Polygon, l_nMinZ:Number, l_nFlags:int;
 			var 	l_nVisiblePolyCount:int = 0, i:int;
 		
-			var l_bForceRedraw:Boolean = p_oScene.camera.changed;
+			var l_bForceRedraw:Boolean = p_oScene.camera.changed || !p_bUseCache;
 			
 			// -- return false because we do not even need to refresh display
 			if( m_bGlobalRedraw == false && l_bForceRedraw == false )

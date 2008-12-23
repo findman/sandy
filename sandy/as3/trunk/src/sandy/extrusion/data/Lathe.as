@@ -1,11 +1,13 @@
-﻿package sandy.extrusion.data {
+﻿package sandy.extrusion.data 
+{
 	import sandy.core.data.Point3D;
 	
 	/**
 	* Circular, spiral or helix arc.
 	* @author makc
 	*/
-	public class Lathe extends Curve3D {
+	public class Lathe extends Curve3D 
+	{
 		
 		/**
 		 * Generates circular, spiral or helix arc.
@@ -28,9 +30,17 @@
 
 			// compute local coordinates
 			var x:Point3D = orthogonalize (axis, reference);
-				if (x.getNorm () > 0) x.normalize (); else x.x = +1;
+			if (x.getNorm () > 0) 
+				x.normalize (); 
+			else 
+				x.x = +1;
+				
 			var y:Point3D = axis.clone ();
-				if (y.getNorm () > 0) y.normalize (); else y.y = +1;
+			if (y.getNorm () > 0) 
+				y.normalize (); 
+			else
+				y.y = +1;
+				
 			var z:Point3D = x.cross (y);
 
 			// compute dot bases

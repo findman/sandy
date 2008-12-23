@@ -82,14 +82,18 @@
 		 * @param	hint
 		 * @return
 		 */
-		protected function orthogonalize (p_oPoint:Point3D, hint:Point3D):Point3D {
-			var w:Point3D = p_oPoint.cross (hint); w.crossWith (p_oPoint); return w;
+		protected function orthogonalize (p_oPoint:Point3D, hint:Point3D):Point3D 
+		{
+			var w:Point3D = p_oPoint.cross (hint); 
+			w.crossWith (p_oPoint); 
+			return w;
 		}
 
 		/**
 		 * Creates empty Curve3D object.
 		 */
-		public function Curve3D () {
+		public function Curve3D ()
+		{
 			v = []; t = []; n = []; s = [];
 		}
 

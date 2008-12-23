@@ -120,6 +120,7 @@ package sandy.core.scenegraph
 			m_oContent.y = 0;
 			m_nW2 = m_oContainer.width / 2;
 			m_nH2 = m_oContainer.height / 2;
+			changed = true;
 		}
 		
 		/**
@@ -203,6 +204,7 @@ package sandy.core.scenegraph
 		public function set scale( n:Number ):void
 		{
 			if( n )	_nScale = n; 
+			changed = true;
 		}
 		
 		/**
@@ -218,7 +220,7 @@ package sandy.core.scenegraph
 		 * @private
 		 */
 		public function set depth( p_nDepth:Number ):void
-		{m_nDepth = p_nDepth;}
+		{m_nDepth = p_nDepth; changed = true;}
 		  
 		/**
 		 * Tests this node against the camera frustum to get its visibility.
@@ -360,6 +362,7 @@ package sandy.core.scenegraph
 		public function set material( p_oMaterial:Material ):void
 		{
 			m_oMaterial = p_oMaterial;
+			changed = true;
 		}
 
 		/**
