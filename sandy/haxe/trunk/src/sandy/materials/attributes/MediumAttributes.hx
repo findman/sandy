@@ -49,7 +49,11 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
+	#if flash
 	private function __setColor (p_nColor:UInt):UInt
+	#else
+	private function __setColor (p_nColor:Int):Int
+	#end
 	{
 		_c = p_nColor & 0xFFFFFF;
 		_a = (p_nColor - _c) / 0x1000000 / 255.0;
@@ -60,8 +64,13 @@ class MediumAttributes extends AAttributes
 	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
 	 * If this value is transparent, color gradient will be extrapolated beyond that point.
 	 */
+	#if flash
 	public var color (__getColor,__setColor):UInt;
 	private function __getColor ():UInt
+	#else
+		public var color (__getColor,__setColor):Int;
+	private function __getColor ():Int
+	#end
 	{
 		return _c + Math.floor (0xFF * _a) * 0x1000000;
 	}
@@ -109,7 +118,11 @@ class MediumAttributes extends AAttributes
 	 *
 	 * @see sandy.core.data.Vector
 	 */
+	#if flash
 	public function new (p_nColor:UInt, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, ?p_nBlurAmount:Float = 0.0)
+	#else
+	public function new (p_nColor:Int, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, ?p_nBlurAmount:Float = 0.0)
+	#end
 	{
 		m_bWasNotBlurred = true;
 		_m = new Matrix();
@@ -153,7 +166,11 @@ class MediumAttributes extends AAttributes
 
 		if (ar2 > 0)
 		{
+			#if flash
 			var argb : UInt = cast( Std.int( _a * 0xFF ) << 24, UInt ) | _c;
+			#else
+			var argb : Int = cast( Std.int( _a * 0xFF ) << 24, Int ) | _c;
+			#end
 			if (ar0 < 1)
 			{
 				// gradient matrix

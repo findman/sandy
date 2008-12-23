@@ -149,25 +149,18 @@ class Extrusion extends Shape3D {
 	 * Collection of polygons on the back surface of extruded shape.
 	 * Texture is mapped to fit profile bounding box on this face.
 	 */
-	//public function get backFace ():PrimitiveFace { return _backFace; }
-	//private var _backFace:PrimitiveFace;
-	//useless acessors? bad performance for most targets
-	var backFace:PrimitiveFace;
+	var backFace(default, null):PrimitiveFace;
 
 	/**
 	 * Collection of polygons on the front surface of extruded shape.
 	 * Texture is mapped to fit profile bounding box on this face.
 	 */
-	//public function get frontFace ():PrimitiveFace { return _frontFace; }
-	//private var _frontFace:PrimitiveFace;
-	var frontFace:PrimitiveFace;
+	var frontFace(default, null):PrimitiveFace;
 
 	/**
 	 * Collection of polygons on the side surface of extruded shape.
 	 * Texture U coordinate is mapped from 0 to 1 along the profile, and
 	 * V coordinate is mapped from 0 at the front edge to 1 at the back edge.
 	 */
-	//public function get sideFace ():PrimitiveFace { return _sideFace; }
-	//private var _sideFace:PrimitiveFace;
-	var sideFace:PrimitiveFace;
+	var sideFace(default, null):PrimitiveFace;
 }
