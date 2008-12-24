@@ -60,14 +60,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Enable this property to perfectly clip your 3D scene to the viewport's dimensions.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html#register()">register</a>(p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html">MaterialManager</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Registers a material with the material manager.</td>
+   Enable this property to perfectly clip your 3D scene to the viewport's dimensions with a 2D clipping
+   If set to <code>true</code>, nothing will be drawn outside the viewport's dimensions.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html#registerScene()">registerScene</a>(key, o:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html">SceneLocator</a></td>
@@ -133,20 +127,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Removes a listener for the specified event.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html#removeEventListener()">removeEventListener</a>(type, listener) &mdash; Method in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html">EventBroadcaster</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Removes a listener from the event broadcaster.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html#removeListenerCollection()">removeListenerCollection</a>(type) &mdash; Method in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html">EventBroadcaster</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Removes listeners from the event broadcaster of the given type.</td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
 </tr>
 <tr>
@@ -160,13 +140,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Renders the scene in its container.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Renderable.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Renderable.html">Renderable</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Renderable.html#render()">render</a>(p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Renderable.html">Renderable</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#render()">render</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#render()">render</a>(p_oCamera:<a href="sandy/core/scenegraph/Camera3D.html" onclick="javascript:loadClassListFrame('sandy/core/scenegraph./class-list.html');">sandy.core.scenegraph:Camera3D</a>) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -205,7 +185,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#Renderer()">Renderer</a>() &mdash; Constructor in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Default renderer.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html#renderPolygon()">renderPolygon</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oPolygon:<a href="sandy/core/data/Polygon.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Polygon</a>, p_mcContainer) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/Material.html">Material</a></td>
@@ -236,7 +217,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Replaces a sub string with another in the target string.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#reset()">reset</a>(px, py, pz) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#reset()">reset</a>() &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html#reset()">reset</a>() &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#reset()">reset</a>(px, py, pz) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -264,14 +261,20 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
    Resets the coordinate system for this object.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#resetToNegativeInfinity()">resetToNegativeInfinity</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html#resetFromBox()">resetFromBox</a>(box:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#resetToNegativeInfinity()">resetToNegativeInfinity</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Sets the <code>x</code>, <code>y</code>, and <code>z</code> properties to lowest value Flash can handle (<code>Number.NEGATIVE_INFINITY</code>).</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#resetToPositiveInfinity()">resetToPositiveInfinity</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#resetToPositiveInfinity()">resetToPositiveInfinity</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -336,8 +339,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("RÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#root">root</a> &mdash; Property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
 </tr>
 <tr>
-<td width="20"></td><td>
-   The root of the scene graph for this scene.</td>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/ATransformable.html#rotateAxis()">rotateAxis</a>(p_nX, p_nY, p_nZ, p_nAngle) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/ATransformable.html">ATransformable</a></td>

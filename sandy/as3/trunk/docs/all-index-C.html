@@ -42,7 +42,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
   The coordinate of the third plane.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#calculate()">calculate</a>(normal:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#calculate()">calculate</a>(normal:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Method in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -61,12 +61,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <tr>
 <td width="20"></td><td>
   Calculates the radius depending on the number of sides you want and their width.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html#callFunction()">callFunction</a>() &mdash; Method in class sandy.commands.<a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html">Delegate</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html#camera">camera</a> &mdash; Property in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Scene3D.html">Scene3D</a></td>
@@ -146,7 +140,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   A Vector representing the center of the bounding sphere.</td>
+   A Point3D representing the center of the bounding sphere.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#changed">changed</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html#changed">changed</a> &mdash; Property in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html">IDisplayable</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#changed">changed</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
@@ -163,11 +169,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    The children of this node are stored inside this array.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#classifyPoint()">classifyPoint</a>(p_oPlane:<a href="sandy/core/data/Plane.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Plane</a>, p_oVector:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#classifyPoint()">classifyPoint</a>(p_oPlane:<a href="sandy/core/data/Plane.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Plane</a>, p_oPoint3D:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns a classification constant depending on a vector's position relative to a plane.</td>
+   Returns a classification constant depending on a Point3D's position relative to a plane.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#clear()">clear</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
@@ -270,8 +276,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#clipPolygon()">clipPolygon</a>(p_oPlane:<a href="sandy/core/data/Plane.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Plane</a>, p_aCvert, p_aUVCoords) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
-<td width="20"></td><td>
-   Clips a polygon against one the frustum planes.</td>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html#clips">clips</a> &mdash; Property in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/LoaderQueue.html">LoaderQueue</a></td>
@@ -301,18 +306,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Returns a new Matrix4 object that is a clone of the original instance.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Returns a new Point3D object that is a clone of the original instance.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html">UVCoord</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Returns a new UVCoord object that is a clone of the original instance.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Returns a new Vector object that is a clone of the original instance.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#clone()">clone</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -355,17 +360,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Returns the clone of a Matrix4 matrix.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Point3DMath.html#clone()">clone</a>(p_oV:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Point3DMath.html">Point3DMath</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Clones a 3D Point3D.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/QuaternionMath.html#clone()">clone</a>(q:<a href="sandy/core/data/Quaternion.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Quaternion</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/QuaternionMath.html">QuaternionMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VectorMath.html#clone()">clone</a>(p_oV:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VectorMath.html">VectorMath</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Clones a 3D vector.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html#clone()">clone</a>(p_oV:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html">VertexMath</a></td>
@@ -373,6 +378,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <tr>
 <td width="20"></td><td>
    Clones a vertex.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/MD2.html#clone()">clone</a>(p_sName, p_bKeepTransform) &mdash; Method in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/MD2.html">MD2</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#clone2()">clone2</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -497,15 +508,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td width="20"></td><td></td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Command.html"><i>Command</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/package-detail.html">sandy.commands</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-  Encapsulate a request as an object, thereby letting you parameterize
-  clients with different requests, queue or log requests, 
-  and support undoable operations.</td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/BezierPath.html#compile()">compile</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/BezierPath.html">BezierPath</a></td>
 </tr>
 <tr>
@@ -534,11 +536,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Compute the light map.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#computePlaneFromPoints()">computePlaneFromPoints</a>(p_oVectorA:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oVectorB:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oVectorC:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#computePlaneFromPoints()">computePlaneFromPoints</a>(p_oPoint3DA:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oPoint3DB:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oPoint3DC:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes a plane from three vectors.</td>
+   Computes a plane from three Point3Ds.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#computePlanes()">computePlanes</a>(p_nAspect, p_nNear, p_nFar, p_nFov) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
@@ -653,6 +655,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Makes this matrix a copy of a passed in matrix.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#copy()">copy</a>(p_oPoint3D:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Makes this Point3D a copy of the specified Point3D.</td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html#copy()">copy</a>(p_oUV:<a href="sandy/core/data/UVCoord.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:UVCoord</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/UVCoord.html">UVCoord</a></td>
 </tr>
 <tr>
@@ -660,14 +669,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Makes this UV coordinate a copy of the specified UV coordinate.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#copy()">copy</a>(p_oVector:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Makes this vector a copy of the specified vector.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#copy()">copy</a>(p_oVector:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#copy()">copy</a>(p_oPoint3D:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -696,12 +698,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Creates a bounding sphere that encloses a 3D from an Array of the object's vertices.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html#create()">create</a>(method, ... rest) &mdash; Static method in class sandy.commands.<a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html">Delegate</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html#create()">create</a>(p_sFile, p_sParserType, p_nScale, p_sTextureExtension) &mdash; Static method in class sandy.parser.<a onclick="javascript:loadClassListFrame('sandy/parser/class-list.html');" href="sandy/parser/Parser.html">Parser</a></td>
 </tr>
 <tr>
@@ -709,45 +705,39 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    The create method chooses which parser to use.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html#createAppend()">createAppend</a>(method, ... rest) &mdash; Static method in class sandy.commands.<a onclick="javascript:loadClassListFrame('sandy/commands/class-list.html');" href="sandy/commands/Delegate.html">Delegate</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#createFromNormalAndPoint()">createFromNormalAndPoint</a>(p_oNormal:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_nPoint) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html#createFromNormalAndPoint()">createFromNormalAndPoint</a>(p_oNormal:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_nPoint) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/PlaneMath.html">PlaneMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes a plane from a normal vector and a specified point.</td>
+   Computes a plane from a normal Point3D and a specified point.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#createFromVector()">createFromVector</a>(p_v:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#createFromPoint3D()">createFromPoint3D</a>(p_v:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Creates and returns a new vertex from the specified vector.</td>
+   Creates and returns a new vertex from the specified Point3D.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#createNormal()">createNormal</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns the normal vector of the polygon.</td>
+   Returns the normal Point3D of the polygon.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#createTransformedNormal()">createTransformedNormal</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns the transformed normal vector of the polygon.</td>
+   Returns the transformed normal Point3D of the polygon.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#cross()">cross</a>(v:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#cross()">cross</a>(v:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Returns the cross product between this vector and the specified vector.</td>
+   Returns the cross product between this Point3D and the specified Point3D.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html#cross()">cross</a>(v:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vertex.html">Vertex</a></td>
@@ -757,11 +747,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Returns the cross product between this vertex and the specified vertex.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VectorMath.html#cross()">cross</a>(p_oW:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oV:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VectorMath.html">VectorMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Point3DMath.html#cross()">cross</a>(p_oW:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oV:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/Point3DMath.html">Point3DMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Computes the cross product of two 3D vectors.</td>
+   Computes the cross product of two 3D Point3Ds.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html#cross()">cross</a>(p_oW:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>, p_oV:<a href="sandy/core/data/Vertex.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vertex</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/VertexMath.html">VertexMath</a></td>
@@ -771,14 +761,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Computes the cross product the two vertices.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html#crossWith()">crossWith</a>(v:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Vector.html">Vector</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html#crossWith()">crossWith</a>(v:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Point3D.html">Point3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
-   Crosses this vector with the specified vector.</td>
+   Crosses this Point3D with the specified Point3D.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Camera3D.html">Camera3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -786,48 +776,48 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    </td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html">Group</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Group.html">Group</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Tests this node against the camera frustum to get its visibility.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Tests this node against the frustum volume to get its visibility.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Tests this node against the camera frustum to get its visibility.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html">Sound3D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html">Sound3D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sprite2D.html">Sprite2D</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Tests this node against the camera frustum to get its visibility.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/StarField.html">StarField</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    This tests for stars visibility.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html#cull()">cull</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>, p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html">TransformGroup</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/TransformGroup.html">TransformGroup</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -871,20 +861,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 </tr>
 <tr>
 <td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html">Curve3D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/package-detail.html">sandy.extrusion.data</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
- Specifies a curve in 3D space.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html#Curve3D()">Curve3D</a>() &mdash; Constructor in class sandy.extrusion.data.<a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html">Curve3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Creates empty Curve3D object.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html#cvertices">cvertices</a> &mdash; Property in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Polygon.html">Polygon</a></td>

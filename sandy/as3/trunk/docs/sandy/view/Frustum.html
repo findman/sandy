@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Frustum,sandy.view.Frustum,BOTTOM,EPSILON,FAR,INSIDE,INTERSECT,LEFT,NEAR,OUTSIDE,RIGHT,TOP,aConstants,aNormals,aPlanes,aPoints,boxInFrustum,clipFrontPlane,clipFrustum,clipLineFrontPlane,clipPolygon,computePlanes,pointInFrustum,sphereInFrustum" name="keywords">
+<meta content="Frustum,sandy.view.Frustum,BOTTOM,EPSILON,FAR,INSIDE,INTERSECT,LEFT,NEAR,OUTSIDE,RIGHT,TOP,aConstants,aNormals,aPlanes,aPoints,boxInFrustum,clipFrontPlane,clipFrustum,clipLineFrontPlane,clipPolygon,computePlanes,pointInFrustum,polygonInFrustum,sphereInFrustum" name="keywords">
 <title>sandy.view.Frustum</title>
 </head>
 <body>
@@ -94,7 +94,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#boxInFrustum()">boxInFrustum</a>(box:<a href="../bounds/BBox.html">BBox</a>):<a href="../view/CullingState.html">CullingState</a>
+<a class="signatureLink" href="#boxInFrustum()">boxInFrustum</a>(p_oBox:<a href="../bounds/BBox.html">BBox</a>):<a href="../view/CullingState.html">CullingState</a>
 </div>
 <div class="summaryTableDescription">
    Returns the culling state for the passed bounding box.</div>
@@ -128,8 +128,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#clipPolygon()">clipPolygon</a>(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):Boolean</div>
-<div class="summaryTableDescription">
-   Clips a polygon against one the frustum planes.</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Frustum</td>
 </tr>
 <tr class="">
@@ -143,7 +142,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#pointInFrustum()">pointInFrustum</a>(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):<a href="../view/CullingState.html">CullingState</a>
+<a class="signatureLink" href="#pointInFrustum()">pointInFrustum</a>(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):<a href="../view/CullingState.html">CullingState</a>
 </div>
 <div class="summaryTableDescription">
    Returns the culling state for the passed point.</div>
@@ -152,7 +151,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#sphereInFrustum()">sphereInFrustum</a>(p_oS:<a href="../bounds/BSphere.html">BSphere</a>):<a href="../view/CullingState.html">CullingState</a>
+<a class="signatureLink" href="#polygonInFrustum()">polygonInFrustum</a>(p_oPoly:<a href="../core/data/Polygon.html">Polygon</a>):<a href="../view/CullingState.html">CullingState</a>
+</div>
+<div class="summaryTableDescription">
+   Helping function to test a polygon against the frustum
+   <p>The method tests if the passed polygon is inside the frustum, outside or intersecting the frustum</p>
+   
+   </div>
+</td><td class="summaryTableOwnerCol">Frustum</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#sphereInFrustum()">sphereInFrustum</a>(p_oSphere:<a href="../bounds/BSphere.html">BSphere</a>):<a href="../view/CullingState.html">CullingState</a>
 </div>
 <div class="summaryTableDescription">
    Returns the culling state for the passed bounding sphere.</div>
@@ -288,7 +299,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function boxInFrustum(box:<a href="../bounds/BBox.html">BBox</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
+<code>public function boxInFrustum(p_oBox:<a href="../bounds/BBox.html">BBox</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
    Returns the culling state for the passed bounding box.
    
    </p><p>The method tests if the bounding box is within the frustum volume or not.
@@ -296,7 +307,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">box</span>:<a href="../bounds/BBox.html">BBox</a></code> &mdash; The box to test.
+<td width="20px"></td><td><code><span class="label">p_oBox</span>:<a href="../bounds/BBox.html">BBox</a></code> &mdash; The box to test.
       </td>
 </tr>
 </table>
@@ -405,27 +416,22 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function clipPolygon(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):Boolean</code><p>
-   Clips a polygon against one the frustum planes.
-      </p><span class="label">Parameters</span>
+<code>public function clipPolygon(p_oPlane:<a href="../core/data/Plane.html">Plane</a>, p_aCvert:Array, p_aUVCoords:Array):Boolean</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code> &mdash; The plane to clip against.
-   </td>
+<td width="20px"></td><td><code><span class="label">p_oPlane</span>:<a href="../core/data/Plane.html">Plane</a></code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aCvert</span>:Array</code> &mdash; Vertices of the polygon. 
-   </td>
+<td width="20px"></td><td><code><span class="label">p_aCvert</span>:Array</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_aUVCoords</span>:Array</code> &mdash; UV coordiantes of the polygon.
-   </td>
+<td width="20px"></td><td><code><span class="label">p_aUVCoords</span>:Array</code></td>
 </tr>
 </table>
 <p></p>
@@ -482,7 +488,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function pointInFrustum(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
+<code>public function pointInFrustum(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
    Returns the culling state for the passed point.
    
    </p><p>The method tests if the passed point is within the frustum volume or not.
@@ -490,7 +496,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The point to test.
+<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; The point to test.
       </td>
 </tr>
 </table>
@@ -506,6 +512,37 @@ showHideInherited();
 </tr>
 </table>
 </div>
+<a name="polygonInFrustum()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">polygonInFrustum</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function polygonInFrustum(p_oPoly:<a href="../core/data/Polygon.html">Polygon</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
+   Helping function to test a polygon against the frustum
+   </p><p>The method tests if the passed polygon is inside the frustum, outside or intersecting the frustum</p>
+   
+   <span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">p_oPoly</span>:<a href="../core/data/Polygon.html">Polygon</a></code> &mdash; The polygon to test
+   
+   </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../view/CullingState.html">CullingState</a></code> &mdash; 
+                        The culling state of the polygon
+   
+                        
+                     </td>
+</tr>
+</table>
+</div>
 <a name="sphereInFrustum()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -513,7 +550,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function sphereInFrustum(p_oS:<a href="../bounds/BSphere.html">BSphere</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
+<code>public function sphereInFrustum(p_oSphere:<a href="../bounds/BSphere.html">BSphere</a>):<a href="../view/CullingState.html">CullingState</a></code><p>
    Returns the culling state for the passed bounding sphere.
    
    </p><p>The method tests if the bounding sphere is within the frustum volume or not.
@@ -521,7 +558,7 @@ showHideInherited();
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oS</span>:<a href="../bounds/BSphere.html">BSphere</a></code> &mdash; The sphere to test.
+<td width="20px"></td><td><code><span class="label">p_oSphere</span>:<a href="../bounds/BSphere.html">BSphere</a></code> &mdash; The sphere to test.
       </td>
 </tr>
 </table>

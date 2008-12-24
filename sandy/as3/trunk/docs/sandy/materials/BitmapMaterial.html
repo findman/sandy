@@ -262,6 +262,10 @@ showHideInherited();
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set alpha(value:Number):void</code>
 <br>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">setTransparency()</div>
 </div>
 <a name="maxRecurssionDepth"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -420,7 +424,8 @@ showHideInherited();
 <div class="detailBody">
 <code>public function setTransparency(p_nValue:Number):void</code><p>
    Changes the transparency of the texture.
-      </p><p>The passed value is the percentage of opacity. Note that this does not work with animated texture.</p>
+      </p><p>The passed value is the percentage of opacity. Note that in order for this to work with animated texture,
+   you need set material transparency every time after new texture frame is rendered.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>

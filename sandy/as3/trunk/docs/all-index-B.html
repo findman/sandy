@@ -42,13 +42,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   The coordinate of the second plane.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html#b">b</a> &mdash; Property in class sandy.extrusion.data.<a onclick="javascript:loadClassListFrame('sandy/extrusion/data/class-list.html');" href="sandy/extrusion/data/Curve3D.html">Curve3D</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Array of binormal unit vectors at curve points.</td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/SkyBox.html#back">back</a> &mdash; Property in class sandy.primitive.<a onclick="javascript:loadClassListFrame('sandy/primitive/class-list.html');" href="sandy/primitive/SkyBox.html">SkyBox</a></td>
 </tr>
 <tr>
@@ -90,7 +83,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   The BBox class is used to quickly and easily clip an object in a 3D scene.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#BBox()">BBox</a>(p_min:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_max:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Constructor in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#BBox()">BBox</a>(p_min:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_max:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Constructor in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -116,13 +109,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
 <tr>
 <td width="20"></td><td>
    Calls begin method of the MaterialAttributes associated with this material.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html#begin()">begin</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html">MaterialManager</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Calls the <code>begin()</code> method of all materials in the material manager.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/AAttributes.html#begin()">begin</a>(p_oScene:<a href="sandy/core/Scene3D.html" onclick="javascript:loadClassListFrame('sandy/core./class-list.html');">sandy.core:Scene3D</a>) &mdash; Method in class sandy.materials.attributes.<a onclick="javascript:loadClassListFrame('sandy/materials/attributes/class-list.html');" href="sandy/materials/attributes/AAttributes.html">AAttributes</a></td>
@@ -268,7 +254,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   Creates a Box primitive.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#boxInFrustum()">boxInFrustum</a>(box:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html#boxInFrustum()">boxInFrustum</a>(p_oBox:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.view.<a onclick="javascript:loadClassListFrame('sandy/view/class-list.html');" href="sandy/view/Frustum.html">Frustum</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -290,13 +276,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
       <p>The broadcaster is used to send events to listeners.<br />
    This property is a BubbleEventBroadcaster.</p>
       </td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html#broadcastEvent()">broadcastEvent</a>(e) &mdash; Method in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html">EventBroadcaster</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Broadcasts an event.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BSphere.html">BSphere</a> &mdash; Final class in package <a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/package-detail.html">sandy.bounds</a></td>
@@ -335,7 +314,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("BÂ
   BubbleEventBroadcaster defines a custom event broadcaster to work with.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html#BubbleEventBroadcaster()">BubbleEventBroadcaster</a>() &mdash; Constructor in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html#BubbleEventBroadcaster()">BubbleEventBroadcaster</a>(p_oTarget) &mdash; Constructor in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/BubbleEventBroadcaster.html">BubbleEventBroadcaster</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>

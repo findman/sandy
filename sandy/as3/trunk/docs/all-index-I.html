@@ -84,12 +84,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Makes this matrix into an identity matrix.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/sorters/class-list.html');" href="sandy/core/sorters/IDepthSorter.html"><i>IDepthSorter</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('sandy/core/sorters/class-list.html');" href="sandy/core/sorters/package-detail.html">sandy.core.sorters</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html"><i>IDisplayable</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/package-detail.html">sandy.core.scenegraph</a></td>
 </tr>
 <tr>
@@ -115,7 +109,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html#init()">init</a>() &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/Renderer.html">Renderer</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+   Init the renderer internal data
+   </td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html#init()">init</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Pool.html">Pool</a></td>
@@ -241,7 +237,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Finds the intersection point of two 2D lines.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html#intersectionLine3D()">intersectionLine3D</a>(p_oPointA:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oPointB:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oPointC:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>, p_oPointD:<a href="sandy/core/data/Vector.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Vector</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html">IntersectionMath</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html#intersectionLine3D()">intersectionLine3D</a>(p_oPointA:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oPointB:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oPointC:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>, p_oPointD:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html">IntersectionMath</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
@@ -253,6 +249,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 <tr>
 <td width="20"></td><td>
   An util class with static method which provides useful functions related to intersection.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#intersectsBox()">intersectsBox</a>(box:<a href="sandy/bounds/BBox.html" onclick="javascript:loadClassListFrame('sandy/bounds./class-list.html');">sandy.bounds:BBox</a>) &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html#inverse()">inverse</a>() &mdash; Method in class sandy.core.data.<a onclick="javascript:loadClassListFrame('sandy/core/data/class-list.html');" href="sandy/core/data/Matrix4.html">Matrix4</a></td>
@@ -308,6 +310,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Tests if the node passed in the argument is parent of this node.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#isPointInsideXYZ()">isPointInsideXYZ</a>(x, y, z) &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html#isPointInTriangle2D()">isPointInTriangle2D</a>(p_oPoint, p_oA, p_oB, p_oC) &mdash; Static method in class sandy.math.<a onclick="javascript:loadClassListFrame('sandy/math/class-list.html');" href="sandy/math/IntersectionMath.html">IntersectionMath</a></td>
 </tr>
 <tr>
@@ -315,25 +323,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
    Determines if a point is within a triangle.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html#isPointTotalInside()">isPointTotalInside</a>(p_oPoint:<a href="sandy/core/data/Point3D.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Point3D</a>) &mdash; Method in class sandy.bounds.<a onclick="javascript:loadClassListFrame('sandy/bounds/class-list.html');" href="sandy/bounds/BBox.html">BBox</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html#isRegistered()">isRegistered</a>(key) &mdash; Method in class sandy.core.<a onclick="javascript:loadClassListFrame('sandy/core/class-list.html');" href="sandy/core/SceneLocator.html">SceneLocator</a></td>
 </tr>
 <tr>
 <td width="20"></td><td>
    Checks if a scene with the specified name is registered.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html#isRegistered()">isRegistered</a>(listener, type) &mdash; Method in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/EventBroadcaster.html">EventBroadcaster</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Determines whether a listener is registered in the event broadcaster.</td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html#isRegistered()">isRegistered</a>(p_oMaterial:<a href="sandy/materials/Material.html" onclick="javascript:loadClassListFrame('sandy/materials./class-list.html');">sandy.materials:Material</a>) &mdash; Method in class sandy.materials.<a onclick="javascript:loadClassListFrame('sandy/materials/class-list.html');" href="sandy/materials/MaterialManager.html">MaterialManager</a></td>
-</tr>
-<tr>
-<td width="20"></td><td>
-   Determines whether a material is registered in the material manager.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/NumberUtil.html#isZero()">isZero</a>(p_nN) &mdash; Static method in class sandy.util.<a onclick="javascript:loadClassListFrame('sandy/util/class-list.html');" href="sandy/util/NumberUtil.html">NumberUtil</a></td>

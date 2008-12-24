@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="BBox,sandy.bounds.BBox,aCorners,aTCorners,max,min,tmax,tmin,uptodate,clone,create,getCenter,getSize,toString,transform" name="keywords">
+<meta content="BBox,sandy.bounds.BBox,maxEdge,minEdge,uptodate,addInternalPoint,addInternalPointXYZ,clone,create,getCenter,getEdges,getSize,intersectsBox,isPointInsideXYZ,isPointTotalInside,merge,reset,toString,transform" name="keywords">
 <title>sandy.bounds.BBox</title>
 </head>
 <body>
@@ -62,33 +62,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aCorners">aCorners</a> : Array<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BBox</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#aTCorners">aTCorners</a> : Array<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BBox</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#max">max</a> : <a href="../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#maxEdge">maxEdge</a> : <a href="../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
-   A vector representing the highest point of the cube volume.</div>
+   A Point3D representing the highest point of the cube volume.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#min">min</a> : <a href="../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#minEdge">minEdge</a> : <a href="../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
-   A vector representing the lowest point of the cube volume.</div>
-</td><td class="summaryTableOwnerCol">BBox</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#tmax">tmax</a> : <a href="../core/data/Vector.html">Vector</a>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">BBox</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#tmin">tmin</a> : <a href="../core/data/Vector.html">Vector</a>
-<div class="summaryTableDescription"></div>
+   A Point3D representing the lowest point of the cube volume.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -108,9 +90,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#BBox()">BBox</a>(p_min:<a href="../core/data/Vector.html">Vector</a> = null, p_max:<a href="../core/data/Vector.html">Vector</a> = null)</div>
+<a class="signatureLink" href="#BBox()">BBox</a>(p_min:<a href="../core/data/Point3D.html">Point3D</a> = null, p_max:<a href="../core/data/Point3D.html">Point3D</a> = null)</div>
 <div class="summaryTableDescription">
    Creates a new BBox instance.</div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addInternalPoint()">addInternalPoint</a>(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addInternalPointXYZ()">addInternalPointXYZ</a>(x:Number, y:Number, z:Number):void</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -134,7 +130,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getCenter()">getCenter</a>():<a href="../core/data/Vector.html">Vector</a>
+<a class="signatureLink" href="#getCenter()">getCenter</a>():<a href="../core/data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
    Returns the center of the bounding box volume.</div>
@@ -143,10 +139,56 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#getSize()">getSize</a>():<a href="../core/data/Vector.html">Vector</a>
+<a class="signatureLink" href="#getEdges()">getEdges</a>(edges:Array):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getSize()">getSize</a>():<a href="../core/data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
    Returns the size of the bounding box.</div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#intersectsBox()">intersectsBox</a>(box:<a href="BBox.html">BBox</a>):Boolean</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#isPointInsideXYZ()">isPointInsideXYZ</a>(x:Number, y:Number, z:Number):Boolean</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#isPointTotalInside()">isPointTotalInside</a>(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):Boolean</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#merge()">merge</a>(box:<a href="BBox.html">BBox</a>):void</div>
+<div class="summaryTableDescription">
+   Merge the current BoundingBox with the one given in argument
+   </div>
+</td><td class="summaryTableOwnerCol">BBox</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#reset()">reset</a>():void</div>
+<div class="summaryTableDescription">
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </div>
 </td><td class="summaryTableOwnerCol">BBox</td>
 </tr>
 <tr class="">
@@ -160,7 +202,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#transform()">transform</a>(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</div>
+<a class="signatureLink" href="#transform()">transform</a>(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):<a href="../bounds/BBox.html">BBox</a>
+</div>
 <div class="summaryTableDescription">
       Applies a transformation to the bounding box.</div>
 </td><td class="summaryTableOwnerCol">BBox</td>
@@ -174,62 +217,26 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
-<a name="aCorners"></a>
+<a name="maxEdge"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">aCorners</td><td class="detailHeaderType">property</td>
+<td class="detailHeaderName">maxEdge</td><td class="detailHeaderType">property</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>public var aCorners:Array</code>
-</div>
-<a name="aTCorners"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">aTCorners</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var aTCorners:Array</code>
-</div>
-<a name="max"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">max</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var max:<a href="../core/data/Vector.html">Vector</a></code><p>
-   A vector representing the highest point of the cube volume.
+<code>public var maxEdge:<a href="../core/data/Point3D.html">Point3D</a></code><p>
+   A Point3D representing the highest point of the cube volume.
    </p></div>
-<a name="min"></a>
+<a name="minEdge"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">min</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">minEdge</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>public var min:<a href="../core/data/Vector.html">Vector</a></code><p>
-   A vector representing the lowest point of the cube volume.
+<code>public var minEdge:<a href="../core/data/Point3D.html">Point3D</a></code><p>
+   A Point3D representing the lowest point of the cube volume.
    </p></div>
-<a name="tmax"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">tmax</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var tmax:<a href="../core/data/Vector.html">Vector</a></code>
-</div>
-<a name="tmin"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">tmin</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var tmin:<a href="../core/data/Vector.html">Vector</a></code>
-</div>
 <a name="uptodate"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -250,30 +257,70 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function BBox(p_min:<a href="../core/data/Vector.html">Vector</a> = null, p_max:<a href="../core/data/Vector.html">Vector</a> = null)</code><p>
+<code>public function BBox(p_min:<a href="../core/data/Point3D.html">Point3D</a> = null, p_max:<a href="../core/data/Point3D.html">Point3D</a> = null)</code><p>
    Creates a new BBox instance.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_min</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  A vector representing the lowest point of the cube volume.
+<td width="20px"></td><td><code><span class="label">p_min</span>:<a href="../core/data/Point3D.html">Point3D</a></code> (default = <code>null</code>)<code></code> &mdash;  A Point3D representing the lowest point of the cube volume.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_max</span>:<a href="../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  A vector representing the highest point of the cube volume.
+<td width="20px"></td><td><code><span class="label">p_max</span>:<a href="../core/data/Point3D.html">Point3D</a></code> (default = <code>null</code>)<code></code> &mdash;  A Point3D representing the highest point of the cube volume.
    </td>
 </tr>
 </table>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
+<a name="addInternalPoint()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addInternalPoint</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addInternalPoint(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Point3D.html">Point3D</a></code></td>
+</tr>
+</table>
+</div>
+<a name="addInternalPointXYZ()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">addInternalPointXYZ</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function addInternalPointXYZ(x:Number, y:Number, z:Number):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">x</span>:Number</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">y</span>:Number</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">z</span>:Number</code></td>
+</tr>
+</table>
+</div>
 <a name="clone()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">clone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+<td class="detailHeaderName">clone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
@@ -328,18 +375,32 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getCenter():<a href="../core/data/Vector.html">Vector</a></code><p>
+<code>public function getCenter():<a href="../core/data/Point3D.html">Point3D</a></code><p>
    Returns the center of the bounding box volume.
    
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../core/data/Vector.html">Vector</a></code> &mdash; 
-                        A Vector representing the center of the bounding box.
+<td width="20"></td><td><code><a href="../core/data/Point3D.html">Point3D</a></code> &mdash; 
+                        A Point3D representing the center of the bounding box.
    
                         
                      </td>
+</tr>
+</table>
+</div>
+<a name="getEdges()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getEdges</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getEdges(edges:Array):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">edges</span>:Array</code></td>
 </tr>
 </table>
 </div>
@@ -350,21 +411,123 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function getSize():<a href="../core/data/Vector.html">Vector</a></code><p>
+<code>public function getSize():<a href="../core/data/Point3D.html">Point3D</a></code><p>
    Returns the size of the bounding box.
    
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../core/data/Vector.html">Vector</a></code> &mdash; 
-                        A Vector object representing the size of the volume in three dimensions.
+<td width="20"></td><td><code><a href="../core/data/Point3D.html">Point3D</a></code> &mdash; 
+                        A Point3D object representing the size of the volume in three dimensions.
    
                         
                      </td>
 </tr>
 </table>
 </div>
+<a name="intersectsBox()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">intersectsBox</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function intersectsBox(box:<a href="BBox.html">BBox</a>):Boolean</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">box</span>:<a href="BBox.html">BBox</a></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="isPointInsideXYZ()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isPointInsideXYZ</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function isPointInsideXYZ(x:Number, y:Number, z:Number):Boolean</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">x</span>:Number</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">y</span>:Number</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">z</span>:Number</code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="isPointTotalInside()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isPointTotalInside</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function isPointTotalInside(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):Boolean</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Point3D.html">Point3D</a></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<a name="merge()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">merge</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function merge(box:<a href="BBox.html">BBox</a>):void</code><p>
+   Merge the current BoundingBox with the one given in argument
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">box</span>:<a href="BBox.html">BBox</a></code> &mdash; The BBox object to merge the current BBox with
+   </td>
+</tr>
+</table>
+</div>
+<a name="reset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reset():void</code><p>
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </p></div>
 <a name="toString()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -390,7 +553,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function transform(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):void</code><p>
+<code>public function transform(p_oMatrix:<a href="../core/data/Matrix4.html">Matrix4</a>):<a href="../bounds/BBox.html">BBox</a></code><p>
       Applies a transformation to the bounding box.
       
       </p><span class="label">Parameters</span>
@@ -398,6 +561,17 @@ showHideInherited();
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oMatrix</span>:<a href="../core/data/Matrix4.html">Matrix4</a></code> &mdash;  The transformation matrix.
       </td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../bounds/BBox.html">BBox</a></code> &mdash; 
+                        the transformed Bounding box
+      
+                        
+                     </td>
 </tr>
 </table>
 </div>

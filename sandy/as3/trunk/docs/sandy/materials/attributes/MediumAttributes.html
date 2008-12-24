@@ -75,15 +75,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">MediumAttributes</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fadeFrom">fadeFrom</a> : <a href="../../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fadeFrom">fadeFrom</a> : <a href="../../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
    Transparent point in wx, wy and wz coordinates.</div>
 </td><td class="summaryTableOwnerCol">MediumAttributes</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fadeTo">fadeTo</a> : <a href="../../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#fadeTo">fadeTo</a> : <a href="../../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
-   Attenuation vector.</div>
+   Attenuation Point3D.</div>
 </td><td class="summaryTableOwnerCol">MediumAttributes</td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -111,7 +111,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#MediumAttributes()">MediumAttributes</a>(p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:<a href="../../core/data/Vector.html">Vector</a> = null, p_oFadeTo:<a href="../../core/data/Vector.html">Vector</a> = null, p_nBlurAmount:Number = 0)</div>
+<a class="signatureLink" href="#MediumAttributes()">MediumAttributes</a>(p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:<a href="../../core/data/Point3D.html">Point3D</a> = null, p_oFadeTo:<a href="../../core/data/Point3D.html">Point3D</a> = null, p_nBlurAmount:Number = 0)</div>
 <div class="summaryTableDescription">
    Creates a new MediumAttributes object.</div>
 </td><td class="summaryTableOwnerCol">MediumAttributes</td>
@@ -207,13 +207,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var fadeFrom:<a href="../../core/data/Vector.html">Vector</a></code><p>
+<code>public var fadeFrom:<a href="../../core/data/Point3D.html">Point3D</a></code><p>
    Transparent point in wx, wy and wz coordinates.
       </p><p>
 <span class="label">See also</span>
 </p>
 <div class="seeAlso">
-<a href="../../core/data/Vector.html" target="">sandy.core.data.Vector</a>
+<a href="../../core/data/Point3D.html" target="">sandy.core.data.Point3D</a>
 </div>
 </div>
 <a name="fadeTo"></a>
@@ -223,19 +223,19 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>fadeTo:<a href="../../core/data/Vector.html">Vector</a></code>&nbsp;&nbsp;[read-write]<p>
-   Attenuation vector. This is the vector from transparent point to opaque point.
+<code>fadeTo:<a href="../../core/data/Point3D.html">Point3D</a></code>&nbsp;&nbsp;[read-write]<p>
+   Attenuation Point3D. This is the Point3D from transparent point to opaque point.
       </p><span class="label">Implementation</span>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get fadeTo():<a href="../../core/data/Vector.html">Vector</a></code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get fadeTo():<a href="../../core/data/Point3D.html">Point3D</a></code>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set fadeTo(value:<a href="../../core/data/Vector.html">Vector</a>):void</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set fadeTo(value:<a href="../../core/data/Point3D.html">Point3D</a>):void</code>
 <br>
 <p>
 <span class="label">See also</span>
 </p>
 <div class="seeAlso">
-<a href="../../core/data/Vector.html" target="">sandy.core.data.Vector</a>
+<a href="../../core/data/Point3D.html" target="">sandy.core.data.Point3D</a>
 </div>
 </div>
 <a name="constructorDetail"></a>
@@ -247,7 +247,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function MediumAttributes(p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:<a href="../../core/data/Vector.html">Vector</a> = null, p_oFadeTo:<a href="../../core/data/Vector.html">Vector</a> = null, p_nBlurAmount:Number = 0)</code><p>
+<code>public function MediumAttributes(p_nColor:uint = 0xFFFFFFFF, p_oFadeFrom:<a href="../../core/data/Point3D.html">Point3D</a> = null, p_oFadeTo:<a href="../../core/data/Point3D.html">Point3D</a> = null, p_nBlurAmount:Number = 0)</code><p>
    Creates a new MediumAttributes object.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -259,14 +259,14 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oFadeFrom</span>:<a href="../../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash;  Attenuation vector (500 pixels beyond the screen by default).
+<td width="20px"></td><td><code><span class="label">p_oFadeFrom</span>:<a href="../../core/data/Point3D.html">Point3D</a></code> (default = <code>null</code>)<code></code> &mdash;  Attenuation Point3D (500 pixels beyond the screen by default).
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oFadeTo</span>:<a href="../../core/data/Vector.html">Vector</a></code> (default = <code>null</code>)<code></code> &mdash; Transparent point (at the screen by default).
+<td width="20px"></td><td><code><span class="label">p_oFadeTo</span>:<a href="../../core/data/Point3D.html">Point3D</a></code> (default = <code>null</code>)<code></code> &mdash; Transparent point (at the screen by default).
    </td>
 </tr>
 <tr>
@@ -281,7 +281,7 @@ showHideInherited();
 <span class="label">See also</span>
 </p>
 <div class="seeAlso">
-<a href="../../core/data/Vector.html" target="">sandy.core.data.Vector</a>
+<a href="../../core/data/Point3D.html" target="">sandy.core.data.Point3D</a>
 </div>
 </div>
 <br>

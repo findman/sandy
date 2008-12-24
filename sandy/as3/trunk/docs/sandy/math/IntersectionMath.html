@@ -71,7 +71,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#intersectionLine3D()">intersectionLine3D</a>(p_oPointA:<a href="../core/data/Vector.html">Vector</a>, p_oPointB:<a href="../core/data/Vector.html">Vector</a>, p_oPointC:<a href="../core/data/Vector.html">Vector</a>, p_oPointD:<a href="../core/data/Vector.html">Vector</a>):Array</div>
+<a class="signatureLink" href="#intersectionLine3D()">intersectionLine3D</a>(p_oPointA:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointB:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointC:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointD:<a href="../core/data/Point3D.html">Point3D</a>):Array</div>
 <div class="summaryTableDescription">[static]
    Computes the smallest distance between two 3D lines.</div>
 </td><td class="summaryTableOwnerCol">IntersectionMath</td>
@@ -178,35 +178,35 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function intersectionLine3D(p_oPointA:<a href="../core/data/Vector.html">Vector</a>, p_oPointB:<a href="../core/data/Vector.html">Vector</a>, p_oPointC:<a href="../core/data/Vector.html">Vector</a>, p_oPointD:<a href="../core/data/Vector.html">Vector</a>):Array</code><p>
+<code>public static function intersectionLine3D(p_oPointA:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointB:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointC:<a href="../core/data/Point3D.html">Point3D</a>, p_oPointD:<a href="../core/data/Point3D.html">Point3D</a>):Array</code><p>
    Computes the smallest distance between two 3D lines.
    </p><p>As 3D lines cannot intersect, we compute two points, first owning to the first 3D line, and the second point owning to the second 3D line.</p>
    <p>The two points define a segment which length represents the shortest distance between these two lines.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointA</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; A vector of the first 3D line.
+<td width="20px"></td><td><code><span class="label">p_oPointA</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; A Point3D of the first 3D line.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointB</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; Another vector of the first 3D line.
+<td width="20px"></td><td><code><span class="label">p_oPointB</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; Another Point3D of the first 3D line.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointC</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; A vector of the second 3D line.
+<td width="20px"></td><td><code><span class="label">p_oPointC</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; A Point3D of the second 3D line.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPointD</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; Another vector of the second 3D line.
+<td width="20px"></td><td><code><span class="label">p_oPointD</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; Another Point3D of the second 3D line.
       </td>
 </tr>
 </table>
@@ -214,7 +214,7 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Array</code> &mdash; An array containing the vectors of the segment connecting the two 3D lines.
+<td width="20"></td><td><code>Array</code> &mdash; An array containing the Point3Ds of the segment connecting the two 3D lines.
    </td>
 </tr>
 </table>

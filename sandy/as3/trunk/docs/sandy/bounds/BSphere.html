@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="BSphere,sandy.bounds.BSphere,center,position,radius,uptodate,compute,create,distance,toString,transform" name="keywords">
+<meta content="BSphere,sandy.bounds.BSphere,center,position,radius,uptodate,compute,create,distance,reset,resetFromBox,toString,transform" name="keywords">
 <title>sandy.bounds.BSphere</title>
 </head>
 <body>
@@ -62,13 +62,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#center">center</a> : <a href="../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#center">center</a> : <a href="../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
-   A Vector representing the center of the bounding sphere.</div>
+   A Point3D representing the center of the bounding sphere.</div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#position">position</a> : <a href="../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#position">position</a> : <a href="../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
@@ -120,9 +120,25 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#distance()">distance</a>(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</div>
+<a class="signatureLink" href="#distance()">distance</a>(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):Number</div>
 <div class="summaryTableDescription">
-   Returns the distance of a Vector from the surface of the bounding sphere.</div>
+   Returns the distance of a Point3D from the surface of the bounding sphere.</div>
+</td><td class="summaryTableOwnerCol">BSphere</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#reset()">reset</a>():void</div>
+<div class="summaryTableDescription">
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </div>
+</td><td class="summaryTableOwnerCol">BSphere</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#resetFromBox()">resetFromBox</a>(box:<a href="BBox.html">BBox</a>):void</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">BSphere</td>
 </tr>
 <tr class="">
@@ -157,8 +173,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var center:<a href="../core/data/Vector.html">Vector</a></code><p>
-   A Vector representing the center of the bounding sphere.
+<code>public var center:<a href="../core/data/Point3D.html">Point3D</a></code><p>
+   A Point3D representing the center of the bounding sphere.
    </p></div>
 <a name="position"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -167,7 +183,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var position:<a href="../core/data/Vector.html">Vector</a></code>
+<code>public var position:<a href="../core/data/Point3D.html">Point3D</a></code>
 </div>
 <a name="radius"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -258,23 +274,47 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function distance(p_oPoint:<a href="../core/data/Vector.html">Vector</a>):Number</code><p>
-   Returns the distance of a Vector from the surface of the bounding sphere.
-   The number returned will be positive if the vector is outside the sphere,
+<code>public function distance(p_oPoint:<a href="../core/data/Point3D.html">Point3D</a>):Number</code><p>
+   Returns the distance of a Point3D from the surface of the bounding sphere.
+   The number returned will be positive if the Point3D is outside the sphere,
    negative if inside, or <code>0</code> if on the surface of the sphere.
    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Vector.html">Vector</a></code></td>
+<td width="20px"></td><td><code><span class="label">p_oPoint</span>:<a href="../core/data/Point3D.html">Point3D</a></code></td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code>Number</code> &mdash; The distance from the bounding sphere to the Vector.
+<td width="20"></td><td><code>Number</code> &mdash; The distance from the bounding sphere to the Point3D.
    </td>
+</tr>
+</table>
+</div>
+<a name="reset()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">reset</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function reset():void</code><p>
+   Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+   </p></div>
+<a name="resetFromBox()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">resetFromBox</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function resetFromBox(box:<a href="BBox.html">BBox</a>):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">box</span>:<a href="BBox.html">BBox</a></code></td>
 </tr>
 </table>
 </div>

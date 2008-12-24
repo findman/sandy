@@ -76,7 +76,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#Renderer()">Renderer</a>()</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Default renderer.</div>
 </td><td class="summaryTableOwnerCol">Renderer</td>
 </tr>
 <tr class="">
@@ -90,13 +91,15 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#init()">init</a>():void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Init the renderer internal data
+   </div>
 </td><td class="summaryTableOwnerCol">Renderer</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#render()">render</a>(p_oScene:<a href="Scene3D.html">Scene3D</a>):void</div>
+<a class="signatureLink" href="#render()">render</a>(p_oScene:<a href="Scene3D.html">Scene3D</a>):Boolean</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Renderer</td>
 </tr>
@@ -170,8 +173,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Renderer()</code>
-</div>
+<code>public function Renderer()</code><p>
+   Default renderer.
+   </p></div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
 <a name="addToDisplayList()"></a>
@@ -195,8 +199,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function init():void</code>
-</div>
+<code>public function init():void</code><p>
+   Init the renderer internal data
+   </p></div>
 <a name="render()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -204,10 +209,17 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function render(p_oScene:<a href="Scene3D.html">Scene3D</a>):void</code><span class="label">Parameters</span>
+<code>public function render(p_oScene:<a href="Scene3D.html">Scene3D</a>):Boolean</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="Scene3D.html">Scene3D</a></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
 </tr>
 </table>
 </div>

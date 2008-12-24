@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,depthSorter,hasAppearanceChanged,id,isClipped,minZ,scene,shape,uvBounds,vertexNormals,vertices,visible,appearance,broadcaster,container,depth,enableEvents,enableInteractivity,normal,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString,updateNormal" name="keywords">
+<meta content="Polygon,sandy.core.data.Polygon,POLYGON_MAP,a,aEdges,aNeighboors,aUVCoord,caUVCoord,cvertices,id,isClipped,minZ,shape,uvBounds,vertexNormals,vertices,visible,appearance,broadcaster,changed,container,depth,enableEvents,enableInteractivity,normal,scene,addEventListener,clear,clip,clipFrontPlane,createNormal,createTransformedNormal,destroy,display,get3DFrom2D,getUVFrom2D,precompute,removeEventListener,swapCulling,toString,updateNormal" name="keywords">
 <title>sandy.core.data.Polygon</title>
 </head>
 <body>
@@ -96,6 +96,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#changed">changed</a> : Boolean<div class="summaryTableDescription">[read-only]</div>
+</td><td class="summaryTableOwnerCol">Polygon</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#container">container</a> : Sprite<div class="summaryTableDescription">[read-only]
    The polygon's container.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
@@ -111,12 +115,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#depthSorter">depthSorter</a> : <a href="../sorters/IDepthSorter.html">IDepthSorter</a>
-<div class="summaryTableDescription">
-   The depth sorter the polygon uses.</div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableEvents">enableEvents</a> : Boolean<div class="summaryTableDescription">
    Specifies whether mouse events are enabled for this polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
@@ -124,11 +122,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#enableInteractivity">enableInteractivity</a> : Boolean<div class="summaryTableDescription">
    Specifies whether <code>MouseEvent.ROLL_&#42;</code> events are enabled for this polygon.</div>
-</td><td class="summaryTableOwnerCol">Polygon</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#hasAppearanceChanged">hasAppearanceChanged</a> : Boolean = false<div class="summaryTableDescription">
-   Specifies if the appearance of the polygon has changed since the previous rendering.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -154,8 +147,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#scene">scene</a> : <a href="../../core/Scene3D.html">Scene3D</a>
-<div class="summaryTableDescription">
-   A reference to the Scene3D object this polygon is in.</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -236,19 +228,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#createNormal()">createNormal</a>():<a href="../data/Vector.html">Vector</a>
+<a class="signatureLink" href="#createNormal()">createNormal</a>():<a href="../data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
-   Returns the normal vector of the polygon.</div>
+   Returns the normal Point3D of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#createTransformedNormal()">createTransformedNormal</a>():<a href="../data/Vector.html">Vector</a>
+<a class="signatureLink" href="#createTransformedNormal()">createTransformedNormal</a>():<a href="../data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
-   Returns the transformed normal vector of the polygon.</div>
+   Returns the transformed normal Point3D of the polygon.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -262,7 +254,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#display()">display</a>(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oContainer:Sprite = null):void</div>
+<a class="signatureLink" href="#display()">display</a>(p_oContainer:Sprite = null):void</div>
 <div class="summaryTableDescription">
    Draws the polygon on its container if visible.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
@@ -270,10 +262,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#get3DFrom2D()">get3DFrom2D</a>(p_oScreenPoint:Point):<a href="../data/Vector.html">Vector</a>
+<a class="signatureLink" href="#get3DFrom2D()">get3DFrom2D</a>(p_oScreenPoint:Point):<a href="../data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
-   Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.</div>
+   Returns a Point3D (3D position) on the polygon relative to the specified point on the 2D screen.</div>
 </td><td class="summaryTableOwnerCol">Polygon</td>
 </tr>
 <tr class="">
@@ -424,6 +416,18 @@ showHideInherited();
 <div class="detailBody">
 <code>public var caUVCoord:Array</code>
 </div>
+<a name="changed"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">changed</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>changed:Boolean</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get changed():Boolean</code>
+<br>
+</div>
 <a name="container"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -464,16 +468,6 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set depth(value:Number):void</code>
 <br>
 </div>
-<a name="depthSorter"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">depthSorter</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var depthSorter:<a href="../sorters/IDepthSorter.html">IDepthSorter</a></code><p>
-   The depth sorter the polygon uses.
-   </p></div>
 <a name="enableEvents"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -520,18 +514,6 @@ showHideInherited();
 <a href="../data/Polygon.html#addEventListener()" target="">addEventListener()</a>
 </div>
 </div>
-<a name="hasAppearanceChanged"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">hasAppearanceChanged</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public var hasAppearanceChanged:Boolean = false</code><p>
-   Specifies if the appearance of the polygon has changed since the previous rendering.
-   This is primarily used to update the scene material manager.
-   WARNING: Do not change manually.
-   </p></div>
 <a name="isClipped"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -592,9 +574,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var scene:<a href="../../core/Scene3D.html">Scene3D</a></code><p>
-   A reference to the Scene3D object this polygon is in.
-   </p></div>
+<code>scene:<a href="../../core/Scene3D.html">Scene3D</a></code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get scene():<a href="../../core/Scene3D.html">Scene3D</a></code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set scene(value:<a href="../../core/Scene3D.html">Scene3D</a>):void</code>
+<br>
+</div>
 <a name="shape"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -790,14 +776,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function createNormal():<a href="../data/Vector.html">Vector</a></code><p>
-   Returns the normal vector of the polygon.
+<code>public function createNormal():<a href="../data/Point3D.html">Point3D</a></code><p>
+   Returns the normal Point3D of the polygon.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        The normal vector of the polygon.
+<td width="20"></td><td><code><a href="../data/Point3D.html">Point3D</a></code> &mdash; 
+                        The normal Point3D of the polygon.
    
                         
                      </td>
@@ -811,14 +797,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function createTransformedNormal():<a href="../data/Vector.html">Vector</a></code><p>
-   Returns the transformed normal vector of the polygon.
+<code>public function createTransformedNormal():<a href="../data/Point3D.html">Point3D</a></code><p>
+   Returns the transformed normal Point3D of the polygon.
       </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        The transformed normal vector of the polygon.
+<td width="20"></td><td><code><a href="../data/Point3D.html">Point3D</a></code> &mdash; 
+                        The transformed normal Point3D of the polygon.
    
                         
                      </td>
@@ -842,19 +828,12 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function display(p_oScene:<a href="../Scene3D.html">Scene3D</a>, p_oContainer:Sprite = null):void</code><p>
+<code>public function display(p_oContainer:Sprite = null):void</code><p>
    Draws the polygon on its container if visible.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="../Scene3D.html">Scene3D</a></code> &mdash;  The scene this polygon is rendered in.
-   </td>
-</tr>
-<tr>
-<td class="paramSpacer">&nbsp;</td>
-</tr>
-<tr>
-<td width="20px"></td><td><code><span class="label">p_oContainer</span>:Sprite</code> (default = <code>null</code>)<code></code> &mdash; The container to draw on.
+<td width="20px"></td><td><code><span class="label">p_oContainer</span>:Sprite</code> (default = <code>null</code>)<code></code> &mdash;  The scene this polygon is rendered in.
    </td>
 </tr>
 </table>
@@ -866,8 +845,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function get3DFrom2D(p_oScreenPoint:Point):<a href="../data/Vector.html">Vector</a></code><p>
-   Returns a vector (3D position) on the polygon relative to the specified point on the 2D screen.
+<code>public function get3DFrom2D(p_oScreenPoint:Point):<a href="../data/Point3D.html">Point3D</a></code><p>
+   Returns a Point3D (3D position) on the polygon relative to the specified point on the 2D screen.
       </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -878,8 +857,8 @@ showHideInherited();
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../data/Vector.html">Vector</a></code> &mdash; 
-                        A vector that corresponds to the specified point.
+<td width="20"></td><td><code><a href="../data/Point3D.html">Point3D</a></code> &mdash; 
+                        A Point3D that corresponds to the specified point.
          
                         
                      </td>
@@ -890,7 +869,7 @@ showHideInherited();
 <br>Below is an example of how to get the 3D coordinate of the polygon under the position of the mouse:
    <div class='listing'><pre>
    var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
-   var scenePosition:Vector = myPolygon.get3DFrom2D(screenPoint);
+   var scenePosition:Point3D = myPolygon.get3DFrom2D(screenPoint);
          </pre></div>
          
          <p></p>
@@ -926,7 +905,7 @@ showHideInherited();
 <br>Below is an example of how to get the UV coordinate under the position of the mouse:
    <div class='listing'><pre>
    var screenPoint:Point = new Point(myPolygon.container.mouseX, myPolygon.container.mouseY);
-   var scenePosition:Vector = myPolygon.getUVFrom2D(screenPoint);
+   var scenePosition:Point3D = myPolygon.getUVFrom2D(screenPoint);
          </pre></div>
          
          <p></p>

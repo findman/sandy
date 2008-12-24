@@ -75,8 +75,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
    Original Flash event instance.</div>
 </td><td class="summaryTableOwnerCol">Shape3DEvent</td>
 </tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BubbleEvent.html#object">object</a> : Object<div class="summaryTableDescription">
+   The event target.</div>
+</td><td class="summaryTableOwnerCol"><a href="BubbleEvent.html">BubbleEvent</a></td>
+</tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#point">point</a> : <a href="../core/data/Vector.html">Vector</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#point">point</a> : <a href="../core/data/Point3D.html">Point3D</a>
 <div class="summaryTableDescription">
    Real 3D position of the point under mouse click position.</div>
 </td><td class="summaryTableOwnerCol">Shape3DEvent</td>
@@ -92,11 +97,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">
    A reference to the object which has been clicked.</div>
 </td><td class="summaryTableOwnerCol">Shape3DEvent</td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="BubbleEvent.html#target">target</a> : Object<div class="summaryTableDescription">
-   The event target.</div>
-</td><td class="summaryTableOwnerCol"><a href="BubbleEvent.html">BubbleEvent</a></td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#uv">uv</a> : <a href="../core/data/UVCoord.html">UVCoord</a>
@@ -124,7 +124,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Shape3DEvent()">Shape3DEvent</a>(e:String, p_oShape:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_oUV:<a href="../core/data/UVCoord.html">UVCoord</a>, p_oPoint3d:<a href="../core/data/Vector.html">Vector</a>, p_oEvent:Event)</div>
+<a class="signatureLink" href="#Shape3DEvent()">Shape3DEvent</a>(e:String, p_oShape:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_oUV:<a href="../core/data/UVCoord.html">UVCoord</a>, p_oPoint3d:<a href="../core/data/Point3D.html">Point3D</a>, p_oEvent:Event)</div>
 <div class="summaryTableDescription">
    Constructs a new Shape3DEvent instance.</div>
 </td><td class="summaryTableOwnerCol">Shape3DEvent</td>
@@ -163,13 +163,13 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var point:<a href="../core/data/Vector.html">Vector</a></code><p>
+<code>public var point:<a href="../core/data/Point3D.html">Point3D</a></code><p>
    Real 3D position of the point under mouse click position.
          </p><p>
 <span class="label">See also</span>
 </p>
 <div class="seeAlso">
-<a href="../core/data/Vector.html" target="">sandy.core.data.Vector</a>
+<a href="../core/data/Point3D.html" target="">sandy.core.data.Point3D</a>
 </div>
 </div>
 <a name="polygon"></a>
@@ -227,7 +227,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Shape3DEvent(e:String, p_oShape:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_oUV:<a href="../core/data/UVCoord.html">UVCoord</a>, p_oPoint3d:<a href="../core/data/Vector.html">Vector</a>, p_oEvent:Event)</code><p>
+<code>public function Shape3DEvent(e:String, p_oShape:<a href="../core/scenegraph/Shape3D.html">Shape3D</a>, p_oPolygon:<a href="../core/data/Polygon.html">Polygon</a>, p_oUV:<a href="../core/data/UVCoord.html">UVCoord</a>, p_oPoint3d:<a href="../core/data/Point3D.html">Point3D</a>, p_oEvent:Event)</code><p>
    Constructs a new Shape3DEvent instance.
       </p><p>Example
    <code>
@@ -264,7 +264,7 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oPoint3d</span>:<a href="../core/data/Vector.html">Vector</a></code> &mdash; The Vector object which is the real 3D position under the mouse position
+<td width="20px"></td><td><code><span class="label">p_oPoint3d</span>:<a href="../core/data/Point3D.html">Point3D</a></code> &mdash; The Point3D object which is the real 3D position under the mouse position
    </td>
 </tr>
 <tr>
@@ -283,7 +283,7 @@ showHideInherited();
 <br>
 <a href="../core/data/UVCoord.html" target="">sandy.core.data.UVCoord</a>
 <br>
-<a href="../core/data/Vector.html" target="">sandy.core.data.Vector</a>
+<a href="../core/data/Point3D.html" target="">sandy.core.data.Point3D</a>
 </div>
 </div>
 <br>
