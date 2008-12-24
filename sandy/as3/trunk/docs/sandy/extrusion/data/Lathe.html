@@ -64,12 +64,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Curve3D.html#b">b</a> : Array<div class="summaryTableDescription">
-   Array of binormal unit vectors at curve points.</div>
+   Array of binormal unit Point3Ds at curve points.</div>
 </td><td class="summaryTableOwnerCol"><a href="Curve3D.html">Curve3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Curve3D.html#n">n</a> : Array<div class="summaryTableDescription">
-   Array of normal unit vectors at curve points.</div>
+   Array of normal unit Point3Ds at curve points.</div>
 </td><td class="summaryTableOwnerCol"><a href="Curve3D.html">Curve3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -79,7 +79,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="Curve3D.html#t">t</a> : Array<div class="summaryTableDescription">
-   Array of tangent unit vectors at curve points.</div>
+   Array of tangent unit Point3Ds at curve points.</div>
 </td><td class="summaryTableOwnerCol"><a href="Curve3D.html">Curve3D</a></td>
 </tr>
 <tr class="hideInheritedProperty">
@@ -107,7 +107,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Lathe()">Lathe</a>(center:<a href="../../core/data/Vector.html">Vector</a>, axis:<a href="../../core/data/Vector.html">Vector</a>, reference:<a href="../../core/data/Vector.html">Vector</a>, angle0:Number = 0, angle1:Number, step:Number = 0.3, radius0:Number = 100, radius1:Number = 100, height0:Number = 0, height1:Number = 0, scale0:Number = 1, scale1:Number = 1)</div>
+<a class="signatureLink" href="#Lathe()">Lathe</a>(center:<a href="../../core/data/Point3D.html">Point3D</a>, axis:<a href="../../core/data/Point3D.html">Point3D</a>, reference:<a href="../../core/data/Point3D.html">Point3D</a>, angle0:Number = 0, angle1:Number, step:Number = 0.3, radius0:Number = 100, radius1:Number = 100, height0:Number = 0, height1:Number = 0, scale0:Number = 1, scale1:Number = 1)</div>
 <div class="summaryTableDescription">
    Generates circular, spiral or helix arc.</div>
 </td><td class="summaryTableOwnerCol">Lathe</td>
@@ -140,10 +140,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedProtectedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="Curve3D.html#orthogonalize()">orthogonalize</a>(vector:<a href="../../core/data/Vector.html">Vector</a>, hint:<a href="../../core/data/Vector.html">Vector</a>):<a href="../../core/data/Vector.html">Vector</a>
+<a class="signatureLink" href="Curve3D.html#orthogonalize()">orthogonalize</a>(p_oPoint:<a href="../../core/data/Point3D.html">Point3D</a>, hint:<a href="../../core/data/Point3D.html">Point3D</a>):<a href="../../core/data/Point3D.html">Point3D</a>
 </div>
 <div class="summaryTableDescription">
-   Return vector perpendicular to vector and as close to hint as possible.</div>
+   Return Point3D perpendicular to Point3D and as close to hint as possible.</div>
 </td><td class="summaryTableOwnerCol"><a href="Curve3D.html">Curve3D</a></td>
 </tr>
 </table>
@@ -162,26 +162,26 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Lathe(center:<a href="../../core/data/Vector.html">Vector</a>, axis:<a href="../../core/data/Vector.html">Vector</a>, reference:<a href="../../core/data/Vector.html">Vector</a>, angle0:Number = 0, angle1:Number, step:Number = 0.3, radius0:Number = 100, radius1:Number = 100, height0:Number = 0, height1:Number = 0, scale0:Number = 1, scale1:Number = 1)</code><p>
+<code>public function Lathe(center:<a href="../../core/data/Point3D.html">Point3D</a>, axis:<a href="../../core/data/Point3D.html">Point3D</a>, reference:<a href="../../core/data/Point3D.html">Point3D</a>, angle0:Number = 0, angle1:Number, step:Number = 0.3, radius0:Number = 100, radius1:Number = 100, height0:Number = 0, height1:Number = 0, scale0:Number = 1, scale1:Number = 1)</code><p>
    Generates circular, spiral or helix arc.
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">center</span>:<a href="../../core/data/Vector.html">Vector</a></code> &mdash; Arc center.
+<td width="20px"></td><td><code><span class="label">center</span>:<a href="../../core/data/Point3D.html">Point3D</a></code> &mdash; Arc center.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">axis</span>:<a href="../../core/data/Vector.html">Vector</a></code> &mdash; Axis of revolution.
+<td width="20px"></td><td><code><span class="label">axis</span>:<a href="../../core/data/Point3D.html">Point3D</a></code> &mdash; Axis of revolution.
    </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">reference</span>:<a href="../../core/data/Vector.html">Vector</a></code> &mdash; A vector that specifies direction to count angle from. Must be non-collinear to axis.
+<td width="20px"></td><td><code><span class="label">reference</span>:<a href="../../core/data/Point3D.html">Point3D</a></code> &mdash; A Point3D that specifies direction to count angle from. Must be non-collinear to axis.
    </td>
 </tr>
 <tr>

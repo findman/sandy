@@ -1,4 +1,4 @@
-﻿package sandy.extrusion.data 
+package sandy.extrusion.data 
 {
 	import sandy.core.data.Point3D;
 	
@@ -60,8 +60,8 @@
 				if (angle1 != angle0) h = (a - angle0) * (height1 - height0) / (angle1 - angle0) + height0;
 
 				// point x = r cos a, z = r sin a, y = h
-				var Point3D:Point3D = new Point3D (r * ca, h, r * sa);
-				v.push (new Point3D (basex.dot (Point3D), basey.dot (Point3D), basez.dot (Point3D)));
+				var vector:Point3D = new Point3D (r * ca, h, r * sa);
+				v.push (new Point3D (basex.dot (vector), basey.dot (vector), basez.dot (vector)));
 
 				// tangent (thank to mathcad for this solution :)
 				var tangent:Point3D = new Point3D ( -r * sa, 0, r * ca);

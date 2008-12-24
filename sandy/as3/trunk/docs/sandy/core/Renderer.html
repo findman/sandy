@@ -99,8 +99,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#render()">render</a>(p_oScene:<a href="Scene3D.html">Scene3D</a>):Boolean</div>
-<div class="summaryTableDescription"></div>
+<a class="signatureLink" href="#render()">render</a>(p_oScene:<a href="Scene3D.html">Scene3D</a>, p_bUseCache:Boolean = true):Boolean</div>
+<div class="summaryTableDescription">
+   Render the given scene.</div>
 </td><td class="summaryTableOwnerCol">Renderer</td>
 </tr>
 <tr class="">
@@ -209,10 +210,21 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function render(p_oScene:<a href="Scene3D.html">Scene3D</a>):Boolean</code><span class="label">Parameters</span>
+<code>public function render(p_oScene:<a href="Scene3D.html">Scene3D</a>, p_bUseCache:Boolean = true):Boolean</code><p>
+   Render the given scene.
+   Objects are transformed, clipped and projected into that function.
+    
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="Scene3D.html">Scene3D</a></code></td>
+<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash; Boolean value, default to true, use a cache system to avoid unnecessary computation
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">p_bUseCache</span>:Boolean</code> (default = <code>true</code>)<code></code></td>
 </tr>
 </table>
 <p></p>
@@ -236,10 +248,12 @@ showHideInherited();
    
    The camera stores all the visible shape/polygons into an array, and loop through it calling their display method.
    Before the display call, the container graphics is cleared.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="Scene3D.html">Scene3D</a></code></td>
+<td width="20px"></td><td><code><span class="label">p_oScene</span>:<a href="Scene3D.html">Scene3D</a></code> &mdash; The Scene3D object to render
+   </td>
 </tr>
 </table>
 </div>
