@@ -1,0 +1,6 @@
+-cp ../../src
+-cp ../assets
+-lib xpath
+-swf9 colladacar.swf
+-main ColladaCar
+
