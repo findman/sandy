@@ -16,7 +16,7 @@ limitations under the License.
 
 /* All of these tests require the 'hxunit' package available here: http://code.google.com/p/hxunit/ */
 
-package unit;
+package tests.unit;
 
 class TestAll {
 

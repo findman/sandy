@@ -17,7 +17,7 @@ limitations under the License.
 /* note: Javascript tests must be run from a web server - not local file, due to
 	* same-domain restrictions */
 
-package unit;
+package tests.unit;
 
 import hxunit.TestCase;
 import hxunit.Assert;
@@ -25,6 +25,10 @@ import sandy.parser.IParser;
 import sandy.parser.Parser;
 import sandy.parser.ColladaParser;
 import sandy.parser.ParserEvent;
+import sandy.parser.ParserStack;
+import sandy.util.LoaderQueue;
+import sandy.events.SandyEvent;
+import sandy.events.QueueEvent;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.Geometry3D;
@@ -41,6 +45,8 @@ import sandy.core.Scene3D;
 import sandy.primitive.Box;
 import sandy.view.ViewPort;
 import flash.display.Sprite;
+import flash.display.BitmapData;
+import flash.display.Loader;
 import flash.events.Event;
 import flash.Lib;
 import flash.net.URLRequest;
@@ -52,6 +58,9 @@ class TestParsers extends TestCase {
 
 	public static function add ( r:hxunit.Runner ) {
 				r.addCase( new TestCollada() );
+				r.addCase( new TestASE() );
+				r.addCase( new TestMax() );
+				r.addCase( new TestUtil() );
 	}
 
 }
@@ -61,7 +70,7 @@ class TestCollada extends TestCase {
 	public function testDice() {
 
 			var parser: ColladaParser = Parser.create( "../assets/dice.dae", Parser.COLLADA );
-			var ttl = 1000;
+			var ttl = 4000;
 
 			var self = this;
 			var root : Group = null;
@@ -75,11 +84,11 @@ class TestCollada extends TestCase {
 					self.assertEquals( l_oGeom.aUVCoords.length, 14 );
 					self.assertIs( root.children[0].appearance.frontMaterial, BitmapMaterial );
 					var l_oMat : BitmapMaterial = untyped root.children[0].appearance.frontMaterial;
-					var l_oULoader : URLLoader = new URLLoader();
-					l_oULoader.addEventListener( 'INIT', function ( e:Event ) {
-									self.assertEquals( e.target.bitmapData, l_oMat.texture );
+					var l_oLoader : Loader = new Loader();
+					l_oLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, function ( e:Event ) {
+									self.assertEquals( e.target.content.bitmapData.compare( l_oMat.texture ), 0x00000000 );
 					} );
-					l_oULoader.load( new URLRequest( '../assets/dice.jpg' ) );
+					l_oLoader.load( new URLRequest( '../assets/dice.jpg' ) );
 			}
 			var cb = asyncResponder( func, ttl );
 			parser.addEventListener( ParserEvent.INIT, 
@@ -92,7 +101,7 @@ class TestCollada extends TestCase {
 	public function testMenu3() {
 
 			var parser: ColladaParser = Parser.create( "../assets/arrow.dae", Parser.COLLADA );
-			var ttl = 1000;
+			var ttl = 4000;
 
 			var self = this;
 			var root : Group = null;
@@ -131,5 +140,197 @@ class TestCollada extends TestCase {
 
 	}
 
+	/* A unit test matching example07 ColladaCar */
+	public function testColladaCar() {
+
+			var parser:IParser = Parser.create("../assets/models/COLLADA/car.DAE",Parser.COLLADA );
+			var parserLF:IParser = Parser.create("../assets/models/COLLADA/wheel_Front_L.DAE",Parser.COLLADA );
+			var parserRF:IParser = Parser.create("../assets/models/COLLADA/wheel_Front_R.DAE",Parser.COLLADA );
+			var parserLR:IParser = Parser.create("../assets/models/COLLADA/wheel_Rear_L.DAE",Parser.COLLADA );
+			var parserRR:IParser = Parser.create("../assets/models/COLLADA/wheel_Rear_R.DAE",Parser.COLLADA );
+
+			var parserStack:ParserStack = new ParserStack();
+			parserStack.add("carParser",parser);
+			parserStack.add("wheelLFParser",parserLF);
+			parserStack.add("wheelRFParser",parserRF);
+			parserStack.add("wheelLRParser",parserLR);
+			parserStack.add("wheelRRParser",parserRR);
+			var l_aStackMap = untyped parserStack.m_aList; 
+			assertEquals( l_aStackMap.length, 5 );
+
+			var ttl = 40000;
+
+			var self = this;
+			var func = function () {
+
+					// number of shapes imported
+					self.assertEquals( untyped Lambda.count( parserStack.m_oGroupMap ), 5 );
+
+					// check car geometry
+					var car : Geometry3D = untyped parserStack.getGroupByName("carParser").children[0].m_oGeometry;
+					self.assertEquals( car.aFacesVertexID.length, 724 );
+					self.assertEquals( car.aVertex.length, 364 );
+					self.assertEquals( car.aFacesNormals.length, 724 );
+					self.assertEquals( car.aUVCoords.length, 484 );
+
+					// check wheel geometry
+					var wheel : Geometry3D = untyped parserStack.getGroupByName("wheelLFParser").children[0].m_oGeometry;
+					self.assertEquals( wheel.aFacesVertexID.length, 60 );
+					self.assertEquals( wheel.aVertex.length, 32 );
+					self.assertEquals( wheel.aFacesNormals.length, 60 );
+					self.assertEquals( wheel.aUVCoords.length, 68 );
+			}
+
+			var cb = asyncResponder( func, ttl );
+
+			parserStack.addEventListener(ParserStack.COMPLETE, 
+							function (pEvt) {cb();} );
+			parserStack.start();
+
+	}
+
 }
 
+class TestASE extends TestCase {
+
+	/* A test matching example07 ASECar */
+	public function testASECar() {
+
+			var parser:IParser = Parser.create("../assets/models/ASE/car.ASE",Parser.ASE );
+			var parserLF:IParser = Parser.create("../assets/models/ASE/wheel_Front_L.ASE",Parser.ASE );
+			var parserRF:IParser = Parser.create("../assets/models/ASE/wheel_Front_R.ASE",Parser.ASE );
+			var parserLR:IParser = Parser.create("../assets/models/ASE/wheel_Rear_L.ASE",Parser.ASE );
+			var parserRR:IParser = Parser.create("../assets/models/ASE/wheel_Rear_R.ASE",Parser.ASE );
+
+			var parserStack:ParserStack = new ParserStack();
+			parserStack.add("carParser",parser);
+			parserStack.add("wheelLFParser",parserLF);
+			parserStack.add("wheelRFParser",parserRF);
+			parserStack.add("wheelLRParser",parserLR);
+			parserStack.add("wheelRRParser",parserRR);
+			var l_aStackMap = untyped parserStack.m_aList; 
+			assertEquals( l_aStackMap.length, 5 );
+
+			var ttl = 4000;
+
+			var self = this;
+			var func = function () {
+
+					// number of shapes imported
+					self.assertEquals( untyped Lambda.count( parserStack.m_oGroupMap ), 5 );
+
+					// check car geometry
+					var car : Geometry3D = untyped parserStack.getGroupByName("carParser").children[0].m_oGeometry;
+					self.assertEquals( car.aFacesVertexID.length, 724 );
+					self.assertEquals( car.aVertex.length, 364 );
+					self.assertEquals( car.aFacesNormals.length, 724 );
+					self.assertEquals( car.aUVCoords.length, 484 );
+
+					// check wheel geometry
+					var wheel : Geometry3D = untyped parserStack.getGroupByName("wheelLFParser").children[0].m_oGeometry;
+					self.assertEquals( wheel.aFacesVertexID.length, 60 );
+					self.assertEquals( wheel.aVertex.length, 32 );
+					self.assertEquals( wheel.aFacesNormals.length, 60 );
+					self.assertEquals( wheel.aUVCoords.length, 68 );
+			}
+
+			var cb = asyncResponder( func, ttl );
+
+			parserStack.addEventListener(ParserStack.COMPLETE, 
+							function (pEvt) {cb();} );
+			parserStack.start();
+
+	}
+
+}
+
+class TestMax extends TestCase {
+
+	/* A test matching example07 MaxCar */
+	public function testMaxCar() {
+
+			var parser:IParser = Parser.create("../assets/models/3DS/car.3DS", Parser.MAX_3DS );
+			var parserLF:IParser = Parser.create("../assets/models/3DS/wheel_Front_L.3DS", Parser.MAX_3DS );
+			var parserRF:IParser = Parser.create("../assets/models/3DS/wheel_Front_R.3DS", Parser.MAX_3DS );
+			var parserLR:IParser = Parser.create("../assets/models/3DS/wheel_Rear_L.3DS", Parser.MAX_3DS );
+			var parserRR:IParser = Parser.create("../assets/models/3DS/wheel_Rear_R.3DS", Parser.MAX_3DS );
+
+			var parserStack:ParserStack = new ParserStack();
+			parserStack.add("carParser",parser);
+			parserStack.add("wheelLFParser",parserLF);
+			parserStack.add("wheelRFParser",parserRF);
+			parserStack.add("wheelLRParser",parserLR);
+			parserStack.add("wheelRRParser",parserRR);
+			var l_aStackMap = untyped parserStack.m_aList; 
+			assertEquals( l_aStackMap.length, 5 );
+
+			var ttl = 4000;
+
+			var self = this;
+			var func = function () {
+
+					// number of shapes imported
+					self.assertEquals( untyped Lambda.count( parserStack.m_oGroupMap ), 5 );
+
+					// check car geometry
+					var car : Geometry3D = untyped parserStack.getGroupByName("carParser").children[0].m_oGeometry;
+					self.assertEquals( car.aFacesVertexID.length, 724 );
+					self.assertEquals( car.aVertex.length, 695 );
+					self.assertEquals( car.aFacesNormals.length, 724 );
+					self.assertEquals( car.aUVCoords.length, 695 );
+
+					// check wheel geometry
+					var wheel : Geometry3D = untyped parserStack.getGroupByName("wheelLFParser").children[0].m_oGeometry;
+					self.assertEquals( wheel.aFacesVertexID.length, 60 );
+					self.assertEquals( wheel.aVertex.length, 125 );
+					self.assertEquals( wheel.aFacesNormals.length, 60 );
+					self.assertEquals( wheel.aUVCoords.length, 125 );
+			}
+
+			var cb = asyncResponder( func, ttl );
+
+			parserStack.addEventListener(ParserStack.COMPLETE, 
+							function (pEvt) {cb();} );
+			parserStack.start();
+
+	}
+
+}
+
+class TestUtil extends TestCase {
+
+	/* Used frequently in the parser examples */
+	public function testLoaderQueue () {
+
+			var queue:LoaderQueue = new LoaderQueue();
+			queue.add( "carSkin", new URLRequest("../assets/textures/car.jpg") );
+			queue.add( "wheels", new URLRequest("../assets/textures/wheel.jpg") ); 
+			var ttl = 3000;
+			var self = this;
+			var func = function ( e:Event ) {
+
+					self.assertEquals( Lambda.count( queue.data ), 2 );
+
+					var l_oLoaderA : Loader = new Loader();
+					l_oLoaderA.contentLoaderInfo.addEventListener( Event.COMPLETE, function ( e:Event ) {
+									self.assertEquals( e.target.content.bitmapData.compare( untyped queue.data.get( "carSkin" ).bitmapData ), 0x00000000 );
+									} );
+					l_oLoaderA.load( new URLRequest( "../assets/textures/car.jpg" ) );
+
+					var l_oLoaderB : Loader = new Loader();
+					l_oLoaderB.contentLoaderInfo.addEventListener( Event.COMPLETE, function ( e:Event ) {
+									self.assertEquals( e.target.content.bitmapData.compare( untyped queue.data.get( "wheels" ).bitmapData ), 0x00000000 );
+									} );
+					l_oLoaderB.load( new URLRequest( "../assets/textures/wheel.jpg" ) );
+
+			};
+
+			var cb = asyncResponder( func, ttl );
+
+			queue.addEventListener(SandyEvent.QUEUE_COMPLETE, 
+							function (pEvt) {cb();} );
+			queue.start();
+
+	}
+
+}
