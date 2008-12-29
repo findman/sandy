@@ -19,7 +19,6 @@ package sandy.parser;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.utils.Dictionary;
 
 import sandy.core.scenegraph.Group;
 import sandy.parser.AParser;
@@ -41,7 +40,6 @@ class ParserStack extends EventDispatcher
 	public static var COMPLETE:String = "parserstack_complete";
 	
 	private var m_oMap:Hash<IParser>;
-	private var m_oNameMap:Dictionary;
 	private var m_oGroupMap:Hash<Group>;
 	private var m_oParser:AParser;
 	private var m_nId:Int;
@@ -50,7 +48,6 @@ class ParserStack extends EventDispatcher
 	public function new()
 	{
 	 m_oMap = new Hash<IParser>();
-	 m_oNameMap = new Dictionary(true);
 	 m_oGroupMap = new Hash<Group>();
 		m_nId = 0;
 	 m_aList = new Array();
@@ -94,7 +91,7 @@ class ParserStack extends EventDispatcher
 	{
 		m_aList.push( p_oParser );
 		m_oMap.set( p_sName, p_oParser );
-		untyped { m_oNameMap[p_oParser] = p_sName; }
+		p_oParser.m_sName = p_sName;
 	}
 	
 	/**
@@ -110,7 +107,7 @@ class ParserStack extends EventDispatcher
 	{
 		if( m_aList.length == m_nId )
 		{
-			m_oGroupMap.set( untyped( m_oNameMap[ m_oParser ] ), pEvt.group ); 
+			m_oGroupMap.set( m_oParser.m_sName, pEvt.group ); 
 			m_oParser.removeEventListener( ParserEvent.PROGRESS, onProgress );
 			m_oParser.removeEventListener( ParserEvent.FAIL, onFail );
 			m_oParser.removeEventListener( ParserEvent.INIT, goNext );//END
@@ -121,7 +118,7 @@ class ParserStack extends EventDispatcher
 		{
 			if( m_oParser != null )
 			{
-				m_oGroupMap.set( untyped( m_oNameMap[ m_oParser ] ), pEvt.group ); 
+				m_oGroupMap.set( m_oParser.m_sName, pEvt.group ); 
 				m_oParser.removeEventListener( ParserEvent.PROGRESS, onProgress );
 				m_oParser.removeEventListener( ParserEvent.FAIL, onFail );
 				m_oParser.removeEventListener( ParserEvent.INIT, goNext );

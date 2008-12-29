@@ -17,29 +17,6 @@ limitations under the License.
 package sandy.parser;
 
 import flash.events.Event;
-#if !js
-import flash.events.EventDispatcher;
-import flash.events.EventPhase;
-import flash.events.FocusEvent;
-import flash.events.FullScreenEvent;
-import flash.events.HTTPStatusEvent;
-import flash.events.IEventDispatcher;
-import flash.events.IMEEvent;
-import flash.events.IOErrorEvent;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.events.NetFilterEvent;
-import flash.events.NetStatusEvent;
-import flash.events.ProgressEvent;
-import flash.events.SecurityErrorEvent;
-import flash.events.ShaderEvent;
-import flash.events.StatusEvent;
-import flash.events.SyncEvent;
-import flash.events.TextEvent;
-import flash.events.TimerEvent;
-import flash.events.WeakFunctionClosure;
-import flash.events.WeakMethodClosure;
-#end
 import flash.net.URLLoaderDataFormat;
 import flash.utils.ByteArray;
 import flash.utils.Endian;

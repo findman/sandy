@@ -32,6 +32,9 @@ import sandy.materials.Appearance;
 	*/
 interface IParser
 {
+		/* Identifies this parser in a ParserStack */
+		public var m_sName:String;
+
 		/**
 			* This method starts the parsing process.
 			*/
@@ -45,12 +48,5 @@ interface IParser
 		public var standardAppearance( null, __setStandardAppearance ):Appearance;
 		private function __setStandardAppearance( p_oAppearance:Appearance ):Appearance;
 
-		/*
-	//function addEventListener(type : String, listener : Dynamic -> Void, ?useCapture : Bool, ?priority : Int, ?useWeakReference : Bool) : Void;
-	function dispatchEvent(event : Event) : Bool;
-	function hasEventListener(type : String) : Bool;
-	function removeEventListener(type : String, listener : Dynamic -> Void, ?useCapture : Bool) : Void;
-	function willTrigger(type : String) : Bool;
-	*/
 }
 

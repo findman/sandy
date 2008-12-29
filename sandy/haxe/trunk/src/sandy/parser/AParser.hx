@@ -55,7 +55,6 @@ import flash.events.ProgressEvent;
  */
 class AParser extends EventDispatcher, implements IParser
 {
-	//private static var m_eProgress:ParserEvent = new ParserEvent( ParserEvent.PROGRESS );
 	private var m_oLoader:URLLoader;
 	private var m_oGroup:Group;
 	private var m_oFile:Dynamic;
@@ -65,6 +64,7 @@ class AParser extends EventDispatcher, implements IParser
 	private var m_oStandardAppearance : Appearance;
 
 	private var m_sUrl:String;
+	public var m_sName:String;
 
 	/**
 	 * Creates a parser object. Creates a root Group, default appearance
