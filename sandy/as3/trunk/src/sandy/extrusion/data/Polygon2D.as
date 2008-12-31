@@ -301,7 +301,7 @@
 			// convert to Polygon2D format
 			var ix:Array = topHull.concat (bottomHull);
 			var vs:Array = [];
-			for (i = 0; i < ix.length; i++)
+			for (i = 0; i < ix.length -1; i++)
 				vs.push (pointsHolder [ix [i]]);
 
 			return new Polygon2D (vs);
