@@ -243,4 +243,93 @@ class Polygon2D
 		}
 		return new Rectangle (xmin, ymin, xmax - xmin, ymax - ymin);
 	}
+
+		/**
+		 * Convex hull.
+		 */
+		public function convexHull ():Polygon2D
+		{
+			// code derived from http://notejot.com/2008/11/convex-hull-in-2d-andrews-algorithm/
+			var pointsHolder:Array<Point> = vertices.slice (0);
+			var topHull:Array<Int> = [];
+			var bottomHull:Array<Int> = [];
+			var i:Int;
+
+			// triangles are always convex
+                        if (pointsHolder.length < 4)
+				return new Polygon2D (pointsHolder);
+
+			// lexicographic sort
+			untyped pointsHolder.sortOn (["x", "y"], Array.NUMERIC);
+
+			// compute top part of hull
+			topHull.push (0);
+			topHull.push (1);				
+ 
+			for (i in 2 ... pointsHolder.length) {
+				if(towardsLeft(pointsHolder[topHull[topHull.length - 2]], 
+				pointsHolder[topHull[topHull.length - 1]], pointsHolder[i])) {
+					topHull.pop ();
+
+					while (topHull.length >= 2) {
+						if(towardsLeft(pointsHolder[topHull[topHull.length - 2]], 
+						pointsHolder[topHull[topHull.length - 1]], pointsHolder[i])) {
+							topHull.pop ();
+						} else {
+							topHull.push (i);
+							break;
+						}
+					}
+					if (topHull.length == 1)
+						topHull.push (i);
+				} else {
+					topHull.push (i);
+				}
+			}
+
+			// compute bottom part of hull
+			bottomHull.push (0);
+			bottomHull.push (1);				
+ 
+			for (i in 2 ... pointsHolder.length) {
+
+				if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]], 
+				pointsHolder[bottomHull[bottomHull.length - 1]], pointsHolder[i])) {
+					bottomHull.pop ();
+
+					while (bottomHull.length >= 2) {
+						if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]], 
+						pointsHolder[bottomHull[bottomHull.length - 1]], pointsHolder[i])) {
+							bottomHull.pop ();
+						} else {
+							bottomHull.push (i);
+							break;
+						}
+					}
+					if (bottomHull.length == 1)
+						bottomHull.push (i);
+				} else {
+					bottomHull.push (i);
+				}
+			}
+
+			bottomHull.reverse ();
+			bottomHull.shift ();
+
+			// convert to Polygon2D format
+			var ix:Array <Int> = topHull.concat (bottomHull);
+			var vs:Array <Point> = [];
+			for (i in 0 ... ix.length -1)
+				vs.push (pointsHolder [ix [i]]);
+
+			return new Polygon2D (vs);
+		}
+
+		/**
+		 * Used by convexHull() code.
+		 */
+		private function towardsLeft (origin:Point, p1:Point, p2:Point):Bool {
+			// funny thing is that convexHull() works regardless if either < or > is used here
+			return (new Polygon2D ([origin, p1, p2]).area () < 0);
+		}
 }
