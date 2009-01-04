@@ -34,10 +34,7 @@ class TestAll {
 
 				var r = new hxunit.Runner();
 				TestParsers.add(r);
-#if development
-				// personal sandbox - provided on request, but not really useful
-				TestSandbox.add(r);
-#end
+				TestExtrusion.add(r);
 				r.run();
 		}
 }
