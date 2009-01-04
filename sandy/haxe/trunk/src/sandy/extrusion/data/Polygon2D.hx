@@ -260,7 +260,11 @@ class Polygon2D
 				return new Polygon2D (pointsHolder);
 
 			// lexicographic sort
+#if flash
 			untyped pointsHolder.sortOn (["x", "y"], Array.NUMERIC);
+#else
+			pointsHolder.sort( function(a,b) {return ( a.x>b.x || ( a.x==b.x && a.y>b.y ) ) ? 1: ( a.x<b.x || ( a.x==b.x && a.y<b.y ) ) ? -1 : 0;} );
+#end
 
 			// compute top part of hull
 			topHull.push (0);
