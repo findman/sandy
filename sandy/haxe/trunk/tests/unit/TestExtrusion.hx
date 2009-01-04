@@ -42,7 +42,7 @@ class TestPolygon2D extends TestCase {
     var sectionElm:Polygon2D = new Polygon2D(arrayElm);
     var l_oPoly:Polygon2D = sectionElm.convexHull();
     var l_aCheck:Array<Point> = [ new Point(0,-10), new Point(0, -10), new Point(10, -10), new Point(30, 0), new Point(30, 10), new Point(0, 10) ];
-    for ( i in 0...(l_aCheck.length-1) ) {
+    for ( i in 0...l_aCheck.length ) {
       assertEquals( l_oPoly.vertices[i].x, l_aCheck[i].x );
       assertEquals( l_oPoly.vertices[i].y, l_aCheck[i].y );
     }
