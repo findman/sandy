@@ -54,6 +54,7 @@ class Cone extends Cylinder, implements Primitive3D
 	public function new(p_sName : String = null, p_nRadius:Float = 100.0, p_nHeight:Float = 100.0, p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6)
 	{
 		super(p_sName, p_nRadius, p_nHeight, p_nSegmentsW, p_nSegmentsH, 0 );
+		setConvexFlag (true);
 	}
 
 	/**

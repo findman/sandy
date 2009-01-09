@@ -90,6 +90,7 @@ class Sphere extends Shape3D, implements Primitive3D
 	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6 )
 	{
 		super( p_sName );
+		setConvexFlag (true);
 		// --
 		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
 		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 

@@ -108,6 +108,7 @@ class Box extends Shape3D, implements Primitive3D
 	public function new ( p_sName:String = null, p_nWidth:Int=6, p_nHeight:Int = 6, p_nDepth:Int = 6, p_nQuality:Int = 1)
 	{
 		super ( p_sName );
+		setConvexFlag (true);
 		//
 		_h = p_nHeight;
 		_lg = p_nDepth;

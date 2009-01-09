@@ -140,6 +140,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 m_aVisiblePoly = new Array();	
 	 m_bMouseInteractivity = false;
 	 m_bForcedSingleContainer = false;
+	 m_bNotConvex = true;
 
 	 invModelMatrix = new Matrix4 ();
 
@@ -451,11 +452,14 @@ class Shape3D extends ATransformable, implements IDisplayable
 	 */
 	public function display(  p_oScene:Scene3D, ?p_oContainer:Sprite  ):Void
 	{
+		if (m_bNotConvex) {
+		// sort only if convex flag is not set
 #if flash
 		untyped m_aVisiblePoly.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
 #else
 		m_aVisiblePoly.sort( function(a,b) {return a.depth>b.depth?1:a.depth<b.depth?-1:0;} );
 #end
+		}
 
 		for ( l_oPoly in m_aVisiblePoly )
 		{
@@ -858,6 +862,15 @@ class Shape3D extends ATransformable, implements IDisplayable
 		return "sandy.core.scenegraph.Shape3D" + " " +  m_oGeometry.toString();
 	}
 
+	/**
+	 * Sets internal convex flag. Set this to true if you know that this shape is convex.
+	 * @internal this is implemented as simple write-only flag to avoid any computation costs whatsoever.
+	 */
+	public function setConvexFlag (convex:Bool):Void
+	{
+		m_bNotConvex = !convex;
+	}
+
 	///////////////////
 	///// PRIVATE /////
 	///////////////////
@@ -915,5 +928,6 @@ class Shape3D extends ATransformable, implements IDisplayable
 	
 	private var m_bMouseInteractivity:Bool;
 	private var m_bForcedSingleContainer:Bool;
+	private var m_bNotConvex:Bool;
 }
 

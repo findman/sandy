@@ -82,6 +82,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
 
 		super( p_sName ) ;
+		setConvexFlag (true);
 		_h = p_nHeight;
 		_lg = p_nWidth;
 		_qV = p_nQualityV;

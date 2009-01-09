@@ -55,6 +55,7 @@ class Hedra extends Shape3D, implements Primitive3D
 	public function new ( p_sName:String=null, p_nHeight : Float = 100.0, p_nWidth : Float = 100.0, p_nDepth : Float = 100.0 )
 	{
 		super (p_sName);
+		setConvexFlag (true);
 		_radius = p_nDepth;
 		_h = p_nHeight;
 		_lg = p_nWidth;

@@ -57,6 +57,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 	public function new ( p_sName:String=null, p_nRadius : Float = 100.0, p_nFractures : Int = 2)
 	{
 			super (p_sName);
+			setConvexFlag (true);
 
 			radius_in = p_nRadius;
 			fractures_in = Std.int(Math.max (2, p_nFractures));
