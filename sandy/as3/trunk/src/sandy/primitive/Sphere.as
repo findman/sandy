@@ -90,6 +90,7 @@ package sandy.primitive
 		function Sphere( p_sName:String=null , p_nRadius:Number=100, p_nSegmentsW:Number=8, p_nSegmentsH:Number=6 )
 		{
 			super( p_sName );
+			setConvexFlag (true);
 			// --
 			this.segmentsW = Math.max( MIN_SEGMENTSW, p_nSegmentsW || DEFAULT_SEGMENTSW); // Defaults to 8
 			this.segmentsH = Math.max( MIN_SEGMENTSH, p_nSegmentsH || DEFAULT_SEGMENTSH); // Defaults to 6

@@ -55,6 +55,7 @@ package sandy.primitive
 		public function Hedra ( p_sName:String=null, p_nHeight : Number = 100, p_nWidth : Number = 100, p_nDepth : Number = 100 )
 		{
 			super (p_sName);
+			setConvexFlag (true);
 			_radius = (p_nDepth)?p_nDepth:100;
 			_h = (p_nHeight)?p_nHeight:100 ;
 			_lg = (p_nWidth)?p_nWidth:100;

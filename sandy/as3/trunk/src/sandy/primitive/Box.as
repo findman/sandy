@@ -114,6 +114,7 @@ package sandy.primitive
 		public function Box ( p_sName:String = null, p_nWidth:Number=6, p_nHeight:Number = 6, p_nDepth:Number = 6, p_sMode:String = "tri", p_nQuality:Number=1)
 		{
 			super ( p_sName );
+			setConvexFlag (true);
 			//
 			_h = p_nHeight;
 			_lg = p_nDepth;

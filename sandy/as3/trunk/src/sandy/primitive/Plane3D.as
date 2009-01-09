@@ -82,6 +82,7 @@ package sandy.primitive
 								p_nQualityV:uint=1, p_sType:String=Plane3D.XY_ALIGNED, p_sMode:String=null )
 		{
 			super( p_sName ) ;
+			setConvexFlag (true);
 			_h = p_nHeight;
 			_lg = p_nWidth;
 			_qV = p_nQualityV;

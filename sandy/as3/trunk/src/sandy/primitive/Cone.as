@@ -52,6 +52,7 @@ package sandy.primitive
 		public function Cone(p_sName : String = null, p_nRadius:Number=100, p_nHeight:Number=100, p_nSegmentsW:Number=8, p_nSegmentsH:Number=6)
 		{
 			super(p_sName, p_nRadius, p_nHeight, p_nSegmentsW, p_nSegmentsH, 0 );
+			setConvexFlag (true);
 		}
 
 		/**

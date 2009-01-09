@@ -57,6 +57,7 @@ package sandy.primitive
 		public function GeodesicSphere ( p_sName:String=null, p_nRadius : Number = 100, p_nFractures : Number = 2)
         {
             super (p_sName);
+		setConvexFlag (true);
 
 			radius_in = p_nRadius;
             fractures_in = Math.max (2, p_nFractures);
