@@ -1,6 +1,6 @@
 ﻿/*
 # ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
+Copyright to Thomas PFEIFFER (thomas.pfeiffer AT gmail DOT com) author of the Sandy3D library
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -85,6 +85,8 @@ package sandy.core.scenegraph
 			// --
 			m_tmpMt = new Matrix4();
 			m_oMatrix = new Matrix4();
+			// --
+			changed = true;
 		}
 		
 		/**
@@ -98,6 +100,7 @@ package sandy.core.scenegraph
 			_vUp 	= new Point3D( 0, 1 ,0 );
 			_vOut 	= new Point3D( 0, 0, 1 );
 			_vRotation = new Point3D(0,0,0);
+			changed = true;
 		}
 
 		public function get matrix():Matrix4
@@ -128,6 +131,8 @@ package sandy.core.scenegraph
 		    _p.x = p_oMatrix.n14;
 		    _p.y = p_oMatrix.n24;
 		    _p.z = p_oMatrix.n34;
+		    // --
+		    changed = true;
 		}
 		
 
