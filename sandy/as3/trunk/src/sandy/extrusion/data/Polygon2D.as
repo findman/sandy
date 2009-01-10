@@ -1,4 +1,4 @@
-﻿package sandy.extrusion.data
+package sandy.extrusion.data
 {
 	import flash.geom.Matrix;
 	import flash.geom.Point;
