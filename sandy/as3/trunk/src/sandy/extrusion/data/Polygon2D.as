@@ -232,10 +232,22 @@ package sandy.extrusion.data
 		public function convexHull ():Polygon2D
 		{
 			// code derived from http://notejot.com/2008/11/convex-hull-in-2d-andrews-algorithm/
-			var pointsHolder:Array = vertices.slice ();
+			var pointsHolder:Array = [];//vertices.slice ();
+
+			// need to filter out duplicates 1st
+			var i:int, j:int;
+			for (i = 0; i < vertices.length; i++) {
+				var d:Number = 1;
+				for (j = 0; (d > 0) && (j < pointsHolder.length); j++) {
+					d *= Point.distance (vertices [i], pointsHolder [j]);
+				}
+				if (d > 0) {
+					pointsHolder.push (vertices [i]);
+				}
+			}
+
 			var topHull:Array = [];
 			var bottomHull:Array = [];
-			var i:int;
 
 			// triangles are always convex
                         if (pointsHolder.length < 4)
