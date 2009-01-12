@@ -111,10 +111,11 @@ class Group extends Node
 		
 		for ( l_oNode in children )
 		{
-			if( Std.is(l_oNode, Shape3D) || Std.is(l_oNode, Group) || Std.is(l_oNode, TransformGroup) )
-			{
-				l_oGroup.addChild( Reflect.callMethod( l_oNode, 'clone',  [p_sName+"_"+l_oNode.name] ) );
-			} 
+		    if( Reflect.isFunction( Reflect.field( l_oNode, 'clone' ) ) )
+		    {
+			var l_oTmp : Dynamic = l_oNode;
+			l_oGroup.addChild( l_oTmp.clone(p_sName+"_"+l_oNode.name) );
+		    } 
 		}
 		
 		return l_oGroup;
