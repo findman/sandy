@@ -35,6 +35,7 @@ class TestAll {
 				var r = new hxunit.Runner();
 				TestParsers.add(r);
 				TestExtrusion.add(r);
+				TestCore.add(r);
 				r.run();
 		}
 }
