@@ -620,7 +620,13 @@ class Polygon implements IDisplayable
 	
 	private function _onTextureInteraction( ?p_oEvt:Event ) : Void
 	{
-		if ( p_oEvt == null || !(Std.is(p_oEvt, MouseEvent)) ) p_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
+		var l_bIsMouseEvent : Bool = switch ( Type.typeof( p_oEvt ) ) {
+			case TClass( MouseEvent ):
+				true;
+			default:
+				false;
+		}
+		if ( p_oEvt == null || !l_bIsMouseEvent ) p_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
 		
 	    //	get the position of the mouse on the poly
 		var pt2D : Point = new Point( scene.container.mouseX, scene.container.mouseY );

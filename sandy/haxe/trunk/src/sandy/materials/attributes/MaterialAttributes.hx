@@ -24,6 +24,8 @@ import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
+import Type;
+
 /**
  * The MaterialAttributes class is used to apply one or more attributes to a Shape3D object.
  * 
@@ -49,9 +51,11 @@ class MaterialAttributes
 
 		for( attr in args )
 		{
-			if( Std.is( attr, IAttributes ) )
-			{
-					attributes.push( untyped attr );
+			switch ( Type.typeof( attr ) ) {
+				case TClass( IAttributes ):
+					attributes.push( cast attr );
+				default:
+					// --
 			}
 		}
 	}

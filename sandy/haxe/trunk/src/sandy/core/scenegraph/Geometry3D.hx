@@ -21,6 +21,7 @@ import sandy.core.data.UVCoord;
 import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 
+import Type;
 
 /**
  * 	The Geometry3D class holds a complete description of the geometry of a Shape3D.
@@ -217,7 +218,7 @@ class Geometry3D
 	 * @param...rest 	An array of data containing the ID's of the vertex list for the face
 	 * @return 		The next free index or -1 it the index is already occupied
 	 */
-	public function setFaceVertexIds( p_nFaceID:Int, ?arguments:Dynamic ):Int
+	public function setFaceVertexIds( p_nFaceID:Int, ?arguments:Array<Int> ):Int
 	{
 		if (arguments == null) arguments = [];
 
@@ -227,7 +228,8 @@ class Geometry3D
 		}
 		else
 		{
-			var rest:Array<Int> = Std.is(arguments[0], Array )? arguments[0]: arguments.splice(0,arguments.length);
+			var rest:Array<Int> = arguments;
+
 			aFacesVertexID[p_nFaceID] = rest;
 			
 			// Time to check if edges allready exist or if we shall create them
@@ -292,7 +294,7 @@ class Geometry3D
 	 * @param ...rest 	An array of data containing the ID's of the UV coords list for the face
 	 * @return 		The next free index or -1 it the index is already occupied
 	 */
-	public function setFaceUVCoordsIds( p_nFaceID:Int, ?arguments:Dynamic ):Int
+	public function setFaceUVCoordsIds( p_nFaceID:Int, ?arguments:Array<Int> ):Int
 	{
 		if (arguments == null) arguments = [];
 
@@ -302,8 +304,7 @@ class Geometry3D
 		}
 		else
 		{
-			var rest:Array<Int> = Std.is(arguments[0], Array)? arguments[0]: arguments.splice(0,arguments.length);
-			aFacesUVCoordsID[p_nFaceID] = rest;
+			aFacesUVCoordsID[p_nFaceID] = arguments;
 			return ++m_nLastFaceUVId - 1; 
 		}
 	}

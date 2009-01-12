@@ -151,10 +151,10 @@ class Sphere extends Shape3D, implements Primitive3D
 					// select vertices
 					var bEnd:Bool = i==(iHorNum-0);
 					// --
-					var l_nP1:Float = aVtc[j][bEnd?0:i];
-					var l_nP2:Float = aVtc[j][(i==0?iHorNum:i)-1];
-					var l_nP3:Float = aVtc[j-1][(i==0?iHorNum:i)-1];
-					var l_nP4:Float = aVtc[j-1][bEnd?0:i];
+					var l_nP1:Int = aVtc[j][bEnd?0:i];
+					var l_nP2:Int = aVtc[j][(i==0?iHorNum:i)-1];
+					var l_nP3:Int = aVtc[j-1][(i==0?iHorNum:i)-1];
+					var l_nP4:Int = aVtc[j-1][bEnd?0:i];
 					// uv
 					var fJ0:Float = j		/ (iVerNum-1);
 					var fJ1:Float = (j-1)	/ (iVerNum-1);

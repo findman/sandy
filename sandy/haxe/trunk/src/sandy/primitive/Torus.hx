@@ -162,10 +162,10 @@ class Torus extends Shape3D, implements Primitive3D
 				var vn3:Array<Vector> = torusVertex(a1a, r1, a2b, r2);
 
 				// -- vertices
-				var l_nP0:Float = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn0[0].x, vn0[0].y, vn0[0].z);
-				var l_nP1:Float = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn1[0].x, vn1[0].y, vn1[0].z);
-				var l_nP2:Float = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn2[0].x, vn2[0].y, vn2[0].z);
-				var l_nP3:Float = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn3[0].x, vn3[0].y, vn3[0].z);
+				var l_nP0:Int = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn0[0].x, vn0[0].y, vn0[0].z);
+				var l_nP1:Int = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn1[0].x, vn1[0].y, vn1[0].z);
+				var l_nP2:Int = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn2[0].x, vn2[0].y, vn2[0].z);
+				var l_nP3:Int = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn3[0].x, vn3[0].y, vn3[0].z);
 
 				// -- normals
 				var l_nN0:Float = l_oGeometry.setVertexNormal( l_oGeometry.getNextVertexNormalID(), vn0[1].x, vn0[1].y, vn0[1].z);
@@ -179,10 +179,10 @@ class Torus extends Shape3D, implements Primitive3D
 				var uy0:Float = (s2	/ steps2);
 				var uy1:Float = ((s2+1)/ steps2);
 
-				var l_nUV0:Float = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux1, uy0);
-				var l_nUV1:Float = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux0, uy0);
-				var l_nUV2:Float = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux0, uy1);
-				var l_nUV3:Float = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux1, uy1);
+				var l_nUV0:Int = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux1, uy0);
+				var l_nUV1:Int = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux0, uy0);
+				var l_nUV2:Int = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux0, uy1);
+				var l_nUV3:Int = l_oGeometry.setUVCoords( l_oGeometry.getNextUVCoordID(), 1-ux1, uy1);
 
 				// -- faces
 				var l_nF0:Int = l_oGeometry.setFaceVertexIds( l_oGeometry.getNextFaceID(), [l_nP0, l_nP2, l_nP1] );

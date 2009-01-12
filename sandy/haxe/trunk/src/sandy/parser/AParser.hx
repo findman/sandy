@@ -42,6 +42,8 @@ import sandy.materials.attributes.PhongAttributesLightMap;
 import sandy.materials.attributes.VertexNormalAttributes;
 import flash.events.ProgressEvent;
 
+import Type;
+
 /**
  * ABSTRACT CLASS - super class for all parser objects.
  *
@@ -139,13 +141,13 @@ class AParser extends EventDispatcher, implements IParser
 		dispatchEvent( event );
 	}
 	
-    /**
-     * Load the file that needs to be parsed. When done, call the parseData method.
-     */
-    public function parse():Void
+	/**
+	 * Load the file that needs to be parsed. When done, call the parseData method.
+	 */
+	public function parse():Void
 	{
-		if( Std.is( m_sUrl, String ) )
-		{
+		switch ( Type.typeof( m_sUrl ) ) {
+			case TClass( String ):
 			// Construction d'un objet URLRequest qui encapsule le chemin d'acces
 			var urlRequest:URLRequest = new URLRequest( m_sUrl );
 			// Ecoute de l'evennement COMPLETE
@@ -155,11 +157,9 @@ class AParser extends EventDispatcher, implements IParser
 			// Lancer le chargement
 			m_oFileLoader.dataFormat = m_sDataFormat;
 			m_oFileLoader.load(urlRequest);
-		}
-		else
-		{
+		default:
 			parseData();
-		}
+	  }
 	}
 }
 

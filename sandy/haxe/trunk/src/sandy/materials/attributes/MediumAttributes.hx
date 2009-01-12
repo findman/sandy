@@ -227,7 +227,13 @@ class MediumAttributes extends AAttributes
         var i:Int = p_oDisplayObject.filters.length -1;
 		while (i > -1)
 		{
-			if (!changed && Std.is(p_oDisplayObject.filters[i], BlurFilter) && (p_oDisplayObject.filters[i].quality == 1))
+			var l_bIsBlurFilter : Bool = switch ( Type.typeof( p_oDisplayObject.filters[i] ) ) {
+				case TClass( BlurFilter ):
+					true;
+				default:
+					false;
+			}
+			if (!changed && l_bIsBlurFilter && (p_oDisplayObject.filters[i].quality == 1))
 			{
 				var bf:BlurFilter = p_oDisplayObject.filters[i];
 

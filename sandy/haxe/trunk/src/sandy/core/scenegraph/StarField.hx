@@ -210,7 +210,7 @@ class StarField extends ATransformable, implements IDisplayable
 					c32 = (i < starColors.length) ? starColors [i] : 0xFFFFFFFF;
 					a = Std.int(c32 / 0x1000000 * (1 - r)); c = c32 & 0xFFFFFF;
 					p_oCamera.projectVertex (_v);
-					if ((i < starSprites.length /* avoid array access */) && (Std.is( starSprites [i], IBitmapDrawable)))
+					if ((i < starSprites.length /* avoid array access */) )
 					{
 						_vx.copy (_v); _vx.wx++; p_oCamera.projectVertex (_vx);
 						_vy.copy (_v); _vy.wy++; p_oCamera.projectVertex (_vy);
@@ -238,13 +238,11 @@ class StarField extends ATransformable, implements IDisplayable
 						m_oColorTransform.alphaMultiplier = a / 255.0;
 
 						var star : IBitmapDrawable = starSprites [i];
-						if ( Std.is( star, DisplayObject ) )
-						{
-							m_sBlendMode = untyped star.blendMode;
-						}
-						else
-						{
-							m_sBlendMode = BlendMode.NORMAL;
+						switch ( Type.typeof( star ) ) {
+							case TClass( DisplayObject ):
+								m_sBlendMode = untyped star.blendMode;
+							default:
+								m_sBlendMode = BlendMode.NORMAL;
 						}
 
 						//suggest the following to makc:

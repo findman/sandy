@@ -18,6 +18,8 @@ package sandy.events;
 
 import flash.events.Event;
 
+import Type;
+
 /**
  * BubbleEventBroadcaster defines a custom event broadcaster to work with.
  *
@@ -79,18 +81,16 @@ class BubbleEventBroadcaster extends EventBroadcaster
 	 */
 	public override function broadcastEvent(e:Event):Void
 	{
-		if (Std.is(e, BubbleEvent))
-		{
-			super.broadcastEvent(e);
+		switch ( Type.typeof( e ) ) {
+			case TClass( BubbleEvent ):
+				super.broadcastEvent(e);
 
-			if (parent != null)
-			{
-				parent.broadcastEvent(e);
-			}
-		}
-		else
-		{
-			parent.broadcastEvent(e); // used for regular event dispatching
+				if (parent != null)
+				{
+					parent.broadcastEvent(e);
+				}
+			default:
+				parent.broadcastEvent(e); // used for regular event dispatching
 		}
 	}
 

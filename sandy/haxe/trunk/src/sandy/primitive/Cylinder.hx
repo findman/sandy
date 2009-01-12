@@ -208,7 +208,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 
 		var iVerNum:Int = aVtc.length;
 
-		var aP4uv:Float, aP1uv:Float, aP2uv:Float, aP3uv:Float;
+		var aP4uv:Int, aP1uv:Int, aP2uv:Int, aP3uv:Int;
 		var aP1:Int, aP2:Int, aP3:Int, aP4:Int;
 		var l_oP1:Vertex, l_oP2:Vertex, l_oP3:Vertex;
 		// --

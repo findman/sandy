@@ -255,7 +255,7 @@ class ColladaParser extends AParser, implements IParser
 		// -- rotate
 		if( Lambda.count( p_oNode.nodes.rotate ) == 1 )
 		{
-			var l_oRotations : Array<Float> = stringToArray( p_oNode.node.rotate.innerData );
+			var l_oRotations : Array<Int> = stringToArray( p_oNode.node.rotate.innerData );
 			
 			switch (m_oUp)
 			{
@@ -275,7 +275,7 @@ class ColladaParser extends AParser, implements IParser
 			var l_oRotateNodes : List<Fast> = p_oNode.nodes.rotate;
 			for( l_oN in l_oRotateNodes )
 			{
-				var l_oRot : Array<Float> = stringToArray( l_oN.innerData );
+				var l_oRot : Array<Int> = stringToArray( l_oN.innerData );
 
 				switch( l_oN.att.sid.toLowerCase() )
 				{
@@ -381,7 +381,7 @@ class ColladaParser extends AParser, implements IParser
 		// -- triangles
 		var l_oTriangles : haxe.xml.Fast = l_oGeometry.node.mesh.node.triangles;
 		if( l_oTriangles == null ) return null;
-		var l_aTriangles : Array<Float> = stringToArray( l_oTriangles.node.p.innerData );
+		var l_aTriangles : Array<Int> = stringToArray( l_oTriangles.node.p.innerData );
 		var l_sMaterial : String = l_oTriangles.att.material;
 		var l_nCount : Int = Std.parseInt( l_oTriangles.att.count );
 		var l_nStep : Int = Lambda.count( l_oTriangles.nodes.input );
@@ -479,14 +479,14 @@ class ColladaParser extends AParser, implements IParser
 		}
 		
 		
-		var l_aTrianglez:Array<Hash<Array<Float>>> = convertTriangleArray( l_oTriangles.nodes.input, l_aTriangles, l_nCount );
+		var l_aTrianglez:Array<Hash<Array<Int>>> = convertTriangleArray( l_oTriangles.nodes.input, l_aTriangles, l_nCount );
 		var l_nTriangeLength : Int = l_aTrianglez.length;
 
 		for( i in 0...l_nTriangeLength )
 		{
-			var l_aVertex : Array<Float> = l_aTrianglez[ i ].get( 'VERTEX' );
-			var l_aNormals : Array<Float> = l_aTrianglez[ i ].get( 'NORMAL' );
-			var l_aUVs : Array<Float> = l_aTrianglez[ i ].get( 'TEXCOORD' );
+			var l_aVertex : Array<Int> = l_aTrianglez[ i ].get( 'VERTEX' );
+			var l_aNormals : Array<Int> = l_aTrianglez[ i ].get( 'NORMAL' );
+			var l_aUVs : Array<Int> = l_aTrianglez[ i ].get( 'TEXCOORD' );
 
 				l_oOutpGeom.setFaceVertexIds( i, [l_aVertex[ 0 ], l_aVertex[ 1 ], l_aVertex[ 2 ]] );
 				if( l_aUVs != null ) l_oOutpGeom.setFaceUVCoordsIds( i, [l_aUVs[ 0 ], l_aUVs[ 1 ], l_aUVs[ 2 ]] );
@@ -538,10 +538,10 @@ class ColladaParser extends AParser, implements IParser
 		return l_aOutput;
 	}
 
-	private function convertTriangleArray( p_oInput : List<Fast>, p_aTriangles : Array<Float>, p_nTriangleCount : Int ) : Array<Hash<Array<Float>>>
+	private function convertTriangleArray( p_oInput : List<Fast>, p_aTriangles : Array<Int>, p_nTriangleCount : Int ) : Array<Hash<Array<Int>>>
 	{
 		var l_nTriangles : Int = p_aTriangles.length;
-		var l_aOutput : Array<Hash<Array<Float>>> = new Array();
+		var l_aOutput : Array<Hash<Array<Int>>> = new Array();
 		var l_nValuesPerTriangle : Int = Std.int( l_nTriangles / p_nTriangleCount );
 		var l_nMaxOffset : Int = 0;
 
@@ -555,7 +555,7 @@ class ColladaParser extends AParser, implements IParser
 		// -- iterate through all triangles
 		for( i in 0...p_nTriangleCount )
 		{
-			var semantic : Hash<Array<Float>> = new Hash();
+			var semantic : Hash<Array<Int>> = new Hash();
 
 			for( j in 0...l_nValuesPerTriangle )
 			{
@@ -580,15 +580,15 @@ class ColladaParser extends AParser, implements IParser
 		return l_aOutput;
 	}
 
-	private function stringToArray( p_sValues : String ) : Array<Float>
+	private function stringToArray( p_sValues : String ) : Array<Int>
 	{
 		//var l_aValues : Array = p_sValues.split(/\s+/);
 		var l_aValues : Array<String> = p_sValues.split(" ");
-		var l_nValues : Array<Float> = new Array();
+		var l_nValues : Array<Int> = new Array();
 
 		for( l_oV in l_aValues )
 		{
-			l_nValues.push( Std.parseFloat( l_oV ) );
+			l_nValues.push( Std.parseInt( l_oV ) );
 		}
 
 		return l_nValues;
@@ -788,7 +788,7 @@ class ColladaParser extends AParser, implements IParser
 			else if( l_aPhong.length > 0 )
 			{
 				// -- get the ambient color
-				var l_aColors : Array<Float> = stringToArray( l_aPhong[0].node.ambient.node.color.innerData );
+				var l_aColors : Array<Int> = stringToArray( l_aPhong[0].node.ambient.node.color.innerData );
 				var l_nColor : Int;
 
 				var r : Int = Std.int( NumberUtil.constrain( l_aColors[0] * 255, 0, 255 ) );
