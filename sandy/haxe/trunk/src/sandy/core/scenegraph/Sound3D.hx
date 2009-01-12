@@ -27,21 +27,30 @@ import sandy.events.BubbleEvent;
 import sandy.core.data.Matrix4;
 import sandy.view.Frustum;
 
+import Type;
+
 /**
  * Transform audio volume and pan relative to the Camera3D 
  * 
  * @author		Daniel Reitterer - Delta 9
  * @author Niel Drummond - haXe port 
  */
-class Sound3D extends ATransformable
+
+enum SoundMode {
+  SOUND;
+  CHANNEL;
+  URL;
+}
+
+class Sound3D<T> extends ATransformable
 {
 	// events
-	public static var LOOP:String = "loop";
-	public static var CULL_PLAY:String = "cullPlay";
-	public static var CULL_STOP:String = "cullStop";
+	public static inline var LOOP:String = "loop";
+	public static inline var CULL_PLAY:String = "cullPlay";
+	public static inline var CULL_STOP:String = "cullStop";
 	// type
-	public static var SPEECH:String = "speech";
-	public static var NOISE:String = "noise";
+	public static inline var SPEECH:String = "speech";
+	public static inline var NOISE:String = "noise";
 	
 	/**
 	 * Max volume of the sound if camera position is at sound position
@@ -93,7 +102,7 @@ class Sound3D extends ATransformable
 	private var _isPlaying:Bool;
 	private var soundCulled:Bool;
 	private var m_oSoundTransform:SoundTransform;
-	private var sMode:String;
+	private var sMode:SoundMode;
 	private var urlReq:URLRequest;
 	private var channelRef:SoundChannel;
 	private var soundRef:Sound;
@@ -120,26 +129,20 @@ class Sound3D extends ATransformable
 	 * @param	p_nRadius			Radius of the sound in 3d units
 	 * @param	p_bStereo			If the sound contains two different channels
 	 */
-	public function new( ?p_sName:String, ?p_oSoundSource:Dynamic, ?p_nVolume:Float, 
-							?p_nMaxPan:Float, ?p_nRadius:Float, ?p_bStereo:Bool ) 
+	public function new( p_sName:String = "", ?p_oSoundSource:Dynamic, p_nVolume:Float = 1., 
+							p_nMaxPan:Float = 0., p_nRadius:Float = 1., p_bStereo:Bool = false ) 
 	{
 
 	 _isFlipped=false;
 	 _isPlaying=false;
 	 soundCulled=false;
 	 m_oSoundTransform = new SoundTransform(1,0);
-	 sMode = ""; // sound, channel or url
+	 sMode = null; // sound, channel or url
 	 lastPosition=0;
 	 lastStopTime=0;
 	 cPlaying=false;
 	 duration=0;
 	 cLoop=0;
-
-		if ( p_sName == null ) p_sName = "";
-		if ( p_nVolume == null ) p_nVolume = 1;
-		if ( p_nMaxPan == null ) p_nMaxPan = 0;
-		if ( p_nRadius == null ) p_nRadius = 1;
-		if ( p_bStereo == null ) p_bStereo = false;
 
 	 soundPan=true;
 	 maxPan = 1;
@@ -150,22 +153,22 @@ class Sound3D extends ATransformable
 	 loops = 0xffffff;
 	 loopStartTime=0;
 
-		super( p_sName );
-		
-		soundVolume = p_nVolume;
-		soundRadius = p_nRadius;
-		soundSource = p_oSoundSource;
-		stereo = p_bStereo;
-		
-		if(p_nMaxPan == 0) 
-		{
-			soundPan = false;
-		}
-		else
-		{
-			soundPan = true;
-			maxPan = p_nMaxPan;
-		}
+	 super( p_sName );
+
+	 soundVolume = p_nVolume;
+	 soundRadius = p_nRadius;
+	 soundSource = p_oSoundSource;
+	 stereo = p_bStereo;
+
+	 if(p_nMaxPan == 0) 
+	 {
+	   soundPan = false;
+	 }
+	 else
+	 {
+	   soundPan = true;
+	   maxPan = p_nMaxPan;
+	 }
     }
 	
 	/**
@@ -181,7 +184,7 @@ class Sound3D extends ATransformable
 		if ( p_nLoopStartTime == null ) p_nLoopStartTime = -1;
 		if ( p_bResume == null ) p_bResume = false;
 
-		if(!_isPlaying && sMode != "channel") 
+		if(!_isPlaying && sMode != CHANNEL) 
 		{
 			
 			if(p_nStartTime != -1) lastPosition = p_nStartTime;
@@ -204,7 +207,7 @@ class Sound3D extends ATransformable
 	 */
 	public function stop () :Void 
 	{
-		if(_isPlaying && sMode != "channel") 
+		if(_isPlaying && sMode != CHANNEL) 
 		{
 			if(cPlaying) cStop();
 			_isPlaying = false;
@@ -221,53 +224,55 @@ class Sound3D extends ATransformable
 	/**
 	 * Set the sound source, the sound source can be a String, URLRequest, Sound or SoundChannel object
 	 */
-	private function __setSoundSource (s:Dynamic) :Void 
+	private function __setSoundSource (s:T) :T 
 	{
-		if(Std.is(s, Sound)) 
+		if(Std.is(s, Sound))
 		{
-			sMode = "sound";
-			soundRef = s;
+			sMode = SOUND;
+			soundRef = cast s;
 			if(soundRef.length > 0) duration = soundRef.length;
 		}
 		else if(Std.is(s, SoundChannel))
 		{
-			sMode = "channel";
+			sMode = CHANNEL;
 			_isPlaying = true;
-			channelRef = s;
+			channelRef = cast s;
 		}
 		else if(Std.is(s, String))
 		{
-			sMode = "url";
-			urlReq = new URLRequest(s);
+			sMode = URL;
+			urlReq = new URLRequest(cast s);
 		}
 		else
 		{
-			sMode = "url";
-			urlReq = s;
+			sMode = URL;
+			urlReq = cast s;
 		}
+		return s;
+
 	}
 	
 	/**
 	 * Returns the sound source, the sound source may be a URLRequest, Sound or SoundChannel object
 	 */
-	public var soundSource (__getSoundSource,__setSoundSource) :Dynamic;
-	private function __getSoundSource () :Dynamic
+	public var soundSource (__getSoundSource,__setSoundSource) :T;
+	private function __getSoundSource () :T
 	{
 		switch (sMode) 
 		{
-			case "sound":
-				return soundRef;
-			case "channel":
-				return channelRef;
-			case "url":
-				return urlReq;
+			case SOUND:
+				return cast soundRef;
+			case CHANNEL:
+				return cast channelRef;
+			case URL:
+				return cast urlReq;
 			default:
 				return null;
 		}
 	}
 	
-	public var soundMode (__getSoundMode,null) :String;
-	public function __getSoundMode () :String 
+	public var soundMode (__getSoundMode,null) :SoundMode;
+	public function __getSoundMode () :SoundMode 
 	{
 		return sMode;
 	}
@@ -387,7 +392,7 @@ class Sound3D extends ATransformable
 		}
 		else
 		{
-			if(sMode != "channel") 
+			if(sMode != CHANNEL) 
 			{
 				_isPlaying = false;
 				
@@ -482,9 +487,9 @@ class Sound3D extends ATransformable
 			
 			updateSoundTransform(p_oScene);
 			
-			var isUrl:Bool = sMode == "url";
+			var isUrl:Bool = sMode == URL;
 			
-			if(isUrl || sMode == "sound") 
+			if(isUrl || sMode == SOUND) 
 			{
 				if(!soundCulled) 
 				{
