@@ -15,7 +15,6 @@ limitations under the License.
 
 package sandy.core.scenegraph
 {
-	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.core.data.Point3D;	
 
@@ -120,9 +119,9 @@ package sandy.core.scenegraph
 		{
 			m_oMatrix = p_oMatrix;
 		    // --
-		    m_oMatrix.Point3DMult3x3(_vSide);
-		    m_oMatrix.Point3DMult3x3(_vUp);
-		    m_oMatrix.Point3DMult3x3(_vOut);
+		    m_oMatrix.transform3x3(_vSide);
+		    m_oMatrix.transform3x3(_vUp);
+		    m_oMatrix.transform3x3(_vOut);
 		    // --
 		    _vSide.normalize();
 		    _vUp.normalize();
@@ -406,9 +405,9 @@ package sandy.core.scenegraph
 			// --
 			m_tmpMt.axisRotation( p_nX/n, p_nY/n, p_nZ/n, p_nAngle );
 			// --
-			m_tmpMt.Point3DMult3x3(_vSide);
-			m_tmpMt.Point3DMult3x3(_vUp);
-			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.transform3x3(_vSide);
+			m_tmpMt.transform3x3(_vUp);
+			m_tmpMt.transform3x3(_vOut);
 		}
 
 		/**
@@ -465,9 +464,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationX( l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vSide);
-			m_tmpMt.Point3DMult3x3(_vUp);
-			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.transform3x3(_vSide);
+			m_tmpMt.transform3x3(_vUp);
+			m_tmpMt.transform3x3(_vOut);
 			// --
 			_vRotation.x = p_nAngle;
 		}
@@ -493,9 +492,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationY( l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vSide);
-			m_tmpMt.Point3DMult3x3(_vUp);
-			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.transform3x3(_vSide);
+			m_tmpMt.transform3x3(_vUp);
+			m_tmpMt.transform3x3(_vOut);
 			// --
 			_vRotation.y = p_nAngle;
 		}
@@ -521,9 +520,9 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.rotationZ( l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vSide);
-			m_tmpMt.Point3DMult3x3(_vUp);
-			m_tmpMt.Point3DMult3x3(_vOut);
+			m_tmpMt.transform3x3(_vSide);
+			m_tmpMt.transform3x3(_vUp);
+			m_tmpMt.transform3x3(_vOut);
 			// --
 			_vRotation.z = p_nAngle;
 		}
@@ -552,8 +551,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vOut.x, _vOut.y, _vOut.z, l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vSide);
-			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.transform3x3(_vSide);
+			m_tmpMt.transform3x3(_vUp);
 			// --
 			_nRoll = p_nAngle;
 		}
@@ -582,8 +581,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vSide.x, _vSide.y, _vSide.z, l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vOut);
-			m_tmpMt.Point3DMult3x3(_vUp);
+			m_tmpMt.transform3x3(_vOut);
+			m_tmpMt.transform3x3(_vUp);
 			// --
 			_nTilt = p_nAngle;
 		}
@@ -611,8 +610,8 @@ package sandy.core.scenegraph
 			changed = true;
 			// --
 			m_tmpMt.axisRotation ( _vUp.x, _vUp.y, _vUp.z, l_nAngle );
-			m_tmpMt.Point3DMult3x3(_vOut);
-			m_tmpMt.Point3DMult3x3(_vSide);
+			m_tmpMt.transform3x3(_vOut);
+			m_tmpMt.transform3x3(_vSide);
 			// --
 			_nYaw = p_nAngle;
 		}

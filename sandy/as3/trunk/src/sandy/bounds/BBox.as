@@ -266,7 +266,7 @@ package sandy.bounds
 			// --
 			for each( var l_oEdge:Point3D in l_aEdges )
 			{
-				p_oMatrix.Point3DMult( l_oEdge );
+				p_oMatrix.transform( l_oEdge );
 				l_oBox.addInternalPoint( l_oEdge );
 			}
 			// --

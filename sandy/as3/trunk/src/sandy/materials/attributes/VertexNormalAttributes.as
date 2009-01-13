@@ -88,7 +88,7 @@ package sandy.materials.attributes
 			while( l_oVertex = l_aPoints[ --lId ] )
 			{
 				var l_oDiff:Point3D = p_oPolygon.vertexNormals[ lId ].getPoint3D().clone();
-				p_oPolygon.shape.viewMatrix.Point3DMult3x3( l_oDiff );
+				p_oPolygon.shape.viewMatrix.transform3x3( l_oDiff );
 				// --
 				l_oDiff.scale( m_nLength );
 				// --

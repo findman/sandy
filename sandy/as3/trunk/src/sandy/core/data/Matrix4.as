@@ -502,7 +502,7 @@ package sandy.core.data
 		 *
 		 * @param pv	The Point3D to be mutliplied.
 		 */
-		public final function Point3DMult( pv:Point3D ):void
+		public final function transform( pv:Point3D ):void
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			pv.x = (x * n11 + y * n12 + z * n13 + n14);
@@ -532,7 +532,7 @@ package sandy.core.data
 		 *
 		 * @param pv	The Point3D to be mutliplied.
 		 */
-		public final function Point3DMult3x3( pv:Point3D ):void
+		public final function transform3x3( pv:Point3D ):void
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			pv.x = (x * n11 + y * n12 + z * n13);

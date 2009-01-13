@@ -15,9 +15,7 @@ limitations under the License.
 */
 package sandy.materials 
 {
-	import sandy.core.Scene3D;
-	
-	/**
+	/**
 	 * Represents the appearance property of the visible objects.
 	 *
 	 * <p>The appearance holds the front and back materials of the object.</p>
@@ -48,6 +46,26 @@ package sandy.materials
 			m_oBackMaterial  = (p_oBack != null) 	? p_oBack  :	m_oFrontMaterial;
 		}
 		
+		/**
+		 * Return if the light has been enable on one of the 2 material (OR exclusion).
+		 * @return Boolean true if light is enable on one of the front/back material
+		 */
+		public function get lightingEnable():Boolean
+		{
+			return m_oFrontMaterial.lightingEnable || m_oBackMaterial.lightingEnable;
+		}
+		
+		/**
+		 * Enable/Disable the light on the front and back materials on that appearance object
+		 * @param p_bValue Boolean true to enable light effect on materials, false value to disable it.
+		 */
+		public function set lightingEnable( p_bValue:Boolean ):void
+		{
+			m_oFrontMaterial.lightingEnable = p_bValue;
+			if( m_oFrontMaterial != m_oBackMaterial )
+				m_oBackMaterial.lightingEnable = p_bValue;
+		}
+
 		/**
 		 * Get the use of vertex normal feature of the appearance.
 		 *

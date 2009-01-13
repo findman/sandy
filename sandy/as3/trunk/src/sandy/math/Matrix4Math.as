@@ -213,7 +213,7 @@ package sandy.math
 		 *
 		 * @return The resulting Point3D.
 		 */    
-		public static function Point3DMult( m:Matrix4, pv:Point3D ): Point3D
+		public static function transform( m:Matrix4, pv:Point3D ): Point3D
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			return  new Point3D( 	(x * m.n11 + y * m.n12 + z * m.n13 + m.n14),
@@ -232,7 +232,7 @@ package sandy.math
 		 *
 		 * @return The resulting Point3D.
 		 */
-		public static function Point3DMult3x3( m:Matrix4, pv:Point3D ):Point3D
+		public static function transform3x3( m:Matrix4, pv:Point3D ):Point3D
 		{
 			const x:Number=pv.x, y:Number=pv.y, z:Number=pv.z;
 			return  new Point3D( 	(x * m.n11 + y * m.n12 + z * m.n13),
@@ -309,7 +309,7 @@ package sandy.math
 		 */
 		public static function rotationY ( angle:Number ):Matrix4
 		{
-			var m:Matrix4 = new Matrix4()
+			var m:Matrix4 = new Matrix4();
 			angle = NumberUtil.toRadian(angle);
 			const c:Number = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
 			const s:Number = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
@@ -330,7 +330,7 @@ package sandy.math
 		 */
 		public static function rotationZ ( angle:Number ):Matrix4
 		{
-			var m:Matrix4 = new Matrix4()
+			var m:Matrix4 = new Matrix4();
 			angle = NumberUtil.toRadian(angle);
 			const c:Number = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
 			const s:Number = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
@@ -369,7 +369,7 @@ package sandy.math
 		 */
 		public static function axisRotation ( u:Number, v:Number, w:Number, angle:Number ) : Matrix4
 		{
-			var m:Matrix4 = new Matrix4()
+			var m:Matrix4 = new Matrix4();
 			angle = NumberUtil.toRadian( angle );
 			// -- modification pour verifier qu'il n'y ai pas un probleme de precision avec la camera
 			const c:Number = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
@@ -416,7 +416,7 @@ package sandy.math
 		 */
 		public static function translation(nTx:Number, nTy:Number, nTz:Number) : Matrix4 
 		{
-			var m:Matrix4 = new Matrix4()
+			var m:Matrix4 = new Matrix4();
 			m.n14 = nTx;
 			m.n24 = nTy;
 			m.n34 = nTz;
@@ -439,7 +439,7 @@ package sandy.math
 		 */
 		public static function translationPoint3D( v:Point3D ) : Matrix4 
 		{
-			var m:Matrix4 = new Matrix4()
+			var m:Matrix4 = new Matrix4();
 			m.n14 = v.x;
 			m.n24 = v.y;
 			m.n34 = v.z;

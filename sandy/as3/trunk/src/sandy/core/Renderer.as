@@ -171,7 +171,7 @@ package sandy.core
 					l_oShape.depth = 0;
 					l_oShape.aVisiblePolygons.length = 0;
 					l_oCamPos.reset(l_oCamera.modelMatrix.n14, l_oCamera.modelMatrix.n24, l_oCamera.modelMatrix.n34);
-					l_oShape.invModelMatrix.Point3DMult( l_oCamPos );
+					l_oShape.invModelMatrix.transform( l_oCamPos );
 					// --
 					l_oMatrix = l_oShape.viewMatrix;
 					m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;

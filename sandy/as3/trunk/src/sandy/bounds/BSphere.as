@@ -99,7 +99,7 @@ package sandy.bounds
 	    public function transform( p_oMatrix:Matrix4 ):void
 	    {
 	        position.copy( center );
-	        p_oMatrix.Point3DMult( position );
+	        p_oMatrix.transform( position );
 	        uptodate = true;
 	    }
 	    

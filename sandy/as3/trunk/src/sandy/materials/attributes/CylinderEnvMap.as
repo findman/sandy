@@ -99,7 +99,7 @@ package sandy.materials.attributes
 					{
 						dv = l_oVertex.getPoint3D ().clone ();
 						dv.sub (p_oPolygon.shape.geometryCenter);
-						p_oPolygon.shape.modelMatrix.Point3DMult3x3 (dv);
+						p_oPolygon.shape.modelMatrix.transform3x3 (dv);
 						dv.normalize ();
 						dv.scale (spherize);
 						m_oVertices [l_oVertex] = dv;
