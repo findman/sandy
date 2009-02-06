@@ -1,5 +1,4 @@
 -cp ../../src
--lib xpath
 -swf9 desertshapes.swf
 -swf-lib palm.swf
 -main DesertShapes

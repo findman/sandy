@@ -29,7 +29,7 @@ class BasketBall extends Sprite
 		private var plane:Plane3D;
 		private var tg1:TransformGroup;
 		private var tg2:TransformGroup;
-		private var bounce:Sound3D;
+		private var bounce:Sound3D<Sound>;
 
 		private var scene:Scene3D;
 		private var camera:Camera3D;
@@ -82,7 +82,7 @@ class BasketBall extends Sprite
 				sphereS.y = 0;
 				sphereS.z = 0;
 
-				plane = new Plane3D( "thePlane", 300, 500, 15, 15, Plane3D.ZX_ALIGNED );
+				plane = new Plane3D( "thePlane", 300, 500, 2, 2, Plane3D.ZX_ALIGNED );
 				plane.y = -100;
 				plane.rotateY = 0;
 
@@ -93,7 +93,7 @@ class BasketBall extends Sprite
 				plane.enableBackFaceCulling = false;
 				plane.appearance = app2;
 
-				bounce = new Sound3D("bounce", sound, 1, 3, 1500);
+				bounce = new Sound3D<Sound>("bounce", sound, 1, 3, 1500);
 				bounce.type = Sound3D.SPEECH;
 				bounce.loops = 0;
 
