@@ -107,8 +107,7 @@ package sandy.core
 			m_aDisplayList[m_nDisplayListCount++] = p_oObject;
 			m_bGlobalRedraw = m_bGlobalRedraw || p_oObject.changed;
 		}
-		
-		
+			
 		/**
 		 * Render the given scene.
 		 * Objects are transformed, clipped and projected into that function.

@@ -1,10 +1,11 @@
-package sandy.core.mode7
+package sandy.core.scenegraph.mode7
 {
-	import sandy.core.Scene3D;	import sandy.core.mode7.CameraMode7;		import flash.display.BitmapData;	import flash.display.Sprite;	import flash.geom.Matrix;			public class Mode7
+	import flash.display.BitmapData;	import flash.display.Sprite;	import flash.geom.Matrix;		import sandy.core.data.Matrix4;	import sandy.view.Frustum;	import sandy.core.scenegraph.Node;	import sandy.core.scenegraph.IDisplayable;	import sandy.core.scenegraph.Renderable;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.mode7.CameraMode7;
+	public class Mode7 extends Node implements Renderable, IDisplayable
 	{
 		private var _width : Number;
 		private var _height : Number;
-		private var _container : Sprite;
+		private var _container : Sprite = new Sprite();
 		private var _numLines : int;
 		private var _camera : CameraMode7;
 		private var _fov : Number;
@@ -105,14 +106,12 @@
 				_near = near;
 				_far = far;
 			}
-		}
-		public function render( p_oScene : Scene3D, p_oCamera : CameraMode7 ) : void
-		{
-			_camera = p_oCamera;
+		}				public function clear():void		{			_container.graphics.clear();		}				// The container of this object		public function get container():Sprite		{			return _container;		}		// The depth of this object		public function get depth():Number		{			return -Number.MAX_VALUE;		}
+		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void		{			super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );			// check if we need to resize our canvas			scene.renderer.addToDisplayList( this ); 		}				public function display( p_oContainer:Sprite = null  ):void		{			_prevOK = false;			var i : int;			for (i = 0;i <= _numLines; i++)			{				_yCurrent = _altitude + _yMinTilted + i * _yStep;				_zCurrent = _zMinTilted + i * _zStep;								if (_yCurrent - _altitude != 0)				{					_t = -_altitude / (_yCurrent - _altitude);					if (_t >= _near)					{						_zProj = _t * _zCurrent;						_xAmplitude = _t * _ratioWidthHeight * _length;						if (_prevOK)						{							if (_t <= _far)							{								_zAmplitude = _zProj - _zProjPrev;								_xAmplitudeAvg = ( _xAmplitude + _xAmplitudePrev) / 2;								_lineMatrix.identity();								_lineMatrix.concat(_mapMatrix);								_lineMatrix.translate(_xAmplitudeAvg / 2, (i - _height) * _zAmplitude - _zProj);								_lineMatrix.scale(_width / _xAmplitudeAvg, -1 / _zAmplitude);								_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);								_container.graphics.drawRect(0, _height - i, _width, 1);								_container.graphics.endFill();							}							else							{								break;							}						}						_zProjPrev = _zProj;						_xAmplitudePrev = _xAmplitude;						_prevOK = true;					}				}			}						if (_traceHorizon)			{				_container.graphics.lineStyle(_widthHorizon, _colorHorizon);				_container.graphics.moveTo(0, _horizon);				_container.graphics.lineTo(_width, _horizon);			}		}				public function render( p_oCamera:Camera3D ):void		{			if( !(p_oCamera is CameraMode7) )				return;			
+			_camera = p_oCamera as CameraMode7;
 			_width = p_oCamera.viewport.width;
 			_height = p_oCamera.viewport.height;
 			_ratioWidthHeight = _width / _height;
-			_container = p_oScene.container;
 			_numLines = _height;
 			// --
 			_mapMatrix.identity();
@@ -158,55 +157,7 @@
 			{
 				_horizon = _height * _yMaxTilted / (_yMaxTilted - _yMinTilted);
 			}
-			_camera.horizon = _horizon;
-			
-			_container.graphics.clear();
-			_prevOK = false;
-			var i : int;
-			for (i = 0;i <= _numLines; i++)
-			{
-				_yCurrent = _altitude + _yMinTilted + i * _yStep;
-				_zCurrent = _zMinTilted + i * _zStep;
-				
-				if (_yCurrent - _altitude != 0)
-				{
-					_t = -_altitude / (_yCurrent - _altitude);
-					if (_t >= _near)
-					{
-						_zProj = _t * _zCurrent;
-						_xAmplitude = _t * _ratioWidthHeight * _length;
-						if (_prevOK)
-						{
-							if (_t <= _far)
-							{
-								_zAmplitude = _zProj - _zProjPrev;
-								_xAmplitudeAvg = ( _xAmplitude + _xAmplitudePrev) / 2;
-								_lineMatrix.identity();
-								_lineMatrix.concat(_mapMatrix);
-								_lineMatrix.translate(_xAmplitudeAvg / 2, (i - _height) * _zAmplitude - _zProj);
-								_lineMatrix.scale(_width / _xAmplitudeAvg, -1 / _zAmplitude);
-								_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);
-								_container.graphics.drawRect(0, _height - i, _width, 1);
-								_container.graphics.endFill();
-							}
-							else
-							{
-								break;
-							}
-						}
-						_zProjPrev = _zProj;
-						_xAmplitudePrev = _xAmplitude;
-						_prevOK = true;
-					}
-				}
-			}
-			
-			if (_traceHorizon)
-			{
-				_container.graphics.lineStyle(_widthHorizon, _colorHorizon);
-				_container.graphics.moveTo(0, _horizon);
-				_container.graphics.lineTo(_width, _horizon);
-			}						
+			_camera.horizon = _horizon;			
 		}
 	}
 }

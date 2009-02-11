@@ -1,5 +1,4 @@
-package sandy.core.mode7
-{
+package sandy.core.scenegraph.mode7{
 	import sandy.core.scenegraph.Camera3D;	
 	public class CameraMode7 extends Camera3D
 	{		// CameraMode7 behaves like Camera3D, but with some constraints:
