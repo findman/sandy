@@ -102,8 +102,8 @@
 		{
 			_camera.rotateY += (_leftPush - _rightPush) * 2;
 			var rotationRadian:Number=Math.PI*_camera.rotateY/180;
-			_camera.x += Math.sin(- rotationRadian) * (_upPush - _downPush) * 80;
-			_camera.z += Math.cos(- rotationRadian) * (_upPush - _downPush) * 80;
+			_camera.x += Math.sin(- rotationRadian) * (_upPush - _downPush) * 8;
+			_camera.z += Math.cos(- rotationRadian) * (_upPush - _downPush) * 8;
 			_3dScene.render ();
 		}
 
