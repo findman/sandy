@@ -1,10 +1,7 @@
 package sandy.core.scenegraph.mode7{
 	import sandy.core.scenegraph.Camera3D;	
-	public class CameraMode7 extends Camera3D
-	{		// CameraMode7 behaves like Camera3D, but with some constraints:
-		// - rotations are available only by the rotateY and tilt methods (other are desactivated)
-		// - the lookAt method is overrided to respect the available rotations
-		private var _horizon : Number;
+	/**	 * CameraMode7 behaves like Camera3D, but with some constraints:	 * - rotations are available only by the rotateY and tilt methods (other are desactivated)	 * - the lookAt method is overrided to respect the available rotations	 */	public class CameraMode7 extends Camera3D
+	{		private var _horizon : Number;
 		private const PI : Number = Math.PI;
 		private const PIon180 : Number = PI / 180;
 		private const sin : Function = Math.sin;
@@ -17,15 +14,17 @@
 		public function get horizon() : Number				{					return _horizon;				}
 		public function set horizon(value : Number) : void				{					_horizon = value;				}
 		// desactivation of some setters methods
+
+		/**
+		 * @private
+		 */
 		public override function set rotateX(p_nAngle : Number) : void 		{			;		}
-		public override function set rotateZ(p_nAngle : Number) : void 		{			;		}
-		public override function set pan(p_nAngle : Number) : void 		{			;		}
-		public override function set roll(p_nAngle : Number) : void 		{			;		}
-		public override function rotateAxis(p_nX : Number, p_nY : Number, p_nZ : Number, p_nAngle : Number) : void 		{			;		}
-		// reset the lookAt method
-		public override function lookAt(p_nX : Number, p_nY : Number, p_nZ : Number) : void
-		{
-			_xTarget = p_nX - x;
+		/**		 * @private		 */		public override function set rotateZ(p_nAngle : Number) : void 		{			;		}
+		/**		 * @private		 */		public override function set pan(p_nAngle : Number) : void 		{			;		}
+		/**		 * @private		 */		public override function set roll(p_nAngle : Number) : void 		{			;		}
+		/**		 * @private		 */		public override function rotateAxis(p_nX : Number, p_nY : Number, p_nZ : Number, p_nAngle : Number) : void 		{			;		}
+		/**		 * @inheritDoc		 */		public override function lookAt(p_nX : Number, p_nY : Number, p_nZ : Number) : void
+		{			_xTarget = p_nX - x;
 			_yTarget = p_nY - y;
 			_zTarget = p_nZ - z;
 			

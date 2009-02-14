@@ -60,7 +60,9 @@
 			_lineMatrix = new Matrix();
 			setHorizon();
 		}
-		// getters and setters //
+		public var precision:Number = 1;
+		
+		// getters and setters //
 		public function get smooth() : Boolean		
 		{		
 			return _smooth;		
@@ -107,7 +109,15 @@
 				_far = far;
 			}
 		}				public function clear():void		{			_container.graphics.clear();		}				// The container of this object		public function get container():Sprite		{			return _container;		}		// The depth of this object		public function get depth():Number		{			return -Number.MAX_VALUE;		}
-		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void		{			super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );			// check if we need to resize our canvas			scene.renderer.addToDisplayList( this ); 		}				public function display( p_oContainer:Sprite = null  ):void		{			_prevOK = false;			var i : int;			for (i = 0;i <= _numLines; i++)			{				_yCurrent = _altitude + _yMinTilted + i * _yStep;				_zCurrent = _zMinTilted + i * _zStep;								if (_yCurrent - _altitude != 0)				{					_t = -_altitude / (_yCurrent - _altitude);					if (_t >= _near)					{						_zProj = _t * _zCurrent;						_xAmplitude = _t * _ratioWidthHeight * _length;						if (_prevOK)						{							if (_t <= _far)							{								_zAmplitude = _zProj - _zProjPrev;								_xAmplitudeAvg = ( _xAmplitude + _xAmplitudePrev) / 2;								_lineMatrix.identity();								_lineMatrix.concat(_mapMatrix);								_lineMatrix.translate(_xAmplitudeAvg / 2, (i - _height) * _zAmplitude - _zProj);								_lineMatrix.scale(_width / _xAmplitudeAvg, -1 / _zAmplitude);								_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);								_container.graphics.drawRect(0, _height - i, _width, 1);								_container.graphics.endFill();							}							else							{								break;							}						}						_zProjPrev = _zProj;						_xAmplitudePrev = _xAmplitude;						_prevOK = true;					}				}			}						if (_traceHorizon)			{				_container.graphics.lineStyle(_widthHorizon, _colorHorizon);				_container.graphics.moveTo(0, _horizon);				_container.graphics.lineTo(_width, _horizon);			}		}				public function render( p_oCamera:Camera3D ):void		{			if( !(p_oCamera is CameraMode7) )				return;			
+		public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean ):void		{			super.cull( p_oFrustum, p_oViewMatrix, p_bChanged );			// check if we need to resize our canvas			scene.renderer.addToDisplayList( this ); 		}				public function display( p_oContainer:Sprite = null  ):void		{			_prevOK = false;			var i:int, di:int = 1, di_1:int;			for (i = 0; i <= _numLines; i += di)			{				_yCurrent = _altitude + _yMinTilted + i * _yStep;				_zCurrent = _zMinTilted + i * _zStep;								if (_yCurrent - _altitude != 0)				{					_t = -_altitude / (_yCurrent - _altitude);					if (_t >= _near)					{						_zProj = _t * _zCurrent;						_xAmplitude = _t * _ratioWidthHeight * _length;						if (_prevOK)						{							if (_t <= _far)							{								// TODO top-down order? for this is fucking backwards.								if (_xAmplitude - _xAmplitudePrev < precision) {
+									i -=di; di++; continue;
+								} else {
+									if (di > 1) di_1 = di - 1;
+								}
+								_zAmplitude =  (_zProj - _zProjPrev) / di;
+								_xAmplitudeAvg = ( _xAmplitude + _xAmplitudePrev) / 2;								_lineMatrix.identity();								_lineMatrix.concat(_mapMatrix);								_lineMatrix.translate(_xAmplitudeAvg / 2, (i - _height) * _zAmplitude - _zProj);								_lineMatrix.scale(_width / _xAmplitudeAvg, -1 / _zAmplitude);								_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);								_container.graphics.drawRect(0, _height - i, _width, di);
+								_container.graphics.endFill();								di = di_1;
+							}							else							{								break;							}						}						_zProjPrev = _zProj;						_xAmplitudePrev = _xAmplitude;						_prevOK = true;					}				}			}						if (_traceHorizon)			{				_container.graphics.lineStyle(_widthHorizon, _colorHorizon);				_container.graphics.moveTo(0, _horizon);				_container.graphics.lineTo(_width, _horizon);			}		}				public function render( p_oCamera:Camera3D ):void		{			if( !(p_oCamera is CameraMode7) )				return;			
 			_camera = p_oCamera as CameraMode7;
 			_width = p_oCamera.viewport.width;
 			_height = p_oCamera.viewport.height;
