@@ -3,7 +3,7 @@
 
 	import flash.display.Sprite;
 	import flash.display.Shape;
-	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.display.StageQuality;
@@ -12,10 +12,10 @@
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 
-	import sandy.core.mode7.CameraMode7;
+	import sandy.core.scenegraph.mode7.CameraMode7;
 	import sandy.core.Scene3D;
 	import sandy.core.scenegraph.Group;
-	import sandy.core.mode7.Mode7;
+	import sandy.core.scenegraph.mode7.Mode7;
 
 	public class SandyMode7 extends Sprite
 	{
@@ -35,6 +35,7 @@
 		private var _downPush:int;
 		private var _leftPush:int;
 		private var _rightPush:int;
+		
 
 		public function SandyMode7 ()
 		{
@@ -61,15 +62,13 @@
 			_camera.tilt = 20;
 			_3dScene = new Scene3D("scene",_3dSurface,_camera,_rootScene);
 			_rootScene.addChild (_camera);
-			// we init the mode7
-			_mode7Surface = new Shape();
-			_mainSurface.addChild (_mode7Surface);
 			_mode7 = new Mode7();
-			_mode7.init (_camera, _mode7Surface);
-			_mode7.setBitmap ( new Map(0,0) );
+			var l_oTexture:BitmapData = new GroundTextureMap (0, 0);
+			_mode7.setBitmap ( l_oTexture );
 			_mode7.setHorizon (true, 0x000000, 1);
 			_mode7.setNearFar (true);
-			//_mode7.repeatMap = false;
+			_rootScene.addChild( _mode7 );
+			_mode7.repeatMap = false;
 			//////
 			// init some variables
 			_upPush = 0;
@@ -103,10 +102,9 @@
 		{
 			_camera.rotateY += (_leftPush - _rightPush) * 2;
 			var rotationRadian:Number=Math.PI*_camera.rotateY/180;
-			_camera.x += Math.sin(- rotationRadian) * (_upPush - _downPush) * 8;
-			_camera.z += Math.cos(- rotationRadian) * (_upPush - _downPush) * 8;
+			_camera.x += Math.sin(- rotationRadian) * (_upPush - _downPush) * 80;
+			_camera.z += Math.cos(- rotationRadian) * (_upPush - _downPush) * 80;
 			_3dScene.render ();
-			_mode7.render ();
 		}
 
 		private function onKey (kEvt:KeyboardEvent):void
