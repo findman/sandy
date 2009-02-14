@@ -205,6 +205,8 @@ package sandy.primitive
 				w.crossWith (v); w.normalize ();
 				l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
 			}
+
+			changed = true;
 		}
 
 		/**
@@ -213,14 +215,47 @@ package sandy.primitive
 		*
 		* @return number of created frame.
 		*/
-		public function appendFrameCopy (frameNumber:int):int
+		public function appendFrameCopy (sourceFrame:int):int
 		{
-			var f:Array = vertices [frameNumber] as Array;
+			var f:Array = vertices [sourceFrame] as Array;
 			if (f == null) {
 				return -1;
 			} else {
 				return vertices.push (f.slice ()) -1;
 			}
+		}
+
+		/**
+		* Replaces specified frame with other key or interpolated frame.
+		*/
+		public function replaceFrame (destFrame:int, sourceFrame:Number):void
+		{
+			var f0:Array = [];
+
+			// interpolation frames
+			var f1:Array = vertices [int (sourceFrame) % num_frames];
+			var f2:Array = vertices [(int (sourceFrame) + 1) % num_frames];
+
+			// interpolation coef-s
+			var c2:Number = sourceFrame - int (sourceFrame), c1:Number = 1 - c2;
+
+			// loop through vertices
+			for (var i:int = 0; i < num_vertices; i++)
+			{
+				var v0:Point3D = new Point3D;
+				var v1:Point3D = Point3D (f1 [i]);
+				var v2:Point3D = Point3D (f2 [i]);
+
+				// interpolate
+				v0.x = v1.x * c1 + v2.x * c2;
+				v0.y = v1.y * c1 + v2.y * c2;
+				v0.z = v1.z * c1 + v2.z * c2;
+
+				// save
+				f0 [i] = v0;
+			}
+
+			vertices [destFrame] = f0;
 		}
 
 		// animation "time" (frame number)
