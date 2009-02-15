@@ -221,6 +221,7 @@ package sandy.primitive
 			if (f == null) {
 				return -1;
 			} else {
+				num_frames++;
 				return vertices.push (f.slice ()) -1;
 			}
 		}
@@ -256,6 +257,7 @@ package sandy.primitive
 			}
 
 			vertices [destFrame] = f0;
+			num_frames = vertices.length;
 		}
 
 		// animation "time" (frame number)
