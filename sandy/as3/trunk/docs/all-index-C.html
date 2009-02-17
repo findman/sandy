@@ -90,13 +90,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    Creates a camera for projecting visible objects in the world.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/CameraMode7.html">CameraMode7</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/package-detail.html">sandy.core.mode7</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/CameraMode7.html">CameraMode7</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/package-detail.html">sandy.core.scenegraph.mode7</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  CameraMode7 behaves like Camera3D, but with some constraints:
+  - rotations are available only by the rotateY and tilt methods (other are desactivated)
+  - the lookAt method is overrided to respect the available rotations
+  </td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/CameraMode7.html#CameraMode7()">CameraMode7</a>(p_nWidth, p_nHeight, p_nFov, p_nNear, p_nFar) &mdash; Constructor in class sandy.core.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/CameraMode7.html">CameraMode7</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/CameraMode7.html#CameraMode7()">CameraMode7</a>(p_nWidth, p_nHeight, p_nFov, p_nNear, p_nFar) &mdash; Constructor in class sandy.core.scenegraph.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/CameraMode7.html">CameraMode7</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
@@ -220,6 +224,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <tr>
 <td width="20"></td><td>
    Clearing is done in render() method.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html#clear()">clear</a>() &mdash; Method in class sandy.core.scenegraph.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html">Mode7</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html#clear">clear</a> &mdash; Property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/StarFieldRenderEvent.html">StarFieldRenderEvent</a></td>
@@ -610,12 +620,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
    The polygon's container.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/Mode7.html#container">container</a> &mdash; Property in class sandy.core.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/mode7/class-list.html');" href="sandy/core/mode7/Mode7.html">Mode7</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html#container">container</a> &mdash; Property in interface sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/IDisplayable.html">IDisplayable</a></td>
 </tr>
 <tr>
@@ -643,6 +647,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <td width="20"></td><td>
    The container of this object
    </td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html#container">container</a> &mdash; Property in class sandy.core.scenegraph.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html">Mode7</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html#CONTAINER_CREATED">CONTAINER_CREATED</a> &mdash; Constant static property in class sandy.events.<a onclick="javascript:loadClassListFrame('sandy/events/class-list.html');" href="sandy/events/SandyEvent.html">SandyEvent</a></td>
@@ -847,6 +857,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("CÂ
 <tr>
 <td width="20"></td><td>
    Tests this node against the camera frustum to get its visibility.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html#cull()">cull</a>(p_oFrustum:<a href="sandy/view/Frustum.html" onclick="javascript:loadClassListFrame('sandy/view./class-list.html');">sandy.view:Frustum</a>, p_oViewMatrix:<a href="sandy/core/data/Matrix4.html" onclick="javascript:loadClassListFrame('sandy/core/data./class-list.html');">sandy.core.data:Matrix4</a>, p_bChanged) &mdash; Method in class sandy.core.scenegraph.mode7.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/mode7/class-list.html');" href="sandy/core/scenegraph/mode7/Mode7.html">Mode7</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html#culled">culled</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Node.html">Node</a></td>

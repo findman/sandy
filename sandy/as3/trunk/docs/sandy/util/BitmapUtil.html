@@ -40,8 +40,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   Utility class for Bitmap calculations.
-  
-  <p></p>
+    <p></p>
 <br>
 <hr>
 </div>
@@ -174,7 +173,7 @@ import sandy.core.scenegraph.
 import sandy.primitive.
 import sandy.materials.
 import sandy.util.
- 
+
 var tex:BitmapData = new Texture (0, 0); // tex.fillRect (tex.rect, 0xFFFFFF00);
 
 // code from "simplest sandy tutorial"
@@ -204,10 +203,8 @@ stage.addEventListener ("click", click);
 <div class="detailBody">
 <code>public static function concatBitmapMatrix(p_oM1:Object, p_oM2:Object):Object</code><p>
    Returns a concatenation of two bitmap matrices.
-   
-   </p><p>[<strong>ToDo</strong>: Explain what matrices are handled here ]</p>
-   
-   <span class="label">Parameters</span>
+      </p><p>[<strong>ToDo</strong>: Explain what matrices are handled here ]</p>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oM1</span>:Object</code> &mdash; The matrix of the first bitmap.
@@ -239,8 +236,7 @@ stage.addEventListener ("click", click);
 <div class="detailBody">
 <code>public static function getScaledBitmap(p_oBitmap:BitmapData, p_nScalex:Number, p_nScaley:Number = 0):BitmapData</code><p>
    Returns a scaled version of a bitmap.
-   
-   </p><p>The method takes a bitmap as input, and returns a scaled copy.<br/>
+      </p><p>The method takes a bitmap as input, and returns a scaled copy.<br/>
    The original is not changed.</p>
       <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -281,11 +277,9 @@ stage.addEventListener ("click", click);
 <div class="detailBody">
 <code>public static function movieToBitmap(p_oSprite:DisplayObject, p_bTransparent:Boolean = true, p_nColor:Number = 0x00FF00CC):BitmapData</code><p>
    Converts a sprite to a bitmap respecting the sprite position.
-   
-   </p><p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
+      </p><p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
    This method does.</p>
-   
-   <span class="label">Parameters</span>
+      <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oSprite</span>:DisplayObject</code> &mdash;   The sprite or other DisplayObject to convert to BitmapData. (DisplayObject allows support for AVM1Movie)

@@ -1,4 +1,4 @@
-﻿/*
+/*
 # ***** BEGIN LICENSE BLOCK *****
 Copyright the original author or authors.
 Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
@@ -13,7 +13,7 @@ limitations under the License.
 
 # ***** END LICENSE BLOCK *****
 */
-package sandy.util 
+package sandy.util
 {
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -27,10 +27,10 @@ package sandy.util
 	import sandy.core.data.Vertex;
 	import sandy.core.data.UVCoord;
 	import sandy.core.Scene3D;
-	
+
 	/**
 	 * Utility class for Bitmap calculations.
-	 * 
+	 *
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @version		3.0
 	 * @date 		26.07.2007
@@ -39,10 +39,10 @@ package sandy.util
 	{
 		/**
 		 * Converts a sprite to a bitmap respecting the sprite position.
-		 * 
+		 *
 		 * <p>The simple BitmapData.draw method doesn't take care of the negative part of the sprite during the draw.<br />
 		 * This method does.</p>
-		 * 
+		 *
 		 * @param p_oSprite 		The sprite or other DisplayObject to convert to BitmapData. (DisplayObject allows support for AVM1Movie)
 		 * @param p_bTransparent	Whether to allow transparency.
 		 * @param p_nColor			Background color (32 bit).
@@ -59,11 +59,11 @@ package sandy.util
 			// --
 			return bmp;
 		}
-		
-		
+
+
 		/**
 		 * Returns a scaled version of a bitmap.
-		 * 
+		 *
 		 * <p>The method takes a bitmap as input, and returns a scaled copy.<br/>
 		 * The original is not changed.</p>
 		 *
@@ -80,19 +80,19 @@ package sandy.util
 			tex.draw( p_oBitmap, new Matrix( p_nScalex, 0, 0, p_nScaley ) );
 			return tex;
 		}
-		
+
 		/**
 		 * Returns a concatenation of two bitmap matrices.
-		 * 
+		 *
 		 * <p>[<strong>ToDo</strong>: Explain what matrices are handled here ]</p>
-		 * 
+		 *
 		 * @param p_oM1	The matrix of the first bitmap.
 		 * @param p_oM2	The matrix of the second bitmap.
 		 *
 		 * @return 	The resulting matrix.
 		 */
 		public static function concatBitmapMatrix( p_oM1:Object, p_oM2:Object ):Object
-		{	
+		{
 			var r:Object = new Object();
 			// --
 			r.a = p_oM1.a * p_oM2.a;
@@ -154,7 +154,7 @@ import sandy.core.scenegraph.*;
 import sandy.primitive.*;
 import sandy.materials.*;
 import sandy.util.*;
- 
+
 var tex:BitmapData = new Texture (0, 0); // tex.fillRect (tex.rect, 0xFFFFFF00);
 
 // code from "simplest sandy tutorial"
@@ -184,9 +184,9 @@ stage.addEventListener ("click", click);
 			var m_oH:Point3D = new Point3D(); m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
 			// FIXME: currently shape needs to be rendered in order to have invModelMatrix calculated
 			const invModelMatrix:Matrix4 = obj.invModelMatrix;
-			var m_oCurrentL:Point3D = new Point3D (); m_oCurrentL.copy (m_oL); invModelMatrix.Point3DMult3x3 (m_oCurrentL);
-			var m_oCurrentV:Point3D = new Point3D (); m_oCurrentV.copy (m_oV); invModelMatrix.Point3DMult3x3 (m_oCurrentV);
-			var m_oCurrentH:Point3D = new Point3D (); m_oCurrentH.copy (m_oH); invModelMatrix.Point3DMult3x3 (m_oCurrentH);
+			var m_oCurrentL:Point3D = new Point3D (); m_oCurrentL.copy (m_oL); invModelMatrix.transform3x3 (m_oCurrentL);
+			var m_oCurrentV:Point3D = new Point3D (); m_oCurrentV.copy (m_oV); invModelMatrix.transform3x3 (m_oCurrentV);
+			var m_oCurrentH:Point3D = new Point3D (); m_oCurrentH.copy (m_oH); invModelMatrix.transform3x3 (m_oCurrentH);
 			// compute color factors as in ALightAttributes.applyColorToDisplayObject with b = 1 argument
 			var c:Number = scene.light.color; if (c < 1) c = 0xFFFFFF;
 			var r:Number = (0xFF0000 & c) >> 16;

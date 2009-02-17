@@ -49,18 +49,18 @@ package sandy.extrusion {
 			// construct profile vertices and side surface, if any
 			for (i = 0; i < l_sections.length; i++) {
 				var m:Matrix4 = Matrix4 (l_sections [i]);
-				
+
 				for (j = 0; j < n + 1; j++) {
 					if (j < n) {
 						v.x = profile.vertices [j].x;
 						v.y = profile.vertices [j].y;
 						v.z = 0;
-						m.Point3DMult (v);
+						m.transform (v);
 						g.setVertex (j + i * n, v.x, v.y, v.z);
 					}
 					g.setUVCoords (j + i * (n + 1), j / n, i / (l_sections.length - 1));
 				}
-				
+
 				if (i > 0) {
 					for (j = 1; j < n + 1; j++) {
 						if (links.indexOf (profile.vertices [j % n]) < 0) {
