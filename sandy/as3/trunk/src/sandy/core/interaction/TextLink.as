@@ -1,8 +1,3 @@
-/**
-* ...
-* @author Default
-* @version 0.1
-*/
 
 package sandy.core.interaction 
 {
@@ -48,7 +43,7 @@ package sandy.core.interaction
 		{
 			if ( !t.htmlText ) return null;
 			if ( !textLinks ) textLinks = new Dictionary();
-			if ( textLinks[t] && !force ) return textLinks[t]
+			if ( textLinks[t] && !force ) return textLinks[t];
 			
 			textLinks[t] = new Array();
 			
@@ -155,7 +150,7 @@ package sandy.core.interaction
 		{	
 			for ( var j : Number = 0; j < __iCloseIndex - __iOpenIndex; ++j )
 			{
-				var rectB : Rectangle = __tfOwner.getCharBoundaries( openIndex + j )
+				var rectB : Rectangle = __tfOwner.getCharBoundaries( openIndex + j);
 				if ( j == 0 ) {
 					x = rectB.x;
 					y = rectB.y;

@@ -1,24 +1,9 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.core.scenegraph
 {
-	import sandy.core.Scene3D;
 	import sandy.core.data.Matrix4;
 	import sandy.view.CullingState;
-	import sandy.view.Frustum;
+	import sandy.view.Frustum;	
 
 	/**
 	 * The TransformGroup class is used to create transform group.
@@ -28,7 +13,7 @@ package sandy.core.scenegraph
 	 * <p>The class is final, i.e. it can not be subclassed.
 	 *
 	 * @author		Thomas Pfeiffer - kiroukou
-	 * @version		3.0
+	 * @version		3.1
 	 * @date 		26.07.2007
 	 */
 	public class TransformGroup extends ATransformable

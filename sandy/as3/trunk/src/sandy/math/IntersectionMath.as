@@ -1,35 +1,17 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.math
 {
-	import flash.geom.Point;
-	
 	import sandy.bounds.BSphere;
-	import sandy.core.Scene3D;
-	import sandy.core.data.Matrix4;
-	import sandy.core.data.Polygon;
 	import sandy.core.data.Point3D;
-	import sandy.core.data.Vertex;
 	import sandy.util.NumberUtil;
 	
+	import flash.geom.Point;	
+
 	/**
 	 * An util class with static method which provides useful functions related to intersection.
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
-	 * @version		3.0
+	 * @version		3.1
 	 * @date 		18.10.2007
 	 */
 	public final class IntersectionMath

@@ -1,30 +1,16 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.parser
 {
-	import flash.display.Bitmap;
-	import flash.events.Event;
-	import flash.net.URLRequest;
-	
 	import sandy.core.data.*;
 	import sandy.core.scenegraph.*;
 	import sandy.events.QueueEvent;
 	import sandy.materials.*;
 	import sandy.util.LoaderQueue;
 	import sandy.util.NumberUtil;
+
+	import flash.display.Bitmap;
+	import flash.events.Event;
+	import flash.net.URLRequest;	
 
 	/**
 	 * Transforms a COLLADA XML document into Sandy geometries.
@@ -38,18 +24,18 @@ package sandy.parser
 	 *
 	 * @author		Dennis Ippel - ippeldv
 	 * @since		1.0
-	 * @version		3.0
+	 * @version		3.1
 	 * @date 		26.07.2007
 	 *
 	 * @example To parse a COLLADA object at runtime:
 	 *
-	 * <listing version="3.0">
+	 * <listing version="3.1">
 	 *     var parser:IParser = Parser.create( "/path/to/my/colladafile.dae", Parser.COLLADA );
 	 * </listing>
 	 *
 	 * @example To parse an embedded COLLADA object:
 	 *
-	 * <listing version="3.0">
+	 * <listing version="3.1">
 	 *     [Embed( source="/path/to/my/colladafile.dae", mimeType="application/octet-stream" )]
 	 *     private var MyCollada:Class;
 	 *
@@ -61,10 +47,10 @@ package sandy.parser
 
 	public class ColladaParser extends AParser implements IParser
 	{
-		private var m_oCollada : XML;
-		private var m_bYUp : Boolean;
+		private var m_oCollada:XML;
+		private var m_bYUp:Boolean;
 
-		private var m_oMaterials : Object;
+		private var m_oMaterials:Object;
 
 		/**
 		 * Creates a new COLLADA parser instance.
@@ -77,7 +63,7 @@ package sandy.parser
 		 */
 		public function ColladaParser( p_sUrl:*, p_nScale:Number = 1, p_sTextureExtension:String = null )
 		{
-			super( p_sUrl, p_nScale, p_sTextureExtension );
+			super(p_sUrl, p_nScale, p_sTextureExtension);
 		}
 
 		/**
@@ -86,44 +72,44 @@ package sandy.parser
 		 *
 		 * @param e				The Event object
 		 */
-		protected override function parseData( e:Event=null ) : void
+		protected override function parseData( e:Event = null ):void
 		{
-			super.parseData( e );
+			super.parseData(e);
 
 			// -- read the XML
-			m_oCollada = XML( m_oFile );
+			m_oCollada = XML(m_oFile);
 
 			default xml namespace = m_oCollada.namespace();
 			
 			m_bYUp = (m_oCollada.asset.up_axis == "Y_UP");
 			//m_bYUp = !m_bYUp;
-			
+
 			if( m_oCollada.library_images.length() > 0 )
-				m_oMaterials = loadImages( m_oCollada.library_images.image );
+				m_oMaterials = loadImages(m_oCollada.library_images.image);
 			else
-				parseScene( m_oCollada.library_visual_scenes.visual_scene[0] );
+				parseScene(m_oCollada.library_visual_scenes.visual_scene[0]);
 		}
 
 		/**
 		 * Parses the 3D scene
 		 * @param p_oScene		COLLADA XML's scene node
 		 */
-		private function parseScene( p_oScene : XML ) : void
+		private function parseScene( p_oScene:XML ):void
 		{
 			// -- local variables
-			var l_oNodes : XMLList = p_oScene.node;
-			var l_nNodeLen : int = l_oNodes.length();
+			var l_oNodes:XMLList = p_oScene.node;
+			var l_nNodeLen:int = l_oNodes.length();
 
-			for( var i:int = 0; i < l_nNodeLen; i++ )
+			for( var i:int = 0;i < l_nNodeLen; i++ )
 			{
-				var l_oNode : Node = parseNode( l_oNodes[i] );
+				var l_oNode:Node = parseNode(l_oNodes[i]);
 				// -- add the shape to the group node
 				if( l_oNode != null )
-					m_oGroup.addChild( l_oNode );
+					m_oGroup.addChild(l_oNode);
 			}
 
 			// -- Parsing is finished
-			dispatchInitEvent ();
+			dispatchInitEvent();
 		}
 
 		/**
@@ -132,65 +118,64 @@ package sandy.parser
 		 * @param p_oNode		XML node containing a node from the 3D scene
 		 * @return 				A parsed Shape3D
 		 */
-		private function parseNode( p_oNode : XML ) : Node
+		private function parseNode( p_oNode:XML ):Node
 		{
 			// -- local variables
 			var l_oNode:ATransformable;
 			//var l_oMatrix : Matrix4 = new Matrix4();
-			var l_sGeometryID : String;
-			var l_oNodes : XMLList;
-			var l_nNodeLen : int;
-			var l_oPoint3D : Point3D;
+			var l_sGeometryID:String;
+			var l_oNodes:XMLList;
+			var l_nNodeLen:int;
+			var l_oPoint3D:Point3D;
 			//var l_oPivot:Point3D = new Point3D();
-			var l_oGeometry : Geometry3D = null;
+			var l_oGeometry:Geometry3D = null;
 			//var l_oScale : Transform3D;
 			var i:int;
 			
-			if( p_oNode.child( "instance_geometry" ).length() != 0 )
+			if( p_oNode.child("instance_geometry").length() != 0 )
 			{
 				var l_aGeomArray:Array;
-				var l_oAppearance : Appearance = m_oStandardAppearance;
+				var l_oAppearance:Appearance = m_oStandardAppearance;
 				l_oGeometry = new Geometry3D();
-				l_oAppearance = getAppearance( p_oNode );
+				l_oAppearance = getAppearance(p_oNode);
 
-				l_aGeomArray = p_oNode.instance_geometry.@url.split( "#" );
+				l_aGeomArray = p_oNode.instance_geometry.@url.split("#");
 				l_sGeometryID = l_aGeomArray[ 1 ];
 				// -- get the vertices
-				l_oGeometry = getGeometry( l_sGeometryID, m_oMaterials );
+				l_oGeometry = getGeometry(l_sGeometryID, m_oMaterials);
 
 				if( l_oGeometry == null ) return null;
 				// -- create the new shape
-				l_oNode = new Shape3D( p_oNode.@name, l_oGeometry, l_oAppearance );
+				l_oNode = new Shape3D(p_oNode.@name, l_oGeometry, l_oAppearance);
 			}
 			else
 			{
-				l_oNode = new TransformGroup( p_oNode.@name );
+				l_oNode = new TransformGroup(p_oNode.@name);
 			}
 			
 			// -- scale
 			if( p_oNode.scale.length() > 0 ) 
 			{
-				l_oPoint3D = stringToPoint3D( p_oNode.scale );
+				l_oPoint3D = stringToPoint3D(p_oNode.scale);
 				// --
-				formatPoint3D( l_oPoint3D );
+				formatPoint3D(l_oPoint3D);
 				// --
 				l_oNode.scaleX = l_oPoint3D.x;
 				l_oNode.scaleY = l_oPoint3D.y;
 				l_oNode.scaleZ = l_oPoint3D.z;
-
 			}
 			// -- translation
 			if( p_oNode.translate.length() >= 1 ) 
 			{
 				var l_nTransAtt:int = p_oNode.translate.length();
-				for( i = 0; i < l_nTransAtt; i++ )
+				for( i = 0;i < l_nTransAtt; i++ )
 				{
 					var l_sTranslationValue:String = "";
 					// --
 					var l_sAttTranslateValue:String = p_oNode.translate[i].@sid;
 					if( l_sAttTranslateValue ) l_sAttTranslateValue = l_sAttTranslateValue.toLowerCase();
 					
-					if( l_sAttTranslateValue == "translation" || l_sAttTranslateValue ==  "translate" )
+					if( l_sAttTranslateValue == "translation" || l_sAttTranslateValue == "translate" )
 							l_sTranslationValue = p_oNode.translate[i];
 					else if( !l_sAttTranslateValue.length ) 
 							l_sTranslationValue = p_oNode.translate[i];
@@ -198,10 +183,10 @@ package sandy.parser
 					if( l_sTranslationValue.length )
 					{
 						// --
-						l_oPoint3D = stringToPoint3D( l_sTranslationValue );
+						l_oPoint3D = stringToPoint3D(l_sTranslationValue);
 						l_oPoint3D.scale(m_nScale);
 						// --
-						formatPoint3D( l_oPoint3D );
+						formatPoint3D(l_oPoint3D);
 						// --
 						l_oNode.x = l_oPoint3D.x;
 						l_oNode.y = l_oPoint3D.y;
@@ -210,29 +195,29 @@ package sandy.parser
 				}
 			}
 			// -- rotate
- 			if( p_oNode.rotate.length() == 1 ) 
- 			{
-				var l_oRotations : Array = stringToArray( p_oNode.rotate );
+			if( p_oNode.rotate.length() == 1 ) 
+			{
+				var l_oRotations:Array = stringToArray(p_oNode.rotate);
 				
 				if( m_bYUp )
 				{
-					l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
+					l_oNode.rotateAxis(l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ]);
 				}
 				else
 				{
-					l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
+					l_oNode.rotateAxis(l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ]);
 				}	
 			} 
 			else if( p_oNode.rotate.length() == 3 ) 
 			{
-				for( var j:int=0; j < 3; j++ )
+				for( var j:int = 0;j < 3; j++ )
 				{
-					var l_oRot : Array = stringToArray( p_oNode.rotate[j] );
+					var l_oRot:Array = stringToArray(p_oNode.rotate[j]);
 
 					switch( p_oNode.rotate[j].@sid.toLowerCase() )
 					{
 						case "rotatex":
-						{
+							{
 							if( l_oRot[ 3 ] != 0 )
 							{
 								if( m_bYUp ) 	l_oNode.rotateX = Number( l_oRot[ 3 ] );

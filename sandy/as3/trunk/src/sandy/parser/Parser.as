@@ -1,20 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
-
-package sandy.parser
+﻿package sandy.parser
 {
 	/**
 	* Dispatched when parsing fails.
@@ -56,12 +40,12 @@ package sandy.parser
 	 * The specific parser can be specified in the create method's second parameter.
 	 * 
 	 * @author		Thomas Pfeiffer - kiroukou
-	 * @version		1.0
+	 * @version		3.1
 	 * @date 		04.08.2007
 	 *
 	 * @example To parse a 3DS file at runtime:
 	 *
-	 * <listing version="3.0">
+	 * <listing version="3.1">
 	 *     var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.MAX_3DS );
 	 * </listing>
 	 * 
@@ -93,7 +77,7 @@ package sandy.parser
 		 * 
 		 * @example To parse a 3DS file at runtime:
 		 *
-		 * <listing version="3.0">
+		 * <listing version="3.1">
 		 *     var parser:IParser = Parser.create( "/path/to/my/3dsfile.3ds", Parser.3DS );
 		 * </listing>
 		 * 

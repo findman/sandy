@@ -1,18 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.primitive
 {
 	import sandy.core.data.Polygon;
@@ -26,13 +12,13 @@ package sandy.primitive
 	* The Box class is used for creating a cube or box primitive ( cuboid ).
 	*
 	* @author		Thomas Pfeiffer - kiroukou
-	* @version		3.0
+	 * @version		3.1
 	* @date 		26.07.2007
 	*
 	* @example To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
 	* in 'tri' mode and a with a quality of 2, use the following statement:
 	*
-	* <listing version="3.0">
+	* <listing version="3.1">
 	*     var myBox:Box = new Box( "theBox", 50, 100, 150, PrimitiveMode.TRI, 2 );
 	*  </listing>
 	*/
@@ -214,7 +200,6 @@ package sandy.primitive
 		{
 			var l_geometry:Geometry3D = p_geometry;
 
-			var f:Polygon;
 			if(level == 0 ) // End of recurssion
 			{
 				// -- We have the same normal for 2 faces, be careful to don't add extra normal

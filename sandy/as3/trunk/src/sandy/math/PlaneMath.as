@@ -1,30 +1,15 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.math 
 {
 	import sandy.core.data.Plane;
-	import sandy.core.data.Point3D;
-	import sandy.errors.SingletonError;
-	
+	import sandy.core.data.Point3D;	
+
 	/**
 	 * Math functions for planes.
 	 *  
 	 * @author		Thomas Pfeiffer - kiroukou
 	 * @since		0.3
-	 * @version		3.0
+	 * @version		3.1
 	 * @date 		26.07.2007
 	 */
 	public class PlaneMath

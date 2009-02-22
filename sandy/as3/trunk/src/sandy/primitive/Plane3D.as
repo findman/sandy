@@ -1,18 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
+﻿
 package sandy.primitive
 {
 	import sandy.core.scenegraph.Geometry3D;
@@ -22,16 +8,16 @@ package sandy.primitive
 	* The Plane3D is used for creating a plane primitive.
 	*
 	* @author		Thomas Pfeiffer - kiroukou
-	* @version		3.0
+	 * @version		3.1
 	* @date 		12.01.2006
 	*
 	* @example To create a 100x100 plane with default values quality and alignment, use the following statement:
 	*
-	* <listing version="3.0">
+	* <listing version="3.1">
 	*     var plane:Plane3D = new Plane3D( "thePlane", 100, 100 );
 	*  </listing>
 	* To create the same plane aligned parallel to the xy-plane use:
-	* <listing version="3.0">
+	* <listing version="3.1">
 	*     var plane:Plane3D = new Plane3D( "thePlane", 100, 100, 1, 1, Plane3D.XY_ALIGNED );
 	*  </listing>
 	*/

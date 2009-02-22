@@ -25,11 +25,10 @@ package sandy.core.interaction
 	 *
 	 * @author		Xavier MARTIN - zeflasher - http://dev.webbymx.net
 	 * @author		Thomas PFEIFFER - kiroukou
-	 * @version		1.0
+	 * @version		3.1
 	 * @date 		24.10.2007
 	 */
-	public class VirtualMouse
-		extends EventDispatcher 
+	public class VirtualMouse extends EventDispatcher 
 	{
 		private static var _oI		: VirtualMouse;
 		

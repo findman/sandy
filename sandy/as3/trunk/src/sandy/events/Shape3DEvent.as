@@ -1,20 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
-
-package sandy.events
+﻿package sandy.events
 {
 	import flash.events.Event;
 	import sandy.core.scenegraph.Shape3D;
@@ -27,7 +11,7 @@ package sandy.events
 	 * It gives some useful information about the clicked object such as the polygon clicked, and real 3D position of the point under mouse, the UV coordinate under mouse.
 	 * It allows some advanced interaction with the object and its texture.
 	 *
-	 * @version 3.0
+	 * @version		3.1
 	 *
 	 * @see sandy.core.scenegraph.Shape3D
 	 */
