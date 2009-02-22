@@ -17,6 +17,10 @@
 	import sandy.core.scenegraph.Group;
 	import sandy.core.scenegraph.mode7.Mode7;
 
+	import sandy.materials.Appearance;
+	import sandy.materials.BitmapMaterial;
+	import sandy.primitive.Sphere;
+
 	public class SandyMode7 extends Sprite
 	{
 		private const _framerate:int = 30;
@@ -69,6 +73,10 @@
 			_mode7.setNearFar (true);
 			_rootScene.addChild( _mode7 );
 			_mode7.repeatMap = false;
+
+			var s:Sphere = new Sphere ("", 50);
+			s.appearance = new Appearance (new BitmapMaterial (l_oTexture));
+			_rootScene.addChild( s ); s.y =  50;
 			//////
 			// init some variables
 			_upPush = 0;
