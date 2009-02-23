@@ -58,7 +58,7 @@ package sandy.materials
 			m_oType = MaterialType.VIDEO;
 			// --
 			m_oTimer = new Timer( p_nUpdateMS );
-			m_oTimer.addEventListener(TimerEvent.TIMER, _update );
+			m_oTimer.addEventListener(TimerEvent.TIMER, update );
 			start();
 		}
 
@@ -83,7 +83,7 @@ package sandy.materials
 		/**
 		 * Updates this material each internal timer cycle.
 		 */
-		private function _update( p_eEvent:TimerEvent ):void
+		public function update( p_eEvent:TimerEvent = null ):void
 		{
 			if ( m_bUpdate || forceUpdate )
 			{
@@ -91,6 +91,7 @@ package sandy.materials
 					ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
 				// --
 				m_oTexture.draw( m_oVideo, null, m_oAlpha, null, null, smooth );
+				m_bModified = true;
 			}
 			m_bUpdate = false;
 		}

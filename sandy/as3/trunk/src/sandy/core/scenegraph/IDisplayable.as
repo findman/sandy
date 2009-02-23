@@ -1,7 +1,10 @@
 
 package sandy.core.scenegraph
 {
+	
 	import flash.display.Sprite;
+	
+	import sandy.materials.Material;
 	
 	/**
 	 * The IDisplayable interface should be implemented by all visible objects.
@@ -21,6 +24,8 @@ package sandy.core.scenegraph
 		function get depth():Number;
 		
 		function get changed():Boolean;
+		
+		function get material():Material;
 		
 		// Called only if the useSignelContainer property is enabled!
 		function display( p_oContainer:Sprite = null  ):void;

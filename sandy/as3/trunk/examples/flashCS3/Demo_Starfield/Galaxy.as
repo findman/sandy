@@ -45,13 +45,13 @@
 			var axis:Point3D = Point3DMath.sphrand (1, 2); axis.normalize ();
 			var pAngle:Number = 360 * Math.random ();
 			var m:Matrix4 = Matrix4Math.axisRotationPoint3D (axis, pAngle);
-			C.copy (Matrix4Math.Point3DMult (m, C)); C.add (ref);
-			V.copy (Matrix4Math.Point3DMult (m, V));
+			C.copy (Matrix4Math.transform (m, C)); C.add (ref);
+			V.copy (Matrix4Math.transform (m, V));
 			for (i=0; i<sf.stars.length; i++)
 			{
-				var tmp:Point3D = Matrix4Math.Point3DMult (m, sf.stars[i].getPoint3D ()); tmp.add (ref);
+				var tmp:Point3D = Matrix4Math.transform (m, sf.stars[i].getPoint3D ()); tmp.add (ref);
 				sf.stars[i].x = tmp.x; sf.stars[i].y = tmp.y; sf.stars[i].z = tmp.z;
-				starV[i].copy (Matrix4Math.Point3DMult (m, starV[i]));
+				starV[i].copy (Matrix4Math.transform (m, starV[i]));
 			}
 		}
 

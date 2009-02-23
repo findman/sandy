@@ -82,12 +82,13 @@ package sandy.materials
 			// --
 			m_bUpdate = true;
 			m_oTimer = new Timer( p_nUpdateMS );
-			m_oTimer.addEventListener(TimerEvent.TIMER, _update );
+			m_oTimer.addEventListener(TimerEvent.TIMER, update );
 			m_oTimer.start();
 
 			if( tmpBmp ) 
 			{
-				tmpBmp.dispose();tmpBmp = null;
+				tmpBmp.dispose();
+				tmpBmp = null;
 			}
 			rect = null;
 			w = undefined;
@@ -115,7 +116,7 @@ package sandy.materials
 		/**
 		 * Updates this material each internal timer cycle.
 		 */
-		private function _update( p_eEvent:Event ):void
+		public function update( p_eEvent:Event = null ):void
 		{
 			if ( m_bUpdate || forceUpdate )
 			{
@@ -123,6 +124,7 @@ package sandy.materials
 					ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
 				// --
 				m_oTexture.draw( m_oMovie, null, m_oAlpha, null, null, smooth );
+				m_bModified = true;
 			}
 			m_bUpdate = false;
 		}

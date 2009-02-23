@@ -60,7 +60,8 @@ package sandy.materials
 				l_graphics.lineTo( l_oVertex.sx, l_oVertex.sy );
 			l_graphics.endFill();
 			// --
-			if( attributes )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+			super.renderPolygon( p_oScene, p_oPolygon, p_mcContainer );
+			//if( attributes )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
 
 		}
 

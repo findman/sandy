@@ -140,7 +140,8 @@ package sandy.materials
 		        }
 			}
 			// --
-			if( attributes )  attributes.draw( graphics, polygon, this, p_oScene ) ;
+			super.renderPolygon( p_oScene, p_oPolygon, p_mcContainer );
+			//if( attributes )  attributes.draw( graphics, polygon, this, p_oScene ) ;
 			// --
 			l_points = null;
 			l_uv = null;

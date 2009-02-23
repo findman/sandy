@@ -15,6 +15,7 @@
 	import sandy.core.scenegraph.mode7.CameraMode7;
 	import sandy.core.Scene3D;
 	import sandy.core.scenegraph.Group;
+	import sandy.core.scenegraph.Shape3D;
 	import sandy.core.scenegraph.mode7.Mode7;
 
 	import sandy.materials.Appearance;
@@ -74,8 +75,8 @@
 			_rootScene.addChild( _mode7 );
 			_mode7.repeatMap = false;
 
-			var s:Sphere = new Sphere ("", 50);
-			s.appearance = new Appearance (new BitmapMaterial (l_oTexture));
+			var s:Sphere = new Sphere ("sphere", 50);
+			s.appearance = new Appearance ( new BitmapMaterial (l_oTexture) );
 			_rootScene.addChild( s ); s.y =  50;
 			//////
 			// init some variables
@@ -108,6 +109,7 @@
 
 		private function onEnterFrameHandler (evt:Event):void
 		{
+			(_3dScene.root.getChildByName("sphere") as Shape3D).rotateY ++;
 			_camera.rotateY += (_leftPush - _rightPush) * 2;
 			var rotationRadian:Number=Math.PI*_camera.rotateY/180;
 			_camera.x += Math.sin(- rotationRadian) * (_upPush - _downPush) * 8;

@@ -1,6 +1,7 @@
 ﻿
 package sandy.materials 
-{	/**
+{
+	/**
 	 * Represents the appearance property of the visible objects.
 	 *
 	 * <p>The appearance holds the front and back materials of the object.</p>
@@ -99,6 +100,15 @@ package sandy.materials
 		public function get backMaterial():Material
 		{
 			return m_oBackMaterial;
+		}
+		
+		/**
+		 * Returns a boolean if the appearance has been modified and needs a redraw.
+		 * @return Boolean true if one of the material has changed, false otherwise
+		 */
+		public function get modified():Boolean
+		{
+			return m_oFrontMaterial.modified || m_oBackMaterial.modified ;
 		}
 		
 		
