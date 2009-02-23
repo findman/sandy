@@ -374,7 +374,8 @@ package sandy.materials
 		 */
 		public function setTransparency( p_nValue:Number ):void
 		{
-			if (m_oTexture == null) {
+			if (m_oTexture == null) 
+			{
 				throw new Error ("Setting transparency requires setting texture first.");
 			}
 			
@@ -382,15 +383,18 @@ package sandy.materials
 
 			if (p_nValue == 1) return;
 
-			if (m_oTextureClone != null) {
+			if (m_oTextureClone != null) 
+			{
 				if ((m_oTextureClone.height != m_oTexture.height) ||
-					(m_oTextureClone.width != m_oTexture.width)) {
+					(m_oTextureClone.width != m_oTexture.width)) 
+				{
 						m_oTextureClone.dispose ();
 						m_oTextureClone = null;
 				}
 			}
 
-			if (m_oTextureClone == null) {
+			if (m_oTextureClone == null) 
+			{
 				m_oTextureClone = new BitmapData (m_oTexture.width, m_oTexture.height, true, 0);
 			}
 
@@ -467,7 +471,7 @@ package sandy.materials
 		 */
 		public function toString():String
 		{
-			return 'sandy.materials.BitmapMaterial' ;
+			return this.id+'::sandy.materials.BitmapMaterial' ;
 		}
 
 		/**
