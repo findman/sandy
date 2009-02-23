@@ -276,7 +276,7 @@ package sandy.core.scenegraph
 		 */	
 		public function clear():void
 		{
-			m_oContainer.visible = false;
+			;//m_oContainer.visible = false;
 		}
 		
 		

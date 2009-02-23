@@ -135,12 +135,12 @@ package sandy.core.data
 		*
 		* @return A Point3D of the transformed vertex.
 		*/
-		public final function getWorldPoint3D():Point3D
+		public final function getCameraPoint3D():Point3D
 		{
-			m_oWorld.x = wx;
-			m_oWorld.y = wy;
-			m_oWorld.z = wz;
-			return m_oWorld;
+			m_oCamera.x = wx;
+			m_oCamera.y = wy;
+			m_oCamera.z = wz;
+			return m_oCamera;
 		}
 
 		/**
@@ -480,7 +480,7 @@ package sandy.core.data
 			sy = tmp[7];
 		}
 		
-		private const m_oWorld:Point3D = new Point3D();
+		private const m_oCamera:Point3D = new Point3D();
 		private const m_oLocal:Point3D = new Point3D();
 	}
 }

@@ -1,9 +1,9 @@
 package sandy.core.scenegraph.mode7
-{
-	import flash.display.BitmapData;	import flash.display.Sprite;	import flash.geom.Matrix;		import sandy.core.data.Matrix4;	import sandy.view.Frustum;	import sandy.core.scenegraph.Node;	import sandy.core.scenegraph.IDisplayable;	import sandy.core.scenegraph.Renderable;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.mode7.CameraMode7;
-	public class Mode7 extends Node implements Renderable, IDisplayable
-	{
-		private var _width : Number;
+{
+		import flash.display.BitmapData;	import flash.display.Sprite;	import flash.geom.Matrix;		import sandy.core.data.Matrix4;	import sandy.view.Frustum;	import sandy.core.scenegraph.Node;	import sandy.core.scenegraph.IDisplayable;	import sandy.core.scenegraph.Renderable;	import sandy.core.scenegraph.Camera3D;	import sandy.core.scenegraph.mode7.CameraMode7;
+		public class Mode7 extends Node implements Renderable, IDisplayable
+		{
+				private var _width : Number;
 		private var _height : Number;
 		private var _container : Sprite = new Sprite();
 		private var _numLines : int;
@@ -16,51 +16,50 @@
 		private var _altitude : Number;
 		private var _camTiltRadian : Number;
 		private var _horizon : Number;
-		private var _traceHorizon : Boolean;
-		private var _colorHorizon : int;
-		private var _widthHorizon : Number;
+				private var _traceHorizon : Boolean;
+				private var _colorHorizon : int;
+				private var _widthHorizon : Number;
 		private var _mapOriginal : BitmapData;
-		private var _scaleMap : Number;
-		private var _repeatMap : Boolean;
-		private var _smooth : Boolean;
-		private var _centerMapMatrix : Matrix;
-		private var _mapMatrix : Matrix;
-		private var _lineMatrix : Matrix;
+				private var _scaleMap : Number;
+				private var _repeatMap : Boolean;
+				private var _smooth : Boolean;
+				private var _centerMapMatrix : Matrix;
+				private var _mapMatrix : Matrix;
+				private var _lineMatrix : Matrix;
 		private var _yMax : Number;
-		private var _yMin : Number;
-		private var _length : Number;
-		private var _yMaxTilted : Number;
-		private var _yMinTilted : Number;
-		private var _yLength : Number;
-		private var _yStep : Number;
-		private var _yCurrent : Number;
-		private var _zMax : Number;
-		private var _zMin : Number;
-		private var _zMaxTilted : Number;
-		private var _zMinTilted : Number;
-		private var _zLength : Number;
-		private var _zStep : Number;
-		private var _zCurrent : Number;
-		private var _t : Number;
-		private var _xAmplitude : Number;
-		private var _xAmplitudePrev : Number;
-		private var _xAmplitudeAvg : Number;
-		private var _zAmplitude : Number;
-		private var _zProj : Number;
-		private var _zProjPrev : Number;
-		private var _prevOK : Boolean;
+				private var _yMin : Number;
+				private var _length : Number;
+				private var _yMaxTilted : Number;
+				private var _yMinTilted : Number;
+				private var _yLength : Number;
+				private var _yStep : Number;
+				private var _yCurrent : Number;
+				private var _zMax : Number;
+				private var _zMin : Number;
+				private var _zMaxTilted : Number;
+				private var _zMinTilted : Number;
+				private var _zLength : Number;
+				private var _zStep : Number;
+				private var _zCurrent : Number;
+				private var _t : Number;
+				private var _xAmplitude : Number;
+				private var _xAmplitudePrev : Number;
+				private var _xAmplitudeAvg : Number;
+				private var _zAmplitude : Number;
+				private var _zProj : Number;
+				private var _zProjPrev : Number;
+				private var _prevOK : Boolean;
 		private const PI : Number = Math.PI;
-		private const PIon180 : Number = PI / 180;
-		private const cos : Function = Math.cos;
-		private const sin : Function = Math.sin;
-		private const tan : Function = Math.tan;
-		public function Mode7()
-		{
-			_useCameraNearFar = true;
-			_lineMatrix = new Matrix();
-			setHorizon();
-		}
-		public var precision:Number = 1;
+				private const PIon180 : Number = PI / 180;
+				private const cos : Function = Math.cos;
+				private const sin : Function = Math.sin;
+				private const tan : Function = Math.tan;
+				public function Mode7()
+		{
+						_useCameraNearFar = true;
+			_lineMatrix = new Matrix();			setHorizon();
+				}
+				public var precision:Number = 1;
 		
 		// getters and setters //
 		public function get smooth() : Boolean		
