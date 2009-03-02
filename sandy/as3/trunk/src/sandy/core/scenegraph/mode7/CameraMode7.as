@@ -1,6 +1,6 @@
 package sandy.core.scenegraph.mode7{
 	import sandy.core.scenegraph.Camera3D;	
-	/**	 * CameraMode7 behaves like Camera3D, but with some constraints:	 * - rotations are available only by the rotateY and tilt methods (other are desactivated)	 * - the lookAt method is overrided to respect the available rotations	 */	public class CameraMode7 extends Camera3D
+	/**	 * CameraMode7 behaves like Camera3D, but with some constraints:	 * - rotations are available only by the rotateY and tilt methods (other are desactivated)	 * - the lookAt method is overrided to respect the available rotations	 * @author Cedric Jules	 */	public class CameraMode7 extends Camera3D
 	{		private var _horizon : Number;
 		private const PI : Number = Math.PI;
 		private const PIon180 : Number = PI / 180;
