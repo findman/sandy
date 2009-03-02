@@ -12,6 +12,7 @@ package sandy.view
 	import sandy.materials.BitmapMaterial;
 	import sandy.materials.ColorMaterial;
 	import sandy.materials.MovieMaterial;
+	import sandy.materials.attributes.AAttributes;
 	import sandy.materials.attributes.MaterialAttributes;
 	import sandy.primitive.Box;
 	import sandy.primitive.Plane3D;
@@ -56,6 +57,17 @@ package sandy.view
 			scene.render( useRenderingCache );
 		}
 		
+		public function makeMaterialAttributes( ...rest ):MaterialAttributes
+		{
+			var attr:MaterialAttributes = new MaterialAttributes();
+			var l:int = rest.length;
+			while( --l > -1 )
+			{
+				if( rest[l] is AAttributes )
+					attr.attributes.unshift( rest[l] );
+			}
+			return attr;
+		}
 		public function makeBitmapAppearance( p_oTexture:BitmapData, p_oAttr:MaterialAttributes = null, p_nPrecision:Number = 0.0 ):Appearance
 		{
 			return new Appearance( new BitmapMaterial( p_oTexture, p_oAttr, p_nPrecision ) );
