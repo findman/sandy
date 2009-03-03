@@ -34,6 +34,7 @@ class MD2 extends Shape3D, implements Primitive3D
 		v = new Point3D ();
 		w = new Point3D ();
 
+		m_oBinaryData = data;
 		super (p_sName); scaling = scale; geometry = generate ([data]); frame = 0;
 		//animated = true;
 	}
@@ -215,10 +216,11 @@ class MD2 extends Shape3D, implements Primitive3D
 		{
 			v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
 			w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-			// FIXME: remove untyped
-			untyped( w.crossWith (v) ); w.normalize ();
+			w.crossWith (v); w.normalize ();
 			l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
 		}
+
+		changed = true;
 		return value;
 	}
 
@@ -235,6 +237,7 @@ class MD2 extends Shape3D, implements Primitive3D
 		if (f == null) {
 			return -1;
 		} else {
+			num_frames++;
 			return vertices.push (f.slice (0)) -1;
 		}
 	}
@@ -252,7 +255,7 @@ class MD2 extends Shape3D, implements Primitive3D
 		var f2:Array<Point3D> = vertices [(sfi + 1) % num_frames];
 
 		// interpolation coef-s
-		var c2:Float = sourceFrame - sfi, c1:Float = 1 - c2;
+		var c2:Float = sourceFrame - sfi, c1:Float = 1. - c2;
 
 		// loop through vertices
 		for(i in 0...num_vertices)
