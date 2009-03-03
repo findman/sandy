@@ -1,40 +1,26 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials;
+
+import sandy.core.Scene3D;
+import sandy.core.data.Polygon;
+import sandy.core.data.Vertex;
+import sandy.materials.attributes.MaterialAttributes;
 
 import flash.display.Graphics;
 import flash.display.Sprite;
 
-import sandy.core.Scene3D;
-import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
-import sandy.core.data.Vertex;
-import sandy.materials.attributes.MaterialAttributes;
-import sandy.util.NumberUtil;
 
 /**
- * Displays a color with on the faces of a 3D shape.
- *
- * <p>Used to show colored faces, possibly with lines at the edges of the faces.</p>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+* Displays a color with on the faces of a 3D shape.
+*
+* <p>Used to show colored faces, possibly with lines at the edges of the faces.</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author 		Niel Drummond - haXe port
+* @author 		Russell Weir - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*/
 class ColorMaterial extends Material, implements IAlphaMaterial
 {
 	private var m_nColor:Int;
@@ -81,7 +67,8 @@ class ColorMaterial extends Material, implements IAlphaMaterial
 			l_graphics.lineTo( l_oVertex.sx, l_oVertex.sy );
 		l_graphics.endFill();
 		// --
-		if( attributes != null )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
+		super.renderPolygon( p_oScene, p_oPolygon, p_mcContainer );
+		//if( attributes != null )  attributes.draw( l_graphics, p_oPolygon, this, p_oScene ) ;
 
 	}
 

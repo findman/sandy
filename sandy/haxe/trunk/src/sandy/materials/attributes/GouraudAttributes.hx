@@ -1,42 +1,27 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
-import flash.display.Graphics;
-import flash.display.GradientType;
-import flash.geom.Matrix;
-
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
+import flash.display.Graphics;
+import flash.geom.Matrix;
+
 /**
- * Realize a Gouraud shading on a material.
- *
- * <p>To make this material attribute use by the Material object, the material must have :myMAterial.lighteningEnable = true.<br />
- * This attributes contains some parameters</p>
- * 
- * @author		Thomas Pfeiffer - kiroukou
- * @author		Makc for effect improvment 
- * @author Niel Drummond - haXe port 
- * 
- */
+* Realize a Gouraud shading on a material.
+*
+* <p>To make this material attribute use by the Material object, the material must have :myMAterial.lighteningEnable = true.<br />
+* This attributes contains some parameters</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Makc for effect improvment
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		13.11.2007
+*/
 class GouraudAttributes extends ALightAttributes
 {
 	/**
@@ -48,7 +33,7 @@ class GouraudAttributes extends ALightAttributes
 	{
 		return _useBright;
 	}
-	
+
 	private function __setUseBright (p_bUseBright:Bool):Bool
 	{
 		_useBright = p_bUseBright; makeLightMap ();
@@ -68,41 +53,39 @@ class GouraudAttributes extends ALightAttributes
 	 * @param p_bBright The brightness (value for useBright).
 	 * @param p_nAmbient The ambient light value. A value between O and 1 is expected.
 	 */
-	public function new( p_bBright:Bool = false, p_nAmbient:Float = 0.0 )
+	public function new( ?p_bBright:Bool = false, ?p_nAmbient:Float = 0.0 )
 	{
-	 m1 = new Matrix();
-	 m2 = new Matrix();
-
-		_useBright = true;
+		m1 = new Matrix();
+		m2 = new Matrix();
 
 		super();
 
 		useBright = p_bBright;
 		ambient = Math.min (Math.max (p_nAmbient, 0), 1);
 	}
-	
+
 	private var v0L:Float;
- private var v1L:Float;
+	private var v1L:Float;
 	private var v2L:Float;
 	private var m1:Matrix;
 	private var m2:Matrix;
 	private var m_oVertex:Vertex;
-	
+
 	override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):Void
 	{
 		super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 		if( !p_oMaterial.lightingEnable ) return;
-		
+
 		// get vertices
 		var l_aPoints:Array<Vertex> = (p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices;
 		// calculate light per vertex
 		var l_bVisible:Bool = p_oPolygon.visible;
 		var l_nAmbient:Float = ambient;
 
-		var v0L:Float = calculate (p_oPolygon.vertexNormals[0].getVector(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
-		var v1L:Float = calculate (p_oPolygon.vertexNormals[1].getVector(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
-		var v2L:Float = calculate (p_oPolygon.vertexNormals[2].getVector(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
+		var v0L:Float = calculate (p_oPolygon.vertexNormals[0].getPoint3D(), l_bVisible); if (v0L < l_nAmbient) v0L = l_nAmbient; else if (v0L > 1)v0L = 1;
+		var v1L:Float = calculate (p_oPolygon.vertexNormals[1].getPoint3D(), l_bVisible); if (v1L < l_nAmbient) v1L = l_nAmbient; else if (v1L > 1)v1L = 1;
+		var v2L:Float = calculate (p_oPolygon.vertexNormals[2].getPoint3D(), l_bVisible); if (v2L < l_nAmbient) v2L = l_nAmbient; else if (v2L > 1)v2L = 1;
 		// affine mapping
 		var v0:Float, v1:Float, v2:Float,
 			u0:Float, u1:Float, u2:Float, tmp:Float;
@@ -120,7 +103,7 @@ class GouraudAttributes extends ALightAttributes
 		{
 			// this is solid color case - so fill accordingly
 			p_oGraphics.lineStyle();
-			if (_useBright) 
+			if (_useBright)
 				p_oGraphics.beginFill( (v0L < 0.5) ? 0 : 0xFFFFFF, (v0L < 0.5) ? (1 - 2 * v0L) : (2 * v0L - 1) );
 			else
 				p_oGraphics.beginFill( 0, 1 - v0L );
@@ -132,7 +115,7 @@ class GouraudAttributes extends ALightAttributes
 			p_oGraphics.endFill();
 			return;
 		}
-			
+
 		// in one line?
 		if ((u2 - u1) * (u1 - u0) > 0)
 		{
@@ -144,12 +127,12 @@ class GouraudAttributes extends ALightAttributes
 		m1.c = u2 - u0; m1.d = v2 - v0;
 		m1.tx = u0; m1.ty = v0;
 		m1.invert ();
- 
+
 		m2.a = l_aPoints[1].sx - m2.tx; m2.b = l_aPoints[1].sy - m2.ty;
 		m2.c = l_aPoints[2].sx - m2.tx; m2.d = l_aPoints[2].sy - m2.ty;
 		m1.concat (m2);
 		// draw the map
-
+		p_oGraphics.lineStyle();
 		p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, m_aColors, m_aAlphas, m_aRatios, m1);
 		p_oGraphics.moveTo( m2.tx, m2.ty );
 		for ( m_oVertex in l_aPoints )

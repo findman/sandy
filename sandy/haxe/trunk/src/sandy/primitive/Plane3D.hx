@@ -1,37 +1,26 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
-import sandy.core.data.Vector;
 
 /**
 * The Plane3D is used for creating a plane primitive.
 *
 * @author		Thomas Pfeiffer - kiroukou
-* @author Niel Drummond - haXe port 
-* 
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		12.01.2006
+*
 * @example To create a 100x100 plane with default values quality and alignment, use the following statement:
 *
-* <listing version="3.0">
+* <listing version="3.1">
 *     var plane:Plane3D = new Plane3D( "thePlane", 100, 100 );
 *  </listing>
 * To create the same plane aligned parallel to the xy-plane use:
-* <listing version="3.0">
+* <listing version="3.1">
 *     var plane:Plane3D = new Plane3D( "thePlane", 100, 100, 1, 1, Plane3D.XY_ALIGNED );
 *  </listing>
 */
@@ -40,17 +29,17 @@ class Plane3D extends Shape3D, implements Primitive3D
 	/**
 	* Specifies plane will be parallel to the xy-plane.
 	*/
-	public static var XY_ALIGNED:String = "xy_aligned";
+	public static inline var XY_ALIGNED:String = "xy_aligned";
 
 	/**
 	* Specifies plane will be parallel to the yz-plane.
 	*/
-	public static var YZ_ALIGNED:String = "yz_aligned";
+	public static inline var YZ_ALIGNED:String = "yz_aligned";
 
 	/**
 	* Specifies plane will be parallel to the zx-plane.
 	*/
-	public static var ZX_ALIGNED:String = "zx_aligned";
+	public static inline var ZX_ALIGNED:String = "zx_aligned";
 
 	//////////////////
 	///PRIVATE VARS///
@@ -60,6 +49,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 	private var _qH:Int;
 	private var _qV:Int;
 	private var m_sType:String;
+	private var _mode : String;
 
 	/**
 	* Creates a Plane primitive.
@@ -73,13 +63,15 @@ class Plane3D extends Shape3D, implements Primitive3D
 	* @param p_nQualityH 	Number of horizontal segments.
 	* @param p_nQualityV	Number of vertical segments.
 	* @param p_sType		Alignment of the plane, one of XY_ALIGNED ( default ), YZ_ALIGNED or ZX_ALIGNED.
+	* @param p_sMode		The generation mode. "tri" generates faces with 3 vertices, and "quad" generates faces with 4 vertices.
 	*
 	* @see PrimitiveMode
 	*/
-	public function new(p_sName:String = null, p_nHeight:Float = 100.0, p_nWidth:Float = 100.0, p_nQualityH:Int = 1,
-							p_nQualityV:Int=1, ?p_sType:String )
+	public function new(?p_sName:String, ?p_nHeight:Float = 100.0, ?p_nWidth:Float = 100.0, ?p_nQualityH:Int = 1,
+							?p_nQualityV:Int=1, ?p_sType:String=Plane3D.XY_ALIGNED
+							?p_sMode:String )
 	{
-		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
+// 		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
 
 		super( p_sName ) ;
 		setConvexFlag (true);
@@ -87,6 +79,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 		_lg = p_nWidth;
 		_qV = p_nQualityV;
 		_qH = p_nQualityH;
+		_mode = ( p_sMode != PrimitiveMode.TRI && p_sMode != PrimitiveMode.QUAD ) ? PrimitiveMode.TRI : p_sMode;
 		m_sType = p_sType;
 		geometry = generate() ;
 	}
@@ -98,7 +91,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate( ?arguments:Array<Vector> ):Geometry3D
+	public function generate( ?arguments:Array<Point3D> ):Geometry3D
 	{
 		if ( arguments == null ) arguments = [];
 
@@ -133,7 +126,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 				iL += pasL;
 				iTL += pasL;
 			}
-			iH += pasH; 
+			iH += pasH;
 			iTH += pasH;
 		}
 
@@ -142,11 +135,19 @@ class Plane3D extends Shape3D, implements Primitive3D
 			for( j in 0..._qH )
 			{
 				//Face creation
-				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j] );
-				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j] );
+				if( _mode == PrimitiveMode.TRI )
+				{
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
 
-				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [(i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
-				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [(i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+				}
+				else if( _mode == PrimitiveMode.QUAD )
+				{
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+				}
 			}
 		}
 

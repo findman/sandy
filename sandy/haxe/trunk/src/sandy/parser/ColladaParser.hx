@@ -18,81 +18,57 @@ package sandy.parser;
 import flash.events.Event;
 import flash.net.URLRequest;
 
-import sandy.core.data.BezierPath;
-import sandy.core.data.BezierPath;
-import sandy.core.data.Edge3D;
+
 import sandy.core.data.Matrix4;
-import sandy.core.data.Plane;
-import sandy.core.data.Polygon;
-import sandy.core.data.PrimitiveFace;
-import sandy.core.data.Quaternion;
-import sandy.core.data.Quaternion;
-import sandy.core.data.UVCoord;
-import sandy.core.data.Vector;
-import sandy.core.data.Vertex;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.ATransformable;
-import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Geometry3D;
-import sandy.core.scenegraph.Group;
-import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Node;
 import sandy.core.scenegraph.Shape3D;
-import sandy.core.scenegraph.Sound3D;
-import sandy.core.scenegraph.Sprite2D;
-import sandy.core.scenegraph.Sprite3D;
 import sandy.core.scenegraph.TransformGroup;
 import sandy.events.QueueEvent;
 import sandy.materials.Appearance;
-import sandy.materials.Appearance;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.ColorMaterial;
-import sandy.materials.Material;
-import sandy.materials.Material;
-import sandy.materials.MaterialManager;
-import sandy.materials.MaterialType;
-import sandy.materials.MaterialType;
-import sandy.materials.MovieMaterial;
-import sandy.materials.VideoMaterial;
-import sandy.materials.VideoMaterial;
-import sandy.materials.WireFrameMaterial;
-import sandy.materials.ZShaderMaterial;
-import sandy.materials.ZShaderMaterial;
 import sandy.util.LoaderQueue;
 import sandy.util.NumberUtil;
 
 import haxe.xml.Fast;
 
 /**
- * Transforms a COLLADA XML document into Sandy geometries.
- * <p>Creates a Group as rootnode which appends all geometries it finds.
- * Recommended settings for the COLLADA exporter:</p>
- * <ul>
- * <li>Relative paths</li>
- * <li>Triangulate</li>
- * <li>Normals</li>
- * </ul>
- *
- * @author		Dennis Ippel - ippeldv
- * @author		Niel Drummond
- *
- * @example To parse a COLLADA object at runtime:
- *
- * <listing version="3.0">
- *     var parser:IParser = Parser.create( "/path/to/my/colladafile.dae", Parser.COLLADA );
- * </listing>
- *
- * @example To parse an embedded COLLADA object:
- *
- * <listing version="3.0">
- *     [Embed( source="/path/to/my/colladafile.dae", mimeType="application/octet-stream" )]
- *     private var MyCollada:Class;
- *
- *     ...
- *
- *     var parser:IParser = Parser.create( new MyCollada(), Parser.COLLADA );
- * </listing>
- */
-
+* Transforms a COLLADA XML document into Sandy geometries.
+* <p>Creates a Group as rootnode which appends all geometries it finds.
+* Recommended settings for the COLLADA exporter:</p>
+* <ul>
+* <li>Relative paths</li>
+* <li>Triangulate</li>
+* <li>Normals</li>
+* </ul>
+*
+* @author		Dennis Ippel - ippeldv
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		1.0
+* @version		3.1
+* @date 		26.07.2007
+*
+* @example To parse a COLLADA object at runtime:
+*
+* <listing version="3.1">
+*     var parser:IParser = Parser.create( "/path/to/my/colladafile.dae", Parser.COLLADA );
+* </listing>
+*
+* @example To parse an embedded COLLADA object:
+*
+* <listing version="3.1">
+*     [Embed( source="/path/to/my/colladafile.dae", mimeType="application/octet-stream" )]
+*     private var MyCollada:Class;
+*
+*     ...
+*
+*     var parser:IParser = Parser.create( new MyCollada(), Parser.COLLADA );
+* </listing>
+*/
 typedef ColladaImage = {
 				bitmapData: flash.display.BitmapData,
 				id : String,
@@ -107,22 +83,17 @@ class ColladaParser extends AParser, implements IParser
 	private var m_oMaterials : Hash<ColladaImage>;
 
 	/**
-	 * Default path for COLLADA images.
-	 * <p>Can this be done without??</p>
-	 */
-	public var RELATIVE_TEXTURE_PATH : String;
-
-	/**
 	 * Creates a new COLLADA parser instance.
 	 *
 	 * @param p_sUrl		Can be either a string pointing to the location of the
 	 * 						COLLADA file or an instance of an embedded COLLADA file.
 	 * @param p_nScale		The scale factor.
+	 * @param p_sTextureExtension	Overrides texture extension. You might want to use it for models that
+	 * specify BMP or PCX textures.
 	 */
-	public function new<URL>( p_sUrl:URL, p_nScale:Float )
+	public function new<URL>( p_sUrl:URL, ?p_nScale:Float=1.0, ?p_sTextureExtension:String )
 	{
-		RELATIVE_TEXTURE_PATH  = ".";
-		super( p_sUrl, p_nScale );
+		super( p_sUrl, p_nScale, p_sTextureExtension );
 	}
 
 	/**
@@ -143,7 +114,7 @@ class ColladaParser extends AParser, implements IParser
 				case "Y_UP":	m_oUp = Y_UP;
 				case "Z_UP":	m_oUp = Z_UP;
 				case "X_UP":	m_oUp = X_UP;
-				default:				 m_oUp = NONE;
+				default:		m_oUp = NONE;
 		}
 
 		if( m_oCollada.hasNode.library_images )
@@ -166,9 +137,7 @@ class ColladaParser extends AParser, implements IParser
 		}
 
 		// -- Parsing is finished
-		var l_eOnInit : ParserEvent = new ParserEvent( ParserEvent.INIT );
-		l_eOnInit.group = m_oGroup;
-		dispatchEvent( l_eOnInit );
+		dispatchInitEvent();
 	}
 
 	private function parseNode( p_oNode : haxe.xml.Fast ) : Node
@@ -179,12 +148,12 @@ class ColladaParser extends AParser, implements IParser
 		var l_sGeometryID : String;
 		var l_oNodes : List<Fast>;
 		var l_nNodeLen : Int;
-		var l_oVector : Vector;
-		//var l_oPivot:Vector = new Vector();
+		var l_oPoint3D : Point3D;
+		//var l_oPivot:Point3D = new Point3D();
 		var l_oGeometry : Geometry3D = null;
 		//var l_oScale : Transform3D;
 		var i:Int;
-		
+
 		if( p_oNode.hasNode.instance_geometry )
 		{
 			var l_aGeomArray:Array<String>;
@@ -205,17 +174,17 @@ class ColladaParser extends AParser, implements IParser
 		{
 			l_oNode = new TransformGroup( p_oNode.att.name );
 		}
-		
+
 		// -- scale
 		if( p_oNode.hasNode.scale )
 		{
-			l_oVector = stringToVector( p_oNode.node.scale.innerData );
+			l_oPoint3D = stringToPoint3D( p_oNode.node.scale.innerData );
 			// --
-			formatVector( l_oVector );
+			formatPoint3D( l_oPoint3D );
 			// --
-			l_oNode.scaleX = l_oVector.x;
-			l_oNode.scaleY = l_oVector.y;
-			l_oNode.scaleZ = l_oVector.z;
+			l_oNode.scaleX = l_oPoint3D.x;
+			l_oNode.scaleY = l_oPoint3D.y;
+			l_oNode.scaleZ = l_oPoint3D.z;
 
 		}
 		// -- translation
@@ -229,10 +198,10 @@ class ColladaParser extends AParser, implements IParser
 				var l_oAttTranslateNode:String = null;
 				var l_sAttTranslateValue:String = "";
 				if( l_oT.has.sid ) {
-						l_oAttTranslateNode = l_oT.att.sid;
-						l_sAttTranslateValue = l_oAttTranslateNode.toLowerCase();
+					l_oAttTranslateNode = l_oT.att.sid;
+					l_sAttTranslateValue = l_oAttTranslateNode.toLowerCase();
 				}
-				
+
 				if( l_sAttTranslateValue == "translation" || l_sAttTranslateValue ==  "translate" )
 						l_sTranslationValue = l_oT.innerData;
 				else if( l_sAttTranslateValue.length == 0 )
@@ -241,14 +210,14 @@ class ColladaParser extends AParser, implements IParser
 				if( l_sTranslationValue.length > 0 )
 				{
 					// --
-					l_oVector = stringToVector( l_sTranslationValue );
-					l_oVector.scale(m_nScale);
+					l_oPoint3D = stringToPoint3D( l_sTranslationValue );
+					l_oPoint3D.scale(m_nScale);
 					// --
-					formatVector( l_oVector );
+					formatPoint3D( l_oPoint3D );
 					// --
-					l_oNode.x = l_oVector.x;
-					l_oNode.y = l_oVector.y;
-					l_oNode.z = l_oVector.z;
+					l_oNode.x = l_oPoint3D.x;
+					l_oNode.y = l_oPoint3D.y;
+					l_oNode.z = l_oPoint3D.z;
 				}
 			}
 		}
@@ -256,20 +225,20 @@ class ColladaParser extends AParser, implements IParser
 		if( Lambda.count( p_oNode.nodes.rotate ) == 1 )
 		{
 			var l_oRotations : Array<Int> = stringToArray( p_oNode.node.rotate.innerData );
-			
+
 			switch (m_oUp)
 			{
 				case X_UP:
-						// not implemented
+				// not implemented
 				case Y_UP:
-						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
+				l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 1 ], l_oRotations[ 2 ], l_oRotations[ 3 ] );
 				case Z_UP:
-						// not implemented
+				// not implemented
 				case NONE:
-						l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
+				l_oNode.rotateAxis(	l_oRotations[ 0 ], l_oRotations[ 2 ], l_oRotations[ 1 ], l_oRotations[ 3 ] );
 			}
 
-		} 
+		}
 		else if( Lambda.count( p_oNode.nodes.rotate ) == 3 )
 		{
 			var l_oRotateNodes : List<Fast> = p_oNode.nodes.rotate;
@@ -283,12 +252,12 @@ class ColladaParser extends AParser, implements IParser
 					{
 						if( l_oRot[ 3 ] != 0 )
 						{
-								switch (m_oUp) {
-										case X_UP: // not implemented
-										case Y_UP: l_oNode.rotateX = l_oRot[ 3 ];
-										case Z_UP: // not implemented
-										case NONE: l_oNode.rotateX = l_oRot[ 3 ];
-								}
+							switch (m_oUp) {
+							case X_UP: // not implemented
+							case Y_UP: l_oNode.rotateX = l_oRot[ 3 ];
+							case Z_UP: // not implemented
+							case NONE: l_oNode.rotateX = l_oRot[ 3 ];
+							}
 						}
 						break;
 					}
@@ -296,24 +265,24 @@ class ColladaParser extends AParser, implements IParser
 					{
 						if( l_oRot[ 3 ] != 0 )
 						{
-								switch (m_oUp) {
-										case X_UP: // not implemented
-										case Y_UP: l_oNode.rotateY = l_oRot[ 3 ];
-										case Z_UP: // not implemented
-										case NONE: l_oNode.rotateZ = l_oRot[ 3 ];
-								}
-						} 
+							switch (m_oUp) {
+							case X_UP: // not implemented
+							case Y_UP: l_oNode.rotateY = l_oRot[ 3 ];
+							case Z_UP: // not implemented
+							case NONE: l_oNode.rotateZ = l_oRot[ 3 ];
+							}
+						}
 						break;
 					}
 					case "rotatez":
 					{
-						if( l_oRot[ 3 ] != 0 ) 
+						if( l_oRot[ 3 ] != 0 )
 						{
 							switch (m_oUp) {
-									case X_UP: // not implemented
-									case Y_UP: l_oNode.rotateZ = l_oRot[ 3 ];
-									case Z_UP: // not implemented
-									case NONE: l_oNode.rotateY = l_oRot[ 3 ];
+							case X_UP: // not implemented
+							case Y_UP: l_oNode.rotateZ = l_oRot[ 3 ];
+							case Z_UP: // not implemented
+							case NONE: l_oNode.rotateY = l_oRot[ 3 ];
 							}
 						}
 						break;
@@ -323,7 +292,7 @@ class ColladaParser extends AParser, implements IParser
 		}
 
 		// -- baked matrix
-		if( p_oNode.hasNode.matrix ) 
+		if( p_oNode.hasNode.matrix )
 		{
 			stringToMatrix( p_oNode.node.matrix.innerData );
 		}
@@ -346,7 +315,7 @@ class ColladaParser extends AParser, implements IParser
 			if ((l_sNodeId != "") && (l_sNodeId.charAt(0) == "#"))
 			{
 				l_sNodeId = l_sNodeId.substr(1);
-				var l_oMatchingNodes:List<Fast> = m_oCollada.node.library_nodes.nodes.node; 
+				var l_oMatchingNodes:List<Fast> = m_oCollada.node.library_nodes.nodes.node;
 				for ( l_oMatchingNode in l_oMatchingNodes ) {
 					if ( l_oMatchingNode.att.id == l_sNodeId ) {
 						var l_oNode3D:Node = parseNode( l_oMatchingNode );
@@ -372,7 +341,7 @@ class ColladaParser extends AParser, implements IParser
 		// -- parse geometry node
 		for ( l_oNode in l_oGeometries ) {
 			if ( l_oNode.att.id == p_sGeometryID ) {
-					if ( l_oGeometry == null ) 
+					if ( l_oGeometry == null )
 							l_oGeometry = l_oNode;
 			}
 		}
@@ -392,19 +361,19 @@ class ColladaParser extends AParser, implements IParser
 		var l_oNormal : haxe.xml.Fast = null;
 		var l_aInput = l_oTriangles.nodes.input;
 		for ( l_oInput in l_aInput ) {
-				switch (l_oInput.att.semantic) {
-						case "VERTEX":
-								if ( l_sVerticesID == null )
-										l_sVerticesID = l_oInput.att.source.split("#")[1];
-						case "TEXCOORD":
-								if ( l_oTexCoord == null )
-										l_oTexCoord = l_oInput;
-						case "NORMAL":
-								if ( l_oNormal == null )
-										l_oNormal = l_oInput;
-						default:
-						// log warning ?
-				}
+			switch (l_oInput.att.semantic) {
+			case "VERTEX":
+					if ( l_sVerticesID == null )
+							l_sVerticesID = l_oInput.att.source.split("#")[1];
+			case "TEXCOORD":
+					if ( l_oTexCoord == null )
+							l_oTexCoord = l_oInput;
+			case "NORMAL":
+					if ( l_oNormal == null )
+							l_oNormal = l_oInput;
+			default:
+			// log warning ?
+			}
 		}
 
 		// -- get vertices float array
@@ -425,16 +394,16 @@ class ColladaParser extends AParser, implements IParser
 						}
 				}
 		}
-		
-		var l_aVertexFloats : Array<Vector> = getFloatArray( l_sPosSourceID, l_oGeometry );
+
+		var l_aVertexFloats : Array<Point3D> = getFloatArray( l_sPosSourceID, l_oGeometry );
 		var l_nVertexFloat : Int = l_aVertexFloats.length;
 		// -- set vertices
 		for( i in 0...l_nVertexFloat )
 		{
-			var l_oVertex:Vector = l_aVertexFloats[ i ];
+			var l_oVertex:Point3D = l_aVertexFloats[ i ];
 			l_oVertex.scale( m_nScale );
 			// --
-			formatVector( l_oVertex );
+			formatPoint3D( l_oVertex );
 			// --
 			l_oOutpGeom.setVertex(	i,
 									l_oVertex.x,
@@ -446,13 +415,13 @@ class ColladaParser extends AParser, implements IParser
 		{
 			// -- get uvcoords float array
 			var l_sUVCoordsID : String = l_oTexCoord.att.source.split("#")[1];
-			var l_aUVCoordsFloats : Array<Vector> = getFloatArray( l_sUVCoordsID, l_oGeometry );
+			var l_aUVCoordsFloats : Array<Point3D> = getFloatArray( l_sUVCoordsID, l_oGeometry );
 			var l_nUVCoordsFloats : Int = l_aUVCoordsFloats.length;
 
 			// -- set uvcoords
 			for( i in 0...l_nUVCoordsFloats )
 			{
-				var l_oUVCoord:Vector = l_aUVCoordsFloats[ i ];
+				var l_oUVCoord:Point3D = l_aUVCoordsFloats[ i ];
 
 				l_oOutpGeom.setUVCoords( i,l_oUVCoord.x, 1 - l_oUVCoord.y );
 			}
@@ -463,22 +432,28 @@ class ColladaParser extends AParser, implements IParser
 		if( l_oNormal != null )
 		{
 			var l_sNormalsID : String = l_oNormal.att.source.split("#")[1];
-			var l_aNormalFloats : Array<Vector> = getFloatArray( l_sNormalsID, l_oGeometry );
+			var l_aNormalFloats : Array<Point3D> = getFloatArray( l_sNormalsID, l_oGeometry );
 			var l_nNormalFloats : Int = l_aNormalFloats.length;
 
 			// -- set normals
 			for( i in 0...l_nNormalFloats )
 			{
-				var l_oNormal:Vector = l_aNormalFloats[ i ];
+				var l_oNormal:Point3D = l_aNormalFloats[ i ];
 				// STRANGE, AREN'T NORMAL VECTORS NORMALIZED?
 				l_oNormal.normalize();
 				// --
-				formatVector(l_oNormal);
-
+				formatPoint3D(l_oNormal);
+				// --
+				switch (m_oUp)
+				{
+				case Y_UP:
+				default:
+					l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
+				}
 			}
 		}
-		
-		
+
+
 		var l_aTrianglez:Array<Hash<Array<Int>>> = convertTriangleArray( l_oTriangles.nodes.input, l_aTriangles, l_nCount );
 		var l_nTriangeLength : Int = l_aTrianglez.length;
 
@@ -495,7 +470,7 @@ class ColladaParser extends AParser, implements IParser
 		return l_oOutpGeom;
 	}
 
-	private function getFloatArray( p_sSourceID : String, p_oGeometry : haxe.xml.Fast ) : Array<Vector>
+	private function getFloatArray( p_sSourceID : String, p_oGeometry : haxe.xml.Fast ) : Array<Point3D>
 	{
 		var l_aSources : List<Fast> = p_oGeometry.node.mesh.nodes.source;
 		var l_oSource : haxe.xml.Fast = null;
@@ -513,22 +488,22 @@ class ColladaParser extends AParser, implements IParser
 		var l_nOffset:Int = Std.parseInt( l_oSource.node.technique_common.node.accessor.att.stride );
 
 		var l_nFloatArray : Int = l_aFloatArray.length;
-		var l_aOutput : Array<Vector> = new Array();
+		var l_aOutput : Array<Point3D> = new Array();
 
 		var i:Int = 0;
 		while(  i < l_nFloatArray )
 		{
-			var l_oCoords : Vector = null;
+			var l_oCoords : Point3D = null;
 			// FIX FROM THOMAS to solve the case there's only UV coords exported instead of UVW. To clean
 			if( l_nOffset == 3 )
 			{
-				l_oCoords = new Vector( Std.parseFloat( l_aFloatArray[ i ] ),
+				l_oCoords = new Point3D( Std.parseFloat( l_aFloatArray[ i ] ),
 										Std.parseFloat( l_aFloatArray[ i + 1 ] ),
 										Std.parseFloat( l_aFloatArray[ i + 2 ] ) );
 			}
 			else if( l_nOffset == 2 )
 			{
-				l_oCoords =	new Vector( Std.parseFloat( l_aFloatArray[ i ] ),
+				l_oCoords =	new Point3D( Std.parseFloat( l_aFloatArray[ i ] ),
 										Std.parseFloat( l_aFloatArray[ i + 1 ]) , 0 );
 			}
 			l_aOutput.push( l_oCoords );
@@ -580,6 +555,12 @@ class ColladaParser extends AParser, implements IParser
 		return l_aOutput;
 	}
 
+	/**
+	* Converts a space separated string to an array
+	*
+	* @param p_sValues		A string containing space separated values
+	* @return 				The resulting array
+	*/
 	private function stringToArray( p_sValues : String ) : Array<Int>
 	{
 		//var l_aValues : Array = p_sValues.split(/\s+/);
@@ -594,16 +575,22 @@ class ColladaParser extends AParser, implements IParser
 		return l_nValues;
 	}
 
-	private function stringToVector( p_sValues : String ) : Vector
+	/**
+	* Converts a string to a Point3D
+	*
+	* @param p_sValues		A string containing space separated values
+	* @return 				The resulting Point3D
+	*/
+	private function stringToPoint3D( p_sValues : String ) : Point3D
 	{
 		//var l_aValues : Array = p_sValues.split(/\s+/);
 		var l_aValues : Array<String> = p_sValues.split(" ");
 		var l_nValues : Int = l_aValues.length;
 		// --
 		if( l_nValues != 3 )
-			throw "ColladaParser.stringToVector(): A vector must have 3 values";
+			throw "ColladaParser.stringToPoint3D(): A Point3D must have 3 values";
 		// --
-		return new Vector( Std.parseFloat( l_aValues[ 0 ] ), Std.parseFloat( l_aValues[ 1 ] ), Std.parseFloat( l_aValues[ 2 ] ) );
+		return new Point3D( Std.parseFloat( l_aValues[ 0 ] ), Std.parseFloat( l_aValues[ 1 ] ), Std.parseFloat( l_aValues[ 2 ] ) );
 	}
 
 	private function stringToMatrix( p_sValues : String ) : Matrix4
@@ -613,7 +600,7 @@ class ColladaParser extends AParser, implements IParser
 		var l_nValues : Int = l_aValues.length;
 
 		if( l_nValues != 16 )
-			throw "ColladaParser.stringToMatrix(): A vector must have 16 values";
+			throw "ColladaParser.stringToMatrix(): A Point3D must have 16 values";
 
 		var l_oMatrix4 : Matrix4 = new Matrix4(
 			Std.parseFloat( l_aValues[ 0 ] ), Std.parseFloat( l_aValues[ 1 ] ), Std.parseFloat( l_aValues[ 2 ] ), Std.parseFloat( l_aValues[ 3 ] ),
@@ -624,9 +611,9 @@ class ColladaParser extends AParser, implements IParser
 
 		return l_oMatrix4;
 	}
-	
-	
-	private function formatVector( p_oVect:Vector ):Void
+
+
+	private function formatPoint3D( p_oVect:Point3D ):Void
 	{
 		var tmp:Float;
 		switch (m_oUp) {
@@ -658,7 +645,7 @@ class ColladaParser extends AParser, implements IParser
 						l_aTechnique = l_oBind.nodes.technique_common;
 						for ( l_oTechnique in l_aTechnique ) {
 								var l_aMaterials = l_oTechnique.nodes.instance_material;
-								for ( l_oMaterial in l_aMaterials ) 
+								for ( l_oMaterial in l_aMaterials )
 										l_oMaterials.push( l_oMaterial );
 						}
 				}
@@ -818,7 +805,7 @@ class ColladaParser extends AParser, implements IParser
 			l_oImages.set( l_sId, {
 				bitmapData: null,
 				id : l_sId,
-				fileName : l_oInitFrom
+				fileName : changeExt(l_oInitFrom.substr(l_oInitFrom.lastIndexOf("/") + 1, l_oInitFrom.length))
 			});
 
 			l_oQueue.add(

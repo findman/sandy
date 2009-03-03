@@ -23,19 +23,22 @@ import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
 /**
- * ABSTRACT CLASS - super class for attributes that do not need to implement all manager hooks.
- *
- * <p>This purpose of this class is to save some code. Hooks are still available using "override" keyword.</p>
- *
- * @author		makc
- * @author Niel Drummond - haXe port 
- * 
- **/
+* ABSTRACT CLASS - super class for attributes that do not need to implement all manager hooks.
+*
+* <p>This purpose of this class is to save some code. Hooks are still available using "override" keyword.</p>
+*
+* @author		makc
+* @author		Niel Drummond - haXe port
+* @author 		Russell Weir - haXe port
+* @version		3.1
+* @date 		18.01.2008
+**/
+
 class AAttributes implements IAttributes
 {
 
- public function new () {
-	 m_nFlags = 0;
+	public function new () {
+		m_nFlags = 0;
 	}
 
 	/**
@@ -53,7 +56,7 @@ class AAttributes implements IAttributes
 	public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
 	}
-	
+
 	/**
 	* Applies attribute to a sprite.
 	*
@@ -80,7 +83,7 @@ class AAttributes implements IAttributes
 	public function begin( p_oScene:Scene3D ):Void
 	{
 	}
-	
+
 	/**
 	* Method called right after the display list rendering. This is the place to remove and dispose memory if necessary.
 	*
@@ -116,7 +119,7 @@ class AAttributes implements IAttributes
 	public function unlink( p_oPolygon:Polygon ):Void
 	{
 	}
-	
+
 	/**
 	* Returns the specific flags of this attribute.
 	*
@@ -127,7 +130,7 @@ class AAttributes implements IAttributes
 	{
 		return m_nFlags;
 	}
-	
+
 	private var m_nFlags:Int;
 }
 

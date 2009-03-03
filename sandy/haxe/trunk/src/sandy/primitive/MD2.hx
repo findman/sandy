@@ -1,19 +1,22 @@
 package sandy.primitive;
 
-import flash.utils.ByteArray;
-import flash.utils.Endian;
-
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.primitive.Primitive3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 import sandy.core.data.UVCoord;
 
+import flash.utils.ByteArray;
+import flash.utils.Endian;
+
+
 /**
 * MD2 primitive.
-* 
+*
 * @author Philippe Ajoux (philippe.ajoux@gmail.com)
+* @author Niel Drummond - haXe port
+* @author Russell Weir - haXe port
 */
 class MD2 extends Shape3D, implements Primitive3D
 {
@@ -24,17 +27,27 @@ class MD2 extends Shape3D, implements Primitive3D
 	* @param data MD2 binary data.
 	* @param scale Adjusts model scale.
 	*/
-	public function new ( p_sName:String, data:ByteArray, scale:Int = 1 )
+	public function new ( p_sName:String, data:ByteArray, ?scale:Float = 1.0 )
 	{
-	 frames = new Hash();
-
-	 vertices = [];
-	 v = new Vector ();
-		w = new Vector ();
+		frames = new Hash();
+		vertices = [];
+		v = new Point3D ();
+		w = new Point3D ();
 
 		super (p_sName); scaling = scale; geometry = generate ([data]); frame = 0;
 		//animated = true;
 	}
+
+	public override function clone( ?p_sName:String="", ?p_bKeepTransform:Bool = false ):Shape3D
+	{
+		var l_oCopy:MD2 = new MD2(p_sName, m_oBinaryData, scaling);
+		if( p_bKeepTransform == true ) l_oCopy.matrix = this.matrix;
+		l_oCopy.useSingleContainer = this.useSingleContainer;
+		l_oCopy.appearance = this.appearance;
+		return l_oCopy;
+	}
+
+	private var m_oBinaryData:ByteArray;
 
 	/**
 	* Generates the geometry for MD2. Sandy never actually calls this method,
@@ -42,15 +55,16 @@ class MD2 extends Shape3D, implements Primitive3D
 	*
 	* @return The geometry object.
 	*/
-	public function generate <T>(?arguments:Array<T>):Geometry3D
+	public function generate<T>(?arguments:Array<T>):Geometry3D
 	{
 		var i:Int, j:Int, char:Int;
 		var uvs:Array<UVCoord> = [];
 		var mesh:Geometry3D = new Geometry3D ();
 
 		// okay, let's read out header 1st
-		var data:ByteArray = arguments[0];
+		var data:ByteArray = cast arguments[0];
 		data.endian = Endian.LITTLE_ENDIAN;
+		data.position = 0;
 
 		ident = data.readInt();
 		version = data.readInt();
@@ -120,7 +134,7 @@ class MD2 extends Shape3D, implements Primitive3D
 			var sx:Float = data.readFloat();
 			var sy:Float = data.readFloat();
 			var sz:Float = data.readFloat();
-			
+
 			var tx:Float = data.readFloat();
 			var ty:Float = data.readFloat();
 			var tz:Float = data.readFloat();
@@ -137,11 +151,11 @@ class MD2 extends Shape3D, implements Primitive3D
 			frames.set(name, i);
 
 			// store vertices for every frame
-			var vi:Array<Vector> = [];
+			var vi:Array<Point3D> = [];
 			vertices [i] = vi;
 			for (j in 0...num_vertices)
 			{
-				var vec:Vector = new Vector ();
+				var vec:Point3D = new Point3D ();
 
 				// order of assignment is important here because of data reads...
 				vec.x = ((sx * data.readUnsignedByte()) + tx) * scaling;
@@ -177,8 +191,8 @@ class MD2 extends Shape3D, implements Primitive3D
 		t = value;
 
 		// interpolation frames
-		var f1:Array<Vector> = vertices [Std.int(t) % num_frames];
-		var f2:Array<Vector> = vertices [(Std.int(t) + 1) % num_frames];
+		var f1:Array<Point3D> = vertices [Std.int(t) % num_frames];
+		var f2:Array<Point3D> = vertices [(Std.int(t) + 1) % num_frames];
 
 		// interpolation coef-s
 		var c2:Float = t - Std.int(t), c1:Float = 1 - c2;
@@ -187,8 +201,8 @@ class MD2 extends Shape3D, implements Primitive3D
 		for (i in 0...num_vertices)
 		{
 			var v0:Vertex = geometry.aVertex [i];
-			var v1:Vector = f1 [i];
-			var v2:Vector = f2 [i];
+			var v1:Point3D = f1 [i];
+			var v2:Point3D = f2 [i];
 
 			// interpolate
 			v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
@@ -201,7 +215,7 @@ class MD2 extends Shape3D, implements Primitive3D
 		{
 			v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
 			w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-			// FIXME: remove untyped 
+			// FIXME: remove untyped
 			untyped( w.crossWith (v) ); w.normalize ();
 			l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
 		}
@@ -217,7 +231,7 @@ class MD2 extends Shape3D, implements Primitive3D
 	public function appendFrameCopy (frameNumber:Int):Int
 	{
 		//var f:Array = vertices [frameNumber] as Array;
-		var f:Array<Vector> = vertices [frameNumber];
+		var f:Array<Point3D> = vertices [frameNumber];
 		if (f == null) {
 			return -1;
 		} else {
@@ -225,15 +239,50 @@ class MD2 extends Shape3D, implements Primitive3D
 		}
 	}
 
+	/**
+	* Replaces specified frame with other key or interpolated frame.
+	*/
+	public function replaceFrame (destFrame:Int, sourceFrame:Float):Void
+	{
+		var sfi = Std.int(sourceFrame);
+		var f0:Array<Point3D> = [];
+
+		// interpolation frames
+		var f1:Array<Point3D> = vertices [sfi % num_frames];
+		var f2:Array<Point3D> = vertices [(sfi + 1) % num_frames];
+
+		// interpolation coef-s
+		var c2:Float = sourceFrame - sfi, c1:Float = 1 - c2;
+
+		// loop through vertices
+		for(i in 0...num_vertices)
+		{
+			var v0:Point3D = new Point3D();
+			var v1:Point3D = f1 [i];
+			var v2:Point3D = f2 [i];
+
+			// interpolate
+			v0.x = v1.x * c1 + v2.x * c2;
+			v0.y = v1.y * c1 + v2.y * c2;
+			v0.z = v1.z * c1 + v2.z * c2;
+
+			// save
+			f0 [i] = v0;
+		}
+
+		vertices [destFrame] = f0;
+		num_frames = vertices.length;
+	}
+
 	// animation "time" (frame number)
-	private var t:Float;		
+	private var t:Float;
 
 	// vertices list for every frame
-	private var vertices:Array<Array<Vector>>;
+	private var vertices:Array<Array<Point3D>>;
 
 	// vars for quick normal computation
-	private var v:Vector;
- private var w:Vector;
+	private var v:Point3D;
+	private var w:Point3D;
 
 	// original Philippe vars
 	private var ident:Int;
@@ -258,8 +307,8 @@ class MD2 extends Shape3D, implements Primitive3D
 	private var texture:String;
 
 	/**
-	 * Number of frames in MD2.
-	 */
+	* Float of frames in MD2.
+	*/
 	public var nFrames(__getNFrames,null):Float;
 	private function __getNFrames():Float { return num_frames; }
 

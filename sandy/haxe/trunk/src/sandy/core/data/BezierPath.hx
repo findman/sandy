@@ -1,37 +1,24 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core.data;
 
 import sandy.util.BezierUtil;
 
+
 /**
- * A 3D Bézier path.
- *
- * <p>The Bezier path is built form an array of 3D points, by using Bezier equations<br />
- * With two points the path is degenereated to a straight line. To get a curved line, you need
- * at least three points. The mid point is used as a control point which gives the curvature.<br />
- * After that you will have to add three point segments</p>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
- * 
- */
+* A 3D Bézier path.
+*
+* <p>The Bézier path is built form an array of 3D points, by using Bézier equations<br />
+* With two points the path is degenereated to a straight line. To get a curved line, you need
+* at least three points. The mid point is used as a control point which gives the curvature.<br />
+* After that you will have to add three point segments</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		1.0
+* @version		3.1
+* @date 		24.08.2007
+*/
 class BezierPath
 {
 	/**
@@ -55,7 +42,7 @@ class BezierPath
 	 * @param	p_nId The number of the segment to return
 	 * @return	An array containing the bezierCurve points [startPoint, controlPoint, endPoint]
 	 */
-	public function getSegment( p_nId:Int ):Array<Vector>
+	public function getSegment( p_nId:Int ):Array<Point3D>
 	{
 		if( p_nId >= 0 && p_nId < _nNbSegments )
 		{
@@ -77,7 +64,7 @@ class BezierPath
 	 * @param	p_nP  The portion of the path length ( 0 - 1 )
 	 * @return	The 3D position on the path at
 	 */
-	public function getPosition( p_nP:Float ):Vector
+	public function getPosition( p_nP:Float ):Point3D
 	{
 		var id:Int = Math.floor(p_nP/_nRatio);
 		if( id == _nNbSegments )
@@ -85,7 +72,7 @@ class BezierPath
 			id --;
 			p_nP = 1.0;
 		}
-		var seg:Array<Vector> = getSegment( id );
+		var seg:Array<Point3D> = getSegment( id );
 		return BezierUtil.getPointsOnQuadCurve( (p_nP-id*_nRatio)/_nRatio, seg[0], seg[1], seg[2] );
 	}
 
@@ -110,7 +97,7 @@ class BezierPath
 		}
 		else
 		{
-			_aContainer.push( new Vector( p_nX, p_nY, p_nZ ) );
+			_aContainer.push( new Point3D( p_nX, p_nY, p_nZ ) );
 			return true;
 		}
 	}
@@ -131,7 +118,7 @@ class BezierPath
 		}
 		_bCompiled = true;
 		_nNbSegments = 0;
-		var a:Vector, b:Vector, c:Vector;
+		var a:Point3D, b:Point3D, c:Point3D;
 		var i:Int = 0;
 		while ( i <= _nNbPoints-2 )
 		{
@@ -177,12 +164,12 @@ class BezierPath
 	/**
 	 * Transformed coordinates in the local frame of the object.
 	 */
-	private var _aContainer:Array<Vector>;
+	private var _aContainer:Array<Point3D>;
 
 	/**
 	 * Array of segments.
 	 */
-	private var _aSegments:Array<Array<Vector>>;
+	private var _aSegments:Array<Array<Point3D>>;
 
 
 	/**

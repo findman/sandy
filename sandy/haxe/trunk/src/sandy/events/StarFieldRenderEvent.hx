@@ -1,18 +1,3 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.events;
 
@@ -21,25 +6,25 @@ import flash.events.Event;
 import sandy.core.scenegraph.StarField;
 
 /**
- * This class represents the type of events broadcasted by StarField objects.
- * It gives you some additional control over StarField rendering process.
- *
- * @version 3.0.3
- *
- * @see sandy.core.scenegraph.StarField
- */
+* This class represents the type of events broadcasted by StarField objects.
+* It gives you some additional control over StarField rendering process.
+*
+* @version		3.1
+*
+* @see sandy.core.scenegraph.StarField
+*/
 class StarFieldRenderEvent extends BubbleEvent
 {
 	/**
-	 * Constructs a new StarFieldRenderEvent instance.
-	 *
-	 * @param e				A name for the event.
-	 * @param p_oStarField		The StarField object reference.
-	 * @param p_oBitmapData		The BitmapData object reference.
-	 * @param p_bClear		Clearing flag.
-	 *
-	 * @see sandy.core.scenegraph.StarField
-	 */
+	* Constructs a new StarFieldRenderEvent instance.
+	*
+	* @param e				A name for the event.
+	* @param p_oStarField		The StarField object reference.
+	* @param p_oBitmapData		The BitmapData object reference.
+	* @param p_bClear		Clearing flag.
+	*
+	* @see sandy.core.scenegraph.StarField
+	*/
 	public function new(e:String, p_oStarField:StarField, p_oBitmapData:BitmapData, p_bClear:Bool )
 	{
 		super(e, p_oStarField);

@@ -1,25 +1,11 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
+import sandy.core.data.Point3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.PrimitiveFace;
 import sandy.core.data.UVCoord;
 import sandy.core.data.Vertex;
-import sandy.core.data.Vector;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
@@ -27,13 +13,16 @@ import sandy.core.scenegraph.Shape3D;
 * The Box class is used for creating a cube or box primitive ( cuboid ).
 *
 * @author		Thomas Pfeiffer - kiroukou
-* @author Niel Drummond - haXe port 
-* 
-* @example To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
-* with a quality of 2, use the following statement:
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		26.07.2007
 *
-* <listing version="3.0">
-*     var myBox:Box = new Box( "theBox", 50, 100, 150, 2 );
+* @example To create a rectilinear box with ( x, y, z ) dimensions ( 50, 100, 150 )
+* in 'tri' mode and a with a quality of 2, use the following statement:
+*
+* <listing version="3.1">
+*     var myBox:Box = new Box( "theBox", 50, 100, 150, PrimitiveMode.TRI, 2 );
 *  </listing>
 */
 class Box extends Shape3D, implements Primitive3D
@@ -42,32 +31,32 @@ class Box extends Shape3D, implements Primitive3D
 	/**
 	* The index of the top face of the box.
 	*/
-	public static var FACE_TOP	: Int	= 3;
+	public inline static var FACE_TOP	: Int	= 3;
 
 	/**
 	* The index of the bottom face of the box.
 	*/
-	public static var FACE_BOTTOM	: Int	= 2;
+	public inline static var FACE_BOTTOM	: Int	= 2;
 
 	/**
 	* The index of the back face of the box.
 	*/
-	public static var FACE_BACK	: Int	= 0; //ok
+	public inline static var FACE_BACK	: Int	= 0; //ok
 
 	/**
 	* The index of the front face of the box.
 	*/
-	public static var FACE_FRONT	: Int	= 1; //ok
+	public inline static var FACE_FRONT	: Int	= 1; //ok
 
 	/**
 	* The index of the right face of the box.
 	*/
-	public static var FACE_RIGHT	: Int	= 5; //ok
+	public inline static var FACE_RIGHT	: Int	= 5; //ok
 
 	/**
 	* The index of the left face of the box.
 	*/
-	public static var FACE_LEFT	: Int	= 4; //ok
+	public inline static var FACE_LEFT	: Int	= 4; //ok
 
 	/**
 	* height of the Box
@@ -85,6 +74,10 @@ class Box extends Shape3D, implements Primitive3D
 	* creation quality
 	*/
 	private var _q:Float;
+	/**
+	* creation mode - number of vertices per face
+	*/
+	private var _mode : String;
 	/**
 	* faces of the cube
 	*/
@@ -105,7 +98,7 @@ class Box extends Shape3D, implements Primitive3D
 	*
 	* @see PrimitiveMode
 	*/
-	public function new ( p_sName:String = null, p_nWidth:Int=6, p_nHeight:Int = 6, p_nDepth:Int = 6, p_nQuality:Int = 1)
+	public function new ( p_sName:String = null, p_nWidth:Int=6, p_nHeight:Int = 6, p_nDepth:Int = 6, p_sMode:String = "tri", p_nQuality:Int = 1)
 	{
 		super ( p_sName );
 		setConvexFlag (true);
@@ -114,42 +107,9 @@ class Box extends Shape3D, implements Primitive3D
 		_lg = p_nDepth;
 		_radius = p_nWidth;
 		_q = (p_nQuality <= 0 || p_nQuality > 10) ?  1 : p_nQuality ;
+		_mode = ( p_sMode != 'tri' && p_sMode != 'quad' ) ? 'tri' : p_sMode;
 		geometry = generate();
 		_generateFaces();
-	}
-	
-	/**
-	 * READ-ONLY
-	 * This getter allows to retrieve the original box width specified at the geometry creation
-	 * @return the original box width value
-	 */
-	public var boxWidth(__getBoxWidth,null):Float;
-	private function __getBoxWidth():Float
-	{
-		return _radius;
-	}
-	
-	/**
-	 * READ-ONLY
-	 * This getter allows to retrieve the original box height specified at the geometry creation
-	 * @return the original box height value
-	 */
-	public var boxHeight(__getBoxHeight,null):Float;
-	private function __getBoxHeight():Float
-	{
-		return _h;
-	}
-	
-	/**
-	 * READ-ONLY
-	 * This getter allows to retrieve the original box depth specified at the geometry creation
-	 * IMPORTANT: This is not related with the depth value of the Shape3D class the Box inherit from, which is the 3D depth information, not the Box one.
-	 * @return the original box depth value
-	 */
-	public var boxDepth(__getBoxDepth,null):Float;
-	private function __getBoxDepth():Float
-	{
-		return _lg;
 	}
 
 	/**
@@ -159,7 +119,7 @@ class Box extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate (?arguments:Array<Vector>) :Geometry3D
+	public function generate <T>(?arguments:Array<T>) :Geometry3D
 	{
 		if (arguments == null) arguments = [];
 
@@ -249,12 +209,21 @@ class Box extends Shape3D, implements Primitive3D
 		if(level == 0 ) // End of recurssion
 		{
 			// -- We have the same normal for 2 faces, be careful to don't add extra normal
-			l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [p0, p1, p3] );
-			l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [uv0, uv1, uv3] );
+			if( _mode == 'tri' )
+			{
+				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [p0, p1, p3] );
+				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [uv0, uv1, uv3] );
 
-			l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [p2, p3, p1] );
-			l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [uv2, uv3, uv1] );
-			
+				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [p2, p3, p1] );
+				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [uv2, uv3, uv1] );
+			}
+			else if( _mode == 'quad' )
+			{
+				//l_geometry.createFace( p0, p1, p2, p3 );
+				//l_geometry.addUVCoords( uv0, uv1, uv2 );
+				l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [p0, p1, p2, p3] );
+				l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [uv0, uv1, uv2, uv3] );
+			}
 		}
 		else
 		{

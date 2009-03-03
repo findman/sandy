@@ -23,21 +23,24 @@ import Type;
 /**
  * BubbleEventBroadcaster defines a custom event broadcaster to work with.
  *
- * @author	Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
+ * @author		Thomas Pfeiffer - kiroukou
+ * @author		Niel Drummond - haXe port
+ * @author		Russell Weir - haXe port
+ * @version		3.1
  */
 class BubbleEventBroadcaster extends EventBroadcaster
 {
 	private var m_oParent:BubbleEventBroadcaster;
 
+	private var m_oTarget:Dynamic;
+
  	/**
 	 * Constructor.
      */
-	public function new()
+	public function new(p_oTarget:Dynamic)
 	{
-	 m_oParent = null;
 		super();
+		m_oTarget = p_oTarget;
 	}
 
 	/**
@@ -79,19 +82,20 @@ class BubbleEventBroadcaster extends EventBroadcaster
 	/**
 	 * @private
 	 */
-	public override function broadcastEvent(e:Event):Void
+	public override function dispatchEvent(e:Event):Bool
 	{
 		switch ( Type.typeof( e ) ) {
 			case TClass( BubbleEvent ):
-				super.broadcastEvent(e);
+				super.dispatchEvent(e);
 
 				if (parent != null)
 				{
-					parent.broadcastEvent(e);
+					parent.dispatchEvent(e);
 				}
 			default:
-				parent.broadcastEvent(e); // used for regular event dispatching
+				super.dispatchEvent(e); // used for regular event dispatching
 		}
+		return true;
 	}
 
 }

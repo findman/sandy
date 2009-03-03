@@ -16,24 +16,23 @@ limitations under the License.
 
 package sandy.materials.attributes;
 
+import sandy.core.Scene3D;
+import sandy.core.data.Point3D;
+import sandy.core.data.Polygon;
+import sandy.core.data.Vertex;
+import sandy.materials.Material;
+
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Point;
-
-import sandy.core.Scene3D;
-import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
-import sandy.core.data.Vertex;
-import sandy.materials.Material;
-import sandy.math.VertexMath;
-import sandy.util.NumberUtil;
 
 /**
  * Realize a Cell shading on a material.
  * <b>Note:</b> this class ignores all properties inherited from ALightAttributes!
  *
  * @author		rafajafar + makc :)
- * @author Niel Drummond - haXe port
+ * @author		Niel Drummond - haXe port
+ * @author 		Russell Weir - haXe port
  */
 class CelShadeAttributes extends ALightAttributes
 {
@@ -57,17 +56,14 @@ class CelShadeAttributes extends ALightAttributes
 	 */
 	public function new (?p_oLightMap:PhongAttributesLightMap)
 	{
-	 spherize = 0;
-
-  aN  = [new Vector (), new Vector (), new Vector ()];
-  aNP = [new Point (), new Point (), new Point ()];
-
-  matrix = new Matrix();
-  matrix2 = new Matrix();
-
-	 dv = new Vector ();
-	 e1 = new Vector ();
-	 e2 = new Vector ();
+		spherize = 0;
+		aN  = [new Point3D (), new Point3D (), new Point3D ()];
+		aNP = [new Point (), new Point (), new Point ()];
+		dv = new Point3D ();
+		e1 = new Point3D ();
+		e2 = new Point3D ();
+		matrix = new Matrix();
+		matrix2 = new Matrix();
 
 		super();
 
@@ -102,7 +98,7 @@ class CelShadeAttributes extends ALightAttributes
 		super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 		var i:Int, l_oVertex:Vertex,
-			v:Vector = null,
+			v:Point3D = null,
 			p:Point = new Point(), p1:Point, p2:Point,
 			m2a:Float, m2b:Float, m2c:Float, m2d:Float, a:Float;
 
@@ -118,11 +114,11 @@ class CelShadeAttributes extends ALightAttributes
 		l_oVertex = l_aPoints [0];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
-		
+
 		l_oVertex = l_aPoints [1];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
- 
+
 		l_oVertex = l_aPoints [2];
 		m2c += l_oVertex.sx; matrix2.c = m2c;
 		m2d += l_oVertex.sy; matrix2.d = m2d;
@@ -132,13 +128,13 @@ class CelShadeAttributes extends ALightAttributes
 		var backside:Bool = true;
 		for (i in 0...3)
 		{
-			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getVector());
+			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getPoint3D());
 
 			if (spherize > 0)
 			{
 				l_oVertex = l_aPoints [i];
 
-				dv.copy (l_oVertex.getVector ());
+				dv.copy (l_oVertex.getPoint3D ());
 				dv.sub (p_oPolygon.shape.geometryCenter);
 				dv.normalize ();
 				dv.scale (spherize);
@@ -228,12 +224,12 @@ class CelShadeAttributes extends ALightAttributes
 	}
 
 	// --
-	private var aN:Array<Vector>;
+	private var aN:Array<Point3D>;
 	private var aNP:Array<Point>;
 
-	private var dv:Vector;
-	private var e1:Vector;
-	private var e2:Vector;
+	private var dv:Point3D;
+	private var e1:Point3D;
+	private var e2:Point3D;
 
 	private var matrix:Matrix;
 	private var matrix2:Matrix;

@@ -1,19 +1,3 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
-
 
 package sandy.materials.attributes;
 
@@ -24,22 +8,20 @@ import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
-import Type;
-
 /**
- * The MaterialAttributes class is used to apply one or more attributes to a Shape3D object.
- * 
- * @version		3.0
- *
- * @see sandy.core.scenegraph.Shape3D
- */
+* The MaterialAttributes class is used to apply one or more attributes to a Shape3D object.
+*
+* @version		3.1
+*
+* @see sandy.core.scenegraph.Shape3D
+*/
 class MaterialAttributes
 {
 	/**
 	 * List of attributes.
 	 */
 	public var attributes:Array<IAttributes>;
-	
+
 	/**
 	 * Creates a new LightAttributes object.
 	 */
@@ -91,7 +73,7 @@ class MaterialAttributes
 			l_oAttr.unlink( p_oPolygon );
 		}
 	}
-		
+
 	/**
 	* Method called before the display list rendering. This is the common place for this attribute to precompute things.
 	*
@@ -107,7 +89,7 @@ class MaterialAttributes
 			l_oAttr.begin( p_oScene );
 		}
 	}
-	
+
 	/**
 	* Method called right after the display list rendering. This is the place to remove and dispose memory if necessary.
 	*
@@ -123,7 +105,7 @@ class MaterialAttributes
 			l_oAttr.finish( p_oScene );
 		}
 	}
-	
+
 	/**
 	* Draws all attributes to the graphics object.
 	*
@@ -143,7 +125,7 @@ class MaterialAttributes
 			l_oAttr.draw( p_oGraphics, p_oPolygon, p_oMaterial, p_oScene );
 		}
 	}
-	
+
 	/**
 	* Applies attributes to a sprite.
 	*

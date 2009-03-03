@@ -1,31 +1,21 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core.data;
 
 /**
- * A 2D coordinate point on a texture that corresponds to a vertex of a polygon in 3D space.
- *
- * <p>The UVCoord represents the position of a vertex on the Bitmap used to dress the polygon.<br />
- * It is the 2D texture coordinates, used in the BitmapMaterial and VideoMaterial.</p>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+* A 2D coordinate point on a texture that corresponds to a vertex of a polygon.
+*
+* <p>The UVCoord represents the position of a vertex on the Bitmap used to &quot;dress&quot; a polygon.<br />
+* It is the 2D texture coordinate, used in the BitmapMaterial and VideoMaterial.</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		0.3
+* @version		3.1
+* @date 		24.08.2007
+*
+* @see http://en.wikipedia.org/wiki/UV_mapping
+*/
 class UVCoord
 {
 	/**
@@ -53,11 +43,20 @@ class UVCoord
 		v = p_nV;
 	}
 
+	/**
+	* The length.
+	*/
 	public function length():Float
 	{
 		return Math.sqrt( u*u + v*v );
 	}
-	
+
+	/**
+	* Normalizes this UV coordinate.
+	*
+	* <p>A UV coordinate is normalized when its components are divided by its length.
+	* The length is calculated by <code>Math.sqrt( u*u + v*v )</code>.</p>
+	*/
 	public function normalize():Void
 	{
 		var l_nLength:Float = length();
@@ -68,36 +67,38 @@ class UVCoord
 	/**
 	 * Substract the UVCoord passed as parameter to the current UVCoord.
 	 * @param p_oUVCoord The UVCoord to substract
-	 */ 
+	 */
 	public function sub( p_oUV:UVCoord ):Void
 	{
 		u -= p_oUV.u;
 		v -= p_oUV.v;
 	}
-	
+
 	/**
-	 * Add the UVCoord passed as parameter with the current UVCoord.
-	 * @param p_oUVCoord The UVCoord to add
-	 */ 
+	* Adds the specified UV coordinate from this UV coordinate.
+	*
+	* @param p_oUV The UVCoord to add.
+	*/
 	public function add( p_oUV:UVCoord ):Void
 	{
 		u += p_oUV.u;
 		v += p_oUV.v;
 	}
 	/**
-	 * Scale the texture coords values by a factor.
-	 * @param p_nFactor The factor
-	 */
+	* Scales the texture coordinates by a factor.
+	*
+	* @param p_nFactor The factor.
+	*/
 	public function scale( p_nFactor:Float ):Void
 	{
 		u *= p_nFactor;
 		v *= p_nFactor;
 	}
-	
+
 	/**
-	* Returns a string representing this UVCoord.
+	* Returns a string representation of this object.
 	*
-	* @return	The string representation
+	* @return The fully qualified name of this object.
 	*/
 	public function toString(): String
 	{
@@ -105,18 +106,22 @@ class UVCoord
 	}
 
 	/**
-	 * Return a clone of this UVCoord.
-	 *
-	 * @return 	The clone
-	 */
+	* Returns a new UVCoord object that is a clone of the original instance.
+	*
+	* @return A new UVCoord object that is identical to the original.
+	*/
 	public function clone():UVCoord
 	{
 		return new UVCoord(u, v);
 	}
-	
+
 	/**
-	 * Realize a copy of the UVCoord object passed in parameter to the local object.
-	 */
+	* Makes this UV coordinate a copy of the specified UV coordinate.
+	*
+	* <p>All components of the specified UV coordinate are copied to this UV coordinate.</p>
+	*
+	* @param p_oUV	The vertex to copy.
+	*/
 	public function copy( p_oUV:UVCoord ):Void
 	{
 		u = p_oUV.u;

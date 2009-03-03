@@ -1,37 +1,24 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core.light;
 
 import flash.events.EventDispatcher;
 
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.events.SandyEvent;
 import sandy.util.NumberUtil;
 
- /**
- * The Light3D class is used for creating the light of the world.
- *
- * <p>The light in Sandy is a light source at infinity, emitting parallel colored light.<br/>
- * The direction of light and the intensity can be varied</p>
- *
- * @author	Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+/**
+* The Light3D class is used for creating the light of the world.
+*
+* <p>The light in Sandy is a light source at infinity, emitting parallel colored light.
+* The direction, color, and intensity of the light can be changes.</p>
+*
+* @author	Thomas Pfeiffer - kiroukou
+* @author	Niel Drummond - haXe port
+* @author	Russell Weir - haXe port
+* @version		3.1
+* @date 	26.07.2007
+*/
 class Light3D extends EventDispatcher
 {
 	/**
@@ -46,15 +33,13 @@ class Light3D extends EventDispatcher
 	 * @param p_oD		The direction of the emitted light.
 	 * @param p_nPow	Intensity of the emitted light.
 	 *
-		* @see sandy.core.data.Vector
+		* @see sandy.core.data.Point3D
 	 */
-	public function new(p_oD:Vector, p_nPow:Float)
+	public function new(p_oD:Point3D, p_nPow:Float)
 	{
+		super();
 		_dir = p_oD;
 		_dir.normalize();
-
-		super();
-
 		setPower(p_nPow);
 	}
 
@@ -96,9 +81,9 @@ class Light3D extends EventDispatcher
 	 *
 	 * @return 	The light direction
 	 *
-     * @see sandy.core.data.Vector
+     * @see sandy.core.data.Point3D
 	 */
-	public function getDirectionVector():Vector
+	public function getDirectionVector():Point3D
 	{
 		return _dir;
 	}
@@ -120,11 +105,11 @@ class Light3D extends EventDispatcher
 	/**
 	 * Sets the direction of the Light3D.
 	 *
-	 * @param x	A Vector object representing the direction of the light.
+	 * @param x	A Point3D object representing the direction of the light.
 	 *
-     * @see sandy.core.data.Vector
+     * @see sandy.core.data.Point3D
 	 */
-	public function setDirectionVector(pDir:Vector):Void
+	public function setDirectionVector(pDir:Point3D):Void
 	{
 		_dir = pDir;
 		_dir.normalize();
@@ -136,9 +121,9 @@ class Light3D extends EventDispatcher
 	 *
 	 * @return Float	The strength between 0 and 1
 	 *
-     * @see sandy.core.data.Vector
+     * @see sandy.core.data.Point3D
 	 */
-	public function calculate(normal:Vector):Float
+	public function calculate(normal:Point3D):Float
 	{
 		var DP:Float = _dir.dot(normal);
 		DP = -DP;
@@ -186,7 +171,7 @@ class Light3D extends EventDispatcher
 
 	// Direction of the light. It is 3D vector.
 	//Please refer to the Light tutorial to learn more about Sandy's lights.
-	private var _dir:Vector;
+	private var _dir:Point3D;
 	private var _power:Float;
 	private var _nPower:Float;
 	private var _color:Int;

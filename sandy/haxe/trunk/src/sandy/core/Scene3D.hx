@@ -1,31 +1,15 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core;
 
-import flash.display.Sprite;
-import flash.events.EventDispatcher;
-
-
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
+import sandy.core.data.Pool;
 import sandy.core.light.Light3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.events.SandyEvent;
-import sandy.materials.MaterialManager;
+
+import flash.display.Sprite;
+import flash.events.EventDispatcher;
 
 /*
 [Event(name="lightAdded", type="sandy.events.SandyEvent")]
@@ -36,123 +20,199 @@ import sandy.materials.MaterialManager;
 */
 
 /**
- * The Scene3D object is the central point of a Sandy world.
- *
- * <p>You can have multiple Scene3D objects in the same application.<br/>
- * The older World3D is a singleton special case of Scene3D.<br />
- * The scene contains the object tree with groups, a camera, a light source and a canvas to draw on.</p>
- *
- * @example	To create a scene, you pass a container, a camera and a root group to its constructor.<br/>
- * The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
- *
- * <listing version="3.0">
- * 	var camera:Camera3D = new Camera3D(400, 300);
- * 	camera.z = -200;
- * 	// The call to createScene() will create the root Group of this scene
- * 	var scene:Scene3D = new Scene3D("Scene 1", this, camera, createScene());
- * 	scene.root.addChild(camera);
- * 	//The handler calls the world.render() method to render the world for each frame.
- * 	addEventListener(Event.ENTER_FRAME, enterFrameHandler);
- * </listing>
- *
- * @author	Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
- */
+* The Sandy 3D scene.
+*
+* <p>Supercedes deprecated World3D class.</p>
+*
+* <p>The Scene3D object is the central point of a Sandy scene.<br/>
+* You can have multiple scenes.<br/>
+* A scene contains the object tree with groups, a camera, a light source and a canvas to draw on</p>
+*
+* @example	To create the scene, you invoke the Scene3D constructor, passing it the base movie clip, the camera, and the root group for the scene.<br/>
+* The rendering of the scene is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
+*
+* The following pseudo-code approximates the necessary steps. It is very approximate and not meant as a working example:
+* <listing version="3.0.3">
+* 		var cam:Camera = new Camera3D(600, 450, 45, 0, 2000); // camera viewport height,width, fov, near plane, and far plane
+*		var mc:MovieClip = someSceneHoldingMovieClip;  // Programmer must ensure it is a valid movie clip.
+*		var rootGroup = new Group("world_root_group");
+*		// Add some child objects to the world (not shown), perhaps as follows
+*		//rootGroup.addChild(someChild);
+*		// Create the scene and render it
+*     	var myScene:Scene3D = new Scene3D("scene_name", mc, cam, rootGroup);
+*		myScene.render();
+*	//The enterFrameHandler presumably calls the myScene.render() method to render the scene for each frame.
+*	yourMovieRoot.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+*  </listing>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		25.08.2008
+*/
+
+/**
+* The Scene3D object is the central point of a Sandy world.
+*
+* <p>You can have multiple Scene3D objects in the same application.<br/>
+* The older World3D is a singleton special case of Scene3D.<br />
+* The scene contains the object tree with groups, a camera, a light source and a canvas to draw on.</p>
+*
+* @example	To create a scene, you pass a container, a camera and a root group to its constructor.<br/>
+* The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
+*
+* <listing version="3.0">
+* 	var camera:Camera3D = new Camera3D(400, 300);
+* 	camera.z = -200;
+* 	// The call to createScene() will create the root Group of this scene
+* 	var scene:Scene3D = new Scene3D("Scene 1", this, camera, createScene());
+* 	scene.root.addChild(camera);
+* 	//The handler calls the world.render() method to render the world for each frame.
+* 	addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+* </listing>
+*
+* @author	Thomas Pfeiffer - kiroukou
+* @author Niel Drummond - haXe port
+*
+*
+*/
 class Scene3D extends EventDispatcher
 {
 	/**
-	 * The camera looking at this scene.
-	 *
-     * @see sandy.core.scenegraph.Camera3D
-	 */
+	* The camera looking at this scene.
+	*
+	* @see sandy.core.scenegraph.Camera3D
+	*/
 	public var camera:Camera3D;
 
 	/**
-	 * The root of the scene graph for this scene.
-	 *
-     * @see sandy.core.scenegraph.Group
-	 */
-	public var root:Group;
-
-	/**
-	 * The container that stores all displayabel objects for this scene.
-	 */
+	* The container that stores all displayabel objects for this scene.
+	*/
 	public var container:Sprite;
 
-	public var materialManager:MaterialManager;
-	
 	/**
-	 * Creates a new Scene.
-	 *
-	 * <p>Each scene has its own container where its 2D representation will be drawn.<br />
-	 * The scene is automatically registered with the SceneLocator.</p>
-	 * <p>Remember to give the scenes different names if you want to use the SceneLocator registry</p>
-	 *
-	 * @param p_sName		The name of this scene
-	 * @param p_oContainer 	The container that will store all displayable objects for this scene
-	 * @param p_oCamera		The single camera for this scene
-	 * @param p_oRootNode	The root group of the object tree for this scene
-	 *
-     * @see sandy.core.scenegraph.Camera3D
-     * @see sandy.core.scenegraph.Group
-	 */
+	* The renerer choosed for render this scene.
+	* In the future, the actual renderer will implement an interface that developers could use to create their own
+	* rendering process.
+	*/
+	public var renderer:Renderer;
+
+	/**
+	* Creates a new 3D scene.
+	*
+	* <p>Each scene is automatically registered with the SceneLocator and must be given
+	* a unique name to make proper use of the SceneLocator registry.</p>
+	*
+	* @param p_sName		A unique name for this scene.
+	* @param p_oContainer 	The container where the scene will be drawn.
+	* @param p_oCamera		The camera for this scene.
+	* @param p_oRootNode	The root group of the scene's object tree.
+	*
+	* @see sandy.core.scenegraph.Camera3D
+	* @see sandy.core.scenegraph.Group
+	*/
 	public function new(p_sName:String, p_oContainer:Sprite, ?p_oCamera:Camera3D, ?p_oRootNode:Group)
 	{
-		materialManager = new MaterialManager();
-		m_bRectClipped = true;
+		// public initializers
+		renderer = new Renderer();
+		// private initializers
+		m_bRectClipped = false;
 
 		super();
 
-		if (SceneLocator.getInstance().registerScene(p_sName, this))
+		if (p_sName != null)
 		{
-			container = p_oContainer;
-			camera = p_oCamera;
-			root = p_oRootNode;
-
-			if (root != null && camera != null)
+			if (SceneLocator.getInstance().registerScene(p_sName, this))
 			{
-				root.addChild(camera);
+				container = p_oContainer;
+				camera = p_oCamera;
+				root = p_oRootNode;
+
+				if (root != null && camera != null)
+				{
+					if( !camera.hasParent() )
+						root.addChild(camera);
+				}
 			}
+			m_sName = p_sName;
 		}
-		m_sName = p_sName;
 		// --
-		_light = new Light3D(new Vector(0, 0, 1), 100);
+		_light = new Light3D(new Point3D(0, 0, 1), 100);
 	}
 
 	/**
-	 * Renders this scene into its display object container.
-	 *
-	 * @param p_oEvt	An eventual event - defaults to null. Not in use...
-	 *
-     * @see sandy.events.SandyEvent
-	 */
-	public function render(?p_oEvt:SandyEvent):Void
+	* Renders the scene in its container.
+	* Several events are dispatched by the scene to allows you to control the rendering pipeline
+	* SandyEvent.SCENE_UPDATE is broadcasted before the update phasis of the scenegraph. During this phasis each node updates its information and creates its local matrix if any
+	* SandyEvent.SCENE_CULL is bradcasted before the scene cull phasis. This phasis corresponds to the frustum vs nodes bounding objects visibility test. Nodes that aren't in the camera field of view, are removed from the render phasis.
+	* SandyEvent.SCENE_RENDER process the render call of the visible nodes. During this process, visible polygons/sprites are registering for the camera display to the screen.
+	* SandyEvent.SCENE_RENDER_DISPLAYLIST render the visible polygons to the screen
+	*
+	* @param p_bUseCache Boolean default true, use the cache system
+	*
+	* @see sandy.events.SandyEvent
+	*/
+	public function render(p_bUseCache:Bool = true):Void
 	{
 		if (root != null && camera != null && container != null)
 		{
+			Pool.getInstance().init();
+			renderer.init();
+			// --
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_UPDATE));
-			root.update(this, null, false);
+			root.update(null, false);
 			// --
 			dispatchEvent(new SandyEvent( SandyEvent.SCENE_CULL));
-			root.cull(this, camera.frustrum, camera.invModelMatrix, camera.changed);
+			root.cull(camera.frustrum, camera.invModelMatrix, camera.changed);
 			// --
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
-			root.render(this, camera);
+			var l_bNeedDraw:Bool = renderer.render( this, p_bUseCache );
 			// -- clear the polygon's container and the projection vertices list
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
-            materialManager.begin(this);
-            camera.renderDisplayList(this);
-            materialManager.finish(this);
+			if( l_bNeedDraw )
+			{
+				renderer.renderDisplayList( this );
+			}
+			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_FINISH));
 		}
 	} // end method
 
 	/**
-	 * Dispose all the resources of this given scene.
-	 *
-	 * <p>Ressources will be free, and scene unregistered from SceneLocator</p>
-	 */
+	* The root of the scene graph for this scene.
+	*
+	* @see sandy.core.scenegraph.Group
+	*/
+	public var root(__getRoot,__setRoot):Group;
+	private var m_oRoot:Group;
+	public function __setRoot(p_oGroup:Group):Group
+	{
+		if( m_oRoot != null )
+		{
+			m_oRoot.scene = null;
+			m_oRoot = null;
+		}
+		if( p_oGroup != null )
+		{
+			m_oRoot = p_oGroup;
+			m_oRoot.scene = this;
+			if( !camera.hasParent() )
+				root.addChild(camera);
+		}
+		return p_oGroup;
+	}
+
+	public function __getRoot():Group
+	{
+		return m_oRoot;
+	}
+
+
+	/**
+	* Disposes of all the scene's resources.
+	*
+	* <p>This method is used to clear memory and will free up all resources of the scene and unregister it from SceneLocator.</p>
+	*/
 	public function dispose():Bool
 	{
 		SceneLocator.getInstance().unregisterScene(m_sName);
@@ -160,6 +220,7 @@ class Scene3D extends EventDispatcher
 		// --
 		if (root != null)
 		{
+			root.destroy();
 			root = null;
 		}
 		if (camera != null)
@@ -175,10 +236,10 @@ class Scene3D extends EventDispatcher
 	}
 
 	/**
-	 * The simple light of this scene.
-	 *
-	 * @see sandy.core.light.Light3D
-	 */
+	* The Light3D object associated with this this scene.
+	*
+	* @see sandy.core.light.Light3D
+	*/
 	public var light(__getLight, __setLight):Light3D;
 	public function __getLight():Light3D
 	{
@@ -186,8 +247,8 @@ class Scene3D extends EventDispatcher
 	}
 
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	private function __setLight(l:Light3D):Light3D
 	{
 		if (_light != null)
@@ -201,9 +262,11 @@ class Scene3D extends EventDispatcher
 	}
 
 	/**
-	 * Enable this property (default value is true!) to perfectly clip your 3D scene to the viewport dimension.
-	 * Once enabled, even if you don't have enableClipping set to true for each of your objects, nothing will be drawn outside
-	 */
+	* Enable this property to perfectly clip your 3D scene to the viewport's dimensions with a 2D clipping
+	* If set to <code>true</code>, nothing will be drawn outside the viewport's dimensions.
+	*
+	* @default false
+	*/
 	public var rectClipping(__getRectClipping, __setRectClipping):Bool;
 	public function __getRectClipping():Bool
 	{
@@ -211,8 +274,8 @@ class Scene3D extends EventDispatcher
 	}
 
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	private function __setRectClipping(p_bEnableClipping:Bool):Bool
 	{
 		m_bRectClipped = p_bEnableClipping;
@@ -225,16 +288,28 @@ class Scene3D extends EventDispatcher
 	}
 
 	/**
-	 * Returns the scene's name as a string value.
-	 * This value can't be changed.
-	 */
+	* Returns the scene's name as a string value.
+	* This value can't be changed.
+	*/
 	public var name(__getName,null):String;
 	public function __getName():String
 	{
 		return m_sName;
 	}
 
+	/**
+	* Returns a version string ("3.1"), useful for conditional code
+	*/
+	public static function getVersion( ) : String
+	{
+		return _version;
+	}
+
+	/**
+	* @private
+	*/
 	private var m_sName:String;
 	private var m_bRectClipped:Bool;
 	private var _light:Light3D; 	//the unique light instance of the world
+	private static var _version:String = "3.1";
 }

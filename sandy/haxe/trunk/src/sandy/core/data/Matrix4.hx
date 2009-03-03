@@ -23,8 +23,9 @@ import sandy.util.NumberUtil;
  * A 4x4 matrix for transformations in 3D space.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
+ * @author Niel Drummond - haXe port
+ * @authod Russell Weir - haXe port
+ *
  */
 class Matrix4
 {
@@ -33,10 +34,10 @@ class Matrix4
 	 * Should we use fast math.
 	 */
 	public static var USE_FAST_MATH:Bool = false;
-	
+
 	// we force initialization of the fast math table
 	private var _fastMathInitialized:Bool;
-	
+
 	/**
 	 * Matrix4 cell.
 	 * <p><code>1 0 0 0 <br>
@@ -205,9 +206,9 @@ class Matrix4
 				?pn31:Float, ?pn32:Float , ?pn33:Float , ?pn34:Float,
 				?pn41:Float, ?pn42:Float , ?pn43:Float , ?pn44:Float )
 	{
-			USE_FAST_MATH = false;
+		USE_FAST_MATH = false;
 		_fastMathInitialized = FastMath.initialized();
-		
+
 		if (pn11 == null) pn11=1; if (pn12 == null) pn12=0; if (pn13 == null) pn13=0; if (pn14 == null) pn14=0;
 		if (pn21 == null) pn21=0; if (pn22 == null) pn22=1; if (pn23 == null) pn23=0; if (pn24 == null) pn24=0;
 		if (pn31 == null) pn31=0; if (pn32 == null) pn32=0; if (pn33 == null) pn33=1; if (pn34 == null) pn34=0;
@@ -407,31 +408,31 @@ class Matrix4
 	 */
 	public function addMatrix( m2:Matrix4): Void
 	{
-		n11 += m2.n11; 
-		n12 += m2.n12; 
-		n13 += m2.n13; 
+		n11 += m2.n11;
+		n12 += m2.n12;
+		n13 += m2.n13;
 		n14 += m2.n14;
-		n21 += m2.n21; 
-		n22 += m2.n22; 
-		n23 += m2.n23; 
+		n21 += m2.n21;
+		n22 += m2.n22;
+		n23 += m2.n23;
 		n24 += m2.n24;
-		n31 += m2.n31; 
-		n32 += m2.n32; 
-		n33 += m2.n33; 
+		n31 += m2.n31;
+		n32 += m2.n32;
+		n33 += m2.n33;
 		n34 += m2.n34;
-		n41 += m2.n41; 
-		n42 += m2.n42; 
-		n43 += m2.n43; 
+		n41 += m2.n41;
+		n42 += m2.n42;
+		n43 += m2.n43;
 		n44 += m2.n44;
 
 	}
 
 	/**
-	 * Multiplies a vertex with this matrix.
+	 * Multiplies a Point3D with this matrix.
 	 *
-	 * @param pv	The vertex to be mutliplied
+	 * @param pv	The Point3D to be mutliplied
 	 */
-	public function vectorMult( pv:Vector ):Void
+	public function transform( pv:Point3D ):Void
 	{
 		var x:Float=pv.x, y:Float=pv.y, z:Float=pv.z;
 		pv.x = (x * n11 + y * n12 + z * n13 + n14);
@@ -440,14 +441,14 @@ class Matrix4
 	}
 
 	/**
-	 * Creates transformation matrix from axis and translation Vectors.
-	 * 
-	 * @param	px X axis Vector.
-	 * @param	py Y axis Vector.
-	 * @param	pz Z axis Vector.
-	 * @param	pt translation Vector.
+	 * Creates transformation matrix from axis and translation Point3Ds.
+	 *
+	 * @param	px X axis Point3D.
+	 * @param	py Y axis Point3D.
+	 * @param	pz Z axis Point3D.
+	 * @param	pt translation Point3D.
 	 */
-	public function fromVectors(px:Vector, py:Vector, pz:Vector, pt:Vector):Void
+	public function fromPoint3Ds(px:Point3D, py:Point3D, pz:Point3D, pt:Point3D):Void
 	{
 		zero ();
 		n11 = px.x; n21 = px.y; n31 = px.z;
@@ -457,24 +458,24 @@ class Matrix4
 	}
 
 	/**
-	 * Multiplies a 3D vector with this matrix.
+	 * Multiplies a 3D Point3D with this matrix.
 	 *
-	 * <p>The vector is multiplied with te upper left 3x3 sub matrix</p>
+	 * <p>The Point3D is multiplied with te upper left 3x3 sub matrix</p>
 	 *
-	 * @param pv	The vector to be mutliplied
+	 * @param pv	The Point3D to be mutliplied
 	 */
-	public function vectorMult3x3( pv:Vector ):Void
+	public function transform3x3( pv:Point3D ):Void
 	{
 		var x:Float=pv.x, y:Float=pv.y, z:Float=pv.z;
 		pv.x = (x * n11 + y * n12 + z * n13);
 		pv.y = (x * n21 + y * n22 + z * n23);
 		pv.z = (x * n31 + y * n32 + z * n33);
 	}
-	
-	
+
+
 	/**
 	 * Makes this matrix a rotation matrix for the given angle of rotation.
-	 * 
+	 *
 	 * @param angle Float angle of rotation in degrees
 	 * @return the computed matrix
 	 */
@@ -538,20 +539,20 @@ class Matrix4
 	 * Makes this matrix a rotation matrix for a rotation around a given axis.
 	 *
 	 * <p>The matrix is computed from the angle of rotation around the given axes of rotation.<br />
-	 * The axis is given as a 3D vector.</p>
+	 * The axis is given as a 3D Point3D.</p>
 	 *
 	 * @param v 	The axis of rotation
 	 * @param angle	The angle of rotation in degrees
 	 */
-	public function axisRotationVector ( v:Vector, angle:Float ) : Void
+	public function axisRotationPoint3D ( v:Point3D, angle:Float ) : Void
 	{
 		axisRotation( v.x, v.y, v.z, angle );
 	}
-	
-	
+
+
 	/**
 	 * Makes this matrix a translation matrix from translation components.
-	 * 
+	 *
 	 * <pre>
 	 * |1  0  0  0|
 	 * |0  1  0  0|
@@ -573,7 +574,7 @@ class Matrix4
 	}
 
 	/**
-	 * Makes this matrix a translation matrix from a translation vector.
+	 * Makes this matrix a translation matrix from a translation Point3D.
 	 *
 	 * <pre>
 	 * |1  0  0  0|
@@ -582,9 +583,9 @@ class Matrix4
 	 * |v.x v.y v.z 1|
 	 * </pre>
 	 *
-	 * @param v 	The translation Vector.
+	 * @param v 	The translation Point3D.
 	 */
-	public function translationVector( v:Vector ) : Void
+	public function translationPoint3D( v:Point3D ) : Void
 	{
 		identity();
 		//
@@ -617,7 +618,7 @@ class Matrix4
 	}
 
 	/**
-	 * Makes this matrix a scale matrix from a scale vector.
+	 * Makes this matrix a scale matrix from a scale Point3D.
 	 *
 	 * <pre>
 	 * |Sx 0  0  0|
@@ -626,9 +627,9 @@ class Matrix4
 	 * |0  0  0  1|
 	 * </pre>
 	 *
-	 * @param v	The scale vector.
+	 * @param v	The scale Point3D.
 	 */
-	public function scaleVector( v:Vector) : Void
+	public function scalePoint3D( v:Point3D) : Void
 	{
 		identity();
 		//
@@ -671,7 +672,7 @@ class Matrix4
 	{
 		return n11 + n22 + n33 + n44;
 	}
-	
+
 	/**
 	* Return the inverse of the matrix passed in parameter.
 	* @param m The matrix4 to inverse
@@ -681,8 +682,11 @@ class Matrix4
 	{
 		//take the determinant
 		var d:Float = det();
-		if( Math.abs(d) >= 0.001 )
+		if( Math.abs(d) < 0.001 )
 		{
+			throw "cannot invert a matrix with a null determinant";
+			return;
+		}
 		 //We use Cramer formula, so we need to devide by the determinant. We prefer multiply by the inverse
 		 d = 1/d;
 		 var 	m11:Float = n11, m21:Float = n21, m31:Float = n31, m41:Float = n41,
@@ -706,7 +710,6 @@ class Matrix4
 		 n42 = d * ( m11*(m32*m43 - m42*m33) - m31*(m12*m43 - m42*m13) + m41*(m12*m33 - m32*m13) );
 		 n43 = -d* ( m11*(m22*m43 - m42*m23) - m21*(m12*m43 - m42*m13) + m41*(m12*m23 - m22*m13) );
 		 n44 = d * ( m11*(m22*m33 - m32*m23) - m21*(m12*m33 - m32*m13) + m31*(m12*m23 - m22*m13) );
-		}
 	}
 
 	/**
@@ -715,11 +718,11 @@ class Matrix4
 	 * <p>a rotation by a specified angle around a specified axis through a specific position, the reference point,
 	 * is applied to this matrix.</p>
 	 *
-	 * @param pAxis 	A 3D Vector representing the axis of rtation. Must be normalized!
+	 * @param pAxis 	A 3D Point3D representing the axis of rtation. Must be normalized!
 	 * @param ref 		The reference point.
 	 * @param pAngle	The angle of rotation in degrees.
 	 */
-	public function axisRotationWithReference( axis:Vector, ref:Vector, pAngle:Float ):Void
+	public function axisRotationWithReference( axis:Point3D, ref:Point3D, pAngle:Float ):Void
 	{
 		var tmp:Matrix4 = new Matrix4();
 		var angle:Float = ( pAngle + 360 ) % 360;
@@ -745,17 +748,17 @@ class Matrix4
 		s += n41+"\t"+n42+"\t"+n43+"\t"+n44+"\n)";
 		return s;
 	}
-	
+
 	/**
-	 * Returns a vector that containes the 3D position information.
-	 * 
-	 * @return A vector
+	 * Returns a Point3D that containes the 3D position information.
+	 *
+	 * @return A Point3D
 	 */
-	public function getTranslation():Vector
+	public function getTranslation():Point3D
 	{
-		return new Vector( n14, n24, n34 );
+		return new Point3D( n14, n24, n34 );
 	}
-	
+
 	/**
 	 * Compute a Rotation around an axis{@code Matrix4}.
 	 *
@@ -781,7 +784,7 @@ class Matrix4
 		var sw	:Float = s * w ;
 		var sv	:Float = s * v ;
 		var su	:Float = s * u ;
-		
+
 		n11  =   c + u * u * scos	;
 		n12  = - sw 	+ suv 			;
 		n13  =   sv 	+ suw			;
@@ -794,9 +797,9 @@ class Matrix4
 		n32  =   su	+ svw 			;
 		n33  =   c	+ w * w * scos	;
 	}
-	
-	
-        
+
+
+
 	/**
 	 * Compute a Rotation {@code Matrix4} from the Euler angle in degrees unit.
 	 *
@@ -832,21 +835,21 @@ class Matrix4
 		n32 = - ad * f + b * e ;
 		n33 =   a  * c         ;
 	}
-	
+
 	/**
 	 * Get the eulers angles from the rotation matrix
 	 * @param t The Matrix4 instance from which t extract these angles
-	 * 
-	 * @return A vector that represent the Euler angles in the 3D space (X, Y and Z)
+	 *
+	 * @return A Point3D that represent the Euler angles in the 3D space (X, Y and Z)
 	 */
-	public static function getEulerAngles( t:Matrix4 ):Vector
+	public static function getEulerAngles( t:Matrix4 ):Point3D
 	{
 		var lAngleY:Float = Math.asin( t.n13 );
 		var lCos:Float = Math.cos( lAngleY );
-		
+
 		//lAngleY *= NumberUtil.TO_DEGREE;
 		var lTrx:Float, lTry:Float, lAngleX:Float, lAngleZ:Float;
-		
+
 		if( Math.abs( lCos ) > 0.005 )
 		{
 			lTrx = t.n33 / lCos;
@@ -864,15 +867,54 @@ class Matrix4
 			lTry = t.n21;
 			lAngleZ = Math.atan2( lTry, lTrx );
 		}
-		
+
 		//lAngleX *= NumberUtil.TO_DEGREE;
 		//lAngleZ *= NumberUtil.TO_DEGREE;
-		
+
 		if( lAngleX < 0 ) lAngleX += 360;
 		if( lAngleY < 0 ) lAngleY += 360;
 		if( lAngleZ < 0 ) lAngleZ += 360;
-		
-		return new Vector( lAngleX, lAngleY, lAngleZ );
+
+		return new Point3D( lAngleX, lAngleY, lAngleZ );
+	}
+
+	/**
+	* Get a string representation of the {@code Matrix4} in a format useful for XML output
+	*
+	* @return	A serialized String representing the {@code Matrix4}.
+	*/
+	public function serialize(d:Float = .000001):String
+	{
+		var round = NumberUtil.roundTo;
+		var s:String =  new String("");
+		s += round(n11, d) + "," + round(n12, d) + "," + round(n13, d) + "," + round(n14, d) + ",";
+		s += round(n21, d) + "," + round(n22, d) + "," + round(n23, d) + "," + round(n24, d) + ",";
+		s += round(n31, d) + "," + round(n32, d) + "," + round(n33, d) + "," + round(n34, d) + ",";
+		s += round(n41, d) + "," + round(n42, d) + "," + round(n43, d) + "," + round(n44, d);
+		return s;
+	}
+
+	/**
+	* Convert a string representation in a {@code Matrix4}; useful for XML input
+	*
+	* @return	A {@code Matrix4} equivalent to the input string
+	*/
+	public static function deserialize(convertFrom:String):Matrix4
+	{
+		//trace ("Matrix4.Deserialize convertFrom " + convertFrom);
+
+		var ta = convertFrom.split(",");
+		if (ta.length != 16) {
+			trace ("Unexpected length of string to deserialize into a matrix4 " + convertFrom);
+		}
+		var tmp = new Array();
+		for(i in 0...ta.length) {
+			tmp[i] = Std.parseFloat(ta[i]);
+		}
+		var temp2:Matrix4 = new Matrix4 (tmp[0], tmp[1], tmp[2], tmp[3], tmp[4], tmp[5], tmp[6], tmp[7],
+										tmp[8], tmp[9], tmp[10], tmp[11], tmp[12], tmp[13], tmp[14], tmp[15]);
+		//trace ("temp2 in Matrix4.deserialize is " + temp2);
+		return temp2;
 	}
 }
 

@@ -16,236 +16,294 @@ limitations under the License.
 package sandy.bounds;
 
 import sandy.core.data.Matrix4;
-import sandy.core.data.Vector;
+import sandy.core.data.Pool;
+import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 
-/**
- * The <code>BBox</code> object is used to clip the object faster.
- * <p>It creates a bounding box that contains the whole object</p>
- * 
- * @example 	This example is taken from the Shape3D class. It is used in
- * 				the <code>updateBoundingVolumes()</code> method:
-	 *
-	 * <listing version="3.0">
-	 *     _oBBox = BBox.create( m_oGeometry.aVertex );
-	 *  </listing>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
- */
+	/**
+	* The BBox class is used to quickly and easily clip an object in a 3D scene.
+	* <p>It creates a bounding box that contains the whole object.</p>
+	*
+	* @example 	This example is taken from the Shape3D class. It is used in
+	* 				the <code>updateBoundingVolumes()</code> method:
+	*
+	* <listing version="3.1">
+	*     _oBBox = BBox.create( m_oGeometry.aVertex );
+	*  </listing>
+	*
+	* @author		Thomas Pfeiffer - kiroukou
+	* @version		3.1
+	* @author Niel Drummond - haXe port
+	* @author Russell Weir - haXe port
+	* @date 		22.03.2006
+	*/
 class BBox
 {
 	/**
-	 * Specify if this object is up to date or not.
-	 * If false, you need to call its transform method to get its correct bounds in the desired frame.
-	 */
+	* Specifies if this object's boundaries are up to date with the object it is enclosing.
+	* If <code>false</code>, this object's <code>transform()</code> method must be called to get its updated boundaries in the current frame.
+	*/
 	public var uptodate:Bool;
-	
-	/**
-	 * Max vector, representing the upper point of the cube volume
-	 */
-	public var max:Vector;		
-	
-	/**
-	 * Min vector, representing the lower point of the cube volume.
-	 */
-	public var min:Vector;		
 
-	public var tmin:Vector;
-	public var tmax:Vector;
-	
-	public var aCorners:Array<Vector>;
-	public var aTCorners:Array<Vector>;
-	
 	/**
-	 * Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-	 * to the <code>create</code> method in the form of an <code>Array</code>. Very useful 
-	 * for clipping and thus performance!
-	 * 
-	 * @param p_aVertices		The vertices of the 3D object
-	 * @return 					A <code>BBox</code> instance
-	 */		
+	* A Point3D representing the highest point of the cube volume.
+	*/
+	public var maxEdge:Point3D;
+
+	/**
+	* A Point3D representing the lowest point of the cube volume.
+	*/
+	public var minEdge:Point3D;
+
+	/**
+	* Creates a bounding box that encloses a 3D from an Array of the object's vertices.
+	*
+	* @param p_aVertices		The vertices of the 3D object the bounding box will contain.
+	*
+	* @return The BBox instance.
+	*/
 	public static function create( p_aVertices:Array<Vertex> ):BBox
 	{
 		if(p_aVertices.length == 0) return null;
-	   
-	    var l:Float = p_aVertices.length;
-	    var l_min:Vector = new Vector();
-	    var l_max:Vector = new Vector();
-		
-					var lTmp:Array<Int> = [];
-#if flash
-					lTmp = untyped p_aVertices.sortOn (["x"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-#else
-					var t:Array<Vertex> = p_aVertices.copy();
-					t.sort( function(a,b) {return (a.x>b.x)?1:a.x<b.x?-1:0;} );
-					for ( i in 0...t.length ) lTmp.push( i );
-#end
-					l_min.x = p_aVertices[lTmp[0]].x;
-					l_max.x = p_aVertices[lTmp[lTmp.length-1]].x;
-		  
-#if flash
-					lTmp = untyped p_aVertices.sortOn (["y"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-#else
-					var t:Array<Vertex> = p_aVertices.copy();
-					t.sort( function(a,b) {return (a.y>b.y)?1:a.y<b.y?-1:0;} );
-					for ( i in 0...t.length ) lTmp.push( i );
-#end
-					l_min.y = p_aVertices[lTmp[0]].y;
-					l_max.y = p_aVertices[lTmp[lTmp.length-1]].y;
 
-#if flash
-					lTmp = untyped p_aVertices.sortOn (["z"], [Array.NUMERIC|Array.RETURNINDEXEDARRAY ]);
-#else
-					var t:Array<Vertex> = p_aVertices.copy();
-					t.sort( function(a,b) {return (a.z>b.z)?1:a.z<b.z?-1:0;} );
-					for ( i in 0...t.length ) lTmp.push( i );
-#end
-					l_min.z = p_aVertices[lTmp[0]].z;
-					l_max.z = p_aVertices[lTmp[lTmp.length-1]].z;
-		 
-					return new BBox( l_min, l_max );
-	}
-
-	/**
-	 * Creates a new <code>BBox</code> instance by passing the min and the max <code>Vector</code>.
-	 * 
-	 * @param p_min		Min vector, representing the lower point of the cube volume
-	 * @param p_max		Max vector, representing the upper point of the cube volume
-	 */		
-	public function new( ?p_min:Vector, ?p_max:Vector )
-	{
-  uptodate = false;
-
-		min		= (p_min != null) ? p_min : new Vector( -0.5,-0.5,-0.5 );
-		max		= (p_max != null) ? p_max : new Vector(  0.5, 0.5, 0.5 );
-		tmin = new Vector();
-		tmax = new Vector();
-		aCorners = new Array();
-		aTCorners = new Array();
-		__computeCorners(false);
-	}		
-	
-	/**
-	 * Returns the center of the Bounding Box volume in the form of a 3D vector.
-	 * 
-	 * @return 		A <code>Vector</code> representing the center of the Bounding Box
-	 */
-	public function getCenter():Vector
-	{
-		return new Vector( 	(max.x + min.x) / 2,
-							(max.y + min.y) / 2,
-							(max.z + min.z) / 2);
-	}
-
-	/**
-	 * Return the size of the Bounding Box.
-	 * 
-	 * @return 		A <code>Vector</code> representing the size of the volume in three dimensions.
-	 */
-	public function getSize():Vector
-	{
-		return new Vector(	Math.abs(max.x - min.x),
-							Math.abs(max.y - min.y),
-							Math.abs(max.z - min.z));
-	}
-
-	/**
-	 * Get all the eight corner vertices of the bounding box.
-	 * 
-	 * @param p_bRecalcVertices 	If set to true the vertices array will be recalculated.
-	 * 								Otherwise it will return the last calculated array.
-	 * @return 		The array containing eight vertices representing the Bounding Box corners.
-	 */
-	private function __computeCorners( ?p_bRecalcVertices:Bool ):Array<Vector>
-	{
-		p_bRecalcVertices = (p_bRecalcVertices != null)?p_bRecalcVertices:false;
-
-		var minx:Float,miny:Float,minz:Float,maxx:Float,maxy:Float,maxz:Float;
-		
-		if( p_bRecalcVertices == true )
+		var l_oBox:BBox = new BBox();
+		for( l_oVertex in p_aVertices )
 		{
-		    minx = tmin.x;    miny = tmin.y;    minz = tmin.z;
-		    maxx = tmax.x;    maxy = tmax.y;    maxz = tmax.z;
+			l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
 		}
-		else
+		return l_oBox;
+	}
+
+	public function addInternalPoint(p_oPoint:Point3D):Void
+	{
+		if(p_oPoint.x > this.maxEdge.x)
 		{
-		    minx = min.x;    miny = min.y;    minz = min.z;
-		    maxx = max.x;    maxy = max.y;    maxz = max.z;
+			this.maxEdge.x = p_oPoint.x;
+		}
+		if(p_oPoint.y > this.maxEdge.y)
+		{
+			this.maxEdge.y = p_oPoint.y;
+		}
+		if(p_oPoint.z > this.maxEdge.z)
+		{
+			this.maxEdge.z = p_oPoint.z;
+		}
+		if(p_oPoint.x < this.minEdge.x)
+		{
+			this.minEdge.x = p_oPoint.x;
+		}
+		if(p_oPoint.y < this.minEdge.y)
+		{
+			this.minEdge.y = p_oPoint.y;
+		}
+		if(p_oPoint.z < this.minEdge.z)
+		{
+			this.minEdge.z = p_oPoint.z;
+		}
+	}
+
+	public function addInternalPointXYZ(x:Float,y:Float,z:Float):Void
+	{
+		if(x > this.maxEdge.x)
+		{
+			this.maxEdge.x = x;
+		}
+		if(y > this.maxEdge.y)
+		{
+			this.maxEdge.y = y;
+		}
+		if(z > this.maxEdge.z)
+		{
+			this.maxEdge.z = z;
+		}
+		if(x < this.minEdge.x)
+		{
+			this.minEdge.x = x;
+		}
+		if(y < this.minEdge.y)
+		{
+			this.minEdge.y = y;
+		}
+		if(z < this.minEdge.z)
+		{
+			this.minEdge.z = z;
+		}
+	}
+
+	/**
+	* Merge the current BoundingBox with the one given in argument
+	* @param pBounds The BBox object to merge the current BBox with
+	*/
+	public function merge(box:BBox):Void
+	{
+		this.addInternalPointXYZ(box.maxEdge.x, box.maxEdge.y, box.maxEdge.z);
+		this.addInternalPointXYZ(box.minEdge.x, box.minEdge.y, box.minEdge.z);
+
+		uptodate = false;
+	}
+
+	/**
+	* Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+	*/
+	public function reset():Void
+	{
+		minEdge.reset();
+		maxEdge.reset();
+		uptodate = false;
+	}
+
+	public function isPointInsideXYZ(x:Float,y:Float,z:Float):Bool
+	{
+		return (x >= this.minEdge.x && x <= this.maxEdge.x && y >= this.minEdge.y && y <= this.maxEdge.y && z >= this.minEdge.z && z <= this.maxEdge.z);
+	}
+
+	public function isPointTotalInside(p_oPoint:Point3D):Bool
+	{
+		return (p_oPoint.x > this.minEdge.x && p_oPoint.x < this.maxEdge.x && p_oPoint.y > this.minEdge.y && p_oPoint.y < this.maxEdge.y && p_oPoint.z > this.minEdge.z && p_oPoint.z < this.maxEdge.z);
+	}
+
+	public function intersectsBox(box:BBox):Bool
+	{
+		return (this.minEdge.x <= box.maxEdge.x && this.minEdge.y <= box.maxEdge.y && this.minEdge.z <= box.maxEdge.z && this.maxEdge.x >= box.minEdge.x && this.maxEdge.y >= box.minEdge.y && this.maxEdge.z >= box.minEdge.z);
+	}
+
+	/**
+	* Returns the center of the bounding box volume.
+	*
+	* @return A Point3D representing the center of the bounding box.
+	*/
+	public function getCenter():Point3D
+	{
+		return new Point3D((this.maxEdge.x + this.minEdge.x) / 2, (this.maxEdge.y + this.minEdge.y) / 2, (this.maxEdge.z + this.minEdge.z) / 2);
+	}
+
+	public function getEdges(edges:Array<Point3D>):Void
+	{
+		if (edges == null) return;
+		// --
+		var centerX:Float = (this.maxEdge.x + this.minEdge.x) / 2;
+		var centerY:Float = (this.maxEdge.y + this.minEdge.y) / 2;
+		var centerZ:Float = (this.maxEdge.z + this.minEdge.z) / 2;
+		var diagX:Float = centerX - this.maxEdge.x;
+		var diagY:Float = centerY - this.maxEdge.y;
+		var diagZ:Float = centerZ - this.maxEdge.z;
+
+		var _g:Point3D = edges[0];
+		_g.x = centerX + diagX;
+		_g.y = centerY + diagY;
+		_g.z = centerZ + diagZ;
+
+		_g = edges[1];
+		_g.x = centerX + diagX;
+		_g.y = centerY - diagY;
+		_g.z = centerZ + diagZ;
+
+		_g = edges[2];
+		_g.x = centerX + diagX;
+		_g.y = centerY + diagY;
+		_g.z = centerZ - diagZ;
+
+		_g = edges[3];
+		_g.x = centerX + diagX;
+		_g.y = centerY - diagY;
+		_g.z = centerZ - diagZ;
+
+		_g = edges[4];
+		_g.x = centerX - diagX;
+		_g.y = centerY + diagY;
+		_g.z = centerZ + diagZ;
+
+		_g = edges[5];
+		_g.x = centerX - diagX;
+		_g.y = centerY - diagY;
+		_g.z = centerZ + diagZ;
+
+		_g = edges[6];
+		_g.x = centerX - diagX;
+		_g.y = centerY + diagY;
+		_g.z = centerZ - diagZ;
+
+		_g = edges[7];
+		_g.x = centerX - diagX;
+		_g.y = centerY - diagY;
+		_g.z = centerZ - diagZ;
+	}
+
+
+	/**
+	* Creates a new <code>BBox</code> instance by passing the min and the max <code>Point3D</code>.
+	*
+	* @param p_min		Min vector, representing the lower point of the cube volume
+	* @param p_max		Max vector, representing the upper point of the cube volume
+	*/
+	public function new( ?p_min:Point3D, ?p_max:Point3D )
+	{
+		// initializers
+		uptodate = false;
+
+		minEdge		= (p_min != null) ? p_min : new Point3D(-0.5, -0.5, -0.5);//Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
+		maxEdge		= (p_max != null) ? p_max : new Point3D(0.5,0.5,0.5);//Number.MIN_VALUE, Number.MIN_VALUE, Number.MIN_VALUE);
+
+	}
+
+	/**
+	* Return the size of the Bounding Box.
+	*
+	* @return 		A <code>Point3D</code> representing the size of the volume in three dimensions.
+	*/
+	public function getSize():Point3D
+	{
+		return new Point3D(	Math.abs(maxEdge.x - minEdge.x),
+							Math.abs(maxEdge.y - minEdge.y),
+							Math.abs(maxEdge.z - minEdge.z));
+	}
+
+	/**
+	* Applies a transformation to the bounding box.
+	*
+	* @param p_oMatrix		The transformation matrix.
+	* @return the transformed Bounding box
+	*/
+	public function transform( p_oMatrix:Matrix4 ):BBox
+	{
+		var l_oBox:BBox = new BBox();
+		var l_aEdges:Array<Point3D> = [ Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D,
+								Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D,
+								Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D];
+		// --
+		getEdges( l_aEdges );
+		// --
+		for( l_oEdge in l_aEdges )
+		{
+			p_oMatrix.transform( l_oEdge );
+			l_oBox.addInternalPoint( l_oEdge );
 		}
 		// --
-		aTCorners[0] = new Vector(); aCorners[0] = new Vector((minx), (maxy), (maxz));
-		aTCorners[1] = new Vector(); aCorners[1] = new Vector((maxx), (maxy), (maxz));
-		aTCorners[2] = new Vector(); aCorners[2] = new Vector((maxx), (miny), (maxz));
-		aTCorners[3] = new Vector(); aCorners[3] = new Vector((minx), (miny), (maxz));
-		aTCorners[4] = new Vector(); aCorners[4] = new Vector((minx), (maxy), (minz));
-		aTCorners[5] = new Vector(); aCorners[5] = new Vector((maxx), (maxy), (minz));
-		aTCorners[6] = new Vector(); aCorners[6] = new Vector((maxx), (miny), (minz));
-		aTCorners[7] = new Vector(); aCorners[7] = new Vector((minx), (miny), (minz));
-		// --
-		return aCorners;
-	}	
-	
-    /**
-     * Applies the transformation that is specified in the <code>Matrix4</code> parameter.
-     * 
-     * @param p_oMatrix		The transformation matrix
-     */		
-    public function transform( p_oMatrix:Matrix4 ):Void
-    {
-	    aTCorners[0].copy( aCorners[0] );
-	    p_oMatrix.vectorMult( aTCorners[0] );
-		tmin.copy( aTCorners[0] ); tmax.copy( tmin );
+		return l_oBox;
+	}
 
-	    var lVector:Vector;
-	    // --
-	    for( lId in 1...8 )
-	    {
-	        aTCorners[lId].copy( aCorners[lId] );
-	        p_oMatrix.vectorMult( aTCorners[lId] );
-	    
-			lVector = aTCorners[lId];
-
-			if( lVector.x < tmin.x )		tmin.x = lVector.x;
-			else if( lVector.x > tmax.x )	tmax.x = lVector.x;
-			// --
-			if( lVector.y < tmin.y )		tmin.y = lVector.y;
-			else if( lVector.y > tmax.y )	tmax.y = lVector.y;
-			// --
-			if( lVector.z < tmin.z )		tmin.z = lVector.z;
-			else if( lVector.z > tmax.z )	tmax.z = lVector.z;
-    	}
-    	
-    	// --
-    	uptodate = true;
-    }
-    
 	/**
-	 * Returns a <code>String</code> representation of the <code>BBox</code>.
-	 * 
-	 * @return 	A String representing the bounding box
-	 */			
+	* Returns a <code>String</code> representation of the <code>BBox</code>.
+	*
+	* @return 	A String representing the bounding box
+	*/
 	public function toString():String
 	{
-		return "sandy.bounds.BBox";
+		return "sandy.bounds.BBox "+Std.string(minEdge)+" "+Std.string(maxEdge);
 	}
-	
+
 	/**
-	 * Clones the current bounding box. 
-	 * 
-	 * @return 		A cloned <code>BBox</code> instance
-	 */		
+	 * Returns a new BBox object that is a clone of the original instance.
+	 *
+	 * @return A new BBox object that is identical to the original.
+	 */
 	public function clone():BBox
 	{
-	    var l_oBBox:BBox = new BBox();
-	    l_oBBox.max = max.clone();
-	    l_oBBox.min = min.clone();
-	    l_oBBox.tmax = tmax.clone();
-	    l_oBBox.tmin = tmin.clone();
-	    return l_oBBox;
+		var l_oBBox:BBox = new BBox();
+		l_oBBox.maxEdge = maxEdge.clone();
+		l_oBBox.minEdge = minEdge.clone();
+		return l_oBBox;
 	}
-	
+
 }
 

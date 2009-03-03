@@ -19,12 +19,12 @@ package sandy.materials;
 import flash.display.BitmapData;
 import flash.display.Sprite;
 import flash.events.Event;
-#if flash9
+#if flash
 import flash.events.TimerEvent;
 #end
 import flash.geom.ColorTransform;
 import flash.geom.Rectangle;
-#if flash9
+#if flash
 import flash.utils.Timer;
 #else
 import haxe.Timer;
@@ -37,15 +37,19 @@ import sandy.math.ColorMath;
 import sandy.util.NumberUtil;
 
 /**
- * Displays a MovieClip on the faces of a 3D shape.
- *
- * <p>Based on the AS2 class VideoSkin made by kiroukou and zeusprod</p>
- *
- * @author		Xavier Martin - zeflasher
- * @author		Thomas PFEIFFER - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+* Displays a MovieClip on the faces of a 3D shape.
+*
+* <p>Based on the AS2 class VideoSkin made by kiroukou and zeusprod</p>
+*
+* @author		Xavier Martin - zeflasher
+* @author		Thomas PFEIFFER - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		1.0
+* @version		3.1
+* 				this should be add directly in the bitmap material I reckon
+* @date 		11.11.2007
+*/
 class MovieMaterial extends BitmapMaterial
 {
 	/**
@@ -75,7 +79,7 @@ class MovieMaterial extends BitmapMaterial
 	 *
 	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( p_oMovie:Sprite, p_nUpdateMS:Int = 40, ?p_oAttr:MaterialAttributes, p_bRemoveTransparentBorder:Bool = false, p_nHeight:Float = 0.0, p_nWidth:Float = 0.0 )
+	public function new( p_oMovie:Sprite, ?p_nUpdateMS:Int = 40, ?p_oAttr:MaterialAttributes, ?p_bRemoveTransparentBorder:Bool = false, ?p_nHeight:Float = 0.0, ?p_nWidth:Float = 0.0 )
 	{
 		var w : Float;
 		var h : Float;
@@ -103,18 +107,19 @@ class MovieMaterial extends BitmapMaterial
 		m_oType = MaterialType.MOVIE;
 		// --
 		m_bUpdate = true;
-#if flash9
+#if flash
 		m_oTimer = new Timer( p_nUpdateMS );
 		m_oTimer.addEventListener(TimerEvent.TIMER, _update );
 		m_oTimer.start();
 #else
 		m_oTimer = new Timer( p_nUpdateMS );
-		m_oTimer.run();
+		m_oTimer.run = callback(_update,null);
 #end
 
-		if( tmpBmp != null ) 
+		if( tmpBmp != null )
 		{
-			tmpBmp.dispose();tmpBmp = null;
+			tmpBmp.dispose();
+			tmpBmp = null;
 		}
 		rect = null;
 		//w = null;
@@ -171,7 +176,7 @@ class MovieMaterial extends BitmapMaterial
 #if flash9
 		m_oTimer.start();
 #else
-		m_oTimer.run();
+		m_oTimer.run = callback(_update,null);
 #end
 	}
 

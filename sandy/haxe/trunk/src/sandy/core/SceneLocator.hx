@@ -1,32 +1,20 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core;
 
 /**
- * The SceneLocator serves as a registry of all scenes in the application.
- *
- * <p>You can only have one SceneLocator in an application.<br />
- * You can find, register and unregister scenes by their name.</p>
- * <p>When scenes (Scene3D ) are created in an application, they aoutomatically
- * register with the SceneLocator registry</p>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- */
+* The SceneLocator serves as a registry of all scenes in the application.
+*
+* <p>An application can only have one SceneLocator. Using the SceneLocator, scenes can be located, registered, and unregistered.</p>
+* <p>When scenes are created in an application, they automatically
+* register with the SceneLocator registry.</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*
+* @see Scene3D
+*/
 class SceneLocator
 {
 
@@ -117,5 +105,5 @@ class SceneLocator
 
 
 class PrivateConstructorAccess {
-		public function new () {}
+	public function new () {}
 }

@@ -5,7 +5,7 @@ package sandy.core.interaction;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-#if flash9
+#if flash
 import flash.display.SimpleButton;
 #end
 import flash.display.Sprite;
@@ -27,14 +27,14 @@ import sandy.materials.MovieMaterial;
  *
  * @author		Xavier MARTIN - zeflasher - http://dev.webbymx.net
  * @author		Thomas PFEIFFER - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
+ * @author Niel Drummond - haXe port
+ *
+ *
  */
-class VirtualMouse extends EventDispatcher 
+class VirtualMouse extends EventDispatcher
 {
 	private static var _oI		: VirtualMouse;
-	
+
 //	target
 	private var m_ioTarget		: Sprite;
 //	old target
@@ -44,27 +44,27 @@ class VirtualMouse extends EventDispatcher
 	private var lastWithinStage	: Bool;
 	private var _lastEvent		: Event;
 	private var lastDownTarget:InteractiveObject;
-	
+
 /* ****************************************************************************
 * CONSTRUCTOR
 **************************************************************************** */
 	public function new( access : PrivateConstructorAccess )
 	{
-	 lastWithinStage	= true;
+		lastWithinStage	= true;
 		super();
 		location = new Point(0, 0);
 		lastLocation = location.clone();
 	}
-	
+
 	public static function getInstance() : VirtualMouse
 	{
 		if ( _oI == null ) _oI = new VirtualMouse( new PrivateConstructorAccess() );
 		return _oI;
 	}
-	
+
 /* ****************************************************************************
 * PUBLIC FUNCTION
-**************************************************************************** */	
+**************************************************************************** */
 	public function interactWithTexture(  p_oPoly : Polygon, p_uvTexture : UVCoord, p_event : Event ) : Void
 	{
 		// -- recuperation du material applique sur le polygone
@@ -73,46 +73,45 @@ class VirtualMouse extends EventDispatcher
 
 		m_ioTarget = l_oMaterial.movie;
 		location = new Point( p_uvTexture.u * l_oMaterial.texture.width, p_uvTexture.v * l_oMaterial.texture.height );
-		
+
 		// go through each objectsUnderPoint checking:
 		//		1) is not ignored
 		//		2) is InteractiveObject
 		//		3) mouseEnabled
 		var objectsUnderPoint:Array<DisplayObject> = m_ioTarget.getObjectsUnderPoint( m_ioTarget.localToGlobal( location ) );
-
 		var currentTarget:Sprite = null;
 		var currentParent:DisplayObject;
-		
+
 		var i:Int = objectsUnderPoint.length;
-		while ( --i > -1 ) 
+		while ( --i > -1 )
 		{
 			currentParent = objectsUnderPoint[i];
-			
+
 			// go through parent hierarchy
-			while (currentParent != null) 
-			{		
+			while (currentParent != null)
+			{
 				// invalid target if in a SimpleButton
-#if flash9
-				if (currentTarget != null && Std.is(currentParent, SimpleButton)) 
+#if flash
+				if (currentTarget != null && Std.is(currentParent, SimpleButton))
 				{
 					currentTarget = null;
-					
+
 				// invalid target if a parent has a
 				// false mouseChildren
 				} else
 #end
-				if ( currentTarget != null && Std.is(currentParent, DisplayObjectContainer) && !cast(currentParent, DisplayObjectContainer).mouseChildren ) 
+				if ( currentTarget != null && Std.is(currentParent, DisplayObjectContainer) && !cast(currentParent, DisplayObjectContainer).mouseChildren )
 				{
 					currentTarget = null;
 				}
-				
+
 				// define target if an InteractiveObject
 				// and mouseEnabled is true
-				if (currentTarget == null && Std.is(currentParent, DisplayObjectContainer) && cast(currentParent, DisplayObjectContainer).mouseEnabled) 
+				if (currentTarget == null && Std.is(currentParent, DisplayObjectContainer) && cast(currentParent, DisplayObjectContainer).mouseEnabled)
 				{
 					currentTarget = cast( currentParent, Sprite );
 				}
-				
+
 				// next parent in hierarchy
 				currentParent = currentParent.parent;
 			}
@@ -124,11 +123,11 @@ class VirtualMouse extends EventDispatcher
 		{
 			currentTarget = m_ioTarget;
 		}
-		
+
 		if ( m_ioOldTarget == null ) currentTarget.stage;
-					
+
 		//	if the target is a textfield
-		/*	if ( currentTarget is TextField ) 
+		/*	if ( currentTarget is TextField )
 		{
 			_checkLinks( currentTarget as TextField );
 			return;
@@ -137,10 +136,10 @@ class VirtualMouse extends EventDispatcher
 		// get local coordinate locations
 		var targetLocal:Point = p_oPoly.container.globalToLocal(location);
 		var currentTargetLocal:Point = currentTarget.globalToLocal(location);
-		
+
 		// move event
-		if (lastLocation.x != location.x || lastLocation.y != location.y) 
-		{	
+		if (lastLocation.x != location.x || lastLocation.y != location.y)
+		{
 			var withinStage:Bool = (location.x >= 0 && location.y >= 0 && location.x <= p_oPoly.container.stage.stageWidth && location.y <= p_oPoly.container.stage.stageHeight);
 			// mouse leave if left stage
 			if ( !withinStage && lastWithinStage )
@@ -151,24 +150,24 @@ class VirtualMouse extends EventDispatcher
 			}
 			// only mouse move if within stage
 			if ( withinStage )
-			{	
+			{
 				//_lastEvent = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, currentTargetLocal.x, currentTargetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta );
 				_lastEvent = new MouseEvent(Event.MOUSE_LEAVE, false, false);
 				currentTarget.dispatchEvent(_lastEvent);
 				dispatchEvent(_lastEvent);
 			}
-			
+
 			// remember if within stage
 			lastWithinStage = withinStage;
 		}
-		
-		// roll/mouse (out and over) events 
-		if ( currentTarget != m_ioOldTarget ) 
-		{	
+
+		// roll/mouse (out and over) events
+		if ( currentTarget != m_ioOldTarget )
+		{
 			// off of last target
 			_lastEvent = new MouseEvent(MouseEvent.MOUSE_OUT, true, false, targetLocal.x, targetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			m_ioTarget.dispatchEvent(_lastEvent);
-			dispatchEvent(_lastEvent);	
+			dispatchEvent(_lastEvent);
 			// rolls do not propagate
 			_lastEvent = new MouseEvent(MouseEvent.ROLL_OUT, false, false, targetLocal.x, targetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			m_ioTarget.dispatchEvent(_lastEvent);
@@ -182,9 +181,9 @@ class VirtualMouse extends EventDispatcher
 			currentTarget.dispatchEvent(_lastEvent);
 			dispatchEvent(_lastEvent);
 		}
-		
+
 		// click/up/down events
-		if ( p_event.type == MouseEvent.MOUSE_DOWN ) 
+		if ( p_event.type == MouseEvent.MOUSE_DOWN )
 		{
 			_lastEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, currentTargetLocal.x, currentTargetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			currentTarget.dispatchEvent(_lastEvent);
@@ -192,21 +191,21 @@ class VirtualMouse extends EventDispatcher
 			// remember last down
 			lastDownTarget = currentTarget;
 			// mouse is up
-		} 
+		}
 		else if ( p_event.type == MouseEvent.MOUSE_UP )
 		{
 			_lastEvent = new MouseEvent(MouseEvent.MOUSE_UP, true, false, currentTargetLocal.x, currentTargetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			currentTarget.dispatchEvent(_lastEvent);
 			dispatchEvent(_lastEvent);
 		}
-		else if ( p_event.type == MouseEvent.CLICK ) 
+		else if ( p_event.type == MouseEvent.CLICK )
 		{
 			_lastEvent = new MouseEvent(MouseEvent.CLICK, true, false, currentTargetLocal.x, currentTargetLocal.y, currentTarget, untyped( p_event.ctrlKey ), untyped( p_event.altKey ), untyped( p_event.shiftKey ), untyped( p_event.buttonDown ), untyped( p_event.delta ));
 			currentTarget.dispatchEvent(_lastEvent);
 			dispatchEvent(_lastEvent);
 			// clear last down
 			lastDownTarget = null;
-		} 
+		}
 #if flash9
 		else if ( p_event.type == MouseEvent.DOUBLE_CLICK && currentTarget.doubleClickEnabled )
 		{
@@ -215,15 +214,15 @@ class VirtualMouse extends EventDispatcher
 			dispatchEvent(_lastEvent);
 		}
 #end
-		
+
 		// remember last values
 		lastLocation = location.clone();
 		m_ioOldTarget = currentTarget;
 	}
-	
+
 /* ****************************************************************************
 * PRIVATE FUNCTIONS
-**************************************************************************** */		
+**************************************************************************** */
 	private function _checkLinks( tf : TextField ) : Void
 	{
 		var currentTargetLocal:Point = tf.globalToLocal(location);
@@ -231,11 +230,11 @@ class VirtualMouse extends EventDispatcher
 		var l : Int = a.length;
 			for ( i in 0...l )
 			{
-				if ( cast( ( cast( a[i], TextLink ) ).getBounds(), Rectangle ).containsPoint( currentTargetLocal ) ) 
+				if ( cast( ( cast( a[i], TextLink ) ).getBounds(), Rectangle ).containsPoint( currentTargetLocal ) )
 					1+1;
 			}
 	}
-	
+
 }
 
 

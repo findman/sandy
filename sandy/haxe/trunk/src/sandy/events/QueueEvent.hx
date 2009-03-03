@@ -22,8 +22,8 @@ import sandy.util.LoaderQueue;
 /**
  * Conatains events use for loading resources.
  *
- * 
  *
+ * @author 		Russell Weir - haXe port
  * @see sandy.util.LoaderQueue
  * @see BubbleEventBroadcaster
  */
@@ -31,19 +31,29 @@ class QueueEvent extends Event
 {
 	private var _loaders:Hash<QueueElement>;
 
-    /**
-     * Indicates a resource has been loaded.
-     *
-     * @eventType queueComplete
-     */
+	/**
+	* Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
+	*
+	* @eventType queueComplete
+	*/
 	public static var QUEUE_COMPLETE:String = "queueComplete";
 
-    /**
-     * Indicates an error was encountered while loading a resource.
-     *
-     * @eventType queueLoaderError
-     */
+	/**
+	* Defines the value of the <code>type</code> property of a <code>queueResourceLoaded</code> event object.
+	*
+	* @eventType queueResourceLoaded
+	*/
+	public static var QUEUE_RESOURCE_LOADED:String = "queueResourceLoaded";
+
+	/**
+	* Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
+	*
+	* @eventType queueLoaderError
+	*/
 	public static var QUEUE_LOADER_ERROR:String = "queueLoaderError";
+
+
+
 
  	/**
 	 * Constructor.
@@ -52,13 +62,9 @@ class QueueEvent extends Event
 	 * @param bubbles Specifies whether the event can bubble up the display list hierarchy.
 	 * @param cancelable Specifies whether the behavior associated with the event can be prevented.
      */
-	public function new(type:String, ?bubbles:Bool, ?cancelable:Bool)
+	public function new(type:String, ?bubbles:Bool=false, ?cancelable:Bool=false)
 	{
-		if (bubbles == null) bubbles = false;
-		if (cancelable == null) cancelable = false;
-
 		super(type, bubbles, cancelable);
-
 		_loaders = loaders;
 	}
 

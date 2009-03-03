@@ -19,24 +19,34 @@ package sandy.core.data;
 import sandy.util.NumberUtil;
 
 /**
- * A point in 3D world.
- *
- * <p>A representation of a position in a 3D space.</p>
- *
- * @author		Thomas Pfeiffer - kiroukou
- * @author		Mirek Mencel
- * @author		Tabin Cédric - thecaptain
- * @author		Nicolas Coevoet - [ NikO ]
- * @author		Bruce Epstein - zeusprod - truncated toString output to 2 decimals
- * @author Niel Drummond - haXe port 
- * 
- * 
- * 
- */
-class Vector
+* A 3D coordinate.
+*
+* <p>A representation of a position in a 3D space.</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Mirek Mencel
+* @author		Tabin Cédric - thecaptain
+* @author		Nicolas Coevoet - [ NikO ]
+* @author		Bruce Epstein - zeusprod - truncated toString output to 2 decimals
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		0.1
+* @version		3.1
+* @date 		24.08.2007
+*/
+class Point3D
 {
+	/**
+	* The x coordinate.
+	*/
 	public var x:Float;
+	/**
+	* The y coordinate.
+	*/
 	public var y:Float;
+	/**
+	* The z coordinate.
+	*/
 	public var z:Float;
 
 	/**
@@ -46,33 +56,22 @@ class Vector
 	* @param	p_nY	the y coordinate
 	* @param	p_nZ	the z coordinate
 	*/
-	public function new(?p_nX:Float, ?p_nY:Float, ?p_nZ:Float)
+	public function new(?p_nX:Float = 0.0, ?p_nY:Float = 0.0, ?p_nZ:Float = 0.0)
 	{
-
-		if (p_nX == null) p_nX = 0;
-		if (p_nY == null) p_nY = 0;
-		if (p_nZ == null) p_nZ = 0;
-
 		x = p_nX;
 		y = p_nY;
 		z = p_nZ;
-
 	}
 
 	/**
 	 * Reset the vector components to 0
 	 * after calling this method, x, y and z will be set to 0
 	 */
-	public function reset( ?px:Float, ?py:Float, ?pz:Float):Void
+	public function reset( ?px:Float=0.0, ?py:Float=0.0, ?pz:Float=0.0):Void
 	{
-
-		if (px == null) px = 0;
-		if (py == null) py = 0;
-		if (pz == null) pz = 0;
-
 		x = px; y = py; z = pz;
 	}
-	
+
 	/**
 	 * Reset the vector components to the minimal value Flash can handle
 	 * after calling this method, x, y and z will be set to Float.NEGATIVE_INFINITY;
@@ -90,15 +89,15 @@ class Vector
 	{
 		x = y = z = Math.POSITIVE_INFINITY;
 	}
-	
+
 	/**
 	 * Returns a clone of thei vector.
 	 *
 	 * @return 	The clone
 	 */
-	public function clone():Vector
+	public function clone():Point3D
 	{
-	    var l_oV:Vector = new Vector( x, y, z );
+	    var l_oV:Point3D = new Point3D( x, y, z );
 	    return l_oV;
 	}
 
@@ -107,13 +106,13 @@ class Vector
 	 *
 	 * <p>All elements of this vector is set to those of the argument vector</p>
 	 *
-	 * @param p_oVector	The vector to copy
+	 * @param p_oPoint3D	The vector to copy
 	 */
-	public function copy( p_oVector:Vector ):Void
+	public function copy( p_oPoint3D:Point3D ):Void
 	{
-		x = p_oVector.x;
-		y = p_oVector.y;
-		z = p_oVector.z;
+		x = p_oPoint3D.x;
+		y = p_oPoint3D.y;
+		z = p_oPoint3D.z;
 	}
 
 	/**
@@ -133,10 +132,10 @@ class Vector
 	 *
 	 * @return 	The inverse
 	 */
-	public function negate( /*v:Vector*/ ): Vector
+	public function negate( /*v:Point3D*/ ): Point3D
 	{
 		// Commented out the argument as it is never used - Petit
-		return new Vector( - x, - y, - z );
+		return new Point3D( - x, - y, - z );
 	}
 
 	/**
@@ -144,7 +143,7 @@ class Vector
 	 *
 	 * @param v 	The vector to add
 	 */
-	public function add( v:Vector ):Void
+	public function add( v:Point3D ):Void
 	{
 		x += v.x;
 		y += v.y;
@@ -154,11 +153,11 @@ class Vector
 	/**
 	 * Substracts the specified vector from this vector.
 	 *
-	 * @param {@code v} a {@code Vector}.
-	 * @param {@code w} a {@code Vector}.
-	 * @return The resulting {@code Vector}.
+	 * @param {@code v} a {@code Point3D}.
+	 * @param {@code w} a {@code Point3D}.
+	 * @return The resulting {@code Point3D}.
 	 */
-	public function sub( v:Vector ):Void
+	public function sub( v:Point3D ):Void
 	{
 		x -= v.x;
 		y -= v.y;
@@ -197,7 +196,7 @@ class Vector
 	 * @param w 	The vector to multiply
 	 * @return 	The dot procuct
 	 */
-	public function dot( w: Vector):Float
+	public function dot( w: Point3D):Float
 	{
 		return ( x * w.x + y * w.y + z * w.z );
 	}
@@ -208,10 +207,10 @@ class Vector
 	 * @param v 	The vector to make the cross product with ( right side )
 	 * @return 	The cross product vector.
 	 */
-	public function cross( v:Vector):Vector
+	public function cross( v:Point3D):Point3D
 	{
 		// cross product vector that will be returned
-		return new Vector(
+		return new Point3D(
 							(y * v.z) - (z * v.y) ,
 		                 	(z * v.x) - (x * v.z) ,
 		               		(x * v.y) - (y * v.x)
@@ -223,7 +222,7 @@ class Vector
 	 *
 	 * @param v 	The vector to make the cross product with (right side).
 	 */
-	public inline function crossWith( v:Vector):Void
+	public inline function crossWith( v:Point3D):Void
 	{
 		var cx:Float = (y * v.z) - (z * v.y);
 		var cy:Float = (z * v.x) - (x * v.z);
@@ -249,38 +248,38 @@ class Vector
 
 	/**
 	 * Gives the biggest component of the current vector.
-	 * Example : var lMax:Float = new Vector(5, 6.7, -4).getMaxComponent(); //returns 6.7
-	 * 
+	 * Example : var lMax:Float = new Point3D(5, 6.7, -4).getMaxComponent(); //returns 6.7
+	 *
 	 * @return The biggest component value of the vector
 	 */
 	public function getMaxComponent():Float
 	{
 		return Math.max( x, Math.max( y, z ) );
 	}
-	
+
 	/**
 	 * Gives the smallest component of the current vector.
-	 * Example : var lMin:Float = new Vector(5, 6.7, -4).getMinComponent(); //returns -4
-	 * 
+	 * Example : var lMin:Float = new Point3D(5, 6.7, -4).getMinComponent(); //returns -4
+	 *
 	 * @return The smallest component value of the vector
 	 */
 	public function getMinComponent():Float
 	{
 		return Math.min( x, Math.min( y, z ) );
 	}
-	
+
 	/**
 	 * Returns the angle between this vector and the specified vector.
 	 *
 	 * @param w	The vector making an angle with this one
 	 * @return 	The angle in radians
 	 */
-	public function getAngle ( w:Vector ):Float
+	public function getAngle ( w:Point3D ):Float
 	{
 		var n1:Float = getNorm();
 		var n2:Float =  w.getNorm();
 		var denom:Float = n1 * n2;
-		if( denom  == 0 ) 
+		if( denom  == 0 )
 		{
 			return 0;
 		}
@@ -314,10 +313,32 @@ class Vector
 		}
 		// Round display to two decimals places
 		// Returns "{x, y, z}"
-		return "{" + NumberUtil.roundTo(x, decPlaces) + ", " +
-					 NumberUtil.roundTo(y, decPlaces) + ", " +
-					 NumberUtil.roundTo(z, decPlaces) + "}";
+		return "{" + serialize(Math.pow (10, -decPlaces)) + "}";
 	}
+
+	// Useful for XML output
+	public function serialize(?decPlaces:Float=0.1):String
+	{
+		//returns x,y,x
+		return  (NumberUtil.roundTo(x, decPlaces) + "," +
+					NumberUtil.roundTo(y, decPlaces) + "," +
+					NumberUtil.roundTo(z, decPlaces));
+	}
+
+	// Useful for XML input
+	public static function deserialize(convertFrom:String):Point3D
+	{
+		var tmp = convertFrom.split(",");
+		if (tmp.length != 3) {
+			trace ("Unexpected length of string to deserialize into a Point3D " + convertFrom);
+		}
+		var ta = new Array();
+		for(i in 0...tmp.length) {
+			ta[i] = Std.parseFloat(tmp[i]);
+		}
+		return new Point3D (ta[0], ta[1], ta[2]);
+	}
+
 
 	/**
 	 * Is this vector equal to the specified vector?.
@@ -327,52 +348,13 @@ class Vector
 	 *
 	 * @return 	true if the the two vectors are equal, fals otherwise.
 	 */
-	public function equals(p_vector:Vector):Bool
+	public function equals(p_vector:Point3D):Bool
 	{
 		return (p_vector.x == x && p_vector.y == y && p_vector.z == z);
 	}
 
-	// Useful for XML output
-	/**
-	 * Returns a string representation of this vector with rounded values.
-	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML output! ]</p>
-	 *
-	 * @param decPlaces	Float of decimals
-	 * @return 		The specific serialize string
-	 */
-	public function serialize(?decPlaces:Float):String
-	{
-		if (decPlaces == 0)
-		{
-			decPlaces = .01;
-		}
-		//returns x,y,x
-		return  (	NumberUtil.roundTo(x, decPlaces) + "," +
-				 NumberUtil.roundTo(y, decPlaces) + "," +
-				 NumberUtil.roundTo(z, decPlaces)
-			);
-	}
 
-	// Useful for XML output
-	/**
-	 * Sets the elements of this vector from a string representation.
-	 *
-	 * <p>[<strong>ToDo</strong>: Explain why this is good for XML intput! ]</p>
-	 *
-	 * @param 	A string representing the vector ( specific serialize format )
-	 */
-	public function deserialize(convertFrom:String):Void
-	{
-		var tmp:Array<String> = convertFrom.split(",");
-		if (tmp.length != 3)
-		{
-			trace ("Unexpected length of string to deserialize into a vector " + convertFrom);
-		}
 
-		x = Std.parseFloat(tmp[0]);
-		y = Std.parseFloat(tmp[1]);
-		z = Std.parseFloat(tmp[2]);
-	}
+
 }
 

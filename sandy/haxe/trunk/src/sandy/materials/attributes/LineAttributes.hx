@@ -1,18 +1,3 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
@@ -24,15 +9,16 @@ import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
 /**
- * Holds all line attribute data for a material.
- *
- * <p>Some materials have line attributes to outline the faces of a 3D shape.<br/>
- * In these cases a LineAttributes object holds all line attribute data</p>
- * 
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+* Holds all line attribute data for a material.
+*
+* <p>Some materials have line attributes to outline the faces of a 3D shape.<br/>
+* In these cases a LineAttributes object holds all line attribute data</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*/
 class LineAttributes extends AAttributes, implements IAttributes
 {
 	private var m_nThickness:Float;
@@ -43,7 +29,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	 * Whether the attribute has been modified since it's last render.
 	 */
 	public var modified:Bool;
-	
+
 	/**
 	 * Creates a new LineAttributes object.
 	 *
@@ -61,7 +47,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 
 		super();
 	}
-	
+
 	/**
 	 * Indicates the alpha transparency value of the line. Valid values are 0 (fully transparent) to 1 (fully opaque).
 	 *
@@ -72,7 +58,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	{
 		return m_nAlpha;
 	}
-	
+
 	/**
 	 * The line color.
 	 */
@@ -81,7 +67,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	{
 		return m_nColor;
 	}
-	
+
 	/**
 	 * The line thickness.
 	 */
@@ -90,7 +76,7 @@ class LineAttributes extends AAttributes, implements IAttributes
 	{
 		return m_nThickness;
 	}
-	
+
 	/**
 	 * The alpha value for the lines ( 0 - 1 )
 	 *
@@ -98,34 +84,34 @@ class LineAttributes extends AAttributes, implements IAttributes
 	 */
 	private function __setAlpha(p_nValue:Float):Float
 	{
-		m_nAlpha = p_nValue; 
+		m_nAlpha = p_nValue;
 		modified = true;
 		return p_nValue;
 	}
-	
+
 	/**
 	 * The line color
 	 */
 	private function __setColor(p_nValue:Int):Int
 	{
-		m_nColor = p_nValue; 
+		m_nColor = p_nValue;
 		modified = true;
 		return p_nValue;
 	}
 
 	/**
 	 * The line thickness
-	 */	
+	 */
 	private function __setThickness(p_nValue:Float):Float
 	{
-		m_nThickness = p_nValue; 
+		m_nThickness = p_nValue;
 		modified = true;
 		return p_nValue;
 	}
 
 	/**
 	 * Draw the edges of the polygon into the graphics object.
-	 *  
+	 *
 	 * @param p_oGraphics the Graphics object to draw attributes into
 	 * @param p_oPolygon the polygon which is going to be drawn
 	 * @param p_oMaterial the referring material

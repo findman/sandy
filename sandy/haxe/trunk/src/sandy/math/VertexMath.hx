@@ -1,18 +1,3 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.math;
 
@@ -20,28 +5,36 @@ import flash.geom.Matrix;
 
 import sandy.core.data.Vertex;
 import sandy.errors.SingletonError;
- 
+
 /**
- * Math functions for vertex manipulation.
- *  
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
-class VertexMath extends VectorMath
+* Math functions for vertex manipulation.
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @since		0.2
+* @version		3.1
+* @date 		26.07.2007
+*/
+class VertexMath extends Point3DMath
 {
 	private static var instance:VertexMath;
-	
+	private static var create:Boolean;
+
 	/**
 	 * Creates a VertexMath object.
-	 * 
+	 *
 	 * <p>This is a singleton constructor, and should not be called directly.<br />
 	 * If called from outside the ColorMath class, it throws a SingletonError.</p>
 	 * [<strong>ToDo</strong>: Why instantiate this at all? - all methods are class methods! ]
-	 */ 
+	 */
 	private function new(){
+		if ( !create )
+		{
+			throw new SingletonError();
+		}
 	}
-	
+
 	/**
 	 * Returns an instance of this class.
 	 *
@@ -51,12 +44,14 @@ class VertexMath extends VectorMath
 	{
 		if (instance == null)
 		{
+			create = true;
 			instance = new VertexMath();
+			create = false;
 		}
-		
+
 		return instance;
 	}
-	
+
 	/**
 	 * Computes the opposite of a vertex.
 	 *
@@ -67,10 +62,10 @@ class VertexMath extends VectorMath
 	 */
 	public static function negate( p_oV:Vertex ): Vertex
 	{
-		return new Vertex (	
+		return new Vertex (
 					- p_oV.x,
                       			- p_oV.y,
-               				- p_oV.z 
+               				- p_oV.z
                			);
 	}
 
@@ -85,7 +80,7 @@ class VertexMath extends VectorMath
 	{
 		return ( p_oV.wx * p_oW.wx + p_oV.wy * p_oW.wy + p_oW.wz * p_oV.wz );
 	}
-	
+
 	/**
 	 * Adds the two vertices.
 	 *
@@ -104,7 +99,7 @@ class VertexMath extends VectorMath
                 	        p_oV.wy + p_oW.wy ,
                 	        p_oV.wz + p_oW.wz );
 	}
-	
+
 	/**
 	 * Substracts one vertices from another
 	 *
@@ -114,16 +109,16 @@ class VertexMath extends VectorMath
 	 */
 	public static function sub( p_oV:Vertex, p_oW:Vertex ): Vertex
 	{
-		return new Vertex(	 
+		return new Vertex(
 					p_oV.x - p_oW.x ,
 					p_oV.y - p_oW.y ,
 					p_oV.z - p_oW.z ,
 					p_oV.wx - p_oW.wx ,
 					p_oV.wy - p_oW.wy ,
-					p_oV.wz - p_oW.wz 
+					p_oV.wz - p_oW.wz
 				);
-	}	
-	
+	}
+
 	/**
 	 * Computes the cross product the two vertices.
 	 *
@@ -139,13 +134,13 @@ class VertexMath extends VectorMath
 					(p_oW.x * p_oV.y) - (p_oW.y * p_oV.x)
 				);
 	}
-	
+
 	/**
 	 * Clones a vertex.
 	 *
 	 * @param p_oV	A vertex to clone.
 	 * @return 	The clone
-	 */	
+	 */
 	public static function clone( p_oV:Vertex ): Vertex
 	{
 		return new Vertex( p_oV.x, p_oV.y, p_oV.z );
