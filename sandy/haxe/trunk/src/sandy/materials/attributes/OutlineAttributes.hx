@@ -1,23 +1,9 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
 import flash.display.Graphics;
 import flash.geom.Rectangle;
+// import flash.utils.Dictionary;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Edge3D;
@@ -26,16 +12,19 @@ import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
+
 /**
- * Holds all outline attributes data for a material.
- *
- * <p>Each material can have an outline attribute to outline the whole 3D shape.<br/>
- * The OutlineAttributes class stores all the information to draw this outline shape</p>
- * 
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- */
+* Holds all outline attributes data for a material.
+*
+* <p>Each material can have an outline attribute to outline the whole 3D shape.<br/>
+* The OutlineAttributes class stores all the information to draw this outline shape</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		09.09.2007
+*/
 class OutlineAttributes extends AAttributes
 {
 	private var SHAPE_MAP:IntHash<Bool>;
@@ -50,7 +39,7 @@ class OutlineAttributes extends AAttributes
 	 * Whether the attribute has been modified since it's last render.
 	 */
 	public var modified:Bool;
-	
+
 	/**
 	 * Creates a new OutlineAttributes object.
 	 *
@@ -58,20 +47,21 @@ class OutlineAttributes extends AAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha:Float = 1.0 )
+	public function new( ?p_nThickness:Int = 1, ?p_nColor:Int = 0, ?p_nAlpha:Float = 1.0 )
 	{
+		SHAPE_MAP = new IntHash();
+		m_nAngleThreshold = 181.0;
 
-	 SHAPE_MAP = new IntHash();
 		m_nThickness = p_nThickness;
 		m_nAlpha = p_nAlpha;
 		m_nColor = p_nColor;
 
-	 m_nAngleThreshold = 181.0;
+
 		// --
 		super();
 		modified = true;
 	}
-	
+
 	/**
 	 * Indicates the alpha transparency value of the outline. Valid values are 0 (fully transparent) to 1 (fully opaque).
 	 *
@@ -82,7 +72,7 @@ class OutlineAttributes extends AAttributes
 	{
 		return m_nAlpha;
 	}
-	
+
 	/**
 	 * The line color.
 	 */
@@ -91,55 +81,55 @@ class OutlineAttributes extends AAttributes
 	{
 		return m_nColor;
 	}
-	
+
 	/**
 	 * The line thickness.
-	 */	
+	 */
 	public var thickness(__getThickness,__setThickness):Int;
 	private function __getThickness():Int
 	{
 		return m_nThickness;
 	}
-	
+
 	/**
 	 * The angle threshold. Attribute will additionally draw edges between faces that form greater angle than this value.
-	 */	
+	 */
 	public var angleThreshold(__getAngleThreshold,__setAngleThreshold):Float;
 	private function __getAngleThreshold():Float
 	{
 		return m_nAngleThreshold;
 	}
- 
+
 	/**
 	 * @private
 		*/
 	private function __setAlpha(p_nValue:Float):Float
 	{
-		m_nAlpha = p_nValue; 
+		m_nAlpha = p_nValue;
 		modified = true;
         return p_nValue;
 	}
-	
+
 	/**
 	 * The line color
 	 */
 	private function __setColor(p_nValue:Int):Int
 	{
-		m_nColor = p_nValue; 
+		m_nColor = p_nValue;
 		modified = true;
         return p_nValue;
 	}
 
 	/**
 	 * The line thickness
-	 */	
+	 */
 	private function __setThickness(p_nValue:Int):Int
 	{
-		m_nThickness = p_nValue; 
+		m_nThickness = p_nValue;
 		modified = true;
         return p_nValue;
 	}
-	
+
 	public function __setAngleThreshold(p_nValue:Float):Float
 	{
 		m_nAngleThreshold = p_nValue;
@@ -147,9 +137,8 @@ class OutlineAttributes extends AAttributes
 	}
 
 	/**
-	 * Allows to proceed to an initialization
-	 * to know when the polyon isn't lined to the material, look at #unlink
-	 */
+	* @private
+	*/
 	override public function init( p_oPolygon:Polygon ):Void
 	{
 		// to keep reference to the shapes/polygons that use this attribute
@@ -159,7 +148,7 @@ class OutlineAttributes extends AAttributes
 			// if this shape hasn't been registered yet, we compute its polygon relation to be able
 			// to draw the outline.
 			var l_aPoly:Array<Polygon> = p_oPolygon.shape.aPolygons;
-			var a:Int = l_aPoly.length, lCount:Int = 0, i:Int, j:Int;
+			var a:Int = l_aPoly.length, lCount:Int = 0;
 			var lP1:Polygon, lP2:Polygon;
 			var l_aEdges:Array<Edge3D>;
 			// if any of polygons of this shape have neighbour information, do not re-calculate it
@@ -199,23 +188,17 @@ class OutlineAttributes extends AAttributes
 	}
 
 	/**
-	 * Remove all the initialization
-	 * opposite of init
-	 */
+	* @private
+	*/
 	override public function unlink( p_oPolygon:Polygon ):Void
 	{
 		// to remove reference to the shapes/polygons that use this attribute
 		// TODO : can we free the memory of SHAPE_MAP ? Don't think so, and would it be really necessary? not sure either.
 	}
-	
+
 	/**
-	 * Draw the outline edges of the polygon into the graphics object.
-	 *  
-	 * @param p_oGraphics the Graphics object to draw attributes into
-	 * @param p_oPolygon the polygon which is going to be drawn
-	 * @param p_oMaterial the refering material
-	 * @param p_oScene the scene
-	 */
+	* @private
+	*/
 	override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
 		var l_oEdge:Edge3D;
@@ -265,11 +248,8 @@ class OutlineAttributes extends AAttributes
 	}
 
 	/**
-	 * Outline the sprite. This has to clear any drawing done on sprite container, sorry.
-	 *  
-	 * @param p_oSprite the Sprite2D object to apply attributes to
-	 * @param p_oScene the scene
-	 */
+	* @private
+	*/
 	override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
 		var g:Graphics = p_oSprite.container.graphics; g.clear ();

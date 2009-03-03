@@ -1,68 +1,55 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.materials.attributes;
+
+import sandy.core.SandyFlags;
+import sandy.core.Scene3D;
+import sandy.core.data.Point3D;
+import sandy.core.data.Polygon;
+import sandy.core.data.Vertex;
+import sandy.materials.BitmapMaterial;
+import sandy.materials.Material;
 
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.utils.Dictionary;
+// import flash.utils.Dictionary;
 
-import sandy.core.SandyFlags;
-import sandy.core.Scene3D;
-import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
-import sandy.core.data.Vertex;
-import sandy.core.light.Light3D;
-import sandy.materials.Material;
-import sandy.materials.BitmapMaterial;
-import sandy.math.VertexMath;
-import sandy.util.NumberUtil;
 
 /**
- * Applies cylindric environment map.
- *
- * @author		makc
- * @author		Niel Drummond - haXe port
-	*
- */
+* Applies cylindric environment map.
+*
+* @author		makc
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+*/
 class CylinderEnvMap extends AAttributes
 {
 	/**
-	 * A bitmap-based material to use for environment map.
-	 */
+	* A bitmap-based material to use for environment map.
+	*/
 	public var mapMaterial:BitmapMaterial;
 
 	/**
-	 * Non-zero value adds sphere normals to actual normals for mapping.
-	 * Use this with flat surfaces or cylinders.
-	 */
+	* Non-zero value adds sphere normals to actual normals for mapping.
+	* Use this with flat surfaces or cylinders.
+	*/
 	public var spherize:Float;
 
 	/**
-	 * Create the CylinderEnvMap object.
-	 *
-	 * @param p_oBitmapMaterial A bitmap-based material to use for environment map.
-	 */
+	* Create the CylinderEnvMap object.
+	*
+	* @param p_oBitmapMaterial A bitmap-based material to use for environment map.
+	*/
 	public function new (p_oBitmapMaterial:BitmapMaterial)
 	{
-	 spherize = 0;
-	 aN = [new Vector (), new Vector (), new Vector ()];
-	 aNP = [new Point (), new Point (), new Point ()];
-	 matrix = new Matrix();
-	 matrix2 = new Matrix();
+		// public initializers
+		spherize = 0.0;
+		// private initializers
+		aN = [new Point3D (), new Point3D (), new Point3D ()];
+		aNP = [new Point (), new Point (), new Point ()];
+		matrix = new Matrix();
+		matrix2 = new Matrix();
 
 		super();
 
@@ -77,7 +64,7 @@ class CylinderEnvMap extends AAttributes
 	override public function draw(p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D):Void
 	{
 		var l_oVertex:Vertex,
-			v:Vector, dv:Vector,
+			v:Point3D, dv:Point3D,
 			p:Point, p1:Point, p2:Point,
 			m2a:Float, m2b:Float, m2c:Float, m2d:Float, a:Float;
 
@@ -87,7 +74,7 @@ class CylinderEnvMap extends AAttributes
 		l_oVertex = m_aPoints [0];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
-		
+
 		l_oVertex = m_aPoints [1];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
@@ -99,17 +86,17 @@ class CylinderEnvMap extends AAttributes
 		// transform 1st three normals
 		for (i in 0...3)
 		{
-			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldVector());
+			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldPoint3D());
 
 			if (spherize > 0)
 			{
-				// too bad, m_aPoints [i].getWorldVector () gives viewMatrix-based coordinates
-				// when vertexNormals [i].getWorldVector () gives modelMatrix-based ones :(
+				// too bad, m_aPoints [i].getWorldPoint3D () gives viewMatrix-based coordinates
+				// when vertexNormals [i].getWorldPoint3D () gives modelMatrix-based ones :(
 				// so we have to use cache for modelMatrix-based vertex coords (and also scaled)
 				l_oVertex = m_aPoints [i];
 				if ( m_oVertices [l_oVertex.id] == null)
 				{
-					dv = l_oVertex.getVector ().clone ();
+					dv = l_oVertex.getPoint3D ().clone ();
 					dv.sub (p_oPolygon.shape.geometryCenter);
 					p_oPolygon.shape.modelMatrix.vectorMult3x3 (dv);
 					dv.normalize ();
@@ -165,16 +152,16 @@ class CylinderEnvMap extends AAttributes
 	}
 
 	/**
-	 * @private override this to create custom mapping m_aPoints, aN -> aNP
-	 */
+	* @private override this to create custom mapping m_aPoints, aN -> aNP
+	*/
 	private function computeMapping ():Void
 	{
-		var p:Point, v:Vector;
+		var p:Point, v:Point3D;
 		for (i in 0...3)
 		{
 			p = aNP [i]; v = aN [i];
 
-			// x, z = -1 -> u = 0.5 
+			// x, z = -1 -> u = 0.5
 			p.x = 0.5 * (1 + Math.atan2 (v.x, -v.z) / Math.PI);
 
 			// y -> v
@@ -187,26 +174,26 @@ class CylinderEnvMap extends AAttributes
 	}
 
 	/**
-	 * @private
-	 */
-	private var aN:Array<Vector>;
+	* @private
+	*/
+	private var aN:Array<Point3D>;
 
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	private var aNP:Array<Point>;
 
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	private var m_aPoints:Array<Vertex>;
 
 	// vertex dictionary
-	private var m_oVertices:Array<Vector>;
+	private var m_oVertices:Array<Point3D>;
 
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	override public function begin( p_oScene:Scene3D ):Void
 	{
 		// clear vertex dictionary

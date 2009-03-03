@@ -1,65 +1,56 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
-import flash.display.DisplayObject;
-import flash.display.Graphics;
-import flash.display.Sprite;
-import flash.filters.BlurFilter;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
-
 import sandy.core.Scene3D;
+import sandy.core.data.Point3D;
 import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 import sandy.math.ColorMath;
 import sandy.math.VertexMath;
-import sandy.util.ArrayUtil;
+
+import flash.display.DisplayObject;
+import flash.display.Graphics;
+import flash.filters.BlurFilter;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
+
+
+#if flash
+typedef TypedArray<T> = flash.Vector<T>;
+#else
+typedef TypedArray<T> = Array<T>;
+#end
 
 /**
- * This attribute provides very basic simulation of partially opaque medium.
- * You can use this attribute to achieve wide range of effects (e.g., fog, Rayleigh scattering, light attached to camera, etc).
- * 
- * @author		makc
- * @author Niel Drummond - haXe port 
- * 
- * 
- */
+* This attribute provides very basic simulation of partially opaque medium.
+* You can use this attribute to achieve wide range of effects (e.g., fog, Rayleigh scattering, light attached to camera, etc).
+*
+* @author		makc
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		01.12.2007
+*/
 class MediumAttributes extends AAttributes
 {
 	/**
-	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
-	 * If this value is transparent, color gradient will be extrapolated beyond that point.
-	 */
+	* Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
+	* If this value is transparent, color gradient will be extrapolated beyond that point.
+	*/
 	private function __setColor (p_nColor:UInt):UInt
 	{
 		_c = p_nColor & 0xFFFFFF;
 		_a = (p_nColor - _c) / 0x1000000 / 255.0;
-        return p_nColor;
+		return p_nColor;
 	}
-	
+
 	/**
-	 * Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
-	 * If this value is transparent, color gradient will be extrapolated beyond that point.
-	 */
+	* Medium color (32-bit value) at the point given by fadeFrom + fadeTo.
+	* If this value is transparent, color gradient will be extrapolated beyond that point.
+	*/
 	public var color (__getColor,__setColor):UInt;
 	private function __getColor ():UInt
 	{
@@ -67,98 +58,96 @@ class MediumAttributes extends AAttributes
 	}
 
 	/**
-	 * Attenuation vector. This is the vector from transparent point to opaque point.
-	 */
-	private function __setFadeTo (p_oW:Vector):Vector
+	* Attenuation vector. This is the vector from transparent point to opaque point.
+	*/
+	private function __setFadeTo (p_oW:Point3D):Point3D
 	{
 		_fadeTo = p_oW;
 		_fadeToN2 = p_oW.getNorm (); _fadeToN2 *= _fadeToN2;
-        return p_oW;
+		return p_oW;
 	}
-	
+
 	/**
-	 * Attenuation vector. This is the vector from transparent point to opaque point.
-	 *
-	 * @see sandy.core.data.Vector
-	 */
-	public var fadeTo (__getFadeTo,__setFadeTo):Vector;
-	private function __getFadeTo ():Vector
+	* Attenuation vector. This is the vector from transparent point to opaque point.
+	*
+	* @see sandy.core.data.Point3D
+	*/
+	public var fadeTo (__getFadeTo,__setFadeTo):Point3D;
+	private function __getFadeTo ():Point3D
 	{
 		return _fadeTo;
 	}
 
 	/**
-	 * Transparent point in wx, wy and wz coordinates.
-	 *
-	 * @see sandy.core.data.Vector
-	 */
-	public var fadeFrom:Vector;
+	* Transparent point in wx, wy and wz coordinates.
+	*
+	* @see sandy.core.data.Point3D
+	*/
+	public var fadeFrom:Point3D;
 
 	/**
-	 * Maximum amount of blur to add. <b>Warning:</b> this feature is very expensive when shape useSingleContainer is false.
-	 */
+	* Maximum amount of blur to add. <b>Warning:</b> this feature is very expensive when shape useSingleContainer is false.
+	*/
 	public var blurAmount:Float;
 
 	/**
-	 * Creates a new MediumAttributes object.
-	 *
-	 * @param p_nColor		Medium color
-	 * @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
-	 * @param p_oFadeFrom	Transparent point (at the screen by default).
-	 * @param p_nBlurAmount	Maximum amount of blur to add
-	 *
-	 * @see sandy.core.data.Vector
-	 */
-	public function new (p_nColor:UInt, ?p_oFadeFrom:Vector, ?p_oFadeTo:Vector, ?p_nBlurAmount:Float = 0.0)
+	* Creates a new MediumAttributes object.
+	*
+	* @param p_nColor		Medium color
+	* @param p_oFadeTo		Attenuation vector (500 pixels beyond the screen by default).
+	* @param p_oFadeFrom	Transparent point (at the screen by default).
+	* @param p_nBlurAmount	Maximum amount of blur to add
+	*
+	* @see sandy.core.data.Point3D
+	*/
+	public function new (p_nColor:UInt, ?p_oFadeFrom:Point3D, ?p_oFadeTo:Point3D, ?p_nBlurAmount:Float = 0.0)
 	{
+		// private initializers
 		m_bWasNotBlurred = true;
 		_m = new Matrix();
 
 		if (p_oFadeFrom == null)
-			p_oFadeFrom = new Vector (0, 0, 0);
+			p_oFadeFrom = new Point3D (0, 0, 0);
 		if (p_oFadeTo == null)
-			p_oFadeTo = new Vector (0, 0, 500);
+			p_oFadeTo = new Point3D (0, 0, 500);
 		// --
 		super();
 		color = p_nColor; fadeTo = p_oFadeTo; fadeFrom = p_oFadeFrom; blurAmount = p_nBlurAmount;
 	}
 
 	/**
-	 * Draw the attribute onto the graphics object to simulate viewing through partially opaque medium.
-	 *  
-	 * @param p_oGraphics the Graphics object to draw attributes into
-	 * @param p_oPolygon the polygon which is going to be drawn
-	 * @param p_oMaterial the refering material
-	 * @param p_oScene the scene
-	 */
+	* @private
+	*/
 	override public function draw( p_oGraphics:Graphics, p_oPolygon:Polygon, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
 		var l_points:Array<Vertex> = ((p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices);
 		var n:Int = l_points.length; if (n < 3) return;
-		
-		var l_comparable:Array<ComparablePoint> = new Array();
-		for (i in 0...n) l_comparable[i] = { vertex : l_points[i], ratio : ratioFromWorldVector (l_points[i].getWorldVector ()) };
 
-		untyped l_comparable.sortOn( "ratio", Array.NUMERIC );
-		
-		var v0: Vertex = l_comparable[0].vertex;
-		var v1: Vertex = l_comparable[1].vertex;
-		var v2: Vertex = l_comparable[2].vertex;
+		var l_ratios:TypedArray<Float> = new #if flash TypedArray(n) #else TypedArray() #end;
+		for (i in 0...n) l_ratios[i] = ratioFromWorldPoint3D (l_points[i].getWorldPoint3D ());
 
-		var r0: Float = l_comparable[0].ratio;
-		var ar0:Float = _a * r0;
-		var r1: Float = l_comparable[1].ratio;
-		var r2: Float = l_comparable[2].ratio;
-		var ar2:Float = _a * r2;
+		#if flash
+		var zIndices = untyped l_ratios.sortOn( "ratio", Array.NUMERIC | Array.RETURNINDEXEDARRAY );
+		#else
+		#error
+		#end
+
+		var v0: Vertex = l_points[zIndices[0]];
+		var v1: Vertex = l_points[zIndices[1]];
+		var v2: Vertex = l_points[zIndices[2]];
+
+		var r0: Float = l_ratios[zIndices[0]], ar0:Float = _a * r0;
+		var r1: Float = l_ratios[zIndices[1]];
+		var r2: Float = l_ratios[zIndices[2]], ar2:Float = _a * r2;
 
 		if (ar2 > 0)
 		{
-			var argb : UInt = cast( Std.int( _a * 0xFF ) << 24, UInt ) | _c;
 			if (ar0 < 1)
 			{
 				// gradient matrix
 				VertexMath.linearGradientMatrix (v0, v1, v2, r0, r1, r2, _m);
-				p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, [argb, argb], [ar0, ar2], [0, 0xFF], _m);
+
+				p_oGraphics.beginGradientFill (flash.display.GradientType.LINEAR, [_c, _c], [ar0, ar2], [0, 0xFF], _m);
 			}
 			else
 			{
@@ -181,14 +170,11 @@ class MediumAttributes extends AAttributes
 	}
 
 	/**
-	 * Draw the attribute on sprite to simulate viewing through partially opaque medium.
-	 *  
-	 * @param p_oSprite the Sprite2D object to apply attributes to
-	 * @param p_oScene the scene
-	 */
+	* @private
+	*/
 	override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
-		var l_ratio:Float = Math.max (0, Math.min (1, ratioFromWorldVector (p_oSprite.getPosition ("camera")) * _a));
+		var l_ratio:Float = Math.max (0, Math.min (1, ratioFromWorldPoint3D (p_oSprite.getPosition ("camera")) * _a));
 		var l_color:ColorMathRGB = ColorMath.hex2rgb (_c);
 		var l_coltr:ColorTransform = p_oSprite.container.transform.colorTransform;
 		// --
@@ -206,7 +192,7 @@ class MediumAttributes extends AAttributes
 	}
 
 	// --
-	private function ratioFromWorldVector (p_oW:Vector):Float
+	private function ratioFromWorldPoint3D (p_oW:Point3D):Float
 	{
 		p_oW.sub (fadeFrom); return p_oW.dot (_fadeTo) / _fadeToN2;
 	}
@@ -224,22 +210,16 @@ class MediumAttributes extends AAttributes
 		if (m_bWasNotBlurred && (p_nBlurAmount == 0)) return;
 
 		var fs:Array<BlurFilter> = [], changed:Bool = false;
-        var i:Int = p_oDisplayObject.filters.length -1;
+		var i:Int = p_oDisplayObject.filters.length -1;
 		while (i > -1)
 		{
-			var l_bIsBlurFilter : Bool = switch ( Type.typeof( p_oDisplayObject.filters[i] ) ) {
-				case TClass( BlurFilter ):
-					true;
-				default:
-					false;
-			}
-			if (!changed && l_bIsBlurFilter && (p_oDisplayObject.filters[i].quality == 1))
+			if (!changed && Std.is(p_oDisplayObject.filters[i], BlurFilter) && (p_oDisplayObject.filters[i].quality == 1))
 			{
 				var bf:BlurFilter = p_oDisplayObject.filters[i];
 
 				// hopefully, this check will save some cpu
 				if ((bf.blurX == p_nBlurAmount) &&
-				    (bf.blurY == p_nBlurAmount)) return;
+					(bf.blurY == p_nBlurAmount)) return;
 
 				// assume this is our filter and change it
 				bf.blurX = bf.blurY = p_nBlurAmount; fs[i] = bf; changed = true;
@@ -266,12 +246,6 @@ class MediumAttributes extends AAttributes
 	private var _m:Matrix;
 	private var _c:Int;
 	private var _a:Float;
-	private var _fadeTo:Vector;
+	private var _fadeTo:Point3D;
 	private var _fadeToN2:Float;
-}
-
-typedef ComparablePoint =
-{
-	var vertex : Vertex;
-	var ratio : Float;
 }

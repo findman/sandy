@@ -1,18 +1,3 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
@@ -20,25 +5,26 @@ import flash.display.Graphics;
 
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
 /**
- * Display the vertex normals of a given object.
- *
- * <p>Developed originally for a debug purpose, this class allows you to create some
- * special effects, displaying the normal of each vertex.</p>
- * 
- * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
- */
+* Display the vertex normals of a given object.
+*
+* <p>Developed originally for a debug purpose, this class allows you to create some
+* special effects, displaying the normal of each vertex.</p>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*/
 class VertexNormalAttributes extends LineAttributes
 {
 	private var m_nLength:Float;
-	
+
 	/**
 	 * Creates a new VertexNormalAttributes object.
 	 *
@@ -47,7 +33,7 @@ class VertexNormalAttributes extends LineAttributes
 	 * @param p_nColor		The line color.
 	 * @param p_nAlpha		The alpha transparency value of the material.
 	 */
-	public function new( p_nLength:Float = 10.0, p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha:Float = 1.0)
+	public function new( ?p_nLength:Float = 10.0, ?p_nThickness:Int = 1, ?p_nColor:Int = 0, ?p_nAlpha:Float = 1.0)
 	{
 		m_nLength = p_nLength;
 		// reuse LineAttributes setters
@@ -58,7 +44,7 @@ class VertexNormalAttributes extends LineAttributes
 		modified = true;
 		super();
 	}
-	
+
 	/**
 	 * The line length.
 	 */
@@ -67,20 +53,20 @@ class VertexNormalAttributes extends LineAttributes
 	{
 		return m_nLength;
 	}
-	
+
 	/**
 	 * The line length.
 	 */
 	private function __setLength( p_nValue:Float ):Float
 	{
-		m_nLength = p_nValue; 
+		m_nLength = p_nValue;
 		modified = true;
 		return p_nValue;
 	}
-	
+
 	/**
 	 * Draw the edges of the polygon into the graphics object.
-	 *  
+	 *
 	 * @param p_oGraphics the Graphics object to draw attributes into
 	 * @param p_oPolygon the polygon which is going o be drawn
 	 * @param p_oMaterial the refering material
@@ -97,12 +83,12 @@ class VertexNormalAttributes extends LineAttributes
 		var lId:Int = l_aPoints.length;
 		while( (l_oVertex = l_aPoints[ --lId ]) != null )
 		{
-			var l_oDiff:Vector = p_oPolygon.vertexNormals[ lId ].getVector().clone();
-			p_oPolygon.shape.viewMatrix.vectorMult3x3( l_oDiff );
+			var l_oDiff:Point3D = p_oPolygon.vertexNormals[ lId ].getPoint3D().clone();
+			p_oPolygon.shape.viewMatrix.transform3x3( l_oDiff );
 			// --
 			l_oDiff.scale( m_nLength );
 			// --
-			var l_oNormal:Vertex = Vertex.createFromVector( l_oDiff );
+			var l_oNormal:Vertex = Vertex.createFromPoint3D( l_oDiff );
 			l_oNormal.add( l_oVertex );
 			// --
 			p_oScene.camera.projectVertex( l_oNormal );

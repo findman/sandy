@@ -1,76 +1,64 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.materials.attributes;
 
-import flash.display.Graphics;
-import flash.geom.Matrix;
-import flash.geom.Point;
-
 import sandy.core.Scene3D;
+import sandy.core.data.Point3D;
 import sandy.core.data.Polygon;
-import sandy.core.data.Vector;
 import sandy.core.data.Vertex;
 import sandy.core.light.Light3D;
 import sandy.events.SandyEvent;
 import sandy.materials.Material;
 import sandy.util.NumberUtil;
 
+import flash.display.Graphics;
+import flash.geom.Matrix;
+import flash.geom.Point;
+// import flash.utils.Dictionary;
+
 /**
- * Realize a Phong shading on a material.
- * <p>In true Phong shading, normals are supposed to be interpolated across the surface;
- * here scaled normal projections are interpolated in the light map space. The downside of
- * this method is that in case of low poly models interpolation results are inaccurate -
- * in this case you can improve the result using GouraudAttributes for ambient and diffuse,
- * and then this attribute for specular reflection.</p>
- *
- * @author		Makc
- * @author Niel Drummond - haXe port 
- * 
- */
+* Realize a Phong shading on a material.
+* <p>In true Phong shading, normals are supposed to be interpolated across the surface;
+* here scaled normal projections are interpolated in the light map space. The downside of
+* this method is that in case of low poly models interpolation results are inaccurate -
+* in this case you can improve the result using GouraudAttributes for ambient and diffuse,
+* and then this attribute for specular reflection.</p>
+*
+* @author		Makc
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		15.12.2007
+*/
 class PhongAttributes extends ALightAttributes
 {
 	/**
-	 * Non-zero value adds sphere normals to actual normals for light rendering.
-	 * Use this with flat surfaces or cylinders.
-	 */
+	* Non-zero value adds sphere normals to actual normals for light rendering.
+	* Use this with flat surfaces or cylinders.
+	*/
 	public var spherize:Float;
 
 	/**
-	 * Flag for rendering mode.
-	 * <p>If true, only specular highlight is rendered, when useBright is also true.<br />
-	 * If false (the default) ambient and diffuse reflections will also be rendered.</p>
-	 */
+	* Flag for rendering mode.
+	* <p>If true, only specular highlight is rendered, when useBright is also true.<br />
+	* If false (the default) ambient and diffuse reflections will also be rendered.</p>
+	*/
 	public var onlySpecular:Bool;
 
 	/**
-	 * Flag for lightening mode.
-	 * <p>If true (the default), the lit objects use full light range from black to white.<br />
-	 * If false they just range from black to their normal appearance; additionally, current
-	 * implementation does not render specular reflection in this case.</p>
-	 */
+	* Flag for lightening mode.
+	* <p>If true (the default), the lit objects use full light range from black to white.<br />
+	* If false they just range from black to their normal appearance; additionally, current
+	* implementation does not render specular reflection in this case.</p>
+	*/
 	public var useBright (__getUseBright,__setUseBright):Bool;
 	private function __getUseBright ():Bool
 	{
 		return _useBright;
 	}
-	
+
 	/**
-	 * @private
-	 */
+	* @private
+	*/
 	private function __setUseBright (p_bUseBright:Bool):Bool
 	{
 		if (_useBright != p_bUseBright)
@@ -81,20 +69,20 @@ class PhongAttributes extends ALightAttributes
 	}
 
 	/**
-	 * Compute the light map.
-	 * <p>Normally you should not need to call this function, as it is done for you automatically
-	 * when it is needed. You might call it to compute light map in advance, though.</p>
-	 * 
-	 * @param p_oLight Light3D object to make the light map for.
-	 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected
-	 * (Flash radial gradient is used internally light map, thus we can only roughly approximate exact
-	 * lighting).
-	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected (greater
-	 * values will produce a little bit more accurate interpolation with non-equally spaced anchors).
-	 *
-	 * @see sandy.core.light.Light3D
-	 */
-	public function computeLightMap (p_oLight:Light3D, p_nQuality:Int = 4, p_nSamples:Int = 4):Void
+	* Compute the light map.
+	* <p>Normally you should not need to call this function, as it is done for you automatically
+	* when it is needed. You might call it to compute light map in advance, though.</p>
+	*
+	* @param p_oLight Light3D object to make the light map for.
+	* @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected
+	* (Flash radial gradient is used internally light map, thus we can only roughly approximate exact
+	* lighting).
+	* @param p_nSamples A number of calculated samples per anchor. Positive value is expected (greater
+	* values will produce a little bit more accurate interpolation with non-equally spaced anchors).
+	*
+	* @see sandy.core.light.Light3D
+	*/
+	public function computeLightMap (p_oLight:Light3D, ?p_nQuality:Int = 4, ?p_nSamples:Int = 4):Void
 	{
 		var i:Int, j:Int;
 		var l_nQuality:Int = Std.int( NumberUtil.constrain (p_nQuality, 2, 15) );
@@ -103,14 +91,14 @@ class PhongAttributes extends ALightAttributes
 
 		// store Blinn vector, and replace it with light direction
 		// this is to simplify specular map calculation
-		var l_oCurrentH:Vector = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
+		var l_oCurrentH:Point3D = m_oCurrentH.clone (); m_oCurrentH.copy (m_oCurrentL);
 
 		// take arbitrary vector perpendicular to light direction and normalize it
-		var e:Vector = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
-			new Vector (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Vector (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
+		var e:Point3D = (Math.abs (m_oCurrentL.x) + Math.abs (m_oCurrentL.y) > 0) ?
+			new Point3D (m_oCurrentL.y, -m_oCurrentL.x, 0) : new Point3D (m_oCurrentL.z, 0, -m_oCurrentL.x); e.normalize ();
 
 		// sample ambient + diffuse and specular separately
-		var n:Vector = new Vector ();
+		var n:Point3D = new Point3D ();
 		var l_aReflection:Array<Array<Float>> = [new Array (), new Array ()];
 		var S:Array<Float> = [0.0, 0.0], t:Array<Float> = [-1.0, -1.0];
 		for (i in 0...N)
@@ -127,7 +115,7 @@ class PhongAttributes extends ALightAttributes
 			l_aReflection [1] [i] = calculate (n, true) - l_aReflection [0] [i];
 
 			for (j in 0...2)
-			{				
+			{
 				// constrain values (note: this is different from constraining their sum)
 				l_aReflection [j] [i] = NumberUtil.constrain (l_aReflection [j] [i], 0, 1);
 				// integrate it
@@ -138,7 +126,7 @@ class PhongAttributes extends ALightAttributes
 					if (l_aReflection [j] [0] > 0.5)
 						if (l_aReflection [j] [i] <= 0.5)
 							t [j] = ((l_aReflection [j] [i-1] - 0.5) * i + (0.5 - l_aReflection [j] [i]) * (i-1)) /
-							         (l_aReflection [j] [i-1] - l_aReflection [j] [i]);
+									(l_aReflection [j] [i-1] - l_aReflection [j] [i]);
 				}
 			}
 		}
@@ -155,7 +143,7 @@ class PhongAttributes extends ALightAttributes
 			// skip if we have enough points for j-th map
 			// if this happens, algorithm below doesnt work well :(
 			if (I [j] > l_nQuality -1) continue;
-			
+
 			// try to fit curve better with non-equally spaced anchors
 			s [j] += l_aReflection [j] [i];
 			if ((s [j] >= S [j] * I [j] / (l_nQuality -1)) || (N - i <= l_nQuality - I [j]))
@@ -186,7 +174,7 @@ class PhongAttributes extends ALightAttributes
 							l_oLightMap.alphas [j].push (0);
 							l_oLightMap.colors [j].push (0xFFFFFF);
 							l_oLightMap.ratios [j].push ((t [j] * 255) / (N - 1));
-	
+
 							l_oLightMap.alphas [j].push (0);
 							l_oLightMap.colors [j].push (0);
 							l_oLightMap.ratios [j].push ((t [j] * 255) / (N - 1));
@@ -216,34 +204,34 @@ class PhongAttributes extends ALightAttributes
 		// store light map
 		m_oLightMaps.add( l_oLightMap );
 	}
-	
+
 	/**
-	 * Create the PhongAttributes object.
-	 * @param p_bBright The brightness (value for useBright).
-	 * @param p_bBright The brightness (value for useBright).
-	 * @param p_nAmbient The ambient light value. A value between 0 and 1 is expected.
-	 * @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected.
-	 * @param p_nSamples A number of calculated samples per anchor. Positive value is expected.
-	 */
-	public function new (p_bBright:Bool = false, p_nAmbient:Float = 0.0, p_nQuality:Int = 15, p_nSamples:Int = 4)
+	* Create the PhongAttributes object.
+	* @param p_bBright The brightness (value for useBright).
+	* @param p_bBright The brightness (value for useBright).
+	* @param p_nAmbient The ambient light value. A value between 0 and 1 is expected.
+	* @param p_nQuality Quality of light response approximation. A value between 2 and 15 is expected.
+	* @param p_nSamples A number of calculated samples per anchor. Positive value is expected.
+	*/
+	public function new (?p_bBright:Bool = false, ?p_nAmbient:Float = 0.0, ?p_nQuality:Int = 15, ?p_nSamples:Int = 4)
 	{
-	 m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
+		m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
+		_useBright = true;
 
-	 _useBright = true;
+		aN0 = [new Point3D (), new Point3D (), new Point3D ()];
+		aN  = [new Point3D (), new Point3D (), new Point3D ()];
+		aNP = [new Point (), new Point (), new Point ()];
 
-	 aN0 = [new Vector (), new Vector (), new Vector ()];
-	 aN  = [new Vector (), new Vector (), new Vector ()];
-	 aNP = [new Point (), new Point (), new Point ()];
+		matrix = new Matrix();
+		matrix2 = new Matrix();
 
-	 matrix = new Matrix();
-	 matrix2 = new Matrix();
+		dv = new Point3D ();
+		e1 = new Point3D ();
+		e2 = new Point3D ();
 
-	 dv = new Vector ();		
-	 e1 = new Vector ();
-	 e2 = new Vector ();
+		spherize = 0;
+		onlySpecular = false;
 
-	 spherize = 0;
-	 onlySpecular = false;
 		super();
 
 		useBright = p_bBright;
@@ -259,7 +247,7 @@ class PhongAttributes extends ALightAttributes
 	// default samples to pass to computeLightMap (set in constructor)
 	private var m_nSamples:Int;
 
-	// fastlist to hold light maps 
+	// fastlist to hold light maps
 	private var m_oLightMaps:haxe.FastList<PhongAttributesLightMap>;
 
 	// on SandyEvent.LIGHT_UPDATED we update the light map for this light *IF* we have it
@@ -297,7 +285,7 @@ class PhongAttributes extends ALightAttributes
 		super.draw (p_oGraphics, p_oPolygon, p_oMaterial, p_oScene);
 
 		var i:Int, j:Int, l_oVertex:Vertex,
-			v:Vector,
+			v:Point3D,
 			p:Point, p1:Point, p2:Point,
 			m2a:Float, m2b:Float, m2c:Float, m2d:Float, a:Float;
 
@@ -311,7 +299,7 @@ class PhongAttributes extends ALightAttributes
 		l_oVertex = l_aPoints [0];
 		matrix2.tx = l_oVertex.sx; m2a = m2c = -l_oVertex.sx;
 		matrix2.ty = l_oVertex.sy; m2b = m2d = -l_oVertex.sy;
-		
+
 		l_oVertex = l_aPoints [1];
 		m2a += l_oVertex.sx; matrix2.a = m2a;
 		m2b += l_oVertex.sy; matrix2.b = m2b;
@@ -323,13 +311,13 @@ class PhongAttributes extends ALightAttributes
 		// transform 1st three normals
 		for (i in 0...3)
 		{
-			v = aN0 [i]; v.copy (p_oPolygon.vertexNormals [i].getVector());
+			v = aN0 [i]; v.copy (p_oPolygon.vertexNormals [i].getPoint3D());
 
 			if (spherize > 0)
 			{
 				l_oVertex = l_aPoints [i];
 
-				dv.copy (l_oVertex.getVector ());
+				dv.copy (l_oVertex.getPoint3D ());
 				dv.sub (p_oPolygon.shape.geometryCenter);
 				dv.normalize ();
 				dv.scale (spherize);
@@ -347,7 +335,7 @@ class PhongAttributes extends ALightAttributes
 		while ( j < (_useBright ? 2 : 1))
 		{
 			// get highlight direction vector
-			var d:Vector = (j == 0) ? m_oCurrentL : m_oCurrentH;
+			var d:Point3D = (j == 0) ? m_oCurrentL : m_oCurrentH;
 
 			// see if we are on the backside relative to d
 			var backside:Bool = true;
@@ -369,7 +357,7 @@ class PhongAttributes extends ALightAttributes
 				if (j == 0)
 				{
 					var aI:Float = ambient * m_nI;
-					if (useBright) 
+					if (useBright)
 						p_oGraphics.beginFill( (aI < 0.5) ? 0 : 0xFFFFFF, (aI < 0.5) ? (1 - 2 * aI) : (2 * aI - 1) );
 					else
 						p_oGraphics.beginFill( 0, 1 - aI );
@@ -444,8 +432,8 @@ class PhongAttributes extends ALightAttributes
 	}
 
 	/**
-	 * when Phong model parameters change, any light maps we had are no longer valid
-	 */
+	* when Phong model parameters change, any light maps we had are no longer valid
+	*/
 	override private function onPropertyChange ():Void
 	{
 		m_oLightMaps = new haxe.FastList<PhongAttributesLightMap> ();
@@ -454,13 +442,13 @@ class PhongAttributes extends ALightAttributes
 	// --
 	private var _useBright:Bool;
 
-	private var aN0:Array<Vector>;
-	private var aN:Array<Vector>;
+	private var aN0:Array<Point3D>;
+	private var aN:Array<Point3D>;
 	private var aNP:Array<Point>;
 
-	private var dv:Vector;
-	private var e1:Vector;
-	private var e2:Vector;
+	private var dv:Point3D;
+	private var e1:Point3D;
+	private var e2:Point3D;
 
 	private var matrix:Matrix;
 	private var matrix2:Matrix;
