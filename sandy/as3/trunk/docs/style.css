@@ -1,6 +1,14 @@
 /*
-    Macromedia Flex ASDoc CSS
-    Copyright 2005 Macromedia Inc. All rights reserved.
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 */
 
 .titleTable {
@@ -9,7 +17,7 @@
 .titleTableTitle {
 	padding-left: 15px;
 	padding-right: 5px;
-	font-size: 13px;
+	font-size: 18px;
 	height: 44px;
 	background-image: url(images/titleTableTop.jpg);
 	background-repeat: repeat-x;
@@ -487,7 +495,7 @@ h5 {
 .copyright {
    margin-top: 30px;
    color: #777777;
-   font-size: 10px;
+   font-size: 14px;
    padding-bottom: 5px;
 }
 .inheritanceList {

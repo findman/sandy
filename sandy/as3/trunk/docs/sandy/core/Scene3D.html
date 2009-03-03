@@ -10,13 +10,13 @@
 <body>
 <script type="text/javascript" language="javascript" src="../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'Scene3D - Sandy 3.x API Documentation';
+				asdocTitle = 'Scene3D - Sandy 3.1 API Documentation';
 				var baseRef = '../../';
 				window.onload = configPage;
 			--></script>
 <table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
 <tr>
-<td align="left" class="titleTableTitle">Sandy 3D AS3 Developer</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/core/Scene3D.html&amp;sandy/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
+<td align="left" class="titleTableTitle">Sandy 3D Engine, 3.1</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../all-classes.html')" href="../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../all-classes.html')" href="../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../index-list.html')" href="../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../index.html?sandy/core/Scene3D.html&amp;sandy/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
 <td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Scene3D</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
@@ -42,31 +42,30 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  The Scene3D object is the central point of a Sandy world.
-    <p>A Scene3D object encompasses all the data needed to render a virtual 3D environment.
-  A scene contains objects in the 3D space (shapes, primitives, sprites, etc.), a camera, a light source, and a
-  container where its 2D representation will be drawn. Multiple
-  Scene3D objects can exist in a single application.</p>
-  <p>The older World3D is a singleton special case of Scene3D.</p>
+  The Sandy 3D scene.
+    <p>Supercedes deprecated World3D class.</p>
+    <p>The Scene3D object is the central point of a Sandy scene.<br/>
+  You can have multiple scenes.<br/>
+  A scene contains the object tree with groups, a camera, a light source and a canvas to draw on</p>
     <p></p>
 <br>
 <span class="label">Example</span>
-<br>To create a scene, you pass a container, a camera and a root group to its constructor.<br/>
-  The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
-    <div class='listing'><pre>
-   var camera:Camera3D = new Camera3D(400, 300);
-   camera.z = -200;
-   // The call to createScene() will create the root Group of this scene
-   var scene:Scene3D = new Scene3D("Scene 1", this, camera, createScene());
-   scene.root.addChild(camera);
-   //The handler calls the world.render() method to render the world for each frame.
-   addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-  </pre></div>
+<br>To create the scene, you invoke the Scene3D constructor, passing it the base movie clip, the camera, and the root group for the scene.<br/>
+  The rendering of the scene is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
+    The following pseudo-code approximates the necessary steps. It is very approximate and not meant as a working example:
+  <div class='listing'><pre>
+    var cam:Camera = new Camera3D(600, 450, 45, 0, 2000); // camera viewport height,width, fov, near plane, and far plane
+   var mc:MovieClip = someSceneHoldingMovieClip;  // Programmer must ensure it is a valid movie clip.
+   var rootGroup = new Group("world_root_group");
+   // Add some child objects to the world (not shown), perhaps as follows
+   //rootGroup.addChild(someChild);
+   // Create the scene and render it
+       var myScene:Scene3D = new Scene3D("scene_name", mc, cam, rootGroup);
+   myScene.render();
+  //The enterFrameHandler presumably calls the myScene.render() method to render the scene for each frame.
+  yourMovieRoot.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+   </pre></div>
     <p></p>
-<p>
-<span class="classHeaderTableLabel">See also</span>
-</p>
-<div class="seeAlso">World3D</div>
 <br>
 <hr>
 </div>
@@ -393,7 +392,7 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">p_oRootNode</span>:<a href="scenegraph/Group.html">Group</a></code> (default = <code>null</code>)<code></code> &mdash; The root group of the scene's object tree.
-         </td>
+      </td>
 </tr>
 </table>
 <p>
@@ -456,8 +455,7 @@ showHideInherited();
    SandyEvent.SCENE_CULL is bradcasted before the scene cull phasis. This phasis corresponds to the frustum vs nodes bounding objects visibility test. Nodes that aren't in the camera field of view, are removed from the render phasis.
    SandyEvent.SCENE_RENDER process the render call of the visible nodes. During this process, visible polygons/sprites are registering for the camera display to the screen.
    SandyEvent.SCENE_RENDER_DISPLAYLIST render the visible polygons to the screen
-   
-   </p><span class="label">Parameters</span>
+      </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">p_bUseCache</span>:Boolean</code> (default = <code>true</code>)<code></code> &mdash; Boolean default true, use the cache system
@@ -567,8 +565,8 @@ showHideInherited();
 <hr>
 <br>
 <p></p>
-<center class="copyright">ASDoc Documentation for Sandy 3D Engine, AS3 Trunk version</center>
+<center class="copyright">API documentation for Sandy 3D Engine, Ver. 3.1</center>
 </div>
 </body>
 </html>
-<!--ASDoc Documentation for Sandy 3D Engine, AS3 Trunk version-->
+<!--API documentation for Sandy 3D Engine, Ver. 3.1-->
