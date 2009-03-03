@@ -1,4 +1,4 @@
-
+﻿
 
 package sandy.core.interaction
 {
@@ -154,7 +154,7 @@ package sandy.core.interaction
 					}*/
 		
 					// get local coordinate locations
-					var targetLocal:Point = p_oPoly.container.globalToLocal(location);
+					targetLocal = p_oPoly.container.globalToLocal(location);
 					var currentTargetLocal:Point = currentTarget.globalToLocal(location);
 					
 					// move event
@@ -232,7 +232,7 @@ package sandy.core.interaction
 			
 			// roll/mouse (out and over) events 
 			var l:int = m_oPreviousTargets.length;
-			for(var i:int = 0; i < l; i++ )
+			for(i = 0; i < l; i++ )
 			{
 				if( m_oCurrentTargets.indexOf( m_oPreviousTargets[i] ) == -1 )
 				{
