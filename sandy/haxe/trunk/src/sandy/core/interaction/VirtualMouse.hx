@@ -45,8 +45,8 @@ class VirtualMouse extends EventDispatcher
 	private var _lastEvent		: Event;
 	private var lastDownTarget:InteractiveObject;
 
-	private var m_oPreviousTargets;
-	private var m_oCurrentTargets;
+	private var m_oPreviousTargets : Array<InteractiveObject>;
+	private var m_oCurrentTargets : Array<InteractiveObject>;
 /* ****************************************************************************
 * CONSTRUCTOR
 **************************************************************************** */
@@ -69,8 +69,10 @@ class VirtualMouse extends EventDispatcher
 /* ****************************************************************************
 * PUBLIC FUNCTION
 **************************************************************************** */
-	public function interactWithTexture(  p_oPoly : Polygon, p_uvTexture : UVCoord, p_event : Event ) : Void
+	public function interactWithTexture(  p_oPoly : Polygon, p_uvTexture : UVCoord, p_event : MouseEvent ) : Void
 	{
+		var currentTarget:Sprite = null;
+		var targetLocal:Point = null;
 		// -- recuperation du material applique sur le polygone
 		var l_oMaterial:MovieMaterial = untyped p_oPoly.visible ? p_oPoly.appearance.frontMaterial : p_oPoly.appearance.backMaterial;
 		if( l_oMaterial == null ) return;
@@ -80,8 +82,8 @@ class VirtualMouse extends EventDispatcher
 
 		if( p_event.type == MouseEvent.MOUSE_OUT )
 		{
-			var targetLocal:Point = p_oPoly.container.globalToLocal(location);
-			if( m_ioOldTarget )
+			targetLocal = p_oPoly.container.globalToLocal(location);
+			if( m_ioOldTarget != null )
 			{
 				// off of last target
 				_lastEvent = new MouseEvent(MouseEvent.MOUSE_OUT, true, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
@@ -101,7 +103,6 @@ class VirtualMouse extends EventDispatcher
 		//		2) is InteractiveObject
 		//		3) mouseEnabled
 		var objectsUnderPoint:Array<DisplayObject> = m_ioTarget.getObjectsUnderPoint( m_ioTarget.localToGlobal( location ) );
-		var currentTarget:Sprite = null;
 		var currentParent:DisplayObject = null;
 
 		var i:Int = objectsUnderPoint.length;
@@ -191,7 +192,7 @@ class VirtualMouse extends EventDispatcher
 				}
 
 				// si la frame d'avant on etait pas sur cet object
-				if( m_oPreviousTargets.indexOf( currentTarget ) == -1 )
+				if( untyped m_oPreviousTargets.indexOf( currentTarget ) == -1 )
 				{
 					// on to current target
 					_lastEvent = new MouseEvent(MouseEvent.MOUSE_OVER, true, false, currentTargetLocal.x, currentTargetLocal.y, m_ioOldTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
@@ -240,12 +241,12 @@ class VirtualMouse extends EventDispatcher
 		}
 
 		// roll/mouse (out and over) events
-		var l:int = m_oPreviousTargets.length;
+		var l:Int = m_oPreviousTargets.length;
 		for(i in 0...l)
 		{
-			if( m_oCurrentTargets.indexOf( m_oPreviousTargets[i] ) == -1 )
+			if( untyped m_oCurrentTargets.indexOf( m_oPreviousTargets[i] ) == -1 )
 			{
-				m_ioOldTarget = m_oPreviousTargets[i];
+				m_ioOldTarget = cast m_oPreviousTargets[i];
 				{
 					// off of last target
 					_lastEvent = new MouseEvent(MouseEvent.MOUSE_OUT, true, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
@@ -262,7 +263,7 @@ class VirtualMouse extends EventDispatcher
 		lastLocation = location.clone();
 		//m_ioOldTarget = currentTarget;
 
-		m_oPreviousTargets = m_oCurrentTargets.concat();
+		m_oPreviousTargets = m_oCurrentTargets.concat([]);
 		m_oCurrentTargets = [];
 	}
 

@@ -593,7 +593,7 @@ class Polygon implements IDisplayable
 		return b;
 	}
 
-	private var m_bWasOver:Boolean;
+	private var m_bWasOver:Bool;
 	/**
 	* @private
 	*/
@@ -696,7 +696,7 @@ class Polygon implements IDisplayable
 		var pt2D : Point = new Point( scene.container.mouseX, scene.container.mouseY );
 		var uv : UVCoord = getUVFrom2D( pt2D );
 
-		VirtualMouse.getInstance().interactWithTexture( this, uv, p_oEvt );
+		VirtualMouse.getInstance().interactWithTexture( this, uv, cast p_oEvt );
 		_onInteraction( p_oEvt );
 	}
 
