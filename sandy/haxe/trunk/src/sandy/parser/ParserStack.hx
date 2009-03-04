@@ -25,18 +25,35 @@ import sandy.parser.AParser;
 import sandy.parser.IParser;
 import sandy.parser.ParserEvent;
 
- /**
-    * ParserStack utility class
-    * <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the laoding/parsing automatially and sequentially..</p>
-    *
-    * @author      Thomas Pfeiffer - kiroukou
-    * @author Niel Drummond - haXe port  
-    * 
-    */
+/**
+* ParserStack utility class
+* <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the laoding/parsing automatially and sequentially..</p>
+*
+* @author      Thomas Pfeiffer - kiroukou
+* @author      Niel Drummond - haXe port  
+* 
+*/
 class ParserStack extends EventDispatcher
 {
+	/**
+	 * Defines the value of the <code>type</code> property of a <code>parserstack_progress</code> event object.
+	 *
+	 * @eventType parserstack_progress
+	 */
 	public static var PROGRESS:String = "parserstack_progress";
+
+	/**
+	 * Defines the value of the <code>type</code> property of a <code>parserstack_error</code> event object.
+	 *
+	 * @eventType parserstack_error
+	 */
 	public static var ERROR:String = "parserstack_error";
+
+	/**
+	 * Defines the value of the <code>type</code> property of a <code>parserstack_complete</code> event object.
+	 *
+	 * @eventType parserstack_complete
+	 */
 	public static var COMPLETE:String = "parserstack_complete";
 	
 	private var m_oMap:Hash<IParser>;
@@ -47,10 +64,10 @@ class ParserStack extends EventDispatcher
 
 	public function new()
 	{
-	 m_oMap = new Hash<IParser>();
-	 m_oGroupMap = new Hash<Group>();
+		m_oMap = new Hash<IParser>();
+		m_oGroupMap = new Hash<Group>();
 		m_nId = 0;
-	 m_aList = new Array();
+		m_aList = new Array();
 		progress = 0;
 
 		super();
@@ -123,7 +140,7 @@ class ParserStack extends EventDispatcher
 				m_oParser.removeEventListener( ParserEvent.FAIL, onFail );
 				m_oParser.removeEventListener( ParserEvent.INIT, goNext );
 			}
-			untyped{ m_oParser = m_aList[ m_nId ]; }
+			m_oParser = cast m_aList[ m_nId ];
 			m_oParser.addEventListener( ParserEvent.PROGRESS, onProgress );
 			m_oParser.addEventListener( ParserEvent.FAIL, onFail );
 			m_oParser.addEventListener( ParserEvent.INIT, goNext );

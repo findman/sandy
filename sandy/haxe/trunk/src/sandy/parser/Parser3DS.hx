@@ -121,7 +121,7 @@ class Parser3DS extends AParser, implements IParser
 					currentMeshMaterialName = readString ();
 //trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
 					// this chunk has face list
-					var faceList:Array<Dynamic> = [ currentMeshMaterialName ];
+					var faceList:Array<String> = [ currentMeshMaterialName ];
 					var numFaces:Int = data.readUnsignedShort();
 					for (f in 0...numFaces) {
 						faceList.push (data.readUnsignedShort());
@@ -193,7 +193,9 @@ class Parser3DS extends AParser, implements IParser
 						var vertex_b:Int = data.readUnsignedShort();
 						var vertex_c:Int = data.readUnsignedShort();
 
-						var faceId:Int = data.readUnsignedShort(); // TODO what is that? value is 3 or 6 ?....
+						// should we ignore invisible faces?
+						var visible:Boolean = data.readUnsignedShort();
+
 						l_oGeometry.setFaceVertexIds(i, [vertex_a, vertex_b, vertex_c] );
 						l_oGeometry.setFaceUVCoordsIds(i, [vertex_a, vertex_b, vertex_c] );
 					}
@@ -250,10 +252,8 @@ class Parser3DS extends AParser, implements IParser
 		// occasionally parser creates empty shapes here
 		if (l_oGeometry.aFacesVertexID.length > 0) {
 			l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance);
-			// FIXME: the following line needs commenting in haXe and works... CHECK
 			if( l_oMatrix != null) _applyMatrixToShape( l_oShape, l_oMatrix );
 			m_oGroup.addChild( l_oShape );
-//trace ("making shape (2), currentMeshMaterialName = " + currentMeshMaterialName);
 			if (currentMeshMaterialsMap.length < 2) {
 				// 1 or less materials
 				if (textureFileNames.exists(currentMeshMaterialName))

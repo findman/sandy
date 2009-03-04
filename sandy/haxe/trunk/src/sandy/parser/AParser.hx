@@ -6,19 +6,8 @@ import sandy.events.QueueEvent;
 import sandy.materials.Appearance;
 import sandy.materials.BitmapMaterial;
 import sandy.materials.ColorMaterial;
-// import sandy.materials.attributes.AAttributes;
-// import sandy.materials.attributes.ALightAttributes;
-// import sandy.materials.attributes.CelShadeAttributes;
-// import sandy.materials.attributes.GouraudAttributes;
-// import sandy.materials.attributes.IAttributes;
-// import sandy.materials.attributes.LightAttributes;
 import sandy.materials.attributes.LineAttributes;
 import sandy.materials.attributes.MaterialAttributes;
-// import sandy.materials.attributes.MediumAttributes;
-// import sandy.materials.attributes.OutlineAttributes;
-// import sandy.materials.attributes.PhongAttributes;
-// import sandy.materials.attributes.PhongAttributesLightMap;
-// import sandy.materials.attributes.VertexNormalAttributes;
 import sandy.util.LoaderQueue;
 
 import flash.events.Event;
@@ -176,17 +165,12 @@ class AParser extends EventDispatcher, implements IParser
 			// set successfully loaded materials
 			if (m_oQueue.data.exists(si))
 			{
-				try {
-					var shapes :Array<Dynamic> = m_aShapes[i];
-					var mat:Appearance = new Appearance(new BitmapMaterial(untyped m_oQueue.data.get(si).bitmapData));
-					for (j in 0...shapes.length)
-					{
-						// whatever is in m_aShapes must have appearance property or be dynamic class
-						shapes[j].appearance = mat;
-					}
-				}
-				catch(e:Dynamic) {
-					trace(e);
+				var shapes :Array<Dynamic> = m_aShapes[i];
+				var mat:Appearance = new Appearance(new BitmapMaterial(untyped m_oQueue.data.get(si).bitmapData));
+				for (j in 0...shapes.length)
+				{
+					// whatever is in m_aShapes must have appearance property or be dynamic class
+					shapes[j].appearance = mat;
 				}
 			}
 		}

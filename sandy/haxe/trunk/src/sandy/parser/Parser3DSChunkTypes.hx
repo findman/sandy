@@ -20,10 +20,11 @@ package sandy.parser;
 * Static class that defines the chunks offsets of 3DS file.
 *
 * @author		Thomas Pfeiffer - kiroukou
-* @author Niel Drummond - haXe port
-*
-*
-*
+* @author		Niel Drummond - haXe port
+* @since		1.0
+* @version		3.1
+* @date 		04.03.2009
+* 
 */
 class Parser3DSChunkTypes
 {

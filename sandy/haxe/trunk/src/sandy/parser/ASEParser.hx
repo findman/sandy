@@ -1,22 +1,8 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
-
+﻿
 package sandy.parser;
 
 import flash.events.Event;
+import flash.utils.unescapeMultiByte;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
@@ -27,9 +13,11 @@ import sandy.materials.Appearance;
  * <p>Creates a Group as rootnode which appends all geometries it finds.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port 
- * 
- * 
+ * @author		Niel Drummond - haXe port
+ * @author		Russell Weir - haXe port
+ * @since		1.0
+ * @version		3.1
+ * @date 		04.03.2009
  * 
  *
  * @example To parse an ASE file at runtime:

@@ -15,10 +15,6 @@ limitations under the License.
 */
 package sandy.parser;
 
-import flash.events.Event;
-import flash.net.URLRequest;
-
-
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
 import sandy.core.scenegraph.ATransformable;
@@ -32,6 +28,9 @@ import sandy.materials.BitmapMaterial;
 import sandy.materials.ColorMaterial;
 import sandy.util.LoaderQueue;
 import sandy.util.NumberUtil;
+
+import flash.events.Event;
+import flash.net.URLRequest;
 
 import haxe.xml.Fast;
 

@@ -21,22 +21,19 @@ package sandy.parser;
 class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 {
 	/**
-	 * Parameter that is used to specify that the ASE (ASCII Scene Export)
-	 * Parser should be used
+	 * Specifies that the ASE (ASCII Scene Export) parser should be used.
 	 */
 	public inline static var ASE:String = "ASE";
 	/**
-	* Specifies that the MD2 (Quake II model) parser should be used.
-	*/
+	 * Specifies that the MD2 (Quake II model) parser should be used.
+	 */
 	public inline static var MD2:String = "MD2";
 	/**
-	 * Parameter that is used to specify that the 3DS (3D Studio) Parser
-	 * should be used
+	 * Specifies that the 3DS (3D Studio) parser should be used.
 	 */
 	public inline static var MAX_3DS:String = "3DS";
 	/**
-	 * Parameter that is used to specify that the COLLADA (COLLAborative
-	 * Design Activity ) Parser should be used
+	 * Specifies that the COLLADA (COLLAborative Design Activity ) parser should be used.
 	 */
 	public inline static var COLLADA:String = "DAE";
 
@@ -58,15 +55,13 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 	* @param p_sTextureExtension	Overrides texture extension.
 	* @return					The parser to be used
 	*/
-	public static function create<ParserClass,URL>( p_sFile:URL, ?p_sParserType:String, ?p_nScale:Float, ?p_sTextureExtension:String ): ParserClass
+	public static function create<ParserClass,URL>( p_sFile:URL, ?p_sParserType:String, ?p_nScale:Float = 1.0, ?p_sTextureExtension:String ): ParserClass
 	{
-        if ( p_nScale == null ) p_nScale = 1.0;
-
 		var l_sExt:String,l_iParser:IParser = null;
 		// --
 		if( Std.is( p_sFile, String ) && p_sParserType == null )
 		{
-			l_sExt = (untyped p_sFile.split('.')).pop();
+			l_sExt = (cast p_sFile.split('.')).pop();
 		}
 		else
 		{
@@ -76,7 +71,7 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 		switch( l_sExt.toUpperCase() )
 		{
 			case ASE:
-// 				l_iParser = new ASEParser( p_sFile, p_nScale, p_sTextureExtension );
+ 				l_iParser = new ASEParser( p_sFile, p_nScale, p_sTextureExtension );
 			case MD2:
 				l_iParser = new MD2Parser( p_sFile, p_nScale, p_sTextureExtension );
 			case "OBJ":
@@ -87,7 +82,7 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 			default:
 		}
 		// --
-		return untyped l_iParser;
+		return cast l_iParser;
 	}
 }
 
