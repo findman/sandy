@@ -1,24 +1,9 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Sandy is a software supplied by Thomas PFEIFFER
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
-
 
 package sandy.parser;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.utils.TypedDictionary;
 
 import sandy.core.scenegraph.Group;
 import sandy.parser.AParser;
@@ -26,12 +11,14 @@ import sandy.parser.IParser;
 import sandy.parser.ParserEvent;
 
 /**
-* ParserStack utility class
-* <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the laoding/parsing automatially and sequentially..</p>
+* ParserStack utility class.
+* <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the loading/parsing automatially and sequentially.</p>
 *
 * @author      Thomas Pfeiffer - kiroukou
-* @author      Niel Drummond - haXe port  
-* 
+* @author      Niel Drummond - haXe port
+* @since       3.0
+* @version		3.1
+* @date        12.02.2008
 */
 class ParserStack extends EventDispatcher
 {
@@ -40,23 +27,24 @@ class ParserStack extends EventDispatcher
 	 *
 	 * @eventType parserstack_progress
 	 */
-	public static var PROGRESS:String = "parserstack_progress";
+	public static inline var PROGRESS:String = "parserstack_progress";
 
 	/**
 	 * Defines the value of the <code>type</code> property of a <code>parserstack_error</code> event object.
 	 *
 	 * @eventType parserstack_error
 	 */
-	public static var ERROR:String = "parserstack_error";
+	public static inline var ERROR:String = "parserstack_error";
 
 	/**
 	 * Defines the value of the <code>type</code> property of a <code>parserstack_complete</code> event object.
 	 *
 	 * @eventType parserstack_complete
 	 */
-	public static var COMPLETE:String = "parserstack_complete";
-	
+	public static inline var COMPLETE:String = "parserstack_complete";
+
 	private var m_oMap:Hash<IParser>;
+	private var m_oNameMap:TypedDictionary<IParser, String>;
 	private var m_oGroupMap:Hash<Group>;
 	private var m_oParser:AParser;
 	private var m_nId:Int;
@@ -65,6 +53,7 @@ class ParserStack extends EventDispatcher
 	public function new()
 	{
 		m_oMap = new Hash<IParser>();
+		m_oNameMap = new TypedDictionary();
 		m_oGroupMap = new Hash<Group>();
 		m_nId = 0;
 		m_aList = new Array();
@@ -72,7 +61,7 @@ class ParserStack extends EventDispatcher
 
 		super();
 	}
-	
+
 	public function clear():Void
 	{
 		m_aList.splice(0,m_aList.length);
@@ -81,7 +70,7 @@ class ParserStack extends EventDispatcher
 			m_oMap.remove( elt );
 		}
 	}
-	
+
 	/**
 	 * Retrieve the parser you stored by the associated name.
 	 * If no parser with that name is found, null is returned
@@ -90,7 +79,7 @@ class ParserStack extends EventDispatcher
 	{
 		return m_oMap.get( p_sName );
 	}
-	
+
 	/**
 	 * Get the parser group object associated with the parser name.
 	 * Returns null if no parser is associated with that name
@@ -108,9 +97,9 @@ class ParserStack extends EventDispatcher
 	{
 		m_aList.push( p_oParser );
 		m_oMap.set( p_sName, p_oParser );
-		p_oParser.m_sName = p_sName;
+		m_oNameMap.set(p_oParser, p_sName);
 	}
-	
+
 	/**
 	 * Launch the loading/parsing process
 	 */
@@ -119,23 +108,23 @@ class ParserStack extends EventDispatcher
 		m_nId = 0;
 		goNext();
 	}
-	
+
 	private function goNext( pEvt:ParserEvent = null ):Void
 	{
 		if( m_aList.length == m_nId )
 		{
-			m_oGroupMap.set( m_oParser.m_sName, pEvt.group ); 
+			m_oGroupMap.set(  m_oNameMap.get( m_oParser ), pEvt.group );
 			m_oParser.removeEventListener( ParserEvent.PROGRESS, onProgress );
 			m_oParser.removeEventListener( ParserEvent.FAIL, onFail );
 			m_oParser.removeEventListener( ParserEvent.INIT, goNext );//END
-			
+
 			onFinish( pEvt );
 		}
 		else
 		{
 			if( m_oParser != null )
 			{
-				m_oGroupMap.set( m_oParser.m_sName, pEvt.group ); 
+				m_oGroupMap.set( m_oNameMap.get( m_oParser ), pEvt.group );
 				m_oParser.removeEventListener( ParserEvent.PROGRESS, onProgress );
 				m_oParser.removeEventListener( ParserEvent.FAIL, onFail );
 				m_oParser.removeEventListener( ParserEvent.INIT, goNext );
@@ -154,17 +143,17 @@ class ParserStack extends EventDispatcher
 		progress = (m_nId/(m_aList.length-1))*100 + p_oEvent.percent;
 		dispatchEvent( new Event( PROGRESS ) );
 	}
-	
+
 	private function onFail( p_oEvent:ParserEvent ):Void
 	{
 		dispatchEvent( new Event( ERROR ) );
 	}
-	
+
 	private function onFinish( p_oEvent:ParserEvent ):Void
 	{
 		dispatchEvent( new Event( COMPLETE ) );
 	}
-	
+
 	/**
 	 * Public progress percent var.
 	 * It gives the percentage of the loading/parsing status of the different parsers.

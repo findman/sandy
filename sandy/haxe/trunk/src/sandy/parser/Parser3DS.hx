@@ -121,7 +121,7 @@ class Parser3DS extends AParser, implements IParser
 					currentMeshMaterialName = readString ();
 //trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
 					// this chunk has face list
-					var faceList:Array<String> = [ currentMeshMaterialName ];
+					var faceList:Array<Dynamic> = [ currentMeshMaterialName ];
 					var numFaces:Int = data.readUnsignedShort();
 					for (f in 0...numFaces) {
 						faceList.push (data.readUnsignedShort());
@@ -194,7 +194,7 @@ class Parser3DS extends AParser, implements IParser
 						var vertex_c:Int = data.readUnsignedShort();
 
 						// should we ignore invisible faces?
-						var visible:Boolean = data.readUnsignedShort();
+						var visible:Bool = (data.readUnsignedShort() == 0 ? false : true);
 
 						l_oGeometry.setFaceVertexIds(i, [vertex_a, vertex_b, vertex_c] );
 						l_oGeometry.setFaceUVCoordsIds(i, [vertex_a, vertex_b, vertex_c] );

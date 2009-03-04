@@ -2,7 +2,6 @@
 package sandy.parser;
 
 import flash.events.Event;
-import flash.utils.unescapeMultiByte;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
@@ -18,7 +17,7 @@ import sandy.materials.Appearance;
  * @since		1.0
  * @version		3.1
  * @date 		04.03.2009
- * 
+ *
  *
  * @example To parse an ASE file at runtime:
  *
@@ -47,9 +46,9 @@ class ASEParser extends AParser, implements IParser
 	 * 						an embedded object
 	 * @param p_nScale		The scale factor
 	 */
-	public function new<URL>( p_sUrl:URL, p_nScale:Float )
+	public function new<URL>( p_sUrl:URL, p_nScale:Float = 1., p_sTextureExtension:String = null )
 	{
-		super( p_sUrl, p_nScale );
+		super( p_sUrl, p_nScale, p_sTextureExtension );
 	}
 
 	/**

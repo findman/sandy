@@ -61,7 +61,7 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 		// --
 		if( Std.is( p_sFile, String ) && p_sParserType == null )
 		{
-			l_sExt = (cast p_sFile.split('.')).pop();
+			l_sExt = (cast(p_sFile,String).split('.')).pop();
 		}
 		else
 		{
