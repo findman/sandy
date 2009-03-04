@@ -5,8 +5,8 @@ import flash.geom.Rectangle;
 import sandy.util.ArrayUtil;
 
 import sandy.core.data.Matrix4;
+import sandy.core.data.Point3D;
 import sandy.core.data.PrimitiveFace;
-import sandy.core.data.Vector;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.extrusion.data.Polygon2D;
@@ -15,6 +15,9 @@ import sandy.extrusion.data.Polygon2D;
  * Very basic extrusion class.
  * @author makc
  * @author pedromoraes (haxe port)
+ * @author Niel Drummond (haxe port)
+ * @version		3.1
+ * @date 		04.03.2009
  */
 class Extrusion extends Shape3D {
 
@@ -36,7 +39,7 @@ class Extrusion extends Shape3D {
 		var j:Int;
 		var k:Int;
 		var g:Geometry3D = new Geometry3D();
-		var v:Vector = new Vector();
+		var v:Point3D = new Point3D();
 
 		// arrays to store face IDs
 		var backFaceIDs:Array<Int> = [];
@@ -96,6 +99,7 @@ class Extrusion extends Shape3D {
 			}
 		}
 
+		links.length = 0;
 		links = null;
 
 		if (closeFront || closeBack) {

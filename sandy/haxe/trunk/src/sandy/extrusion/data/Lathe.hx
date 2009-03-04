@@ -1,12 +1,15 @@
 ﻿package sandy.extrusion.data;
 
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.math.FastMath;
 
 /**
 * Circular, spiral or helix arc.
 * @author makc
 * @author pedromoraes (haxe port)
+* @author Niel Drummond (haxe port)
+* @version		3.1
+* @date 		04.03.2009
 */
 class Lathe extends Curve3D {
 	
@@ -14,7 +17,7 @@ class Lathe extends Curve3D {
 	 * Generates circular, spiral or helix arc.
 	 * @param	center Arc center.
 	 * @param	axis Axis of revolution.
-	 * @param	reference A Vector that specifies direction to count angle from. Must be non-collinear to axis.
+	 * @param	reference A Point3D that specifies direction to count angle from. Must be non-collinear to axis.
 	 * @param	angle0 Start angle.
 	 * @param	angle1 End angle.
 	 * @param	step Angle step.
@@ -25,21 +28,21 @@ class Lathe extends Curve3D {
 	 * @param	scale0 Start scale.
 	 * @param	scale1 End scale.
 	 */
-	public function new(center:Vector, axis:Vector, reference:Vector, ?angle0:Float = 0, ?angle1:Float = 3.14159265, ?step:Float = 0.3, ?radius0:Float = 100, ?radius1:Float = 100, ?height0:Float = 0, ?height1:Float = 0, ?scale0:Float = 1, ?scale1:Float = 1)
+	public function new(center:Point3D, axis:Point3D, reference:Point3D, ?angle0:Float = 0, ?angle1:Float = 3.14159265, ?step:Float = 0.3, ?radius0:Float = 100, ?radius1:Float = 100, ?height0:Float = 0, ?height1:Float = 0, ?scale0:Float = 1, ?scale1:Float = 1)
 	{
 		super ();
 
 		// compute local coordinates
-		var x:Vector = orthogonalize (axis, reference);
+		var x:Point3D = orthogonalize (axis, reference);
 			if (x.getNorm () > 0) x.normalize (); else x.x = 1;
-		var y:Vector = axis.clone ();
+		var y:Point3D = axis.clone ();
 			if (y.getNorm () > 0) y.normalize (); else y.y = 1;
-		var z:Vector = x.cross (y);
+		var z:Point3D = x.cross (y);
 
 		// compute dot bases
-		var basex:Vector = new Vector (x.x, y.x, z.x);
-		var basey:Vector = new Vector (x.y, y.y, z.y);
-		var basez:Vector = new Vector (x.z, y.z, z.z);
+		var basex:Point3D = new Point3D (x.x, y.x, z.x);
+		var basey:Point3D = new Point3D (x.y, y.y, z.y);
+		var basez:Point3D = new Point3D (x.z, y.z, z.z);
 
 		// generate curve
 		var a:Float = angle0;
@@ -53,23 +56,23 @@ class Lathe extends Curve3D {
 			if (angle1 != angle0) h = (a - angle0) * (height1 - height0) / (angle1 - angle0) + height0;
 
 			// point x = r cos a, z = r sin a, y = h
-			var Vector:Vector = new Vector (r * ca, h, r * sa);
-			v.push (new Vector (basex.dot (Vector), basey.dot (Vector), basez.dot (Vector)));
+			var Point3D:Point3D = new Point3D (r * ca, h, r * sa);
+			v.push (new Point3D (basex.dot (Point3D), basey.dot (Point3D), basez.dot (Point3D)));
 
 			// tangent (thank to mathcad for this solution :)
-			var tangent:Vector = new Vector ( -r * sa, 0, r * ca);
+			var tangent:Point3D = new Point3D ( -r * sa, 0, r * ca);
 			if (angle1 != angle0) {
 				tangent.x += ca * (radius1 - radius0) / (angle1 - angle0);
 				tangent.y +=      (height1 - height0) / (angle1 - angle0);
 				tangent.z += sa * (radius1 - radius0) / (angle1 - angle0);
 			}
 			if (tangent.getNorm () > 0) tangent.normalize (); else tangent.z = 1;
-			t.push (new Vector (basex.dot (tangent), basey.dot (tangent), basez.dot (tangent)));
+			t.push (new Point3D (basex.dot (tangent), basey.dot (tangent), basez.dot (tangent)));
 
 			// normal (too lazy to solve this; but should be close to x = -cos a, z = -sin a, y = 0)
-			var normal:Vector = orthogonalize (tangent, new Vector (-ca, 0, -sa));
+			var normal:Point3D = orthogonalize (tangent, new Point3D (-ca, 0, -sa));
 			if (normal.getNorm () > 0) normal.normalize (); else normal.y = 1;
-			n.push (new Vector (basex.dot (normal), basey.dot (normal), basez.dot (normal)));
+			n.push (new Point3D (basex.dot (normal), basey.dot (normal), basez.dot (normal)));
 
 			// scale
 			var scale:Float = scale0;

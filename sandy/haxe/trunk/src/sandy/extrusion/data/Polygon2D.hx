@@ -8,8 +8,10 @@ import flash.geom.Rectangle;
  * 2D polygon class.
  *
  * @author makc
- * @date 13.03.2008
  * @author pedromoraes (haxe port)
+ * @author Niel Drummond (haxe port)
+ * @version		3.1
+ * @date 		04.03.2009
  */
 class Polygon2D
 {
