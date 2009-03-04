@@ -15,7 +15,7 @@ import sandy.util.NumberUtil;
 *
 * @see sandy.core.data.Matrix4
 */
-public class Matrix4Math
+class Matrix4Math
 {
 	/**
 		* Specifies whether to use fast math calculations.
@@ -23,7 +23,7 @@ public class Matrix4Math
 	public static var USE_FAST_MATH:Bool = false;
 
 	// we force initialization of the fast math table
-	private var _fastMathInitialized:Bool = FastMath.initialized;
+// 	private var _fastMathInitialized:Bool = FastMath.initialized;
 
 	/**
 		* Computes the multiplication of two Matrix4 matrices, as if they were 3x3.

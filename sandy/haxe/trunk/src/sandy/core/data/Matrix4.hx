@@ -206,7 +206,7 @@ class Matrix4
 				?pn31:Float, ?pn32:Float , ?pn33:Float , ?pn34:Float,
 				?pn41:Float, ?pn42:Float , ?pn43:Float , ?pn44:Float )
 	{
-		USE_FAST_MATH = false;
+		//USE_FAST_MATH = false; Commented to allow FastMath - Russell
 		_fastMathInitialized = FastMath.initialized();
 
 		if (pn11 == null) pn11=1; if (pn12 == null) pn12=0; if (pn13 == null) pn13=0; if (pn14 == null) pn14=0;
