@@ -51,6 +51,16 @@ package sandy.primitive
 		*/
 		public var segmentsH :Number;
 
+		/** 
+		 * The default large radius for a sphere.
+		 */
+		static public const DEFAULT_LARGE_RADIUS :Number = 100;
+
+		/**
+		 * The default small radius for a sphere.
+		 */
+		static public const DEFAULT_SMALL_RADIUS :Number = 50;
+		
 		/**
 		* The default scale for a torus texture.
 		*/
@@ -93,8 +103,8 @@ package sandy.primitive
 			// --
 			this.segmentsW = Math.max( MIN_SEGMENTSW, p_nSegmentsW || DEFAULT_SEGMENTSW); // Defaults to 12
 			this.segmentsH = Math.max( MIN_SEGMENTSH, p_nSegmentsH || DEFAULT_SEGMENTSH); // Defaults to 8
-			this.largeRadius = p_nLargeRadius; // Defaults to 100
-			this.smallRadius = p_nSmallRadius; // Defaults to 50
+			this.largeRadius = p_nLargeRadius || DEFAULT_LARGE_RADIUS; // Defaults to 100
+			this.smallRadius = p_nSmallRadius || DEFAULT_SMALL_RADIUS; // Defaults to 50 
 			// --
 			geometry = generate();
 		}
