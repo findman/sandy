@@ -1,23 +1,10 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
+
 
 /**
 * The Torus class is used for creating a torus primitive. A torus can be seen as a doughnut.
@@ -27,13 +14,16 @@ import sandy.core.scenegraph.Shape3D;
 *
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
-* @author Niel Drummond - haXe port 
-* 
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*
 * @example To create a torus with a large radius of 250, a small radius of 80,
 * and with default settings for the number of horizontal and vertical segments,
 * use the following statement:
 *
-* <listing version="3.0">
+* <listing version="3.1">
 *     var torus:Torus = new Torus( "theTorus", 250, 80 );
 *  </listing>
 */
@@ -52,7 +42,7 @@ class Torus extends Shape3D, implements Primitive3D
 	/**
 	 * Array of vertex normals.
 	 */
-	public var normals:Array<Vector>;
+	public var normals:Array<Point3D>;
 
 	/**
 	* The number of horizontal segments.
@@ -67,37 +57,37 @@ class Torus extends Shape3D, implements Primitive3D
 	/**
 	* The default large radius for a sphere.
 	*/
-	static public var DEFAULT_LARGE_RADIUS :Float = 100;
+	static public inline var DEFAULT_LARGE_RADIUS :Float = 100;
 
 	/**
 	* The default small radius for a sphere.
 	*/
-	static public var DEFAULT_SMALL_RADIUS :Float = 50;
+	static public inline var DEFAULT_SMALL_RADIUS :Float = 50;
 
 	/**
 	* The default scale for a torus texture.
 	*/
-	static public var DEFAULT_SCALE :Float = 1;
+	static public inline var DEFAULT_SCALE :Float = 1;
 
 	/**
 	* The default number of horizontal segments for a torus.
 	*/
-	static public var DEFAULT_SEGMENTSW :Float = 12;
+	static public inline var DEFAULT_SEGMENTSW :Float = 12;
 
 	/**
 	* The default number of vertical segments for a torus.
 	*/
-	static public var DEFAULT_SEGMENTSH :Float = 8;
+	static public inline var DEFAULT_SEGMENTSH :Float = 8;
 
 	/**
 	* The minimum number of horizontal segments for a torus.
 	*/
-	static public var MIN_SEGMENTSW :Float = 3;
+	static public inline var MIN_SEGMENTSW :Float = 3;
 
 	/**
 	* The minimum number of vertical segments for a torus.
 	*/
-	static public var MIN_SEGMENTSH :Float = 2;
+	static public inline var MIN_SEGMENTSH :Float = 2;
 
 	/**
 	* Creates a Torus primitive.
@@ -110,14 +100,14 @@ class Torus extends Shape3D, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new( p_sName : String = null, p_nLargeRadius:Float = 100.0, p_nSmallRadius:Float = 50.0, p_nSegmentsW:Int = 12, p_nSegmentsH:Int = 8 )
+	public function new( p_sName : String = null, p_nLargeRadius:Float=100., p_nSmallRadius:Float=50. , p_nSegmentsW:Int=12, p_nSegmentsH:Int=8 )
 	{
 		super(p_sName);
 		// --
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
-		this.largeRadius = p_nLargeRadius;
-		this.smallRadius = p_nSmallRadius;
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, (p_nSegmentsW == 0 ? DEFAULT_SEGMENTSW : p_nSegmentsW)));
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, (p_nSegmentsH == 0 ? DEFAULT_SEGMENTSH : p_nSegmentsH)));
+		this.largeRadius = (p_nLargeRadius == 0 ? DEFAULT_LARGE_RADIUS : p_nLargeRadius);
+		this.smallRadius = (p_nSmallRadius == 0 ? DEFAULT_SMALL_RADIUS : p_nSmallRadius);
 		// --
 		geometry = generate();
 	}
@@ -129,7 +119,7 @@ class Torus extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Vector>) : Geometry3D
+	public function generate<T>(?arguments:Array<T>) : Geometry3D
 	{
 		if (arguments == null) arguments = [];
 
@@ -156,10 +146,10 @@ class Torus extends Shape3D, implements Primitive3D
 
 			for(s2 in 0...steps2 )
 			{
-				var vn0:Array<Vector> = torusVertex(a1a, r1, a2a, r2);
-				var vn1:Array<Vector> = torusVertex(a1b, r1, a2a, r2);
-				var vn2:Array<Vector> = torusVertex(a1b, r1, a2b, r2);
-				var vn3:Array<Vector> = torusVertex(a1a, r1, a2b, r2);
+				var vn0:Array<Point3D> = torusVertex(a1a, r1, a2a, r2);
+				var vn1:Array<Point3D> = torusVertex(a1b, r1, a2a, r2);
+				var vn2:Array<Point3D> = torusVertex(a1b, r1, a2b, r2);
+				var vn3:Array<Point3D> = torusVertex(a1a, r1, a2b, r2);
 
 				// -- vertices
 				var l_nP0:Int = l_oGeometry.setVertex( l_oGeometry.getNextVertexID(), vn0[0].x, vn0[0].y, vn0[0].z);
@@ -191,12 +181,12 @@ class Torus extends Shape3D, implements Primitive3D
 				var l_nF1:Int = l_oGeometry.setFaceVertexIds( l_oGeometry.getNextFaceID(), [l_nP0, l_nP3, l_nP2] );
 				l_oGeometry.setFaceUVCoordsIds( l_nF1, [l_nUV0, l_nUV3, l_nUV2] );
 
-    a2a = a2b;
-    a2b += step2r;
+				a2a = a2b;
+				a2b += step2r;
 			}
 
-   a1a = a1b;
-   a1b += step1r;
+			a1a = a1b;
+			a1b += step1r;
 		}
 		// --
 		return l_oGeometry;
@@ -212,7 +202,7 @@ class Torus extends Shape3D, implements Primitive3D
 	*
 	* @return Array [0]: vertex, [1]: normal
 	*/
-	private function torusVertex(a1:Float, r1:Float, a2:Float, r2:Float):Array<Vector>
+	private function torusVertex(a1:Float, r1:Float, a2:Float, r2:Float):Array<Point3D>
 	{
 		// Some sines and cosines we'll need.
 		var ca1:Float = Math.cos(a1);
@@ -224,13 +214,13 @@ class Torus extends Shape3D, implements Primitive3D
 		var centerx:Float = r1 * ca1;
 		var centerz:Float = -r1 * sa1;    // Note, y is zero
 
-		var n:Vector = new Vector();
+		var n:Point3D = new Point3D();
 		// Compute the surface normal
 		n.x = ca2 * ca1;          // x
 		n.y = sa2;                // y
 		n.z = -ca2 * sa1;         // z
 
-		var v:Vector = new Vector();
+		var v:Point3D = new Point3D();
 		// And the vertex
 		v.x = centerx + r2 * n.x;
 		v.y = r2 * n.y;

@@ -26,10 +26,10 @@ import sandy.core.data.Vertex;
 import sandy.math.PlaneMath;
 import sandy.util.NumberUtil;
 
-#if flash10
+#if flash
 typedef TypedArray<T> = flash.Vector<T>;
 #else
-typedef TypedArray = Array;
+typedef TypedArray<T> = Array<T>;
 #end
 /**
  * Used to create the frustum of the camera.

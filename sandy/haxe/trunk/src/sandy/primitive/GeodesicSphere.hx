@@ -1,33 +1,9 @@
-﻿/*
- * Copyright 2007 (c) Gabriel Putnam
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use,
- * copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following
- * conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
 
 package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 
 /**
 * GeodesicSphere implements octahedron-based geodesic sphere.
@@ -37,16 +13,19 @@ import sandy.core.data.Vector;
 * the exception of U/V mapping).</p>
 *
 * @author		makc
-* @author  Niel Drummond (haXe port)
+* @author		Niel Drummond (haXe port)
+* @author 		Russell Weir (haXe port)
+* @version		3.1
+* @date 		10.04.2008
 *
 * @see http://en.wikipedia.org/wiki/Geodesic_dome
 * @see http://en.wikipedia.org/wiki/Octahedron
 */
 class GeodesicSphere extends Shape3D, implements Primitive3D {
-	 
+
 	private var radius_in:Float;
 	private var fractures_in:Int;
-	
+
 	/**
 	* Creates a GeodesicSphere primitive.
 	*
@@ -64,18 +43,18 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 
 			geometry = generate ();
 	}
-	
+
 	/**
 	* @private
 	*/
-	public function generate ( ?arguments:Array<Vector> ):Geometry3D
+	public function generate ( ?arguments:Array<Point3D> ):Geometry3D
 	{
 		var l_oGeometry3D:Geometry3D = new Geometry3D();
 
 		// Set up variables for keeping track of the vertices, faces, and texture coords.
 		var nVertices:Int = 0, nFaces:Int = 0;
-		var aPacificFaces:Array<Array<Int>> = [], aVertexNormals:Array<Vector> = [];
-		
+		var aPacificFaces:Array<Array<Int>> = [], aVertexNormals:Array<Point3D> = [];
+
 		// Set up variables for keeping track of the number of iterations and the angles
 		var iVerts:Int = fractures_in + 1, jVerts:Int;
 		var j:Int, Theta:Float=0.0, Phi:Float=0.0, ThetaDel:Float, PhiDel:Float;
@@ -116,7 +95,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 			}
 			Phi += PhiDel;
 		}
-		
+
 		// Four triangles meet at every pole, so we make 8 polar vertices to reduce polar distortions
 		for (i in 0...8)
 		{
@@ -184,7 +163,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 		}
 		U_Ind_s = L_Ind_s; U_Ind_e = L_Ind_e;
 		// Build the lower four sections
-		 
+
 		var i = iVerts-1;
 		while( i >= 0 ){
 			L_Ind_s = U_Ind_s; L_Ind_e = U_Ind_e; U_Ind_s = L_Ind_s + 4*(i+1); U_Ind_e = L_Ind_e + 4*i;
@@ -234,7 +213,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 			}
 			i--;
 		}
-		
+
 		// only now we can fix pacific problem
 		// (because doing so in any other way would break Gabriel code ;)
 		nVertices = l_oGeometry3D.aVertex.length;

@@ -1,25 +1,12 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
 import sandy.core.data.PrimitiveFace;
 import sandy.core.data.Vertex;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
+
 
 /**
 * The Cylinder class is used for creating a cylinder primitive, a cone or a truncated cone.
@@ -30,16 +17,19 @@ import sandy.core.scenegraph.Shape3D;
 * @author		Xavier Martin ( ajout fonction getTop, getBottom, getTop )
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
-* @author Niel Drummond - haXe port 
-* 
+* @author		Niel Drummond - haXe port
+* @author		Russell Weir - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*
 * @example To create a cylinder with a base radius of 150 and a height of 300,
 * with default number of faces, use the following statement:
 *
-* <listing version="3.0">
+* <listing version="3.1">
 *     var cyl:Cylinder = new Cylinder( "theCylinder", 150, 300 );
 *  </listing>
 * To create a truncated cone, you pass a top radius value to the constructor
-* <listing version="3.0">
+* <listing version="3.1">
 *     var tCone:Cylinder = new Cylinder( "trunkCone", 150, 300, 0, 0, 40 );
 *  </listing>
 */
@@ -58,37 +48,37 @@ class Cylinder extends Shape3D, implements Primitive3D
 	/**
 	* The default radius for a cylinder.
 	*/
-	static public var DEFAULT_RADIUS :Float = 100;
+	static public inline var DEFAULT_RADIUS :Float = 100.;
 
 	/**
 	* The default height for a cylinder.
 	*/
-	static public var DEFAULT_HEIGHT :Float = 100;
+	static public inline var DEFAULT_HEIGHT :Float = 100.;
 
 	/**
 	* The default scale for a cylinder texture.
 	*/
-	static public var DEFAULT_SCALE :Float = 1;
+	static public inline var DEFAULT_SCALE :Float = 1.;
 
 	/**
 	* The default number of horizontal segments for a cylinder.
 	*/
-	static public var DEFAULT_SEGMENTSW :Float = 8;
+	static public inline var DEFAULT_SEGMENTSW :Float = 8.;
 
 	/**
 	* The default number of vertical segments for a cylinder.
 	*/
-	static public var DEFAULT_SEGMENTSH :Float = 6;
+	static public inline var DEFAULT_SEGMENTSH :Float = 6.;
 
 	/**
 	* The minimum number of horizontal segments for a cylinder.
 	*/
-	static public var MIN_SEGMENTSW :Float = 3;
+	static public inline var MIN_SEGMENTSW :Float = 3.;
 
 	/**
 	* The minimum number of vertical segments for a cylinder.
 	*/
-	static public var MIN_SEGMENTSH :Float = 2;
+	static public inline var MIN_SEGMENTSH :Float = 2.;
 
 
 	private var topRadius:Float;
@@ -138,22 +128,17 @@ class Cylinder extends Shape3D, implements Primitive3D
 	* face, rather than to the whole cylinder.
 	*/
 	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nHeight:Float = 100.0,
-	                   p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6, ?p_nTopRadius:Float,
-	                   ?p_bExcludeBottom:Bool, p_bExludeTop:Bool = false,
-	                   p_bWholeMapping:Bool = true )
+						p_nSegmentsW:Int=8, p_nSegmentsH=6,
+						?p_nTopRadius:Float,
+						p_bExcludeBottom:Bool=false, p_bExludeTop:Bool=false,
+						p_bWholeMapping:Bool=true )
 	{
 		if (p_nTopRadius == null) p_nTopRadius = Math.NaN;
-		if (p_bExcludeBottom == null) {
-				p_bExcludeBottom = false;
-				m_nPolBase = this.segmentsW - 2;
-		} else {
-				m_nPolBase = 0;
-		}
 
 		super( p_sName );
 
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, (p_nSegmentsW == 0 ? DEFAULT_SEGMENTSW : p_nSegmentsW)));
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, (p_nSegmentsH == 0 ? DEFAULT_SEGMENTSH : p_nSegmentsH)));
 		radius = (p_nRadius==0) ? DEFAULT_RADIUS : p_nRadius; // Defaults to 100
 		height = (p_nHeight==0) ? DEFAULT_HEIGHT : p_nHeight; // Defaults to 100
 		topRadius = ( Math.isNaN(p_nTopRadius) ) ? radius : p_nTopRadius;
@@ -164,6 +149,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 		m_bIsWholeMappingEnabled = p_bWholeMapping;
 
 		/**/
+		m_nPolBase = (!m_bIsBottomExcluded) ? this.segmentsW - 2 : 0;
 		m_nNextPolFace = this.segmentsW * 2;
 
 		geometry = generate();
@@ -177,7 +163,7 @@ class Cylinder extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Vector>):Geometry3D
+	public function generate<T>(?arguments:Array<T>):Geometry3D
 	{
 		var l_oGeometry3D:Geometry3D = new Geometry3D();
 		// --

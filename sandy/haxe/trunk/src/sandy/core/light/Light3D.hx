@@ -83,13 +83,13 @@ class Light3D extends EventDispatcher
 	 *
      * @see sandy.core.data.Point3D
 	 */
-	public function getDirectionVector():Point3D
+	public function getDirectionPoint3D():Point3D
 	{
 		return _dir;
 	}
 
 	/**
-	 * Uneeded? setDirectionVector() does the same thing...
+	 * Uneeded? setDirectionPoint3D() does the same thing...
 	 *
 	 * @param x	The x coordinate
 	 * @param y	The y coordinate
@@ -109,7 +109,7 @@ class Light3D extends EventDispatcher
 	 *
      * @see sandy.core.data.Point3D
 	 */
-	public function setDirectionVector(pDir:Point3D):Void
+	public function setDirectionPoint3D(pDir:Point3D):Void
 	{
 		_dir = pDir;
 		_dir.normalize();

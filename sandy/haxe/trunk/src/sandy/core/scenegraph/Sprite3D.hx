@@ -42,7 +42,7 @@ class Sprite3D extends Sprite2D
 	*
 	* @param p_nOffset 	A number between [0-360] to give angle offset into the clip.
 	*/
-	public function new( ?p_sName:String="", ?p_oContent:MovieClip, ?p_nScale:Float=1.0, ?p_nOffset:Int=0 )
+	public function new( p_sName:String="", ?p_oContent:MovieClip, p_nScale:Float=1.0, p_nOffset:Int=0 )
 	{
 		super(p_sName, p_oContent, p_nScale);
 		// -- set the offset
@@ -55,35 +55,24 @@ class Sprite3D extends Sprite2D
 	*
 	* @param p_content The MovieClip to attach to the Sprite3D#container.
 	*/
-	override public var content( null,__setContent ):DisplayObject;
 	override private function __setContent( p_content:DisplayObject ):DisplayObject
 	{
 		var mc = try cast(p_content,MovieClip) catch(e:Dynamic) return p_content;
 		if (mc != null)
 		{
-			super.content = p_content;
+			this.content = p_content;
 			// --
 			m_nAutoOffset = mc.totalFrames / 360;
 		}
 		return p_content;
 	}
 
-	override public function display( p_oContainer:Sprite = null ):void
+	override public function display( p_oContainer:Sprite = null ):Void
 	{
 		var mc = cast(m_oContent,MovieClip);
 		if(mc != null)
 			mc.gotoAndStop( __frameFromAngle( Math.atan2( viewMatrix.n13, viewMatrix.n33 ) ) );
 		super.display( p_oContainer );
-	}
-
-	// Returns the frame to show at the current camera angle
-	private function __frameFromAngle(a:Float):Int
-	{
-		a = NumberUtil.toDegree( a );
-		a = (( a + offset )+360) % 360;
-		// -- we have a frame for a 360 content, let's make it fit the current one
-		var b:Int = Std.int( a * m_nAutoOffset ) << 0;
-		return b;
 	}
 
 	// Returns the frame to show at the current camera angle

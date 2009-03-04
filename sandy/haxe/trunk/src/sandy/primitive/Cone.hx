@@ -1,18 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
@@ -27,13 +13,14 @@ import sandy.core.scenegraph.Geometry3D;
 *
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
-* @author Niel Drummond - haXe port 
-* 
+* @author		Niel Drummond - haXe port
+* @version		3.1
+* @date 		26.07.2007
 *
 * @example To create a cone with a base radius of 150 and a height of 300,
 * with default number of segments, use the following statement:
 *
-* <listing version="3.0">
+* <listing version="3.1">
 *     var myCone:Cone = new Cone( "theCone", 150, 300 );
 *  </listing>
 */

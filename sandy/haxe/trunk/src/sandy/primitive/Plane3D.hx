@@ -67,9 +67,9 @@ class Plane3D extends Shape3D, implements Primitive3D
 	*
 	* @see PrimitiveMode
 	*/
-	public function new(?p_sName:String, ?p_nHeight:Float = 100.0, ?p_nWidth:Float = 100.0, ?p_nQualityH:Int = 1,
-							?p_nQualityV:Int=1, ?p_sType:String=Plane3D.XY_ALIGNED
-							?p_sMode:String )
+	public function new(p_sName:String=null, p_nHeight:Float = 100.0, p_nWidth:Float = 100.0, p_nQualityH:Int = 1,
+							p_nQualityV:Int=1, p_sType:String=Plane3D.XY_ALIGNED,
+							p_sMode:String=null )
 	{
 // 		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
 
@@ -91,7 +91,7 @@ class Plane3D extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate( ?arguments:Array<Point3D> ):Geometry3D
+	public function generate<T>( ?arguments:Array<T> ):Geometry3D
 	{
 		if ( arguments == null ) arguments = [];
 
@@ -137,16 +137,16 @@ class Plane3D extends Shape3D, implements Primitive3D
 				//Face creation
 				if( _mode == PrimitiveMode.TRI )
 				{
-					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
-					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j] );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j] );
 
-					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
-					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [(i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [(i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
 				}
 				else if( _mode == PrimitiveMode.QUAD )
 				{
-					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
-					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), (i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j );
+					l_geometry.setFaceVertexIds( l_geometry.getNextFaceID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
+					l_geometry.setFaceUVCoordsIds( l_geometry.getNextFaceUVCoordID(), [(i*(_qH+1))+j, (i*(_qH+1))+j+1, (i+1)*(_qH+1)+j+1, (i+1)*(_qH+1)+j] );
 				}
 			}
 		}

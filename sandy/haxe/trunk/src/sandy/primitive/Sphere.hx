@@ -1,34 +1,22 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 
 /**
 * The Sphere class is used for creating a sphere primitive
 *
 * @author		Thomas Pfeiffer - kiroukou
-* @author Niel Drummond - haXe port 
-* 
+* @author		Niel Drummond - haXe port
+* @version		3.1
+* @date 		26.07.2007
+*
 * @example To create a sphere with radius 150 and with default settings
 * for the number of horizontal and vertical segments, use the following statement:
 *
-* <listing version="3.0">
+* <listing version="3.1">
 *     var mySphere:Sphere = new Sphere( "theSphere", 150);
 *  </listing>
 */
@@ -49,32 +37,32 @@ class Sphere extends Shape3D, implements Primitive3D
 	/**
 	* The default radius for a sphere.
 	*/
-	static public var DEFAULT_RADIUS :Float = 100;
+	static public inline var DEFAULT_RADIUS :Float = 100;
 
 	/**
 	* The default scale for a sphere texture.
 	*/
-	static public var DEFAULT_SCALE :Float = 1;
+	static public inline var DEFAULT_SCALE :Float = 1;
 
 	/**
 	* The default number of horizontal segments for a sphere.
 	*/
-	static public var DEFAULT_SEGMENTSW :Float = 8;
+	static public inline var DEFAULT_SEGMENTSW :Float = 8;
 
 	/**
 	* The default number of vertical segments for a sphere.
 	*/
-	static public var DEFAULT_SEGMENTSH :Float = 6;
+	static public inline var DEFAULT_SEGMENTSH :Float = 6;
 
 	/**
 	* The minimum number of horizontal segments for a sphere.
 	*/
-	static public var MIN_SEGMENTSW :Float = 3;
+	static public inline var MIN_SEGMENTSW :Float = 3;
 
 	/**
 	* The minimum number of vertical segments for a sphere.
 	*/
-	static public var MIN_SEGMENTSH :Float = 2;
+	static public inline var MIN_SEGMENTSH :Float = 2;
 
 	/**
 	* Creates a Sphere primitive.
@@ -87,13 +75,13 @@ class Sphere extends Shape3D, implements Primitive3D
 	* @param p_nSegmentsW	Number of horizontal segments.
 	* @param p_nSegmentsH	Number of vertical segments.
 	*/
-	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nSegmentsW:Int = 8, p_nSegmentsH:Int = 6 )
+	public function new( p_sName:String = null, p_nRadius:Float = 100.0, p_nSegmentsW:Int=8, p_nSegmentsH:Int=6 )
 	{
 		super( p_sName );
 		setConvexFlag (true);
 		// --
-		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, p_nSegmentsW)); 
-		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, p_nSegmentsH)); 
+		this.segmentsW = Std.int(Math.max( MIN_SEGMENTSW, (p_nSegmentsW == 0 ? DEFAULT_SEGMENTSW : p_nSegmentsW)));
+		this.segmentsH = Std.int(Math.max( MIN_SEGMENTSH, (p_nSegmentsH == 0 ? DEFAULT_SEGMENTSH : p_nSegmentsH)));
 		radius = (p_nRadius != 0) ? p_nRadius : DEFAULT_RADIUS; // Defaults to 100
 		// --
 		var scale :Float = DEFAULT_SCALE;
@@ -108,7 +96,7 @@ class Sphere extends Shape3D, implements Primitive3D
 	*
 	* @see sandy.core.scenegraph.Geometry3D
 	*/
-	public function generate(?arguments:Array<Vector>):Geometry3D
+	public function generate<T>(?arguments:Array<T>):Geometry3D
 	{
 		if (arguments == null) arguments = new Array();
 

@@ -51,15 +51,15 @@ class LoaderQueue extends EventDispatcher
 	/**
 	* Specifies the Image type of object to load
 	*/
-	public static var IMG:String = "IMG";
+	static public inline var IMG:String = "IMG";
 	/**
 	* Specifies the SWF type of object to load
 	*/
-	public static var SWF:String = "SWF";
+	static public inline var SWF:String = "SWF";
 	/**
 	* Specifies the Binary type of object to load
 	*/
-	public static var BIN:String = "BIN";
+	static public inline var BIN:String = "BIN";
 
 	private var m_oLoaders : Hash<QueueElement>;
 	private var m_nLoaders : Int;
@@ -67,7 +67,7 @@ class LoaderQueue extends EventDispatcher
 	private var m_oQueueResourceLoadedEvent : QueueEvent;
 	private var m_oQueueLoaderError : QueueEvent;
 
-	public var data:Hash<DisplayObject>;
+	public var data:Hash<Dynamic>;
 	public var clips:Hash<LoaderInfo>;
 	/**
 	 * Creates a new loader queue.
@@ -95,7 +95,7 @@ class LoaderQueue extends EventDispatcher
 	 */
 	public function add( p_sID : String, p_oURLRequest : URLRequest, type:String = "IMG" ) : Void
 	{
-		if(type == "BIN") {
+		if(type == BIN) {
 			var tmpLoader = new URLLoader ();
 			tmpLoader.dataFormat = URLLoaderDataFormat.BINARY;
 			m_oLoaders.set( p_sID, new QueueElement( p_sID, null, tmpLoader, p_oURLRequest ));
