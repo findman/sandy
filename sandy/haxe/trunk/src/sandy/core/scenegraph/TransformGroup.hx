@@ -5,6 +5,8 @@ import sandy.core.data.Matrix4;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * The TransformGroup class is used to create transform group.
 *

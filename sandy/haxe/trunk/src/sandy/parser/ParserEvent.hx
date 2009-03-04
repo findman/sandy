@@ -5,6 +5,8 @@ import flash.events.Event;
 
 import sandy.core.scenegraph.Group;
 
+import sandy.HaxeTypes;
+
 /**
 * Events that are used by the parser classes.
 *

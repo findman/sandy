@@ -5,6 +5,7 @@ import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
+import sandy.HaxeTypes;
 
 /**
 * The Torus class is used for creating a torus primitive. A torus can be seen as a doughnut.

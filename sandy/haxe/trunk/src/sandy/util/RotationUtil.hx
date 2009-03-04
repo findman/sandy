@@ -5,6 +5,8 @@ import sandy.core.data.Point3D;
 import sandy.core.scenegraph.ATransformable;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * Utility class for tweening ATransformale rotaions.
 *

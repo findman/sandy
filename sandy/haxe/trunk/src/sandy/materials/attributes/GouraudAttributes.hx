@@ -9,6 +9,8 @@ import sandy.materials.Material;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 
+import sandy.HaxeTypes;
+
 /**
 * Realize a Gouraud shading on a material.
 *

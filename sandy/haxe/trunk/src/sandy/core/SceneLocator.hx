@@ -1,6 +1,8 @@
 
 package sandy.core;
 
+import sandy.HaxeTypes;
+
 /**
 * The SceneLocator serves as a registry of all scenes in the application.
 *

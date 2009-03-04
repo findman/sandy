@@ -4,6 +4,8 @@ import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
+import sandy.HaxeTypes;
+
 /**
 * The Line3D class is used for creating a line in 3D space.
 *

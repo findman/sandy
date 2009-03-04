@@ -1,4 +1,4 @@
-﻿
+
 package sandy.parser;
 
 import flash.events.Event;
@@ -6,6 +6,8 @@ import flash.events.Event;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.materials.Appearance;
+
+import sandy.HaxeTypes;
 
 /**
  * Transforms an ASE file into Sandy geometries.

@@ -1,8 +1,10 @@
-﻿package sandy.extrusion.data;
+package sandy.extrusion.data;
 
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+
+import sandy.HaxeTypes;
 
 /**
  * 2D polygon class.
@@ -195,7 +197,7 @@ class Polygon2D
 				{
 					ok = false; break;
 				}
-				
+
 				if (ok)
 				{
 					for ( j in 0 ... 3 )
@@ -270,15 +272,15 @@ class Polygon2D
 
 			// compute top part of hull
 			topHull.push (0);
-			topHull.push (1);				
- 
+			topHull.push (1);
+
 			for (i in 2 ... pointsHolder.length) {
-				if(towardsLeft(pointsHolder[topHull[topHull.length - 2]], 
+				if(towardsLeft(pointsHolder[topHull[topHull.length - 2]],
 				pointsHolder[topHull[topHull.length - 1]], pointsHolder[i])) {
 					topHull.pop ();
 
 					while (topHull.length >= 2) {
-						if(towardsLeft(pointsHolder[topHull[topHull.length - 2]], 
+						if(towardsLeft(pointsHolder[topHull[topHull.length - 2]],
 						pointsHolder[topHull[topHull.length - 1]], pointsHolder[i])) {
 							topHull.pop ();
 						} else {
@@ -295,16 +297,16 @@ class Polygon2D
 
 			// compute bottom part of hull
 			bottomHull.push (0);
-			bottomHull.push (1);				
- 
+			bottomHull.push (1);
+
 			for (i in 2 ... pointsHolder.length) {
 
-				if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]], 
+				if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]],
 				pointsHolder[bottomHull[bottomHull.length - 1]], pointsHolder[i])) {
 					bottomHull.pop ();
 
 					while (bottomHull.length >= 2) {
-						if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]], 
+						if (!towardsLeft(pointsHolder[bottomHull[bottomHull.length - 2]],
 						pointsHolder[bottomHull[bottomHull.length - 1]], pointsHolder[i])) {
 							bottomHull.pop ();
 						} else {

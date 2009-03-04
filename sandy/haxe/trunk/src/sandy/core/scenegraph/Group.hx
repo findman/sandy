@@ -5,6 +5,8 @@ import sandy.core.data.Matrix4;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * The Group class is used for branch nodes in the Sandy object tree.
 *

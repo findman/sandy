@@ -7,6 +7,8 @@ import flash.events.Event;
 import flash.net.URLLoaderDataFormat;
 import flash.utils.ByteArray;
 
+import sandy.HaxeTypes;
+
 /**
 * Transforms an MD2 file into Sandy MD2 primitive.
 * <p>Creates a Group as rootnode with MD2 primitive as its only child.

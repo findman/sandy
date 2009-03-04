@@ -4,6 +4,8 @@ package sandy.util;
 import sandy.core.data.Point3D;
 import sandy.math.Point3DMath;
 
+import sandy.HaxeTypes;
+
 /**
 * Utility class for Bézier calculations.
 *

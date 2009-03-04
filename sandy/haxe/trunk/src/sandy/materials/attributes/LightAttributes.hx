@@ -9,6 +9,8 @@ import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
+
 /**
 * Realize a flat shading effect when associated to a material.
 *

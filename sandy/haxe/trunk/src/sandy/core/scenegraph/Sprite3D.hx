@@ -8,6 +8,8 @@ import flash.display.Sprite;
 import sandy.core.Scene3D;
 import sandy.core.data.Matrix4;
 
+import sandy.HaxeTypes;
+
 /**
 * The Sprite3D class is used to create a 3D sprite.
 *

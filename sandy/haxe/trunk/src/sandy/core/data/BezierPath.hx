@@ -3,6 +3,7 @@ package sandy.core.data;
 
 import sandy.util.BezierUtil;
 
+import sandy.HaxeTypes;
 
 /**
 * A 3D Bézier path.

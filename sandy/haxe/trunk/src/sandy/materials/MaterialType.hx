@@ -1,6 +1,8 @@
 
 package sandy.materials;
 
+import sandy.HaxeTypes;
+
 /**
 * Represents the material types used in Sandy.
 *

@@ -1,6 +1,8 @@
 
 package sandy.core.data;
 
+import sandy.HaxeTypes;
+
 /**
 * The Quaternion class is experimental and not used in this version.
 *

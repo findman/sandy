@@ -4,6 +4,8 @@ package sandy.core.data;
 import sandy.core.scenegraph.Shape3D;
 import sandy.materials.Appearance;
 
+import sandy.HaxeTypes;
+
 /**
 * PrimitiveFace is a tool for generated primitive, allowing users (for some specifics primitives) to get the face polygon array
 * to have an easier manipulation.

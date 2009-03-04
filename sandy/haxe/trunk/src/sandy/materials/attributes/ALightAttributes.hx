@@ -13,6 +13,8 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.geom.ColorTransform;
 
+import sandy.HaxeTypes;
+
 /**
 * ABSTRACT CLASS - super class for all light attributes.
 *

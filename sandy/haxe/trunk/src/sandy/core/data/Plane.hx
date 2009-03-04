@@ -1,6 +1,8 @@
 
 package sandy.core.data;
 
+import sandy.HaxeTypes;
+
 /**
 * A plane in 3D space.
 *

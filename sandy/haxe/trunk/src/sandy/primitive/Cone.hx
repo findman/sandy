@@ -3,6 +3,8 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 
+import sandy.HaxeTypes;
+
 /**
 * The Cone class is used for creating a cone primitive.
 *

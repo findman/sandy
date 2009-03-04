@@ -8,6 +8,8 @@ import sandy.core.data.Polygon;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
+
 /**
 * Holds all line attribute data for a material.
 *

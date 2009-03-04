@@ -1,6 +1,8 @@
 
 package sandy.util;
 
+import sandy.HaxeTypes;
+
 /**
 * Utility class for useful numeric constants and number manipulation.
 *

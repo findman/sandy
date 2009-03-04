@@ -14,6 +14,8 @@ import sandy.core.data.Vertex;
 import sandy.core.data.UVCoord;
 import sandy.core.Scene3D;
 
+import sandy.HaxeTypes;
+
 /**
 * Utility class for Bitmap calculations.
 *

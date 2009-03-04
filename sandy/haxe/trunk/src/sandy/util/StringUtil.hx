@@ -1,4 +1,8 @@
+
 package sandy.util
+
+import sandy.HaxeTypes;
+
 /**
 * Utility class for string manipulation.
 *

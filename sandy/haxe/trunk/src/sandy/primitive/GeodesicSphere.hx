@@ -5,6 +5,8 @@ import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.data.Point3D;
 
+import sandy.HaxeTypes;
+
 /**
 * GeodesicSphere implements octahedron-based geodesic sphere.
 *

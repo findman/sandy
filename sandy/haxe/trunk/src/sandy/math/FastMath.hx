@@ -1,16 +1,12 @@
 
 package sandy.math;
 
+import sandy.HaxeTypes;
 import haxe.FastList;
 
-#if flash
 #if flash10
 import flash.Memory;
 import flash.utils.ByteArray;
-#end
-typedef TypedArray<T> = flash.Vector<T>;
-#else
-typedef TypedArray<T> = Array<T>;
 #end
 
 /**

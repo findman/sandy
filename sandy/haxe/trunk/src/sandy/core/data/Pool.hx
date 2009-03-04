@@ -1,4 +1,7 @@
 package sandy.core.data;
+
+import sandy.HaxeTypes;
+
 /**
 * @author thomas
 * @author Russell Weir - haXe port

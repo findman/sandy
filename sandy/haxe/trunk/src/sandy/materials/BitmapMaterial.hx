@@ -15,6 +15,8 @@ import sandy.core.data.UVCoord;
 import sandy.materials.attributes.MaterialAttributes;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * Displays a bitmap on the faces of a 3D shape.
 *

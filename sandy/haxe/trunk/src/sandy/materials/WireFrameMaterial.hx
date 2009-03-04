@@ -8,6 +8,8 @@ import sandy.core.data.Polygon;
 import sandy.materials.attributes.LineAttributes;
 import sandy.materials.attributes.MaterialAttributes;
 
+import sandy.HaxeTypes;
+
 /**
 * Displays the faces of a 3D shape as a wire frame.
 *

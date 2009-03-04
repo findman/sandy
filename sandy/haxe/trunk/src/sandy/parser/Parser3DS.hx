@@ -13,6 +13,8 @@ import flash.net.URLLoaderDataFormat;
 import flash.utils.ByteArray;
 import flash.utils.Endian;
 
+import sandy.HaxeTypes;
+
 /**
 * Transforms a 3DS file into Sandy geometries.
 * <p>Creates a Group as rootnode which appends all geometries it finds.

@@ -13,6 +13,8 @@ import flash.text.TextField;
 import flash.utils.Dictionary;
 #end
 
+import sandy.HaxeTypes;
+
 class TextLink
 {
 

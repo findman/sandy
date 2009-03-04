@@ -10,6 +10,7 @@ import sandy.core.data.UVCoord;
 import flash.utils.ByteArray;
 import flash.utils.Endian;
 
+import sandy.HaxeTypes;
 
 /**
 * MD2 primitive.

@@ -15,6 +15,8 @@ import sandy.materials.Material;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * The Sprite2D class is used to create a 2D sprite.
 *

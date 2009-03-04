@@ -3,6 +3,8 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.TransformGroup;
 
+import sandy.HaxeTypes;
+
 /**
 * A SkyBox is a TransformGroup of six Plane3D objects that form a box.
 *

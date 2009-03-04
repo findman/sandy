@@ -3,6 +3,8 @@ package sandy.view;
 
 import flash.geom.Point;
 
+import sandy.HaxeTypes;
+
 /**
 * The view port represents the rendered screen.
 *

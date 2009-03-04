@@ -7,6 +7,8 @@ import sandy.core.data.Point3D;
 import sandy.events.SandyEvent;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * The Light3D class is used for creating the light of the world.
 *

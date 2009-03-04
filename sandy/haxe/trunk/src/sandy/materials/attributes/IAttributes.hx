@@ -8,6 +8,8 @@ import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
+
 /**
 * Interface for all the elements that represent a material attribute property.
 * This interface is important to make attributes really flexible and allow users to extend it.

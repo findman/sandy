@@ -6,6 +6,8 @@ import flash.geom.Matrix;
 import sandy.core.data.Vertex;
 import sandy.errors.SingletonError;
 
+import sandy.HaxeTypes;
+
 /**
 * Math functions for vertex manipulation.
 *

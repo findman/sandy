@@ -17,12 +17,7 @@ import flash.filters.BlurFilter;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 
-
-#if flash
-typedef TypedArray<T> = flash.Vector<T>;
-#else
-typedef TypedArray<T> = Array<T>;
-#end
+import sandy.HaxeTypes;
 
 /**
 * This attribute provides very basic simulation of partially opaque medium.

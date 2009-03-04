@@ -14,6 +14,8 @@ import sandy.core.scenegraph.Sprite2D;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * This class is design to handle the rendering processing of a Sandy3D scene.
 * Basically, it collects elemens to render, prepare their matrix, project vertices.

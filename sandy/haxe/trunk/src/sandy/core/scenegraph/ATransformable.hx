@@ -4,6 +4,8 @@ package sandy.core.scenegraph;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
 
+import sandy.HaxeTypes;
+
 /**
 * ABSTRACT CLASS - super class for all movable objects in the object tree.
 *

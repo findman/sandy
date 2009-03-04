@@ -5,6 +5,8 @@ import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
+import sandy.HaxeTypes;
+
 /**
 * The Plane3D is used for creating a plane primitive.
 *

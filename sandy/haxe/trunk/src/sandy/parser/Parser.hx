@@ -1,6 +1,8 @@
 
 package sandy.parser;
 
+import sandy.HaxeTypes;
+
 /**
 * The Parser factory class creates instances of parser classes.
 * The specific parser can be specified in the create method's second parameter.

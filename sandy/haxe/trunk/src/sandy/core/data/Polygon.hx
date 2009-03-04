@@ -24,6 +24,8 @@ import sandy.math.Point3DMath;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * Polygon's are the building blocks of visible 3D shapes.
 *

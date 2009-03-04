@@ -10,6 +10,8 @@ import sandy.parser.AParser;
 import sandy.parser.IParser;
 import sandy.parser.ParserEvent;
 
+import sandy.HaxeTypes;
+
 /**
 * ParserStack utility class.
 * <p>An utility class that acts as a parser stack. You can a set of parser objects, and it process to the loading/parsing automatially and sequentially.</p>

@@ -4,6 +4,7 @@ package sandy.materials;
 import sandy.core.Scene3D;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
 
 /**
 * Represents the appearance property of the visible objects.

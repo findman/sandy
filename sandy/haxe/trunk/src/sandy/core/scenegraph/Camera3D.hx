@@ -8,6 +8,8 @@ import sandy.util.NumberUtil;
 import sandy.view.Frustum;
 import sandy.view.ViewPort;
 
+import sandy.HaxeTypes;
+
 /**
 * The Camera3D class is used to create a camera for the Sandy world.
 *

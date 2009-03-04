@@ -18,6 +18,8 @@ import flash.net.URLLoader;
 import flash.net.URLLoaderDataFormat;
 import flash.net.URLRequest;
 
+import sandy.HaxeTypes;
+
 /**
 * ABSTRACT CLASS - super class for all parser objects.
 *

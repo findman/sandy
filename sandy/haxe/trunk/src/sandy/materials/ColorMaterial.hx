@@ -9,6 +9,8 @@ import sandy.materials.attributes.MaterialAttributes;
 import flash.display.Graphics;
 import flash.display.Sprite;
 
+import sandy.HaxeTypes;
+
 
 /**
 * Displays a color with on the faces of a 3D shape.

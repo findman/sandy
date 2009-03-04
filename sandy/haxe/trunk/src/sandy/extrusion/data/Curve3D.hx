@@ -1,7 +1,9 @@
-﻿package sandy.extrusion.data;
+package sandy.extrusion.data;
 
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
+
+import sandy.HaxeTypes;
 
 /**
 * Specifies a curve in 3D space.
@@ -11,7 +13,7 @@ import sandy.core.data.Point3D;
 * @version		3.1
 * @date 		04.03.2009
 */
-class Curve3D 
+class Curve3D
 {
 	/**
 	 * Array of points that curve passes through.

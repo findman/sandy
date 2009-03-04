@@ -1,18 +1,4 @@
-﻿/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
-# ***** END LICENSE BLOCK *****
-*/
 package sandy.bounds;
 
 import sandy.core.data.Matrix4;
@@ -20,23 +6,25 @@ import sandy.core.data.Pool;
 import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 
-	/**
-	* The BBox class is used to quickly and easily clip an object in a 3D scene.
-	* <p>It creates a bounding box that contains the whole object.</p>
-	*
-	* @example 	This example is taken from the Shape3D class. It is used in
-	* 				the <code>updateBoundingVolumes()</code> method:
-	*
-	* <listing version="3.1">
-	*     _oBBox = BBox.create( m_oGeometry.aVertex );
-	*  </listing>
-	*
-	* @author		Thomas Pfeiffer - kiroukou
-	* @version		3.1
-	* @author Niel Drummond - haXe port
-	* @author Russell Weir - haXe port
-	* @date 		22.03.2006
-	*/
+import sandy.HaxeTypes;
+
+/**
+* The BBox class is used to quickly and easily clip an object in a 3D scene.
+* <p>It creates a bounding box that contains the whole object.</p>
+*
+* @example 	This example is taken from the Shape3D class. It is used in
+* 				the <code>updateBoundingVolumes()</code> method:
+*
+* <listing version="3.1">
+*     _oBBox = BBox.create( m_oGeometry.aVertex );
+*  </listing>
+*
+* @author		Thomas Pfeiffer - kiroukou
+* @version		3.1
+* @author Niel Drummond - haXe port
+* @author Russell Weir - haXe port
+* @date 		22.03.2006
+*/
 class BBox
 {
 	/**
@@ -177,7 +165,7 @@ class BBox
 		return new Point3D((this.maxEdge.x + this.minEdge.x) / 2, (this.maxEdge.y + this.minEdge.y) / 2, (this.maxEdge.z + this.minEdge.z) / 2);
 	}
 
-	public function getEdges(edges:Array<Point3D>):Void
+	public function getEdges(edges:TypedArray<Point3D>):Void
 	{
 		if (edges == null) return;
 		// --
@@ -267,9 +255,11 @@ class BBox
 	public function transform( p_oMatrix:Matrix4 ):BBox
 	{
 		var l_oBox:BBox = new BBox();
-		var l_aEdges:Array<Point3D> = [ Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D,
-								Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D,
-								Pool.getInstance().nextPoint3D, Pool.getInstance().nextPoint3D];
+		var inst = Pool.getInstance();
+		var l_aEdges:TypedArray<Point3D> = Haxe.toTypedArray( [
+							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
+							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
+							inst.nextPoint3D, inst.nextPoint3D] );
 		// --
 		getEdges( l_aEdges );
 		// --

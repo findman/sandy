@@ -9,6 +9,8 @@ import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 
+import sandy.HaxeTypes;
+
 /**
 * The Box class is used for creating a cube or box primitive ( cuboid ).
 *

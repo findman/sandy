@@ -17,6 +17,8 @@ import sandy.core.data.Vertex;
 import sandy.events.StarFieldRenderEvent;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
+
 /**
 * The StarField class renders dense star field at reasonable FPS.
 *

@@ -6,6 +6,8 @@ import sandy.core.data.Quaternion;
 import sandy.core.data.Point3D;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * Math functions for manipulation of quaternion objects.
 *

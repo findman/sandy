@@ -14,6 +14,8 @@ import sandy.materials.attributes.MaterialAttributes;
 import sandy.math.ColorMath;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * Displays a Flash video ( FLV ) on the faces of a 3D shape.
 *

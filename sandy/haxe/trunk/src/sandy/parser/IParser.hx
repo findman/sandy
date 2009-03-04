@@ -5,6 +5,8 @@ import flash.events.IEventDispatcher;
 
 import sandy.materials.Appearance;
 
+import sandy.HaxeTypes;
+
 
 /**
 * The IParser interface defines the interface that parser classes such as ColladaParser must implement.

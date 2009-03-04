@@ -20,6 +20,7 @@ import sandy.core.data.Polygon;
 import sandy.core.data.UVCoord;
 import sandy.materials.MovieMaterial;
 
+import sandy.HaxeTypes;
 
 /**
  * VirtualMouse interacting with MovieMaterial

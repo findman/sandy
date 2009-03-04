@@ -23,6 +23,7 @@ import sandy.math.IntersectionMath;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
+import sandy.HaxeTypes;
 
 /**
 * The Shape3D class is the base class of all true 3D shapes.

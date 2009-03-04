@@ -15,6 +15,8 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 // import flash.utils.Dictionary;
 
+import sandy.HaxeTypes;
+
 /**
 * Realize a Phong shading on a material.
 * <p>In true Phong shading, normals are supposed to be interpolated across the surface;

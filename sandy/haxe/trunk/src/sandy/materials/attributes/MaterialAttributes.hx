@@ -8,6 +8,8 @@ import sandy.core.data.Polygon;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
+
 /**
 * The MaterialAttributes class is used to apply one or more attributes to a Shape3D object.
 *

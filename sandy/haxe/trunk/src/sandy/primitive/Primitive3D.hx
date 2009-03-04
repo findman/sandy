@@ -4,6 +4,8 @@ package sandy.primitive;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.data.Point3D;
 
+import sandy.HaxeTypes;
+
 /**
 * An interface implemented by all 3D primitive classes.
 *

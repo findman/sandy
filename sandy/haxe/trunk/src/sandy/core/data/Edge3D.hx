@@ -1,6 +1,7 @@
 
 package sandy.core.data;
 
+import sandy.HaxeTypes;
 
 /**
 * <p>The Edge3D class stores two related Vertex objects that make an edge.

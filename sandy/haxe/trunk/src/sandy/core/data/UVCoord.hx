@@ -1,6 +1,8 @@
 
 package sandy.core.data;
 
+import sandy.HaxeTypes;
+
 /**
 * A 2D coordinate point on a texture that corresponds to a vertex of a polygon.
 *

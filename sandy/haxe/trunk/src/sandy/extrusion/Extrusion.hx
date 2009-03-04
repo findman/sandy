@@ -1,4 +1,4 @@
-﻿package sandy.extrusion;
+package sandy.extrusion;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -10,6 +10,8 @@ import sandy.core.data.PrimitiveFace;
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
 import sandy.extrusion.data.Polygon2D;
+
+import sandy.HaxeTypes;
 
 /**
  * Very basic extrusion class.
@@ -33,7 +35,7 @@ class Extrusion extends Shape3D {
 	 */
 	public function new (name:String, profile:Polygon2D, ?sections:Array < Matrix4 > = null, ?closeFront:Bool = true, ?closeBack:Bool = true) {
 		super();
-				
+
 		var a:Float = profile.area();
 		var i:Int;
 		var j:Int;
@@ -62,7 +64,7 @@ class Extrusion extends Shape3D {
 		// construct profile vertices and side surface, if any
 		for ( i in 0 ... l_sections.length ) {
 			var m:Matrix4 = l_sections [i];
-			
+
 			for ( j in 0 ... n + 1 ) {
 				if (j < n) {
 					v.x = profile.vertices [j].x;
@@ -73,7 +75,7 @@ class Extrusion extends Shape3D {
 				}
 				g.setUVCoords (j + i * (n + 1), j / n, i / (l_sections.length - 1));
 			}
-			
+
 			if (i > 0) {
 				for ( j in 1 ... n + 1 ) {
 					if (ArrayUtil.indexOf(profile.vertices [j % n], links) < 0) {

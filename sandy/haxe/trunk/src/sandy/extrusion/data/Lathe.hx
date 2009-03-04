@@ -1,7 +1,9 @@
-﻿package sandy.extrusion.data;
+package sandy.extrusion.data;
 
 import sandy.core.data.Point3D;
 import sandy.math.FastMath;
+
+import sandy.HaxeTypes;
 
 /**
 * Circular, spiral or helix arc.
@@ -12,7 +14,7 @@ import sandy.math.FastMath;
 * @date 		04.03.2009
 */
 class Lathe extends Curve3D {
-	
+
 	/**
 	 * Generates circular, spiral or helix arc.
 	 * @param	center Arc center.
@@ -83,5 +85,5 @@ class Lathe extends Curve3D {
 			a += step;
 		}
 	}
-	
+
 }

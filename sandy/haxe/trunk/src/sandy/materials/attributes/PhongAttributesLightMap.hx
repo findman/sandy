@@ -1,6 +1,8 @@
 
 package sandy.materials.attributes;
 
+import sandy.HaxeTypes;
+
 /**
  * A lightmap used for some of the shaders.
  *

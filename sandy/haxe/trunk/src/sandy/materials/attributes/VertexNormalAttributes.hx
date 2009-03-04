@@ -9,6 +9,8 @@ import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
+
 /**
 * Display the vertex normals of a given object.
 *

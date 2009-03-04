@@ -12,6 +12,7 @@ import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
 
+import sandy.HaxeTypes;
 
 /**
 * Holds all outline attributes data for a material.

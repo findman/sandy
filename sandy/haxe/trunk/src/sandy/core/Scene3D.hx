@@ -11,6 +11,8 @@ import sandy.events.SandyEvent;
 import flash.display.Sprite;
 import flash.events.EventDispatcher;
 
+import sandy.HaxeTypes;
+
 /*
 [Event(name="lightAdded", type="sandy.events.SandyEvent")]
 [Event(name="scene_render", type="sandy.events.SandyEvent")]

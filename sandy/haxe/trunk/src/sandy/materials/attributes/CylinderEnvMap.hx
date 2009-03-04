@@ -14,6 +14,8 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 // import flash.utils.Dictionary;
 
+import sandy.HaxeTypes;
+
 
 /**
 * Applies cylindric environment map.

@@ -1,6 +1,8 @@
 
 package sandy.math;
 
+import sandy.HaxeTypes;
+
 typedef ColorMathRGB = {
 		r:Float,
 		g:Float,

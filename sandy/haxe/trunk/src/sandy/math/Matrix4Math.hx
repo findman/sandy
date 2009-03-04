@@ -4,6 +4,8 @@ import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
 import sandy.util.NumberUtil;
 
+import sandy.HaxeTypes;
+
 /**
 * Math functions for Matrix4 calculations.
 *
