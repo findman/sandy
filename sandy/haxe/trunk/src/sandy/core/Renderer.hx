@@ -15,8 +15,14 @@ import sandy.view.CullingState;
 import sandy.view.Frustum;
 
 /**
+* This class is design to handle the rendering processing of a Sandy3D scene.
+* Basically, it collects elemens to render, prepare their matrix, project vertices.
+*
+* It also manage the cache system. It means it handle the fact that any non moving object isn't rendered.
+*
 * @author thomas
 * @author Russell Weir - haXe port
+* @version 3.1
 */
 class Renderer
 {

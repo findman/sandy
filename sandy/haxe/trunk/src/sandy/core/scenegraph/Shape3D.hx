@@ -1,18 +1,3 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author or authors.
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core.scenegraph;
 
@@ -286,177 +271,21 @@ class Shape3D extends ATransformable, implements IDisplayable
 		{
 			scene.renderer.addToDisplayList(this);
 		}
-		if( m_bEv )
+		if( m_bEv || m_bMouseInteractivity )
 		{
-			if( m_bWasOver == true && m_oContainer.hitTestPoint(m_oContainer.mouseX, m_oContainer.mouseY) == false )
+			if( m_bWasOver == true && m_oLastContainer.hitTestPoint(m_oLastContainer.mouseX, m_oLastContainer.mouseY) == false )
 			{
 				m_oEB.dispatchEvent( new Shape3DEvent( MouseEvent.MOUSE_OUT, this, m_oLastEvent.polygon, m_oLastEvent.uv, m_oLastEvent.point, m_oLastEvent.event ) );
 				m_bWasOver = false;
-			}
-		}
-	}
-
-	/**
-	* Renders this 3D object.
-	*
-	* @param p_oScene The current scene
-	* @param p_oCamera	The current camera
-	*
-	public override function render( p_oScene:Scene3D, p_oCamera:Camera3D ):Void
-	{
-		// IF no appearance has bene applied, no display
-		if( m_oAppearance == null ) return;
-		var 	m11:Float, m21:Float, m31:Float,
-				m12:Float, m22:Float, m32:Float,
-				m13:Float, m23:Float, m33:Float,
-				m14:Float, m24:Float, m34:Float,
-				x:Float, y:Float, z:Float, tx:Float, ty:Float, tz:Float;
-
-		var  	l_nZNear:Float = p_oCamera.near, l_aPoints:Array<Vertex> = m_oGeometry.aVertex,
-				l_oMatrix:Matrix4 = viewMatrix, l_oFrustum:Frustum = p_oCamera.frustrum,
-				l_aVertexNormals:Array<Dynamic> = m_oGeometry.aVertexNormals,
-				l_oVertexNormal:Vertex, l_oVertex:Vertex, l_oFace:Polygon, l_nMinZ:Float;
-
-		// -- Now we can transform the objet vertices into the camera coordinates
-		l_oMatrix = viewMatrix;
-		m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-		m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-		m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-		m14 = l_oMatrix.n14; m24 = l_oMatrix.n24; m34 = l_oMatrix.n34;
-		for ( l_oVertex in l_aPoints )
-		{
-			l_oVertex.wx = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13 + m14;
-			l_oVertex.wy = x * m21 + y * m22 + z * m23 + m24;
-			l_oVertex.wz = x * m31 + y * m32 + z * m33 + m34;
-			l_oVertex.projected = false;
-		}
-		// -- The polygons will be clipped, we shall allocate a new array container the clipped vertex.
-		aVisiblePolygons = [];
-		m_nVisiblePoly = 0;
-		m_nDepth = 0;
-
-		for ( l_oFace in aPolygons )
-		{
-			l_oFace.isClipped = false;
-			// --
-			x =  l_oFace.normal.x ; y =  l_oFace.normal.y ; z =  l_oFace.normal.z ;
-			// --
-			tx = x * m11+ y * m12+ z * m13;
-			ty = x * m21+ y * m22+ z * m23;
-			tz = x * m31+ y * m32+ z * m33;
-			// -- visibility computation
-			x = l_oFace.a.wx*tx + l_oFace.a.wy*ty + l_oFace.a.wz*tz;
-			l_oFace.visible = x < 0;
-			// --
-			if( l_oFace.visible || !m_bBackFaceCulling)
-			{
-				l_oFace.precompute();
-				l_nMinZ = l_oFace.minZ;
-				// --
-				if( m_bClipped && enableClipping ) // NEED COMPLETE CLIPPING
+				if( m_oLastContainer != m_oContainer )
 				{
-						l_oFace.clip( l_oFrustum );
-						// -- We project the vertices
-						if( l_oFace.cvertices.length > 2 )
-						{
-							p_oCamera.projectArray( l_oFace.cvertices );
-							if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
-							else l_oFace.depth = forcedDepth;
-							// -- we manage the display list depending on the mode choosen
-							aVisiblePolygons[(m_nVisiblePoly++)] = l_oFace;
-						}
-				}
-				else if(  enableNearClipping && l_nMinZ < l_nZNear ) // PARTIALLY VISIBLE
-				{
-						l_oFace.clipFrontPlane( l_oFrustum );
-						// -- We project the vertices
-						if( l_oFace.cvertices.length > 2 )
-						{
-							p_oCamera.projectArray( l_oFace.cvertices );
-							if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
-							else l_oFace.depth = forcedDepth;
-							// -- we manage the display list depending on the mode choosen
-							aVisiblePolygons[(m_nVisiblePoly++)] = l_oFace;
-						}
-				}
-				else if( l_nMinZ >= l_nZNear )
-				{
-						p_oCamera.projectArray( l_oFace.vertices );
-						if( !enableForcedDepth ) m_nDepth += l_oFace.m_nDepth;
-						else l_oFace.depth = forcedDepth;
-						// -- we manage the display list depending on the mode choosen
-						aVisiblePolygons[(m_nVisiblePoly++)] = l_oFace;
-				}
-				else
-				continue;
-
-				if( l_oFace.hasAppearanceChanged )
-				{
-					if( p_oScene.materialManager.isRegistered( l_oFace.appearance.frontMaterial ) == false )
-					{
-						p_oScene.materialManager.register( l_oFace.appearance.frontMaterial );
-					}
-					if( l_oFace.appearance.frontMaterial != l_oFace.appearance.backMaterial )
-					{
-						if( p_oScene.materialManager.isRegistered( l_oFace.appearance.backMaterial ) == false )
-						{
-							p_oScene.materialManager.register( l_oFace.appearance.backMaterial );
-						}
-					}
-					l_oFace.hasAppearanceChanged = false;
-				}
-
-			}
-		}
-		// --
-		if( m_bUseSingleContainer )
-		{
-			if(enableForcedDepth) 	m_nDepth = forcedDepth;
-			else 					m_nDepth /= aVisiblePolygons.length;
-			p_oCamera.addToDisplayList( this );
-		}
-		else
-		{
-			p_oCamera.addArrayToDisplayList( untyped( aVisiblePolygons ) );
-		}
-
-		var l_nFlags:Int = appearance.flags;
-
-		if( l_nFlags == 0 ) return;
-
-		var i:Int;
-		l_oMatrix = modelMatrix;
-		m11 = l_oMatrix.n11; m21 = l_oMatrix.n21; m31 = l_oMatrix.n31;
-		m12 = l_oMatrix.n12; m22 = l_oMatrix.n22; m32 = l_oMatrix.n32;
-		m13 = l_oMatrix.n13; m23 = l_oMatrix.n23; m33 = l_oMatrix.n33;
-		if( appearance.flags & SandyFlags.POLYGON_NORMAL_WORLD > 0 )
-		{
-			// -- Now we transform the normals.
-			for ( l_oPoly in aVisiblePolygons )
-			{
-				l_oVertex = l_oPoly.normal;
-				l_oVertex.wx  = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13;
-				l_oVertex.wy  = x * m21 + y * m22 + z * m23;
-				l_oVertex.wz  = x * m31 + y * m32 + z * m33;
-			}
-		}
-		if( appearance.flags & SandyFlags.VERTEX_NORMAL_WORLD > 0 )
-		{
-			// -- Now we transform the normals.
-			i = m_oGeometry.aVertexNormals.length;
-			while( --i > -1 )
-			{
-				if( m_oGeometry.aVertex[(i)].projected )
-				{
-					l_oVertex = m_oGeometry.aVertexNormals[(i)];
-					l_oVertex.wx  = (x=l_oVertex.x) * m11 + (y=l_oVertex.y) * m12 + (z=l_oVertex.z) * m13;
-					l_oVertex.wy  = x * m21 + y * m22 + z * m23;
-					l_oVertex.wz  = x * m31 + y * m32 + z * m33;
+					m_oLastEvent.polygon._onTextureInteraction( m_oLastEvent.event );
+					m_oLastEvent.polygon._stopMouseInteraction();
 				}
 			}
 		}
 	}
-*/
+
 	/**
 	* Clears the graphics object of this object's container.
 	*
@@ -826,6 +655,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 				{
 					var l_oUV:UVCoord = l_oPoly.getUVFrom2D( l_oClick );
 					var l_oPt3d:Point3D = l_oPoly.get3DFrom2D( l_oClick );
+					m_oLastContainer = m_oContainer;
 					m_oLastEvent = new Shape3DEvent( p_oEvt.type, this, l_oPoly, l_oUV, l_oPt3d, p_oEvt );
 					m_oEB.dispatchEvent( m_oLastEvent );
 					// to be able to dispatch mouse out event
@@ -835,7 +665,6 @@ class Shape3D extends ATransformable, implements IDisplayable
 				}
 			}
 		}
-		//m_oEB.broadcastEvent( new BubbleEvent( p_oEvt.type, this, p_oEvt ) );
 	}
 
 	/**
@@ -960,8 +789,10 @@ class Shape3D extends ATransformable, implements IDisplayable
 	private var m_oGeomCenter:Point3D;
 	private var m_bBackFaceCulling:Bool;
 
-	private var m_bWasOver:Bool;
-	private var m_oLastEvent:Shape3DEvent;
+	//@private
+	public var m_bWasOver:Bool;
+	public var m_oLastEvent:Shape3DEvent;
+	public var m_oLastContainer:Sprite;
 
 	/** Geometry of this object */
 	private var m_oGeometry:Geometry3D;
@@ -969,7 +800,6 @@ class Shape3D extends ATransformable, implements IDisplayable
 	private var m_bUseSingleContainer:Bool;
 	public var m_nDepth:Float;
 	private var m_oContainer:Sprite;
-
 	private var m_bMouseInteractivity:Bool;
 	private var m_bForcedSingleContainer:Bool;
 	private var m_bNotConvex:Bool;

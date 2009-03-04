@@ -1,18 +1,3 @@
-/*
-# ***** BEGIN LICENSE BLOCK *****
-Copyright the original author Thomas PFEIFFER
-Licensed under the MOZILLA PUBLIC LICENSE, Version 1.1 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-	http://www.mozilla.org/MPL/MPL-1.1.html
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-# ***** END LICENSE BLOCK *****
-*/
 
 package sandy.core.data;
 
@@ -608,15 +593,26 @@ class Polygon implements IDisplayable
 		return b;
 	}
 
+	private var m_bWasOver:Boolean;
+	/**
+	* @private
+	*/
 	private function _onInteraction( p_oEvt:Event ):Void
 	{
 		var l_oClick:Point = new Point( m_oContainer.mouseX, m_oContainer.mouseY );
 		var l_oUV:UVCoord = getUVFrom2D( l_oClick );
 		var l_oPt3d:Point3D = get3DFrom2D( l_oClick );
-		m_oEB.dispatchEvent( new Shape3DEvent( p_oEvt.type, shape, this, l_oUV, l_oPt3d, p_oEvt ) );
+		shape.m_oLastContainer = this.m_oContainer;
+		shape.m_oLastEvent = new Shape3DEvent( p_oEvt.type, shape, this, l_oUV, l_oPt3d, p_oEvt );
+		m_oEB.dispatchEvent( shape.m_oLastEvent );
+		if( p_oEvt.type == MouseEvent.MOUSE_OVER )
+			shape.m_bWasOver = true;
 	}
 
-	private function _startMouseInteraction( ?e : MouseEvent ) : Void
+	/**
+	* @private
+	*/
+	public function _startMouseInteraction( ?e : MouseEvent ) : Void
 	{
 		container.addEventListener(MouseEvent.CLICK, _onTextureInteraction);
 		container.addEventListener(MouseEvent.MOUSE_UP, _onTextureInteraction);
@@ -634,22 +630,25 @@ class Polygon implements IDisplayable
 		m_oContainer.addEventListener( Event.ENTER_FRAME, _onTextureInteraction );
 	}
 
-	private function _stopMouseInteraction( ?e : MouseEvent ) : Void
+	/**
+	* @private
+	*/
+	public function _stopMouseInteraction( ?e : MouseEvent ) : Void
 	{
-		container.removeEventListener(MouseEvent.CLICK, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_UP, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_DOWN, _onTextureInteraction);
+		container.addEventListener(MouseEvent.CLICK, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_UP, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_DOWN, _onTextureInteraction);
 
-		container.removeEventListener(MouseEvent.DOUBLE_CLICK, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_MOVE, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_OVER, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_OUT, _onTextureInteraction);
-		container.removeEventListener(MouseEvent.MOUSE_WHEEL, _onTextureInteraction);
-		m_oContainer.removeEventListener( Event.ENTER_FRAME, _onTextureInteraction );
+		container.addEventListener(MouseEvent.DOUBLE_CLICK, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_MOVE, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_OVER, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_OUT, _onTextureInteraction);
+		container.addEventListener(MouseEvent.MOUSE_WHEEL, _onTextureInteraction);
 
-		container.removeEventListener(KeyboardEvent.KEY_DOWN, _onTextureInteraction);
-		container.removeEventListener(KeyboardEvent.KEY_UP, _onTextureInteraction);
+		container.addEventListener(KeyboardEvent.KEY_DOWN, _onTextureInteraction);
+		container.addEventListener(KeyboardEvent.KEY_UP, _onTextureInteraction);
 
+		m_oContainer.addEventListener( Event.ENTER_FRAME, _onTextureInteraction );
 	}
 
 	/**
@@ -680,7 +679,10 @@ class Polygon implements IDisplayable
 		return p_bState;
 	}
 
-	private function _onTextureInteraction( ?p_oEvt:Event ) : Void
+	/**
+	* @private
+	*/
+	public function _onTextureInteraction( ?p_oEvt:Event ) : Void
 	{
 		var l_bIsMouseEvent : Bool = switch ( Type.typeof( p_oEvt ) ) {
 			case TClass( MouseEvent ):

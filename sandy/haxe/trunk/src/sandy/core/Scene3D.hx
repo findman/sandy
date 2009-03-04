@@ -51,32 +51,6 @@ import flash.events.EventDispatcher;
 * @version		3.1
 * @date 		25.08.2008
 */
-
-/**
-* The Scene3D object is the central point of a Sandy world.
-*
-* <p>You can have multiple Scene3D objects in the same application.<br/>
-* The older World3D is a singleton special case of Scene3D.<br />
-* The scene contains the object tree with groups, a camera, a light source and a canvas to draw on.</p>
-*
-* @example	To create a scene, you pass a container, a camera and a root group to its constructor.<br/>
-* The rendering of the world is driven by a "heart beat", which may be a Timer or the Event.ENTER_FRAME event.
-*
-* <listing version="3.0">
-* 	var camera:Camera3D = new Camera3D(400, 300);
-* 	camera.z = -200;
-* 	// The call to createScene() will create the root Group of this scene
-* 	var scene:Scene3D = new Scene3D("Scene 1", this, camera, createScene());
-* 	scene.root.addChild(camera);
-* 	//The handler calls the world.render() method to render the world for each frame.
-* 	addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-* </listing>
-*
-* @author	Thomas Pfeiffer - kiroukou
-* @author Niel Drummond - haXe port
-*
-*
-*/
 class Scene3D extends EventDispatcher
 {
 	/**
