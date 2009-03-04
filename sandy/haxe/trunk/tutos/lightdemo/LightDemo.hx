@@ -105,7 +105,7 @@ class LightDemo extends Sprite
 		/*
 		m_oSphere = new Sphere("mySphere", 30 );
 		m_oSphere.x = 200;
-		m_oSphere.geometryCenter = new Vector( 50, 0, 0 );
+		m_oSphere.geometryCenter = new Point3D( 50, 0, 0 );
 		var l_oSphereMaterial:ColorMaterial = new ColorMaterial( 0xFF0000, 1, _createMaterialAttributes() );
 		l_oSphereMaterial.lightingEnable = true;
 		m_oSphere.appearance = new Appearance( l_oSphereMaterial  );

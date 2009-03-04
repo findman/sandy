@@ -140,7 +140,7 @@ class ClippingDemo extends Sprite
 	private function enterFrameHandler( event : Event ) : Void
 	{
 		var cam:Camera3D = world.camera;
-		//var oldPos:Vector = cam.getPosition();
+		//var oldPos:Point3D = cam.getPosition();
 		// --
 		/*
 		if( keyPressed[Keyboard.RIGHT] ) 

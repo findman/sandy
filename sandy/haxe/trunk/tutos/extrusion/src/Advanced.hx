@@ -12,7 +12,7 @@ import flash.geom.Point;
 import flash.Lib;
 
 import sandy.core.Scene3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.extrusion.data.Polygon2D;
@@ -55,12 +55,12 @@ class Advanced extends Sprite
 		var tentacle:Curve3D = new Curve3D();
 		for ( i in 0 ... 21 ) {
 			// add path point (arbitrary formula here)
-			tentacle.v.push (new Vector (i * i - 100 - 100 * Math.sin ((i - 5) * 0.2), 100 - i * i, 20 * i));
-			// specify tangent vector at that point (for best results, we derive this from path equation here)
-			var t:Vector = new Vector (2 * i - 100 * 0.2 * Math.cos ((i - 5) * 0.2), -2 * i, 20); t.normalize ();
+			tentacle.v.push (new Point3D (i * i - 100 - 100 * Math.sin ((i - 5) * 0.2), 100 - i * i, 20 * i));
+			// specify tangent Point3D at that point (for best results, we derive this from path equation here)
+			var t:Point3D = new Point3D (2 * i - 100 * 0.2 * Math.cos ((i - 5) * 0.2), -2 * i, 20); t.normalize ();
 			tentacle.t.push (t);
-			// specify normal vector at that point (as you see, it does not have to be accurate :)
-			var n:Vector = new Vector (0.707, 0.707, 0); n.crossWith (t);
+			// specify normal Point3D at that point (as you see, it does not have to be accurate :)
+			var n:Point3D = new Point3D (0.707, 0.707, 0); n.crossWith (t);
 			tentacle.n.push (n);
 			// specify profile scale at that point (arbitrary formula, again)
 			tentacle.s.push (0.1 * i);
@@ -70,7 +70,7 @@ class Advanced extends Sprite
 		ext = new Extrusion ("kraken", profile, tentacle.toSections (), false, false); scene.root.addChild (ext);
 		// add some material
 		var material:BitmapMaterial = new BitmapMaterial(getLibBitmap("Tentacle").bitmapData,
-			new MaterialAttributes ([new MediumAttributes (0xFFFFFFFF, new Vector (0, 0, 310), new Vector (0, 0, 310))]));
+			new MaterialAttributes ([new MediumAttributes (0xFFFFFFFF, new Point3D (0, 0, 310), new Point3D (0, 0, 310))]));
 		material.setTiling (1, 15);
 		ext.appearance = new Appearance (material);
 

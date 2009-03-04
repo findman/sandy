@@ -1,5 +1,5 @@
 import sandy.core.Scene3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.materials.Appearance;
@@ -38,9 +38,9 @@ class ShadedTorus extends Sprite {
 		function createScene():Group {
 				var g:Group = new Group();
 
-				var myXLine:Line3D = new Line3D( "x-coord", [new Vector( -50, 0, 0 ), new Vector( 50, 0, 0 )] );
-				var myYLine:Line3D = new Line3D( "y-coord", [new Vector( 0, -50, 0 ), new Vector( 0, 50, 0 )] );
-				var myZLine:Line3D = new Line3D( "z-coord", [new Vector( 0, 0, -50 ), new Vector( 0, 0, 50 )] );
+				var myXLine:Line3D = new Line3D( "x-coord", [new Point3D( -50, 0, 0 ), new Point3D( 50, 0, 0 )] );
+				var myYLine:Line3D = new Line3D( "y-coord", [new Point3D( 0, -50, 0 ), new Point3D( 0, 50, 0 )] );
+				var myZLine:Line3D = new Line3D( "z-coord", [new Point3D( 0, 0, -50 ), new Point3D( 0, 0, 50 )] );
 
 				var torus:Torus = new Torus( "theTorus", 120, 20 );
 

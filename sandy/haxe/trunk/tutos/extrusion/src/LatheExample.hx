@@ -7,7 +7,7 @@ import flash.geom.Point;
 import flash.Lib;
 
 import sandy.core.Scene3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.extrusion.Extrusion;
@@ -48,8 +48,8 @@ class LatheExample extends Sprite
 		]);
 
 		// curves
-		var lathe1:Lathe = new Lathe (new Vector(), new Vector (1, 1, 1), new Vector (1, 0, 0), -1);
-		var lathe2:Lathe = new Lathe (new Vector(), new Vector (1, 1, 1), new Vector (1, 0, 0), 0, 5);
+		var lathe1:Lathe = new Lathe (new Point3D(), new Point3D (1, 1, 1), new Point3D (1, 0, 0), -1);
+		var lathe2:Lathe = new Lathe (new Point3D(), new Point3D (1, 1, 1), new Point3D (1, 0, 0), 0, 5);
 
 		// extrusions
 		ext1 = new Extrusion ("ext0", p1, lathe1.toSections ());

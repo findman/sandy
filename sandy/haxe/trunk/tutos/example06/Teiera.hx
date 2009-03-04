@@ -32,7 +32,7 @@ super( p_Name ) ;
 geometry = generate() ;
 }
 
-public function generate(?arguments:Array<sandy.core.data.Vector>):Geometry3D
+public function generate<T>(?arguments:Array<T>):Geometry3D
 {
 l = new Geometry3D();
 vn(-0.964791,-0.255236,0.0635002);

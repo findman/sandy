@@ -1,6 +1,6 @@
 -cp ../../src
--swf9 teepot.swf
--main TeePot
+-swf9 colladacar.swf
+-main ColladaCar
 --next
 
 -cp ../../src

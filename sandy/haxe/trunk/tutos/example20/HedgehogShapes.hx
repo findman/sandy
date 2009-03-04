@@ -1,7 +1,7 @@
 import sandy.core.Scene3D;
 import sandy.core.data.Polygon;
 import sandy.core.data.UVCoord;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
@@ -122,8 +122,8 @@ class HedgehogShapes extends Sprite {
 
 		private function onClickOne( p_eEvent:Shape3DEvent ):Void
 		{
-				var v:Vector = p_eEvent.point;
-				var top:Vector = p_eEvent.polygon.normal.getVector().clone();
+				var v:Point3D = p_eEvent.point;
+				var top:Point3D = p_eEvent.polygon.normal.getPoint3D().clone();
 				top.scale( 20 );
 				top.add( v );
 				var m_oLine3D = new Line3D("normal", [v, top] );
@@ -157,8 +157,8 @@ class HedgehogShapes extends Sprite {
 				l_oPoly = p_eEvent.polygon;
 				var l_oPoint:Point = new Point( scene.container.mouseX, scene.container.mouseY );
 
-				var v:Vector = p_eEvent.point;
-				var top:Vector = l_oPoly.normal.getVector().clone();
+				var v:Point3D = p_eEvent.point;
+				var top:Point3D = l_oPoly.normal.getPoint3D().clone();
 
 				top.scale( 20 );
 				top.add( v );

@@ -7,7 +7,7 @@ import sandy.materials.Material;
 import sandy.materials.attributes.MaterialAttributes;
 import sandy.materials.attributes.MediumAttributes;
 import sandy.core.data.Vertex;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -59,8 +59,8 @@ class StarfieldTuto_27b_Snow extends Sprite {
 			new MaterialAttributes (
 				[
 					new MediumAttributes (0xFF000000,
-					new Vector (0, 0, 300),
-					new Vector (0, 0, 1000))
+					new Point3D (0, 0, 300),
+					new Point3D (0, 0, 1000))
 				]
 			)
 		);

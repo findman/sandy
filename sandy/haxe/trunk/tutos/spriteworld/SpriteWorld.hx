@@ -16,7 +16,7 @@ import flash.Lib;
 import sandy.bounds.BSphere;
 import sandy.commands.Delegate;
 import sandy.core.World3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.Sprite2D;
@@ -149,10 +149,10 @@ private function _removePlane( p_oSprite:Sprite3D ):Void
 
 private function _moveMissile( p_oProxy:ProxyTween ):Void
 {
-		var l_oDir:Vector = World3D.getInstance().camera.out.clone();
+		var l_oDir:Point3D = World3D.getInstance().camera.out.clone();
 		var l_nDepart:Int = 40;
 		var l_nDist:Int = 1000;
-		var l_oPos:Vector = World3D.getInstance().camera.getPosition("absolute");
+		var l_oPos:Point3D = World3D.getInstance().camera.getPosition("absolute");
 		// --
 		missileList.get( p_oProxy.tgt ).x = l_oPos.x + l_oDir.x * l_nDepart;
 		missileList.get( p_oProxy.tgt ).z = l_oPos.z + l_oDir.z * l_nDepart;

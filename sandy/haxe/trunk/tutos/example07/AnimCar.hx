@@ -1,5 +1,5 @@
 import sandy.core.Scene3D;
-import sandy.core.data.Vector;
+import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.Shape3D;
@@ -109,22 +109,22 @@ class AnimCar extends Sprite {
 				wheelLR.useSingleContainer = false;
 				wheelRR.useSingleContainer = false;
 
-				wheelRF.geometryCenter = new Vector(-24,-11.5,-48.5);
+				wheelRF.geometryCenter = new Point3D(-24,-11.5,-48.5);
 				wheelRF.x += 24;
 				wheelRF.y += 11.5;
 				wheelRF.z += 48.5;
 
-				wheelLF.geometryCenter = new Vector(24.5,-11.5,-48.5);
+				wheelLF.geometryCenter = new Point3D(24.5,-11.5,-48.5);
 				wheelLF.x -= 24.5;
 				wheelLF.y += 11.5;
 				wheelLF.z += 48.5;
 
-				wheelRR.geometryCenter = new Vector(-24,-11.5,41);
+				wheelRR.geometryCenter = new Point3D(-24,-11.5,41);
 				wheelRR.x += 24;
 				wheelRR.y += 11.5;
 				wheelRR.z -= 41;
 
-				wheelLR.geometryCenter = new Vector(24.5,-11.5,41);
+				wheelLR.geometryCenter = new Point3D(24.5,-11.5,41);
 				wheelLR.x -= 24.5;
 				wheelLR.y += 11.5;
 				wheelLR.z -= 41;
