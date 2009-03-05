@@ -1,7 +1,6 @@
 
 package sandy.core.data;
 
-import sandy.math.FastMath;
 import sandy.util.NumberUtil;
 
 import sandy.HaxeTypes;
@@ -16,14 +15,6 @@ import sandy.HaxeTypes;
  */
 class Matrix4
 {
-
-	/**
-	 * Should we use fast math.
-	 */
-	public static var USE_FAST_MATH:Bool = false;
-
-	// we force initialization of the fast math table
-	private var _fastMathInitialized:Bool;
 
 	/**
 	 * Matrix4 cell.
@@ -193,9 +184,6 @@ class Matrix4
 				?pn31:Float, ?pn32:Float , ?pn33:Float , ?pn34:Float,
 				?pn41:Float, ?pn42:Float , ?pn43:Float , ?pn44:Float )
 	{
-		//USE_FAST_MATH = false; Commented to allow FastMath - Russell
-		_fastMathInitialized = FastMath.initialized();
-
 		if (pn11 == null) pn11=1; if (pn12 == null) pn12=0; if (pn13 == null) pn13=0; if (pn14 == null) pn14=0;
 		if (pn21 == null) pn21=0; if (pn22 == null) pn22=1; if (pn23 == null) pn23=0; if (pn24 == null) pn24=0;
 		if (pn31 == null) pn31=0; if (pn32 == null) pn32=0; if (pn33 == null) pn33=1; if (pn34 == null) pn34=0;
@@ -471,8 +459,8 @@ class Matrix4
 		identity();
 		//
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		//
 		n22 =  c;
 		n23 =  -s;
@@ -492,8 +480,8 @@ class Matrix4
 		identity();
 		//
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		// --
 		n11 =  c;
 		n13 = -s;
@@ -513,8 +501,8 @@ class Matrix4
 		identity();
 		//
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		// --
 		n11 =  c;
 		n12 =  -s;
@@ -761,8 +749,8 @@ class Matrix4
 		//
 		angle = NumberUtil.toRadian( angle );
 		// -- modification pour verifier qu'il n'y ai pas un probleme de precision avec la camera
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		var scos:Float	= 1 - c ;
 		// --
 		var suv	:Float = u * v * scos ;
@@ -803,12 +791,12 @@ class Matrix4
 		ay = NumberUtil.toRadian(ay);
 		az = NumberUtil.toRadian(az);
 		// --
-		var a:Float = ( USE_FAST_MATH == false ) ? Math.cos( ax ) : FastMath.cos(ax);
-		var b:Float = ( USE_FAST_MATH == false ) ? Math.sin( ax ) : FastMath.sin(ax);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( ay ) : FastMath.cos(ay);
-		var d:Float = ( USE_FAST_MATH == false ) ? Math.sin( ay ) : FastMath.sin(ay);
-		var e:Float = ( USE_FAST_MATH == false ) ? Math.cos( az ) : FastMath.cos(az);
-		var f:Float = ( USE_FAST_MATH == false ) ? Math.sin( az ) : FastMath.sin(az);
+		var a:Float = TRIG.cos(ax);
+		var b:Float = TRIG.sin(ax);
+		var c:Float = TRIG.cos(ay);
+		var d:Float = TRIG.sin(ay);
+		var e:Float = TRIG.cos(az);
+		var f:Float = TRIG.sin(az);
 		var ad:Float = a * d	;
 		var bd:Float = b * d	;
 		//

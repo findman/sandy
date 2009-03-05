@@ -16,37 +16,27 @@ class NumberUtil
 	/**
 	* Math constant 2*pi
 	*/
-	public static var TWO_PI(__getTWO_PI, null):Float;
-	private static function __getTWO_PI():Float { return __TWO_PI; }
-	private static var __TWO_PI:Float = 2 * Math.PI;
+	public static inline var TWO_PI : Float = 6.283185307179586477;
 
 	/**
 	* Math constant pi
 	*/
-	public static var PI(__getPI, null):Float;
-	public static function __getPI():Float { return __PI; }
-	private static var __PI:Float = Math.PI;
+	public static inline var PI : Float = 3.141592653589793238;
 
 	/**
 	* Math constant pi/2
 	*/
-	public static var HALF_PI(__getHALF_PI, null):Float;
-	public static function __getHALF_PI():Float { return __HALF_PI; }
-	private static var __HALF_PI:Float = 0.5 * Math.PI;
+	public static inline var HALF_PI : Float = 1.570796326794896619; // Math.PI / 2
 
 	/**
 	* Constant used to convert angle from radians to degrees
 	*/
-	public static var TO_DEGREE(__getTO_DEGREE, null):Float;
-	public static function __getTO_DEGREE():Float { return __TO_DREGREE; }
-	private static var __TO_DREGREE:Float = 180 /  Math.PI;
+	public static inline var TO_DEGREE : Float = 57.29577951308232088; // 180 / Math.PI
 
 	/**
 	* Constant used to convert degrees to radians.
 	*/
-	public static var TO_RADIAN(__getTO_RADIAN, null):Float;
-	public static function __getTO_RADIAN():Float { return __TO_RADIAN; }
-	private static var __TO_RADIAN:Float = Math.PI / 180;
+	public static inline var TO_RADIAN : Float = 0.01745329251994329577; // Math.PI / 180
 
 	/**
 	* Value used to compare numbers with.
@@ -54,7 +44,7 @@ class NumberUtil
 	* <p>Basically used to say if a number is zero or not.<br />
 	* Adjust this number with regard to the precision of your application</p>
 	*/
-		public static var TOL:Float = 0.00001;
+	public static inline var TOL:Float = 0.00001;
 
 	/**
 	* Is the number small enough to be regarded as zero?.
@@ -64,7 +54,7 @@ class NumberUtil
 	* @param p_nN 	The number to compare to zero
 	* @return 	true if the number is to be regarded as zero, false otherwise.
 	*/
-	public static function isZero( p_nN:Float ):Bool
+	public static inline function isZero( p_nN:Float ):Bool
 	{
 		return Math.abs( p_nN ) < TOL ;
 	}
@@ -78,7 +68,7 @@ class NumberUtil
 	* @param p_nM 	The second number
 	* @return 	true if the numbers are regarded as equal, false otherwise.
 	*/
-	public static function areEqual( p_nN:Float, p_nM:Float ):Bool
+	public static inline function areEqual( p_nN:Float, p_nM:Float ):Bool
 	{
 		return Math.abs( p_nN - p_nM ) < TOL ;
 	}
@@ -89,7 +79,7 @@ class NumberUtil
 	* @param p_nRad	A number representing the angle in radians
 	* @return 		The angle in degrees
 	*/
-	public static function toDegree ( p_nRad:Float ):Float
+	public static inline function toDegree ( p_nRad:Float ):Float
 	{
 		return p_nRad * TO_DEGREE;
 	}
@@ -100,7 +90,7 @@ class NumberUtil
 	* @param p_nDeg 	A number representing the angle in dregrees
 	* @return 		The angle in radians
 	*/
-	public static function toRadian ( p_nDeg:Float ):Float
+	public static inline function toRadian ( p_nDeg:Float ):Float
 	{
 		return p_nDeg * TO_RADIAN;
 	}
@@ -113,7 +103,7 @@ class NumberUtil
 	* @param p_nMax 	The maximal valid value
 	* @return 		The constrained number
 	*/
-	public static function constrain( p_nN:Float, p_nMin:Float, p_nMax:Float ):Float
+	public static inline function constrain( p_nN:Float, p_nMin:Float, p_nMax:Float ):Float
 	{
 		return Math.max( Math.min( p_nN, p_nMax ) , p_nMin );
 	}
@@ -127,11 +117,11 @@ class NumberUtil
 	* @param p_nRoundToInterval 	The accuracy to which to round
 	* @return 			The rounded number
 	*/
-	public static function roundTo (p_nN:Float, ?p_nRoundToInterval:Float):Float
+	public static inline function roundTo (p_nN:Float, ?p_nRoundToInterval:Float):Float
 	{
-		if (p_nRoundToInterval == 0)
+		if (p_nRoundToInterval == 0.)
 		{
-			p_nRoundToInterval = 1;
+			p_nRoundToInterval = 1.;
 		}
 		return Math.round(p_nN/p_nRoundToInterval) * p_nRoundToInterval;
 	}

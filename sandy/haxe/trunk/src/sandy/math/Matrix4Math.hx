@@ -20,14 +20,6 @@ import sandy.HaxeTypes;
 class Matrix4Math
 {
 	/**
-		* Specifies whether to use fast math calculations.
-		*/
-	public static var USE_FAST_MATH:Bool = false;
-
-	// we force initialization of the fast math table
-// 	private var _fastMathInitialized:Bool = FastMath.initialized;
-
-	/**
 		* Computes the multiplication of two Matrix4 matrices, as if they were 3x3.
 		*
 		* @param m1 	The first matrix.
@@ -244,12 +236,12 @@ class Matrix4Math
 		ay =   NumberUtil.toRadian(ay);
 		az = - NumberUtil.toRadian(az);
 		// --
-		var a:Float = ( USE_FAST_MATH == false ) ? Math.cos( ax ) : FastMath.cos(ax);
-		var b:Float = ( USE_FAST_MATH == false ) ? Math.sin( ax ) : FastMath.sin(ax);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( ay ) : FastMath.cos(ay);
-		var d:Float = ( USE_FAST_MATH == false ) ? Math.sin( ay ) : FastMath.sin(ay);
-		var e:Float = ( USE_FAST_MATH == false ) ? Math.cos( az ) : FastMath.cos(az);
-		var f:Float = ( USE_FAST_MATH == false ) ? Math.sin( az ) : FastMath.sin(az);
+		var a:Float = TRIG.cos(ax);
+		var b:Float = TRIG.sin(ax);
+		var c:Float = TRIG.cos(ay);
+		var d:Float = TRIG.sin(ay);
+		var e:Float = TRIG.cos(az);
+		var f:Float = TRIG.sin(az);
 		var ad:Float = a * d	;
 		var bd:Float = b * d	;
 
@@ -277,8 +269,8 @@ class Matrix4Math
 	{
 		var m:Matrix4 = new Matrix4();
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 
 		m.n22 =  c;
 		m.n23 =  s;
@@ -298,8 +290,8 @@ class Matrix4Math
 	{
 		var m:Matrix4 = new Matrix4();
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		// --
 		m.n11 =  c;
 		m.n13 = -s;
@@ -319,8 +311,8 @@ class Matrix4Math
 	{
 		var m:Matrix4 = new Matrix4();
 		angle = NumberUtil.toRadian(angle);
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		// --
 		m.n11 =  c;
 		m.n12 =  s;
@@ -359,8 +351,8 @@ class Matrix4Math
 		var m:Matrix4 = new Matrix4();
 		angle = NumberUtil.toRadian( angle );
 		// -- modification pour verifier qu'il n'y ai pas un probleme de precision avec la camera
-		var c:Float = ( USE_FAST_MATH == false ) ? Math.cos( angle ) : FastMath.cos( angle );
-		var s:Float = ( USE_FAST_MATH == false ) ? Math.sin( angle ) : FastMath.sin( angle );
+		var c:Float = TRIG.cos( angle );
+		var s:Float = TRIG.sin( angle );
 		var scos:Float	= 1 - c ;
 		// --
 		var suv	:Float = u * v * scos ;
