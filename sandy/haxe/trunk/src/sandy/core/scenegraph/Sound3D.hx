@@ -1,8 +1,8 @@
 
 package sandy.core.scenegraph;
 
+import flash.display.Stage;
 import flash.events.Event;
-import flash.utils.getTimer;
 import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
@@ -158,7 +158,7 @@ class Sound3D<T> extends ATransformable
 	* @param	p_nStartTime
 	* @param	p_iLoops
 	*/
-	public function play (?p_nStartTime:Float=-1., ?p_iLoops:Int=-1, ?p_nLoopStartTime:Float=-1., ?p_bResume:Bool) :Void
+	public function play (?p_nStartTime:Float=-1, ?p_iLoops:Int=-1, ?p_nLoopStartTime:Float=-1, ?p_bResume:Bool) :Void
 	{
 		if(!_isPlaying && sMode != CHANNEL)
 		{
@@ -252,10 +252,10 @@ class Sound3D<T> extends ATransformable
 		return sMode;
 	}
 
-	private function updateSoundTransform (p_oScene:Scene3D) :Void
+	private function updateSoundTransform () :Void
 	{
 		var gv:Matrix4 = modelMatrix;
-		var rv:Matrix4 = p_oScene.camera.modelMatrix;
+		var rv:Matrix4 = scene.camera.modelMatrix;
 		var dx:Float = gv.n14 - rv.n14;
 		var dy:Float = gv.n24 - rv.n24;
 		var dz:Float = gv.n34 - rv.n34;
@@ -294,7 +294,7 @@ class Sound3D<T> extends ATransformable
 	}
 
 	// updates the sound channel and also set stereo panning in sound transform
-	private function updateChannelRef (p_oScene:Scene3D) :Void
+	private function updateChannelRef () :Void
 	{
 		if(stereo)
 		{
@@ -325,7 +325,7 @@ class Sound3D<T> extends ATransformable
 				var y2:Float = modelMatrix.n21;
 				var z2:Float = modelMatrix.n31;
 
-				var gv:Matrix4 = p_oScene.camera.modelMatrix;
+				var gv:Matrix4 = scene.camera.modelMatrix;
 				var mz:Float = -(x2*gv.n11 + y2*gv.n21 + z2*gv.n31);
 
 				if(mz > 0)
@@ -451,7 +451,7 @@ class Sound3D<T> extends ATransformable
 	{
 		if(_isPlaying)
 		{
-			updateSoundTransform(p_oScene);
+			updateSoundTransform();
 
 			var isUrl:Bool = sMode == URL;
 

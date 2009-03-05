@@ -21,7 +21,7 @@ import sandy.HaxeTypes;
 class VertexMath extends Point3DMath
 {
 	private static var instance:VertexMath;
-	private static var create:Boolean;
+	private static var create:Bool;
 
 	/**
 	 * Creates a VertexMath object.

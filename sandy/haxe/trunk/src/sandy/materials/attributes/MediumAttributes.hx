@@ -118,8 +118,8 @@ class MediumAttributes extends AAttributes
 		var l_points:Array<Vertex> = ((p_oPolygon.isClipped) ? p_oPolygon.cvertices : p_oPolygon.vertices);
 		var n:Int = l_points.length; if (n < 3) return;
 
-		var l_ratios:TypedArray<Float> = new #if flash TypedArray(n) #else TypedArray() #end;
-		for (i in 0...n) l_ratios[i] = ratioFromWorldPoint3D (l_points[i].getWorldPoint3D ());
+		var l_ratios:TypedArray<Float> = new #if flash10 TypedArray(n) #else TypedArray() #end;
+		for (i in 0...n) l_ratios[i] = ratioFromWorldPoint3D ( new Point3D( l_points[i].wx, l_points[i].wy, l_points[i].wz ) );
 
 		#if flash
 		var zIndices = untyped l_ratios.sortOn( "ratio", Array.NUMERIC | Array.RETURNINDEXEDARRAY );

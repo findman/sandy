@@ -23,7 +23,7 @@ import sandy.HaxeTypes;
 * The StarField class renders dense star field at reasonable FPS.
 *
 * @author		makc
-* @author		Neil Drummond - haXe port
+* @author		Niel Drummond - haXe port
 * @author		Russell Weir - haXe port
 * @version		3.1
 * @date 		03.03.2008
@@ -78,9 +78,8 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 		depthIndex = -1;
 		// private initializers
 		m_nDepth = 1e10;
-		m_oMatrix = new Matrix();
+		__m_oMatrix = new Matrix();
 		m_oColorTransform = new ColorTransform();
-		m_sBlendMode = "";
 
 		super(p_sName);
 		// create something
@@ -156,11 +155,11 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 	 *
 	 * @param p_oCamera	The current camera
 	 */
-	public override function render( p_oCamera:Camera3D ):Void
+	public function render( p_oCamera:Camera3D ):Void
 	{
 		resetEvents ();
 		m_oBitmapData.lock();
-		m_oEB.broadcastEvent (m_oEventBefore);
+		m_oEB.dispatchEvent (m_oEventBefore);
 		if (m_oEventBefore.clear)
 			m_oBitmapData.fillRect (m_oBitmapData.rect, 0);
 		// --
@@ -176,7 +175,7 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 			_v.wy = _v.x * viewMatrix.n21 + _v.y * viewMatrix.n22 + _v.z * viewMatrix.n23 + viewMatrix.n24;
 			_v.wz = _v.x * viewMatrix.n31 + _v.y * viewMatrix.n32 + _v.z * viewMatrix.n33 + viewMatrix.n34;
 
-			if (_v.wz >= p_oScene.camera.near)
+			if (_v.wz >= scene.camera.near)
 			{
 				r = Math.min(1, Math.max (0, (_v.wz - fadeFrom) / fadeTo));
 				if (r < 1)
@@ -190,8 +189,8 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 					{
 						_vx.copy (_v); _vx.wx++; p_oCamera.projectVertex (_vx);
 						_vy.copy (_v); _vy.wy++; p_oCamera.projectVertex (_vy);
-						m_oMatrix.tx = _v.sx; m_oMatrix.a = (_vx.sx - _v.sx);
-						m_oMatrix.ty = _v.sy; m_oMatrix.d = (_v.sy - _vy.sy);
+						__m_oMatrix.tx = _v.sx; __m_oMatrix.a = (_vx.sx - _v.sx);
+						__m_oMatrix.ty = _v.sy; __m_oMatrix.d = (_v.sy - _vy.sy);
 
 						if (c != 0xFFFFFF)
 						{
@@ -222,8 +221,8 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 						}
 
 						//suggest the following to makc:
-						//if ( m_oBitmapData.rect.contains( m_oMatrix.tx, m_oMatrix.ty ) )
-						m_oBitmapData.draw( star, m_oMatrix, m_oColorTransform, m_sBlendMode );
+						//if ( m_oBitmapData.rect.contains( __m_oMatrix.tx, __m_oMatrix.ty ) )
+						m_oBitmapData.draw( star, __m_oMatrix, m_oColorTransform, m_sBlendMode );
 					}
 					else
 					{
@@ -246,10 +245,14 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 
 	}
 
-	public var material(__getMaterial,null) : Material;
+	public var material(__getMaterial,__setMaterial) : Material;
 	public function __getMaterial():Material
 	{
 		return null;
+	}
+	public function __setMaterial(p_oMat:Material):Material
+	{
+		return p_oMat;
 	}
 	/**
 	 * Provide the classical remove behaviour, plus remove the container to the display list.
@@ -277,7 +280,7 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 	 * @param p_oScene The current scene
 	 * @param p_oContainer	The container to draw on
 	 */
-	public function display( p_oScene:Scene3D, p_oContainer:Sprite = null  ):Void
+	public function display( p_oContainer:Sprite = null  ):Void
 	{
 		// viewport upper left?
 		m_oContainer.x = 0;
@@ -288,7 +291,7 @@ class StarField extends ATransformable, implements IDisplayable, implements Rend
 	private var m_oContainer:Sprite;
 	private var m_oBitmap:Bitmap;
 	private var m_oBitmapData:BitmapData;
-	private var m_oMatrix:Matrix;
+	private var __m_oMatrix:Matrix;
 	private var m_oColorTransform:ColorTransform;
 	private var m_sBlendMode:BlendMode;
 	private var _vx:Vertex;

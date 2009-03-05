@@ -76,9 +76,9 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 
 	private var _yCurrent : Float;
 
-	private var _zMax : Int;
+	private var _zMax : Float;
 
-	private var _zMin : Int;
+	private var _zMin : Float;
 
 	private var _zMaxTilted : Float;
 
@@ -325,6 +325,7 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 			return;
 
 		_camera = cast p_oCamera;
+
 		_width = p_oCamera.viewport.width;
 		_height = p_oCamera.viewport.height;
 		_ratioWidthHeight = _width / _height;
