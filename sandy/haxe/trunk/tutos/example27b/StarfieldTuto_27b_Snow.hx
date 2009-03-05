@@ -33,7 +33,7 @@ class StarfieldTuto_27b_Snow extends Sprite {
 		super();
 		trees = [];
 		// set up scene
-		scene = new Scene3D ("", this, new Camera3D (w, h), new Group (""));
+		scene = new Scene3D ("StarField", this, new Camera3D (w, h), new Group (""));
 		scene.camera.near = 0;
 		// set up snow
 		snow = new StarField ();

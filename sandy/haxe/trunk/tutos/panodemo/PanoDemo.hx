@@ -8,7 +8,7 @@ import flash.net.URLRequest;
 import flash.ui.Keyboard;
 import flash.Lib;
 
-import sandy.core.World3D;
+import sandy.core.Scene3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.events.QueueEvent;
@@ -24,7 +24,6 @@ class PanoDemo extends Sprite
 {
 	public function new():Void
 	{
-		world = World3D.getInstance();
 		running = false;
 	 keyPressed = new Array();
 	 queue = new LoaderQueue();
@@ -35,7 +34,7 @@ class PanoDemo extends Sprite
 		Lib.current.stage.addChild(this);
 	}
 	
-	private var world:World3D;
+	private var world:Scene3D;
 	private var shape:SkyBox;
 	private var planeNames:Array<String>;
 	private var running:Bool;
@@ -45,12 +44,12 @@ class PanoDemo extends Sprite
 	
 	public function init():Void
 	{
-		world.container = this;
-		world.root = createScene();
-		camera = world.camera = new Camera3D( 640, 500 );
-		world.camera.fov = 60;
+		var root = createScene();
+		camera = new Camera3D( 640, 500 );
+		camera.fov = 60;
 		planeNames = [ "GOLD44", "GOLD22" , "GOLD66", "GOLD55","GOLD11" , "GOLD33" ];			
-		world.root.addChild( world.camera );
+		root.addChild( world.camera );
+		world = new Scene3D( "scene", this, camera, root );
 		// --
 		loadImages();	
 	}

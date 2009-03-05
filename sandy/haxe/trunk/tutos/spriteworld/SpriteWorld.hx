@@ -14,8 +14,6 @@ import flash.ui.Keyboard;
 import flash.Lib;
 
 import sandy.bounds.BSphere;
-import sandy.commands.Delegate;
-import sandy.core.World3D;
 import sandy.core.data.Point3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
@@ -126,7 +124,7 @@ x : lDestX,
 z : lDestZ,
 time : 5+Math.random()*5, 
 transition : "linear",
-onComplete : Delegate.create( _moveSprite, [p_oProxy] )
+onComplete : function (_) { _moveSprite.apply( [p_oProxy] ); }
 });
 
 }
@@ -166,7 +164,7 @@ x : l_oPos.x,
 z : l_oPos.z,
 time : 5, 
 transition : "linear",
-onComplete : Delegate.create( _removeMissile, [missileList.get( p_oProxy.tgt )] )
+onComplete : function (_) { _removeMissile.apply( [missileList.get( p_oProxy.tgt )] ); }
 });
 }
 

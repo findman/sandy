@@ -3,4 +3,4 @@
 -swf-header 500:300:1000:ffffff
 -swf-lib lib.swf
 -swf9 mode7.swf
--main Mode7
+-main SandyMode7

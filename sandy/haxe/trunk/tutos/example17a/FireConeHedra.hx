@@ -220,7 +220,7 @@ class FireConeHedra extends Sprite {
 		}
 
 		private function clickHandler(event:sandy.events.BubbleEvent):Void {
-			var shape:Shape3D = event.tgt;
+			var shape:Shape3D = event.object;
 
 			trace( "You have hit the " + shape.name );
 			needRemove = true;

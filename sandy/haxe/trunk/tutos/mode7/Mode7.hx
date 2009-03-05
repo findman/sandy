@@ -20,7 +20,7 @@ import sandy.materials.Appearance;
 import sandy.materials.BitmapMaterial;
 import sandy.primitive.Sphere;
 
-class Mode7 extends Sprite
+class SandyMode7 extends Sprite
 {
 	private static inline var _framerate:Int = 30;
 	private static inline var _surfaceWidth:Int = 800;
@@ -31,7 +31,7 @@ class Mode7 extends Sprite
 	private var _3dScene:Scene3D;
 	private var _camera:CameraMode7;
 	private var _mode7Surface:Shape;
-	private var _mode7:sandy.core.scenegraph.mode7.Mode7;
+	private var _mode7:Mode7;
 	
 	// keys and buttons pressed
 	private var _upPush:Int;
@@ -66,7 +66,7 @@ class Mode7 extends Sprite
 		_camera.tilt = 20;
 		_3dScene = new Scene3D("scene",_3dSurface,_camera,_rootScene);
 		_rootScene.addChild (_camera);
-		_mode7 = new sandy.core.scenegraph.mode7.Mode7();
+		_mode7 = new Mode7();
 		var l_oTexture:BitmapData = new GroundTextureMap (0, 0);
 		_mode7.setBitmap ( l_oTexture );
 		_mode7.setHorizon (true, 0x000000, 1);
@@ -94,8 +94,9 @@ class Mode7 extends Sprite
 		// ask for a resize
 		onResize (null);
 
-		Lib.current.stage.addChild(this);
-		Lib.current.stage.addChild(_mainSurface);
+		//Lib.current.stage.addChild(this);
+		//Lib.current.stage.addChild(_mainSurface);
+		Lib.current.stage.addChild(_3dSurface);
 
 	}
 
@@ -163,7 +164,7 @@ class Mode7 extends Sprite
 	}
 
 	static function main() {
-			new Mode7();
+			new SandyMode7();
 	}
 }
 
