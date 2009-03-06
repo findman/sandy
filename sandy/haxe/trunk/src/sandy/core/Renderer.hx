@@ -75,7 +75,7 @@ class Renderer
 		var l_mcContainer:Sprite = p_oScene.container;
 		// --
 #if flash
-		untyped m_aRenderingList.sortOn( "depth", Array.NUMERIC | Array.DESCENDING );
+		untyped m_aRenderingList.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
 #else
 		m_aRenderingList.sort(function(a,b){return (a.depth>b.depth)?1:a.depth<b.depth?-1:0;} );
 #end
