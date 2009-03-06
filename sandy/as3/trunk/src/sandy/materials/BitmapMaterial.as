@@ -356,6 +356,8 @@ package sandy.materials
 			m_oOffset.x = p_nU - Math.floor (p_nU);
 			m_oOffset.y = p_nV - Math.floor (p_nV);
 			// --
+			m_bModified = true;
+			// is this necessary now?
 			for( var l_sID:String in m_oPolygonMatrixMap )
 			{
 				var l_oPoly:Polygon = Polygon.POLYGON_MAP[ l_sID ];
