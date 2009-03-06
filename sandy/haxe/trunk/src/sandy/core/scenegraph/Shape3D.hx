@@ -161,10 +161,12 @@ class Shape3D extends ATransformable, implements IDisplayable
 	override private function __setScene( p_oScene:Scene3D )
 	{
 		super.__setScene(p_oScene);
-		for( l_oPoly in aPolygons )
-		{
-			l_oPoly.scene = null;
-			l_oPoly.scene = p_oScene;
+		if(aPolygons != null) {
+			for( l_oPoly in aPolygons )
+			{
+				l_oPoly.scene = null;
+				l_oPoly.scene = p_oScene;
+			}
 		}
 		return p_oScene;
 	}
