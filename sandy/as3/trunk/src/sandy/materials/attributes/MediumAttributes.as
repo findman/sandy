@@ -105,7 +105,7 @@ package sandy.materials.attributes
 			const n:int = l_points.length; if (n < 3) return;
 
 			const l_ratios:Array = new Array (n);
-			for (var i:int = 0; i < n; i++) l_ratios[i] = ratioFromWorldPoint3D (l_points[i].getWorldPoint3D ());
+			for (var i:int = 0; i < n; i++) l_ratios[i] = ratioFromWorldPoint3D (Vertex(l_points[i]).getCameraPoint3D ());
 
 			const zIndices:Array = l_ratios.sort (Array.NUMERIC | Array.RETURNINDEXEDARRAY);
 

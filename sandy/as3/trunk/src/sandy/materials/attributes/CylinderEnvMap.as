@@ -72,7 +72,7 @@
 			// transform 1st three normals
 			for (var i:int = 0; i < 3; i++)
 			{
-				v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldPoint3D());
+				v = aN [i]; v.copy (Vertex (p_oPolygon.vertexNormals [i]).getCameraPoint3D ());
 
 				if (spherize > 0)
 				{
