@@ -141,7 +141,7 @@ class Sprite2D extends ATransformable, implements IDisplayable
 			scene.removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
 			scene.removeEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
 		}
-		scene = p_oScene;
+		super.__setScene( p_oScene );
 		// --
 		scene.addEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
 		scene.addEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
