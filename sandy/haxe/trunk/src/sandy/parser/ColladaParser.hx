@@ -57,9 +57,9 @@ import sandy.HaxeTypes;
 * </listing>
 */
 typedef ColladaImage = {
-				bitmapData: flash.display.BitmapData,
-				id : String,
-				fileName : String
+	bitmapData: flash.display.BitmapData,
+	id : String,
+	fileName : String
 }
 
 class ColladaParser extends AParser, implements IParser
@@ -101,7 +101,7 @@ class ColladaParser extends AParser, implements IParser
 				case "Y_UP":	m_oUp = Y_UP;
 				case "Z_UP":	m_oUp = Z_UP;
 				case "X_UP":	m_oUp = X_UP;
-				default:		m_oUp = NONE;
+				default:	m_oUp = NONE;
 		}
 
 		if( m_oCollada.hasNode.library_images )
@@ -434,8 +434,8 @@ class ColladaParser extends AParser, implements IParser
 				switch (m_oUp)
 				{
 				case Y_UP:
-				default:
 					l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
+				default:
 				}
 			}
 		}
