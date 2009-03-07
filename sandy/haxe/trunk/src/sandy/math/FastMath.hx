@@ -106,5 +106,10 @@ class FastMath
 		return tanTable[ radToIndex(radians) ];
 	}
 
+	private static function __init__() {
+		#if SANDY_USE_FAST_MATH
+		initialize();
+		#end
+	}
 }
 

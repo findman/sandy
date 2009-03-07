@@ -21,35 +21,36 @@ import sandy.primitive.Sphere;
 
 class LightDemo extends Sprite
 {
-	
+
 	private var t:Int;
+	private var rT:Int;
 	private var frame:Int;
-	
+
 	public function new(d = "goo")
 	{
-	 t = 0;
-	 frame = 0;
-	 keyPressed = new Array();
+		t = rT = 0;
+		frame = 0;
+		keyPressed = new Array();
 		super();
 
 		Lib.current.stage.addChild( this );
 		init();
 	}
-	
+
 	private var m_oSphere:Sphere;
 	private var m_oScene:Scene3D;
 	private var rhino:Shape3D;
-	
+
 	private var keyPressed:Array<Bool>;
 	var myTextField:TextField;
-	
+
 	public function init():Void
 	{
 		var lCamera:Camera3D = new Camera3D( 640, 480 );
 		lCamera.z = -1000;
 		lCamera.x = 160;
 		lCamera.y = 42;
-		m_oScene = new Scene3D( "mainScene", this, lCamera );	
+		m_oScene = new Scene3D( "mainScene", this, lCamera );
 
 		myTextField = new TextField();
 		Lib.current.stage.addChild(myTextField);
@@ -58,7 +59,7 @@ class LightDemo extends Sprite
 		// --
 		load();
 	}
-	
+
 	private function _enableEvents():Void
 	{
 		//Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
@@ -76,19 +77,19 @@ class LightDemo extends Sprite
        {
           keyPressed[e.keyCode]=false;
        }
- 
+
  		private function _createMaterialAttributes():MaterialAttributes
  		{
  			return new MaterialAttributes( /*[new PhongAttributes(true, 0.2)]*/ );
  		}
- 		
+
   	private function _createAppearance():Appearance
   	{
   		var l_oMat:BitmapMaterial = new BitmapMaterial( new Texture() );//, _createMaterialAttributes() );
   		//l_oMat.lightingEnable = true;
   		return new Appearance( l_oMat );
   	}
-  	
+
   	private function load():Void
   	{
   		var l_oParser:sandy.parser.ASEParser = Parser.create( "../assets/Rhino.ASE", Parser.ASE, 0.1 );
@@ -96,9 +97,10 @@ class LightDemo extends Sprite
   		l_oParser.addEventListener( ParserEvent.INIT, _createScene3D );
   		l_oParser.parse();
   	}
-  	
+
  		private function _createScene3D( p_oEvt:ParserEvent ):Void
 	{
+		rT = Lib.getTimer();
 		m_oScene.root = p_oEvt.group;
 		rhino = untyped m_oScene.root.children[0];
 		//m_oScene.root = new Group();
@@ -112,39 +114,39 @@ class LightDemo extends Sprite
 		m_oScene.root.addChild( m_oSphere );
 		*/
 		m_oScene.root.addChild( m_oScene.camera );
-		
+
 		_enableEvents();
 
-	}	
-	
+	}
+
 	private function enterFrameHandler( event : Event ) : Void
 	{
 			/*
 			var cam:Camera3D = m_oScene.camera;
 		// --
-		if( keyPressed[39] ) 
-		{   
+		if( keyPressed[39] )
+		{
 		    cam.rotateY -= 5;
 		}
-		if( keyPressed[37] )     
+		if( keyPressed[37] )
 		{
 		    cam.rotateY += 5;
-		}		
+		}
 		if( keyPressed[38] && !keyPressed[32] )
-		{ 
+		{
 		    cam.moveForward( 10 );
 		}
 		if( keyPressed[40] && !keyPressed[32]  )
-		{ 
+		{
 		    cam.moveForward( -10 );
 		}
-		
+
 		if( keyPressed[38] && keyPressed[32]  )
-		{ 
+		{
 		    cam.moveVertically( 10 );
 		}
 		if( keyPressed[40] && keyPressed[32]  )
-		{ 
+		{
 		    cam.moveVertically( -10 );
 		}
 
@@ -158,13 +160,15 @@ class LightDemo extends Sprite
 		}
 		*/
 		frame++;
-		
+
 		rhino.rotateY++;
 		// --
 		m_oScene.render();
 
 		if ( frame == 1000 ) {
-				trace("Temps de rendu Sandy:"+ (Lib.getTimer() - t) );
+			var fin = Lib.getTimer();
+				trace("Total execution time: "+ (fin - t) );
+				trace("Rendering time: " + (fin -rT) );
 				/*
 							var c:Float = Math.floor( frame/(Lib.getTimer() - t) *100000 );
 							var out:String = Std.string( c/100 ) + ' fps';
@@ -178,7 +182,7 @@ class LightDemo extends Sprite
 	}
 
 	static function main () { new LightDemo(); }
-	
+
 }
 
 class Texture extends BitmapData
