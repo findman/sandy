@@ -20,7 +20,7 @@ import sandy.materials.Appearance;
 import sandy.materials.BitmapMaterial;
 import sandy.primitive.Sphere;
 
-class SandyMode7 extends Sprite
+class Mode7 extends Sprite
 {
 	private static inline var _framerate:Int = 30;
 	private static inline var _surfaceWidth:Int = 800;
@@ -31,7 +31,7 @@ class SandyMode7 extends Sprite
 	private var _3dScene:Scene3D;
 	private var _camera:CameraMode7;
 	private var _mode7Surface:Shape;
-	private var _mode7:Mode7;
+	private var _mode7:sandy.core.scenegraph.mode7.Mode7;
 	
 	// keys and buttons pressed
 	private var _upPush:Int;
@@ -66,7 +66,7 @@ class SandyMode7 extends Sprite
 		_camera.tilt = 20;
 		_3dScene = new Scene3D("scene",_3dSurface,_camera,_rootScene);
 		_rootScene.addChild (_camera);
-		_mode7 = new Mode7();
+		_mode7 = new sandy.core.scenegraph.mode7.Mode7();
 		var l_oTexture:BitmapData = new GroundTextureMap (0, 0);
 		_mode7.setBitmap ( l_oTexture );
 		_mode7.setHorizon (true, 0x000000, 1);
@@ -85,14 +85,15 @@ class SandyMode7 extends Sprite
 		_rightPush = 0;
 
 		// add listeners
-		stage.addEventListener (Event.RESIZE, onResize);
+		//stage.addEventListener (Event.RESIZE, onResize);
 		stage.addEventListener (Event.ENTER_FRAME, onEnterFrameHandler);
 
 		stage.addEventListener (KeyboardEvent.KEY_DOWN, onKey);
 		stage.addEventListener (KeyboardEvent.KEY_UP, onKey);
 
 		// ask for a resize
-		onResize (null);
+		var l_oEvt = new Event( Event.RESIZE );
+		onResize ();
 
 		//Lib.current.stage.addChild(this);
 		//Lib.current.stage.addChild(_mainSurface);
@@ -104,8 +105,9 @@ class SandyMode7 extends Sprite
 
 	// events callbacks //
 
-	private function onResize (evt:Event):Void
+	private function onResize ():Void
 	{
+		trace( "foo" );
 		var stage = Lib.current.stage;
 		_mainSurface.x = Math.round((stage.stageWidth - _surfaceWidth) / 2);
 		_mainSurface.y = Math.round((stage.stageHeight - _surfaceHeight) / 2);
@@ -164,7 +166,7 @@ class SandyMode7 extends Sprite
 	}
 
 	static function main() {
-			new SandyMode7();
+			new Mode7();
 	}
 }
 
