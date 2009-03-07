@@ -160,6 +160,7 @@ class Table extends Sprite {
 								lightX -= 10;
 								scene.light.setDirection( lightX, lightY, lightZ );
 				}
+				camera.changed = true;
 		}
 
 		static function main() {
