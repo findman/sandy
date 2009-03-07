@@ -88,7 +88,7 @@ class CylinderEnvMap extends AAttributes
 		// transform 1st three normals
 		for (i in 0...3)
 		{
-			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getWorldPoint3D());
+			v = aN [i]; v.copy (p_oPolygon.vertexNormals [i].getCameraPoint3D ());
 
 			if (spherize > 0)
 			{
