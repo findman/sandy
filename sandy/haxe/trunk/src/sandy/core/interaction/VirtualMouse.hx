@@ -75,7 +75,12 @@ class VirtualMouse extends EventDispatcher
 		var currentTarget:Sprite = null;
 		var targetLocal:Point = null;
 		// -- recuperation du material applique sur le polygone
-		var l_oMaterial:MovieMaterial = untyped p_oPoly.visible ? p_oPoly.appearance.frontMaterial : p_oPoly.appearance.backMaterial;
+		var l_oMaterial:MovieMaterial = null;
+		try {
+			l_oMaterial = p_oPoly.visible ? cast p_oPoly.appearance.frontMaterial : cast p_oPoly.appearance.backMaterial;
+		} catch (e:Dynamic ) {
+			return;
+		}
 		if( l_oMaterial == null ) return;
 
 		m_ioTarget = l_oMaterial.movie;
@@ -247,17 +252,17 @@ class VirtualMouse extends EventDispatcher
 		{
 			if( untyped m_oCurrentTargets.indexOf( m_oPreviousTargets[i] ) == -1 )
 			{
+				targetLocal = p_oPoly.container.globalToLocal(location);
 				m_ioOldTarget = cast m_oPreviousTargets[i];
-				{
-					// off of last target
-					_lastEvent = new MouseEvent(MouseEvent.MOUSE_OUT, true, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
-					m_ioOldTarget.dispatchEvent(_lastEvent);
-					dispatchEvent(_lastEvent);
-					// rolls do not propagate
-					_lastEvent = new MouseEvent(MouseEvent.ROLL_OUT, false, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
-					m_ioOldTarget.dispatchEvent(_lastEvent);
-					dispatchEvent(_lastEvent);
-				}
+
+				// off of last target
+				_lastEvent = new MouseEvent(MouseEvent.MOUSE_OUT, true, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
+				m_ioOldTarget.dispatchEvent(_lastEvent);
+				dispatchEvent(_lastEvent);
+				// rolls do not propagate
+				_lastEvent = new MouseEvent(MouseEvent.ROLL_OUT, false, false, targetLocal.x, targetLocal.y, currentTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
+				m_ioOldTarget.dispatchEvent(_lastEvent);
+				dispatchEvent(_lastEvent);
 			}
 		}
 		// remember last values

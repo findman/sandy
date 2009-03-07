@@ -686,19 +686,19 @@ class Polygon implements IDisplayable
 	*/
 	public function _onTextureInteraction( ?p_oEvt:Event ) : Void
 	{
-		var l_bIsMouseEvent : Bool = switch ( Type.typeof( p_oEvt ) ) {
-			case TClass( MouseEvent ):
-				true;
-			default:
-				false;
+		var l_oEvt : MouseEvent = null;
+		if ( p_oEvt == null || !Std.is( p_oEvt, MouseEvent ) ) 
+		{
+			l_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
+		} else {
+			l_oEvt = cast p_oEvt;
 		}
-		if ( p_oEvt == null || !l_bIsMouseEvent ) p_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
 
 		//	get the position of the mouse on the poly
 		var pt2D : Point = new Point( scene.container.mouseX, scene.container.mouseY );
 		var uv : UVCoord = getUVFrom2D( pt2D );
 
-		VirtualMouse.getInstance().interactWithTexture( this, uv, cast p_oEvt );
+		VirtualMouse.getInstance().interactWithTexture( this, uv, l_oEvt );
 		_onInteraction( p_oEvt );
 	}
 
