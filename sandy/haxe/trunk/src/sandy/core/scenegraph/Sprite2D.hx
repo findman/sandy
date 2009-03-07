@@ -102,8 +102,9 @@ class Sprite2D extends ATransformable, implements IDisplayable
 		// --
 		_nScale = p_nScale;
 		// --
-		if( p_oContent != null ) content = p_oContent;
+		if( p_oContent != null ) this.__setContent( p_oContent );
 		setBoundingSphereRadius( Math.max (30, Math.abs (_nScale) * Math.max (content.width, content.height)) );
+
 	}
 
 	/**

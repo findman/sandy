@@ -62,7 +62,7 @@ class Sprite3D extends Sprite2D
 		var mc = try cast(p_content,MovieClip) catch(e:Dynamic) return p_content;
 		if (mc != null)
 		{
-			this.content = p_content;
+			super.__setContent( p_content );
 			// --
 			m_nAutoOffset = mc.totalFrames / 360;
 		}
@@ -91,5 +91,5 @@ class Sprite3D extends Sprite2D
 	}
 
 	// -- frames offset
-	private var m_nAutoOffset:Float;
+	public var m_nAutoOffset:Float;
 }
