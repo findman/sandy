@@ -504,7 +504,7 @@ class Node
 	* @param p_bChanged	<b>[ToDo: explain]</b>
 	*
 	*/
-	public function cull( p_oFrustum:Null<Frustum>, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
+	public function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
 	{
 		if( visible == false )
 		{

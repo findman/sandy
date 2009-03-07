@@ -124,7 +124,7 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 	{
 		_container = new Sprite();
 		precision = 1;
-		_depth = Math.POSITIVE_INFINITY;
+		m_nDepth = Math.POSITIVE_INFINITY;
 
 		super();
 
@@ -232,15 +232,15 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 		return _container;
 	}
 	// The depth of this object
-	private var _depth:Float;
+	private var m_nDepth:Float;
 	public var depth(__getDepth,__setDepth):Float;
 	public function __getDepth():Float
 	{
-		return _depth;
+		return m_nDepth;
 	}
 	public function __setDepth(d:Float):Float
 	{
-		_depth = d;
+		m_nDepth = d;
 		return d;
 	}
 
@@ -279,7 +279,9 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 						{
 							// TODO top-down order? for this is fucking backwards.
 							if (_xAmplitude - _xAmplitudePrev < precision) {
-								i -=di; di++; continue;
+								i -=di; di++; 
+								i += di;
+								continue;
 							} else {
 								if (di > 1) di_1 = di - 1;
 							}
