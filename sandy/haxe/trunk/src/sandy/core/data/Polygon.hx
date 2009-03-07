@@ -449,7 +449,7 @@ class Polygon implements IDisplayable
 		cvertices = null;
 		caUVCoord = null;
 		// --
-		var l_oCull:CullingState = p_oFrustum.polygonInFrustum( this );
+		var l_oCull:Int = p_oFrustum.polygonInFrustum( this );
 		if( l_oCull == CullingState.INSIDE )
 			return vertices;
 		else if( l_oCull == CullingState.OUTSIDE )
@@ -687,7 +687,7 @@ class Polygon implements IDisplayable
 	public function _onTextureInteraction( ?p_oEvt:Event ) : Void
 	{
 		var l_oEvt : MouseEvent = null;
-		if ( p_oEvt == null || !Std.is( p_oEvt, MouseEvent ) ) 
+		if ( p_oEvt == null || !Std.is( p_oEvt, MouseEvent ) )
 		{
 			l_oEvt = new MouseEvent( MouseEvent.MOUSE_MOVE, true, false, 0, 0, null, false, false, false, false, 0);
 		} else {

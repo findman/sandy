@@ -28,7 +28,7 @@ import sandy.HaxeTypes;
 */
 class Frustum
 {
-	public var aPlanes:Array<Plane>;
+	public var aPlanes:TypedArray<Plane>;
 	//  0-> +
 	//  |
 	//  V     5---4
@@ -57,9 +57,9 @@ class Frustum
 	public static inline var TOP:Int 	= 4;
 	public static inline var BOTTOM:Int = 5;
 
-	public static var INSIDE:CullingState = CullingState.INSIDE;
-	public static var OUTSIDE:CullingState = CullingState.OUTSIDE;
-	public static var INTERSECT:CullingState = CullingState.INTERSECT;
+	public static inline var INSIDE:Int = CullingState.INSIDE;
+	public static inline var OUTSIDE:Int = CullingState.OUTSIDE;
+	public static inline var INTERSECT:Int = CullingState.INTERSECT;
 	public static inline var EPSILON:Float = 0.005;
 
 	/**
@@ -69,11 +69,11 @@ class Frustum
 	*/
 	public function new()
 	{
-		aPlanes = new Array();
-		aPoints = new TypedArray();
-		aNormals = new TypedArray();
-		aConstants = new TypedArray();
-		m_aBoxEdges = new TypedArray(); // length 8
+		aPlanes = new TypedArray(#if flash10 6 #end);
+		aPoints = new TypedArray(#if flash10 8 #end);
+		aNormals = new TypedArray(#if flash10 6 #end);
+		aConstants = new TypedArray(#if flash10 6 #end);
+		m_aBoxEdges = new TypedArray(#if flash10 8 #end);
 		pool = new Pool();
 		aDist = new TypedArray(); // used only in clipPolygon
 		for( i in 0...8 )
@@ -133,7 +133,7 @@ class Frustum
 	*
 	* @param p_oPoint	The point to test
 	*/
-	public function pointInFrustum( p_oPoint:Point3D ):CullingState
+	public function pointInFrustum( p_oPoint:Point3D ):Int
 	{
 		for ( plane in aPlanes )
 		{
@@ -153,7 +153,7 @@ class Frustum
 	*
 	* @return The culling state of the polygon
 	*/
-	public function polygonInFrustum( p_oPoly:Polygon ):CullingState
+	public function polygonInFrustum( p_oPoly:Polygon ):Int
 	{
 		var l_nIn:Int = 0, l_nOut:Int = 0, l_nDist:Float;
 		// --
@@ -192,7 +192,7 @@ class Frustum
 	*
 	* @param p_oS	The sphere to test
 	*/
-	public function sphereInFrustum( p_oS:BSphere ):CullingState
+	public function sphereInFrustum( p_oS:BSphere ):Int
 	{
 		var d:Float = 0, c:Int=0;
 		var x:Float=p_oS.position.x, y:Float=p_oS.position.y, z:Float=p_oS.position.z, radius:Float = p_oS.radius;
@@ -221,9 +221,9 @@ class Frustum
 	*
 	* @param p_oS	The box to test
 	*/
-	public function boxInFrustum( p_oBox:BBox ):CullingState
+	public function boxInFrustum( p_oBox:BBox ):Int
 	{
-		var result:CullingState = Frustum.INSIDE;
+		var result:Int = Frustum.INSIDE;
 		var out:Float, iin:Float, lDist:Float;
 		// --
 		p_oBox.getEdges(m_aBoxEdges);

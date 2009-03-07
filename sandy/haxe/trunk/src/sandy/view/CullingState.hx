@@ -9,13 +9,14 @@ package sandy.view;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
+* @authos		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 */
-enum CullingState
+class CullingState
 {
-		INTERSECT;
-		INSIDE;
-		OUTSIDE;
+	public static inline var INTERSECT:Int = 0;
+	public static inline var INSIDE:Int = 1;
+	public static inline var OUTSIDE:Int = 2;
 }
 

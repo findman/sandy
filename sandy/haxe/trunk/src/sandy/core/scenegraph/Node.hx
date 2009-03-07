@@ -42,7 +42,7 @@ class Node
 	* This property represent the culling state of the current node.
 	* This state is defined during the culling phasis as it refers to the position of the object against the viewing frustum.
 	*/
-	public var culled:CullingState;
+	public var culled:Int; //CullingState;
 
 	/**
 	* Name of this node.
