@@ -8,7 +8,7 @@ import flash.events.Event;
 import flash.text.TextField;
 import flash.Lib;
 
-import sandy.core.World3D;
+import sandy.core.Scene3D;
 import sandy.core.scenegraph.Camera3D;
 import sandy.core.scenegraph.Group;
 import sandy.core.scenegraph.Shape3D;
@@ -30,7 +30,7 @@ class ClippingDemo extends Sprite
 	public static inline var  innerRadius:UInt = 700;
 	
 	private var box:Box;
-	private var world : World3D;
+	private var world : Scene3D;
 	private var camera : Camera3D;
 	private var keyPressed:Array<Bool>;
 	
@@ -71,19 +71,15 @@ class ClippingDemo extends Sprite
 		l_mcWorld.x = (Lib.current.stage.stageWidth - SCREEN_WIDTH) / 2;
 		l_mcWorld.y = 0;//(Lib.current.stage.stageHeight - SCREEN_HEIGHT) / 2;
 		addChild(l_mcWorld);
-		world = World3D.getInstance(); 
-		world.container = l_mcWorld;
 		// --
-		world.camera = new Camera3D( SCREEN_WIDTH, SCREEN_HEIGHT );
-		world.camera.y = 80;
-		//world.camera.z = -innerRadius;
+		camera = new Camera3D( SCREEN_WIDTH, SCREEN_HEIGHT );
+		camera.y = 80;
 		// -- create scen
-		var g:Group = new Group("root");
 
 		var lPlane:Plane3D = new Plane3D( "myPlane", 1500, 1500, 2, 2, Plane3D.ZX_ALIGNED );
 		//lPlane.swapCulling();
 		//lPlane.enableBackFaceCulling = false;
-		lPlane.enableClipping = true;
+		//lPlane.enableClipping = true;
 		lPlane.appearance = new Appearance( new ColorMaterial( 0xd27e02, 1) );
 		lPlane.enableForcedDepth = true;
 		lPlane.forcedDepth = 5000000;
@@ -113,12 +109,13 @@ class ClippingDemo extends Sprite
 		cylinder.appearance = new Appearance( new BitmapMaterial( pic2, new MaterialAttributes( [new LineAttributes()] ) ) );
 		
 		// --			
+		var g:Group = new Group("root");
 		g.addChild( lPlane ); 
 		g.addChild( cylinder );
 		g.addChild( box );
 		
-		world.root = g;
-		world.root.addChild( world.camera );
+		world = new Scene3D( "scene", this, camera, g );
+		g.addChild( world.camera );
 		// --
 		t = Lib.getTimer();
 		addEventListener( Event.ENTER_FRAME, enterFrameHandler );

@@ -48,8 +48,8 @@ class PanoDemo extends Sprite
 		camera = new Camera3D( 640, 500 );
 		camera.fov = 60;
 		planeNames = [ "GOLD44", "GOLD22" , "GOLD66", "GOLD55","GOLD11" , "GOLD33" ];			
-		root.addChild( world.camera );
 		world = new Scene3D( "scene", this, camera, root );
+		root.addChild( world.camera );
 		// --
 		loadImages();	
 	}
