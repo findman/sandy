@@ -62,6 +62,15 @@ package sandy.materials
 			start();
 		}
 
+		override public function dispose():void
+		{
+			super.dispose();
+			stop();
+			m_oAlpha = null;
+			m_oTimer = null;
+			m_oVideo = null;
+		}
+		
 		/**
 		 * @private
 		 */

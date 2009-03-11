@@ -94,6 +94,14 @@ package sandy.materials
 			w = undefined;
 			h = undefined;
 		}
+		
+		override public function dispose():void
+		{
+			super.dispose();
+			stop();
+			m_oTimer = null;
+			m_oMovie = null;
+		}
 
 		/**
 		 * @private

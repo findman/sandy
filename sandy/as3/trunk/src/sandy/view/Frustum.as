@@ -187,10 +187,11 @@ package sandy.view
 		public function polygonInFrustum( p_oPoly:Polygon ):CullingState
 		{
 	        var l_nIn:int = 0, l_nOut:int = 0, l_nDist:Number;
+	        var l_aVertices:Array = p_oPoly.vertices;
 	        // --
 	        for each( var plane:Plane in aPlanes ) 
 			{
-				for each( var l_oVertex:Vertex in p_oPoly.vertices )
+				for each( var l_oVertex:Vertex in l_aVertices )
 		        {
 					l_nDist = plane.a * l_oVertex.wx + plane.b * l_oVertex.wy + plane.c * l_oVertex.wz + plane.d;
 					// is the corner outside or inside
@@ -317,13 +318,27 @@ package sandy.view
 			}
 			var l_bResult:Boolean, l_bClipped:Boolean;
 			l_bResult = clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
+			if ( p_aCvert.length <= 2 )
+				return true;
+				
 			l_bClipped = clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
+			if ( p_aCvert.length <= 2 )
+				return true;
 			l_bResult ||= l_bClipped;
+			
 			l_bClipped = clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
+			if ( p_aCvert.length <= 2 )
+				return true;
 			l_bResult ||= l_bClipped;
+			
 	        l_bClipped = clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
+	        if ( p_aCvert.length <= 2 )
+				return true;
 	        l_bResult ||= l_bClipped;
-		    l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom	
+	        
+		    l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom
+		    if ( p_aCvert.length <= 2 )
+				return true;
 		    l_bResult ||= l_bClipped;
 
 			return l_bResult;
@@ -410,18 +425,18 @@ package sandy.view
 		 * @param p_aCvert	Vertices of the polygon. 
 		 * @param p_aUVCoords	UV coordiantes of the polygon.
 		 */
-		private const aDist:Array = new Array();
+		private const aDist:Array = [];
 		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):Boolean
 		{	
-			var allin:Boolean = true, allout:Boolean = true;
-			var v:Vertex;
-			var i:Number, l:Number = p_aCvert.length, lDist:Number;
+			var allin:Boolean = true, allout:Boolean = true, v:Vertex,
+				i:Number, l:Number = p_aCvert.length, lDist:Number,
+				a:Number = p_oPlane.a, b:Number = p_oPlane.b, c:Number = p_oPlane.c, d:Number = p_oPlane.d;
 			// -- If no points, we return null
 			aDist.length = 0;
 			// -- otherwise we compute the distances to frustum plane
 			for each( v in p_aCvert )
 			{
-				lDist = p_oPlane.a * v.wx + p_oPlane.b * v.wy + p_oPlane.c * v.wz + p_oPlane.d;
+				lDist = a * v.wx + b * v.wy + c * v.wz + d;
 				if (lDist < 0) allin = false;
 				if (lDist >= 0) allout = false;
 				aDist[int(aDist.length)] = ( lDist );		
@@ -444,8 +459,7 @@ package sandy.view
 			var l_oUV1:UVCoord = l_aTmpUv[0], l_oUV2:UVCoord = null, l_oUVTmp:UVCoord = null;
 			var v1:Vertex = tmp[0], v2:Vertex = null,  t:Vertex = null;
 			//
-			var d:Number, dist2:Number, dist1:Number = aDist[0];
-			var clipped:Boolean = false, inside:Boolean = (dist1 >= 0);
+			var dist2:Number, dist1:Number = aDist[0], clipped:Boolean = false, inside:Boolean = (dist1 >= 0);
 			for (i=1; i <= l; i++)
 			{	 
 				v2 = tmp[int(i%l)];
@@ -468,8 +482,8 @@ package sandy.view
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					p_aCvert[p_aCvert.length] = ( t );
-					p_aCvert[p_aCvert.length] = ( v2 );
+					p_aCvert[int(p_aCvert.length)] = ( t );
+					p_aCvert[int(p_aCvert.length)] = ( v2 );
 					//
 					l_oUVTmp = pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
