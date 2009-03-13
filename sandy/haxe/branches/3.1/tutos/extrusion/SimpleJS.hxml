@@ -1,0 +1,6 @@
+-cp src
+-cp ../Libs/Sandyhx_js_cp
+--remap flash:neash
+-cp ../SandyCommitable/haxe/trunk/src
+-js bin/simple.js
+-main Simple
