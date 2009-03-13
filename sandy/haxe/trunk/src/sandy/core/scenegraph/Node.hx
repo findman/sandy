@@ -409,6 +409,31 @@ class Node
 		return found;
 	}
 
+	/**
+	* Remove a specific child from this node.
+	*
+	* @param p_oNode Child to remove
+	* @return The child passed as a parameter.
+	* @throws String if the provided node is not a child of this node
+	**/
+	public function removeChild( p_oNode : Node ) : Node {
+		var found:Bool = false;
+		for(i in 0...children.length)
+		{
+			if( children[i] == p_oNode  )
+			{
+				broadcaster.removeChild( children[i].broadcaster );
+				children.splice( i, 1 );
+				changed = true;
+				found = true;
+				break;
+			}
+		}
+		if(!found)
+			throw "Child not found";
+
+		return p_oNode;
+	}
 
 	/**
 	* Delete this node and all its child nodes.
