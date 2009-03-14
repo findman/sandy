@@ -167,7 +167,6 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		}
 		// --
 		super.renderPolygon( p_oScene, p_oPolygon, p_mcContainer );
-		//if( attributes != null )  attributes.draw( graphics, polygon, this, p_oScene ) ;
 		// --
 		l_points = null;
 		l_uv = null;
@@ -379,12 +378,14 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		m_nWidth = m_oTexture.width;
 		m_nInvHeight = 1/m_nHeight;
 		m_nInvWidth = 1/m_nWidth;
+
 		// -- We reinitialize the precomputed matrix
 		if( l_bReWrap && m_oPolygonMatrixMap != null )
 		{
 			for( l_sID in m_oPolygonMatrixMap.keys() )
 			{
 				var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( l_sID );
+				unlink( l_oPoly );
 				init( l_oPoly );
 			}
 		}
@@ -407,6 +408,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		for( l_sID in m_oPolygonMatrixMap.keys() )
 		{
 			var l_oPoly:Polygon = Polygon.POLYGON_MAP.get( l_sID );
+			unlink( l_oPoly );
 			init( l_oPoly );
 		}
 	}
@@ -474,10 +476,23 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		return p_nValue;
 	}
 
+	override public function dispose():Void
+	{
+		super.dispose();
+		if( m_oTexture != null ) m_oTexture.dispose();
+		m_oTexture = null;
+		if( m_oTextureClone != null ) m_oTextureClone.dispose();
+		m_oTextureClone = null;
+		m_oPolygonMatrixMap = null;
+	}
+		
 	public override function unlink( p_oPolygon:Polygon ):Void
 	{
-		if( m_oPolygonMatrixMap.exists(p_oPolygon.id) )
-			m_oPolygonMatrixMap.remove(p_oPolygon.id);
+		if( m_oPolygonMatrixMap != null )
+		{
+			if( m_oPolygonMatrixMap.exists(p_oPolygon.id) )
+				m_oPolygonMatrixMap.remove(p_oPolygon.id);
+		}
 		// --
 		super.unlink( p_oPolygon );
 	}

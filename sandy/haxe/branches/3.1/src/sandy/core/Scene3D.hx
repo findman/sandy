@@ -236,6 +236,8 @@ class Scene3D extends EventDispatcher
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_ADDED));
 		return l;
 	}
+		
+	private function _onLightUpdate(pEvt:SandyEvent):Void {}
 
 	/**
 	* Enable this property to perfectly clip your 3D scene to the viewport's dimensions with a 2D clipping

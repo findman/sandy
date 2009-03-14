@@ -13,6 +13,7 @@ import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
+import sandy.materials.Appearance;	
 
 import sandy.HaxeTypes;
 
@@ -285,8 +286,8 @@ class Renderer
 						// --
 						l_nPolyFlags |= l_nFlags;
 						// --
-						if( l_oShape.useSingleContainer == false || !l_oShape.enableBackFaceCulling )
-							m_aRenderingList[m_nRenderingListCount++] = l_oFace;
+						if ( l_oShape.useSingleContainer == false )
+						    m_aRenderingList[m_nRenderingListCount++] = l_oFace;
 					}
 				}
 				// --

@@ -188,7 +188,6 @@ class Camera3D extends ATransformable
 	/**
 		* Updates the state of the camera transformation.
 		*
-		* @param p_oScene			The current scene
 		* @param p_oModelMatrix The matrix which represents the parent model matrix. Basically it stores the rotation/translation/scale of all the nodes above the current one.
 		* @param p_bChanged	A boolean value which specify if the state has changed since the previous rendering. If false, we save some matrix multiplication process.
 		*/

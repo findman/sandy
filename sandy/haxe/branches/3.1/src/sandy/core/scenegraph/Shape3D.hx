@@ -74,7 +74,17 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*
 	* <p>Specify if this object polygons should be clipped against the camera frustum planes.</p>
 	*/
-	public var enableClipping:Bool;
+	public var enableClipping(__getEnableClipping,__setEnableClipping):Bool;
+	private function __getEnableClipping():Bool
+	{
+		return m_bClipping;
+	}
+
+	override private function __setEnableClipping( p_bClippingValue:Bool ):Bool
+	{
+		m_bClipping = p_bClippingValue;
+		return p_bClippingValue;
+	}
 
 	/**
 	* Should forced depth be enable for this object?.
@@ -313,7 +323,8 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*/
 	public function display( ?p_oContainer:Sprite  ):Void
 	{
-		if (m_bNotConvex) {
+		if (m_bNotConvex) 
+		{
 		// sort only if convex flag is not set
 #if flash
 		untyped aVisiblePolygons.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
@@ -791,6 +802,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	private var m_bEv:Bool; // The event system state (enable or not)
 	private var m_oGeomCenter:Point3D;
 	private var m_bBackFaceCulling:Bool;
+	private var m_bClipping:Bool;
 
 	//@private
 	public var m_bWasOver:Bool;

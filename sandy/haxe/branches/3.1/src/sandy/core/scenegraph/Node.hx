@@ -224,6 +224,20 @@ class Node
 		return p_bUseSingleContainer;
 	}
 
+	/**
+	 * Apply clipping to all the children of that node
+	 * @param p_bUseClipping if true, the clipping will be used on that object and all its children if any
+	 */
+	private function __setEnableClipping( p_bUseClipping:Bool ):Bool
+	{
+		for ( l_oNode in children )
+		{
+			cast( l_oNode, Shape3D ).enableClipping = p_bUseClipping;
+		}
+		changed = true;
+		return p_bUseClipping;
+	}
+		
 	private function __getEnableBackFaceCulling( ):Bool
 	{
 		return false;
