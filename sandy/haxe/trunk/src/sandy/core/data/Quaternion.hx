@@ -29,7 +29,7 @@ class Quaternion
 	*
 	* <p>[<strong>ToDo</strong>: What's all this here? ]</p>
 	*/
-	public function Quaternion( ?px : Float, ?py : Float, ?pz : Float, ?pw:Float )
+	public function new( ?px : Float, ?py : Float, ?pz : Float, ?pw:Float )
 	{
 		if ( px == null ) px = 0.0;
 		if ( py == null ) px = 0.0;
