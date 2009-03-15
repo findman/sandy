@@ -12,6 +12,13 @@ typedef TRIG = sandy.math.FastMath;
 typedef TRIG = Math;
 #end
 
+#if (flash9 || flash10)
+typedef Xml = sandy.util.FlashXml__;
+typedef FastXml = sandy.util.FastXml__;
+#else
+typedef FastXml = haxe.xml.Fast;
+#end
+
 class Haxe {
 	#if flash10
 	private static inline var MEM_POOL_LENGTH : Int = 10240;

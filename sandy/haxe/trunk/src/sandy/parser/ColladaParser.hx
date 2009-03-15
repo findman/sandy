@@ -18,8 +18,6 @@ import sandy.util.NumberUtil;
 import flash.events.Event;
 import flash.net.URLRequest;
 
-import haxe.xml.Fast;
-
 import sandy.HaxeTypes;
 
 /**
@@ -64,7 +62,7 @@ typedef ColladaImage = {
 
 class ColladaParser extends AParser, implements IParser
 {
-	private var m_oCollada : haxe.xml.Fast;
+	private var m_oCollada : FastXml;
 	private var m_oUp:UpAxis;
 
 	private var m_oMaterials : Hash<ColladaImage>;
@@ -94,7 +92,7 @@ class ColladaParser extends AParser, implements IParser
 		super.parseData( e );
 
 		// -- read the XML
-		m_oCollada = new haxe.xml.Fast( Xml.parse( m_oFile ).firstElement() );
+		m_oCollada = new FastXml( Xml.parse( m_oFile ).firstElement() );
 
 		var l_sAxis = m_oCollada.node.asset.node.up_axis.innerData;
 		switch ( l_sAxis ) {
@@ -110,10 +108,10 @@ class ColladaParser extends AParser, implements IParser
 			parseScene( m_oCollada.node.library_visual_scenes.node.visual_scene );
 	}
 
-	private function parseScene( p_oScene : haxe.xml.Fast ) : Void
+	private function parseScene( p_oScene : FastXml ) : Void
 	{
 		// -- local variables
-		var l_oNodes : List<Fast> = p_oScene.nodes.node;
+		var l_oNodes : List<FastXml> = p_oScene.nodes.node;
 
 		for( l_oN in l_oNodes )
 		{
@@ -127,13 +125,13 @@ class ColladaParser extends AParser, implements IParser
 		dispatchInitEvent();
 	}
 
-	private function parseNode( p_oNode : haxe.xml.Fast ) : Node
+	private function parseNode( p_oNode : FastXml ) : Node
 	{
 		// -- local variables
 		var l_oNode:ATransformable = null;
 		//var l_oMatrix : Matrix4 = new Matrix4();
 		var l_sGeometryID : String;
-		var l_oNodes : List<Fast>;
+		var l_oNodes : List<FastXml>;
 		var l_nNodeLen : Int;
 		var l_oPoint3D : Point3D;
 		//var l_oPivot:Point3D = new Point3D();
@@ -177,7 +175,7 @@ class ColladaParser extends AParser, implements IParser
 		// -- translation
 		if( p_oNode.hasNode.translate )
 		{
-			var l_aTransAtt:List<Fast> = p_oNode.nodes.translate;
+			var l_aTransAtt:List<FastXml> = p_oNode.nodes.translate;
 			for( l_oT in l_aTransAtt )
 			{
 				var l_sTranslationValue:String = "";
@@ -228,7 +226,7 @@ class ColladaParser extends AParser, implements IParser
 		}
 		else if( Lambda.count( p_oNode.nodes.rotate ) == 3 )
 		{
-			var l_oRotateNodes : List<Fast> = p_oNode.nodes.rotate;
+			var l_oRotateNodes : List<FastXml> = p_oNode.nodes.rotate;
 			for( l_oN in l_oRotateNodes )
 			{
 				var l_oRot : Array<Int> = stringToArray( l_oN.innerData );
@@ -302,7 +300,7 @@ class ColladaParser extends AParser, implements IParser
 			if ((l_sNodeId != "") && (l_sNodeId.charAt(0) == "#"))
 			{
 				l_sNodeId = l_sNodeId.substr(1);
-				var l_oMatchingNodes:List<Fast> = m_oCollada.node.library_nodes.nodes.node;
+				var l_oMatchingNodes:List<FastXml> = m_oCollada.node.library_nodes.nodes.node;
 				for ( l_oMatchingNode in l_oMatchingNodes ) {
 					if ( l_oMatchingNode.att.id == l_sNodeId ) {
 						var l_oNode3D:Node = parseNode( l_oMatchingNode );
@@ -322,8 +320,8 @@ class ColladaParser extends AParser, implements IParser
 	{
 		var i : Int;
 		var l_oOutpGeom : Geometry3D = new Geometry3D();
-		var l_oGeometries : List<Fast> = m_oCollada.node.library_geometries.nodes.geometry;
-		var l_oGeometry : haxe.xml.Fast = null;
+		var l_oGeometries : List<FastXml> = m_oCollada.node.library_geometries.nodes.geometry;
+		var l_oGeometry : FastXml = null;
 
 		// -- parse geometry node
 		for ( l_oNode in l_oGeometries ) {
@@ -335,7 +333,7 @@ class ColladaParser extends AParser, implements IParser
 		if ( l_oGeometry == null ) return null;
 
 		// -- triangles
-		var l_oTriangles : haxe.xml.Fast = l_oGeometry.node.mesh.node.triangles;
+		var l_oTriangles : FastXml = l_oGeometry.node.mesh.node.triangles;
 		if( l_oTriangles == null ) return null;
 		var l_aTriangles : Array<Int> = stringToArray( l_oTriangles.node.p.innerData );
 		var l_sMaterial : String = l_oTriangles.att.material;
@@ -344,8 +342,8 @@ class ColladaParser extends AParser, implements IParser
 
 		// -- parse xml semantics
 		var l_sVerticesID : String = null;
-		var l_oTexCoord : haxe.xml.Fast = null;
-		var l_oNormal : haxe.xml.Fast = null;
+		var l_oTexCoord : FastXml = null;
+		var l_oNormal : FastXml = null;
 		var l_aInput = l_oTriangles.nodes.input;
 		for ( l_oInput in l_aInput ) {
 			switch (l_oInput.att.semantic) {
@@ -457,10 +455,10 @@ class ColladaParser extends AParser, implements IParser
 		return l_oOutpGeom;
 	}
 
-	private function getFloatArray( p_sSourceID : String, p_oGeometry : haxe.xml.Fast ) : Array<Point3D>
+	private function getFloatArray( p_sSourceID : String, p_oGeometry : FastXml ) : Array<Point3D>
 	{
-		var l_aSources : List<Fast> = p_oGeometry.node.mesh.nodes.source;
-		var l_oSource : haxe.xml.Fast = null;
+		var l_aSources : List<FastXml> = p_oGeometry.node.mesh.nodes.source;
+		var l_oSource : FastXml = null;
 		for ( l_oNode in l_aSources )
 		{
 			if ( l_oNode.att.id == p_sSourceID ) {
@@ -500,15 +498,15 @@ class ColladaParser extends AParser, implements IParser
 		return l_aOutput;
 	}
 
-	private function convertTriangleArray( p_oInput : List<Fast>, p_aTriangles : Array<Int>, p_nTriangleCount : Int ) : Array<Hash<Array<Int>>>
+	private function convertTriangleArray( p_oInput : List<FastXml>, p_aTriangles : Array<Int>, p_nTriangleCount : Int ) : Array<Hash<Array<Int>>>
 	{
 		var l_nTriangles : Int = p_aTriangles.length;
 		var l_aOutput : Array<Hash<Array<Int>>> = new Array();
 		var l_nValuesPerTriangle : Int = Std.int( l_nTriangles / p_nTriangleCount );
 		var l_nMaxOffset : Int = 0;
 
-		var l_aInputA:Array<haxe.xml.Fast> = Lambda.array(p_oInput);
-		var l_aInputB:Array<haxe.xml.Fast> = l_aInputA.copy();
+		var l_aInputA:Array<FastXml> = Lambda.array(p_oInput);
+		var l_aInputB:Array<FastXml> = l_aInputA.copy();
 		for( l_oI in l_aInputA )
 		{
 			l_nMaxOffset = Std.int( Math.max( l_nMaxOffset, Std.parseFloat( l_oI.att.offset ) ) );
@@ -616,16 +614,16 @@ class ColladaParser extends AParser, implements IParser
 		}
 	}
 
-	private function getAppearance( p_oNode : haxe.xml.Fast ) : Appearance
+	private function getAppearance( p_oNode : FastXml ) : Appearance
 	{
 		// -- local variables
 		var l_oAppearance : Appearance = null;
 
 		// -- Get this node's instance materials
-		var l_aInstance : List<Fast> = p_oNode.nodes.instance_geometry;
-		var l_aBind : List<Fast> = null;
-		var l_aTechnique : List<Fast> = null;
-		var l_oMaterials : Array<haxe.xml.Fast> = [];
+		var l_aInstance : List<FastXml> = p_oNode.nodes.instance_geometry;
+		var l_aBind : List<FastXml> = null;
+		var l_aTechnique : List<FastXml> = null;
+		var l_oMaterials : Array<FastXml> = [];
 		for ( l_oInstance in l_aInstance ) {
 				l_aBind = l_oInstance.nodes.bind_material;
 				for ( l_oBind in l_aBind ) {
@@ -641,8 +639,8 @@ class ColladaParser extends AParser, implements IParser
 		{
 			// -- get the corresponding material from the library
 			var l_sId :String = l_oInstMat.att.target.split( "#" )[ 1 ];
-			var l_oMaterial : haxe.xml.Fast = null;
-			var l_aMaterials : List<Fast> = m_oCollada.node.library_materials.nodes.material;
+			var l_oMaterial : FastXml = null;
+			var l_aMaterials : List<FastXml> = m_oCollada.node.library_materials.nodes.material;
 			for ( l_oNode in l_aMaterials ) {
 					if ( l_oNode.att.id == l_sId ) {
 							l_oMaterial = l_oNode;
@@ -659,12 +657,12 @@ class ColladaParser extends AParser, implements IParser
 					l_sEffectID = "";
 			}
 
-			var l_oEffect : haxe.xml.Fast = null;
+			var l_oEffect : FastXml = null;
 			if ( l_sEffectID == "" )
 			{
 				l_oEffect = m_oCollada.node.library_effects.node.effect;
 			} else {
-					var l_aEffect : List<Fast> = m_oCollada.node.library_effects.nodes.effect;
+					var l_aEffect : List<FastXml> = m_oCollada.node.library_effects.nodes.effect;
 					for ( l_oNode in l_aEffect ) {
 							if ( l_oNode.att.id == l_sEffectID ) {
 									l_oEffect = l_oNode;
@@ -674,11 +672,11 @@ class ColladaParser extends AParser, implements IParser
 			}
 			if ( l_oEffect == null ) return null;
 
-			var l_oTechnique : haxe.xml.Fast;
-			var l_aTexture : Array<haxe.xml.Fast> = [];
-			var l_aPhong : Array<haxe.xml.Fast> = [];
-			var l_aTechnique : Array<Fast> = [];
-			var l_oNode : haxe.xml.Fast = l_oEffect.node.profile_COMMON.node.technique;
+			var l_oTechnique : FastXml;
+			var l_aTexture : Array<FastXml> = [];
+			var l_aPhong : Array<FastXml> = [];
+			var l_aTechnique : Array<FastXml> = [];
+			var l_oNode : FastXml = l_oEffect.node.profile_COMMON.node.technique;
 			switch (true) {
 					case l_oNode.hasNode.asset:
 					if ( l_oNode.node.asset.hasNode.diffuse && l_oNode.node.asset.node.diffuse.hasNode.texture ) {
@@ -724,7 +722,7 @@ class ColladaParser extends AParser, implements IParser
 					}
 			}
 
-			var l_oNodes : List<Fast> = l_oNode.nodes.phong;
+			var l_oNodes : List<FastXml> = l_oNode.nodes.phong;
 			for ( l_oPhong in l_oNodes ) {
 					l_aPhong.push( l_oPhong );
 			}
@@ -735,8 +733,8 @@ class ColladaParser extends AParser, implements IParser
 			{
 				// -- get the texture ID and use it to get the surface source
 				var l_sTextureID : String = l_aTexture[0].att.texture;
-				var l_aNewParam : List<Fast> = l_oEffect.node.profile_COMMON.nodes.newparam;
-				var l_oNewParam : haxe.xml.Fast = null;
+				var l_aNewParam : List<FastXml> = l_oEffect.node.profile_COMMON.nodes.newparam;
+				var l_oNewParam : FastXml = null;
 				var l_sSurfaceID : String = null;
 				var l_sImageID : String = null;
 				for ( l_oNode in l_aNewParam ) {
@@ -780,7 +778,7 @@ class ColladaParser extends AParser, implements IParser
 	}
 
 
-	private function loadImages( p_oLibImages : List<Fast> ) : Hash<ColladaImage>
+	private function loadImages( p_oLibImages : List<FastXml> ) : Hash<ColladaImage>
 	{
 		var l_oImages : Hash<ColladaImage> = new Hash();
 		var l_oQueue : LoaderQueue = new LoaderQueue();
