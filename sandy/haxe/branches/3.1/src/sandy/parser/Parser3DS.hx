@@ -36,7 +36,6 @@ import sandy.HaxeTypes;
 
 class Parser3DS extends AParser, implements IParser
 {
-	private var _rot_m:Array<Matrix4>;
 	private var currentObjectName:String;
 	private var data:ByteArray;
 	/*private var _animation:Hash<Keyframer>;*/
@@ -47,7 +46,7 @@ class Parser3DS extends AParser, implements IParser
 	private var textureFileNames:Hash<String>;
 	private var currentMaterialName:String;
 	private var currentMeshMaterialName:String;
-	private var currentMeshMaterialsMap:Array<Array<Dynamic>>;
+	private var currentMeshMaterialsMap:Array<haxe.FastList<String>>;
 
 	/**
 	* Creates a new Parser3DS instance.
@@ -78,7 +77,6 @@ class Parser3DS extends AParser, implements IParser
 		data.endian = Endian.LITTLE_ENDIAN;
 		// --
 		var currentObjectName:String = null;
-		var _rot_m:Array<Matrix4> = new Array();
 		/* var ad:Array = new Array(); */
 		var pi180:Float = 180 / Math.PI;
 		// --
@@ -123,10 +121,11 @@ class Parser3DS extends AParser, implements IParser
 					currentMeshMaterialName = readString ();
 //trace ("currentMeshMaterialName <- " + currentMeshMaterialName);
 					// this chunk has face list
-					var faceList:Array<Dynamic> = [ currentMeshMaterialName ];
+					var faceList:haxe.FastList<String> = new haxe.FastList<String>();
+					faceList.add( currentMeshMaterialName );
 					var numFaces:Int = data.readUnsignedShort();
 					for (f in 0...numFaces) {
-						faceList.push (data.readUnsignedShort());
+						faceList.add (Std.string(data.readUnsignedShort()));
 					}
 					currentMeshMaterialsMap.push (faceList);
 
@@ -142,13 +141,14 @@ class Parser3DS extends AParser, implements IParser
 						if (currentMeshMaterialsMap.length < 2) {
 							// 1 or less materials
 							if (textureFileNames.exists(currentMeshMaterialName))
-								applyTextureToShape(l_oShape, textureFileNames .get(currentMeshMaterialName));
+								applyTextureToShape(l_oShape, textureFileNames.get(currentMeshMaterialName));
 						} else {
 							// multiple materials per shape
 							for (faceList1 in currentMeshMaterialsMap) {
-								if(textureFileNames.exists(Std.string(faceList1[0]))) {
-									for (p1 in 1...faceList1.length) {
-										applyTextureToShape(l_oShape.aPolygons[faceList1[p1]], textureFileNames.get(faceList1[0]));
+								if(textureFileNames.exists(faceList1.first())) {
+									faceList1.pop();
+									for (p1 in faceList1) {
+										applyTextureToShape(l_oShape.aPolygons[Std.parseInt(p1)], textureFileNames.get(faceList1.first()));
 									}
 								}
 							}
@@ -254,7 +254,10 @@ class Parser3DS extends AParser, implements IParser
 		// occasionally parser creates empty shapes here
 		if (l_oGeometry.aFacesVertexID.length > 0) {
 			l_oShape = new Shape3D( currentObjectName, l_oGeometry, l_oAppearance);
-			if( l_oMatrix != null) _applyMatrixToShape( l_oShape, l_oMatrix );
+
+			// AS3 <-> haXe discrepency, fix for maxcar demo
+			//if( l_oMatrix != null) _applyMatrixToShape( l_oShape, l_oMatrix );
+
 			m_oGroup.addChild( l_oShape );
 			if (currentMeshMaterialsMap.length < 2) {
 				// 1 or less materials
@@ -263,9 +266,10 @@ class Parser3DS extends AParser, implements IParser
 			} else {
 				// multiple materials per shape
 				for(faceList2 in currentMeshMaterialsMap) {
-					if (textureFileNames.exists(Std.string(faceList2[0]))) {
-						for (p2 in 1...faceList2.length) {
-							applyTextureToShape(l_oShape.aPolygons[faceList2[p2]], textureFileNames.get(Std.string(faceList2[0])));
+					if (textureFileNames.exists(faceList2.first())) {
+						faceList2.pop();
+						for (p2 in faceList2) {
+							applyTextureToShape(l_oShape.aPolygons[Std.parseInt(p2)], textureFileNames.get(Std.string(faceList2.first())));
 						}
 					}
 				}
