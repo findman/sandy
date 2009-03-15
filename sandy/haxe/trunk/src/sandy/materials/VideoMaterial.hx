@@ -70,6 +70,15 @@ class VideoMaterial extends BitmapMaterial
 		start();
 	}
 
+	override public function dispose():Void
+	{
+		super.dispose();
+		stop();
+		m_oAlpha = null;
+		m_oTimer = null;
+		m_oVideo = null;
+	}
+
 	/**
 	* @private
 	*/

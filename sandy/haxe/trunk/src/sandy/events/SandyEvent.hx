@@ -22,7 +22,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.Scene3D
 	*/
-	public static var LIGHT_ADDED:String = "lightAdded";
+	public static inline var LIGHT_ADDED:String = "lightAdded";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>lightUpdated</code> event object.
@@ -31,7 +31,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.light.Light3D
 	*/
-	public static var LIGHT_UPDATED:String = "lightUpdated";
+	public static inline var LIGHT_UPDATED:String = "lightUpdated";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>lightColorChanged</code> event object.
@@ -40,7 +40,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.light.Light3D
 	*/
-	public static var LIGHT_COLOR_CHANGED:String = "lightColorChanged";
+	public static inline var LIGHT_COLOR_CHANGED:String = "lightColorChanged";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>scene_render</code> event object.
@@ -49,7 +49,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.Scene3D
 	*/
-	public static var SCENE_RENDER:String = "scene_render";
+	public static inline var SCENE_RENDER:String = "scene_render";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>scene_render_finish</code> event object.
@@ -58,7 +58,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.Scene3D
 	*/
-	public static var SCENE_RENDER_FINISH:String = "scene_render_finish";
+	public static inline var SCENE_RENDER_FINISH:String = "scene_render_finish";
 
     /**
      * Indicates the scene has been culled.
@@ -67,7 +67,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static var SCENE_CULL:String = "scene_cull";
+	public static inline var SCENE_CULL:String = "scene_cull";
 
     /**
      * Indicates the scene has been updated.
@@ -76,7 +76,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static var SCENE_UPDATE:String = "scene_update";
+	public static inline var SCENE_UPDATE:String = "scene_update";
 
     /**
      * Indicates the display list has been rendered.
@@ -85,7 +85,7 @@ class SandyEvent extends Event
      *
      * @see sandy.core.Scene3D
      */
-	public static var SCENE_RENDER_DISPLAYLIST:String = "scene_render_display_list";
+	public static inline var SCENE_RENDER_DISPLAYLIST:String = "scene_render_display_list";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>containerCreated</code> event object.
@@ -95,7 +95,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.core.World3D
 	*/
-	public static var CONTAINER_CREATED:String = "containerCreated";
+	public static inline var CONTAINER_CREATED:String = "containerCreated";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>queueComplete</code> event object.
@@ -105,7 +105,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.util.LoaderQueue
 	*/
-	public static var QUEUE_COMPLETE:String = "queueComplete";
+	public static inline var QUEUE_COMPLETE:String = "queueComplete";
 
 	/**
 	* Defines the value of the <code>type</code> property of a <code>queueLoaderError</code> event object.
@@ -115,7 +115,7 @@ class SandyEvent extends Event
 	*
 	* @see sandy.util.LoaderQueue
 	*/
-	public static var QUEUE_LOADER_ERROR:String = "queueLoaderError";
+	public static inline var QUEUE_LOADER_ERROR:String = "queueLoaderError";
 
  	/**
 	 * Constructor.

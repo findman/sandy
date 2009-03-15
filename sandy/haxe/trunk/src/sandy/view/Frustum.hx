@@ -156,10 +156,11 @@ class Frustum
 	public function polygonInFrustum( p_oPoly:Polygon ):Int
 	{
 		var l_nIn:Int = 0, l_nOut:Int = 0, l_nDist:Float;
+	        var l_aVertices:Array<Vertex> = p_oPoly.vertices;
 		// --
 		for ( plane in aPlanes )
 		{
-			for ( l_oVertex in p_oPoly.vertices )
+			for ( l_oVertex in l_aVertices )
 			{
 				l_nDist = plane.a * l_oVertex.wx + plane.b * l_oVertex.wy + plane.c * l_oVertex.wz + plane.d;
 				// is the corner outside or inside
@@ -275,16 +276,33 @@ class Frustum
 	*/
 	public function clipFrustum( p_aCvert: Array<Vertex>, p_aUVCoords:Array<UVCoord> ):Bool
 	{
-		if( p_aCvert.length <= 2 ) return true;
+		if( p_aCvert.length <= 2 ) 
+		{
+			return true;
+		}
 		var l_bResult:Bool, l_bClipped:Bool;
 		l_bResult = clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
+		if ( p_aCvert.length <= 2 )
+			return true;
+				
 		l_bClipped = clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
+		if ( p_aCvert.length <= 2 )
+			return true;
 		l_bResult = l_bResult || l_bClipped;
+			
 		l_bClipped = clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
+		if ( p_aCvert.length <= 2 )
+			return true;
 		l_bResult  = l_bResult || l_bClipped;
+			
 		l_bClipped = clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
+	        if ( p_aCvert.length <= 2 )
+			return true;
 		l_bResult = l_bResult || l_bClipped;
+	        
 		l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom
+		if ( p_aCvert.length <= 2 )
+			return true;
 		l_bResult = l_bResult || l_bClipped;
 
 		return l_bResult;
@@ -367,11 +385,12 @@ class Frustum
 	* @param p_aCvert	Vertices of the polygon
 	* @param p_aUVCoords	UV coordiantes of the polygon
 	*/
+	private static inline var aDist:Array<Vertex> = [];
 	public function clipPolygon( p_oPlane:Plane, p_aCvert:Array<Vertex>, p_aUVCoords:Array<UVCoord> ):Bool
 	{
-		var allin:Bool = true, allout:Bool = true;
-		var v:Vertex;
-		var i:Int, l:Int = p_aCvert.length, lDist:Float;
+		var allin:Bool = true, allout:Bool = true, v:Vertex,
+			i:Int, l:Int = p_aCvert.length, lDist:Float,
+			a:Float = p_oPlane.a, b:Float = p_oPlane.b, c:Float = p_oPlane.c, d:Float = p_oPlane.d;
 		// -- If no points, we return null
 		#if flash10
 		untyped aDist.length = 0;
@@ -381,7 +400,7 @@ class Frustum
 		// -- otherwise we compute the distances to frustum plane
 		for ( v in p_aCvert )
 		{
-			lDist = p_oPlane.a * v.wx + p_oPlane.b * v.wy + p_oPlane.c * v.wz + p_oPlane.d;
+			lDist = a * v.wx + b * v.wy + c * v.wz + d;
 			if (lDist < 0) allin = false;
 			if (lDist >= 0) allout = false;
 			aDist.push( lDist );
@@ -404,8 +423,7 @@ class Frustum
 		var l_oUV1:UVCoord = l_aTmpUv[0], l_oUV2:UVCoord = null, l_oUVTmp:UVCoord = null;
 		var v1:Vertex = tmp[0], v2:Vertex = null,  t:Vertex = null;
 		//
-		var d:Float, dist2:Float, dist1:Float = aDist[0];
-		var clipped:Bool = false, inside:Bool = (dist1 >= 0);
+		var dist2:Float, dist1:Float = aDist[0], clipped:Bool = false, inside:Bool = (dist1 >= 0);
 		var curv:Float = 0;
 		for (i in 1...(l+1))
 		{
@@ -429,8 +447,8 @@ class Frustum
 				t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 				t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 				//
-				p_aCvert.push( t );
-				p_aCvert.push( v2 );
+				p_aCvert[p_aCvert.length] = ( t );
+				p_aCvert[p_aCvert.length] = ( v2 );
 				//
 				l_oUVTmp = new UVCoord();
 				l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);

@@ -46,6 +46,12 @@ class Material
 	public var lightingEnable:Bool;
 
 	/**
+	 * Specifies if the material can automatically be disposed when unused
+	 * Default value is to true
+	 */
+	public var autoDipose:Bool;
+		
+	/**
 	* Creates a material.
 	*
 	* <p>This constructor is never called directly - but by sub class constructors.</p>
@@ -63,6 +69,36 @@ class Material
 		attributes = (p_oAttr == null) ? new MaterialAttributes() : p_oAttr;
 		m_bModified = true;
 		m_oType = MaterialType.NONE;
+		m_nRefCounting = 0;
+		m_oPolygonMap = new IntHash<Int>();
+		autoDipose = true;
+	}
+		
+	private var m_oPolygonMap:IntHash<Int>;
+	private var m_nRefCounting:Int;
+		
+	/**
+	 * Method to call when you want to release the resources of that material (filters, attributes and lreferences to polygons)
+	 */
+	public function dispose():Void
+	{
+		var l_oApp:Appearance;
+		var l_oPoly:Polygon;
+		for( l_sLabel in m_oPolygonMap )
+		{
+			l_oPoly = Polygon.POLYGON_MAP.get(l_sLabel);
+			unlink(l_oPoly);
+			l_oApp = l_oPoly.appearance;
+			if( l_oApp.frontMaterial == this )
+				l_oApp.frontMaterial = null;//Shape3D.DEFAULT_MATERIAL;
+			else if( l_oApp.backMaterial == this )
+				l_oApp.backMaterial = null;//Shape3D.DEFAULT_MATERIAL;
+		
+			m_oPolygonMap.remove(l_sLabel);
+		}
+		attributes = null;
+		_filters = null;
+		//m_oPolygonMap = null;
 	}
 
 	/**
@@ -145,8 +181,17 @@ class Material
 	*/
 	public function init( p_oPolygon:Polygon ):Void
 	{
-		if( attributes != null )
-			attributes.init( p_oPolygon );
+		if( !m_oPolygonMap.exists(p_oPolygon.id) )
+		{
+			m_oPolygonMap.set(p_oPolygon.id, 1);
+			m_nRefCounting ++;
+			if( attributes != null )
+				attributes.init( p_oPolygon );
+		}
+		else
+		{
+			m_oPolygonMap.set(p_oPolygon.id, m_oPolygonMap.get(p_oPolygon.id) + 1);
+		}
 	}
 
 	/**
@@ -156,9 +201,45 @@ class Material
 	*/
 	public function unlink( p_oPolygon:Polygon ):Void
 	{
-		if( attributes != null )
-			attributes.unlink( p_oPolygon );
+			if( !m_oPolygonMap.exists(p_oPolygon.id) )
+			{
+				m_oPolygonMap.set( p_oPolygon.id, m_oPolygonMap.get(p_oPolygon.id) - 1 );
+				if( m_oPolygonMap.get(p_oPolygon.id) == 0 )
+				{
+					m_oPolygonMap.remove(p_oPolygon.id);
+					m_nRefCounting --;
+					if( attributes != null )
+						attributes.unlink( p_oPolygon );
+				}
+			}
+			//
+			if( autoDipose && m_nRefCounting <= 0 )
+			{
+				dispose();
+			}
 	}
+		
+	/**
+	 * Unlink all the non used polygons
+	 */
+	public function unlinkAll():haxe.FastList<Polygon>
+	{
+		var l_aUnlinked:haxe.FastList<Polygon> = new haxe.FastList<Polygon>();
+		var l_oApp:Appearance;
+		var l_oPoly:Polygon;
+		for( l_sLabel in m_oPolygonMap )
+		{
+			l_oPoly = Polygon.POLYGON_MAP.get( l_sLabel );
+			l_oApp = l_oPoly.appearance;
+			if( l_oApp.frontMaterial == this || l_oApp.backMaterial == this )
+			{
+				unlink(l_oPoly);
+				l_aUnlinked.add( l_oPoly );
+			}
+		}
+		return l_aUnlinked;
+	}
+		
 
 	/**
 	* The material type of this material.
@@ -243,6 +324,7 @@ class Material
 	private var _filters:Array<BitmapFilter>;
 	private var _id:Float;
 	private static var _ID_:Float = 0;
-	private static var create:Bool;
+	
+	//private static var create:Bool;
 }
 

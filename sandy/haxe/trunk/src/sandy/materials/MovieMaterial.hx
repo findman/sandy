@@ -113,6 +113,14 @@ class MovieMaterial extends BitmapMaterial
 		//h = null;
 	}
 
+	override public function dispose():Void
+	{
+		super.dispose();
+		stop();
+		m_oTimer = null;
+		m_oMovie = null;
+	}
+
 	/**
 	 * Renders this material on the face it dresses.
 	 *

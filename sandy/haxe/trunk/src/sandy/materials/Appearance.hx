@@ -3,6 +3,7 @@ package sandy.materials;
 
 import sandy.core.Scene3D;
 import sandy.materials.Material;
+import sandy.core.data.Polygon;
 
 import sandy.HaxeTypes;
 
@@ -77,7 +78,18 @@ class Appearance
 	*/
 	private function __setFrontMaterial( p_oMat:Material ):Material
 	{
+		if( m_oFrontMaterial == p_oMat ) return null;
+		// --
+		var l_aUnLinked:haxe.FastList<Polygon> = new haxe.FastList<Polygon>();
+		if( m_oFrontMaterial != null ) 
+			l_aUnLinked = m_oFrontMaterial.unlinkAll();
+		// --
 		m_oFrontMaterial = p_oMat;
+		// --
+		for ( l_oPoly in l_aUnLinked )
+		{
+			m_oFrontMaterial.init(l_oPoly);
+		}
 		if( m_oBackMaterial == null )
 		{
 			m_oBackMaterial = p_oMat;

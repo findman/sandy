@@ -461,8 +461,8 @@ class Polygon implements IDisplayable
 		}
 		else
 		{
-			cvertices = vertices.slice(0,vertices.length);
-			caUVCoord = aUVCoord.slice(0,aUVCoord.length);
+			cvertices = vertices.concat([]);
+			caUVCoord = aUVCoord.concat([]);
 			// --
 			isClipped = p_oFrustum.clipFrustum( cvertices, caUVCoord );
 		}
@@ -476,7 +476,7 @@ class Polygon implements IDisplayable
 	*/
 	public function clipFrontPlane( p_oFrustum:Frustum ):Array<Vertex>
 	{
-		cvertices = vertices.slice(0,vertices.length);
+		cvertices = vertices.concat([]);
 		// If line
 		if( vertices.length < 3 )
 		{
@@ -484,7 +484,7 @@ class Polygon implements IDisplayable
 		}
 		else
 		{
-			caUVCoord = aUVCoord.slice(0,aUVCoord.length);
+			caUVCoord = aUVCoord.concat([]);
 			isClipped = p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 		}
 		return cvertices;
@@ -508,14 +508,8 @@ class Polygon implements IDisplayable
 	{
 		// --
 		var lCont:Sprite = (p_oContainer != null)?p_oContainer:m_oContainer;
-		if( visible )
-		{
-			m_oAppearance.frontMaterial.renderPolygon( scene, this, lCont );
-		}
-		else
-		{
-			m_oAppearance.backMaterial.renderPolygon( scene, this, lCont );
-		}
+		if( material != null )
+			material.renderPolygon( scene, this, lCont );
 	}
 
 	/**
@@ -525,6 +519,7 @@ class Polygon implements IDisplayable
 	public var material(__getMaterial,__setMaterial) : Material;
 	private function __getMaterial():Material
 	{
+		if( m_oAppearance == null ) return null;
 		return ( visible ) ? m_oAppearance.frontMaterial : m_oAppearance.backMaterial;
 	}
 	private function __setMaterial(v:Material) : Material
@@ -764,25 +759,38 @@ class Polygon implements IDisplayable
 	}
 	private function __setAppearance( p_oApp:Appearance ):Appearance
 	{
-		if( m_oAppearance != null )
+		if( p_oApp == m_oAppearance ) return null;
+		// --
+		if( m_oAppearance != null && p_oApp != null)
 		{
-			m_oAppearance.frontMaterial.unlink( this );
-			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
+			if( p_oApp.frontMaterial != m_oAppearance.frontMaterial )
+			{
+				m_oAppearance.frontMaterial.unlink( this );
+				p_oApp.frontMaterial.init( this );
+			}
+			if( m_oAppearance.frontMaterial != m_oAppearance.backMaterial && p_oApp.backMaterial != m_oAppearance.backMaterial )
 			{
 				m_oAppearance.backMaterial.unlink( this );
 			}
-			m_oAppearance = null;
+			if( p_oApp.frontMaterial != p_oApp.backMaterial	&& p_oApp.backMaterial != m_oAppearance.backMaterial )
+			{
+				p_oApp.backMaterial.init( this );
+			}
+			m_oAppearance = p_oApp;
 		}
-		// --
-		if( p_oApp != null )
+		else if( p_oApp != null )
 		{
 			m_oAppearance = p_oApp;
-			// --
 			m_oAppearance.frontMaterial.init( this );
-			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
-			{
+			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
 				m_oAppearance.backMaterial.init( this );
-			}
+		}
+		else if( m_oAppearance != null )
+		{
+			m_oAppearance.frontMaterial.unlink( this );
+			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+				m_oAppearance.backMaterial.unlink( this );
+			m_oAppearance = null;
 		}
 		return p_oApp;
 	}
@@ -790,7 +798,6 @@ class Polygon implements IDisplayable
 	private function _finishMaterial( pEvt:SandyEvent ):Void
 	{
 		if( m_oAppearance == null ) return;
-		//if( !visible ) return;
 		// --
 		m_oAppearance.frontMaterial.finish( m_oScene );
 		if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
@@ -802,7 +809,7 @@ class Polygon implements IDisplayable
 	private function _beginMaterial( pEvt:SandyEvent ):Void
 	{
 		if( m_oAppearance == null ) return;
-		//if( !visible ) return;
+
 		// --
 		m_oAppearance.frontMaterial.begin( m_oScene );
 		if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
@@ -832,9 +839,12 @@ class Polygon implements IDisplayable
 		// --
 		enableEvents = false;
 		enableInteractivity = false;
-		if( appearance.backMaterial != null ) appearance.backMaterial.unlink( this );
-		if( appearance.frontMaterial != null ) appearance.frontMaterial.unlink( this );
-		appearance = null;
+		if( appearance != null )
+		{
+			if( appearance.backMaterial != null ) appearance.backMaterial.unlink( this );
+			if( appearance.frontMaterial != null ) appearance.frontMaterial.unlink( this );
+			appearance = null;
+		}
 		if( m_oContainer.parent != null ) m_oContainer.parent.removeChild( m_oContainer );
 		m_oContainer = null;
 		// --

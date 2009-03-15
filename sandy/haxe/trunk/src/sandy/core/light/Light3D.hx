@@ -30,6 +30,12 @@ class Light3D extends EventDispatcher
 	public static inline var MAX_POWER:Float = 150;
 
 	/**
+	 * Public property which stores the modification of that light instance in case it changed.
+	 * It is useful for the cache system
+	 */
+	public var changed:Bool;
+
+	/**
 	 * Creates a new light source.
 	 *
 	 * @param p_oD		The direction of the emitted light.
@@ -55,6 +61,7 @@ class Light3D extends EventDispatcher
 	{
 		_power =  NumberUtil.constrain(p_nPow, 0, Light3D.MAX_POWER);
 		_nPower = _power / Light3D.MAX_POWER;
+		changed = true;
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_UPDATED));
 	}
 
@@ -101,6 +108,7 @@ class Light3D extends EventDispatcher
 	{
 		_dir.x = x; _dir.y = y; _dir.z = z;
 		_dir.normalize();
+		changed = true;
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_UPDATED));
 	}
 
@@ -115,6 +123,7 @@ class Light3D extends EventDispatcher
 	{
 		_dir = pDir;
 		_dir.normalize();
+		changed = true;
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_UPDATED));
 	}
 
@@ -164,6 +173,7 @@ class Light3D extends EventDispatcher
 	private function __setColor(p_nColor:Int):Int
 	{
 		_color = p_nColor;
+		changed = true;
 
 		// we don't send LIGHT_UPDATED to aVoid recalculating light maps needlessly
 		// some event still has to be sent though, just in case...
