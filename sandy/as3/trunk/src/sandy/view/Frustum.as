@@ -427,7 +427,7 @@ package sandy.view
 		 */
 		private const aDist:Array = [];
 		public function clipPolygon( p_oPlane:Plane, p_aCvert:Array, p_aUVCoords:Array ):Boolean
-		{	
+		{
 			var allin:Boolean = true, allout:Boolean = true, v:Vertex,
 				i:Number, l:Number = p_aCvert.length, lDist:Number,
 				a:Number = p_oPlane.a, b:Number = p_oPlane.b, c:Number = p_oPlane.c, d:Number = p_oPlane.d;
@@ -476,7 +476,8 @@ package sandy.view
 				{	 
 					clipped = inside = true;
 					//
-					t = pool.nextVertex;
+					//t = pool.nextVertex;
+					t = new Vertex; t.projected = false; t.transformed = false;
 					d = dist1/(dist1-dist2);
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
@@ -485,7 +486,7 @@ package sandy.view
 					p_aCvert[int(p_aCvert.length)] = ( t );
 					p_aCvert[int(p_aCvert.length)] = ( v2 );
 					//
-					l_oUVTmp = pool.nextUV;
+					l_oUVTmp = new UVCoord; // pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
@@ -496,14 +497,15 @@ package sandy.view
 				{	 
 					clipped=true;
 					inside=false;
-					t = pool.nextVertex;
+					//t = pool.nextVertex;
+					t = new Vertex; t.projected = false; t.transformed = false;
 					d = dist1/(dist1-dist2);
 					//
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					l_oUVTmp = pool.nextUV;
+					l_oUVTmp = new UVCoord; // pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
