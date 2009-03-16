@@ -1,4 +1,4 @@
-package sandy.core.data 
+﻿package sandy.core.data 
 {
 	/**
 	 * @author thomas
@@ -15,7 +15,7 @@ package sandy.core.data
 		private const m_aPoint3Ds:Array = new Array();
 		private var m_nIdPoint3D:int = 0;
 		
-		private static var INSTANCE:Pool;
+		private static var INSTANCE:Pool = null;
 
 		public static function getInstance():Pool
 		{
@@ -23,8 +23,13 @@ package sandy.core.data
 			return INSTANCE;
 		}
 
-		public function Pool() 
+		public function Pool () 
 		{
+			if (INSTANCE != null)
+			{
+				throw new Error ("There *MUST* be single Pool instance.");
+			}
+
 			for( var i:int = 0; i < m_nSize; i++ )
 			{
 				m_aVertices[int(i)] = new Vertex();
@@ -35,7 +40,7 @@ package sandy.core.data
 		
 		public function init():void
 		{
-			m_nIdVertice = m_nIdUV = m_nIdPoint3D = 0;
+			m_nIdVertice = m_nIdUV = m_nIdPoint3D = 0;// trace (m_aVertices.length);
 		}
 		
 		public function get nextVertex():Vertex

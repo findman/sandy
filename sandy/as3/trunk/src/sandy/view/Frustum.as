@@ -46,7 +46,7 @@ package sandy.view
 		public var aNormals:Array;
 		public var aConstants:Array;
 		private const m_aBoxEdges:Array = new Array(8);
-		private var pool:Pool = new Pool();
+		private var pool:Pool = Pool.getInstance ();
 		/**
 		* Specifies the index of the far plane of the frustum in the aPlanes array.
 		*/
@@ -476,8 +476,7 @@ package sandy.view
 				{	 
 					clipped = inside = true;
 					//
-					//t = pool.nextVertex;
-					t = new Vertex; t.projected = false; t.transformed = false;
+					t = pool.nextVertex;
 					d = dist1/(dist1-dist2);
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
@@ -486,7 +485,7 @@ package sandy.view
 					p_aCvert[int(p_aCvert.length)] = ( t );
 					p_aCvert[int(p_aCvert.length)] = ( v2 );
 					//
-					l_oUVTmp = new UVCoord; // pool.nextUV;
+					l_oUVTmp = pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
@@ -497,15 +496,14 @@ package sandy.view
 				{	 
 					clipped=true;
 					inside=false;
-					//t = pool.nextVertex;
-					t = new Vertex; t.projected = false; t.transformed = false;
+					t = pool.nextVertex;
 					d = dist1/(dist1-dist2);
 					//
 					t.wx = (v1.wx+(v2.wx-v1.wx)*d);
 					t.wy = (v1.wy+(v2.wy-v1.wy)*d);
 					t.wz = (v1.wz+(v2.wz-v1.wz)*d);
 					//
-					l_oUVTmp = new UVCoord; // pool.nextUV;
+					l_oUVTmp = pool.nextUV;
 					l_oUVTmp.u = (l_oUV1.u+(l_oUV2.u-l_oUV1.u)*d);
 					l_oUVTmp.v = (l_oUV1.v+(l_oUV2.v-l_oUV1.v)*d);
 					//
