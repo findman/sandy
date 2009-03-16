@@ -1,8 +1,8 @@
+
 package sandy.extrusion;
 
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import sandy.util.ArrayUtil;
 
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
@@ -70,7 +70,7 @@ class Extrusion extends Shape3D {
 					v.x = profile.vertices [j].x;
 					v.y = profile.vertices [j].y;
 					v.z = 0;
-					m.vectorMult(v);
+					m.transform(v);
 					g.setVertex (j + i * n, v.x, v.y, v.z);
 				}
 				g.setUVCoords (j + i * (n + 1), j / n, i / (l_sections.length - 1));
@@ -78,7 +78,8 @@ class Extrusion extends Shape3D {
 
 			if (i > 0) {
 				for ( j in 1 ... n + 1 ) {
-					if (ArrayUtil.indexOf(profile.vertices [j % n], links) < 0) {
+					if ( !Lambda.exists( links, function (value) { return value == profile.vertices[j % n]; } ) )
+					{
 						k = g.getNextFaceID ();
 						var i1:Int = j % n + i * n;
 						var i2:Int = (a > 0) ? (j + (i - 1) * n - 1) : (j + i * n - 1);
@@ -94,14 +95,12 @@ class Extrusion extends Shape3D {
 						i5 = (a > 0) ? (j + (i - 1) * (n + 1) - 1) : (j + (i - 1) * (n + 1));
 						g.setFaceUVCoordsIds (k, [ i1, i2, i3 ] );
 						g.setFaceUVCoordsIds (k + 1, [ i1, i4, i5 ] );
-						sideFaceIDs.push (k);
 						sideFaceIDs.push (k + 1);
 					}
 				}
 			}
 		}
 
-		links.length = 0;
 		links = null;
 
 		if (closeFront || closeBack) {
@@ -115,11 +114,13 @@ class Extrusion extends Shape3D {
 			var triangles:Array<Polygon2D> = profile.triangles ();
 
 			var q:Int = g.getNextVertexID () - profile.vertices.length;
-			var tri:Polygon2D;
 			for ( tri in triangles ) {
-				var v1:Int = ArrayUtil.indexOf (tri.vertices [0], profile.vertices);
-				var v2:Int = ArrayUtil.indexOf (tri.vertices [(a > 0) ? 1 : 2], profile.vertices);
-				var v3:Int = ArrayUtil.indexOf (tri.vertices [(a > 0) ? 2 : 1], profile.vertices);
+				var v1:Int = 0;
+				Lambda.mapi( profile.vertices, function (index, value) { v1 = ( value == tri.vertices[0] ) ? index : v1; return null;} );
+				var v2:Int = 0;
+				Lambda.mapi( profile.vertices, function (index, value) { v2 = ( value == tri.vertices[(a > 0) ? 1 : 2] ) ? index : v2; return null; } );
+				var v3:Int = 0;
+				Lambda.mapi( profile.vertices, function (index, value) { v3 = ( value == tri.vertices[(a > 0) ? 2 : 1] ) ? index : v3; return null; } );
 				if (closeFront) {
 					// add front surface
 					k = g.getNextFaceID ();
