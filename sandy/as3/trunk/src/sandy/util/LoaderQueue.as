@@ -94,12 +94,14 @@ package sandy.util
 		 */
 		public function add( p_sID : String, p_oURLRequest : URLRequest, type:String = "IMG" ) : void
 		{
-			if(type == "BIN"){
+			if(type == "BIN")
+			{
 				var tmpLoader:URLLoader = new URLLoader ();
 			    tmpLoader.dataFormat = URLLoaderDataFormat.BINARY;
 			    m_oLoaders[ p_sID ] = new QueueElement( p_sID, null, tmpLoader, p_oURLRequest );
 			} 
-			else {
+			else 
+			{
 			 	m_oLoaders[ p_sID ] = new QueueElement( p_sID, new Loader(), null, p_oURLRequest );
 			}
 			// --
@@ -133,7 +135,7 @@ package sandy.util
 		/**
 		 * Starts the loading of all resources in the queue.
 		 *
-		 * <p>All loaders in the queue are started and IOErrorEvent and the COMPLETE event are subscribed to.</p>
+		 * <p>All loaders in the queue are started and IOErrorEvent and the COMPLETE event are subscribed too.</p>
 		 */
 		public function start() : void
 		{
@@ -141,18 +143,22 @@ package sandy.util
 			for each( var l_oLoader:QueueElement in m_oLoaders )
 			{
 				noLoaders = false;
-				if (l_oLoader.loader != null) {
+				if (l_oLoader.loader != null) 
+				{
 					l_oLoader.loader.load( l_oLoader.urlRequest );
 					l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
 	            	l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
-				} else {
+				} 
+				else 
+				{
 					l_oLoader.urlLoader.load( l_oLoader.urlRequest );	
 					l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
 	            	l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 				}
 			}
 
-			if (noLoaders) {
+			if (noLoaders)
+			{
 				// still need to dispatch complete event
 				m_oQueueCompleteEvent.loaders = m_oLoaders;
 				dispatchEvent( m_oQueueCompleteEvent );
@@ -172,12 +178,15 @@ package sandy.util
 			// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
 			dispatchEvent( m_oQueueResourceLoadedEvent ); 
 			
-			if (getQualifiedClassName(p_oEvent.target) == "flash.net::URLLoader"){
+			if (getQualifiedClassName(p_oEvent.target) == "flash.net::URLLoader")
+			{
 				var l_oLoader:URLLoader = URLLoader(p_oEvent.target);
 				l_sName = getIDFromURLLoader(l_oLoader );
 				data[ l_sName ] = l_oLoader.data;
 				clips[ l_sName ] = l_oLoaderInfos;
-		    } else{
+		    } 
+		    else
+		    {
 				var l_oLoader01:Loader = l_oLoaderInfos.loader;
 				l_sName = getIDFromLoader( l_oLoader01 );
 				data[ l_sName ] = l_oLoaderInfos.content;
@@ -199,10 +208,9 @@ package sandy.util
 		 */
 		private function ioErrorHandler( p_oEvent : IOErrorEvent ) : void
 		{	
-			trace( "LoaderQueue.ioErrorHandler: " + p_oEvent.text );
+			trace( "LoaderQueue can't access a file: " + p_oEvent.text );
 			// Fire an event to indicate that a single resource loading failed (needs to be enhanced to provide more info)
 			dispatchEvent( m_oQueueLoaderError );
-			
 			m_nLoaders--;
 			if( m_nLoaders == 0 ) 
 			{

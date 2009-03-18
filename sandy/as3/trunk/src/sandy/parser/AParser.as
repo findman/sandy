@@ -162,6 +162,7 @@ package sandy.parser
 					m_oQueue.add(i.toString(), new URLRequest(RELATIVE_TEXTURE_PATH + "/" + m_aTextures[i]));
 				}
 				m_oQueue.addEventListener(QueueEvent.QUEUE_COMPLETE, onTexturesloadComplete);
+				m_oQueue.addEventListener(QueueEvent.QUEUE_LOADER_ERROR, onTexturesloadError);
 				m_oQueue.start();
 			} 
 			else 
@@ -172,8 +173,13 @@ package sandy.parser
 			}
 		}
 
-		private function onTexturesloadComplete(e:QueueEvent):void
+		private function onTexturesloadError(e:Event=null):void
 		{
+			trace("Parser can't load automatically the texture(s), check RELATIVE_TEXTURE_PATH property in documentation");
+		}
+		
+		private function onTexturesloadComplete(e:QueueEvent):void
+		{			
 			for (var i:int = 0;i < m_aShapes.length; i++) 
 			{
 				// set successfully loaded materials
