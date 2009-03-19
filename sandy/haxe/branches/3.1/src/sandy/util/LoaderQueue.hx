@@ -119,7 +119,7 @@ class LoaderQueue extends EventDispatcher
 	/**
 	 * Starts the loading of all resources in the queue.
 	 *
-	 * <p>All loaders in the queue are started and IOErrorEvent and the COMPLETE event are subscribed to.</p>
+	 * <p>All loaders in the queue are started and IOErrorEvent and the COMPLETE event are subscribed too.</p>
 	 */
 	public function start() : Void
 	{

@@ -287,7 +287,9 @@ class Renderer
 						l_nPolyFlags |= l_nFlags;
 						// --
 						if ( l_oShape.useSingleContainer == false )
+						{
 						    m_aRenderingList[m_nRenderingListCount++] = l_oFace;
+						}
 					}
 				}
 				// --
