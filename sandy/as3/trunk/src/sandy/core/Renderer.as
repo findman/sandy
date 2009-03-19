@@ -236,7 +236,6 @@ package sandy.core
 								l_oVertex.transformed = true;
 							}
 		                }
-
 		                // --               	
 						l_oFace.precompute();
 		                l_nMinZ = l_oFace.minZ;
@@ -276,7 +275,9 @@ package sandy.core
 							l_nPolyFlags |= l_nFlags;
 							// --
 							if( l_oShape.useSingleContainer == false )
+							{
 								m_aRenderingList[int(m_nRenderingListCount++)] = l_oFace;
+							}
 						}
 					}
 					// --
