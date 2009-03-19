@@ -94,6 +94,7 @@ class ClippingDemo extends Sprite
 		box.y = 100;
 		box.enableBackFaceCulling = false;
 		box.enableClipping = true;
+		box.useSingleContainer = false;
 
 		
 		var pic:Texture = new Texture();
@@ -103,6 +104,8 @@ class ClippingDemo extends Sprite
 										 			 new BitmapMaterial( pic ) );
 		
 		box.appearance = lAppearance;
+		box.rotateX = 140;
+		box.rotateZ = 170;
 		//(box.appearance.frontMaterial as ColorMaterial).lightingEnable = true;
 		lPlane.appearance = new Appearance( new ColorMaterial() );
 		

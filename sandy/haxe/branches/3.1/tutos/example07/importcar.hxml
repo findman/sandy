@@ -1,6 +1,5 @@
 -cp ../../src
 -cp ../assets
--lib xpath
 -swf9 importcar.swf
 -main ImportCar
 

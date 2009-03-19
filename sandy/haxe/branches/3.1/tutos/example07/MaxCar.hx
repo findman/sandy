@@ -51,11 +51,11 @@ class MaxCar extends Sprite {
 
 		private function parserComplete(pEvt:Event ):Void
 		{
-				car = parserStack.getGroupByName("carParser").children[0];
-				wheelLF = parserStack.getGroupByName("wheelLFParser").children[0];
-				wheelRF = parserStack.getGroupByName("wheelRFParser").children[0];
-				wheelLR = parserStack.getGroupByName("wheelLRParser").children[0];
-				wheelRR = parserStack.getGroupByName("wheelRRParser").children[0];
+				car = cast parserStack.getGroupByName("carParser").children[0];
+				wheelLF = cast parserStack.getGroupByName("wheelLFParser").children[0];
+				wheelRF = cast parserStack.getGroupByName("wheelRFParser").children[0];
+				wheelLR = cast parserStack.getGroupByName("wheelLRParser").children[0];
+				wheelRR = cast parserStack.getGroupByName("wheelRRParser").children[0];
 				loadSkins();
 		}
 

@@ -1,7 +1,6 @@
 -cp ../../src
 -swf-header 400:300:50:ffffff 
 -swf-lib lib.swf
--lib xpath
 -cp ../assets
 -swf9 comparisondemo.swf
 -main ComparisonDemo
