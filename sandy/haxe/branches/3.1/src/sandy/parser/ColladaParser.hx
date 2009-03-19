@@ -431,12 +431,6 @@ class ColladaParser extends AParser, implements IParser
 				// --
 				formatPoint3D(l_oNormal);
 				// --
-				switch (m_oUp)
-				{
-				case Y_UP:
-					l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
-				default:
-				}
 			}
 		}
 
