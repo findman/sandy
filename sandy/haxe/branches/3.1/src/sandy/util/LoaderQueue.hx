@@ -151,7 +151,6 @@ class LoaderQueue extends EventDispatcher
 	private function completeHandler( p_oEvent:Event ) : Void
 	{
 		var l_sName:String = null;
-		var l_oLoaderInfos:LoaderInfo = p_oEvent.target;
 
 		// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
 		dispatchEvent( m_oQueueResourceLoadedEvent );
@@ -160,8 +159,9 @@ class LoaderQueue extends EventDispatcher
 			var l_oLoader:URLLoader = p_oEvent.target;
 			l_sName = getIDFromURLLoader( l_oLoader );
 			data.set( l_sName, l_oLoader.data);
-			clips.set( l_sName, l_oLoaderInfos);
+			clips.set( l_sName, p_oEvent.target);
 		} else {
+			var l_oLoaderInfos:LoaderInfo = p_oEvent.target;
 			var l_oLoader:Loader = l_oLoaderInfos.loader;
 			l_sName = getIDFromLoader( l_oLoader );
 			data.set( l_sName, l_oLoaderInfos.content );
