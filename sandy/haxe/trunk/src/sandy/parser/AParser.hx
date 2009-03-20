@@ -149,6 +149,7 @@ class AParser extends EventDispatcher, implements IParser
 				m_oQueue.add(Std.string(i), new URLRequest(RELATIVE_TEXTURE_PATH + "/" + m_aTextures[i]));
 			}
 			m_oQueue.addEventListener(QueueEvent.QUEUE_COMPLETE, onTexturesloadComplete);
+			m_oQueue.addEventListener(QueueEvent.QUEUE_LOADER_ERROR, onTexturesloadError);
 			m_oQueue.start();
 		}
 		else
@@ -157,6 +158,11 @@ class AParser extends EventDispatcher, implements IParser
 			l_eOnInit.group = m_oGroup;
 			dispatchEvent(l_eOnInit);
 		}
+	}
+
+	private function onTexturesloadError(e:Event = null):Void
+	{
+		trace("Parser can't load automatically the texture(s), check RELATIVE_TEXTURE_PATH property in documentation");
 	}
 
 	private function onTexturesloadComplete(e:QueueEvent):Void

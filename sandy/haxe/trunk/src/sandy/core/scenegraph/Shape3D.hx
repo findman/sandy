@@ -323,7 +323,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*/
 	public function display( ?p_oContainer:Sprite  ):Void
 	{
-		if (m_bNotConvex) 
+		if ( m_bNotConvex || m_bBackFaceCulling == false ) 
 		{
 		// sort only if convex flag is not set
 #if flash

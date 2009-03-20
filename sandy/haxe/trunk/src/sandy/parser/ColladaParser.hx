@@ -429,12 +429,6 @@ class ColladaParser extends AParser, implements IParser
 				// --
 				formatPoint3D(l_oNormal);
 				// --
-				switch (m_oUp)
-				{
-				case Y_UP:
-					l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
-				default:
-				}
 			}
 		}
 
@@ -795,7 +789,7 @@ class ColladaParser extends AParser, implements IParser
 
 			l_oQueue.add(
 				l_sId,
-				new URLRequest( l_oImages.get( l_sId ).fileName )
+				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( l_sId ).fileName )
 			);
 		}
 		l_oQueue.addEventListener( QueueEvent.QUEUE_COMPLETE, imageQueueCompleteHandler );

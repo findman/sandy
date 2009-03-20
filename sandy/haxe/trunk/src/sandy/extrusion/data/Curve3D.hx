@@ -82,8 +82,10 @@ class Curve3D
 					normal.scale ( -1); binormal.scale ( -1);
 				}
 			}
-			m1 = new Matrix4(); m1.fromVectors(normal, binormal, t [i], v [i]);
-			m2.scale (s [i], s [i], s [i]); m1.multiply (m2);
+			m1 = new Matrix4(); 
+			m1.fromPoint3Ds(normal, binormal, t[i], v[i]);
+			m2.scale (s [i], s [i], s [i]); 
+			m1.multiply (m2);
 			sections [i] = m1;
 		}
 		return sections;
@@ -96,14 +98,19 @@ class Curve3D
 	 * @return
 	 */
 	private function orthogonalize (p_oPoint:Point3D, hint:Point3D):Point3D {
-		var w:Point3D = p_oPoint.cross (hint); w.crossWith (p_oPoint); return w;
+		var w:Point3D = p_oPoint.cross (hint);
+		w.crossWith (p_oPoint);
+		return w;
 	}
 
 	/**
 	 * Creates empty Curve3D object.
 	 */
 	public function new () {
-		v = []; t = []; n = []; s = [];
+		v = [];
+		t = [];
+		n = [];
+		s = [];
 	}
 
 }
