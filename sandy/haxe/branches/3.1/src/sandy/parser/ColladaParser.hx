@@ -791,7 +791,7 @@ class ColladaParser extends AParser, implements IParser
 
 			l_oQueue.add(
 				l_sId,
-				new URLRequest( l_oImages.get( l_sId ).fileName )
+				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( l_sId ).fileName )
 			);
 		}
 		l_oQueue.addEventListener( QueueEvent.QUEUE_COMPLETE, imageQueueCompleteHandler );
