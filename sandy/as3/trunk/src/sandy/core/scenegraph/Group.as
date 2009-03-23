@@ -61,7 +61,6 @@ package sandy.core.scenegraph
 			}
 		}
 
-		
 		public function clone( p_sName:String ):Group
 		{
 			var l_oGroup:Group = new Group( p_sName );

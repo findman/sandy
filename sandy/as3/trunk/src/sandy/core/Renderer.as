@@ -120,7 +120,9 @@ package sandy.core
 			var 	l_nVisiblePolyCount:int = 0, i:int;
 		
 			var l_bForceRedraw:Boolean = p_oScene.camera.changed || !p_bUseCache;
-			
+			// -- return false because we do not even need to refresh display
+			if( m_bGlobalRedraw == false && l_bForceRedraw == false )
+				return false;
 			// -- this is the displayed list from the previous iteration, but all flags are updated
 			for each( var l_oObj:IDisplayable in m_aRenderingList )
 			{
@@ -132,9 +134,6 @@ package sandy.core
 					}
 				}
 			}
-			// -- return false because we do not even need to refresh display
-			if( m_bGlobalRedraw == false && l_bForceRedraw == false )
-				return false;
 			// --
 			m_nRenderingListCount = 0;
 			m_aRenderingList.length = 0;
