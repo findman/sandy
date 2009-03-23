@@ -32,6 +32,11 @@ class Pool
 
 	public function new()
 	{
+		if (INSTANCE != null)
+		{
+			throw "There *MUST* be single Pool instance.";
+		}
+
 		// initializers
 		m_nSize = 300;
 		m_aVertices = new Array();

@@ -13,7 +13,7 @@ import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
-import sandy.materials.Appearance;	
+import sandy.materials.Appearance;
 
 import sandy.HaxeTypes;
 
@@ -47,7 +47,7 @@ class Renderer
 		//private initializers
 		m_aDisplayList = new Array();
 		m_aRenderingList = new Array();
-		pool = new Pool();
+		pool = Pool.getInstance();
 
 		m_nRenderingListCount = 0;
 		m_nDisplayListCount = 0;

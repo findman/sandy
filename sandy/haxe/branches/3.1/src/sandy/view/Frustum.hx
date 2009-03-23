@@ -74,7 +74,7 @@ class Frustum
 		aNormals = new TypedArray(#if flash10 6 #end);
 		aConstants = new TypedArray(#if flash10 6 #end);
 		m_aBoxEdges = new TypedArray(#if flash10 8 #end);
-		pool = new Pool();
+		pool = Pool.getInstance();
 		aDist = new TypedArray(); // used only in clipPolygon
 		for( i in 0...8 )
 			m_aBoxEdges[i] = new Point3D();
@@ -276,7 +276,7 @@ class Frustum
 	*/
 	public function clipFrustum( p_aCvert: Array<Vertex>, p_aUVCoords:Array<UVCoord> ):Bool
 	{
-		if( p_aCvert.length <= 2 ) 
+		if( p_aCvert.length <= 2 )
 		{
 			return true;
 		}
@@ -284,22 +284,22 @@ class Frustum
 		l_bResult = clipPolygon( aPlanes[NEAR], p_aCvert, p_aUVCoords ); // near
 		if ( p_aCvert.length <= 2 )
 			return true;
-				
+
 		l_bClipped = clipPolygon( aPlanes[LEFT], p_aCvert, p_aUVCoords ); // left
 		if ( p_aCvert.length <= 2 )
 			return true;
 		l_bResult = l_bResult || l_bClipped;
-			
+
 		l_bClipped = clipPolygon( aPlanes[RIGHT], p_aCvert, p_aUVCoords ); // right
 		if ( p_aCvert.length <= 2 )
 			return true;
 		l_bResult  = l_bResult || l_bClipped;
-			
+
 		l_bClipped = clipPolygon( aPlanes[BOTTOM], p_aCvert, p_aUVCoords ); // top
 	        if ( p_aCvert.length <= 2 )
 			return true;
 		l_bResult = l_bResult || l_bClipped;
-	        
+
 		l_bClipped = clipPolygon( aPlanes[TOP], p_aCvert, p_aUVCoords ); // bottom
 		if ( p_aCvert.length <= 2 )
 			return true;
