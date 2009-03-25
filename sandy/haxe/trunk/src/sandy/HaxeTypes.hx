@@ -6,6 +6,12 @@ typedef TypedArray<T> = flash.Vector<T>;
 typedef TypedArray<T> = Array<T>;
 #end
 
+#if flash
+typedef Bytes = flash.utils.ByteArray;
+#else
+#error
+#end
+
 #if SANDY_USE_FAST_MATH
 typedef TRIG = sandy.math.FastMath;
 #else

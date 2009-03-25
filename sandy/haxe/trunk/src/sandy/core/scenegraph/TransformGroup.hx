@@ -12,7 +12,6 @@ import sandy.HaxeTypes;
 *
 * <p>It represents a node in the object tree of the world.<br/>
 * Transformations performed on this group are applied to all its children.</p>
-* <p>The class is final, i.e. it can not be subclassed.
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port

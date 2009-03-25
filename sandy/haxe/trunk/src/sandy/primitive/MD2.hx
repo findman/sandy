@@ -2,9 +2,8 @@ package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.Shape3D;
-import sandy.primitive.Primitive3D;
 import sandy.core.data.Point3D;
-import sandy.core.data.Vertex;
+// import sandy.core.data.Vertex;
 import sandy.core.data.UVCoord;
 
 import flash.utils.ByteArray;
@@ -17,39 +16,11 @@ import sandy.HaxeTypes;
 *
 * @author Philippe Ajoux (philippe.ajoux@gmail.com)
 * @author Niel Drummond - haXe port
-* @author Russell Weir - haXe port
+* @author Russell Weir
 */
-class MD2 extends Shape3D, implements Primitive3D
+class MD2 extends KeyFramedShape3D
 {
-	/**
-	* Creates MD2 primitive.
-	*
-	* @param p_sName Shape instance name.
-	* @param data MD2 binary data.
-	* @param scale Adjusts model scale.
-	*/
-	public function new ( p_sName:String, data:ByteArray, ?scale:Float = 1.0 )
-	{
-		frames = new Hash();
-		vertices = [];
-		v = new Point3D ();
-		w = new Point3D ();
 
-		m_oBinaryData = data;
-		super (p_sName); scaling = scale; geometry = generate ([data]); frame = 0;
-		//animated = true;
-	}
-
-	public override function clone( ?p_sName:String="", ?p_bKeepTransform:Bool = false ):Shape3D
-	{
-		var l_oCopy:MD2 = new MD2(p_sName, m_oBinaryData, scaling);
-		if( p_bKeepTransform == true ) l_oCopy.matrix = this.matrix;
-		l_oCopy.useSingleContainer = this.useSingleContainer;
-		l_oCopy.appearance = this.appearance;
-		return l_oCopy;
-	}
-
-	private var m_oBinaryData:ByteArray;
 
 	/**
 	* Generates the geometry for MD2. Sandy never actually calls this method,
@@ -57,7 +28,7 @@ class MD2 extends Shape3D, implements Primitive3D
 	*
 	* @return The geometry object.
 	*/
-	public function generate<T>(?arguments:Array<T>):Geometry3D
+	override public function generate<T>(?arguments:Array<T>):Geometry3D
 	{
 		var i:Int, j:Int, char:Int;
 		var uvs:Array<UVCoord> = [];
@@ -174,120 +145,6 @@ class MD2 extends Shape3D, implements Primitive3D
 		return mesh;
 	}
 
-	/**
-	* Frames map. This maps frame names to frame numbers.
-	*/
-	public var frames:Hash<Int>;
-
-	/**
-	* Frame number. You can tween this value to play MD2 animation.
-	*/
-	public var frame (__getFrame,__setFrame):Float;
-	private function __getFrame ():Float { return t; }
-
-	/**
-	* @private (setter)
-	*/
-	private function __setFrame (value:Float):Float
-	{
-		t = value;
-
-		// interpolation frames
-		var f1:Array<Point3D> = vertices [Std.int(t) % num_frames];
-		var f2:Array<Point3D> = vertices [(Std.int(t) + 1) % num_frames];
-
-		// interpolation coef-s
-		var c2:Float = t - Std.int(t), c1:Float = 1 - c2;
-
-		// loop through vertices
-		for (i in 0...num_vertices)
-		{
-			var v0:Vertex = geometry.aVertex [i];
-			var v1:Point3D = f1 [i];
-			var v2:Point3D = f2 [i];
-
-			// interpolate
-			v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
-			v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
-			v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
-		}
-
-		// update face normals
-		for (l_oPoly in aPolygons)
-		{
-			v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
-			w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-			w.crossWith (v); w.normalize ();
-			l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
-		}
-
-		changed = true;
-		return value;
-	}
-
-	/**
-	* Appends frame copy to animation.
-	* You can use this to rearrange an animation at runtime, create transitions, etc.
-	*
-	* @return number of created frame.
-	*/
-	public function appendFrameCopy (frameNumber:Int):Int
-	{
-		//var f:Array = vertices [frameNumber] as Array;
-		var f:Array<Point3D> = vertices [frameNumber];
-		if (f == null) {
-			return -1;
-		} else {
-			num_frames++;
-			return vertices.push (f.slice (0)) -1;
-		}
-	}
-
-	/**
-	* Replaces specified frame with other key or interpolated frame.
-	*/
-	public function replaceFrame (destFrame:Int, sourceFrame:Float):Void
-	{
-		var sfi = Std.int(sourceFrame);
-		var f0:Array<Point3D> = [];
-
-		// interpolation frames
-		var f1:Array<Point3D> = vertices [sfi % num_frames];
-		var f2:Array<Point3D> = vertices [(sfi + 1) % num_frames];
-
-		// interpolation coef-s
-		var c2:Float = sourceFrame - sfi, c1:Float = 1. - c2;
-
-		// loop through vertices
-		for(i in 0...num_vertices)
-		{
-			var v0:Point3D = new Point3D();
-			var v1:Point3D = f1 [i];
-			var v2:Point3D = f2 [i];
-
-			// interpolate
-			v0.x = v1.x * c1 + v2.x * c2;
-			v0.y = v1.y * c1 + v2.y * c2;
-			v0.z = v1.z * c1 + v2.z * c2;
-
-			// save
-			f0 [i] = v0;
-		}
-
-		vertices [destFrame] = f0;
-		num_frames = vertices.length;
-	}
-
-	// animation "time" (frame number)
-	private var t:Float;
-
-	// vertices list for every frame
-	private var vertices:Array<Array<Point3D>>;
-
-	// vars for quick normal computation
-	private var v:Point3D;
-	private var w:Point3D;
-
 	// original Philippe vars
 	private var ident:Int;
 	private var version:Int;
@@ -295,26 +152,17 @@ class MD2 extends Shape3D, implements Primitive3D
 	private var skinheight:Int;
 	private var framesize:Int;
 	private var num_skins:Int;
-	private var num_vertices:Int;
 	private var num_st:Int;
 	private var num_tris:Int;
 	private var num_glcmds:Int;
-	private var num_frames:Int;
 	private var offset_skins:Int;
 	private var offset_st:Int;
 	private var offset_tris:Int;
 	private var offset_frames:Int;
 	private var offset_glcmds:Int;
 	private var offset_end:Int;
-	private var scaling:Float;
 
 	private var texture:String;
-
-	/**
-	* Float of frames in MD2.
-	*/
-	public var nFrames(__getNFrames,null):Float;
-	private function __getNFrames():Float { return num_frames; }
 
 	/**
 	* Texture file name.

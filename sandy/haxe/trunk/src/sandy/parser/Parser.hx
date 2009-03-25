@@ -31,6 +31,10 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
 	 */
 	public inline static var MD2:String = "MD2";
 	/**
+	 * Specifies that the MD3 (Quake III model) parser should be used.
+	 */
+	public inline static var MD3:String = "MD3";
+	/**
 	 * Specifies that the 3DS (3D Studio) parser should be used.
 	 */
 	public inline static var MAX_3DS:String = "3DS";
@@ -76,6 +80,8 @@ class Parser<T,ParserClass:IParser, URL: (String,Null<T>)>
  				l_iParser = new ASEParser( p_sFile, p_nScale, p_sTextureExtension );
 			case MD2:
 				l_iParser = new MD2Parser( p_sFile, p_nScale, p_sTextureExtension );
+			case MD3:
+				l_iParser = new MD3Parser( p_sFile, null, new sandy.util.LoaderQueue(), p_nScale );
 			case "OBJ":
 			case COLLADA:
 				l_iParser = new ColladaParser( p_sFile, p_nScale, p_sTextureExtension );
