@@ -304,40 +304,5 @@ class QuaternionMath
 		*/
 	}
 
-	/**
-	* Linear interpolation between a start and end Quaternion.
-	*
-	* @param startQ Beginning Quaternion
-	* @param endQ Ending Quaternion
-	* @param fraction Range from 0.0 to 1.0
-	*
-	**/
-	public static function interpolate(startQ:Quaternion,endQ:Quaternion,fraction:Float) : Quaternion
-	{
-		var ct:Float = startQ.x * endQ.x + startQ.y * endQ.y + startQ.z * endQ.z + startQ.w * endQ.w;
-
-		var sign : Float = 1.;
-		if(ct < 0.) {
-			ct = -ct;
-			sign = -1.;
-		}
-
-		var c1 = 1.0 - fraction;
-		var c2 = fraction;
-		if( (1. - ct) > 0.01) {
-			var theta = Math.acos(ct);
-			var st = Math.sin(theta);
-			c1 = Math.sin((1. - fraction) * theta) / st;
-			c2 = Math.sin(fraction * theta) / st;
-		}
-
-		var q = new Quaternion();
-		var ss1 = sign * c2;
-		q.x = c1 * startQ.x + ss1 + endQ.x;
-		q.y = c1 * startQ.y + ss1 + endQ.y;
-		q.z = c1 * startQ.z + ss1 + endQ.z;
-		q.w = c1 * startQ.w + ss1 + endQ.w;
-		return q;
-	}
 
 }
