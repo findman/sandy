@@ -1,0 +1,9 @@
+-cp ../../src
+-cp ../
+#-cp ../assets
+#-swf-lib ../assets/caurina.swf
+-lib feffects
+-swf9 md3demo_10.swf
+-swf-version 10
+-main Md3Demo
+#-debug
