@@ -106,7 +106,7 @@ class Node
 	* The unique id of this node in the node graph.
 	* <p>This value is very useful to retrieve a specific node.</p>
 	*/
-	public var id:UInt;
+	public var id:Int;
 	/**
 	* Make all the Shape3D and descendants children react to this value.
 	* @param p_bUseSingleContainer if true, the whole objects will use a container to display the geometry into, otherwise, a specific container will be given to each polygon
@@ -166,6 +166,10 @@ class Node
 		if(m_bVisible == p_bVisibility) return p_bVisibility;
 		m_bVisible = p_bVisibility;
 		changed = true;
+		// do this to specify renderer that objects has been removed from displayList
+		// we do not set this in changed setter because we need to force children changed property only in that case!
+		for (  node in children )
+		 	node.changed = true;
 		return p_bVisibility;
 	}
 
@@ -569,6 +573,7 @@ class Node
 		m_bChanged = pVal;
 		return pVal;
 	}
+
 	private var m_bChanged:Bool;
 
 	/**
@@ -661,7 +666,7 @@ class Node
 	////////////////////
 	//// PRIVATE PART
 	////////////////////
-	private static var _ID_:UInt = 0;
+	private static var _ID_:Int = 0;
 	private var _parent:Node;
 	private var m_oEB:BubbleEventBroadcaster;
 

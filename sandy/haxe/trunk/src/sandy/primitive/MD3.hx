@@ -83,7 +83,13 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		var uvs:Array<UVCoord> = [];
 		var mesh:Geometry3D = new Geometry3D ();
 
-		var data:Bytes = try cast(arguments[0],Bytes) catch(e:Dynamic) return mesh;
+		var data:Bytes = null;
+		try 
+		{
+			cast(arguments[0],Bytes);
+		} catch(e:Dynamic) {
+			return mesh;
+		}
 
 		var offset_begin = data.position;
 		data.endian = Endian.LITTLE_ENDIAN;

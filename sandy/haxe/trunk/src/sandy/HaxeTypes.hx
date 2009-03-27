@@ -8,8 +8,6 @@ typedef TypedArray<T> = Array<T>;
 
 #if flash
 typedef Bytes = flash.utils.ByteArray;
-#else
-#error
 #end
 
 #if SANDY_USE_FAST_MATH
