@@ -799,10 +799,13 @@ class Polygon implements IDisplayable
 	{
 		if( m_oAppearance == null ) return;
 		// --
-		m_oAppearance.frontMaterial.finish( m_oScene );
-		if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
+		if( m_oAppearance.frontMaterial != null )
 		{
-			m_oAppearance.backMaterial.finish( m_oScene );
+			m_oAppearance.frontMaterial.finish( m_oScene );
+			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+			{
+				m_oAppearance.backMaterial.finish( m_oScene );
+			}
 		}
 	}
 
@@ -811,10 +814,13 @@ class Polygon implements IDisplayable
 		if( m_oAppearance == null ) return;
 
 		// --
-		m_oAppearance.frontMaterial.begin( m_oScene );
-		if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
+		if( m_oAppearance.frontMaterial != null )
 		{
-			m_oAppearance.backMaterial.begin( m_oScene );
+			m_oAppearance.frontMaterial.begin( m_oScene );
+			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+			{
+				m_oAppearance.backMaterial.begin( m_oScene );
+			}
 		}
 	}
 

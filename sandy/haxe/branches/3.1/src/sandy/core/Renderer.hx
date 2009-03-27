@@ -110,6 +110,15 @@ class Renderer
 		m_bGlobalRedraw = m_bGlobalRedraw || p_oObject.changed || ((p_oObject.material != null)?p_oObject.material.modified:false);
 	}
 
+	public function removeFromDisplayList( p_oObject:IDisplayable ):Void
+	{
+		p_oObject.clear();
+		var l_nKey : Int = -1;
+		Lambda.mapi( m_aDisplayList, function (i, v) { l_nKey = ( p_oObject == v ) ? i : l_nKey; return null;} );
+		if( l_nKey > -1 )
+			m_aDisplayList.splice( l_nKey, 1 );
+	}
+
 	/**
 	* Render the given scene.
 	* Objects are transformed, clipped and projected into that function.
@@ -130,12 +139,13 @@ class Renderer
 		var 	l_nVisiblePolyCount:Int = 0;
 
 		var l_bForceRedraw:Bool = p_oScene.camera.changed || !p_bUseCache;
-
+			
+		m_bGlobalRedraw = m_bGlobalRedraw || (m_aRenderingList.length == m_aDisplayList.length);
 		// -- return false because we do not even need to refresh display
 		if( m_bGlobalRedraw == false && l_bForceRedraw == false )
 			return false;
+		// -- this is the displayed list from the previous iteration, but all flags are updated
 
-		// -- Note, this is the displayed list from the previous iteration!
 		for( l_oObj in m_aRenderingList )
 		{
 			if( l_oObj != null )

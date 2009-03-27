@@ -85,6 +85,7 @@ class Appearance
 			l_aUnLinked = m_oFrontMaterial.unlinkAll();
 		// --
 		m_oFrontMaterial = p_oMat;
+		if( m_oFrontMaterial == null ) return null;
 		// --
 		for ( l_oPoly in l_aUnLinked )
 		{
@@ -102,7 +103,19 @@ class Appearance
 	*/
 	private function __setBackMaterial( p_oMat:Material ):Material
 	{
+		if( m_oBackMaterial == p_oMat ) return null;
+		// --
+		var l_aUnLinked:haxe.FastList<Polygon> = new haxe.FastList<Polygon>();
+		if( m_oBackMaterial != null ) 
+			l_aUnLinked = m_oBackMaterial.unlinkAll();
+		// --
 		m_oBackMaterial = p_oMat;
+		if( m_oBackMaterial == null ) return null;
+		// --
+		for ( l_oPoly in l_aUnLinked )
+		{
+			m_oBackMaterial.init(l_oPoly);
+		}
 		if( m_oFrontMaterial == null )
 		{
 			m_oFrontMaterial = p_oMat;

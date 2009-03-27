@@ -106,6 +106,8 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 
 	private var _prevOK : Bool;
 
+	private var _failColor : Int;
+
 	private static inline var PI : Float = Math.PI;
 
 	private static inline var PIon180 : Float = PI / 180;
@@ -173,6 +175,7 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 		_centerMapMatrix.translate(-bmp.width / 2, -bmp.height / 2);
 		_centerMapMatrix.scale(_scaleMap, -_scaleMap);
 		_mapMatrix = new Matrix();
+		_failColor = bmp.getPixel (0, 0);
 	}
 
 	/**
@@ -292,9 +295,15 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 							_lineMatrix.concat(_mapMatrix);
 							_lineMatrix.translate(_xAmplitudeAvg / 2, (i - _height) * _zAmplitude - _zProj);
 							_lineMatrix.scale(_width / _xAmplitudeAvg, -1 / _zAmplitude);
-							_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);
+							var ls:Float = _lineMatrix.a * _lineMatrix.d - _lineMatrix.b * _lineMatrix.c;
+							if ((ls > -2e-7) && (ls < 2e-7))
+								_container.graphics.beginFill (_failColor);
+							else
+								_container.graphics.beginBitmapFill(_mapOriginal, _lineMatrix, _repeatMap, _smooth);
+
 							_container.graphics.drawRect(0, _height - i, _width, di);
-							_container.graphics.endFill();
+							// player will end fill for us
+							//_container.graphics.endFill();
 							di = di_1;
 						}
 						else
@@ -312,6 +321,9 @@ class Mode7 extends Node, implements Renderable, implements IDisplayable
 
 		if (_traceHorizon)
 		{
+			// end fill here just in case
+			_container.graphics.endFill();
+
 			_container.graphics.lineStyle(_widthHorizon, _colorHorizon);
 			_container.graphics.moveTo(0, _horizon);
 			_container.graphics.lineTo(_width, _horizon);
