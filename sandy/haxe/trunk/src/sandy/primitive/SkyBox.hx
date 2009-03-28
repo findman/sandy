@@ -60,7 +60,6 @@ class SkyBox extends TransformGroup
 		var l_oPlane:Plane3D;
 		// -- LEFT
 		l_oPlane = new Plane3D( p_sName+"_left", p_nDim, p_nDim, p_nQualityH, p_nQualityV, Plane3D.YZ_ALIGNED );
-		//l_oPlane.swapCulling();
 		l_oPlane.rotateX = -90;
 		l_oPlane.rotateY = 180;
 		l_oPlane.x = -p_nDim/2;
@@ -81,11 +80,7 @@ class SkyBox extends TransformGroup
 		m_aPlanes[3] = l_oPlane;
 		// -- TOP
 		l_oPlane = new Plane3D( p_sName+"_top", p_nDim, p_nDim, p_nQualityH, p_nQualityV, Plane3D.ZX_ALIGNED );
-		//l_oPlane.enableBackFaceCulling = false;
-		l_oPlane.swapCulling();
 		l_oPlane.rotateX = 180;
-		//l_oPlane.rotateY = 90;
-		//l_oPlane.rotateZ = 180;
 		l_oPlane.y = p_nDim/2;
 		m_aPlanes[4] = l_oPlane;
 		// -- BOTTOM
@@ -96,7 +91,7 @@ class SkyBox extends TransformGroup
 
 		for ( l_oPlane in m_aPlanes )
 		{
-			l_oPlane.enableBackFaceCulling = false;
+			//l_oPlane.enableBackFaceCulling = false;
 			l_oPlane.enableForcedDepth = true;
 			l_oPlane.forcedDepth = 10000000000000;
 			this.addChild( l_oPlane );
