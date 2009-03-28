@@ -365,12 +365,6 @@ package sandy.parser
 					// --
 					formatPoint3D(l_oNormal);
 					// --
-					if( !m_bYUp ) l_oOutpGeom.setFaceNormal( i, l_oNormal.x, l_oNormal.y, l_oNormal.z	);
-					/*
-					l_oOutpGeom.aVertexNormals[ i ] = new Vertex(
-						l_oNormal.x,
-						l_oNormal.y,
-						l_oNormal.z	);*/
 				}
 			}
 
@@ -556,11 +550,9 @@ package sandy.parser
 			}
 			else
 			{
-				/*
 				tmp = p_oVect.y;
 				p_oVect.y = p_oVect.z;
 				p_oVect.z = tmp;
-				*/
 			}
 		}
 
