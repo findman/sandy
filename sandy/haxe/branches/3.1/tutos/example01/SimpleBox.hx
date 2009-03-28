@@ -43,6 +43,11 @@ class SimpleBox extends Sprite {
 		}
 
 		static function main() {
+#if js
+				haxe.Firebug.redirectTraces();
+				neash.Lib.Init("Container", 400, 400);
+				neash.Lib.Run();
+#end
 				new SimpleBox();
 		}
 }

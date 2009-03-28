@@ -86,7 +86,7 @@ package
 			box.y = 100;
 			box.enableBackFaceCulling = false;
 			box.enableClipping = true;
-			box.useSingleContainer = false;
+			//box.useSingleContainer = false;
 
 			
 			var pic:Bitmap = new Texture();

@@ -62,7 +62,7 @@ class Mode7 extends Sprite
 		_camera = new CameraMode7(_surfaceWidth,_surfaceHeight);
 		_camera.x = 0;
 		_camera.y = 100;
-		_camera.z = 0;
+		_camera.z = -500;
 		_camera.tilt = 20;
 		_3dScene = new Scene3D("scene",_3dSurface,_camera,_rootScene);
 		_rootScene.addChild (_camera);
@@ -107,7 +107,6 @@ class Mode7 extends Sprite
 
 	private function onResize ():Void
 	{
-		trace( "foo" );
 		var stage = Lib.current.stage;
 		_mainSurface.x = Math.round((stage.stageWidth - _surfaceWidth) / 2);
 		_mainSurface.y = Math.round((stage.stageHeight - _surfaceHeight) / 2);
