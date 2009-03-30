@@ -1,10 +1,26 @@
-These examples mirror the sandy tutorials, and are test cases provided by
-contributors who have found bugs.
+==================================================================
+			  SANDY EXAMPLES
+==================================================================
 
-Some of these examples require an assets folder - this should be linked from
-the sandy haXe page:
+Most of these examples are equivalent to the tutorial pages on the
+flashsandy website for the Sandy 3 series, mostly written by Max
+Pellizzaro and MakC. Some contributed collada examples from Justin
+Lawerance Mills, Guy Wheeler, Petit, and Ricardo Cabello. Get in
+touch if you feel you should be credited.
 
-http://www.flashsandy.org/haxe
+Sandy's assets are available in sandy-hx-assets.tar.gz - on unix-y
+systems, the command is
 
-Please get in contact over the Mailing list of the Forums if you are missing an
-asset.
+tar -zxvf sandy-hx-assets.tar.gz
+
+or winzip on windows will unpack the assets folder.
+
+
+==================================================================
+
+Javascript usage (alpha):
+use canvas-nme and neash from latest SVN trunk:
+
+http://bitbucket.org/grumpytoad/canvas-nme/wiki/
+http://code.google.com/p/neash/
+
