@@ -126,5 +126,19 @@ class NumberUtil
 		return Math.round(p_nN/p_nRoundToInterval) * p_nRoundToInterval;
 	}
 
+	/**
+	* Rounds a number to specified accuracy.
+	*
+	* <p>To round off the number to 2 decimals, set the the accuracy to 2</p>
+	*
+	* @param p_nN 			The number to round off
+	* @param p_nPlaces 		The accuracy to which to round
+	* @return 				The rounded number
+	*/
+	public static inline function roundToPlaces(p_nN:Float, p_nPlaces:Int=2 ) : Float {
+		var mul = Math.pow(10, p_nPlaces);
+		var j = Math.round(p_nN * mul) / mul;
+		return j;
+	}
 }
 

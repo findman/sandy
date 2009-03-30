@@ -47,3 +47,24 @@ class Haxe {
 		#end
 	}
 }
+
+enum Alignment {
+	XY;
+	YZ;
+	ZX;
+}
+
+enum ColorChannel {
+	RED;
+	GREEN;
+	BLUE;
+	ALPHA;
+	AV;
+}
+
+enum CoordinateSystem {
+	LOCAL;
+	CAMERA;
+	ABSOLUTE;
+}
+

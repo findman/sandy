@@ -23,6 +23,13 @@ import sandy.HaxeTypes;
 */
 class Point3D
 {
+	/** Returns a new unit point in the X direction */
+	public static var UNIT_X(makeUnitX,null) : Point3D;
+	/** Returns a new unit point in the Y direction */
+	public static var UNIT_Y(makeUnitY,null) : Point3D;
+	/** Returns a new unit point in the Z direction */
+	public static var UNIT_Z(makeUnitZ,null) : Point3D;
+
 	/**
 	* The x coordinate.
 	*/
@@ -225,9 +232,9 @@ class Point3D
 	public function normalize():Void
 	{
 		// -- We get the norm of the vector
-		var norm:Float = getNorm();
+		var norm:Float = Math.sqrt( x*x + y*y + z*z );
 		// -- We escape the process is norm is null or equal to 1
-		if( norm == 0 || norm == 1) return;
+		if( norm == 0. || norm == 1.) return;
 		x = x / norm;
 		y = y / norm;
 		z = z / norm;
@@ -292,24 +299,20 @@ class Point3D
 	 * @param decPlaces	Float of decimals
 	 * @return	The string representatation
 	 */
-	public function toString(?decPlaces:Float):String
+	public function toString(decPlaces:Int=2):String
 	{
-		if (decPlaces == 0 || decPlaces == null)
-		{
-			decPlaces = 0.01;
-		}
 		// Round display to two decimals places
 		// Returns "{x, y, z}"
-		return "{" + serialize(Math.pow (10, -decPlaces)) + "}";
+		return "{" + serialize(decPlaces) + "}";
 	}
 
 	// Useful for XML output
-	public function serialize(?decPlaces:Float=0.1):String
+	public function serialize(?decPlaces:Int=2):String
 	{
 		//returns x,y,x
-		return  (NumberUtil.roundTo(x, decPlaces) + "," +
-					NumberUtil.roundTo(y, decPlaces) + "," +
-					NumberUtil.roundTo(z, decPlaces));
+		return  (NumberUtil.roundToPlaces(x, decPlaces) + "," +
+					NumberUtil.roundToPlaces(y, decPlaces) + "," +
+					NumberUtil.roundToPlaces(z, decPlaces));
 	}
 
 	// Useful for XML input
@@ -341,7 +344,20 @@ class Point3D
 	}
 
 
+	/** Returns a new unit point in the X direction */
+	public static function makeUnitX() : Point3D {
+		return new Point3D(1.,0.,0.);
+	}
 
+	/** Returns a new unit point in the Y direction */
+	public static function makeUnitY() : Point3D {
+		return new Point3D(0.,1.,0.);
+	}
+
+	/** Returns a new unit point in the Z direction */
+	public static function makeUnitZ() : Point3D {
+		return new Point3D(0.,0.,1.);
+	}
 
 }
 
