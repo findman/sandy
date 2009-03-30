@@ -84,9 +84,9 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		var mesh:Geometry3D = new Geometry3D ();
 
 		var data:Bytes = null;
-		try 
+		try
 		{
-			cast(arguments[0],Bytes);
+			data = cast(arguments[0],Bytes);
 		} catch(e:Dynamic) {
 			return mesh;
 		}
