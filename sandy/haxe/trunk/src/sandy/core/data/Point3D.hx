@@ -172,6 +172,7 @@ class Point3D
         y = Math.pow( y, pow );
         z = Math.pow( z, pow );
 	}
+
 	/**
 	 * Multiplies this vector by the specified scalar.
 	 *

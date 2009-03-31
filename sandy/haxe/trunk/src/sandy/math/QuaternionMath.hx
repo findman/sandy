@@ -134,30 +134,30 @@ class QuaternionMath
 		var fsin = Math.sin;
 		var fcos = Math.cos;
 		//Conversion des angles en radians
-		NumberUtil.toRadian( x );
-		NumberUtil.toRadian( y );
-		NumberUtil.toRadian( z );
+		x = NumberUtil.toRadian( x );
+		y = NumberUtil.toRadian( y );
+		z = NumberUtil.toRadian( z );
 
 		var angle:Float;
 		angle = 0.5 * x ;
-		var sr:Float = fsin(angle) ;
-		var cr:Float = fcos(angle) ;
+		var sx:Float = fsin(angle) ;
+		var cx:Float = fcos(angle) ;
 		angle = y * 0.5 ;
-		var sp:Float = fsin(angle) ;
-		var cp:Float = fcos(angle) ;
-		angle = z * 0.5 ;
 		var sy:Float = fsin(angle) ;
 		var cy:Float = fcos(angle) ;
+		angle = z * 0.5 ;
+		var sz:Float = fsin(angle) ;
+		var cz:Float = fcos(angle) ;
 
-		var cpcy:Float = cp * cy ;
-		var spcy:Float = sp * cy ;
-		var cpsy:Float = cp * sy ;
-		var spsy:Float = sp * sy ;
+		var cycz:Float = cy * cz ;
+		var sycz:Float = sy * cz ;
+		var cysz:Float = cy * sz ;
+		var sysz:Float = sy * sz ;
 
-		q.x = sr * cpcy - cr * spsy ;
-		q.y = cr * spcy + sr * cpsy ;
-		q.z = cr * cpsy - sr * spcy ;
-		q.w = cr * cpcy + sr * spsy ;
+		q.x = sx * cycz - cx * sysz ;
+		q.y = cx * sycz + sx * cysz ;
+		q.z = cx * cysz - sx * sycz ;
+		q.w = cx * cycz + sx * sysz ;
 		QuaternionMath.normalize( q );
 		return q;
 	}
