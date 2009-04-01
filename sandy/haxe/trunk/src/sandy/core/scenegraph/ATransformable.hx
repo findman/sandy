@@ -715,15 +715,14 @@ class ATransformable extends Node
 	*
 	* @return 	The position of the group or object
 	*/
-	public function getPosition( ?p_sMode:String = "local" ):Point3D
+	public function getPosition( ?p_eMode:CoordinateSystem ):Point3D
 	{
 		var l_oPos:Point3D;
-		switch( p_sMode )
-		{
-			case "local": l_oPos = new Point3D( _p.x, _p.y, _p.z );
-			case "camera": l_oPos = new Point3D( viewMatrix.n14, viewMatrix.n24, viewMatrix.n34 );
-			case "absolute": l_oPos = new Point3D( modelMatrix.n14, modelMatrix.n24, modelMatrix.n34 );
-			default: l_oPos = new Point3D( _p.x, _p.y, _p.z );
+		if(p_eMode == null) p_eMode = LOCAL;
+		switch( p_eMode ) {
+		case LOCAL: l_oPos = new Point3D( _p.x, _p.y, _p.z );
+		case CAMERA: l_oPos = new Point3D( viewMatrix.n14, viewMatrix.n24, viewMatrix.n34 );
+		case ABSOLUTE: l_oPos = new Point3D( modelMatrix.n14, modelMatrix.n24, modelMatrix.n34 );
 		}
 		return l_oPos;
 	}

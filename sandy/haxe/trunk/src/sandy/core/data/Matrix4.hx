@@ -716,11 +716,11 @@ class Matrix4
 	 */
 	public function toString(): String
 	{
-		var s:String =  "sandy.core.data.Matrix4" + "\n (";
-		s += n11+"\t"+n12+"\t"+n13+"\t"+n14+"\n";
-		s += n21+"\t"+n22+"\t"+n23+"\t"+n24+"\n";
-		s += n31+"\t"+n32+"\t"+n33+"\t"+n34+"\n";
-		s += n41+"\t"+n42+"\t"+n43+"\t"+n44+"\n)";
+		var s:String =  "sandy.core.data.Matrix4" + "(\n";
+		s += n11+"\t "+n12+"\t "+n13+"\t "+n14+"\n";
+		s += n21+"\t "+n22+"\t "+n23+"\t "+n24+"\n";
+		s += n31+"\t "+n32+"\t "+n33+"\t "+n34+"\n";
+		s += n41+"\t "+n42+"\t "+n43+"\t "+n44+"\n)";
 		return s;
 	}
 

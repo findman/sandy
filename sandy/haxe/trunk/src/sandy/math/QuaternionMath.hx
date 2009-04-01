@@ -77,13 +77,13 @@ class QuaternionMath
 		q.w /= m;
 	}
 
-	public static function multiply( q:Quaternion, q2:Quaternion ):Quaternion
+	public static function multiply( q1:Quaternion, q2:Quaternion ):Quaternion
 	{
 		var x1:Float, x2:Float;
 		var y1:Float, y2:Float;
 		var z1:Float, z2:Float;
 		var w1:Float, w2:Float;
-		x1 = q.x; y1 = q.y; z1 = q.z; w1 = q.w;
+		x1 = q1.x; y1 = q1.y; z1 = q1.z; w1 = q1.w;
 		x2 = q2.x; y2 = q2.y; z2 = q2.z; w2 = q2.w;
 
 		return new Quaternion(	w1*x2 + x1*w2 + y1*z2 - z1*y2,

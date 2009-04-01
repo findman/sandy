@@ -1,7 +1,7 @@
 -swf9 test_h9.swf 
 -swf-version 9
 -cp ../../src 
--swf-header 500:300:70:ffffff 
+-swf-header 500:300:140:ffffff 
 -cp ../assets
 -swf-lib lib.swf 
 -main LightDemo
@@ -11,10 +11,9 @@
 -swf9 test_h10.swf 
 -swf-version 10
 -cp ../../src 
--swf-header 500:300:70:ffffff 
+-swf-header 500:300:140:ffffff 
 -cp ../assets
 -swf-lib lib.swf 
--D SANDY_USE_FAST_MATH
 -main LightDemo
 
 --next

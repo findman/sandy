@@ -39,12 +39,14 @@ class Md3Demo extends BasicView {
 		init();
 		flash.Lib.current.addChild(this);
 
+		camera.z = -175;
 		origin = new Origin(rootNode);
 		origin.visible = true;
 
 		player = new Player("player");
 		player.onLoaded = onPlayerLoaded;
 		player.load();
+
 	}
 
 

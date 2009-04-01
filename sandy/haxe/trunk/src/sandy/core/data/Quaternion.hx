@@ -47,7 +47,7 @@ class Quaternion
 	}
 
 	/**
-	 * Adds a passed in Quaternion to this Quaternion. The result is normalized.
+	 * Adds a passed in Quaternion to this Quaternion. The result is not normalized.
 	 *
 	 * @param q2 	Quaternion to add to this Quaternion.
 	 */
@@ -56,13 +56,12 @@ class Quaternion
 		y = y + q2.y;
 		z = z + q2.z;
 		w = w + q2.w;
-
-		normalize();
 	}
 
 	/**
 	* Returns a copy of this Quaternion
 	*
+	* @return New Quaternion clone
 	**/
 	public function clone() : Quaternion {
 		return new Quaternion(x, y, z, w);
@@ -91,8 +90,8 @@ class Quaternion
 		d.z = -d.z;
 
 		var r = this.clone();
-		r.multiply(d);
-		d.multiply(d);
+		r.multiplyAsLeft(d);
+		d.multiplyAsRight(d);
 
 		x = r.x / d.w;
 		y = r.y / d.w;
@@ -136,6 +135,8 @@ class Quaternion
 
 	/**
 	* Returns the translation of the axises to world axises
+	*
+	* @return Array of Point3D vectors representing the axises
 	**/
 	public function getAxises() : TypedArray<Point3D> {
 		var a = new TypedArray(#if flash10 3 #end);
@@ -150,9 +151,9 @@ class Quaternion
 	}
 
 	/*
-	* Gets the axis and angle of this Quaternion
+	* Gets the axis and angle in radians of this Quaternion
 	*
-	* @return Object with axis and an angle in degrees
+	* @return Object with axis and an angle in radians
 	*/
 	public function getAxisRadians() : { axis : Point3D, radians : Float }
 	{
@@ -180,7 +181,8 @@ class Quaternion
 
 	/**
 	* Returns a Euler angles representing this Quaternion.
-	* @return Euler (pitch,yaw,roll)
+	*
+	* @return Euler (pitch,yaw,roll) angles
 	**/
 	public function getEuler():Point3D
 	{
@@ -211,7 +213,30 @@ class Quaternion
 	}
 
 	/**
-	* Returns the pitch in radians
+	* Returns an inverted copy of this Quaternion
+	*
+	* @return New Quaternion which is the inverse of this
+	*/
+	public inline function getInverse() : Quaternion {
+		var q = this.clone();
+		q.invert();
+		return q;
+	}
+
+	/**
+	* Returns the norm for this Quaternion
+	*
+	* @return flost normal
+	*/
+	public inline function getNorm() : Float {
+		return x*x+y*y+z*z+w*w;
+	}
+
+	/**
+	* Returns the pitch in radians. Yaw, pitch and roll values of a Quaternion are
+	* arbitrary compared to input.
+	*
+	* @return Pitch value in radians
 	*/
 	public function getPitch() : Float
 	{
@@ -219,50 +244,54 @@ class Quaternion
 	}
 
 	/**
-	* Returns the roll in radians
+	* Returns the roll in radians. Yaw, pitch and roll values of a Quaternion are
+	* arbitrary compared to input.
+	*
+	* @return Roll value in radians.
 	*/
-	public function getRoll(v:Int=1) : Float
+	public function getRoll() : Float
 	{
 		return Math.atan2(2.*(x*y + z*w), w*w + x*x - y*y - z*z);
 	}
 
 	/**
-	* Returns the 3x3 rotation matrix of this Quaternion
+	* Returns the 3x3 rotation matrix of this Quaternion.
+	*
+	* @return New Matrix4 representing the total rotaton of the Quaternion
 	*/
 	public function getRotationMatrix():Matrix4
 	{
-		var xx:Float, yy:Float, zz:Float, xy:Float, xz:Float;
-		var xw:Float, yz:Float, yw:Float, zw:Float;
-
-		xx = x*x;
-		xy = x*y;
-		xz = x*z;
-		xw = x*w;
-		yy = y*y;
-		yz = y*z;
-		yw = y*w;
-		zz = z*z;
-		zw = z*w;
+		var dx  :Float = x*2.;
+		var dy  :Float = y*2.;
+		var dz  :Float = z*2.;
+		var dxw :Float = dx*w;
+		var dyw :Float = dy*w;
+		var dzw :Float = dz*w;
+		var dxx :Float = dx*x;
+		var dyx :Float = dy*x;
+		var dzx :Float = dz*x;
+		var dyy :Float = dy*y;
+		var dzy :Float = dz*y;
+		var dzz :Float = dz*z;
 
 		var m:Matrix4 = new Matrix4();
-
-		m.n11  = 1. - 2. * ( yy + zz );
-		m.n12  =      2. * ( xy + zw );
-		m.n13  =      2. * ( xz - yw );
-
-		m.n21  =      2. * ( xy - zw );
-		m.n22  = 1. - 2. * ( xx + zz );
-		m.n23  =      2. * ( yz + xw );
-
-		m.n31  =      2. * ( xz + yw );
-		m.n32  =      2. * ( yz - xw );
-		m.n33  = 1. - 2. * ( xx + yy );
+		m.n11 = 1.0 - (dyy+dzz);
+		m.n12 = dyx+dzw;
+		m.n13 = dzx-dyw;
+		m.n21 = dyx-dzw;
+		m.n22 = 1.0 - (dxx+dzz);
+		m.n23 = dzy+dxw;
+		m.n31 = dzx+dyw;
+		m.n32 = dzy-dxw;
+		m.n33 = 1.0 - (dxx+dyy);
 
 		return m;
 	}
 
 	/**
-	* Returns translation to world of the local X axis vector
+	* Returns translation to world of the local X axis vector.
+	*
+	* @return Point3D vector representing the local axis translated to world.
 	**/
 	public function getXAxis() : Point3D
 	{
@@ -272,7 +301,10 @@ class Quaternion
 	}
 
 	/**
-	* Returns the Yaw (pan) in Radians
+	* Returns the Yaw (pan) in Radians. Yaw, pitch and roll values of a Quaternion are
+	* arbitrary compared to input.
+	*
+	* @return Yaw value in radians.
 	*/
 	public function getYaw() : Float {
 		return Math.asin( -2.*(x*z - y*w));
@@ -280,18 +312,21 @@ class Quaternion
 
 	/**
 	* Returns translation to world of the local Y axis vector
+	*
+	* @return Point3D vector representing the local axis translated to world.
 	**/
 	public function getYAxis() : Point3D
 	{
 		var dx  = x*2.;
 		var dy  = y*2.;
 		var dz  = z*2.;
-
 		return new Point3D(dy*x-dz*w, 1.0-(dx*x+dz*z), dz*y+dx*w);
 	}
 
 	/**
 	* Returns translation to world of the local Z axis vector
+	*
+	* @return Point3D vector representing the local axis translated to world.
 	**/
 	public function getZAxis() : Point3D
 	{
@@ -326,7 +361,7 @@ class Quaternion
 	/**
 	* Inverts the rotation
 	*/
-	public function inverse() : Void {
+	public function invert() : Void {
 		var n : Float = x * x + y * y + z * z + w * w;
 		if(n == 0.) return;
 		x = x / n;
@@ -338,28 +373,59 @@ class Quaternion
 	/**
 	* The magnitude of this Quaternion
 	*
-	* @return The magnitude
+	* @return The magnitude (or length) of the Quaternion
 	*/
 	public function magnitude() : Float
 	{
-		return Math.sqrt ( w*w + x*x + y*y + z*z );
+		return Math.sqrt ( x*x + y*y + z*z +  w*w );
 	}
 
 	/**
-	* Multiplies this Quaternion with another, modifying this Quaternion. Quaternion
-	* multiplication is not cummutative, so beware of order.
+	* Multiplies this Quaternion with another, modifying this Quaternion.
+	* This method is equivalent to this = lq * this.
+	* Quaternion multiplication is not commutative, so beware of order.
 	*
-	* @param q Other Quaternion
+	* @param lq Quaternion on the left hand side of the multiplication
 	**/
-	public function multiply(q : Quaternion) : Void {
-		var lq = if( q == this ) q.clone() else q;
-		x = w * lq.x + x * lq.w + y * lq.z - z * lq.y;
-		y = w * lq.y + y * lq.w + z * lq.x - x * lq.z;
-		z = w * lq.z + z * lq.w + x * lq.y - y * lq.x;
-		w = w * lq.w - x * lq.x - y * lq.y - z * lq.z;
+	public function multiplyAsRight(lq : Quaternion) : Void {
+		if(lq == this)
+			lq = lq.clone();
+		var x1:Float = x;
+		var y1:Float = y;
+		var z1:Float = z;
+		var w1:Float = w;
+
+		x = lq.w * x1 + lq.x * w1 + lq.y * z1 - lq.z * y1;
+		y = lq.w * y1 + lq.y * w1 + lq.z * x1 - lq.x * z1;
+		z = lq.w * z1 + lq.z * w1 + lq.x * y1 - lq.y * x1;
+		w = lq.w * w1 - lq.x * x1 - lq.y * y1 - lq.z * z1;
 	}
 
+	/**
+	* Multiplies this Quaternion with another, modifying this Quaternion.
+	* This method is equivalent to this = this * rq.
+	* Quaternion multiplication is not commutative, so beware of order.
+	*
+	* @param rq Quaternion on the right hand side of the multiplication
+	**/
+	public function multiplyAsLeft(rq : Quaternion) : Void {
+		if(rq == this)
+			rq = rq.clone();
+		var x1:Float = x;
+		var y1:Float = y;
+		var z1:Float = z;
+		var w1:Float = w;
+
+		x = w1 * rq.x + x1 * rq.w + y1 * rq.z - z1 * rq.y;
+		y = w1 * rq.y + y1 * rq.w + z1 * rq.x - x1 * rq.z;
+		z = w1 * rq.z + z1 * rq.w + x1 * rq.y - y1 * rq.x;
+		w = w1 * rq.w - x1 * rq.x - y1 * rq.y - z1 * rq.z;
+	}
+
+
 	public function multiplyVector( v : Point3D ) : Point3D {
+		return new Point3D( x * v.x * -x, y * v.y * -y, z * v.z * -z );
+		/*
 		var q1 = new Point3D(x, y, z);
 		var q2 = q1.cross(v);
 		var q3 = q1.cross(q2);
@@ -368,6 +434,7 @@ class Quaternion
 		q3.add(q2);
 		q3.add(v);
 		return q3;
+		*/
 	}
 
 	/**
@@ -376,12 +443,12 @@ class Quaternion
 	**/
 	public function normalize():Void
 	{
-		var m:Float = magnitude();
-		if(m == 0) return;
-		x /= m;
-		y /= m;
-		z /= m;
-		w /= m;
+		var len:Float = Math.sqrt ( x*x + y*y + z*z +  w*w );
+		if(len == 0) return;
+		x /= len;
+		y /= len;
+		z /= len;
+		w /= len;
 	}
 
 	/**
@@ -397,6 +464,7 @@ class Quaternion
 	/**
 	* Sets the value of this Quaternion from an axis and angle.
 	*
+	* @param axis Axis to rotate around
 	* @param angle Angle in degrees
 	**/
 	public function setAxisAngle( axis:Point3D, angle:Float ) : Void
@@ -407,6 +475,7 @@ class Quaternion
 	/**
 	* Sets the value of this Quaternion from an axis and angle.
 	*
+	* @param axis Axis to rotate around
 	* @param angle Angle in degrees
 	**/
 	public function setAxisRadians( axis:Point3D, radians:Float ) : Void
@@ -418,12 +487,12 @@ class Quaternion
 		y = s*axis.y;
 		z = s*axis.z;
 		w = TRIG.cos(hr);
-		normalize();
 	}
 
 	/**
 	* Set the Quaternion from a euler angle rotation
 	*
+	* @param euler set of pitch,yaw,roll angles in degrees
 	**/
 	public function setByEuler(euler:Point3D) : Void {
 		var sin = TRIG.sin;
@@ -456,6 +525,7 @@ class Quaternion
 
 	/**
 	* Sets the value of the Quaternion from a rotation matrix
+	*
 	* @param m Rotation matrix
 	**/
 	public function setByMatrix( m:Matrix4 ) : Void
@@ -499,7 +569,7 @@ class Quaternion
 	}
 
 	/**
-	 * Subtracts a passed in Quaternion from this Quaternion. The result is normalized.
+	 * Subtracts a passed in Quaternion from this Quaternion. The result is not normalized.
 	 *
 	 * @param q2 	Quaternion to subtract from this Quaternion.
 	 */
@@ -508,8 +578,6 @@ class Quaternion
 		y = y - q2.y;
 		z = z - q2.z;
 		w = w - q2.w;
-
-		normalize();
 	}
 
 	/**
@@ -525,12 +593,29 @@ class Quaternion
 	}
 
 	/**
+	* Multiplies two Quaternions together. Quaternion multiplication is not commutative,
+	* that is q1 * q2 != q2 * q1
+	*
+	* @param lq Quaternion on the left in the expression
+	* @param rq Quaternion on the right in the expression
+	*/
+	public static function multiply( lq:Quaternion, rq:Quaternion ):Quaternion
+	{
+		return new Quaternion(	lq.w*rq.x + lq.x*rq.w + lq.y*rq.z - lq.z*rq.y,
+								lq.w*rq.y + lq.y*rq.w + lq.z*rq.x - lq.x*rq.z,
+								lq.w*rq.z + lq.z*rq.w + lq.x*rq.y - lq.y*rq.x,
+								lq.w*rq.w - lq.x*rq.x - lq.y*rq.y - lq.z*rq.z);
+	}
+
+	/**
 	* Creates a new Quaternion from an axis and an angle in degrees
+	*
 	* @param euler A point3d representing a an axis
 	* @param angle Rotation angle in degrees
 	* @return A new Quaternion
 	**/
-	public static inline function ofAxisAngle( axis:Point3D, angle:Float  ) : Quaternion {
+	public static inline function ofAxisAngle( axis:Point3D, angle:Float  ) : Quaternion
+	{
 		var q = new Quaternion();
 		q.setAxisRadians(axis, NumberUtil.toRadian(angle));
 		return q;
@@ -538,18 +623,21 @@ class Quaternion
 
 	/**
 	* Creates a new Quaternion from an axis and an angle in radians
+	*
 	* @param euler A point3d representing an axis
 	* @param radians Rotation angle in radians
 	* @return A new Quaternion
 	**/
-	public static inline function ofAxisRadians( axis:Point3D, radians:Float  ) : Quaternion {
+	public static inline function ofAxisRadians( axis:Point3D, radians:Float  ) : Quaternion
+	{
 		var q = new Quaternion();
 		q.setAxisRadians(axis, radians);
 		return q;
 	}
 
 	/**
-	* Creates a new Quaternion from a euler rotation
+	* Creates a new Quaternion from a euler (pitch,yaw,roll) rotation in degrees
+	*
 	* @param euler A point3d representing a euler rotation
 	* @return A new Quaternion
 	**/
@@ -561,6 +649,7 @@ class Quaternion
 
 	/**
 	* Creates a new Quaternion from a rotation matrix
+	*
 	* @param m Rotation matrix
 	* @return New Quaternion instance
 	**/

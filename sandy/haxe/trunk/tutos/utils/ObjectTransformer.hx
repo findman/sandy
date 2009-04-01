@@ -2,6 +2,7 @@ package utils;
 
 import sandy.core.scenegraph.ATransformable;
 import sandy.core.scenegraph.Camera3D;
+import sandy.HaxeTypes;
 
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -21,7 +22,11 @@ class ObjectTransformer {
 	/** The + and - keys will fire an onControlObjectChage call with this value **/
 	public var controlIdx : Int;
 
-	private var lockView : Bool;
+	public var tracePositions : Bool;
+
+	public var playerMode : Bool;
+
+	public var lockView : Bool;
 	private var enabled : Bool;
 
 	public function new(?p_oControlObj : ATransformable, ?p_oCamera : Camera3D) {
@@ -88,17 +93,35 @@ class ObjectTransformer {
 		case 33: // PAGE_UP
 			if(o!=null) o.z +=5;
 		case "W".code:
-			if(o!=null) o.moveForward(speed);
+			if(o!=null) {
+				o.moveForward(speed);
+				tracePosition(o);
+			}
 		case "X".code:
-			if(o!=null) o.moveForward(-speed);
+			if(o!=null) {
+				o.moveForward(-speed);
+				tracePosition(o);
+			}
 		case "E".code:
-			if(o!=null) o.moveUpwards(speed);
+			if(o!=null) {
+				o.moveUpwards(speed);
+				tracePosition(o);
+			}
 		case "C".code:
-			if(o!=null) o.moveUpwards(-speed);
+			if(o!=null) {
+				o.moveUpwards(-speed);
+				tracePosition(o);
+			}
 		case "A".code:
-			if(o!=null) o.moveSideways(-speed);
+			if(o!=null) {
+				o.moveSideways(-speed);
+				tracePosition(o);
+			}
 		case "D".code:
-			if(o!=null) o.moveSideways(speed);
+			if(o!=null) {
+				o.moveSideways(speed);
+				tracePosition(o);
+			}
 		case "I".code:
 			onAddInstance();
 		case "M".code:
@@ -183,7 +206,7 @@ class ObjectTransformer {
 		updateTiltPan();
 	}
 
-	private function updateTiltPan() : Void {
+	public dynamic function updateTiltPan() : Void {
 		if(lockView)
 			return;
 		var o : ATransformable = controlObject;
@@ -195,10 +218,23 @@ class ObjectTransformer {
 		var hd2 = flc.stage.stageHeight/2;
 		var max = 190.0;
 
-		o.tilt = 0.0;
-		o.pan = 0.0;
- 		o.pan=(flc.stage.mouseX-wd2)/wd2*max;
-		o.tilt=(flc.stage.mouseY-hd2)/hd2*max;
+		if(!playerMode) {
+			o.tilt = 0.0;
+			o.pan = 0.0;
+ 			o.pan=(flc.stage.mouseX-wd2)/wd2*max;
+			o.tilt=(flc.stage.mouseY-hd2)/hd2*max;
+		}
+		else {
+// 			o.pan = 0.0;
+// 			o.rotateX = 0.0;
+// 			o.rotateX=(flc.stage.mouseY-hd2)/hd2*max;
+//			o.pan=(flc.stage.mouseX-wd2)/wd2*max;
+
+			o.tilt = 0.0;
+			o.rotateY = 0.0;
+			o.rotateY=-(flc.stage.mouseX-wd2)/wd2*max;
+ 			o.tilt=(flc.stage.mouseY-hd2)/hd2*max;
+		}
     }
 
 
@@ -235,5 +271,8 @@ class ObjectTransformer {
 		stage.removeEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
 	}
 
-
+	private function tracePosition(o:ATransformable) {
+		if(tracePositions)
+			trace(o.getPosition(ABSOLUTE));
+	}
 }

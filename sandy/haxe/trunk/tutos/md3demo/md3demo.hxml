@@ -5,5 +5,7 @@
 -lib feffects
 -swf9 md3demo_10.swf
 -swf-version 10
+-swf-header 640:480:20:FFFFFF
 -main Md3Demo
 #-debug
+--no-traces
