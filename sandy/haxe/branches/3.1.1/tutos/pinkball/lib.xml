@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<movie width="640" height="479" framerate="60">
+  <library>
+    <bitmap id="Plane" name="Plane" import="assets/plane_texture.png" />
+    <bitmap id="Ball" name="Ball" import="assets/ball_texture.png" />
+  </library>
+  <frame>
+  </frame>
+</movie>

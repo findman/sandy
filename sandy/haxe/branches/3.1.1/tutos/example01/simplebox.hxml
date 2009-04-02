@@ -1,0 +1,4 @@
+-cp ../../src
+-swf9 simplebox.swf
+-main SimpleBox
+
