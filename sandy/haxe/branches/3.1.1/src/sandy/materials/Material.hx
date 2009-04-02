@@ -79,6 +79,7 @@ class Material
 		
 	/**
 	 * Method to call when you want to release the resources of that material (filters, attributes and lreferences to polygons)
+	 * Shape3D.DEFAULT_MATERIAL Material can't be disposed because might be used for later shape3D creations
 	 */
 	public function dispose():Void
 	{
@@ -90,15 +91,14 @@ class Material
 			unlink(l_oPoly);
 			l_oApp = l_oPoly.appearance;
 			if( l_oApp.frontMaterial == this )
-				l_oApp.frontMaterial = null;//Shape3D.DEFAULT_MATERIAL;
+				l_oApp.frontMaterial = null;
 			else if( l_oApp.backMaterial == this )
-				l_oApp.backMaterial = null;//Shape3D.DEFAULT_MATERIAL;
+				l_oApp.backMaterial = null;
 		
 			m_oPolygonMap.remove(l_sLabel);
 		}
 		attributes = null;
 		_filters = null;
-		//m_oPolygonMap = null;
 	}
 
 	/**

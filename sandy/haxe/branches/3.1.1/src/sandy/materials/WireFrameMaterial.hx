@@ -52,7 +52,8 @@ class WireFrameMaterial extends Material
 	 */
 	public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void
 	{
-		attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene );
+		if( attributes != null )
+			attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene );
 	}
 
 }

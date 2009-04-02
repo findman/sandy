@@ -802,10 +802,10 @@ class Polygon implements IDisplayable
 		if( m_oAppearance.frontMaterial != null )
 		{
 			m_oAppearance.frontMaterial.finish( m_oScene );
-			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
-			{
-				m_oAppearance.backMaterial.finish( m_oScene );
-			}
+		}
+		if(  m_oAppearance.backMaterial != null && m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+		{
+			m_oAppearance.backMaterial.finish( m_oScene );
 		}
 	}
 
@@ -817,10 +817,10 @@ class Polygon implements IDisplayable
 		if( m_oAppearance.frontMaterial != null )
 		{
 			m_oAppearance.frontMaterial.begin( m_oScene );
-			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
-			{
-				m_oAppearance.backMaterial.begin( m_oScene );
-			}
+		}
+		if( m_oAppearance.backMaterial != null && m_oAppearance.backMaterial != m_oAppearance.frontMaterial ) 
+		{
+			m_oAppearance.backMaterial.begin( m_oScene );
 		}
 	}
 
@@ -840,8 +840,10 @@ class Polygon implements IDisplayable
 	public function destroy():Void
 	{
 		clear();
-		scene.removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
-		scene.removeEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
+		if (scene != null) {
+			scene.removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _finishMaterial );
+			scene.removeEventListener(SandyEvent.SCENE_RENDER_DISPLAYLIST, _beginMaterial );
+		}
 		// --
 		enableEvents = false;
 		enableInteractivity = false;
@@ -851,8 +853,10 @@ class Polygon implements IDisplayable
 			if( appearance.frontMaterial != null ) appearance.frontMaterial.unlink( this );
 			appearance = null;
 		}
-		if( m_oContainer.parent != null ) m_oContainer.parent.removeChild( m_oContainer );
-		m_oContainer = null;
+		if( m_oContainer != null ) {
+			if( m_oContainer.parent != null ) m_oContainer.parent.removeChild( m_oContainer );
+			m_oContainer = null;
+		}
 		// --
 		cvertices = null;
 		vertices = null;

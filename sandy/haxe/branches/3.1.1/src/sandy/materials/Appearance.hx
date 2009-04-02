@@ -148,7 +148,7 @@ class Appearance
 	public var modified(__getModified,null) : Bool;
 	public function __getModified():Bool
 	{
-		return m_oFrontMaterial.modified || m_oBackMaterial.modified ;
+		return m_oFrontMaterial.modified || m_oBackMaterial.modified;
 	}
 
 	/**
@@ -159,8 +159,13 @@ class Appearance
 	public var flags(__getFlags,null):Int;
 	private function __getFlags():Int
 	{
-		var l_nFlag:Int =  m_oFrontMaterial.flags;
-		if( m_oFrontMaterial != m_oBackMaterial )
+		var l_nFlag:Int = 0;
+		// --
+		if( m_oFrontMaterial != null )
+		{ 
+			l_nFlag =  m_oFrontMaterial.flags;
+		}
+		if( m_oBackMaterial != null && m_oFrontMaterial != m_oBackMaterial )
 		{
 			l_nFlag |= m_oBackMaterial.flags;
 		}
