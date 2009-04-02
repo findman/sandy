@@ -16,10 +16,11 @@ import sandy.HaxeTypes;
 * <p>You can clearly see the reason this class is undocumented.</p>
 *
 * @author Thomas PFEIFFER - Kiroukou
-* @author Russell Weir - haXe port
+* @author Russell Weir
+* @author Niel Drummond
 * @version		3.1
 */
-public class QuaternionMath
+class QuaternionMath
 {
 
 	public static function getPoint3D( q:Quaternion):Point3D
@@ -115,7 +116,7 @@ public class QuaternionMath
 		var sqx:Float = q.x*q.x;
 		var sqy:Float = q.y*q.y;
 		var sqz:Float = q.z*q.z;
-		var atan2:Function = Math.atan2;
+		var atan2 = Math.atan2;
 		var rds:Float = 180/Math.PI;
 		var euler:Point3D = new Point3D();
 		// heading = rotaton about z-axis
@@ -131,33 +132,33 @@ public class QuaternionMath
 	public static function setEuler( x:Float, y:Float, z:Float ):Quaternion
 	{
 		var q:Quaternion = new Quaternion();
-		var fsin:Function = Math.sin ;
-		var fcos:Function = Math.cos ;
+		var fsin = Math.sin;
+		var fcos = Math.cos;
 		//Conversion des angles en radians
-		NumberUtil.toRadian( x );
-		NumberUtil.toRadian( y );
-		NumberUtil.toRadian( z );
+		x = NumberUtil.toRadian( x );
+		y = NumberUtil.toRadian( y );
+		z = NumberUtil.toRadian( z );
 
 		var angle:Float;
 		angle = 0.5 * x ;
-		var sr:Float = fsin(angle) ;
-		var cr:Float = fcos(angle) ;
+		var sx:Float = fsin(angle) ;
+		var cx:Float = fcos(angle) ;
 		angle = y * 0.5 ;
-		var sp:Float = fsin(angle) ;
-		var cp:Float = fcos(angle) ;
-		angle = z * 0.5 ;
 		var sy:Float = fsin(angle) ;
 		var cy:Float = fcos(angle) ;
+		angle = z * 0.5 ;
+		var sz:Float = fsin(angle) ;
+		var cz:Float = fcos(angle) ;
 
-		var cpcy:Float = cp * cy ;
-		var spcy:Float = sp * cy ;
-		var cpsy:Float = cp * sy ;
-		var spsy:Float = sp * sy ;
+		var cycz:Float = cy * cz ;
+		var sycz:Float = sy * cz ;
+		var cysz:Float = cy * sz ;
+		var sysz:Float = sy * sz ;
 
-		q.x = sr * cpcy - cr * spsy ;
-		q.y = cr * spcy + sr * cpsy ;
-		q.z = cr * cpsy - sr * spcy ;
-		q.w = cr * cpcy + sr * spsy ;
+		q.x = sx * cycz - cx * sysz ;
+		q.y = cx * sycz + sx * cysz ;
+		q.z = cx * cysz - sx * sycz ;
+		q.w = cx * cycz + sx * sysz ;
 		QuaternionMath.normalize( q );
 		return q;
 	}
@@ -303,5 +304,6 @@ public class QuaternionMath
 		return (v2);
 		*/
 	}
+
 
 }
