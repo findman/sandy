@@ -30,7 +30,7 @@ class Lathe extends Curve3D {
 	 * @param	scale0 Start scale.
 	 * @param	scale1 End scale.
 	 */
-	public function new(center:Point3D, axis:Point3D, reference:Point3D, ?angle0:Float = 0, ?angle1:Float = 3.14159265, ?step:Float = 0.3, ?radius0:Float = 100, ?radius1:Float = 100, ?height0:Float = 0, ?height1:Float = 0, ?scale0:Float = 1, ?scale1:Float = 1)
+	public function new(center:Point3D, axis:Point3D, reference:Point3D, ?angle0:Float = 0.0, ?angle1:Float = 3.14159265, ?step:Float = 0.3, ?radius0:Float = 100.0, ?radius1:Float = 100.0, ?height0:Float = 0.0, ?height1:Float = 0.0, ?scale0:Float = 1.0, ?scale1:Float = 1.0)
 	{
 		super ();
 

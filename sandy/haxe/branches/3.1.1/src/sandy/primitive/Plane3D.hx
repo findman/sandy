@@ -70,10 +70,10 @@ class Plane3D extends Shape3D, implements Primitive3D
 	* @see PrimitiveMode
 	*/
 	public function new(p_sName:String=null, p_nHeight:Float = 100.0, p_nWidth:Float = 100.0, p_nQualityH:Int = 1,
-							p_nQualityV:Int=1, p_sType:String=Plane3D.XY_ALIGNED,
+							p_nQualityV:Int=1, p_sType:String=null,
 							p_sMode:String=null )
 	{
-// 		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
+ 		if ( p_sType == null ) p_sType = Plane3D.XY_ALIGNED;
 
 		super( p_sName ) ;
 		setConvexFlag (true);

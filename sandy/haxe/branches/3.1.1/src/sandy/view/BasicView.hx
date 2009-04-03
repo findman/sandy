@@ -103,7 +103,7 @@ class BasicView extends Sprite
 		return l_oBox;
 	}
 
-	public function addSphere( p_nRadius:Float=100, p_nQualityW:Int = 8, p_nQualityH:Int = 8, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Sphere
+	public function addSphere( p_nRadius:Float=100.0, p_nQualityW:Int = 8, p_nQualityH:Int = 8, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Sphere
 	{
 		var l_oMesh:Sphere = new Sphere( null, p_nRadius, p_nQualityW, p_nQualityH );
 		if( p_oPosition != null )
@@ -122,7 +122,7 @@ class BasicView extends Sprite
 		return l_oMesh;
 	}
 
-	public function addHorizontalPlane( p_nWidth:Float=100, p_nHeight:Float=100, p_nQuality:Int = 3, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Plane3D
+	public function addHorizontalPlane( p_nWidth:Float=100.0, p_nHeight:Float=100.0, p_nQuality:Int = 3, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Plane3D
 	{
 		var l_oMesh:Plane3D = new Plane3D( null, p_nHeight, p_nWidth, p_nQuality, p_nQuality, Plane3D.ZX_ALIGNED, "tri" );
 		if( p_oPosition != null )
@@ -141,7 +141,7 @@ class BasicView extends Sprite
 		return l_oMesh;
 	}
 
-	public function addVerticalPlane( p_nWidth:Float=100, p_nHeight:Float=100, p_nQuality:Int = 3, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Plane3D
+	public function addVerticalPlane( p_nWidth:Float=100.0, p_nHeight:Float=100.0, p_nQuality:Int = 3, p_oPosition:Point3D = null, p_oRotation:Point3D = null ):Plane3D
 	{
 		var l_oMesh:Plane3D = new Plane3D( null, p_nHeight, p_nWidth, p_nQuality, p_nQuality, Plane3D.XY_ALIGNED, "tri" );
 		if( p_oPosition != null )

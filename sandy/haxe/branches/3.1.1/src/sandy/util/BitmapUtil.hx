@@ -61,7 +61,7 @@ class BitmapUtil
 	*
 	* @return 		The scaled bitmap data.
 	*/
-	public static function getScaledBitmap( p_oBitmap:BitmapData, p_nScalex:Float, p_nScaley:Float=0 ):BitmapData
+	public static function getScaledBitmap( p_oBitmap:BitmapData, p_nScalex:Float, p_nScaley:Float=0.0 ):BitmapData
 	{
 		//scaley = (undefined == scaley) ? scalex : scaley;
 		var tex:BitmapData = new BitmapData( Std.int( p_nScalex * p_oBitmap.width ), Std.int( p_nScaley * p_oBitmap.height ) );
@@ -110,7 +110,7 @@ class BitmapUtil
 	*
 	* @return 		Sprite with texture map template drawn in.
 	*/
-	public static function ripShapeTexture (obj:Shape3D, size:Float = 256):Sprite {
+	public static function ripShapeTexture (obj:Shape3D, size:Float = 256.0):Sprite {
 		var tex:Sprite = new Sprite ();
 		tex.graphics.beginFill (0); tex.graphics.drawRect (0, 0, size, size); tex.graphics.endFill ();
 		tex.graphics.lineStyle (1, 0xFF0000);
