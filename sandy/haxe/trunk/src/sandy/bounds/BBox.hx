@@ -273,6 +273,40 @@ class BBox
 	}
 
 	/**
+	* Returns a new bounding box based on this one that has
+	* been 'moved' to the position [pos].
+	*
+	* @param pos New center position
+	* @return new bounding box
+	**/
+	public function movedTo(pos : Point3D) : BBox {
+		var max = maxEdge.clone();
+		var min = minEdge.clone();
+		var cen = getCenter();
+		cen.sub(pos);
+		max.sub(cen);
+		min.sub(cen);
+		//--
+		var b = new BBox();
+		b.maxEdge = max;
+		b.minEdge = min;
+		return b;
+	}
+
+	/**
+	* Returns a new bounding box based on this one that has
+	* been 'moved' to the position [pos]
+	*
+	* @param p_fX New center x position
+	* @param p_fY New center y position
+	* @param p_fZ New center z position
+	* @return new bounding box
+	**/
+	public function movedToXYZ(p_fX:Float, p_fY:Float, p_fZ:Float) {
+		return movedTo(new Point3D(p_fX, p_fY, p_fZ));
+	}
+
+	/**
 	* Returns a <code>String</code> representation of the <code>BBox</code>.
 	*
 	* @return 	A String representing the bounding box
