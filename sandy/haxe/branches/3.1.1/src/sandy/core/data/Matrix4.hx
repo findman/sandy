@@ -10,7 +10,7 @@ import sandy.HaxeTypes;
  *
  * @author		Thomas Pfeiffer - kiroukou
  * @author Niel Drummond - haXe port
- * @authod Russell Weir - haXe port
+ * @author Russell Weir - haXe port
  *
  */
 class Matrix4
