@@ -1,3 +1,4 @@
--cp ../../src
+-cp D:\PROJECTS\SANDY\SandyHaxe3.1.1\src
 -swf9 panodemo.swf
 -main PanoDemo
+-swf-header 800:500:40:000000

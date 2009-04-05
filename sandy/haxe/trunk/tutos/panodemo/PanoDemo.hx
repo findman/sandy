@@ -20,13 +20,22 @@ import sandy.util.LoaderQueue;
 import sandy.util.NumberUtil;
 import sandy.materials.Material;
 
+/**
+ * PanoDemo is here to demonstrate the Sandy SkyBox.
+ * The images GOLD11 - GOLD66 are © VRWAY Communication
+ * We are allowed to use them for demo of Sandy 3d
+ * provided we credit them with name and a link to their site:
+ * http://www.arounder.com/
+ *
+ * @author	petit@petitpub.com
+ */
 class PanoDemo extends Sprite
 {
 	public function new():Void
 	{
 		running = false;
-	 keyPressed = new Array();
-	 queue = new LoaderQueue();
+	 	keyPressed = new Array();
+	 	queue = new LoaderQueue();
 
 		super();
 
@@ -34,50 +43,93 @@ class PanoDemo extends Sprite
 		Lib.current.stage.addChild(this);
 	}
 	
-	private var world:Scene3D;
+	private var scene:Scene3D;
 	private var shape:SkyBox;
 	private var planeNames:Array<String>;
 	private var running:Bool;
 	private var keyPressed:Array<Bool>;
 	private var queue:LoaderQueue;
 	private var camera:Camera3D;
-	
+
 	public function init():Void
 	{
 		var root = createScene();
-		camera = new Camera3D( 640, 500 );
-		camera.fov = 60;
+		camera = new Camera3D( 800, 500 );
+		camera.fov = 50;
+		// We must reset the camera to coinside with the real camera
+		camera.z = 0;
+		camera.rotateY -= 130; // Just to make the start interesting
 		planeNames = [ "GOLD44", "GOLD22" , "GOLD66", "GOLD55","GOLD11" , "GOLD33" ];			
-		world = new Scene3D( "scene", this, camera, root );
-		root.addChild( world.camera );
+		scene = new Scene3D( "scene", this, camera, root );
 		// --
 		loadImages();	
 	}
-	
+
+	// Keyboard events
 	public function __onKeyDown(e:KeyboardEvent):Void
 	{
            keyPressed[e.keyCode] = true;
-           if( e.keyCode == Keyboard.SPACE )
-           	stage.displayState = StageDisplayState.FULL_SCREEN;
-       }
+	   switch( e.keyCode ) {
+		case Keyboard.CONTROL :
+			{camera.fov+=2;
+			if (camera.fov > 80 ) camera.fov = 80;
+			if (camera.fov < 20 ) camera.fov = 20;
+			scene.render();
+			}
+		case Keyboard.SHIFT :
+			{camera.fov-=2;
+			if (camera.fov > 80 ) camera.fov = 80;
+			if (camera.fov < 20 ) camera.fov = 20;
+			scene.render();
+			}
+			
+		case Keyboard.UP : 	
+			scene.camera.tilt -= 0.5;
+			scene.render();
+		case Keyboard.DOWN :	
+			scene.camera.tilt += 0.5;
+			scene.render();
+		case Keyboard.RIGHT :
+			scene.camera.rotateY -= 2;
+			scene.render();
+		case Keyboard.LEFT : 
+			scene.camera.rotateY += 2;
+			scene.render();
+		case Keyboard.SPACE : 
+			stage.displayState = StageDisplayState.FULL_SCREEN;
+		}
+	}
 
-       public function __onKeyUp(e:KeyboardEvent):Void
-       {
-          keyPressed[e.keyCode] = false;
-       }
-	
-	private function clickHandler( p_oEvt:Event ):Void
+	public function __onKeyUp(e:KeyboardEvent):Void
 	{
-		running = !running;
+		keyPressed[e.keyCode] = false;
 	}
 	
+	// Mouse events
+	private function downHandler( p_oEvt:MouseEvent ):Void
+	{
+		running = true;
+	}
+	private function upHandler( p_oEvt:MouseEvent ):Void
+	{
+		running = false;
+	}
+	// Mousweel handler changes field of view ( zooming )
+	private function wheelHandler( p_oEvt:MouseEvent ):Void
+	{
+		camera.fov-=p_oEvt.delta;
+		if (camera.fov > 80 ) camera.fov = 80;
+		if (camera.fov < 20 ) camera.fov = 20;
+		scene.render();
+	}
+
 	//  -- Loading images
 	private function loadImages():Void
 	{
 		// --
 		for ( i in 0...6)
 		{
-			queue.add( planeNames[i], new URLRequest("../assets/golden/"+planeNames[i]+".jpg") );
+			queue.add( planeNames[i], new URLRequest("assets/golden/"+planeNames[i]+".jpg") );
 		}
 		// --
 		queue.addEventListener(SandyEvent.QUEUE_COMPLETE, loadComplete );
@@ -93,6 +145,7 @@ class PanoDemo extends Sprite
 		return l_oMat;
 	}
 	
+	// Image loading is complete, let's dress the skybox
 	private function loadComplete( event:QueueEvent ):Void 
 	{			
 		shape.front.appearance = new Appearance( getMaterial(1) );
@@ -109,65 +162,44 @@ class PanoDemo extends Sprite
 		shape.right.enableClipping = true;
 		shape.top.enableClipping = true;
 		shape.bottom.enableClipping = true;
-		
-		/*
-		shape.front.enableNearClipping = true;
-		shape.back.enableNearClipping = true;
-		shape.left.enableNearClipping = true;
-		shape.right.enableNearClipping = true;
-		shape.top.enableNearClipping = true;
-		shape.bottom.enableNearClipping = true;
-		*/
 		// --
-		stage.addEventListener(MouseEvent.CLICK, clickHandler);
-		addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+		stage.addEventListener(MouseEvent.MOUSE_DOWN, downHandler);
+		stage.addEventListener(MouseEvent.MOUSE_UP, upHandler);
+		stage.addEventListener(MouseEvent.MOUSE_WHEEL, wheelHandler);
 		// --		
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, __onKeyDown);
 		stage.addEventListener(KeyboardEvent.KEY_UP, __onKeyUp);
 		// --
-		running = true;		
+		addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+		scene.render(); // first render
 	}
 	
 	// Create the root Group and the object tree 
 	private function createScene():Group
 	{
 		var root:Group = new Group("root");
-		shape = new SkyBox( "pano", 300, 1, 1 );
+		shape = new SkyBox( "pano", 5000, 4, 4 );
 		root.addChild( shape );
 		return root;
 	}
+	
 	var frame:Null<Int>;
-
 	private function enterFrameHandler( event : Event ) : Void
 	{
-			if ( frame == null ) frame = 0;
 		if( running )
 		{
-				var lon = Math.PI * ( stage.stageWidth/2 - this.mouseX ) / (stage.stageWidth/2);
-				var lat = Math.PI * ( stage.stageHeight/2 - this.mouseY ) / stage.stageHeight;
+			scene.camera.rotateY += (400-mouseX)/400;
+			scene.camera.tilt += ( mouseY - 250)/250;
 
-				// standard sphere with swapped z and y
-				var x = Math.cos(lon) * Math.cos(lat);
-				var z = Math.sin(lon) * Math.cos(lat);
-				var y = Math.sin(lat);
-
-				camera.lookAt (x, y, z);
-
-				//trace ("lat=" + Math.round(180 * lat / Math.PI) + ", lon=" + Math.round(180 * lon / Math.PI) +
-				//				": rotateX/Y/Z are " +
-				//   Math.round (camera.rotateX) + ", " +
-				//   Math.round (camera.rotateY) + ", " +
-				//   Math.round (camera.rotateZ) + " (rounded)");
-
-		frame++;
-
-			world.render();
+			//scene.camera.tilt = NumberUtil.constrain( scene.camera.tilt, -88, 88 );		
+			scene.render();
 			flash.Lib.trace(Std.string( Math.floor( frame/(Lib.getTimer()) *1000 ) ) + 'fps');
 
 		}
 	}
+	
+	// Entry point for the application
 	static function main () {
-			new PanoDemo();
+		new PanoDemo();
 	}
 }
-
