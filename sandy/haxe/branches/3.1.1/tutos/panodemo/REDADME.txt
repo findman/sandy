@@ -7,6 +7,8 @@ provided we credit them with name and a link to their site.
 For example 
 	"Images is copyright VRWAY Communication http://www.arounder.com"
 This should be visible on the same page as the embedde Flash movie.
+
+Note!! that GOLDEN55.jpg in some archives may be flipped due to change in orientation of the top plane
 ---
 You can of course also use other images.
 The camera position is of importance - it has to coincide with the position of the real camera.
