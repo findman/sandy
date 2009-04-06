@@ -12,11 +12,12 @@
 	<body>
 		<div id="packages-frame">
 			<h1>::config.title::</h1>
-			<h2>::config.subtitle::</h2>
+			<!--<h2>::config.subtitle::</h2>-->
 			<div id="packages-header">
 				<ul>
-					<li class="alltypes"><a href="all_classes::config.htmlFileExtension::" target="packageFrame">all types</a></li>
 					<li class="overview"><a href="overview::config.htmlFileExtension::" target="classFrame">overview</a></li>
+					<li class="alltypes"><a href="all_classes::config.htmlFileExtension::" target="packageFrame">all types</a></li>
+					
 ::if config.generateTodo && config.todoLines.length > 0::
 					<li class="todo"><a href="::config.todoFile::" target="classFrame">todo</a></li>
 ::end::

@@ -30,6 +30,7 @@ function windowTitle()
 	::end::
 
 	<div id="class-frame" class="type-frame">
+	::if config.headerText != null::<div id="header">::raw config.headerText::</div>::end::
 	<!-- ======== START OF class DATA ======== -->
 	<h1 class="typedef">::nameDots::::raw params::</h1>
 	<dl>
@@ -67,10 +68,9 @@ function windowTitle()
 		::end::
 		</div>
 	::end::
+	<!-- ========= END OF TYPEDEF DATA ========= -->
+	::if config.footerText != null::<div id="footer">::raw config.footerText::</div>::end::
 
 	</div>
-
-<!-- ========= END OF TYPEDEF DATA ========= -->
-	::if config.footerText != null::<div id="footer">::raw config.footerText::</div>::end::
 </body>
 </html>

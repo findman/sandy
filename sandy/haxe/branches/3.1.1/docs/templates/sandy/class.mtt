@@ -19,9 +19,9 @@ function windowTitle()
 <noscript></noscript>
 </head>
 <body onload="windowTitle();">
-	::if config.headerText != null::<div id="header">::raw config.headerText::</div>::end::
 	<script language="javascript" type="text/javascript" src="::rootRelative::../chxdoc.js"></script>
 	<div id="class-frame" class="type-frame">
+	::if config.headerText != null::<div id="header">::raw config.headerText::</div>::end::
 	<!-- ======== START OF class DATA ======== -->
 	<h1 class="::type::">::nameDots::::raw params::</h1>
 	<dl>
@@ -173,8 +173,8 @@ function windowTitle()
 		</div>
 	</div>
 	::end::
-	</div>
 <!-- ========= END OF class DATA ========= -->
 	::if config.footerText != null::<div id="footer">::raw config.footerText::</div>::end::
+	</div>
 </body>
 </html>

@@ -6,10 +6,19 @@
 	</head>
 	<body>
 		<div id="overview">
-			<h1>::config.title::</h1>
-			<h2>::config.subtitle::</h2>
+			
+			<!--<h1>::config.title::</h1>
+			<h2>::config.subtitle::</h2>-->
+			
+	::if config.headerText != null::<div id="header">::raw config.headerText::</div>::end::
+			
 			<div id="main">
-::if config.generateTodo::
+			<!-- This text for the user version could as well be included from an external
+			textfile, but I don't know yet how to include files into the teplate-->
+	<h2>Velcome to Sandy haXe</h2>
+	<img src="images/sandy-logo.png"/>
+	
+	::if config.generateTodo::
 	::if config.todoLines.length > 0::
 				<p>There are <a href="::config.todoFile::">TODO tasks</a> to be done.</p>
 	::else::
@@ -17,6 +26,9 @@
 	::end::
 ::end::
 			</div>
+<!-- ========= END OF overview ========= -->
+	::if config.footerText != null::<div id="footer">::raw config.footerText::</div>::end::
+			
 		</div>
 	</body>
 </html>
