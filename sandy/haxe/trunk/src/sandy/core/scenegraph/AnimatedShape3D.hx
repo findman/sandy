@@ -1,6 +1,7 @@
 package sandy.core.scenegraph;
 
 import sandy.animation.Animation;
+import sandy.animation.IKeyFramed;
 import sandy.animation.Tag;
 
 import sandy.core.data.Matrix4;
@@ -39,6 +40,21 @@ class AnimatedShape3D extends TransformGroup {
 	public var tagNames(__getTagNames, null) : Iterable<String>;
 
 	public var tagCollections(__getTagCollections,null) : Iterable<TagCollection>;
+
+	/**
+	* If set to true, bounds will be updated on each frame
+	* change. Bounds are set either to whole frame numbers
+	* or interpolated based on the interpolateBounds setting.
+	**/
+	public var frameUpdateBounds(__getFrameUpdateBounds,__setFrameUpdateBounds) : Bool;
+	/**
+	* If set, the boundingBox and sphere will be interpolated on
+	* each frame change. if updateBounds is true. This involves an
+	* interpolation of the bounds between frames, and if set to
+	* false, the bounds will be based on the closest whole
+	* frame. Default is false (off).
+	**/
+	public var interpolateBounds(__getInterpolateBounds,__setInterpolateBounds) : Bool;
 
 	// Root node of the AnimatedShape3D
 	private var m_oRoot : AnimatedShape3D;
@@ -184,6 +200,8 @@ class AnimatedShape3D extends TransformGroup {
 		as3d.attachedAt = onTagName;
 		as3d.parentPartName = toPartNamed;
 		kftg.attachedAt = onTagName;
+		as3d.frameUpdateBounds = m_bFrameUpdateBounds;
+		as3d.interpolateBounds = m_bInterpolateBounds;
 
 		changed = true;
 
@@ -418,6 +436,38 @@ class AnimatedShape3D extends TransformGroup {
 		return m_oCurrentAnimationTween = v;
 	}
 
+	private function __getFrameUpdateBounds() : Bool {
+		return m_bFrameUpdateBounds;
+	}
+
+	private function __setFrameUpdateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).frameUpdateBounds = v;
+			}
+			else if(Std.is(c,AnimatedShape3D)) {
+				cast(c,AnimatedShape3D).frameUpdateBounds = v;
+			}
+		}
+		return m_bFrameUpdateBounds = v;
+	}
+
+	private function __getInterpolateBounds() : Bool {
+		return m_bInterpolateBounds;
+	}
+
+	private function __setInterpolateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).interpolateBounds = v;
+			}
+			else if(Std.is(c,AnimatedShape3D)) {
+				cast(c,AnimatedShape3D).interpolateBounds = v;
+			}
+		}
+		return m_bInterpolateBounds = v;
+	}
+
 	/**
 	* Returns a string representation of the TransformGroup.
 	*
@@ -460,6 +510,8 @@ class AnimatedShape3D extends TransformGroup {
 		}
 		return l_oGroup;
 	}
-
+	//--
+	private var m_bFrameUpdateBounds : Bool;
+	private var m_bInterpolateBounds : Bool;
 }
 

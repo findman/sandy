@@ -23,7 +23,8 @@ class TagCollection extends Node, implements IKeyFramed {
 	/**
 	* No effect in TagCollection.
 	**/
-	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
+	public var frameUpdateBounds(__getFrameUpdateBounds,__setFrameUpdateBounds) : Bool;
+	public var interpolateBounds(__getInterpolateBounds,__setInterpolateBounds) : Bool;
 
 
 	/**
@@ -173,18 +174,30 @@ class TagCollection extends Node, implements IKeyFramed {
 		return m_hTags = v;
 	}
 
-	private function __getUpdateBoundsPerFrame() : Bool {
-		return m_bUpdateBoundsPerFrame;
+	private function __getFrameUpdateBounds() : Bool {
+		return m_bFrameUpdateBounds;
 	}
 
-	private function __setUpdateBoundsPerFrame(v:Bool) : Bool {
-		return m_bUpdateBoundsPerFrame = v;
+	private function __setFrameUpdateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).frameUpdateBounds = v;
+			}
+		}
+		return m_bFrameUpdateBounds = v;
 	}
 
-	//////////////////////// Node Overrides ///////////////////
+	private function __getInterpolateBounds() : Bool {
+		return m_bInterpolateBounds;
+	}
 
-	public override function addChild( p_oChild:Node ) : Void {
-		throw "May not have children";
+	private function __setInterpolateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).interpolateBounds = v;
+			}
+		}
+		return m_bInterpolateBounds = v;
 	}
 
 	private var m_hTags:Hash<TypedArray<Tag>>; // tag elements
@@ -195,6 +208,6 @@ class TagCollection extends Node, implements IKeyFramed {
 	private var m_nCurFrame : Float;
 	private var m_nFrames : Int;
 	//--
-	// --
-	private var m_bUpdateBoundsPerFrame : Bool;
+	private var m_bFrameUpdateBounds : Bool;
+	private var m_bInterpolateBounds : Bool;
 }

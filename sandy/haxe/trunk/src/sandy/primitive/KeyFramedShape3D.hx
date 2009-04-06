@@ -1,6 +1,7 @@
 
 package sandy.primitive;
 
+import sandy.animation.IKeyFramed;
 import sandy.animation.Tag;
 import sandy.core.data.Point3D;
 import sandy.core.data.Vertex;
@@ -38,7 +39,8 @@ class KeyFramedShape3D extends Shape3D,
 	public var frame (__getFrame,__setFrame):Float;
 	public var frameCount(__getFrameCount,null):Int;
 	public var vertexCount(__getVertexCount,null):Int;
-	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
+	public var frameUpdateBounds(__getFrameUpdateBounds,__setFrameUpdateBounds) : Bool;
+	public var interpolateBounds(__getInterpolateBounds,__setInterpolateBounds) : Bool;
 
 
 	/**
@@ -55,11 +57,12 @@ class KeyFramedShape3D extends Shape3D,
 		vertices = new TypedArray();
 		m_oBBoxes = new TypedArray();
 		m_oBSpheres = new TypedArray();
+		m_bFrameUpdateBounds = false;
+		m_bInterpolateBounds = false;
 		scaling = scale;
 
 		super(p_sName, null, p_oAppearance, p_bUseSingleContainer);
 
-		updateBoundsPerFrame = false;
 		if(data != null) {
 			geometry = generate ([data]);
 			resetFrameBounds();
@@ -139,42 +142,62 @@ class KeyFramedShape3D extends Shape3D,
 		l_oClone.num_vertices = num_vertices;
 		l_oClone.m_nCurFrame = m_nCurFrame;
 		l_oClone.scaling = scaling;
-		l_oClone.m_bUpdateBoundsPerFrame = m_bUpdateBoundsPerFrame;
+		l_oClone.m_bFrameUpdateBounds = m_bFrameUpdateBounds;
+		l_oClone.m_bInterpolateBounds = m_bInterpolateBounds;
 
 		return l_oClone;
 	}
 
-	private inline function interpolateBounds(ratio:Float,frame1:Int,frame2:Int,toBox:BBox,toSphere:BSphere) : Void
+	private inline function interpolateFrameBounds(ratio:Float,frame1:Int,frame2:Int,toBox:BBox,toSphere:BSphere) : Void
 	{
 		var c2 = ratio;
 		var c1 = 1 - c2;
+
 		if(m_oBBoxes.length > frame1 && m_oBBoxes.length > frame2) {
 			var box1 = m_oBBoxes[frame1];
 			var box2 = m_oBBoxes[frame2];
-			var min1 = box1.minEdge;
-			var min2 = box2.minEdge;
-			var max1 = box1.maxEdge;
-			var max2 = box2.maxEdge;
 
-			var edge = toBox.minEdge;
-			edge.x = min1.x * c1 + min2.x * c2;
-			edge.y = min1.y * c1 + min2.y * c2;
-			edge.z = min1.z * c1 + min2.z * c2;
+			if(c2 == 0.) {
+				toBox.copy(box1);
+			}
+			else if(c2 == 1.) {
+				toBox.copy(box2);
+			}
+			else {
+				var min1 = box1.minEdge;
+				var min2 = box2.minEdge;
+				var max1 = box1.maxEdge;
+				var max2 = box2.maxEdge;
 
-			edge = toBox.maxEdge;
-			edge.x = max1.x * c1 + max2.x * c2;
-			edge.y = max1.y * c1 + max2.y * c2;
-			edge.z = max1.z * c1 + max2.z * c2;
+				var edge = toBox.minEdge;
+				edge.x = min1.x * c1 + min2.x * c2;
+				edge.y = min1.y * c1 + min2.y * c2;
+				edge.z = min1.z * c1 + min2.z * c2;
+
+				edge = toBox.maxEdge;
+				edge.x = max1.x * c1 + max2.x * c2;
+				edge.y = max1.y * c1 + max2.y * c2;
+				edge.z = max1.z * c1 + max2.z * c2;
+			}
 		}
 		// probably faster here to interpolate sphere values than
 		// to incur the sqrt in BSphere.resetFromBox
 		if(m_oBSpheres.length > frame1 && m_oBSpheres.length > frame2) {
 			var s1 = m_oBSpheres[frame1];
 			var s2 = m_oBSpheres[frame2];
-			toSphere.radius =  s1.radius * c1 + s2.radius * c2;
-			toSphere.center.x = s1.center.x * c1 + s2.center.x * c2;
-			toSphere.center.y = s1.center.y * c1 + s2.center.y * c2;
-			toSphere.center.z = s1.center.z * c1 + s2.center.z * c2;
+
+			if(c2 == 0.) {
+				toSphere.copy(s1);
+			}
+			else if(c2 == 1.) {
+				toSphere.copy(s2);
+			}
+			else {
+				toSphere.radius =  s1.radius * c1 + s2.radius * c2;
+				toSphere.center.x = s1.center.x * c1 + s2.center.x * c2;
+				toSphere.center.y = s1.center.y * c1 + s2.center.y * c2;
+				toSphere.center.z = s1.center.z * c1 + s2.center.z * c2;
+			}
 		}
 		else {
 			toSphere.resetFromBox(toBox);
@@ -224,7 +247,7 @@ class KeyFramedShape3D extends Shape3D,
 			// interpolate bounds
 			var box = new BBox();
 			var sphere = new BSphere();
-			interpolateBounds(c2, frame1, frame2, box, sphere);
+			interpolateFrameBounds(c2, frame1, frame2, box, sphere);
 			m_oBBoxes[destFrame] = box;
 			m_oBSpheres[destFrame] = sphere;
 		}
@@ -295,25 +318,6 @@ class KeyFramedShape3D extends Shape3D,
 			v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
 		}
 
-		// Set current bounds, either based on interpolation
-		// or on closest integral frame number
-		if( updateBoundsPerFrame ) {
-			interpolateBounds(c2, frame1, frame2, boundingBox, boundingSphere);
-		}
-		else { // bounds set as closest frame
-			var fno = (c2 < 0.5) ? frame1 : frame2;
-			if(m_oBBoxes.length > fno)
-				boundingBox = m_oBBoxes[fno];
-			if(m_oBSpheres.length > fno)
-				boundingSphere = m_oBSpheres[fno];
-			else
-				boundingSphere.resetFromBox(boundingBox);
-			boundingBox.uptodate = false;
-			boundingSphere.uptodate = false;
-		}
-		if(parent != null)
-			parent.onChildBoundsChanged(this);
-
 		// update face normals
 		for (l_oPoly in aPolygons)
 		{
@@ -321,6 +325,27 @@ class KeyFramedShape3D extends Shape3D,
 			m_oW.x = l_oPoly.b.x - l_oPoly.c.x; m_oW.y = l_oPoly.b.y - l_oPoly.c.y; m_oW.z = l_oPoly.b.z - l_oPoly.c.z;
 			m_oW.crossWith (m_oV); m_oW.normalize ();
 			l_oPoly.normal.x = m_oW.x; l_oPoly.normal.y = m_oW.y; l_oPoly.normal.z = m_oW.z;
+		}
+
+		if(m_bFrameUpdateBounds) {
+			// Set current bounds, either based on interpolation
+			// or on closest integral frame number
+			if( m_bInterpolateBounds ) {
+				interpolateFrameBounds(c2, frame1, frame2, boundingBox, boundingSphere);
+			}
+			else { // bounds set as closest frame
+				var fno = (c2 < 0.5) ? frame1 : frame2;
+				if(m_oBBoxes.length > fno)
+					boundingBox = m_oBBoxes[fno];
+				if(m_oBSpheres.length > fno)
+					boundingSphere = m_oBSpheres[fno];
+				else
+					boundingSphere.resetFromBox(boundingBox);
+				boundingBox.uptodate = false;
+				boundingSphere.uptodate = false;
+			}
+			if(parent != null)
+				parent.onChildBoundsChanged(this);
 		}
 
 		changed = true;
@@ -340,12 +365,30 @@ class KeyFramedShape3D extends Shape3D,
 		return new Geometry3D();
 	}
 
-	private function __getUpdateBoundsPerFrame() : Bool {
-		return m_bUpdateBoundsPerFrame;
+	private function __getFrameUpdateBounds() : Bool {
+		return m_bFrameUpdateBounds;
 	}
 
-	private function __setUpdateBoundsPerFrame(v:Bool) : Bool {
-		return m_bUpdateBoundsPerFrame = v;
+	private function __setFrameUpdateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).frameUpdateBounds = v;
+			}
+		}
+		return m_bFrameUpdateBounds = v;
+	}
+
+	private function __getInterpolateBounds() : Bool {
+		return m_bInterpolateBounds;
+	}
+
+	private function __setInterpolateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).interpolateBounds = v;
+			}
+		}
+		return m_bInterpolateBounds = v;
 	}
 
 	/**
@@ -392,7 +435,8 @@ class KeyFramedShape3D extends Shape3D,
 	private var m_oV:Point3D;
 	private var m_oW:Point3D;
 
-	//
-	private var m_bUpdateBoundsPerFrame : Bool;
+	//--
+	private var m_bFrameUpdateBounds : Bool;
+	private var m_bInterpolateBounds : Bool;
 
 }

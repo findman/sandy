@@ -24,12 +24,20 @@ interface IKeyFramed {
 	public var frameCount(__getFrameCount,null):Int;
 
 	/**
-	* If set, the boundingBox and sphere will be updated on
-	* each frame change. This involves an interpolation of the
-	* bounds between frames, and if set to off, the bounds will
-	* be based on the closest whole frame. Default is false (off).
+	* If set to true, bounds will be updated on each frame
+	* change. Bounds are set either to whole frame numbers
+	* or interpolated based on the interpolateBounds setting.
 	**/
-	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
+	public var frameUpdateBounds(__getFrameUpdateBounds,__setFrameUpdateBounds) : Bool;
+
+	/**
+	* If set, the boundingBox and sphere will be interpolated on
+	* each frame change. if updateBounds is true. This involves an
+	* interpolation of the bounds between frames, and if set to
+	* false, the bounds will be based on the closest whole
+	* frame. Default is false (off).
+	**/
+	public var interpolateBounds(__getInterpolateBounds,__setInterpolateBounds) : Bool;
 
 	/**
 	* Appends frame copy to animation.

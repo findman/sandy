@@ -30,7 +30,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	//////////////////////// IKeyFramed ///////////////////
 	public var frame (__getFrame,__setFrame):Float;
 	public var frameCount(__getFrameCount,null):Int;
-	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
+	public var frameUpdateBounds(__getFrameUpdateBounds,__setFrameUpdateBounds) : Bool;
+	public var interpolateBounds(__getInterpolateBounds,__setInterpolateBounds) : Bool;
 
 	/**
 	* Creates a key framed transform group.
@@ -45,6 +46,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		m_nFrames = 0;
 		m_aCurrentTags = new TypedArray();
 		m_bEditable = true;
+		m_bFrameUpdateBounds = false;
+		m_bInterpolateBounds = false;
 	}
 
 	public override function addChild( p_oChild:Node ):Void
@@ -95,7 +98,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		}
 		l_oGroup.m_nCurFrame = m_nCurFrame;
 		l_oGroup.m_nFrames = m_nFrames;
-		l_oGroup.m_bUpdateBoundsPerFrame = m_bUpdateBoundsPerFrame;
+		l_oGroup.m_bFrameUpdateBounds = m_bFrameUpdateBounds;
+		l_oGroup.m_bInterpolateBounds = m_bInterpolateBounds;
 		// --
 		var a = new TypedArray<Hash<Matrix4>>();
 		for(i in 0...m_aCurrentTags.length) {
@@ -201,17 +205,30 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		return value;
 	}
 
-	private function __getUpdateBoundsPerFrame() : Bool {
-		return m_bUpdateBoundsPerFrame;
+	private function __getFrameUpdateBounds() : Bool {
+		return m_bFrameUpdateBounds;
 	}
 
-	private function __setUpdateBoundsPerFrame(v:Bool) : Bool {
+	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c,IKeyFramed).updateBoundsPerFrame = v;
+				cast(c,IKeyFramed).frameUpdateBounds = v;
 			}
 		}
-		return m_bUpdateBoundsPerFrame = v;
+		return m_bFrameUpdateBounds = v;
+	}
+
+	private function __getInterpolateBounds() : Bool {
+		return m_bInterpolateBounds;
+	}
+
+	private function __setInterpolateBounds(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).interpolateBounds = v;
+			}
+		}
+		return m_bInterpolateBounds = v;
 	}
 
 
@@ -220,7 +237,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	// maps of tag -> Matrix4
 	private var m_aCurrentTags : TypedArray<Hash<Matrix4>>;
 	// --
-	private var m_bUpdateBoundsPerFrame : Bool;
+	private var m_bFrameUpdateBounds : Bool;
+	private var m_bInterpolateBounds : Bool;
 	// Ture if appendFrameCopy and replaceFrame can be used on this group
 	private var m_bEditable : Bool;
 
