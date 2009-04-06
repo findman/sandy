@@ -402,7 +402,7 @@ package sandy.core.scenegraph
 		 * <p>Useful for following a moving object or a static object while this object is moving.<br/>
 		 * Normally used when this object is a camera</p>
 		 */
-		public function set target( p_oTarget:Point3D ):void
+		public function lookAtPoint( p_oTarget:Point3D ):void
 		{
 			lookAt( p_oTarget.x, p_oTarget.y, p_oTarget.z) ;
 		}
