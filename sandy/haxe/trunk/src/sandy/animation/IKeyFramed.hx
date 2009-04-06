@@ -21,7 +21,15 @@ interface IKeyFramed {
 	/**
 	* Number of frames available in animation
 	**/
-	public var nFrames(__getNFrames,null):Int;
+	public var frameCount(__getFrameCount,null):Int;
+
+	/**
+	* If set, the boundingBox and sphere will be updated on
+	* each frame change. This involves an interpolation of the
+	* bounds between frames, and if set to off, the bounds will
+	* be based on the closest whole frame. Default is false (off).
+	**/
+	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
 
 	/**
 	* Appends frame copy to animation.
@@ -35,11 +43,5 @@ interface IKeyFramed {
 	* Replaces specified frame with other key or interpolated frame.
 	*/
 	public function replaceFrame (destFrame:Int, sourceFrame:Float):Void;
-
-	private function __getFrame ():Float;
-
-	private function __getNFrames():Int;
-
-	private function __setFrame (value:Float):Float;
 
 }

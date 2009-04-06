@@ -20,9 +20,9 @@ import sandy.HaxeTypes;
 *  </listing>
 *
 * @author		Thomas Pfeiffer - kiroukou
+* @author		Russell Weir (madrok)
 * @version		3.1
-* @author Niel Drummond - haXe port
-* @author Russell Weir - haXe port
+* @author		Niel Drummond - haXe port
 * @date 		22.03.2006
 */
 class BBox
@@ -44,22 +44,17 @@ class BBox
 	public var minEdge:Point3D;
 
 	/**
-	* Creates a bounding box that encloses a 3D from an Array of the object's vertices.
+	* Creates a new <code>BBox</code> instance by passing the min and the max <code>Point3D</code>.
 	*
-	* @param p_aVertices		The vertices of the 3D object the bounding box will contain.
-	*
-	* @return The BBox instance.
+	* @param p_min		Min vector, representing the lower point of the cube volume
+	* @param p_max		Max vector, representing the upper point of the cube volume
 	*/
-	public static function create( p_aVertices:Array<Vertex> ):BBox
+	public function new( ?p_min:Point3D, ?p_max:Point3D )
 	{
-		if(p_aVertices.length == 0) return null;
-
-		var l_oBox:BBox = new BBox();
-		for( l_oVertex in p_aVertices )
-		{
-			l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
-		}
-		return l_oBox;
+		// initializers
+		uptodate = false;
+		minEdge = (p_min != null) ? p_min : new Point3D(-0.5, -0.5, -0.5);
+		maxEdge = (p_max != null) ? p_max : new Point3D(0.5,   0.5,  0.5);
 	}
 
 	public function addInternalPoint(p_oPoint:Point3D):Void
@@ -119,6 +114,33 @@ class BBox
 	}
 
 	/**
+	 * Returns a new BBox object that is a clone of the original instance.
+	 *
+	 * @return A new BBox object that is identical to the original.
+	 */
+	public function clone():BBox
+	{
+		var l_oBBox:BBox = new BBox();
+		l_oBBox.maxEdge = maxEdge.clone();
+		l_oBBox.minEdge = minEdge.clone();
+		return l_oBBox;
+	}
+
+	/**
+	 * Makes this BBox a copy of the specified BBox.
+	 *
+	 * <p>All elements of this BBox are set to those of the argument BBox</p>
+	 *
+	 * @param p_oPoint3D	The vector to copy
+	 */
+	public function copy( p_oBBox:BBox ):Void
+	{
+		this.uptodate = p_oBBox.uptodate;
+		this.minEdge.copy(p_oBBox.minEdge);
+		this.maxEdge.copy(p_oBBox.maxEdge);
+	}
+
+	/**
 	* Merge the current BoundingBox with the one given in argument
 	* @param pBounds The BBox object to merge the current BBox with
 	*/
@@ -128,31 +150,6 @@ class BBox
 		this.addInternalPointXYZ(box.minEdge.x, box.minEdge.y, box.minEdge.z);
 
 		uptodate = false;
-	}
-
-	/**
-	* Reset the current bounding box to an empoty box with 0,0,0 as max and min values
-	*/
-	public function reset():Void
-	{
-		minEdge.reset();
-		maxEdge.reset();
-		uptodate = false;
-	}
-
-	public function isPointInsideXYZ(x:Float,y:Float,z:Float):Bool
-	{
-		return (x >= this.minEdge.x && x <= this.maxEdge.x && y >= this.minEdge.y && y <= this.maxEdge.y && z >= this.minEdge.z && z <= this.maxEdge.z);
-	}
-
-	public function isPointTotalInside(p_oPoint:Point3D):Bool
-	{
-		return (p_oPoint.x > this.minEdge.x && p_oPoint.x < this.maxEdge.x && p_oPoint.y > this.minEdge.y && p_oPoint.y < this.maxEdge.y && p_oPoint.z > this.minEdge.z && p_oPoint.z < this.maxEdge.z);
-	}
-
-	public function intersectsBox(box:BBox):Bool
-	{
-		return (this.minEdge.x <= box.maxEdge.x && this.minEdge.y <= box.maxEdge.y && this.minEdge.z <= box.maxEdge.z && this.maxEdge.x >= box.minEdge.x && this.maxEdge.y >= box.minEdge.y && this.maxEdge.z >= box.minEdge.z);
 	}
 
 	/**
@@ -217,23 +214,6 @@ class BBox
 		_g.z = centerZ - diagZ;
 	}
 
-
-	/**
-	* Creates a new <code>BBox</code> instance by passing the min and the max <code>Point3D</code>.
-	*
-	* @param p_min		Min vector, representing the lower point of the cube volume
-	* @param p_max		Max vector, representing the upper point of the cube volume
-	*/
-	public function new( ?p_min:Point3D, ?p_max:Point3D )
-	{
-		// initializers
-		uptodate = false;
-
-		minEdge		= (p_min != null) ? p_min : new Point3D(-0.5, -0.5, -0.5);//Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
-		maxEdge		= (p_max != null) ? p_max : new Point3D(0.5,0.5,0.5);//Number.MIN_VALUE, Number.MIN_VALUE, Number.MIN_VALUE);
-
-	}
-
 	/**
 	* Return the size of the Bounding Box.
 	*
@@ -246,30 +226,19 @@ class BBox
 							Math.abs(maxEdge.z - minEdge.z));
 	}
 
-	/**
-	* Applies a transformation to the bounding box.
-	*
-	* @param p_oMatrix		The transformation matrix.
-	* @return the transformed Bounding box
-	*/
-	public function transform( p_oMatrix:Matrix4 ):BBox
+	public function intersectsBox(box:BBox):Bool
 	{
-		var l_oBox:BBox = new BBox();
-		var inst = Pool.getInstance();
-		var l_aEdges:TypedArray<Point3D> = Haxe.toTypedArray( [
-							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
-							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
-							inst.nextPoint3D, inst.nextPoint3D] );
-		// --
-		getEdges( l_aEdges );
-		// --
-		for( l_oEdge in l_aEdges )
-		{
-			p_oMatrix.transform( l_oEdge );
-			l_oBox.addInternalPoint( l_oEdge );
-		}
-		// --
-		return l_oBox;
+		return (this.minEdge.x <= box.maxEdge.x && this.minEdge.y <= box.maxEdge.y && this.minEdge.z <= box.maxEdge.z && this.maxEdge.x >= box.minEdge.x && this.maxEdge.y >= box.minEdge.y && this.maxEdge.z >= box.minEdge.z);
+	}
+
+	public function isPointInsideXYZ(x:Float,y:Float,z:Float):Bool
+	{
+		return (x >= this.minEdge.x && x <= this.maxEdge.x && y >= this.minEdge.y && y <= this.maxEdge.y && z >= this.minEdge.z && z <= this.maxEdge.z);
+	}
+
+	public function isPointTotalInside(p_oPoint:Point3D):Bool
+	{
+		return (p_oPoint.x > this.minEdge.x && p_oPoint.x < this.maxEdge.x && p_oPoint.y > this.minEdge.y && p_oPoint.y < this.maxEdge.y && p_oPoint.z > this.minEdge.z && p_oPoint.z < this.maxEdge.z);
 	}
 
 	/**
@@ -307,6 +276,42 @@ class BBox
 	}
 
 	/**
+	* Reset the current bounding box to an empoty box with 0,0,0 as max and min values
+	*/
+	public function reset():Void
+	{
+		minEdge.reset();
+		maxEdge.reset();
+		uptodate = false;
+	}
+
+	/**
+	* Applies a transformation to the bounding box.
+	*
+	* @param p_oMatrix		The transformation matrix.
+	* @return the transformed Bounding box
+	*/
+	public function transform( p_oMatrix:Matrix4 ):BBox
+	{
+		var l_oBox:BBox = new BBox();
+		var inst = Pool.getInstance();
+		var l_aEdges:TypedArray<Point3D> = Haxe.toTypedArray( [
+							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
+							inst.nextPoint3D, inst.nextPoint3D, inst.nextPoint3D,
+							inst.nextPoint3D, inst.nextPoint3D] );
+		// --
+		getEdges( l_aEdges );
+		// --
+		for( l_oEdge in l_aEdges )
+		{
+			p_oMatrix.transform( l_oEdge );
+			l_oBox.addInternalPoint( l_oEdge );
+		}
+		// --
+		return l_oBox;
+	}
+
+	/**
 	* Returns a <code>String</code> representation of the <code>BBox</code>.
 	*
 	* @return 	A String representing the bounding box
@@ -317,17 +322,22 @@ class BBox
 	}
 
 	/**
-	 * Returns a new BBox object that is a clone of the original instance.
-	 *
-	 * @return A new BBox object that is identical to the original.
-	 */
-	public function clone():BBox
+	* Creates a bounding box that encloses a 3D from an Array of the object's vertices.
+	*
+	* @param p_aVertices		The vertices of the 3D object the bounding box will contain.
+	*
+	* @return The BBox instance.
+	*/
+	public static function create( p_aVertices:Array<Vertex> ):BBox
 	{
-		var l_oBBox:BBox = new BBox();
-		l_oBBox.maxEdge = maxEdge.clone();
-		l_oBBox.minEdge = minEdge.clone();
-		return l_oBBox;
-	}
+		if(p_aVertices.length == 0) return null;
 
+		var l_oBox:BBox = new BBox();
+		for( l_oVertex in p_aVertices )
+		{
+			l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
+		}
+		return l_oBox;
+	}
 }
 

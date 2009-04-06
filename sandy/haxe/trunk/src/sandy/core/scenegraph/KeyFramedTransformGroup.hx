@@ -29,7 +29,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	public var currentFrameMatrices(__getCurrentFrameMatrices,null) : TypedArray<Hash<Matrix4>>;
 	//////////////////////// IKeyFramed ///////////////////
 	public var frame (__getFrame,__setFrame):Float;
-	public var nFrames(__getNFrames,null):Int;
+	public var frameCount(__getFrameCount,null):Int;
+	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
 
 	/**
 	* Creates a key framed transform group.
@@ -39,27 +40,28 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	public function new( ?p_sName:String = "")
 	{
 		super( p_sName );
+		this.trackBounds = true;
 		m_nCurFrame = 0;
 		m_nFrames = 0;
 		m_aCurrentTags = new TypedArray();
+		m_bEditable = true;
 	}
 
 	public override function addChild( p_oChild:Node ):Void
 	{
-		if(p_oChild == null)
-			return;
 		if(!Std.is(p_oChild, IKeyFramed) || p_oChild == null)
 			throw "Invalid child type";
 
 		var kf = cast(p_oChild, IKeyFramed);
 		// if first child, reset
 		if(children.length == 0) {
-			m_nFrames = kf.nFrames;
+			m_nFrames = kf.frameCount;
 		}
 
 		// Seems that tag-only files can have different frame counts
-		if(kf.nFrames != m_nFrames) {
-			trace("IKeyFramed " + p_oChild.name + " frame count " + kf.nFrames + " incorrect. Expected " + m_nFrames);
+		if(kf.frameCount != m_nFrames) {
+			trace("IKeyFramed " + p_oChild.name + " frame count " + kf.frameCount + " incorrect. Expected " + m_nFrames + ". Disabling edits.");
+			m_bEditable = false;
 // 				continue;
 		}
 		if(Std.is(p_oChild, TagCollection)) {
@@ -91,6 +93,23 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 				l_oGroup.addChild( untyped l_oNode.clone( p_sName+"_"+l_oNode.name ) );
 			}
 		}
+		l_oGroup.m_nCurFrame = m_nCurFrame;
+		l_oGroup.m_nFrames = m_nFrames;
+		l_oGroup.m_bUpdateBoundsPerFrame = m_bUpdateBoundsPerFrame;
+		// --
+		var a = new TypedArray<Hash<Matrix4>>();
+		for(i in 0...m_aCurrentTags.length) {
+			var h = new Hash<Matrix4>();
+			for(key in m_aCurrentTags[i].keys()) {
+				h.set(key, m_aCurrentTags[i].get(key).clone());
+			}
+			a.push(h);
+		}
+		l_oGroup.m_aCurrentTags = a;
+		// --
+		l_oGroup.m_bEditable = m_bEditable;
+		// finally, just call the setter to update anything that
+		// may have been missed.
 		l_oGroup.frame = this.frame;
 		return l_oGroup;
 	}
@@ -116,6 +135,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 
 	//////////////////////// IKeyFramed ///////////////////
 	public function appendFrameCopy (frameNumber:Int):Int {
+		if(!m_bEditable)
+			throw "Mismatched frame counts do not allow for edits";
 		var rv : Int = -1;
 		for ( l_oNode in children ) {
 			if( Std.is(l_oNode, IKeyFramed) ) {
@@ -127,6 +148,8 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	}
 
 	public function replaceFrame (destFrame:Int, sourceFrame:Float):Void {
+		if(!m_bEditable)
+			throw "Mismatched frame counts do not allow for edits";
 		for ( l_oNode in children ) {
 			if( Std.is(l_oNode, IKeyFramed) ) {
 				var kf : IKeyFramed = cast(l_oNode, IKeyFramed);
@@ -139,7 +162,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		return m_nCurFrame;
 	}
 
-	private function __getNFrames():Int {
+	private function __getFrameCount():Int {
 		return m_nFrames;
 	}
 
@@ -178,10 +201,27 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		return value;
 	}
 
+	private function __getUpdateBoundsPerFrame() : Bool {
+		return m_bUpdateBoundsPerFrame;
+	}
+
+	private function __setUpdateBoundsPerFrame(v:Bool) : Bool {
+		for(c in children) {
+			if(Std.is(c, IKeyFramed)) {
+				cast(c,IKeyFramed).updateBoundsPerFrame = v;
+			}
+		}
+		return m_bUpdateBoundsPerFrame = v;
+	}
+
 
 	private var m_nCurFrame : Float;
 	private var m_nFrames : Int;
 	// maps of tag -> Matrix4
 	private var m_aCurrentTags : TypedArray<Hash<Matrix4>>;
+	// --
+	private var m_bUpdateBoundsPerFrame : Bool;
+	// Ture if appendFrameCopy and replaceFrame can be used on this group
+	private var m_bEditable : Bool;
 
 }

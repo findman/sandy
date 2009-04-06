@@ -240,11 +240,11 @@ class Shape3D extends ATransformable, implements IDisplayable
 	{
 		if( m_oGeometry != null )
 		{
-			boundingSphere 	= BSphere.create( m_oGeometry.aVertex );
 			boundingBox	= BBox.create( m_oGeometry.aVertex );
+			boundingSphere.resetFromBox(boundingBox);
+			if( parent != null )
+				parent.onChildBoundsChanged(this);
 		}
-		if( parent != null )
-				parent.updateBoundingVolumes();
 	}
 
 	/**
@@ -323,7 +323,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*/
 	public function display( ?p_oContainer:Sprite  ):Void
 	{
-		if ( m_bNotConvex || m_bBackFaceCulling == false ) 
+		if ( m_bNotConvex || m_bBackFaceCulling == false )
 		{
 		// sort only if convex flag is not set
 #if flash

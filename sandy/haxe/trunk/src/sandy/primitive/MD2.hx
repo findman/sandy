@@ -124,7 +124,7 @@ class MD2 extends KeyFramedShape3D
 			frames.set(name, i);
 
 			// store vertices for every frame
-			var vi:Array<Point3D> = [];
+			var vi:TypedArray<Point3D> = [];
 			vertices [i] = vi;
 			for (j in 0...num_vertices)
 			{

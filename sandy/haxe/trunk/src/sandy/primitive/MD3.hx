@@ -148,7 +148,7 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		data.position = offset_verts + offset_begin;
 		var ts = XYZ_SCALE * scaling;
 		for(f in 0...num_frames) {
-			var va:Array<Point3D> = [];
+			var va:TypedArray<Point3D> = new TypedArray();
 			for(i in 0...num_vertices) {
 				var p = new Point3D();
 				// translate to Sandy's orientation
@@ -175,7 +175,9 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		// Create triangles
 		data.position = offset_tris + offset_begin;
 
-		// List of offset values into the array of Vertex objects that constitute the corners of the Triangle object
+		// List of offset values into the array of Vertex objects that
+		// constitute the corners of the Triangle object. These are only
+		// placeholders that are replaced during __setFrame()
 		for(i in 0...num_tris) {
 			// clockwise in md3.
 			var a = data.readInt();

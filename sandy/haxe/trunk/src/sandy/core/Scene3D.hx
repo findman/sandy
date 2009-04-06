@@ -236,7 +236,7 @@ class Scene3D extends EventDispatcher
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_ADDED));
 		return l;
 	}
-		
+
 	private function _onLightUpdate(pEvt:SandyEvent):Void {}
 
 	/**
@@ -289,5 +289,5 @@ class Scene3D extends EventDispatcher
 	private var m_sName:String;
 	private var m_bRectClipped:Bool;
 	private var _light:Light3D; 	//the unique light instance of the world
-	private static var _version:String = "3.1";
+	private static var _version:String = "3.2";
 }

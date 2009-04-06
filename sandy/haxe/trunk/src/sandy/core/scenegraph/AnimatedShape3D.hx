@@ -2,9 +2,10 @@ package sandy.core.scenegraph;
 
 import sandy.animation.Animation;
 import sandy.animation.Tag;
-import sandy.core.data.Matrix4;
-import sandy.primitive.KeyFramedShape3D;
 
+import sandy.core.data.Matrix4;
+import sandy.core.data.Point3D;
+import sandy.primitive.KeyFramedShape3D;
 
 import sandy.HaxeTypes;
 
@@ -28,11 +29,16 @@ class AnimatedShape3D extends TransformGroup {
 	/** Arbitrary hash of animations **/
 	public var animations : Hash<Animation>;
 
+	/** Current animation playing **/
+	public var currentAnimation(__getCurrentAnimation,__setCurrentAnimation) : Animation;
+
 	/** Holder for arbitrary tweener for animating shape **/
-	public var currentAnimation(__getCurrentAnimation,__setCurrentAnimation) : Dynamic;
+	public var currentAnimationTween(__getCurrentAnimationTween,__setCurrentAnimationTween) : Dynamic;
 
 	/** An iterator for the tag names available on this shape **/
 	public var tagNames(__getTagNames, null) : Iterable<String>;
+
+	public var tagCollections(__getTagCollections,null) : Iterable<TagCollection>;
 
 	// Root node of the AnimatedShape3D
 	private var m_oRoot : AnimatedShape3D;
@@ -47,7 +53,10 @@ class AnimatedShape3D extends TransformGroup {
 
 	private var parentPartName : String;
 	private var attachedAt : String;
-	private var m_oCurrentAnimation : Dynamic;
+	private var m_oCurrentAnimation : Animation;
+	private var m_oCurrentAnimationTween : Dynamic;
+	// last matrix from the tag we are a child of
+	private var m_oLastTagUpdateMatrix : Matrix4;
 
 	/**
 	* Creates a new AnimatedShape3D
@@ -58,6 +67,8 @@ class AnimatedShape3D extends TransformGroup {
 	public function new( asPartName:String, ?p_KeyFramed : KeyFramedTransformGroup ) {
 		super(asPartName);
 
+		this.trackBounds = true;
+
 		m_oRoot = this;
 		m_bIsRoot = true;
 		m_oKeyFramedGroup = p_KeyFramed;
@@ -67,7 +78,7 @@ class AnimatedShape3D extends TransformGroup {
 		m_hParts = new Hash();
 		// --
 		if( p_KeyFramed != null) {
-			addChildInternal(p_KeyFramed);
+			addChild(p_KeyFramed);
 			setDefaultTags(p_KeyFramed);
 			m_hParts.set(asPartName, this);
 		}
@@ -102,7 +113,7 @@ class AnimatedShape3D extends TransformGroup {
 
 		if(children.length == 0 && m_bIsRoot) {
 			m_oKeyFramedGroup = kftg;
-			addChildInternal(kftg);
+			addChild(kftg);
 			setDefaultTags(kftg);
 			m_hParts.set(asPartName, this);
 			return true;
@@ -167,7 +178,7 @@ class AnimatedShape3D extends TransformGroup {
 		ar.push(as3d);
 
 		// add the child
-		existingPart.addChildInternal( as3d );
+		existingPart.addChild( as3d );
 
 		// --
 		as3d.attachedAt = onTagName;
@@ -177,6 +188,7 @@ class AnimatedShape3D extends TransformGroup {
 		changed = true;
 
 		// triggers the onFrameChanged method of the kftg parent
+		// which in turn will cause a bounds update
 		kftg.frame = kftg.frame;
 
 		return true;
@@ -230,6 +242,7 @@ class AnimatedShape3D extends TransformGroup {
 		}
 
 		as3d.attachedAt = null;
+		updateBoundingVolumes();
 		changed = true;
 		return as3d;
 	}
@@ -262,17 +275,50 @@ class AnimatedShape3D extends TransformGroup {
 
 		for(mh in p_ahMatrices) {
 			for(key in mh.keys()) {
+				if(key == attachedAt)
+					m_oLastTagUpdateMatrix = mh.get(key);
+
 				var ar =  m_hTagAttachments.get(key);
-				if(ar == null) {
-					// trace("Nothing attached at " + key);
+				if(ar == null)
 					continue;
-				}
+				var matrix = mh.get(key);
 				for(o in ar) {
-					o.resetCoords();
-					o.matrix = mh.get(key).clone();
+// 					o.resetCoords();
+// 					o.matrix = matrix.clone();
+					o.applyTagMatrix(key,matrix);
 				}
 			}
 		}
+	}
+
+	/**
+	* Takes the 3x3 matrix from the parent tags and applies it to the part, preserving
+	* the local rotations
+	*
+	* @param p_oMatrix tag matrix from parent
+	**/
+	private function applyTagMatrix(p_sTagName:String, p_oMatrix:Matrix4) : Void {
+		m_oMatrix.n11 = p_oMatrix.n11;
+		m_oMatrix.n12 = p_oMatrix.n12;
+		m_oMatrix.n13 = p_oMatrix.n13;
+// 		m_oMatrix.n14 = p_oMatrix.n14;
+		m_oMatrix.n21 = p_oMatrix.n21;
+		m_oMatrix.n22 = p_oMatrix.n22;
+		m_oMatrix.n23 = p_oMatrix.n23;
+// 		m_oMatrix.n24 = p_oMatrix.n24;
+		m_oMatrix.n31 = p_oMatrix.n31;
+		m_oMatrix.n32 = p_oMatrix.n32;
+		m_oMatrix.n33 = p_oMatrix.n33;
+// 		m_oMatrix.n34 = p_oMatrix.n34;
+		// --
+		if(attachedAt != null && m_oLastTagUpdateMatrix != null)
+ 			m_oMatrix.multiply3x3(m_oLastTagUpdateMatrix);
+		// --
+		_p.x = p_oMatrix.n14;
+		_p.y = p_oMatrix.n24;
+		_p.z = p_oMatrix.n34;
+		// --
+		changed = true;
 	}
 
 	private function __getTagNames() : Iterable<String> {
@@ -317,12 +363,59 @@ class AnimatedShape3D extends TransformGroup {
 		};
 	}
 
-	private function __getCurrentAnimation() : Dynamic {
+	private function __getTagCollections() : Iterable<TagCollection> {
+		if( m_oKeyFramedGroup == null )
+			return
+			{
+				iterator:
+					function() : Iterator<TagCollection>
+					{
+						return {
+							next : function() { return null; },
+							hasNext : function() { return false; },
+						}
+					},
+			};
+
+		var a : TypedArray<TagCollection> = new TypedArray();
+		for(c in m_oKeyFramedGroup.children)
+			if(Std.is(c, TagCollection))
+				a.push(cast c);
+
+		return
+		{
+			iterator:
+				function() : Iterator<TagCollection>
+				{
+					return untyped {
+						idx : 0,
+						arr : a,
+						hasNext : function() {
+							return this.idx <
+								this.arr.length;
+						},
+						next : function() : TagCollection {
+							return this.arr[this.idx++];
+						},
+					}
+				},
+		};
+	}
+
+	private function __getCurrentAnimation() : Animation {
 		return m_oCurrentAnimation;
 	}
 
-	private function __setCurrentAnimation(v : Dynamic) : Dynamic {
+	private function __setCurrentAnimation(v : Animation) : Animation {
 		return m_oCurrentAnimation = v;
+	}
+
+	private function __getCurrentAnimationTween() : Dynamic {
+		return m_oCurrentAnimationTween;
+	}
+
+	private function __setCurrentAnimationTween(v : Dynamic) : Dynamic {
+		return m_oCurrentAnimationTween = v;
 	}
 
 	/**
@@ -336,12 +429,7 @@ class AnimatedShape3D extends TransformGroup {
 	}
 
 	/////////////// Node overrides ///////////////////////////
-	public override function addChild( p_oChild:Node ):Void
-	{
-		throw "Not implemented";
-	}
-
-	public override function removeChildByName( p_sName:String ):Bool
+	public override function removeChildByName( p_sName:String )
 	{
 		return throw "Not implemented";
 	}
@@ -367,15 +455,11 @@ class AnimatedShape3D extends TransformGroup {
 				l_oGroup.attach( cl, as3d.name, as3d.parentPartName, as3d.attachedAt);
 			}
 			else if( Std.is(l_oNode, KeyFramedTransformGroup) ) {
-				l_oGroup.addChildInternal( untyped l_oNode.clone( l_oNode.name ) );
+				l_oGroup.addChild( untyped l_oNode.clone( l_oNode.name ) );
 		    }
 		}
 		return l_oGroup;
 	}
 
-	private function addChildInternal( p_oChild:Node ) {
-		super.addChild( p_oChild );
-	}
-
-
 }
+

@@ -18,8 +18,12 @@ import sandy.HaxeTypes;
 class TagCollection extends Node, implements IKeyFramed {
 
 	public var frame (__getFrame,__setFrame)	: Float;
-	public var nFrames(__getNFrames,null)		: Int;
+	public var frameCount(__getFrameCount,null)	: Int;
 	public var tags(__getTags,__setTags)		: Hash<TypedArray<Tag>>;
+	/**
+	* No effect in TagCollection.
+	**/
+	public var updateBoundsPerFrame(__getUpdateBoundsPerFrame,__setUpdateBoundsPerFrame):Bool;
 
 
 	/**
@@ -145,7 +149,7 @@ class TagCollection extends Node, implements IKeyFramed {
 		return value;
 	}
 
-	private function __getNFrames():Int {
+	private function __getFrameCount():Int {
 		return m_nFrames;
 	}
 
@@ -169,6 +173,14 @@ class TagCollection extends Node, implements IKeyFramed {
 		return m_hTags = v;
 	}
 
+	private function __getUpdateBoundsPerFrame() : Bool {
+		return m_bUpdateBoundsPerFrame;
+	}
+
+	private function __setUpdateBoundsPerFrame(v:Bool) : Bool {
+		return m_bUpdateBoundsPerFrame = v;
+	}
+
 	//////////////////////// Node Overrides ///////////////////
 
 	public override function addChild( p_oChild:Node ) : Void {
@@ -182,4 +194,7 @@ class TagCollection extends Node, implements IKeyFramed {
 	private var m_hMatricesTmp : Hash<Matrix4>;
 	private var m_nCurFrame : Float;
 	private var m_nFrames : Int;
+	//--
+	// --
+	private var m_bUpdateBoundsPerFrame : Bool;
 }

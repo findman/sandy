@@ -241,7 +241,7 @@ class Node
 		changed = true;
 		return p_bUseClipping;
 	}
-		
+
 	private function __getEnableBackFaceCulling( ):Bool
 	{
 		return false;
@@ -338,7 +338,7 @@ class Node
 	{
 		if( p_oChild.parent != null )
 		{
-			p_oChild.parent.removeChildByName( p_oChild.name );
+			p_oChild.parent.removeChild( p_oChild );
 		}
 		// --
 		p_oChild.parent = this;
@@ -387,70 +387,74 @@ class Node
 	* <p>This node is removed from its current parent node, and added as a child of the specified node</p>
 	*
 	* @param p_oNewParent	The node to become parent of this node
+	* @deprecated Use addChild on p_oNewParent
 	*/
 	public function swapParent( p_oNewParent:Node ):Void
 	{
-		if( parent.removeChildByName( this.name ) ) {
+		if( parent.removeChild( this ) != null ) {
 			p_oNewParent.addChild( this );
 			changed = true;
 		}
 	}
 
 	/**
-	* Removes the child node with the specified name.
+	* Removes the specified child.
 	*
-	* <p>All children of the node you want to remove are lost.<br/>
-	* The link between them and the rest of the tree is broken, and they will not be rendered anymore!</p>
-	* <p>The object itself and its children are still in memory!<br/>
-	* If you want to free them completely, call child.destroy()</p>
+	* All children of the node you want to remove are lost.
+	* The link between them and the rest of the tree is broken, so
+	* they will not be rendered anymore.
 	*
-	* @param p_sName	The name of the node you want to remove.
-	* @return 		true if the node was removed from node tree, false otherwise.
+	* The object itself and its children are still in memory, if
+	* you want to free them completely, call child.destroy()
+	*
+	* @param p_oNode The child to remove.
+	* @return child instance if the node was removed from node tree, null otherwise.
 	*/
-	public function removeChildByName( p_sName:String ):Bool
-	{
-		var found:Bool = false;
-		var i:Int = 0;
-		var l:Int = children.length;
-		while( i < l && !found )
-		{
-			if( children[i].name == p_sName  )
-			{
-				broadcaster.removeChild( children[i].broadcaster );
-				children.splice( i, 1 );
-				changed = true;
-				found = true;
-			}
-			i++;
-		}
-
-		return found;
-	}
-
-	/**
-	* Remove a specific child from this node.
-	*
-	* @param p_oNode Child to remove
-	* @return The child passed as a parameter.
-	* @throws String if the provided node is not a child of this node
-	**/
 	public function removeChild( p_oNode : Node ) : Node {
-		var found:Bool = false;
+		var found:Node = null;
 		for(i in 0...children.length)
 		{
 			if( children[i] == p_oNode  )
 			{
+				found = children[i];
 				broadcaster.removeChild( children[i].broadcaster );
 				children.splice( i, 1 );
 				changed = true;
-				found = true;
 				break;
 			}
 		}
-		if(!found)
-			throw "Child not found";
+		return found;
+	}
 
-		return p_oNode;
+	/**
+	* Removes the child node with the specified name.
+	*
+	* All children of the node you want to remove are lost.
+	* The link between them and the rest of the tree is broken, so
+	* they will not be rendered anymore.
+	*
+	* The object itself and its children are still in memory, if
+	* you want to free them completely, call child.destroy()
+	*
+	* @param p_sName	The name of the node you want to remove.
+	* @return child instance if the node was removed from node tree, null otherwise.
+	*/
+	public function removeChildByName( p_sName:String ) : Node
+	{
+		var found:Node = null;
+		for(i in 0...children.length)
+		{
+			if( children[i].name == p_sName  )
+			{
+				found = children[i];
+				broadcaster.removeChild( children[i].broadcaster );
+				children.splice( i, 1 );
+				changed = true;
+				break;
+			}
+		}
+
+		return found;
 	}
 
 	/**
@@ -462,12 +466,9 @@ class Node
 	public function destroy():Void
 	{
 		// the unlink this node to his parent
-		if( hasParent() == true ) parent.removeChildByName( name );
+		if( hasParent() == true ) parent.removeChild( this );
 
-		// should we kill all the childs, or just make them childs of current node parent ?
-		//var l_aTmp:Array = children.concat();
-		var l_aTmp:Array<Node> = children;
-		for ( lNode in l_aTmp )
+		for ( lNode in children )
 		{
 			lNode.destroy();
 		}
@@ -488,7 +489,7 @@ class Node
 		// first we remove this node as a child of its parent
 		// we do not update rigth now, but a little bit later ;)
 		if(hasParent())
-			parent.removeChildByName( name );
+			parent.removeChild( this );
 
 		// now we make current node children the current parent's node children
 		//var l_aTmp:Array = children.concat();
@@ -585,6 +586,14 @@ class Node
 	{
 	}
 
+	/**
+	* Notification from child that it's bounding volumes have
+	* changed.
+	**/
+	private function onChildBoundsChanged(p_oNode:Node):Void
+	{
+	}
+
 	private var m_oScene:Scene3D;
 	public function __getScene():Scene3D
 	{
@@ -614,31 +623,31 @@ class Node
 	}
 
 	/**
-		* Performs an operation on this node and all of its children.
-		*
-		* <p>Traverses the subtree made up of this node and all of its children.
-		* While traversing the subtree, individual operations are performed
-		* on entry and exit of each node of the subtree.</p>
-		* <p>Implements the visitor design pattern:
-		* Using the visitor design pattern, you can define a new operation on Node
-		* and its subclasses without having to change the classes and without having
-		* to take care of traversing the node tree.</p>
-		*
-		* @example
-		* <listing version="3.1">
-		*     var mySpecialOperation:SpecialOperation = new SpecialOperation;
-		*
-		*     mySpecialOperation.someParameter = 0.8;
-		*     someTreeNode.perform(mySpecialOperation);
-		*     trace(mySpecialOperation.someResult);
-		*
-		*     mySpecialOperation.someParameter = 0.2;
-		*     someOtherTreeNode.perform(mySpecialOperation);
-		*     trace(mySpecialOperation.someResult);
-		* </listing>
-		*
-		* @param  p_iOperation   The operation to be performed on the node subtree
-		*/
+	* Performs an operation on this node and all of its children.
+	*
+	* <p>Traverses the subtree made up of this node and all of its children.
+	* While traversing the subtree, individual operations are performed
+	* on entry and exit of each node of the subtree.</p>
+	* <p>Implements the visitor design pattern:
+	* Using the visitor design pattern, you can define a new operation on Node
+	* and its subclasses without having to change the classes and without having
+	* to take care of traversing the node tree.</p>
+	*
+	* @example
+	* <listing version="3.1">
+	*     var mySpecialOperation:SpecialOperation = new SpecialOperation;
+	*
+	*     mySpecialOperation.someParameter = 0.8;
+	*     someTreeNode.perform(mySpecialOperation);
+	*     trace(mySpecialOperation.someResult);
+	*
+	*     mySpecialOperation.someParameter = 0.2;
+	*     someOtherTreeNode.perform(mySpecialOperation);
+	*     trace(mySpecialOperation.someResult);
+	* </listing>
+	*
+	* @param  p_iOperation   The operation to be performed on the node subtree
+	*/
 	public function perform( p_iOperation:INodeOperation ):Void
 	{
 		p_iOperation.performOnEntry( this );

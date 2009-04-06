@@ -708,10 +708,10 @@ class ATransformable extends Node
 	*
 	* <p>Choose which coordinate system the returned position refers to, by passing a mode string:<br/>
 	* The position is returned as a vector in one of the following:<br/>
-	* If "local", the position is coordinates of the parent frame.
-	* If "absolute" the position is in world coordinates
-	* If "camera" the position is relative to the camera's coordinate system.
-	* Default value is "local"
+	* If LOCAL, the position is coordinates of the parent frame.
+	* If ABSOLUTE the position is in world coordinates
+	* If CAMERA the position is relative to the camera's coordinate system.
+	* Default value is LOCAL
 	*
 	* @return 	The position of the group or object
 	*/

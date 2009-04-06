@@ -19,9 +19,9 @@ import sandy.HaxeTypes;
 *  </listing>
 *
 * @author		Thomas Pfeiffer - kiroukou
+* @author		Russell Weir
 * @version		3.1
-* @author Niel Drummond - haXe port
-* @author Russell Weir - haXe port
+* @author		Niel Drummond - haXe port
 * @date 		22.03.2006
 */
 class BSphere
@@ -39,21 +39,6 @@ class BSphere
 	public var position:Point3D;
 
 	/**
-	* Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
-	* to the <code>create</code> method in the form of an <code>Array</code>. Very useful
-	* for clipping and thus performance!
-	*
-	* @param p_aVertices		The vertices of the 3D object
-	* @return 					A <code>BSphere</code> instance
-	*/
-	public static function create( p_aVertices:Array<Vertex> ):BSphere
-	{
-		var l_sphere:BSphere = new BSphere();
-		l_sphere.compute( p_aVertices );
-		return l_sphere;
-	}
-
-	/**
 	* <p>Create a new <code>BSphere</code> instance.</p>
 	*/
 	public function new()
@@ -64,43 +49,18 @@ class BSphere
 		position = new Point3D();
 	}
 
-	public function resetFromBox(box:BBox):Void
-	{
-		this.center.copy( box.getCenter() );
-		this.radius = Math.sqrt(((box.maxEdge.x - this.center.x) * (box.maxEdge.x - this.center.x)) + ((box.maxEdge.y - this.center.y) * (box.maxEdge.y - this.center.y)) + ((box.maxEdge.z - this.center.z) * (box.maxEdge.z - this.center.z)));
-	}
-
 	/**
-		* Reset the current bounding box to an empoty box with 0,0,0 as max and min values
-		*/
-	public function reset():Void
-	{
-		center.reset();
-		radius = 0;
-		position.reset();
-		uptodate = false;
-	}
-
-	/**
-	* Applies the transformation that is specified in the <code>Matrix4</code> parameter.
-	*
-	* @param p_oMatrix		The transformation matrix
-	*/
-	public function transform( p_oMatrix:Matrix4 ):Void
-	{
-		position.copy( center );
-		p_oMatrix.transform( position );
-		uptodate = true;
-	}
-
-	/**
-	* Returns a <code>String</code> represntation of the <code>BSphere</code>.
-	*
-	* @return	A String representing the bounding sphere
-	*/
-	public function toString():String
-	{
-		return "sandy.bounds.BSphere (center : "+center+", radius : "+radius + ")";
+	 * Returns a new BSphere object that is a clone of the original instance.
+	 *
+	 * @return A new BSphere object that is identical to the original.
+	 */
+	public function clone() : BSphere {
+		var s = new BSphere();
+		s.uptodate = this.uptodate;
+		s.center = this.center.clone();
+		s.radius = this.radius;
+		s.position = this.position.clone();
+		return s;
 	}
 
 	/**
@@ -143,6 +103,55 @@ class BSphere
 		radius = Math.sqrt(dmax) / 2;
 	}
 
+	/**
+	* Computes the bounding sphere's radius
+	*
+	* @param p_aPoints		An array containing the sphere's points
+	* @return 				The bounding sphere's radius
+	*/
+	private function computeRadius(p_aPoints:Array<Vertex>):Float
+	{
+		var x:Float, y:Float, z:Float, d:Float, dmax:Float = 0;
+		var i:Int = 0, l:Int = p_aPoints.length;
+		while( i < l )
+		{
+			x = p_aPoints[(i)].x - center.x;
+			y = p_aPoints[(i)].x - center.x;
+			z = p_aPoints[(i)].x - center.x;
+			d = x * x + y * y + z * z;
+			if(d > dmax) dmax = d;
+			i++;
+		}
+		return Math.sqrt(dmax);
+	}
+
+	/**
+	 * Makes this BSphere a copy of the specified BSphere.
+	 *
+	 * All elements of this BSphere are set to those of the argument BSphere
+	 *
+	 * @param p_oBBox	The BSphere to copy
+	 */
+	public function copy( p_oBSphere:BSphere ):Void
+	{
+		this.uptodate = p_oBSphere.uptodate;
+		this.center.copy(p_oBSphere.center);
+		this.radius = p_oBSphere.radius;
+		this.position.copy(p_oBSphere.position);
+	}
+
+	/**
+	* Returns the distance of a point from the surface.
+	*
+	* @return 	>0 if position is outside the sphere, <0 if inside, =0 if on the surface of the sphere
+	*/
+	public function distance(p_oPoint:Point3D):Float
+	{
+		var x:Float = p_oPoint.x - center.x;
+		var y:Float = p_oPoint.y - center.y;
+		var z:Float = p_oPoint.z - center.z;
+		return  Math.sqrt(x * x + y * y + z * z) - radius;
+	}
 
 	/**
 	* Return the positions of the array of Position p that are outside the BoundingSphere.
@@ -169,38 +178,59 @@ class BSphere
 	}
 
 	/**
-	* Returns the distance of a point from the surface.
-	*
-	* @return 	>0 if position is outside the sphere, <0 if inside, =0 if on the surface of the sphere
+	* Reset the current bounding box to an empoty box with 0,0,0 as max and min values
 	*/
-	public function distance(p_oPoint:Point3D):Float
+	public function reset():Void
 	{
-		var x:Float = p_oPoint.x - center.x;
-		var y:Float = p_oPoint.y - center.y;
-		var z:Float = p_oPoint.z - center.z;
-		return  Math.sqrt(x * x + y * y + z * z) - radius;
+		center.reset();
+		radius = 0;
+		position.reset();
+		uptodate = false;
+	}
+
+	public function resetFromBox(box:BBox):Void
+	{
+		this.center.copy( box.getCenter() );
+		this.radius = Math.sqrt(((box.maxEdge.x - this.center.x) * (box.maxEdge.x - this.center.x)) + ((box.maxEdge.y - this.center.y) * (box.maxEdge.y - this.center.y)) + ((box.maxEdge.z - this.center.z) * (box.maxEdge.z - this.center.z)));
 	}
 
 	/**
-	* Computes the bounding sphere's radius
+	* Returns a <code>String</code> represntation of the <code>BSphere</code>.
 	*
-	* @param p_aPoints		An array containing the sphere's points
-	* @return 				The bounding sphere's radius
+	* @return	A String representing the bounding sphere
 	*/
-	private function computeRadius(p_aPoints:Array<Vertex>):Float
+	public function toString():String
 	{
-		var x:Float, y:Float, z:Float, d:Float, dmax:Float = 0;
-		var i:Int = 0, l:Int = p_aPoints.length;
-		while( i < l )
-		{
-			x = p_aPoints[(i)].x - center.x;
-			y = p_aPoints[(i)].x - center.x;
-			z = p_aPoints[(i)].x - center.x;
-			d = x * x + y * y + z * z;
-			if(d > dmax) dmax = d;
-			i++;
-		}
-		return Math.sqrt(dmax);
+		return "sandy.bounds.BSphere (center : "+center+", radius : "+radius + ")";
 	}
+
+	/**
+	* Applies the transformation that is specified in the <code>Matrix4</code> parameter.
+	*
+	* @param p_oMatrix		The transformation matrix
+	*/
+	public function transform( p_oMatrix:Matrix4 ):Void
+	{
+		position.copy( center );
+		p_oMatrix.transform( position );
+		uptodate = true;
+	}
+
+	//////////////////// STATICS ////////////////////////////////////
+	/**
+	* Creates a bounding sphere that encloses a 3D object. This object's vertices are passed
+	* to the <code>create</code> method in the form of an <code>Array</code>. Very useful
+	* for clipping and thus performance!
+	*
+	* @param p_aVertices		The vertices of the 3D object
+	* @return 					A <code>BSphere</code> instance
+	*/
+	public static function create( p_aVertices:Array<Vertex> ):BSphere
+	{
+		var l_sphere:BSphere = new BSphere();
+		l_sphere.compute( p_aVertices );
+		return l_sphere;
+	}
+
 }
 

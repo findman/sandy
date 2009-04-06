@@ -184,8 +184,8 @@ class MD3Parser extends AParser, implements IParser
 				// make MD3 object.
 				var md3:MD3 = new MD3 ( name.length > 0 ? name : null, m_oFile, m_nScale );
 
-				if(md3.nFrames != num_frames)
-					throw "Error loading MD3 file: Frame count mismatch loading surface " + Std.string(i) + ". Expected " + num_frames + " got " + md3.nFrames;
+				if(md3.frameCount != num_frames)
+					throw "Error loading MD3 file: Frame count mismatch loading surface " + Std.string(i) + ". Expected " + num_frames + " got " + md3.frameCount;
 
 				// Apply textures to the meshes by part name
 				if(md3.name != null && m_oTextureQueue != null && m_oTextureQueue.data.exists(md3.name) ) {

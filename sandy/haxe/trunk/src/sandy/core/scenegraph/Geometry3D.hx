@@ -102,6 +102,27 @@ class Geometry3D
 	}
 
 	/**
+	* Adds a face to the geometry object, given 3 vertices points
+	* and their corresponding uv coordinates.
+	*
+	*/
+	public function addFace(v0:Point3D, v1:Point3D, v2:Point3D, uv0:UVCoord, uv1:UVCoord, uv2:UVCoord)
+	{
+		var vid = getNextVertexID();
+		setVertex(vid++, v0.x, v0.y, v0.z );
+		setVertex(vid++, v1.x, v1.y, v1.z );
+		setVertex(vid, v2.x, v2.y, v2.z );
+
+		var ucid = getNextUVCoordID();
+		setUVCoords( ucid++, uv0.u, uv0.v );
+		setUVCoords( ucid++, uv1.u, uv1.v );
+		setUVCoords( ucid, uv2.u, uv2.v );
+
+		setFaceVertexIds( getNextFaceID(), [vid-2, vid-1, vid] );
+		setFaceUVCoordsIds( getNextFaceUVCoordID(), [ucid-2, ucid-1, ucid] );
+	}
+
+	/**
 	* Adds new point at the specified index of the vertex list.
 	*
 	* @param p_nVertexID	Index at which to save the vertex
