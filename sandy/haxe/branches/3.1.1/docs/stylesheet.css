@@ -22,7 +22,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	outline: 0;
 }
 body {
-	line-height: 1;
+	//line-height: 1; // Too ugly :)
 	color: black;
 	background: white;
 }
@@ -57,7 +57,7 @@ a, a:active, a:visited {
 }
 
 .type-frame {
-	margin: 10px;
+	margin: 5px;
 }
 
 #class-frame h1{
@@ -81,18 +81,33 @@ ul.types, ul.packages, #packages-header ul{
 	font-weight: bold;
 	padding: 3px;
 	color: #ffffff;
+	border-bottom: 1px solid #666666;
 	background-color: #6E86A0;
 	text-align: center;
 }
 
-#packages-frame h2 {
+#packages-frame h1 {
 	font-size: 100%;
 	padding: 2px;
 	border-bottom: 1px solid #666666;
 	text-align: center;
 	margin-bottom: 0.75em;
 }
+#overview{
+	margin: 5px;
+}
 
+#header{
+	margin-bottom: 0.25em;
+	background-color: #6E86A0;
+	padding:10px 15px 0px 15px;
+	color:#ffffff;
+	//background-image: url(images/headerback.png);
+	min-height:30px;
+}
+img #logo{
+	align:left;
+}
 #footer {
 	font-size: 100%;
 	padding: 3px 0px 3px 10px;
