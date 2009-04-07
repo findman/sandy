@@ -6,8 +6,8 @@ package sandy.core.scenegraph
 	import flash.utils.Dictionary;
 	
 	import sandy.core.data.Edge3D;
-	import sandy.core.data.UVCoord;
 	import sandy.core.data.Point3D;
+	import sandy.core.data.UVCoord;
 	import sandy.core.data.Vertex;
 	
 	
@@ -508,42 +508,59 @@ package sandy.core.scenegraph
 		public function dispose():void
 		{
 			var a:Array, l_oVertex:Vertex;
+			var l:int;
+			var u:UVCoord;
 			// Points
-			for each( l_oVertex in aVertex )
+			l = aVertex.length;
+			while( l_oVertex =  aVertex[--l] )
 			{
+				l_oVertex.aFaces = null;
 				l_oVertex = null;
 			}
 			aVertex = null;
 			// Faces
-			for each( a in aFacesVertexID )
+			l = aFacesVertexID.length;
+			while( a =  aFacesVertexID[--l] )
 			{
 				a = null;
 			}
 			aFacesVertexID = null;
 			// Normals
-			for each( l_oVertex in aFacesNormals )
+			l = aFacesNormals.length;
+			while( l_oVertex =  aFacesNormals[--l] )
 			{
+				l_oVertex.aFaces = null;
 				l_oVertex = null;
 			}
 			aFacesNormals = null;
 			// Normals
-			for each( l_oVertex in aVertexNormals )
+			l = aVertexNormals.length;
+			while( l_oVertex =  aVertexNormals[--l] )
 			{
+				l_oVertex.aFaces = null;
 				l_oVertex = null;
 			}
 			aVertexNormals = null;
 			// UVs face
-			for each( var b:Array in aFacesUVCoordsID )
+			l = aFacesUVCoordsID.length;
+			while( a =  aFacesUVCoordsID[--l] )
 			{
-				b = null;
+				a = null;
 			}
 			aFacesUVCoordsID = null;
 			// UVs coords
-			for each( var u:UVCoord in aUVCoords )
+			l = aUVCoords.length;
+			while( u =  aUVCoords[--l] )
 			{
 				u = null;
 			}	
-			aUVCoords = null;		
+			aUVCoords = null;	
+			// Edges
+			for( var l_sEdgeName:String in EDGES_DICO )
+			{
+				delete EDGES_DICO[l_sEdgeName];
+			}	
+			EDGES_DICO = null;
 		}
 		
 		/**
