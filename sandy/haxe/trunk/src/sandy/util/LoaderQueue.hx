@@ -3,13 +3,17 @@ package sandy.util;
 
 import flash.display.Loader;
 import flash.display.LoaderInfo;
+import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IOErrorEvent;
+import flash.media.Sound;
 import flash.net.URLLoader;
 import flash.net.URLLoaderDataFormat;
 import flash.net.URLRequest;
+import flash.net.URLVariables;
+import flash.utils.ByteArray;
 
 import sandy.events.QueueEvent;
 import sandy.events.SandyEvent;
@@ -27,27 +31,14 @@ import sandy.HaxeTypes;
 * <p>A LoaderQueue allows you to queue up requests for loading external resources.</p>
 *
 * @author		Thomas Pfeiffer - kiroukou /Max Pellizzaro
+* @author		Russell Weir
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
 * @version		3.1
 * @date 		07.16.2008
 */
 
 class LoaderQueue extends EventDispatcher
 {
-	/**
-	* Specifies the Image type of object to load
-	*/
-	static public inline var IMG:String = "IMG";
-	/**
-	* Specifies the SWF type of object to load
-	*/
-	static public inline var SWF:String = "SWF";
-	/**
-	* Specifies the Binary type of object to load
-	*/
-	static public inline var BIN:String = "BIN";
-
 	private var m_oLoaders : Hash<QueueElement>;
 	private var m_nLoaders : Int;
 	private var m_oQueueCompleteEvent : QueueEvent;
@@ -56,6 +47,7 @@ class LoaderQueue extends EventDispatcher
 
 	public var data:Hash<Dynamic>;
 	public var clips:Hash<LoaderInfo>;
+
 	/**
 	 * Creates a new loader queue.
 	 *
@@ -72,26 +64,67 @@ class LoaderQueue extends EventDispatcher
 	}
 
 	/**
-	 * Adds a new request to this loader queue.
+	 * Adds a new request to this loader queue. The request may either be a string
+	 * URL or a URLRequest instance. If not specified, the method will try to figure
+	 * out the correct content type from the extension on the p_dRequest url.
 	 *
-	 * <p>The request is given its own loader and is added to a loader queue<br/>
-	 * The loding is postponed until the start method of the queue is called.</p>
+	 * Loading does not commence until the start() method is called.
 	 *
 	 * @param p_sID		A string identifier for this request
-	 * @param p_oURLRequest	The request
+	 * @param p_dRequest A URLRequest or string url
+	 * @param type An optional asset type specifier. Most types can be automatically determined
+	 *  from the url.
+	 * @throws String if content type can not be determined
 	 */
-	public function add( p_sID : String, p_oURLRequest : URLRequest, type:String = "IMG" ) : Void
+	public function add( p_sID : String, p_dRequest : Dynamic, type:AssetType = null ) : Void
 	{
-		if(type == BIN) {
-			var tmpLoader = new URLLoader ();
-			tmpLoader.dataFormat = URLLoaderDataFormat.BINARY;
-			m_oLoaders.set( p_sID, new QueueElement( p_sID, null, tmpLoader, p_oURLRequest ));
+		var p_oURLRequest : URLRequest = null;
+		if(Std.is(p_dRequest, URLRequest)) {
+			p_oURLRequest = cast p_dRequest;
+		}
+		else if(Std.is(p_dRequest, String)) {
+			p_oURLRequest = new URLRequest(cast p_dRequest);
 		}
 		else {
-			m_oLoaders.set( p_sID, new QueueElement( p_sID, new Loader(), null, p_oURLRequest ) );
+			throw "Invalid request type";
+		}
+
+		if(type == null) {
+			var parts = p_oURLRequest.url.split(".");
+			if(parts.length == 0) {
+				type = BIN;
+			}
+			else {
+				type = switch(parts[parts.length-1].toLowerCase()) {
+				case "jpg", "jpeg", "png", "gif": IMAGE;
+				case "mp3": SOUND;
+				case "swf": SWF;
+				default:
+					throw "Unknown asset type " + parts[parts.length-1].toLowerCase();
+				}
+			}
+		}
+
+		var qe = new QueueElement(p_sID, type, p_oURLRequest);
+		switch(type) {
+		case BIN,TEXT,VARIABLES:
+			var ldr = new URLLoader ();
+			ldr.dataFormat = switch(type) {
+				case BIN: URLLoaderDataFormat.BINARY;
+				case TEXT: URLLoaderDataFormat.TEXT;
+				case VARIABLES: URLLoaderDataFormat.VARIABLES;
+				default: URLLoaderDataFormat.BINARY;
+				}
+			qe.urlLoader = ldr;
+		case IMAGE, SWF:
+			qe.loader = new Loader();
+		case SOUND:
+			qe.sound = new Sound();
 		}
 		// --
-		m_nLoaders++;
+		if(!m_oLoaders.exists(p_sID))
+			m_nLoaders++;
+		m_oLoaders.set( p_sID, qe);
 	}
 
 	private function getIDFromLoader( p_oLoader:Loader ):String
@@ -116,6 +149,18 @@ class LoaderQueue extends EventDispatcher
 		return null;
 	}
 
+	private function getIDFromSoundLoader( p_oLoader:Sound ):String
+	{
+		for ( l_oElement in m_oLoaders )
+		{
+			if( p_oLoader == l_oElement.sound )
+			{
+				return l_oElement.name;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Starts the loading of all resources in the queue.
 	 *
@@ -131,10 +176,16 @@ class LoaderQueue extends EventDispatcher
 				l_oLoader.loader.load( l_oLoader.urlRequest );
 				l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
 				l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
-			} else {
+			}
+			else if(l_oLoader.urlLoader != null) {
 				l_oLoader.urlLoader.load( l_oLoader.urlRequest );
 				l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
 	            l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+			}
+			else if(l_oLoader.sound != null) {
+				l_oLoader.sound.load( l_oLoader.urlRequest );
+				l_oLoader.sound.addEventListener( Event.COMPLETE, completeHandler );
+	            l_oLoader.sound.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
 			}
 		}
 		if (noLoaders) {
@@ -156,16 +207,60 @@ class LoaderQueue extends EventDispatcher
 		dispatchEvent( m_oQueueResourceLoadedEvent );
 
 		if (Std.is(p_oEvent.target, flash.net.URLLoader)) {
+			// BIN, TEXT, VARIABLES
 			var l_oLoader:URLLoader = p_oEvent.target;
 			l_sName = getIDFromURLLoader( l_oLoader );
+
+			var qe : QueueElement = m_oLoaders.get(l_sName);
+			if(qe != null) {
+				switch(qe.assetType) {
+				case BIN:
+					qe.binaryData = l_oLoader.data;
+				case TEXT:
+					qe.text = l_oLoader.data;
+				case VARIABLES:
+					qe.variables = new URLVariables(l_oLoader.data);
+				default:
+					trace("Bad type " + qe.assetType + " for " + qe.name);
+				}
+			}
 			data.set( l_sName, l_oLoader.data);
 			clips.set( l_sName, p_oEvent.target);
-		} else {
+		}
+		else if(Std.is(p_oEvent.target, flash.display.LoaderInfo)) {
+			// IMAGE, SWF
 			var l_oLoaderInfos:LoaderInfo = p_oEvent.target;
 			var l_oLoader:Loader = l_oLoaderInfos.loader;
 			l_sName = getIDFromLoader( l_oLoader );
+
+			var qe : QueueElement = m_oLoaders.get(l_sName);
+			if(qe != null) {
+				switch(qe.assetType) {
+				case IMAGE:
+					if(Reflect.hasField( l_oLoader.content, "bitmapData" ))
+						qe.bitmapData = Reflect.field( l_oLoader.content, "bitmapData");
+				case SWF:
+					qe.swf = l_oLoaderInfos.content;
+				default:
+					trace("Bad type " + qe.assetType + " for " + qe.name);
+				}
+			}
 			data.set( l_sName, l_oLoaderInfos.content );
 			clips.set( l_sName, l_oLoaderInfos);
+		}
+		else if(Std.is(p_oEvent.target, Sound)) {
+			// SOUND
+			try {
+				var l_sound:Sound = p_oEvent.target;
+				l_sName = getIDFromSoundLoader(l_sound);
+				data.set( l_sName, l_sound);
+			} catch(e:Dynamic) {
+				trace(e);
+				trace(Type.getClassName(Type.getClass(p_oEvent.target)));
+			}
+		}
+		else {
+			throw "Internal error. Unexpected " + Type.getClassName(Type.getClass(p_oEvent.target));
 		}
 		// --
 		m_nLoaders--;
@@ -199,17 +294,32 @@ class LoaderQueue extends EventDispatcher
 class QueueElement
 {
 	public var name:String;
-	public var loader:Loader;
-	public var urlLoader:URLLoader;
+	public var assetType : AssetType;
 	public var urlRequest:URLRequest;
 
-	// --
-	public function new( p_sName:String, p_oLoader:Loader, u_oLoader:URLLoader, p_oURLRequest : URLRequest )
+	/** Valid from assetTypes SWF and IMAGE **/
+	public var loader:Loader;
+	/** Valid for assetType BIN **/
+	public var urlLoader:URLLoader;
+
+	/** Valid for assetType BINARY **/
+	public var binaryData : ByteArray;
+	/** Valid for assetType TEXT **/
+	public var text : String;
+	/** Valid for assetType VARIABLES **/
+	public var variables : URLVariables;
+	/** Valid for assetType IMAGE **/
+	public var bitmapData : BitmapData;
+	/** Valid for assetType SWF **/
+	public var swf : DisplayObject;
+	/** Valid for assetType SOUND **/
+	public var sound : Sound;
+
+	public function new( p_sName:String, type:AssetType, p_oURLRequest : URLRequest )
 	{
 		name = p_sName;
-		loader = p_oLoader;
+		assetType = type;
 		urlRequest = p_oURLRequest;
-		urlLoader = u_oLoader;
 	}
 
 }

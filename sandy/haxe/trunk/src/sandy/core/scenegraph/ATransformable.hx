@@ -500,6 +500,34 @@ class ATransformable extends Node
 		_vUp.normalize();
 	}
 
+	/**
+	* Makes this object "look at" the specified position in the parent frame.
+	*
+	* <p>Useful for following a moving object or a static object while this object is moving.<br/>
+	* Normally used when this object is a camera</p>
+	*
+	* @param p_oPoint The point to look at.
+	*/
+	public function lookAtPoint( p_oPoint : Point3D ) : Void
+	{
+		changed = true;
+		_vLookAt = p_oPoint.clone();
+
+		//
+		_vOut.x = p_oPoint.x; _vOut.y = p_oPoint.y; _vOut.z = p_oPoint.z;
+		//
+		_vOut.sub( _p );
+		_vOut.normalize();
+		// -- the vOut vector should not be colinear with the reference down vector!
+		_vSide = null;
+		_vSide = _vOut.cross( _vLookatDown );
+		_vSide.normalize();
+		//
+		_vUp = null;
+		_vUp = _vOut.cross(_vSide );
+		_vUp.normalize();
+	}
+
 	private function __setRotateX ( p_nAngle:Float ):Float
 	{
 		var l_nAngle:Float = (p_nAngle - _vRotation.x);
@@ -626,10 +654,24 @@ class ATransformable extends Node
 	public function setPosition( p_nX:Float, p_nY:Float, p_nZ:Float ):Void
 	{
 		changed = true;
-		// we must consider the screen y-axis inversion
 		_p.x = p_nX;
 		_p.y = p_nY;
 		_p.z = p_nZ;
+	}
+
+	/**
+	* Sets the position of this object in coordinates of its parent frame.
+	*
+	* @param p_nX 	The x coordinate
+	* @param p_nY 	The y coordiante
+	* @param p_nZ 	The z coordiante
+	*/
+	public function setPositionPoint( p_oPoint : Point3D ):Void
+	{
+		changed = true;
+		_p.x = p_oPoint.x;
+		_p.y = p_oPoint.y;
+		_p.z = p_oPoint.z;
 	}
 
 	/**

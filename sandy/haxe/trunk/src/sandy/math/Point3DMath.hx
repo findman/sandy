@@ -195,6 +195,27 @@ class Point3DMath
 	}
 
 	/**
+	* Returns the distance between two Point3Ds
+	*/
+	public static function distance( pA : Point3D, pB : Point3D ) : Float {
+		var x = pB.x - pA.x;
+		var y = pB.y - pA.y;
+		var z = pB.z - pA.z;
+		return Math.sqrt( x * x + y * y + z * z );
+	}
+
+	/**
+	* Returns the distance squared between two Point3Ds. This method avoids the
+	* overhead of a Math.sqrt() call.
+	*/
+	public static function distanceSquared( pA : Point3D, pB : Point3D ) : Float {
+		var x = pB.x - pA.x;
+		var y = pB.y - pA.y;
+		var z = pB.z - pA.z;
+		return x * x + y * y + z * z;
+	}
+
+	/**
 	 * Clones a 3D Point3D.
 	 *
 	 * @param p_oV 	The Point3D

@@ -29,7 +29,7 @@ enum SoundMode {
 	URL;
 }
 
-class Sound3D<T> extends ATransformable
+class Sound3D extends ATransformable
 {
 	// events
 	public static inline var LOOP:String = "loop";
@@ -200,7 +200,7 @@ class Sound3D<T> extends ATransformable
 	/**
 	* Set the sound source, the sound source can be a String, URLRequest, Sound or SoundChannel object
 	*/
-	private function __setSoundSource (s:T) :T
+	private function __setSoundSource (s:Dynamic) : Dynamic
 	{
 		if(Std.is(s, Sound))
 		{
@@ -228,10 +228,10 @@ class Sound3D<T> extends ATransformable
 	}
 
 	/**
-	* Returns the sound source, the sound source may be a URLRequest, Sound or SoundChannel object
+	* Set or return the sound source, the sound source may be a URLRequest, Sound or SoundChannel object
 	*/
-	public var soundSource (__getSoundSource,__setSoundSource) :T;
-	private function __getSoundSource () :T
+	public var soundSource (__getSoundSource,__setSoundSource) : Dynamic;
+	private function __getSoundSource () : Dynamic
 	{
 		switch (sMode)
 		{

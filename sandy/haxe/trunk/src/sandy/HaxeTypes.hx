@@ -111,3 +111,23 @@ enum CoordinateSystem {
 	ABSOLUTE;
 }
 
+/**
+* Asset types for LoaderQueues.
+*
+* BIN Binary file
+*
+* IMAGE png or jpeg files
+*
+* SWF swf files
+*
+* SOUND mp3 asset
+**/
+enum AssetType {
+	BIN;
+	TEXT;
+	VARIABLES;
+	IMAGE;
+	SWF;
+	SOUND;
+}
+
