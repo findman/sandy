@@ -43,7 +43,7 @@ class Dice extends Sprite
     private function loadCollada()
     {
         
-        var parser: ColladaParser = Parser.create( "./dice.dae", Parser.COLLADA );
+        var parser: ColladaParser = Parser.create( "../assets/dice.dae", Parser.COLLADA );
 								parser.addEventListener( ParserEvent.FAIL, onError );
         parser.addEventListener( ParserEvent.INIT, create3d );
 								try {
