@@ -29,15 +29,22 @@ enum SoundMode {
 	URL;
 }
 
+enum SoundType {
+	SPEECH;
+	NOISE;
+}
+
 class Sound3D extends ATransformable
 {
 	// events
+	/** Dispatched when sound starts a new loop **/
 	public static inline var LOOP:String = "loop";
+	/** Dispatched when sound is complete. **/
+	public static inline var COMPLETE:String = "complete";
+	/** Dispatched when sound starts playing, either from an initial start, or resume when in range **/
 	public static inline var CULL_PLAY:String = "cullPlay";
+	/** Dispatched when sound gets culled (out of range) **/
 	public static inline var CULL_STOP:String = "cullStop";
-	// type
-	public static inline var SPEECH:String = "speech";
-	public static inline var NOISE:String = "noise";
 
 	/**
 	* Max volume of the sound if camera position is at sound position
@@ -66,7 +73,7 @@ class Sound3D extends ATransformable
 	/**
 	* Type is either SPEECH or NOISE, SPEECH will start the sound at the last position if the camera enters the sphere of the sound
 	*/
-	public var type:String;
+	public var type:SoundType;
 	/**
 	* The start time to play the audio from
 	*/
@@ -368,10 +375,11 @@ class Sound3D extends ATransformable
 			if(sMode != CHANNEL)
 			{
 				_isPlaying = false;
-
 				cStop();
 			}
+			m_oEB.dispatchEvent( new BubbleEvent( COMPLETE, this ) );
 		}
+
 	}
 
 	private function completeHandler (e:Event) :Void
@@ -400,8 +408,8 @@ class Sound3D extends ATransformable
 				soundRef.load(urlReq);
 			}
 
-			if(type == SPEECH)
-			{
+			switch(type) {
+			case SPEECH:
 				var len:Float = duration;
 				var time:Float = startTime;
 
@@ -416,15 +424,14 @@ class Sound3D extends ATransformable
 						if(cLoop>loops)
 						{
 							stop();
+							m_oEB.dispatchEvent( new BubbleEvent( COMPLETE, this ) );
 							return;
 						}
 						time = fn-f == 0 ? len : time - (len*f);
 					}
 				}
 				channelRef = soundRef.play(time, 0);
-			}
-			else
-			{
+			case NOISE:
 				channelRef = soundRef.play(startTime, 0);
 			}
 			if(!channelRef.hasEventListener(Event.SOUND_COMPLETE))

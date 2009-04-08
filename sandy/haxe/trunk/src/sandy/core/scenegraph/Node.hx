@@ -190,7 +190,7 @@ class Node
 	*/
 	public function addEventListener<T>(p_sEvt:String, p_oL:T->Void ) : Void
 	{
-		Reflect.callMethod( p_sEvt, m_oEB.addEventListener, [p_sEvt,p_oL] );
+		m_oEB.addEventListener(p_sEvt, p_oL);
 	}
 
 	/**
@@ -199,7 +199,7 @@ class Node
 	* @param p_sEvt Name of the Event.
 	* @param oL Listener object.
 	*/
-	public function removeEventListener(p_sEvt:String, p_oL:Event->Void) : Void
+	public function removeEventListener<T>(p_sEvt:String, p_oL:T->Void) : Void
 	{
 		m_oEB.removeEventListener(p_sEvt, p_oL);
 	}

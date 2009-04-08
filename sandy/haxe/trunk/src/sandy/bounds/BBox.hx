@@ -215,6 +215,24 @@ class BBox
 	}
 
 	/**
+	* Returns the depth (Z) of this box
+	*
+	* @return Size in Z direction
+	*/
+	public inline function getDepth() : Float {
+		return Math.abs(maxEdge.z - minEdge.z);
+	}
+
+	/**
+	* Returns the height (Y) of this box
+	*
+	* @return Size in Y direction
+	*/
+	public inline function getHeight() : Float {
+		return Math.abs(maxEdge.y - minEdge.y);
+	}
+
+	/**
 	* Return the size of the Bounding Box.
 	*
 	* @return 		A <code>Point3D</code> representing the size of the volume in three dimensions.
@@ -224,6 +242,15 @@ class BBox
 		return new Point3D(	Math.abs(maxEdge.x - minEdge.x),
 							Math.abs(maxEdge.y - minEdge.y),
 							Math.abs(maxEdge.z - minEdge.z));
+	}
+
+	/**
+	* Returns the width (X) of this box
+	*
+	* @return Size in X direction
+	*/
+	public inline function getWidth() : Float {
+		return Math.abs(maxEdge.x - minEdge.x);
 	}
 
 	public function intersectsBox(box:BBox):Bool
