@@ -485,7 +485,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		m_oTextureClone = null;
 		m_oPolygonMatrixMap = null;
 	}
-		
+
 	public override function unlink( p_oPolygon:Polygon ):Void
 	{
 		if( m_oPolygonMatrixMap != null )
@@ -502,7 +502,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 	*/
 	public override function init( p_oPolygon:Polygon ):Void
 	{
-		if( p_oPolygon.vertices.length >= 3 )
+		if( m_oPolygonMatrixMap != null && p_oPolygon.vertices.length >= 3 )
 		{
 			var m:Matrix = null;
 			// --
