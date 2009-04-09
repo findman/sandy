@@ -14,7 +14,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
-* @authod		Russell Weir - haXe port
+* @author		Russell Weir - haXe port
 * @version		3.1
 * @date 		26.07.2007
 *

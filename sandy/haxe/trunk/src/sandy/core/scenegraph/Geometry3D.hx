@@ -2,8 +2,8 @@
 package sandy.core.scenegraph;
 
 import sandy.core.data.Edge3D;
-import sandy.core.data.UVCoord;
 import sandy.core.data.Point3D;
+import sandy.core.data.UVCoord;
 import sandy.core.data.Vertex;
 
 import sandy.HaxeTypes;
@@ -558,42 +558,62 @@ class Geometry3D
 	public function dispose():Void
 	{
 		var a:Array<Int>, l_oVertex:Vertex;
+		var l:Int;
+		var u:UVCoord;
 		// Points
-		for ( l_oVertex in aVertex )
+		l = aVertex.length;
+		for(i in 0...l)
 		{
+			l_oVertex = aVertex[i];
+			l_oVertex.aFaces = null;
 			l_oVertex = null;
 		}
 		aVertex = null;
 		// Faces
-		for ( a in aFacesVertexID )
+		l = aFacesVertexID.length;
+		for( i in 0...l)
 		{
-			a = null;
+			aFacesVertexID[i] = null;
 		}
 		aFacesVertexID = null;
 		// Normals
-		for ( l_oVertex in aFacesNormals )
+		l = aFacesNormals.length;
+		for(i in 0...l)
 		{
+			l_oVertex = aFacesNormals[i];
+			l_oVertex.aFaces = null;
 			l_oVertex = null;
 		}
 		aFacesNormals = null;
 		// Normals
-		for ( l_oVertex in aVertexNormals )
+		l = aVertexNormals.length;
+		for(i in 0...l)
 		{
+			l_oVertex = aVertexNormals[i];
+			l_oVertex.aFaces = null;
 			l_oVertex = null;
 		}
 		aVertexNormals = null;
 		// UVs face
-		for ( b in aFacesUVCoordsID )
+		l = aFacesUVCoordsID.length;
+		for(i in 0...l)
 		{
-			b = null;
+			aFacesUVCoordsID[i] = null;
 		}
 		aFacesUVCoordsID = null;
 		// UVs coords
-		for ( u in aUVCoords )
+		l = aUVCoords.length;
+		for(i in 0...l)
 		{
-			u = null;
+			aUVCoords[i] = null;
 		}
 		aUVCoords = null;
+		// Edges
+		for( l_sEdgeName in EDGES_DICO.keys() )
+		{
+			EDGES_DICO.remove(l_sEdgeName);
+		}
+		EDGES_DICO = null;
 	}
 
 	/**

@@ -41,15 +41,6 @@ import sandy.HaxeTypes;
 class Shape3D extends ATransformable, implements IDisplayable
 {
 	/**
-	* Default material for the DEFAULT_APPEARANCE object
-	*/
-	public static var DEFAULT_MATERIAL:Material = new WireFrameMaterial();
-	/**
-	* Default appearance for Shape3D instances. If no apperance is given, this default one will be applied using the DEFAULT_MATERIAL as front and back material
-	*/
-	public static var DEFAULT_APPEARANCE:Appearance = new Appearance( DEFAULT_MATERIAL );
-
-	/**
 	* The array of polygons building this object.
 	*/
 	public var aPolygons:Array<Polygon>;
@@ -159,7 +150,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 		m_bUseSingleContainer = !p_bUseSingleContainer;
 		useSingleContainer = p_bUseSingleContainer;
 		// --
-		appearance = ( p_oAppearance != null ) ? p_oAppearance : Shape3D.DEFAULT_APPEARANCE;
+		appearance = ( p_oAppearance != null ) ? p_oAppearance : new Appearance( new WireFrameMaterial() );
 		// --
 		updateBoundingVolumes();
 	}
@@ -712,13 +703,22 @@ class Shape3D extends ATransformable, implements IDisplayable
 	public override function destroy():Void
 	{
 		// 	FIXME Fix it - it should be more like
-		m_oGeometry.dispose();
+		if( m_oGeometry != null ) m_oGeometry.dispose();
+		if( m_oAppearance != null ) m_oAppearance.dispose();
 		// --
 		clear();
-		if( m_oContainer.parent != null ) m_oContainer.parent.removeChild( m_oContainer );
-		if( m_oContainer != null ) m_oContainer = null;
+		if( m_oContainer != null )
+		{
+			if( m_oContainer.parent != null ) m_oContainer.parent.removeChild( m_oContainer );
+			m_oContainer = null;
+		}
 		// --
 		__destroyPolygons();
+		m_oGeometry = null;
+		aVisiblePolygons = null;
+		aPolygons = null;
+		boundingBox = null;
+		boundingSphere = null;
 		// --
 		super.destroy();
 	}
@@ -780,7 +780,6 @@ class Shape3D extends ATransformable, implements IDisplayable
 			}
 		}
 		aPolygons.splice(0,aPolygons.length);
-		aPolygons = null;
 	}
 
 	private function __generatePolygons( p_oGeometry:Geometry3D ):Void

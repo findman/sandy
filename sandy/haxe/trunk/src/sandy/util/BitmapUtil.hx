@@ -39,11 +39,11 @@ public class BitmapUtil
 	* @return 			The converted bitmap.
 	*/
 	//public static function movieToBitmap( p_oSprite:Sprite, p_bTransparent:Boolean=true, p_nColor:Float=0x00FF00CC /* a random color, needed by the bitmapData constructor to apply transparency */ ):BitmapData
-	public static function movieToBitmap( p_oSprite:DisplayObject, ?p_bTransparent:Boolean=true, ?p_nColor:Float=0x00FF00CC /* a random color, needed by the bitmapData constructor to apply transparency */ ):BitmapData
+	public static function movieToBitmap( p_oSprite:DisplayObject, p_bTransparent:Bool=true, p_nColor:Int=0x00FF00CC /* a random color, needed by the bitmapData constructor to apply transparency */ ):BitmapData
 	{
 		var bmp:BitmapData;
 		// --
-		bmp = new BitmapData( p_oSprite.width, p_oSprite.height, p_bTransparent, p_nColor );
+		bmp = new BitmapData( Std.int( p_oSprite.width ), Std.int( p_oSprite.height ), p_bTransparent, p_nColor );
 		bmp.draw( p_oSprite );
 		// --
 		return bmp;
@@ -62,10 +62,10 @@ public class BitmapUtil
 	*
 	* @return 		The scaled bitmap data.
 	*/
-	public static function getScaledBitmap( p_oBitmap:BitmapData, p_nScalex:Float, p_nScaley:Float=0 ):BitmapData
+	public static function getScaledBitmap( p_oBitmap:BitmapData, p_nScalex:Float, p_nScaley:Float=0.0 ):BitmapData
 	{
 		//scaley = (undefined == scaley) ? scalex : scaley;
-		var tex:BitmapData = new BitmapData( p_nScalex * p_oBitmap.width, p_nScaley * p_oBitmap.height);
+		var tex:BitmapData = new BitmapData( Std.int( p_nScalex * p_oBitmap.width ), Std.int( p_nScaley * p_oBitmap.height ) );
 		tex.draw( p_oBitmap, new Matrix( p_nScalex, 0, 0, p_nScaley ) );
 		return tex;
 	}
@@ -111,14 +111,14 @@ public class BitmapUtil
 	*
 	* @return 		Sprite with texture map template drawn in.
 	*/
-	public static function ripShapeTexture (obj:Shape3D, size:Float = 256):Sprite {
+	public static function ripShapeTexture (obj:Shape3D, size:Float = 256.0):Sprite {
 		var tex:Sprite = new Sprite ();
 		tex.graphics.beginFill (0); tex.graphics.drawRect (0, 0, size, size); tex.graphics.endFill ();
 		tex.graphics.lineStyle (1, 0xFF0000);
-		for each (var p:Polygon in obj.aPolygons) {
-			var i:int = p.vertices.length -1;
+		for ( p in obj.aPolygons) {
+			var i:Int = p.vertices.length -1;
 			tex.graphics.moveTo (size * p.aUVCoord [i].u, size * p.aUVCoord [i].v);
-			for (i = 0; i < p.vertices.length; i++)
+			for (i in 0...p.vertices.length)
 				tex.graphics.lineTo (size * p.aUVCoord [i].u, size * p.aUVCoord [i].v);
 		}
 		return tex;
@@ -163,9 +163,9 @@ BitmapUtil.burnShapeTexture (sphere, scene, tex, mat.texture, 0.3, 1.0, 2, 15.0)
 stage.addEventListener ("click", click);
 </listing>
 		*/
-	public static function burnShapeTexture (obj:Shape3D, scene:Scene3D, srcTexture:BitmapData, dstTexture:BitmapData, ?ambient:Float = 0.3, ?diffuse:Float = 1.0, ?specular:Float = 0.0, ?gloss:Float = 5.0):void {
-		var m1:Matrix= new Matrix;
-		var vn:Point3D= new Point3D;
+	public static function burnShapeTexture (obj:Shape3D, scene:Scene3D, srcTexture:BitmapData, dstTexture:BitmapData, ?ambient:Float = 0.3, ?diffuse:Float = 1.0, ?specular:Float = 0.0, ?gloss:Float = 5.0):Void {
+		var m1:Matrix= new Matrix();
+		var vn:Point3D= new Point3D();
 		// get light data (code borrowed from ALightAttributes)
 		var m_nI:Float = scene.light.getNormalizedPower ();
 		var m_oL:Point3D = scene.light.getDirectionPoint3D ();
@@ -177,10 +177,10 @@ stage.addEventListener ("click", click);
 		var m_oCurrentV:Point3D = new Point3D (); m_oCurrentV.copy (m_oV); invModelMatrix.transform3x3 (m_oCurrentV);
 		var m_oCurrentH:Point3D = new Point3D (); m_oCurrentH.copy (m_oH); invModelMatrix.transform3x3 (m_oCurrentH);
 		// compute color factors as in ALightAttributes.applyColorToDisplayObject with b = 1 argument
-		var c:Float = scene.light.color; if (c < 1) c = 0xFFFFFF;
-		var r:Float = (0xFF0000 & c) >> 16;
-		var g:Float = (0x00FF00 & c) >> 8;
-		var b:Float = (0x0000FF & c);
+		var c:Int = scene.light.color; if (c < 1) c = 0xFFFFFF;
+		var r:Float = cast( (0xFF0000 & c) >> 16 );
+		var g:Float = cast( (0x00FF00 & c) >> 8 );
+		var b:Float = cast(0x0000FF & c);
 		var bY:Float = 255 * 1.7321 /*Math.sqrt (3)*/ / Math.sqrt (r * r + g * g + b * b);
 		r *= bY; g *= bY; b *= bY;
 		// lock destination texture
@@ -208,9 +208,9 @@ stage.addEventListener ("click", click);
 				if (crossing % 2) {
 					// we're inside
 				}*/
-				var uv0:UVCoord = UVCoord (p.aUVCoord[0]);
-				var uv1:UVCoord = UVCoord (p.aUVCoord[1]);
-				var uv2:UVCoord = UVCoord (p.aUVCoord[2]);
+				var uv0:UVCoord = p.aUVCoord[0];
+				var uv1:UVCoord = p.aUVCoord[1];
+				var uv2:UVCoord = p.aUVCoord[2];
 				m1.a = uv1.u - uv0.u;
 				m1.b = uv2.u - uv0.u;
 				m1.c = uv1.v - uv0.v;
@@ -238,9 +238,9 @@ stage.addEventListener ("click", click);
 					l_k *= m_nI; if (l_k > 1) l_k = 1;
 					// set resulting pixel and break out of polygon loop
 					dstTexture.setPixel (i, j,
-						int (r * l_k) * 65536 +
-						int (g * l_k) * 256 +
-						int (b * l_k)
+						Std.int (r * l_k) * 65536 +
+						Std.int (g * l_k) * 256 +
+						Std.int (b * l_k)
 					);
 					break;
 				}
@@ -249,6 +249,6 @@ stage.addEventListener ("click", click);
 		// unlock destination texture
 		dstTexture.unlock ();
 		// overlay by source texture
-		dstTexture.draw (srcTexture, null, null, "overlay");
+		dstTexture.draw (srcTexture, null, null, flash.display.BlendMode.OVERLAY);
 	}
 }

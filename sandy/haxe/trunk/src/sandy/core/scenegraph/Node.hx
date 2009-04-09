@@ -468,13 +468,17 @@ class Node
 		// the unlink this node to his parent
 		if( hasParent() == true ) parent.removeChild( this );
 
-		for ( lNode in children )
+		var l_aTmp = children.copy();
+		for ( lNode in l_aTmp )
 		{
 			lNode.destroy();
 		}
 		children.splice(0,children.length);
+		children = null;
 		m_oEB = null;
+		l_aTmp = null;
 		scene = null;
+		parent = null;
 	}
 
 	/**

@@ -49,8 +49,8 @@ class Material
 	 * Specifies if the material can automatically be disposed when unused
 	 * Default value is to true
 	 */
-	public var autoDipose:Bool;
-		
+	public var autoDispose:Bool;
+
 	/**
 	* Creates a material.
 	*
@@ -71,15 +71,16 @@ class Material
 		m_oType = MaterialType.NONE;
 		m_nRefCounting = 0;
 		m_oPolygonMap = new IntHash<Int>();
-		autoDipose = true;
+		autoDispose = true;
 	}
-		
+
 	private var m_oPolygonMap:IntHash<Int>;
 	private var m_nRefCounting:Int;
-		
+
 	/**
-	 * Method to call when you want to release the resources of that material (filters, attributes and lreferences to polygons)
-	 */
+	* Method to call when you want to release the resources of that material (filters, attributes and lreferences to polygons)
+	* Shape3D.DEFAULT_MATERIAL Material can't be disposed because might be used for later shape3D creations
+	*/
 	public function dispose():Void
 	{
 		var l_oApp:Appearance;
@@ -90,15 +91,14 @@ class Material
 			unlink(l_oPoly);
 			l_oApp = l_oPoly.appearance;
 			if( l_oApp.frontMaterial == this )
-				l_oApp.frontMaterial = null;//Shape3D.DEFAULT_MATERIAL;
+				l_oApp.frontMaterial = null;
 			else if( l_oApp.backMaterial == this )
-				l_oApp.backMaterial = null;//Shape3D.DEFAULT_MATERIAL;
-		
+				l_oApp.backMaterial = null;
+
 			m_oPolygonMap.remove(l_sLabel);
 		}
 		attributes = null;
 		_filters = null;
-		//m_oPolygonMap = null;
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Material
 		if( attributes != null )
 			attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene ) ;
 		// --
-		if( _filters.length > 0 )
+		if( _filters != null && _filters.length > 0 )
 			p_mcContainer.filters = _filters;
 	}
 
@@ -170,7 +170,7 @@ class Material
 			attributes.drawOnSprite( p_oSprite, p_oMaterial, p_oScene );
 		}
 		// --
-		if( _filters.length > 0 )
+		if( _filters != null && _filters.length > 0 )
 			p_oSprite.content.filters = _filters;
 	}
 
@@ -213,12 +213,12 @@ class Material
 				}
 			}
 			//
-			if( autoDipose && m_nRefCounting <= 0 )
+			if( autoDispose && m_nRefCounting <= 0 )
 			{
 				dispose();
 			}
 	}
-		
+
 	/**
 	 * Unlink all the non used polygons
 	 */
@@ -239,7 +239,7 @@ class Material
 		}
 		return l_aUnlinked;
 	}
-		
+
 
 	/**
 	* The material type of this material.
@@ -324,7 +324,7 @@ class Material
 	private var _filters:Array<BitmapFilter>;
 	private var _id:Float;
 	private static var _ID_:Float = 0;
-	
+
 	//private static var create:Bool;
 }
 

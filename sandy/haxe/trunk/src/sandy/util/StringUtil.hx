@@ -10,7 +10,7 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		13.08.2008
 */
-public class StringUtil
+class StringUtil
 {
 	/**
 	* Replaces a sub string with another in the target string.
@@ -46,12 +46,12 @@ public class StringUtil
 	public static function getTextBetween( p_sStr:String, p_sStart:String, p_sEnd:String ):Array<String>
 	{
 		var r:Array<String> = [];
-		var idd:Float 	= 0;
-		var idf:Float 	= p_sStart.length;
+		var idd:Int 	= 0;
+		var idf:Int 	= p_sStart.length;
 		// --
 		while( ( idd = p_sStr.indexOf( p_sStart, idd ) ) > 0 && ( idf = p_sStr.indexOf( p_sEnd, idd+p_sStart.length ) ) > 0 )
 		{
-			r.push( p_sStr.slice( idd+p_sStart.length, idf ) );
+			r.push( p_sStr.substr( idd+p_sStart.length, idf ) );
 			idd = idf+p_sEnd.length;
 			idf = idd+p_sStart.length;
 		}
@@ -82,17 +82,19 @@ public class StringUtil
 		var pairs:Array<Array<Int>> = new Array();
 		pairs.push([p_sStart.length, p_sEnd.length]);
 		//--start serach
-		var searchStart1:Float = -1;
-		var searchStart2:Float = -1;
-		var i:Float;
+		var searchStart1:Int = -1;
+		var searchStart2:Int = -1;
+		var i:Int;
 		while (p_sStr.indexOf(p_sStart, searchStart1+1)>-1 && p_sStr.indexOf(p_sEnd, searchStart2+1)>-1){
 			searchStart1 = p_sStr.indexOf(p_sStart, searchStart1+1);
 			pps.push(searchStart1);
 			searchStart2 = p_sStr.indexOf(p_sEnd, searchStart2+1);
 			ppe.push(searchStart2);
 		}
-		for(i in 0...ppe.length-1) {
-			for(j in i+1...pps.length) {
+		var i = 0;
+		while(i < (ppe.length-1)) {
+			var j = i+1;
+			while(j < pps.length) {
 				var a:Float = ppe[i]-pps[j];
 				if (a<0) {
 					pairs.push( [pps[j-1]+p_sStart.length, ppe[i]] );
@@ -101,13 +103,15 @@ public class StringUtil
 					i--;
 					break;
 				}
+				j++;
 				//delete a; // throws an error in as3
 			}
+			i++;
 		}
-		for (i=0; i<pps.length; i++) {
+		for (i in 0...pps.length) {
 			pairs.push( [pps[i]+p_sStart.length, ppe[pps.length-1-i]] );
 		}
-		pairs.sort(function (a:Float, b:Float):Float {
+		pairs.sort(function (a:Array<Int>, b:Array<Int>):Int {
 			if (a[0]<b[0]) {
 				return -1;
 			} else {
@@ -130,7 +134,7 @@ public class StringUtil
 	*
 	* @return			All blocks between the start and end indices.
 	*/
-	public static function getBlocks (p_sStr:String, p_aPairs:Array, p_bWithSymbol:Bool):Array<String>  {
+	public static function getBlocks (p_sStr:String, p_aPairs:Array<Array<Int>>, p_bWithSymbol:Bool):Array<String>  {
 		var pairStrs:Array<String> = new Array();
 		var i:Float;
 		var t:String;
@@ -238,7 +242,7 @@ public class StringUtil
 	*
 	* @return		Start index of the search sub string.
 	*/
-	public static function indexTimes(p_sStr:String, p_sSubstr:String, p_nOccur:Float, p_nStart:Float):Float{
+	public static function indexTimes(p_sStr:String, p_sSubstr:String, p_nOccur:Int, p_nStart:Int):Int{
 		var id:Float = p_nStart?p_nStart:0;
 		for(i in 0...p_nOccur) {
 			id = p_sStr.indexOf(p_sSubstr, id)+1;

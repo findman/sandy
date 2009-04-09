@@ -118,13 +118,7 @@ class ATransformable extends Node
 	* Side direction ( local x ) in parent coordinates.
 	*/
 	public var side(__getSide,null):Point3D;
-	/**
-	* The position in the parent frame this object should "look at".
-	*
-	* <p>Useful for following a moving object or a static object while this object is moving.<br/>
-	* Normally used when this object is a camera</p>
-	*/
-	public var target( null,__setTarget ):Point3D;
+
 	/**
 	* Tilts this object around the local x axis.
 	*
@@ -464,12 +458,6 @@ class ATransformable extends Node
 		m_tmpMt.transform3x3(_vOut);
 	}
 
-	private function __setTarget( p_oTarget:Point3D ):Point3D
-	{
-		lookAt( p_oTarget.x, p_oTarget.y, p_oTarget.z);
-		return p_oTarget;
-	}
-
 	/**
 	* Makes this object "look at" the specified position in the parent frame.
 	*
@@ -506,26 +494,11 @@ class ATransformable extends Node
 	* <p>Useful for following a moving object or a static object while this object is moving.<br/>
 	* Normally used when this object is a camera</p>
 	*
-	* @param p_oPoint The point to look at.
+	* @param p_oTarget The point to look at.
 	*/
-	public function lookAtPoint( p_oPoint : Point3D ) : Void
+	public function lookAtPoint( p_oTarget : Point3D ) : Void
 	{
-		changed = true;
-		_vLookAt = p_oPoint.clone();
-
-		//
-		_vOut.x = p_oPoint.x; _vOut.y = p_oPoint.y; _vOut.z = p_oPoint.z;
-		//
-		_vOut.sub( _p );
-		_vOut.normalize();
-		// -- the vOut vector should not be colinear with the reference down vector!
-		_vSide = null;
-		_vSide = _vOut.cross( _vLookatDown );
-		_vSide.normalize();
-		//
-		_vUp = null;
-		_vUp = _vOut.cross(_vSide );
-		_vUp.normalize();
+		lookAt( p_oTarget.x, p_oTarget.y, p_oTarget.z );
 	}
 
 	private function __setRotateX ( p_nAngle:Float ):Float

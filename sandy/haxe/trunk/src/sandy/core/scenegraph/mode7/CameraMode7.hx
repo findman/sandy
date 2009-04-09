@@ -11,7 +11,7 @@ import sandy.core.scenegraph.Camera3D;
  * - the lookAt method is
  * overrided to respect the available rotations
  *
- * @author Cedric Jules	 
+ * @author Cedric Jules
  * @author Niel Drummond (haXe port)	 */
 
 class CameraMode7 extends Camera3D
@@ -32,7 +32,7 @@ class CameraMode7 extends Camera3D
 	private var _zTargetBis : Float;
 	private var _tiltAngle : Float;
 
-	public function new(p_nWidth : Int, p_nHeight : Int, p_nFov : Int = 45, p_nNear : Float = 50, p_nFar : Float = 10000	)
+	public function new(p_nWidth : Int, p_nHeight : Int, p_nFov : Float = 45.0, p_nNear : Float = 50.0, p_nFar : Float = 10000.0	)
 	{
 		super(p_nWidth, p_nHeight, p_nFov, p_nNear, p_nFar);
 	}

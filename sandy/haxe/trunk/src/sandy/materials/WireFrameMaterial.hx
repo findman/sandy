@@ -33,7 +33,7 @@ class WireFrameMaterial extends Material
 	 *
 	 * @see sandy.materials.attributes.MaterialAttributes
 	 */
-	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha: Float = 1.0, ?p_oAttr:MaterialAttributes )
+	public function new( p_nThickness:Int = 1, p_nColor:Int = 0, p_nAlpha: Float = 1.0, p_oAttr:MaterialAttributes=null )
 	{
 		super( p_oAttr );
 		// --
@@ -44,15 +44,12 @@ class WireFrameMaterial extends Material
 	}
 
 	/**
-	 * Renders this material on the face it dresses.
-	 *
-	 * @param p_oScene		The current scene
-	 * @param p_oPolygon	The face to be rendered
-	 * @param p_mcContainer	The container to draw on
-	 */
+	* @private
+	*/
 	public override function renderPolygon( p_oScene:Scene3D, p_oPolygon:Polygon, p_mcContainer:Sprite ):Void
 	{
-		attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene );
+		if( attributes != null )
+			attributes.draw( p_mcContainer.graphics, p_oPolygon, this, p_oScene );
 	}
 
 }

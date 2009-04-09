@@ -64,9 +64,9 @@ public class RotationUtil
 	/**
 	* @private
 	*/
-	private function __setOut0(v:Point3D):Void
+	private function __setOut0(v:Point3D):Point3D
 	{
-		_out0 = v; preCalculate ();
+		_out0 = v; preCalculate (); return v;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class RotationUtil
 	}
 
 	// --
-	private var _t:Float = 0;
+	private var _t:Float;
 	private var _out0:Point3D;
 	private var _out1:Point3D;
 	private var _dot:Float;
@@ -139,5 +139,7 @@ public class RotationUtil
 		}
 	}
 
-	public function new() {}
+	public function new() {
+		_t = 0.;
+	}
 }

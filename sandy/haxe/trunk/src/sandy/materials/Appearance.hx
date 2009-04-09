@@ -81,7 +81,7 @@ class Appearance
 		if( m_oFrontMaterial == p_oMat ) return null;
 		// --
 		var l_aUnLinked:haxe.FastList<Polygon> = new haxe.FastList<Polygon>();
-		if( m_oFrontMaterial != null ) 
+		if( m_oFrontMaterial != null )
 			l_aUnLinked = m_oFrontMaterial.unlinkAll();
 		// --
 		m_oFrontMaterial = p_oMat;
@@ -99,6 +99,44 @@ class Appearance
 	}
 
 	/**
+		* Dispose the front and back materials.
+		* Be careful, this may affect the other shapes that are using the same appearance or materials.
+		* References to front and back materials are set to null.
+		*/
+	public function dispose() : Void
+	{
+		var l_oPoly:Polygon;
+		var l_aUnLinked:haxe.FastList<Polygon>;
+		// --
+		if( m_oFrontMaterial != null )
+		{
+			l_aUnLinked = m_oFrontMaterial.unlinkAll();
+			for( l_oPoly in l_aUnLinked )
+			{
+				if( l_oPoly.appearance != null )
+					l_oPoly.appearance = null;
+			}
+			m_oFrontMaterial.dispose();
+			l_aUnLinked = null;
+		}
+
+		if( m_oFrontMaterial != m_oBackMaterial )
+		{
+			l_aUnLinked = m_oBackMaterial.unlinkAll();
+			for( l_oPoly in l_aUnLinked )
+			{
+				if( l_oPoly.appearance != null )
+					l_oPoly.appearance = null;
+			}
+			m_oBackMaterial.dispose();
+			l_aUnLinked = null;
+		}
+		// --
+		m_oFrontMaterial = null;
+		m_oBackMaterial = null;
+	}
+
+	/**
 	* @private
 	*/
 	private function __setBackMaterial( p_oMat:Material ):Material
@@ -106,7 +144,7 @@ class Appearance
 		if( m_oBackMaterial == p_oMat ) return null;
 		// --
 		var l_aUnLinked:haxe.FastList<Polygon> = new haxe.FastList<Polygon>();
-		if( m_oBackMaterial != null ) 
+		if( m_oBackMaterial != null )
 			l_aUnLinked = m_oBackMaterial.unlinkAll();
 		// --
 		m_oBackMaterial = p_oMat;
@@ -159,8 +197,13 @@ class Appearance
 	public var flags(__getFlags,null):Int;
 	private function __getFlags():Int
 	{
-		var l_nFlag:Int =  m_oFrontMaterial.flags;
-		if( m_oFrontMaterial != m_oBackMaterial )
+		var l_nFlag:Int = 0;
+		// --
+		if( m_oFrontMaterial != null )
+		{
+			l_nFlag =  m_oFrontMaterial.flags;
+		}
+		if( m_oBackMaterial != null && m_oFrontMaterial != m_oBackMaterial )
 		{
 			l_nFlag |= m_oBackMaterial.flags;
 		}

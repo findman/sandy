@@ -9,8 +9,8 @@ import sandy.HaxeTypes;
  * A 4x4 matrix for transformations in 3D space.
  *
  * @author		Thomas Pfeiffer - kiroukou
- * @author Niel Drummond - haXe port
- * @authod Russell Weir - haXe port
+ * @author		Niel Drummond - haXe port
+ * @author		Russell Weir - haXe port
  *
  */
 class Matrix4
