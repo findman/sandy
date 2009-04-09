@@ -1,7 +1,7 @@
 //
 //  CubeLoader
 //
-//  Created by JLM at justinfront dot net and Guy Wheeler ( milknosugar.co.uk ) 
+//  Created by JLM at justinfront dot net and Guy Wheeler ( milknosugar.co.uk )
 //  6 October 2008
 //
 
@@ -23,27 +23,27 @@ import flash.Lib;
 
 class Dice extends Sprite
 {
-    
-    
+
+
     private var scene:      Scene3D;
     private var camera:     Camera3D;
     private var cube:       Shape3D;
-    
-    
-    
-    public function new () 
-    { 
-        
+
+
+
+    public function new ()
+    {
+
         super();
         loadCollada();
-        
+
     }
-    
-    
+
+
     private function loadCollada()
     {
-        
-        var parser: ColladaParser = Parser.create( "./dice.dae", Parser.COLLADA );
+
+        var parser: ColladaParser = Parser.create( "../assets/dice.dae", Parser.COLLADA );
 								parser.addEventListener( ParserEvent.FAIL, onError );
         parser.addEventListener( ParserEvent.INIT, create3d );
 								try {
@@ -51,51 +51,51 @@ class Dice extends Sprite
 								} catch (e:Dynamic) {
 										trace(e);
 								}
-        
+
     }
-    
-    
-    private function onError( pEvt: ParserEvent ) : Void 
+
+
+    private function onError( pEvt: ParserEvent ) : Void
     {
-        
+
         trace("|!! loading error !!!");
         trace("check you have the dice.jpg, dice.dae and dice.swf all in the same directory");
-        
+
     }
-    
-    
+
+
     private function create3d( pEvt: ParserEvent ) : Void
     {
         camera = new Camera3D( 0, 0, -8);
         camera.viewport = new ViewPort( 400, 300 );
 								camera.lookAt(0,160,0);
 								camera.y = -160;
-        
+
         var root:   Group = pEvt.group;
-        
+
         cube = cast( root.children[ 0 ], Shape3D );
 								/*
 								cube.rotateX = 126;
 								cube.rotateY = 30;
 								cube.rotateY = 180;
 								*/
-        
+
         cube.enableBackFaceCulling = true;
-        
+
         // modify lighting of material here??
-        
+
         scene = new Scene3D( "scene", this, camera, root );
-        
+
 								Lib.current.stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
         Lib.current.addChild( this );
-        
+
     }
-    
-    
+
+
 				static var count : Int = 0;
     private function enterFrameHandler( ?event : Event ) : Void
     {
-        
+
         scene.render();
 								cube.rotateY += 1;
 								/*
@@ -105,20 +105,20 @@ class Dice extends Sprite
 
 								*/
 								//if ( ++count == 1000 ) trace( flash.Lib.getTimer() );
-        
+
     }
-    
-    
-    static function main() 
+
+
+    static function main()
     {
 #if js
 						haxe.Firebug.redirectTraces();
 				neash.Lib.Init("Container", 400, 400);
 				neash.Lib.Run();
 #end
-        
+
         new Dice();
-        
+
     }
-    
+
 }

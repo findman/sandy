@@ -49,7 +49,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 	/**
 	* @private
 	*/
-	public function generate ( ?arguments:Array<Point3D> ):Geometry3D
+	public function generate<T> ( ?arguments:Array<T> ):Geometry3D
 	{
 		var l_oGeometry3D:Geometry3D = new Geometry3D();
 

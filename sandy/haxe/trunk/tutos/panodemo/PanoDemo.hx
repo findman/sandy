@@ -129,7 +129,7 @@ class PanoDemo extends Sprite
 		// --
 		for ( i in 0...6)
 		{
-			queue.add( planeNames[i], new URLRequest("assets/golden/"+planeNames[i]+".jpg") );
+			queue.add( planeNames[i], new URLRequest("../assets/golden/"+planeNames[i]+".jpg") );
 		}
 		// --
 		queue.addEventListener(SandyEvent.QUEUE_COMPLETE, loadComplete );
