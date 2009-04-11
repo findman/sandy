@@ -12,13 +12,37 @@ import flash.media.Sound;
 import flash.net.URLLoader;
 import flash.net.URLLoaderDataFormat;
 import flash.net.URLRequest;
+#if flash
 import flash.net.URLVariables;
+#end
 import flash.utils.ByteArray;
 
 import sandy.events.QueueEvent;
 import sandy.events.SandyEvent;
 
 import sandy.HaxeTypes;
+
+/**
+* Asset types for LoaderQueues.
+*
+* BIN Binary file
+*
+* IMAGE png or jpeg files
+*
+* SWF swf files
+*
+* SOUND mp3 asset
+**/
+enum AssetType {
+	BIN;
+	TEXT;
+#if flash
+	VARIABLES;
+#end
+	IMAGE;
+	SWF;
+	SOUND;
+}
 
 /*
 [Event(name="queueComplete", type="sandy.events.QueueEvent")]
@@ -36,7 +60,6 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		07.16.2008
 */
-
 class LoaderQueue extends EventDispatcher
 {
 	private var m_oLoaders : Hash<QueueElement>;
@@ -61,6 +84,7 @@ class LoaderQueue extends EventDispatcher
 		m_oQueueCompleteEvent 		= new QueueEvent ( QueueEvent.QUEUE_COMPLETE );
 		m_oQueueResourceLoadedEvent = new QueueEvent ( QueueEvent.QUEUE_RESOURCE_LOADED );
 		m_oQueueLoaderError 		= new QueueEvent ( QueueEvent.QUEUE_LOADER_ERROR );
+		m_nLoaders = 0;
 	}
 
 	/**
@@ -107,12 +131,14 @@ class LoaderQueue extends EventDispatcher
 
 		var qe = new QueueElement(p_sID, type, p_oURLRequest);
 		switch(type) {
-		case BIN,TEXT,VARIABLES:
+		case BIN, TEXT #if flash ,VARIABLES #end:
 			var ldr = new URLLoader ();
 			ldr.dataFormat = switch(type) {
 				case BIN: URLLoaderDataFormat.BINARY;
 				case TEXT: URLLoaderDataFormat.TEXT;
+				#if flash
 				case VARIABLES: URLLoaderDataFormat.VARIABLES;
+				#end
 				default: URLLoaderDataFormat.BINARY;
 				}
 			qe.urlLoader = ldr;
@@ -173,19 +199,19 @@ class LoaderQueue extends EventDispatcher
 		{
 			noLoaders = false;
 			if (l_oLoader.loader != null) {
-				l_oLoader.loader.load( l_oLoader.urlRequest );
 				l_oLoader.loader.contentLoaderInfo.addEventListener( Event.COMPLETE, completeHandler );
 				l_oLoader.loader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				l_oLoader.loader.load( l_oLoader.urlRequest );
 			}
 			else if(l_oLoader.urlLoader != null) {
-				l_oLoader.urlLoader.load( l_oLoader.urlRequest );
 				l_oLoader.urlLoader.addEventListener( Event.COMPLETE, completeHandler );
 	            l_oLoader.urlLoader.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				l_oLoader.urlLoader.load( l_oLoader.urlRequest );
 			}
 			else if(l_oLoader.sound != null) {
-				l_oLoader.sound.load( l_oLoader.urlRequest );
 				l_oLoader.sound.addEventListener( Event.COMPLETE, completeHandler );
 	            l_oLoader.sound.addEventListener( IOErrorEvent.IO_ERROR, ioErrorHandler );
+				l_oLoader.sound.load( l_oLoader.urlRequest );
 			}
 		}
 		if (noLoaders) {
@@ -201,6 +227,7 @@ class LoaderQueue extends EventDispatcher
 	 */
 	private function completeHandler( p_oEvent:Event ) : Void
 	{
+trace(here.methodName);
 		var l_sName:String = null;
 
 		// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
@@ -218,8 +245,10 @@ class LoaderQueue extends EventDispatcher
 					qe.binaryData = l_oLoader.data;
 				case TEXT:
 					qe.text = l_oLoader.data;
+				#if flash
 				case VARIABLES:
 					qe.variables = new URLVariables(l_oLoader.data);
+				#end
 				default:
 					trace("Bad type " + qe.assetType + " for " + qe.name);
 				}
@@ -306,8 +335,10 @@ class QueueElement
 	public var binaryData : ByteArray;
 	/** Valid for assetType TEXT **/
 	public var text : String;
+	#if flash
 	/** Valid for assetType VARIABLES **/
 	public var variables : URLVariables;
+	#end
 	/** Valid for assetType IMAGE **/
 	public var bitmapData : BitmapData;
 	/** Valid for assetType SWF **/
