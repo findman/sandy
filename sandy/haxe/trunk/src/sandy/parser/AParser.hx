@@ -8,6 +8,7 @@ import sandy.materials.BitmapMaterial;
 import sandy.materials.ColorMaterial;
 import sandy.materials.attributes.LineAttributes;
 import sandy.materials.attributes.MaterialAttributes;
+import sandy.util.ArrayUtil;
 import sandy.util.LoaderQueue;
 
 import flash.events.Event;
@@ -207,7 +208,7 @@ class AParser extends EventDispatcher, implements IParser
 		else
 		{
 			// look up texture, maybe we have it enqueued
-			texId = untyped m_aTextures.indexOf(texName);
+			texId = ArrayUtil.indexOf(m_aTextures, texName);
 		}
 
 		if (texId < 0)

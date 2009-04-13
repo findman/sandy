@@ -1,6 +1,7 @@
 
 package sandy.parser;
 
+import sandy.animation.IKeyFramed;
 import sandy.animation.Tag;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
@@ -94,8 +95,8 @@ class MD3Parser extends AParser, implements IParser
 		event.percent = 80;
 		dispatchEvent( event );
 
-		ident = data.readInt();
-		version = data.readInt();
+		ident = I32.toInt(data.readInt());
+		version = I32.toInt(data.readInt());
 		if (ident != MD3.MAGIC || version != 15)
 			throw "Error loading MD3 file: Not a valid MD3 file/bad version";
 		var fname = KeyFramedShape3D.readCString(data, MD3.MAX_QPATH);
@@ -103,15 +104,15 @@ class MD3Parser extends AParser, implements IParser
 			this.name = m_sDefaultName;
 		else
 			this.name = fname;
-		var flags = data.readInt();
-		num_frames = data.readInt();
-		num_tags = data.readInt();
-		num_surfaces = data.readInt();
-		num_skins = data.readInt();
-		offset_frames = data.readInt();
-		offset_tags = data.readInt();
-		offset_surfaces = data.readInt();
-		offset_end = data.readInt();
+		var flags = I32.toInt(data.readInt());
+		num_frames = I32.toInt(data.readInt());
+		num_tags = I32.toInt(data.readInt());
+		num_surfaces = I32.toInt(data.readInt());
+		num_skins = I32.toInt(data.readInt());
+		offset_frames = I32.toInt(data.readInt());
+		offset_tags = I32.toInt(data.readInt());
+		offset_surfaces = I32.toInt(data.readInt());
+		offset_end = I32.toInt(data.readInt());
 
 		#if debug
 		trace("MD3Parser '" + name + "'");
@@ -211,7 +212,7 @@ class MD3Parser extends AParser, implements IParser
 		}
 		// reset all frame counters
 		for(c in tg.children)
-			untyped c.frame = 0;
+			cast(c,IKeyFramed).frame = 0;
 		// --
 		dispatchInitEvent ();
 	}

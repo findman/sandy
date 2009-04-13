@@ -29,7 +29,7 @@ class TransformGroup extends ATransformable
 	public var trackBounds : Bool;
 
 	// child bounds dictionary
-	private var m_dChildBounds : Dictionary<Node, BBox>;
+	private var m_dChildBounds : ObjectMap<Node, BBox>;
 	// this class is in the middle of a updateBoundingVolumes call
 	// so onChildBoundsChanged events are ignored.
 	private var m_bUpdatingBounds : Bool;
@@ -43,7 +43,7 @@ class TransformGroup extends ATransformable
 	{
 		super( p_sName );
 		// Dictionary of child bounds
-		m_dChildBounds = new Dictionary();
+		m_dChildBounds = new ObjectMap();
 	}
 
 	public override function addChild( p_oChild:Node ):Void

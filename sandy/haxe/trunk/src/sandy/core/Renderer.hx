@@ -11,6 +11,7 @@ import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Renderable;
 import sandy.core.scenegraph.Shape3D;
 import sandy.core.scenegraph.Sprite2D;
+import sandy.util.ArrayUtil;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
 
@@ -77,7 +78,10 @@ class Renderer
 #if flash
 		untyped m_aRenderingList.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
 #else
-		m_aRenderingList.sort(function(a,b){return (a.depth>b.depth)?1:a.depth<b.depth?-1:0;} );
+		m_aRenderingList.sort(
+				function(a,b) {
+					return (a.depth>b.depth) ? 1 : a.depth<b.depth ?-1:0;
+				});
 #end
 		// -- This is the new list to be displayed.
 		var l_oFace:IDisplayable;
@@ -138,7 +142,7 @@ class Renderer
 		var 	l_nVisiblePolyCount:Int = 0;
 
 		var l_bForceRedraw:Bool = p_oScene.camera.changed || !p_bUseCache;
-			
+
 		m_bGlobalRedraw = m_bGlobalRedraw || (m_aRenderingList.length == m_aDisplayList.length);
 		// -- return false because we do not even need to refresh display
 		if( m_bGlobalRedraw == false && l_bForceRedraw == false )
@@ -158,7 +162,7 @@ class Renderer
 
 		// --
 		m_nRenderingListCount = 0;
-		untyped m_aRenderingList.length = 0;
+		ArrayUtil.truncate(m_aRenderingList);
 		// --
 		for( i in 0...m_nDisplayListCount )
 		{
@@ -180,7 +184,7 @@ class Renderer
 				// --
 				l_nFlags = l_oShape.appearance.flags;
 				l_oShape.depth = 0;
-				untyped l_oShape.aVisiblePolygons.length = 0;
+				ArrayUtil.truncate(l_oShape.aVisiblePolygons);
 				l_oCamPos.reset(l_oCamera.modelMatrix.n14, l_oCamera.modelMatrix.n24, l_oCamera.modelMatrix.n34);
 				l_oShape.invModelMatrix.transform( l_oCamPos );
 				// --

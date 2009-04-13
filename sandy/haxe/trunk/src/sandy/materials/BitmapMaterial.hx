@@ -449,7 +449,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 
 		m_oColorTransform.alphaMultiplier = p_nValue;
 		m_oTextureClone.lock ();
-		m_oTextureClone.fillRect (m_oTextureClone.rect, 0);
+		m_oTextureClone.fillRect (m_oTextureClone.rect, #if neko cast #end 0 );
 		m_oTextureClone.draw (m_oTexture, m_oDrawMatrix, m_oColorTransform);
 		m_oTextureClone.unlock ();
 	}

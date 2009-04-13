@@ -5,6 +5,7 @@ import sandy.core.data.Edge3D;
 import sandy.core.data.Point3D;
 import sandy.core.data.UVCoord;
 import sandy.core.data.Vertex;
+import sandy.util.ArrayUtil;
 
 import sandy.HaxeTypes;
 import Type;
@@ -263,8 +264,9 @@ class Geometry3D
 					lEdgeID = EDGES_DICO.get(lString);
 				}
 
-				if( null == aFaceEdges[p_nFaceID] ) aFaceEdges[p_nFaceID] = new Array();
-					aFaceEdges[p_nFaceID].push( lEdgeID );
+				if( null == aFaceEdges[p_nFaceID] )
+					aFaceEdges[p_nFaceID] = new Array();
+				aFaceEdges[p_nFaceID].push( lEdgeID );
 			}
 
 			return ++m_nLastFaceId - 1;
@@ -333,15 +335,9 @@ class Geometry3D
 	*
 	* @return 	The index
 	*/
-	public function getVertexId( p_point:Vertex ):Float
+	public function getVertexId( p_point:Vertex ):Int
 	{
-// 		var j:Int = 0;
-// 		for(j in 0...aVertex.length + 1)
-// 			if (aVertex[j] == p_point)
-// 				break;
-//
-// 		return j == aVertex.length ? -1: j;
-		return untyped aVertex.indexOf(p_point);
+		return ArrayUtil.indexOf(aVertex, p_point);
 	}
 
 	/**
@@ -406,7 +402,9 @@ class Geometry3D
 		}
 	}
 
-
+	/**
+	* @todo Review behaviour of section "We update the number of faces these vertex belongs to". The indexOf being 0 means the index 0, not the "not found" which is -1
+	*/
 	public function generateVertexNormals():Void
 	{
 		if( aVertexNormals.length > 0 )  return;
@@ -444,14 +442,25 @@ class Geometry3D
 				aVertexNormals[l_aList[2]].add( l_oNormal );
 
 				// -- We update the number of faces these vertex belongs to
-				if( untyped( aVertex[l_aList[0]].aFaces.indexOf( lId ) ) == 0 )
+				/*
+				if( ArrayUtil.indexOf( aVertex[l_aList[0]].aFaces, lId ) == 0 )
 					aVertex[l_aList[0]].aFaces.push( lId );
 
-				if( untyped( aVertex[l_aList[1]].aFaces.indexOf( lId ) ) == 0 )
+				if( ArrayUtil.indexOf( aVertex[l_aList[1]].aFaces, lId ) == 0 )
 					aVertex[l_aList[1]].aFaces.push( lId );
 
-				if( untyped( aVertex[l_aList[2]].aFaces.indexOf( lId ) ) == 0 )
+				if( ArrayUtil.indexOf( aVertex[l_aList[2]].aFaces, lId ) == 0 )
 					aVertex[l_aList[2]].aFaces.push( lId );
+				*/
+				if( aVertex[l_aList[0]].aFaces[0] == lId )
+					aVertex[l_aList[0]].aFaces.push( lId );
+
+				if( aVertex[l_aList[1]].aFaces[0] == lId )
+					aVertex[l_aList[1]].aFaces.push( lId );
+
+				if( aVertex[l_aList[2]].aFaces[0] == lId )
+					aVertex[l_aList[2]].aFaces.push( lId );
+
 
 				aVertex[l_aList[0]].nbFaces++;
 				aVertex[l_aList[1]].nbFaces++;
@@ -491,8 +500,7 @@ class Geometry3D
 		i = 0;
 		for ( a in aFacesVertexID )
 		{
-			//l_result.aFacesVertexID[i] = a.concat();
-			l_result.aFacesVertexID[i] = a.concat([]);
+			l_result.aFacesVertexID[i] = a.copy();
 			i++;
 		}
 
@@ -521,7 +529,7 @@ class Geometry3D
 		i = 0;
 		for ( b in aFacesUVCoordsID )
 		{
-			l_result.aFacesUVCoordsID[i] = b.concat([]);
+			l_result.aFacesUVCoordsID[i] = b.copy();
 			i++;
 		}
 
@@ -543,7 +551,7 @@ class Geometry3D
 		i = 0;
 		for ( l_oEdges in aFaceEdges )
 		{
-			l_result.aFaceEdges[i] = l_oEdges.concat([]);
+			l_result.aFaceEdges[i] = l_oEdges.copy();
 			i++;
 		}
 

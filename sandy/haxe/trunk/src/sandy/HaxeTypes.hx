@@ -6,14 +6,18 @@ typedef TypedArray<T> = flash.Vector<T>;
 typedef TypedArray<T> = Array<T>;
 #end
 
-#if flash
 typedef Bytes = flash.utils.ByteArray;
-#end
 
 #if SANDY_USE_FAST_MATH
 typedef TRIG = sandy.math.FastMath;
 #else
 typedef TRIG = Math;
+#end
+
+#if neko
+typedef Int32 = I32;
+#else
+typedef Int32 = Int;
 #end
 
 #if (flash9 || flash10)
@@ -60,33 +64,76 @@ class Haxe {
 }
 
 #if flash
-typedef Dictionary<K,V> = flash.utils.TypedDictionary<K,V>;
+typedef ObjectMap<K,V> = flash.utils.TypedDictionary<K,V>;
 #else
-#error
-// you are getting this error because this work needs to be ported
-// and this is not a hash, it will have to be done with an array or such
-// This needs to be able to map any object type to any other object type.
-class Dictionary<K,V>  {
-	public function new() {
+/**
+* Maps objects to values, using an internal tag to
+* track what objects have what value. Similar to
+* a flash TypedDictionary, but without weak references
+*/
+class ObjectMap<K,V>  {
+	static inline var TAG : String = "__{ObjectMapTag}";
+
+	var m_keys : Array<K>;
+	var m_values : Array<V>;
+
+	public function new(useWeak:Bool=false) {
+		m_values = new Array();
 	}
 
 	public inline function get(key:K) : Null<V> {
+		var idx = getTagIndex(key);
+		return (idx < 0) ? null : m_values[idx];
 	}
 
 	public inline function set(key:K, value:V) : Void {
+		var idx = getTagIndex(key);
+		if(idx < 0) {
+			m_values[idx] = value;
+		}
+		else { // new one
+			m_keys.push(key);
+			Reflect.setField(key, TAG, m_values.push(value) - 1);
+		}
 	}
 
 	public inline function exists(key:K) : Bool {
+		return getTagIndex(key) >= 0;
 	}
 
 	public inline function delete( key:K ) : Void {
+		var idx = getTagIndex(key);
+		if(idx >= 0) {
+			#if debug
+				if(m_keys[idx] != key)
+					throw "Internal error.";
+			#end
+			m_keys[idx] = null;
+			m_values[idx] = null;
+		}
+		Reflect.deleteField(key, TAG);
 	}
 
 	public inline function keys() : Array<K> {
+		return m_keys;
 	}
 
 	public inline function iterator() : Iterator<K> {
-		return keys().iterator();
+		return m_keys.iterator();
+	}
+
+	/**
+	* Returns index, or -1 if doesn't exist
+	**/
+	private function getTagIndex(key:K) : Int {
+		var idyn : Dynamic = Reflect.field(key, TAG);
+		if(idyn == null)
+			return -1;
+		return switch(Type.typeof(idyn)) {
+		case TInt:
+			return idyn;
+		default: -1;
+		}
 	}
 }
 #end
@@ -110,24 +157,3 @@ enum CoordinateSystem {
 	CAMERA;
 	ABSOLUTE;
 }
-
-/**
-* Asset types for LoaderQueues.
-*
-* BIN Binary file
-*
-* IMAGE png or jpeg files
-*
-* SWF swf files
-*
-* SOUND mp3 asset
-**/
-enum AssetType {
-	BIN;
-	TEXT;
-	VARIABLES;
-	IMAGE;
-	SWF;
-	SOUND;
-}
-

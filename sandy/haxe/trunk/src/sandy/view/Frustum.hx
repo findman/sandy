@@ -10,6 +10,7 @@ import sandy.core.data.Pool;
 import sandy.core.data.UVCoord;
 import sandy.core.data.Vertex;
 import sandy.math.PlaneMath;
+import sandy.util.ArrayUtil;
 import sandy.util.NumberUtil;
 
 import sandy.HaxeTypes;
@@ -392,11 +393,7 @@ class Frustum
 			i:Int, l:Int = p_aCvert.length, lDist:Float,
 			a:Float = p_oPlane.a, b:Float = p_oPlane.b, c:Float = p_oPlane.c, d:Float = p_oPlane.d;
 		// -- If no points, we return null
-		#if flash10
-		untyped aDist.length = 0;
-		#else
-		aDist.splice(0, aDist.length);
-		#end
+		ArrayUtil.truncate(aDist);
 		// -- otherwise we compute the distances to frustum plane
 		for ( v in p_aCvert )
 		{

@@ -39,10 +39,18 @@ class ColorMath
 	 * @param a	New alpha. 	( 0 - 1 )
 	 * @return	The hexadecimal value
 	 */
-	public static function applyAlpha (c:Int, a:Float):Int
+	public static function applyAlpha (c:Int32, a:Float): Int32
 	{
-		var a0:Int = Std.int(c / 0x1000000);
-		return (c & 0xFFFFFF) + Math.floor(a * a0) * 0x1000000;
+		#if neko
+			var a0 = I32.toInt(I32.ushr(c, 24));
+			var a1 = I32.shl(I32.ofInt(Math.floor(a * a0)), 24);
+			return I32.add(
+					I32.and(c, I32.ofInt(0xFFFFFF)),
+					a1);
+		#else
+			var a0:Int = Std.int(c / 0x1000000);
+			return (c & 0xFFFFFF) + Math.floor(a * a0) * 0x1000000;
+		#end
 	}
 
 	/**

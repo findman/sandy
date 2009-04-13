@@ -11,6 +11,8 @@ import flash.geom.ColorTransform;
 import flash.geom.Rectangle;
 #if flash
 import flash.utils.Timer;
+#elseif (neko || cpp)
+import neash.Timer;
 #else
 import haxe.Timer;
 #end
@@ -79,7 +81,13 @@ class MovieMaterial extends BitmapMaterial
 		{
 			tmpBmp = new BitmapData(  Std.int(p_oMovie.width), Std.int(p_oMovie.height), true, 0 );
 			tmpBmp.draw( p_oMovie );
+			#if neko
+			rect = tmpBmp.getColorBoundsRect(
+				Int32.shl(Int32.ofInt(0xFF), 24),
+				Int32.ofInt(0), false );
+			#else
 			rect = tmpBmp.getColorBoundsRect( 0xFF000000, 0x00000000, false );
+			#end
 			w = rect.width;
 			h = rect.height;
 		}
@@ -94,14 +102,14 @@ class MovieMaterial extends BitmapMaterial
 		m_oType = MaterialType.MOVIE;
 		// --
 		m_bUpdate = true;
-#if flash
-		m_oTimer = new Timer( p_nUpdateMS );
-		m_oTimer.addEventListener(TimerEvent.TIMER, _update );
-		m_oTimer.start();
-#else
-		m_oTimer = new Timer( p_nUpdateMS );
-		m_oTimer.run = callback(_update,null);
-#end
+		#if flash
+			m_oTimer = new Timer( p_nUpdateMS );
+			m_oTimer.addEventListener(TimerEvent.TIMER, _update );
+			m_oTimer.start();
+		#else
+			m_oTimer = new Timer( p_nUpdateMS );
+			m_oTimer.run = callback(_update,null);
+		#end
 
 		if( tmpBmp != null )
 		{
@@ -154,8 +162,13 @@ class MovieMaterial extends BitmapMaterial
 	{
 		if ( m_bUpdate || forceUpdate )
 		{
+			#if neko
+			m_oTexture.fillRect( m_oTexture.rect,
+				ColorMath.applyAlpha( Int32.ofInt(DEFAULT_FILL_COLOR), m_oAlpha.alphaMultiplier) );
+			#else
 			m_oTexture.fillRect( m_oTexture.rect,
 				ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
+			#end
 			// --
 			m_oTexture.draw( m_oMovie, null, m_oAlpha, null, null, smooth );
 		}

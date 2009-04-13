@@ -19,6 +19,7 @@ import flash.text.TextField;
 import sandy.core.data.Polygon;
 import sandy.core.data.UVCoord;
 import sandy.materials.MovieMaterial;
+import sandy.util.ArrayUtil;
 
 import sandy.HaxeTypes;
 
@@ -198,7 +199,7 @@ class VirtualMouse extends EventDispatcher
 				}
 
 				// si la frame d'avant on etait pas sur cet object
-				if( untyped m_oPreviousTargets.indexOf( currentTarget ) == -1 )
+				if( ArrayUtil.indexOf( m_oPreviousTargets, currentTarget ) == -1 )
 				{
 					// on to current target
 					_lastEvent = new MouseEvent(MouseEvent.MOUSE_OVER, true, false, currentTargetLocal.x, currentTargetLocal.y, m_ioOldTarget, p_event.ctrlKey, p_event.altKey, p_event.shiftKey, p_event.buttonDown, p_event.delta);
@@ -250,7 +251,7 @@ class VirtualMouse extends EventDispatcher
 		var l:Int = m_oPreviousTargets.length;
 		for(i in 0...l)
 		{
-			if( untyped m_oCurrentTargets.indexOf( m_oPreviousTargets[i] ) == -1 )
+			if( ArrayUtil.indexOf( m_oCurrentTargets, m_oPreviousTargets[i] ) == -1 )
 			{
 				targetLocal = p_oPoly.container.globalToLocal(location);
 				m_ioOldTarget = cast m_oPreviousTargets[i];

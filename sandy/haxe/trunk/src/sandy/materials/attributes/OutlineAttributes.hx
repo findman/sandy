@@ -11,6 +11,7 @@ import sandy.core.data.Polygon;
 import sandy.core.data.Vertex;
 import sandy.core.scenegraph.Sprite2D;
 import sandy.materials.Material;
+import sandy.util.ArrayUtil;
 
 import sandy.HaxeTypes;
 
@@ -173,7 +174,7 @@ class OutlineAttributes extends AAttributes
 						// -- check if they share at least 2 vertices
 						for ( l_oEdge in lP1.aEdges )
 							// FIXME: optimise Polygon with less Arrays, and you won't need this
-							if( untyped( l_aEdges.indexOf( l_oEdge ) ) > -1 ) lCount += 1;
+							if( ArrayUtil.indexOf(l_aEdges, l_oEdge) > -1) lCount += 1;
 						// --
 						if( lCount > 0 )
 						{
@@ -226,7 +227,7 @@ class OutlineAttributes extends AAttributes
 			{
 				// aNeighboor not visible, does it share an edge?
 				// if so, we draw it
-				if( untyped( l_oPolygon.aEdges.indexOf( l_oEdge ) ) > -1 )
+				if( ArrayUtil.indexOf(l_oPolygon.aEdges, l_oEdge) > -1 )
 				{
 					if(( l_oPolygon.visible != l_bVisible ) ||
 						((m_nAngleThreshold < 180) && (l_oNormal.dot (l_oPolygon.normal) < l_nDotThreshold )) )

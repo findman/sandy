@@ -14,6 +14,7 @@ import flash.utils.Endian;
 
 import sandy.HaxeTypes;
 
+
 /**
 * MD3 primitive.
 *
@@ -94,20 +95,20 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		var offset_begin = data.position;
 		data.endian = Endian.LITTLE_ENDIAN;
 
-		var ident = data.readInt();
+		var ident:Int = I32.toInt(data.readInt());
 		if (ident != MD3.MAGIC)
 			throw "Error loading MD3 file: Magic number error loading surface. " + Std.string(ident);
 		name = KeyFramedShape3D.readCString(data, 64);
 		var flags = data.readInt();
-		num_frames = data.readInt();
-		var num_shaders = data.readInt();
-		num_vertices = data.readInt();
-		var num_tris = data.readInt();
-		var offset_tris = data.readInt();
-		var offset_shaders = data.readInt();
-		var offset_st = data.readInt();
-		var offset_verts = data.readInt();
-		var offset_surface_end = data.readInt();
+		num_frames = I32.toInt(data.readInt());
+		var num_shaders = I32.toInt(data.readInt());
+		num_vertices = I32.toInt(data.readInt());
+		var num_tris = I32.toInt(data.readInt());
+		var offset_tris = I32.toInt(data.readInt());
+		var offset_shaders = I32.toInt(data.readInt());
+		var offset_st = I32.toInt(data.readInt());
+		var offset_verts = I32.toInt(data.readInt());
+		var offset_surface_end = I32.toInt(data.readInt());
 
 		#if debug
 			trace("*** MD3: Found surface named " + name);
@@ -180,9 +181,9 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 		// placeholders that are replaced during __setFrame()
 		for(i in 0...num_tris) {
 			// clockwise in md3.
-			var a = data.readInt();
-			var c = data.readInt();
-			var b = data.readInt();
+			var a = I32.toInt(data.readInt());
+			var c = I32.toInt(data.readInt());
+			var b = I32.toInt(data.readInt());
 
 			mesh.setVertex (a, 1, 0, 0);
 			mesh.setVertex (b, 0, 1, 0);

@@ -461,8 +461,8 @@ class Polygon implements IDisplayable
 		}
 		else
 		{
-			cvertices = vertices.concat([]);
-			caUVCoord = aUVCoord.concat([]);
+			cvertices = vertices.copy();
+			caUVCoord = aUVCoord.copy();
 			// --
 			isClipped = p_oFrustum.clipFrustum( cvertices, caUVCoord );
 		}
@@ -476,7 +476,7 @@ class Polygon implements IDisplayable
 	*/
 	public function clipFrontPlane( p_oFrustum:Frustum ):Array<Vertex>
 	{
-		cvertices = vertices.concat([]);
+		cvertices = vertices.copy();
 		// If line
 		if( vertices.length < 3 )
 		{
@@ -484,7 +484,7 @@ class Polygon implements IDisplayable
 		}
 		else
 		{
-			caUVCoord = aUVCoord.concat([]);
+			caUVCoord = aUVCoord.copy();
 			isClipped = p_oFrustum.clipFrontPlane( cvertices, caUVCoord );
 		}
 		return cvertices;
