@@ -227,11 +227,7 @@ class LoaderQueue extends EventDispatcher
 	 */
 	private function completeHandler( p_oEvent:Event ) : Void
 	{
-trace(here.methodName);
 		var l_sName:String = null;
-
-		// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
-		dispatchEvent( m_oQueueResourceLoadedEvent );
 
 		if (Std.is(p_oEvent.target, flash.net.URLLoader)) {
 			// BIN, TEXT, VARIABLES
@@ -291,6 +287,8 @@ trace(here.methodName);
 		else {
 			throw "Internal error. Unexpected " + Type.getClassName(Type.getClass(p_oEvent.target));
 		}
+		// Fire an event to indicate that a single resource loading was completed (needs to be enhanced to provide more info)
+		dispatchEvent( m_oQueueResourceLoadedEvent );
 		// --
 		m_nLoaders--;
 		// --
