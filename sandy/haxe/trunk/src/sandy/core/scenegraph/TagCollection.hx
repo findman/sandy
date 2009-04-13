@@ -97,8 +97,8 @@ class TagCollection extends Node, implements IKeyFramed {
 				interPos.z = c2 * origin1.z + c1 * origin2.z;
 
 				// interpolate rotations
-				var currRot: Quaternion = Quaternion.ofMatrix(ft1.matrix);
-				var nextRot: Quaternion = Quaternion.ofMatrix(ft2.matrix);
+				var currRot: Quaternion = ft1.quaternion;
+				var nextRot: Quaternion = ft2.quaternion;
 				var interRot : Quaternion = Quaternion.slerp(currRot, nextRot, c1);
 				interMatrix = interRot.getRotationMatrix();
 			}
