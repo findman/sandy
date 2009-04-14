@@ -186,7 +186,7 @@ class Appearance
 	public var modified(__getModified,null) : Bool;
 	public function __getModified():Bool
 	{
-		return m_oFrontMaterial.modified || m_oBackMaterial.modified ;
+		return m_oFrontMaterial.modified || m_oBackMaterial.modified;
 	}
 
 	/**

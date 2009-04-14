@@ -236,7 +236,7 @@ class Node
 	{
 		for ( l_oNode in children )
 		{
-			cast( l_oNode, Shape3D ).enableClipping = p_bUseClipping;
+			cast( l_oNode ).enableClipping = p_bUseClipping;
 		}
 		changed = true;
 		return p_bUseClipping;

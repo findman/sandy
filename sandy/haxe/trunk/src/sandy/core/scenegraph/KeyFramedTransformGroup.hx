@@ -198,8 +198,12 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 
 		// Notify parent AnimatedShape3D of tag changes
 		if(m_aCurrentTags.length > 0)
+		{
 			if(hasParent() && Std.is(parent, AnimatedShape3D))
-				cast(parent, AnimatedShape3D).onFrameChanged(this,m_aCurrentTags);
+			{
+				cast(parent).onFrameChanged(this,m_aCurrentTags);
+			}
+		}
 		// --
 		changed = true;
 		return value;

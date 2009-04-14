@@ -129,10 +129,11 @@ class ObjectMap<K,V>  {
 		var idyn : Dynamic = Reflect.field(key, TAG);
 		if(idyn == null)
 			return -1;
-		return switch(Type.typeof(idyn)) {
+		switch(Type.typeof(idyn)) {
 		case TInt:
 			return idyn;
-		default: -1;
+		default:
+			return -1;
 		}
 	}
 }

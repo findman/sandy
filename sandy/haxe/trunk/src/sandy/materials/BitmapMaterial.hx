@@ -116,6 +116,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		// --
 		m_nRecLevel = 0;
 		// --
+
 		if( polygon.isClipped || polygon.vertices.length > 3 )
 		{
 			l_points = polygon.isClipped ? p_oPolygon.cvertices : p_oPolygon.vertices;
