@@ -103,7 +103,7 @@ class ColladaParser extends AParser, implements IParser
 		}
 
 		if( m_oCollada.hasNode.library_images )
-			m_oMaterials = loadImages( m_oCollada.node.library_images.nodes.image );
+			loadImages( m_oCollada.node.library_images.nodes.image );
 		else
 			parseScene( m_oCollada.node.library_visual_scenes.node.visual_scene );
 	}
@@ -772,7 +772,7 @@ class ColladaParser extends AParser, implements IParser
 	}
 
 
-	private function loadImages( p_oLibImages : List<FastXml> ) : Hash<ColladaImage>
+	private function loadImages( p_oLibImages : List<FastXml> ) : Void
 	{
 		var l_oImages : Hash<ColladaImage> = new Hash();
 		var l_oQueue : LoaderQueue = new LoaderQueue();
@@ -792,10 +792,11 @@ class ColladaParser extends AParser, implements IParser
 				new URLRequest( RELATIVE_TEXTURE_PATH + "/" + l_oImages.get( l_sId ).fileName )
 			);
 		}
+
+		m_oMaterials = l_oImages;
 		l_oQueue.addEventListener( QueueEvent.QUEUE_COMPLETE, imageQueueCompleteHandler );
 		l_oQueue.start();
 
-		return l_oImages;
 	}
 
 	private function imageQueueCompleteHandler( p_oEvent : QueueEvent ) : Void

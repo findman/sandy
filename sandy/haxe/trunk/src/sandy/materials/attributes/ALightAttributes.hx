@@ -262,7 +262,7 @@ class ALightAttributes implements IAttributes
 		m_oL = p_oScene.light.getDirectionPoint3D ();
 
 		// fetch camera vector
-		m_oV = p_oScene.camera.getPosition ("absolute"); m_oV.scale (-1); m_oV.normalize ();
+		m_oV = p_oScene.camera.getPosition (ABSOLUTE); m_oV.scale (-1); m_oV.normalize ();
 
 		// compute Blinn halfway vector
 		m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();

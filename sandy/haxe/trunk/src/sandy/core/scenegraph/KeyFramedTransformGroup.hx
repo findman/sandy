@@ -216,7 +216,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c,IKeyFramed).frameUpdateBounds = v;
+				cast(c).frameUpdateBounds = v;
 			}
 		}
 		return m_bFrameUpdateBounds = v;
@@ -229,7 +229,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	private function __setInterpolateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c,IKeyFramed).interpolateBounds = v;
+				cast(c).interpolateBounds = v;
 			}
 		}
 		return m_bInterpolateBounds = v;

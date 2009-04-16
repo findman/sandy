@@ -443,10 +443,10 @@ class AnimatedShape3D extends TransformGroup {
 	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c,IKeyFramed).frameUpdateBounds = v;
+				cast(c).frameUpdateBounds = v;
 			}
 			else if(Std.is(c,AnimatedShape3D)) {
-				cast(c,AnimatedShape3D).frameUpdateBounds = v;
+				cast(c).frameUpdateBounds = v;
 			}
 		}
 		return m_bFrameUpdateBounds = v;
@@ -459,10 +459,10 @@ class AnimatedShape3D extends TransformGroup {
 	private function __setInterpolateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c,IKeyFramed).interpolateBounds = v;
+				cast(c).interpolateBounds = v;
 			}
 			else if(Std.is(c,AnimatedShape3D)) {
-				cast(c,AnimatedShape3D).interpolateBounds = v;
+				cast(c).interpolateBounds = v;
 			}
 		}
 		return m_bInterpolateBounds = v;
