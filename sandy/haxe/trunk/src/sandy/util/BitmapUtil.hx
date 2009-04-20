@@ -169,7 +169,7 @@ stage.addEventListener ("click", click);
 		// get light data (code borrowed from ALightAttributes)
 		var m_nI:Float = scene.light.getNormalizedPower ();
 		var m_oL:Point3D = scene.light.getDirectionPoint3D ();
-		var m_oV:Point3D = scene.camera.getPosition ("absolute"); m_oV.scale (-1); m_oV.normalize ();
+		var m_oV:Point3D = scene.camera.getPosition (ABSOLUTE); m_oV.scale (-1); m_oV.normalize ();
 		var m_oH:Point3D = new Point3D(); m_oH.copy( m_oL ); m_oH.add (m_oV); m_oH.normalize ();
 		// FIXME: currently shape needs to be rendered in order to have invModelMatrix calculated
 		var invModelMatrix:Matrix4 = obj.invModelMatrix;

@@ -169,7 +169,7 @@ class MediumAttributes extends AAttributes
 	*/
 	override public function drawOnSprite( p_oSprite:Sprite2D, p_oMaterial:Material, p_oScene:Scene3D ):Void
 	{
-		var l_ratio:Float = Math.max (0, Math.min (1, ratioFromWorldPoint3D (p_oSprite.getPosition ("camera")) * _a));
+		var l_ratio:Float = Math.max (0, Math.min (1, ratioFromWorldPoint3D (p_oSprite.getPosition (CAMERA)) * _a));
 		var l_color:ColorMathRGB = ColorMath.hex2rgb (_c);
 		var l_coltr:ColorTransform = p_oSprite.container.transform.colorTransform;
 		// --
