@@ -18,7 +18,7 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		26.07.2007
 */
-interface IParser
+interface IParser implements IEventDispatcher
 {
 		/**
 		* This method starts the parsing process.
