@@ -465,6 +465,38 @@ class Shape3D extends ATransformable, implements IDisplayable
 	}
 
 	/**
+	* Updates polygons, face and vertex normals when geometry vertex values have changed.
+	* Do not call if the geometry has been modified in any way other than
+	* when the x,y,z positions of some vertices have changed. If the provided
+	* geometry is not the same as the existing geometry, this will have the
+	* same effect as assigning a new geometry.
+	*
+	* @param p_oGeometry Geometry object which must be the same size as existing geometry
+	*/
+	private function updateForGeometryChange( p_oGeometry:Geometry3D, updateNormals:Bool=true, updateBounds:Bool=true ) : Void
+	{
+		if(m_oGeometry == null || m_oGeometry.aFacesVertexID.length != p_oGeometry.aFacesVertexID.length) {
+			__setGeometry( p_oGeometry );
+			return;
+		}
+		m_oGeometry = p_oGeometry;
+		if(updateBounds)
+			updateBoundingVolumes();
+		if(updateNormals)
+			m_oGeometry.updateFaceNormals(); // Must be called first
+		//m_oGeometry.updateVertexNormals(); // Vertex normals already tied to face normals
+
+		var l:Int = m_oGeometry.aFacesVertexID.length;
+		// --
+		for( i in 0...l )
+		{
+			aPolygons[i].update( m_oGeometry.aFacesVertexID[i] );
+		}
+
+		changed = true;
+	}
+
+	/**
 	* @private
 	*/
 	public var geometry(__getGeometry,__setGeometry):Geometry3D;

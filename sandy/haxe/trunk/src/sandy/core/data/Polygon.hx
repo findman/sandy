@@ -141,11 +141,28 @@ class Polygon implements IDisplayable
 		shape = p_oOwner;
 		m_oGeometry = p_geometry;
 		// --
-		__update( p_aVertexID, p_aUVCoordsID, p_nFaceNormalID, p_nEdgesID );
+		__create( p_aVertexID, p_aUVCoordsID, p_nFaceNormalID, p_nEdgesID );
 		m_oContainer = new Sprite();
 		// --
 		POLYGON_MAP.set( id, this );
 		m_oEB = new BubbleEventBroadcaster(this);
+	}
+
+	public function update( p_aVertexID:Array<Int> ):Void
+	{
+		var i:Int=0;
+		// --
+		for ( id in p_aVertexID )
+		{
+			vertices[i] = m_oGeometry.aVertex[ id ];
+			vertexNormals[i] = m_oGeometry.aVertexNormals[ id ];
+			i++;
+		}
+		// --
+		a = vertices[0];
+		b = vertices[1];
+		c = vertices[2];
+		d = vertices[3];
 	}
 
 	public var changed(__getChanged, __setChanged) : Bool;
@@ -183,7 +200,7 @@ class Polygon implements IDisplayable
 	}
 
 	/**
-	* Updates the vertices and normals for this polygon.
+	* Creates the vertices and normals for this polygon.
 	*
 	* <p>Calling this method make the polygon gets its vertice and normals by reference
 	* instead of accessing them by their ID.<br/>
@@ -194,7 +211,7 @@ class Polygon implements IDisplayable
 	* @param p_nFaceNormalID	The faceNormalID of this polygon
 	* @param p_nEdgesID		The edgesID of this polygon
 	*/
-	private function __update( p_aVertexID:Array<Int>, p_aUVCoordsID:Array<Int>, p_nFaceNormalID:Int, p_nEdgeListID:Int ):Void
+	private function __create( p_aVertexID:Array<Int>, p_aUVCoordsID:Array<Int>, p_nFaceNormalID:Int, p_nEdgeListID:Int ):Void
 	{
 		var i:Int=0, l:Int;
 		// --
@@ -849,7 +866,9 @@ class Polygon implements IDisplayable
 		enableInteractivity = false;
 		if( appearance != null )
 		{
-			appearance.dispose();
+			//appearance.dispose();
+			if( appearance.frontMaterial != null ) appearance.frontMaterial.unlink(this);
+			if( appearance.backMaterial != null ) appearance.backMaterial.unlink(this);
 			appearance = null;
 		}
 		if( m_oContainer != null ) {

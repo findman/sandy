@@ -624,6 +624,31 @@ class Geometry3D
 		EDGES_DICO = null;
 	}
 
+	public function updateFaceNormals():Void
+	{
+		var idx : Int = 0;
+		for ( a in aFacesVertexID )
+		{
+			// If face is linear, as Line3D, no face normal to process
+			if( a.length < 3 ) continue;
+			// --
+			var lA:Vertex, lB:Vertex, lC:Vertex;
+			lA = aVertex[a[0]];
+			lB = aVertex[a[1]];
+			lC = aVertex[a[2]];
+			// --
+			var lV:Point3D = new Point3D( lB.wx - lA.wx, lB.wy - lA.wy, lB.wz - lA.wz );
+			var lW:Point3D = new Point3D( lB.wx - lC.wx, lB.wy - lC.wy, lB.wz - lC.wz );
+			// we compute de cross product
+			var lNormal:Point3D = lV.cross( lW );
+			// we normalize the resulting vector
+			lNormal.normalize();
+			// --
+			setFaceNormal( idx, lNormal.x, lNormal.y, lNormal.z );
+			idx ++;
+		}
+	}
+
 	/**
 	* Returns a string representation of this geometry.
 	*
