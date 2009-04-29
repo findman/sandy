@@ -8,13 +8,22 @@ import flash.events.Event;
 *
 * @author		Thomas Pfeiffer
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 *
 * @see BubbleEventBroadcaster
 */
 class BubbleEvent extends Event
 {
+	/**
+	* Additional information that may be passed by the event
+	**/
+	public var info(default,null) : Dynamic;
+	/**
+	 * The event target.
+	 */
+	public var object(__getObject,null):Dynamic;
+
 	private var m_oTarget:Dynamic;
 
 	/**
@@ -27,17 +36,14 @@ class BubbleEvent extends Event
 	*
 	* @param e		A name for the event.
 	* @param oT	The event target.
+	* @param info
 	*/
-	public function new(e:String, oT:Dynamic)
+	public function new(e:String, oT:Dynamic, p_Info=null)
 	{
 		super(e, true, true);
-		m_oTarget = oT;
+		this.m_oTarget = oT;
+		this.info = p_Info;
 	}
-
-	/**
-	 * The event target.
-	 */
-	public var object(__getObject,null):Dynamic;
 
 	private function __getObject():Dynamic
 	{
