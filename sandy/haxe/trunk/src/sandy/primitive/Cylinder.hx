@@ -39,12 +39,12 @@ class Cylinder extends Shape3D, implements Primitive3D
 	/**
 	* The number of horizontal segments.
 	*/
-	public var segmentsW :Int;
+	public var segmentsW(default,null) :Int;
 
 	/**
 	* The number of vertical segments.
 	*/
-	public var segmentsH :Int;
+	public var segmentsH(default,null) :Int;
 
 	/**
 	* The default radius for a cylinder.
@@ -155,6 +155,17 @@ class Cylinder extends Shape3D, implements Primitive3D
 
 		geometry = generate();
 		_generateFaces();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Cylinder( p_sName, radius, height,
+				segmentsW, segmentsH,
+				topRadius,
+				m_bIsBottomExcluded, m_bIsTopExcluded,
+				m_bIsWholeMappingEnabled );
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

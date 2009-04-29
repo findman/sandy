@@ -64,15 +64,45 @@ class Node
 	*/
 	public var children:Array<Node>;
 	/**
-	* Change the backface culling state to all the shapes objects in the children list
+	* Specifies whether back face culling be enabled for this object.
+	*
+	* If set to false all faces of this object are drawn.
+	* A true value enables the back face culling algorithm - Default true
 	*/
 	public var enableBackFaceCulling(__getEnableBackFaceCulling,__setEnableBackFaceCulling):Bool;
 	/**
-	* Enable event handling to all the children objects that can broadcast bubbling events
+	* Enables the event system for mouse events.
+	*
+	* <p>When set to true, the onPress, onRollOver and onRollOut events are broadcast.<br/>
+	* The event system is enabled or disabled for all faces of this object.<br/>
+	* As an alternative, you have the possibility to enable events only for specific faces.</p>
+	*
+	* <p>Once this feature is enabled, the animation is more CPU intensive.</p>
+	*
+	* <p>Example
+	* <code>
+	* 	var l_oShape:Shape3D = new Sphere("sphere");
+	* 	l_oShape.enableEvents = true;
+	* 	l_oShape.addEventListener( MouseEvent.CLICK, onClick );
+	*
+	* 	function onClick( p_eEvent:Shape3DEvent ):void
+	* 	{
+	*   	var l_oPoly:Polygon = ( p_eEvent.polygon );
+	*   	var l_oPointAtClick:Point3D =  p_eEvent.point;
+	*   	// -- get the normalized uv of the point under mouse position
+	*  	var l_oIntersectionUV:UVCoord = p_eEvent.uv;
+	*   	// -- get the correct material
+	*   	var l_oMaterial:BitmapMaterial = (l_oPoly.visible ? l_oPoly.appearance.frontMaterial : l_oPoly.appearance.backMaterial) as BitmapMaterial;
+	* 	}
+	* </code>
 	*/
 	public var enableEvents( __getEnableEvents, __setEnableEvents ):Bool;
 	/**
-	* Change the interactivity of all the children
+	* Enable the interactivity on this shape and its polygon.
+	* Be careful, this mode have some requirements :
+	*   - to have useSingleContainer set to false. It is done automatically if enabled
+	*
+	* The original settings are back to their  original state when the mode is disabled
 	*/
 	public var enableInteractivity(__getEnableInteractivity,__setEnableInteractivity):Bool;
 	/**
@@ -82,7 +112,7 @@ class Node
 	/**
 	* The parent node of this node.
 	*
-	* <p>The reference is null if this nod has no parent (for exemple for a root node).</p>
+	* <p>The reference is null if this node has no parent (for exemple for a root node).</p>
 	*/
 	public var parent( __getParent, __setParent ):Node;
 	/**
@@ -108,8 +138,14 @@ class Node
 	*/
 	public var id:Int;
 	/**
-	* Make all the Shape3D and descendants children react to this value.
-	* @param p_bUseSingleContainer if true, the whole objects will use a container to display the geometry into, otherwise, a specific container will be given to each polygon
+	* Property that changes the way to render this object,
+	* Set to true, the shape will be rendered into a single Sprite object,
+	* which is accessible through the container property.
+	* Set to false, the container property does not target anything, but all the
+	* polygons will be rendered into their own dedicated container.
+	*
+	* <p>If true, this object renders itself on a single container ( Sprite ),<br/>
+	* if false, each polygon is rendered on its own container.</p>
 	*/
 	public var useSingleContainer( __getUseSingleContainer,__setUseSingleContainer ):Bool;
 	/**
@@ -120,7 +156,7 @@ class Node
 
 	/**
 	* Reference to the scene is it linked to.
-	* Initialized at null.
+	* Initially null.
 	*/
 	public var scene(__getScene,__setScene):Scene3D;
 
@@ -674,6 +710,29 @@ class Node
 	public function toString():String
 	{
 		return "sandy.core.scenegraph.Node";
+	}
+
+	/**
+	* Makes this node a copy of the src node. Many things are not copied,
+	* like the parent or children of the object, events, visibility etc.
+	*
+	* Used internally for clone(), which is a better method to use if
+	* you require a new object.
+	**/
+	private function copy( src:Node, includeTransforms:Bool=false, includeGeometry:Bool=true ) : Void
+	{
+		changed = true;
+		//appearance = src.appearance();
+		if(includeGeometry) {
+			boundingBox = src.boundingBox.clone();
+			boundingSphere = src.boundingSphere.clone();
+		}
+		// must come first
+		useSingleContainer = src.useSingleContainer;
+
+		enableBackFaceCulling = src.enableBackFaceCulling;
+		enableEvents = src.enableEvents;
+		enableInteractivity = src.enableInteractivity;
 	}
 
 	////////////////////

@@ -31,14 +31,14 @@ class ATransformable extends Node
 
 	/**
 	* Disable the local transformations applied to this Node if set to false.
-	* They will be applied back once et back to true.
+	* They will be applied again when set back to true.
 	*/
 	public var disable:Bool;
 	/**
-		* <p>Inverse of the model matrix
-		* The matrix is inverted in comparison of the real model matrix.<br/>
-		* For example, this allows replacement of the objects in the correct camera frame before projection</p>
-		*/
+	* <p>Inverse of the model matrix
+	* The matrix is inverted in comparison of the real model matrix.<br/>
+	* For example, this allows replacement of the objects in the correct camera frame before projection</p>
+	*/
 	public var invModelMatrix:Matrix4;
 	/**
 	* This property allows you to directly set the matrix you want to a transformable object.
@@ -159,11 +159,9 @@ class ATransformable extends Node
 
 		disable = false;
 		invModelMatrix = new Matrix4();
-		m_oPreviousOffsetRotation = new Point3D();
 
 		resetCoords();
 	}
-
 
 	/**
 	* Resets the coordinate system for this object. Useful for returning to known state.
@@ -751,6 +749,33 @@ class ATransformable extends Node
 	{
 			return "sandy.core.scenegraph.ATransformable";
 	}
+
+	private override function copy( src:Node, includeTransforms:Bool=false, includeGeometry:Bool=true ) : Void
+	{
+		if(!Std.is(src,ATransformable))
+			throw "Invalid src";
+		super.copy( src );
+		var o:ATransformable = cast src;
+		//--
+		disable = o.disable;
+		if(includeTransforms) {
+			invModelMatrix = o.invModelMatrix.clone();
+			m_oMatrix = o.m_oMatrix.clone();
+			_vSide = o._vSide.clone();
+			_vOut = o._vOut.clone();
+			_vUp = o._vUp.clone();
+			_nTilt = o._nTilt;
+			_nYaw = o._nYaw;
+			_nRoll = o._nRoll;
+			_vRotation = (o._vRotation != null) ? o._vRotation.clone() : null;
+			_vLookatDown = (o._vLookatDown != null) ? o._vLookatDown.clone() : null;
+			_vLookAt = (o._vLookAt != null) ? o._vLookAt.clone() : null;
+			_p = o._p.clone();
+			_oScale = o._oScale.clone();
+			m_tmpMt = o.m_tmpMt.clone();
+		}
+	}
+
 	//
 	private var m_oMatrix:Matrix4;
 	// Side Orientation Point3D
@@ -771,6 +796,6 @@ class ATransformable extends Node
 	private var _p:Point3D;
 	private var _oScale:Point3D;
 	private var m_tmpMt:Matrix4; // temporary transform matrix used at updateTransform
-	private var m_oPreviousOffsetRotation:Point3D;
+// 	private var m_oPreviousOffsetRotation:Point3D;
 }
 
