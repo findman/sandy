@@ -24,7 +24,7 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		26.07.2007
 */
-public class BitmapUtil
+class BitmapUtil
 {
 	/**
 	* Converts a sprite to a bitmap respecting the sprite position.

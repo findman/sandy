@@ -242,8 +242,9 @@ class StringUtil
 	*
 	* @return		Start index of the search sub string.
 	*/
-	public static function indexTimes(p_sStr:String, p_sSubstr:String, p_nOccur:Int, p_nStart:Int):Int{
-		var id:Float = p_nStart?p_nStart:0;
+	public static function indexTimes(p_sStr:String, p_sSubstr:String, p_nOccur:Int, p_nStart:Int):Int
+	{
+		var id:Int = p_nStart?p_nStart:0;
 		for(i in 0...p_nOccur) {
 			id = p_sStr.indexOf(p_sSubstr, id)+1;
 		}
