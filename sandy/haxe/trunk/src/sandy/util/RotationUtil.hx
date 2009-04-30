@@ -15,7 +15,7 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		12.03.2008
 */
-public class RotationUtil
+class RotationUtil
 {
 	/**
 	* Tweening variable (tween this from 0 to 1).
