@@ -41,6 +41,8 @@ class VideoSource {
 	public var protocol(default,null) : String;
 	public var useAmf3(default,null) : Bool;
 
+	private var m_path : String;
+
 	private function new(uri:String,volume:Float=1.0)
 	{
 		this.uri = uri;
@@ -106,7 +108,7 @@ class VideoUriSource extends VideoSource
 	* @param uri Full uri to source
 	* @param volume Playback volume, 0-1. Defaults to 1.0 (full volume)
 	*/
-	private function new(uri:String,volume:Float=1.0)
+	public function new(uri:String,volume:Float=1.0)
 	{
 		super(uri,volume);
 		type = VST_URI;
@@ -135,7 +137,7 @@ class VideoUriSource extends VideoSource
 	override public function getNetStreamPlayTarget() : String
 	{
 		return switch(type) {
-		case VST_URI: uri;
+		case VST_URI: m_path;
 		case VST_RTMP: instanceName;
 		case VST_VIDEO: throw "Internal error";
 		}
@@ -147,9 +149,9 @@ class VideoUriSource extends VideoSource
 
 		var isPath : Bool = false;
 		var isFile : Bool = false;
-		var rtmp = ~/^(rtmp(w|s|t|te|fp)?:\/\/)(.*)/i;
-		var file = ~/^(file:\/\/)(.*)/i;
-		var http = ~/^(http:\/\/)(.*)/i;
+		var rtmp = ~/^(rtmp(w|s|t|te|fp)?:\/\/)(.*)/;
+		var file = ~/^(file:\/\/)(.*)/;
+		var http = ~/^(http(s)?:\/\/)(.*)/;
 		if(rtmp.match(uri)) {
 			type = VST_RTMP;
 			protocol = rtmp.matched(2);
@@ -169,19 +171,22 @@ class VideoUriSource extends VideoSource
 			appName = (parts.length == 0) ? "" : parts.join("/");
 		}
 		else if(file.match(uri)) {
-			isFile = true;
+			isPath = true;
+			m_path = file.matched(2);
+			if(m_path == null)
+				throw "Null path";
 		}
 		else if(http.match(uri)) {
 			if(http.matched(2) != null) {
 				if(Security.sandboxType == Security.LOCAL_WITH_FILE) {
 					// translate http://host.org/path to local
 					// filesystem path
-					var path = http.matched(2);
-					var idx = path.indexOf("/");
+					m_path = http.matched(2);
+					var idx = m_path.indexOf("/");
 					if(idx > 0) {
-						path = path.substr(idx+1);
-						if(path.length > 0)
-							uri = path;
+						m_path = m_path.substr(idx+1);
+						if(m_path.length > 0)
+							uri = m_path;
 					}
 					isPath = true;
 				}
@@ -189,12 +194,13 @@ class VideoUriSource extends VideoSource
 		}
 		else { // just a path (one hopes)
 			isPath = true;
+			m_path = uri;
 		}
 
 		// add "./" to local paths, if relative in local/file sandbox
 		if(isPath && Security.sandboxType == Security.LOCAL_WITH_FILE) {
-			if(uri.charAt(0) != "/" && uri.substr(0,2) != "./") {
-				uri = "./" + uri;
+			if(m_path.charAt(0) != "/" && m_path.substr(0,2) != "./") {
+				m_path = "./" + m_path;
 			}
 		}
 	}
@@ -228,6 +234,8 @@ class VideoRtmpSource extends VideoUriSource
 	public function new(uri:String,volume:Float=1.0,start:Float=0.0,useAmf3:Null<Bool>=null)
 	{
 		super(uri,volume);
+		if(type != VST_RTMP)
+			throw "Invalid uri";
 		if(useAmf3 == null)
 			this.useAmf3 = VideoSource.DEFAULT_USE_AMF3;
 		else
