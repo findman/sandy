@@ -12,6 +12,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -89,6 +90,13 @@ class Sphere extends Shape3D, implements Primitive3D
 		var scale :Float = DEFAULT_SCALE;
 		// --
 		geometry = generate();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Sphere( p_sName, radius, segmentsW, segmentsH);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

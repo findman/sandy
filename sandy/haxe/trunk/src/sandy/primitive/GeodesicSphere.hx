@@ -16,7 +16,7 @@ import sandy.HaxeTypes;
 *
 * @author		makc
 * @author		Niel Drummond (haXe port)
-* @author 		Russell Weir (haXe port)
+* @author 		Russell Weir
 * @version		3.1
 * @date 		10.04.2008
 *
@@ -44,6 +44,13 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 			fractures_in = Std.int(Math.max (2, p_nFractures));
 
 			geometry = generate ();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new GeodesicSphere( p_sName, radius_in, fractures_in);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**
@@ -166,8 +173,9 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 		U_Ind_s = L_Ind_s; U_Ind_e = L_Ind_e;
 		// Build the lower four sections
 
-		var i = iVerts-1;
-		while( i >= 0 ){
+		var i = iVerts;
+		while( i > 0 ){
+			i--;
 			L_Ind_s = U_Ind_s; L_Ind_e = U_Ind_e; U_Ind_s = L_Ind_s + 4*(i+1); U_Ind_e = L_Ind_e + 4*i;
 			if( i == 0 ) U_Ind_e++;
 			tris -= 2;
@@ -213,7 +221,6 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 					l_oGeometry3D.setFaceUVCoordsIds (nFaces, [Pt0 -1, Pt2 -1, Pt1 -1]); nFaces++;
 				}
 			}
-			i--;
 		}
 
 		// only now we can fix pacific problem
@@ -250,4 +257,3 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 		return l_oGeometry3D;
 	}
 }
-

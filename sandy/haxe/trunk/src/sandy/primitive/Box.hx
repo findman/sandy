@@ -16,7 +16,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -100,7 +100,7 @@ class Box extends Shape3D, implements Primitive3D
 	*
 	* @see PrimitiveMode
 	*/
-	public function new ( p_sName:String = null, p_nWidth:Int=6, p_nHeight:Int = 6, p_nDepth:Int = 6, p_sMode:String = "tri", p_nQuality:Int = 1)
+	public function new ( p_sName:String=null, p_nWidth:Int=6, p_nHeight:Int=6, p_nDepth:Int=6, p_sMode:String="tri", p_nQuality:Int=1)
 	{
 		super ( p_sName );
 		setConvexFlag (true);
@@ -112,6 +112,13 @@ class Box extends Shape3D, implements Primitive3D
 		_mode = ( p_sMode != 'tri' && p_sMode != 'quad' ) ? 'tri' : p_sMode;
 		geometry = generate();
 		_generateFaces();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Box( p_sName, Std.int(_radius), Std.int(_h), Std.int(_lg), _mode, Std.int(_q));
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

@@ -16,7 +16,7 @@ import sandy.HaxeTypes;
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -111,6 +111,13 @@ class Torus extends Shape3D, implements Primitive3D
 		this.smallRadius = (p_nSmallRadius == 0 ? DEFAULT_SMALL_RADIUS : p_nSmallRadius);
 		// --
 		geometry = generate();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Torus( p_sName, largeRadius, smallRadius, segmentsW, segmentsH);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

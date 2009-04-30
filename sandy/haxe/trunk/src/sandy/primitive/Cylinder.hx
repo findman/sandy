@@ -19,7 +19,7 @@ import sandy.HaxeTypes;
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *

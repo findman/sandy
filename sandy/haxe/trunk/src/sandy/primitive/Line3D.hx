@@ -14,7 +14,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -27,6 +27,7 @@ import sandy.HaxeTypes;
 */
 class Line3D extends Shape3D, implements Primitive3D
 {
+	private var rest_in : Array<Point3D>;
 	/**
 	* Creates a Line3D primitive.
 	*
@@ -48,9 +49,17 @@ class Line3D extends Shape3D, implements Primitive3D
 		}
 		else
 		{
+			rest_in = rest;
 			geometry = generate( rest );
 			enableBackFaceCulling = false;
 		}
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Line3D( p_sName, rest_in);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

@@ -12,6 +12,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -50,6 +51,13 @@ class Hedra extends Shape3D, implements Primitive3D
 		_h = p_nHeight;
 		_lg = p_nWidth;
 		geometry = generate ();
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Hedra( p_sName, _h, _lg, _radius);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

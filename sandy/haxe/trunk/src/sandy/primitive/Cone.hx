@@ -2,6 +2,7 @@
 package sandy.primitive;
 
 import sandy.core.scenegraph.Geometry3D;
+import sandy.core.scenegraph.Shape3D;
 
 import sandy.HaxeTypes;
 
@@ -16,6 +17,7 @@ import sandy.HaxeTypes;
 * @author		Thomas Pfeiffer ( adaption for Sandy )
 * @author		Tim Knipt
 * @author		Niel Drummond - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		26.07.2007
 *
@@ -44,6 +46,14 @@ class Cone extends Cylinder, implements Primitive3D
 	{
 		super(p_sName, p_nRadius, p_nHeight, p_nSegmentsW, p_nSegmentsH, 0 );
 		setConvexFlag (true);
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Cone( p_sName, radius, height,
+				segmentsW, segmentsH);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**

@@ -12,7 +12,7 @@ import sandy.HaxeTypes;
 *
 * @author		Thomas Pfeiffer - kiroukou
 * @author		Niel Drummond - haXe port
-* @author		Russell Weir - haXe port
+* @author		Russell Weir
 * @version		3.1
 * @date 		12.01.2006
 *
@@ -84,6 +84,13 @@ class Plane3D extends Shape3D, implements Primitive3D
 		_mode = ( p_sMode != PrimitiveMode.TRI && p_sMode != PrimitiveMode.QUAD ) ? PrimitiveMode.TRI : p_sMode;
 		m_sType = p_sType;
 		geometry = generate() ;
+	}
+
+	public override function clone( ?p_sName:String = "", ?p_bKeepTransform:Bool=false ):Shape3D
+	{
+		var o = new Plane3D( p_sName, _h, _lg, _qH, _qV, m_sType, _mode);
+		o.copy(this, p_bKeepTransform, false);
+		return o;
 	}
 
 	/**
