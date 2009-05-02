@@ -78,9 +78,11 @@
 		/**
 		 * Constructor.
 		 *
-		 * @param   fov     This value is the vertical Field Of View (FOV) in degrees.
-		 * @param   near    Distance to the near clipping plane.
-		 * @param   far     Distance to the far clipping plane.
+		 * @param   p_nWidth	Width of the camera viewport in pixels.
+		 * @param   p_nHeight	Height of the camera viewport in pixels.
+		 * @param   fov     	This value is the vertical Field Of View (FOV) in degrees.
+		 * @param   near    	Distance to the near clipping plane.
+		 * @param   far     	Distance to the far clipping plane.
 		 */
 		public function SpringCamera3D( p_nWidth:Number = 500, p_nHeight:Number = 500, fov:Number=60, near:Number=10, far:Number=5000)
 		{
