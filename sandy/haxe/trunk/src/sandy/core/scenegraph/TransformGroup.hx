@@ -102,7 +102,7 @@ class TransformGroup extends ATransformable
 	public override function destroy() : Void
 	{
 		super.destroy();
-		for(k in m_dChildBounds.keys())
+		for(k in m_dChildBounds)
 			m_dChildBounds.delete(k);
 		m_dChildBounds = null;
 	}
@@ -117,7 +117,7 @@ class TransformGroup extends ATransformable
 
 		// Reset current bounds, and rebuild from child boxes
 		boundingBox.reset();
-		for(key in m_dChildBounds.keys())
+		for(key in m_dChildBounds)
 			boundingBox.merge(m_dChildBounds.get(key));
 		boundingSphere.resetFromBox(boundingBox);
 
