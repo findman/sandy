@@ -81,7 +81,7 @@ class GeodesicSphere extends Shape3D, implements Primitive3D {
 
 		// Build vertices for the sphere progressing in rings around the sphere
 		var i:Int, q:Int, aI:Array<Int> = [];
-		for (q in 1...(iVerts-1)) aI.push (q);
+		for (q in 1...(iVerts)) aI.push (q);
 		var q = iVerts -1;
 		while ( q > 0) {aI.push (q); q--;}
 
