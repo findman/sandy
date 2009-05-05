@@ -201,7 +201,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 		{
 			if(hasParent() && Std.is(parent, AnimatedShape3D))
 			{
-				cast(parent).onFrameChanged(this,m_aCurrentTags);
+				cast(parent, AnimatedShape3D).onFrameChanged(this,m_aCurrentTags);
 			}
 		}
 		// --
@@ -216,7 +216,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).frameUpdateBounds = v;
+				cast(c, IKeyFramed).frameUpdateBounds = v;
 			}
 		}
 		return m_bFrameUpdateBounds = v;
@@ -229,7 +229,7 @@ class KeyFramedTransformGroup extends TransformGroup, implements IKeyFramed {
 	private function __setInterpolateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).interpolateBounds = v;
+				cast(c, IKeyFramed).interpolateBounds = v;
 			}
 		}
 		return m_bInterpolateBounds = v;

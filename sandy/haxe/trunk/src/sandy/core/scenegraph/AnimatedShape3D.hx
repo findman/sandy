@@ -116,10 +116,10 @@ class AnimatedShape3D extends TransformGroup {
 			kftg.addChild(p_oChild);
 		}
 		else if(Std.is(p_oChild, KeyFramedTransformGroup)) {
-			kftg = cast p_oChild;
+			kftg = cast(p_oChild, KeyFramedTransformGroup);
 		}
 		else if(Std.is(p_oChild, AnimatedShape3D)) {
-			as3d = cast p_oChild;
+			as3d = cast(p_oChild, AnimatedShape3D);
 		}
 		else {
 			var msg = "Unable to attach " + Type.getClassName(Type.getClass(p_oChild)) + " to AnimatedShape3D";
@@ -139,7 +139,7 @@ class AnimatedShape3D extends TransformGroup {
 		if(kftg != null)
 			as3d = new AnimatedShape3D( asPartName, kftg );
 		else
-			kftg = cast as3d.children[0];
+			kftg = cast(as3d.children[0], KeyFramedTransformGroup);
 
 		#if debug
 			var dbgCheckPartIsThis = false;
@@ -274,7 +274,7 @@ class AnimatedShape3D extends TransformGroup {
 		if(p == null) return null;
 
 		if( Std.is(p, AnimatedShape3D) )
-			return cast p;
+			return cast(p, AnimatedShape3D);
 
 		return null;
 	}
@@ -398,7 +398,7 @@ class AnimatedShape3D extends TransformGroup {
 		var a : TypedArray<TagCollection> = new TypedArray();
 		for(c in m_oKeyFramedGroup.children)
 			if(Std.is(c, TagCollection))
-				a.push(cast c);
+				a.push(cast(c, TagCollection));
 
 		return
 		{
@@ -443,10 +443,10 @@ class AnimatedShape3D extends TransformGroup {
 	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).frameUpdateBounds = v;
+				cast(c, IKeyFramed).frameUpdateBounds = v;
 			}
 			else if(Std.is(c,AnimatedShape3D)) {
-				cast(c).frameUpdateBounds = v;
+				cast(c, IKeyFramed).frameUpdateBounds = v;
 			}
 		}
 		return m_bFrameUpdateBounds = v;
@@ -459,10 +459,10 @@ class AnimatedShape3D extends TransformGroup {
 	private function __setInterpolateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).interpolateBounds = v;
+				cast(c, IKeyFramed).interpolateBounds = v;
 			}
 			else if(Std.is(c,AnimatedShape3D)) {
-				cast(c).interpolateBounds = v;
+				cast(c, IKeyFramed).interpolateBounds = v;
 			}
 		}
 		return m_bInterpolateBounds = v;

@@ -229,7 +229,7 @@ class MD3Parser extends AParser, implements IParser
 		}
 		// reset all frame counters
 		for(c in tg.children)
-			cast(c).frame = 0;
+			cast(c, IKeyFramed).frame = 0;
 		// --
 		dispatchInitEvent ();
 	}

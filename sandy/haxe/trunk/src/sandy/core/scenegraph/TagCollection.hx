@@ -181,7 +181,7 @@ class TagCollection extends Node, implements IKeyFramed {
 	private function __setFrameUpdateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).frameUpdateBounds = v;
+				cast(c, IKeyFramed).frameUpdateBounds = v;
 			}
 		}
 		return m_bFrameUpdateBounds = v;
@@ -194,7 +194,7 @@ class TagCollection extends Node, implements IKeyFramed {
 	private function __setInterpolateBounds(v:Bool) : Bool {
 		for(c in children) {
 			if(Std.is(c, IKeyFramed)) {
-				cast(c).interpolateBounds = v;
+				cast(c, IKeyFramed).interpolateBounds = v;
 			}
 		}
 		return m_bInterpolateBounds = v;
