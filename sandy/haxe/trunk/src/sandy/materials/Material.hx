@@ -88,14 +88,14 @@ class Material
 		for( l_sLabel in m_oPolygonMap )
 		{
 			l_oPoly = Polygon.POLYGON_MAP.get(l_sLabel);
+			m_oPolygonMap.remove(l_sLabel);
+			if(l_oPoly == null) continue;
 			unlink(l_oPoly);
 			l_oApp = l_oPoly.appearance;
 			if( l_oApp.frontMaterial == this )
 				l_oApp.frontMaterial = null;
 			else if( l_oApp.backMaterial == this )
 				l_oApp.backMaterial = null;
-
-			m_oPolygonMap.remove(l_sLabel);
 		}
 		attributes = null;
 		_filters = null;
@@ -230,6 +230,7 @@ class Material
 		for( l_sLabel in m_oPolygonMap )
 		{
 			l_oPoly = Polygon.POLYGON_MAP.get( l_sLabel );
+			if (l_oPoly == null) continue;
 			l_oApp = l_oPoly.appearance;
 			if( l_oApp.frontMaterial == this || l_oApp.backMaterial == this )
 			{

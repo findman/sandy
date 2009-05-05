@@ -804,7 +804,8 @@ class Polygon implements IDisplayable
 		}
 		else if( m_oAppearance != null )
 		{
-			m_oAppearance.frontMaterial.unlink( this );
+			if(m_oAppearance.frontMaterial != null)
+				m_oAppearance.frontMaterial.unlink( this );
 			if( m_oAppearance.backMaterial != m_oAppearance.frontMaterial )
 				m_oAppearance.backMaterial.unlink( this );
 			m_oAppearance = null;
