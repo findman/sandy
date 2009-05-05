@@ -512,9 +512,9 @@ class Node
 			}
 			children.splice(0,children.length);
 			children = null;
+			l_aTmp = null;
 		}
 		m_oEB = null;
-		l_aTmp = null;
 		scene = null;
 		parent = null;
 	}
