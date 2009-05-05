@@ -94,7 +94,7 @@ class BasketBall extends Sprite
 				plane.appearance = app2;
 
 				bounce = new Sound3D<Sound>("bounce", sound, 1, 3, 1500);
-				bounce.type = Sound3D.SPEECH;
+				bounce.type = SPEECH;
 				bounce.loops = 0;
 
 				tg1.addChild(sphereS);

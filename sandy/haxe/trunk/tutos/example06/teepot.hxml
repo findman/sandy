@@ -1,6 +1,5 @@
 -cp ../../src
 -cp ../assets
--lib xpath
 -swf9 teepot.swf
 -main TeePot
 
