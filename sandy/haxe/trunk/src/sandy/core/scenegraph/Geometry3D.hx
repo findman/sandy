@@ -598,8 +598,11 @@ class Geometry3D
 		for(i in 0...l)
 		{
 			l_oVertex = aVertexNormals[i];
-			l_oVertex.aFaces = null;
-			l_oVertex = null;
+			if ( l_oVertex != null ) 
+			{
+				l_oVertex.aFaces = null;
+				l_oVertex = null;
+			}
 		}
 		aVertexNormals = null;
 		// UVs face

@@ -34,7 +34,7 @@ enum SoundType {
 	NOISE;
 }
 
-class Sound3D extends ATransformable
+class Sound3D<T> extends ATransformable
 {
 	// events
 	/** Dispatched when sound starts a new loop **/
@@ -118,7 +118,7 @@ class Sound3D extends ATransformable
 	* @param	p_nRadius			Radius of the sound in 3d units
 	* @param	p_bStereo			If the sound contains two different channels
 	*/
-	public function new( p_sName:String = "", ?p_oSoundSource:Dynamic, p_nVolume:Float = 1.,
+	public function new( p_sName:String = "", ?p_oSoundSource:T, p_nVolume:Float = 1.,
 							p_nMaxPan:Float = 0., p_nRadius:Float = 1., p_bStereo:Bool = false )
 	{
 		soundPan=true;
@@ -207,7 +207,7 @@ class Sound3D extends ATransformable
 	/**
 	* Set the sound source, the sound source can be a String, URLRequest, Sound or SoundChannel object
 	*/
-	private function __setSoundSource (s:Dynamic) : Dynamic
+	private function __setSoundSource (s:T) :T
 	{
 		if(Std.is(s, Sound))
 		{
@@ -237,8 +237,8 @@ class Sound3D extends ATransformable
 	/**
 	* Set or return the sound source, the sound source may be a URLRequest, Sound or SoundChannel object
 	*/
-	public var soundSource (__getSoundSource,__setSoundSource) : Dynamic;
-	private function __getSoundSource () : Dynamic
+	public var soundSource (__getSoundSource,__setSoundSource) :T;
+	private function __getSoundSource () :T
 	{
 		switch (sMode)
 		{

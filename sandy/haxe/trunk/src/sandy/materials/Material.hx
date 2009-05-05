@@ -92,6 +92,7 @@ class Material
 			if(l_oPoly == null) continue;
 			unlink(l_oPoly);
 			l_oApp = l_oPoly.appearance;
+			if(l_oApp == null) continue;
 			if( l_oApp.frontMaterial == this )
 				l_oApp.frontMaterial = null;
 			else if( l_oApp.backMaterial == this )

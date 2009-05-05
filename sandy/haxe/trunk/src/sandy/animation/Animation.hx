@@ -54,7 +54,7 @@ class Animation {
 	/**
 	* Sound associated with animation
 	**/
-	public var sound : sandy.core.scenegraph.Sound3D;
+	public var sound : sandy.core.scenegraph.Sound3D<Dynamic>;
 
 	/**
 	* Sex of model/animation. m, f or n
