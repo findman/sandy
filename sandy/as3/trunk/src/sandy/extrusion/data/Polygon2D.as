@@ -1,4 +1,4 @@
-package sandy.extrusion.data
+﻿package sandy.extrusion.data
 {
 	import flash.geom.Point;
 	import flash.geom.Rectangle;	
@@ -112,6 +112,10 @@ package sandy.extrusion.data
 				x2:Number = edge1[1].x, y2:Number = edge1[1].y,
 				x3:Number = edge2[0].x, y3:Number = edge2[0].y,
 				x4:Number = edge2[1].x, y4:Number = edge2[1].y;
+
+			// work around bug caused by floating point imprecision
+			if (((x1 == x3) && (y1 == y3)) || ((x2 == x4) && (y2 == y4)) ||
+				((x1 == x4) && (y1 == y4)) || ((x2 == x3) && (y2 == y3))) return false;
 
 			var a:Number = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
 			var b:Number = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
