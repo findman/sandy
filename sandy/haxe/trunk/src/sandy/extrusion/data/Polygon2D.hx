@@ -1,4 +1,4 @@
-package sandy.extrusion.data;
+﻿package sandy.extrusion.data;
 
 import flash.geom.Matrix;
 import flash.geom.Point;
@@ -127,6 +127,10 @@ class Polygon2D
 			x3:Float = edge2[0].x, y3:Float = edge2[0].y,
 			x4:Float = edge2[1].x, y4:Float = edge2[1].y;
 
+		// work around bug caused by floating point imprecision
+		if (((x1 == x3) && (y1 == y3)) || ((x2 == x4) && (y2 == y4)) ||
+			((x1 == x4) && (y1 == y4)) || ((x2 == x3) && (y2 == y3))) return false;
+
 		var a:Float = (x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3);
 		var b:Float = (x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3);
 		var d:Float = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
@@ -254,13 +258,27 @@ class Polygon2D
 		public function convexHull ():Polygon2D
 		{
 			// code derived from http://notejot.com/2008/11/convex-hull-in-2d-andrews-algorithm/
-			var pointsHolder:Array<Point> = vertices.slice (0);
+			var pointsHolder:Array<Point> = new Array<Point> ();
+			// need to filter out duplicates 1st
+			var i:Int, j:Int, n:Int = vertices.length;
+			for ( i in 0 ... n )
+			{
+				var d:Float = 1;
+				j = 0; while((d > 0) && (j < pointsHolder.length)) 
+				{
+					d *= Point.distance(vertices[i], pointsHolder[j]); j++;
+				}
+				if (d > 0) 
+				{
+					pointsHolder.push(vertices[i]);
+				}
+			}
+			
 			var topHull:Array<Int> = [];
 			var bottomHull:Array<Int> = [];
-			var i:Int;
 
 			// triangles are always convex
-                        if (pointsHolder.length < 4)
+			if (pointsHolder.length < 4)
 				return new Polygon2D (pointsHolder);
 
 			// lexicographic sort
