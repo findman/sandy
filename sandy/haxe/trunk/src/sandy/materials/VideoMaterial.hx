@@ -126,6 +126,6 @@ class VideoMaterial extends BitmapMaterial
 	*/
 	public function stop():Void
 	{
-		m_oTimer.stop();
+		if(m_oTimer != null)m_oTimer.stop();
 	}
 }
