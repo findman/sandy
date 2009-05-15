@@ -151,7 +151,7 @@ package sandy.materials
 		 */
 		public function stop():void
 		{
-			m_oTimer.stop();
+			if(m_oTimer!=null)m_oTimer.stop();
 		}
 
 		/**
