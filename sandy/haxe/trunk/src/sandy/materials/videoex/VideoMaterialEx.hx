@@ -418,10 +418,9 @@ class VideoMaterialEx extends BitmapMaterial, implements IEventDispatcher
 
 	private function connectStream()
 	{
-		if(netStream != null) {
-			unsubcribeEvents(netStream);
+		if(netStream != null)
 			teardown(false,true);
-		}
+
 		netStream = new NetStream(netConnection);
 		netStream.client = clientNetStream;
 		netStream.checkPolicyFile = true;
@@ -875,6 +874,7 @@ class VideoMaterialEx extends BitmapMaterial, implements IEventDispatcher
 			o.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, __onAyncError);
 		}
 		else if(Std.is(o,Timer)) {
+			o.stop();
 			o.removeEventListener(TimerEvent.TIMER, update);
 		}
 	}
