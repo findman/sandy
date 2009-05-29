@@ -782,7 +782,8 @@ class Polygon implements IDisplayable
 		{
 			if( p_oApp.frontMaterial != m_oAppearance.frontMaterial )
 			{
-				m_oAppearance.frontMaterial.unlink( this );
+				if(m_oAppearance.frontMaterial != null)
+					m_oAppearance.frontMaterial.unlink( this );
 				p_oApp.frontMaterial.init( this );
 			}
 			if( m_oAppearance.frontMaterial != m_oAppearance.backMaterial && p_oApp.backMaterial != m_oAppearance.backMaterial )
