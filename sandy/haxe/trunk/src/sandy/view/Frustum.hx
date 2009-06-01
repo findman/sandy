@@ -386,7 +386,6 @@ class Frustum
 	* @param p_aCvert	Vertices of the polygon
 	* @param p_aUVCoords	UV coordiantes of the polygon
 	*/
-	private static inline var aDist:Array<Vertex> = [];
 	public function clipPolygon( p_oPlane:Plane, p_aCvert:Array<Vertex>, p_aUVCoords:Array<UVCoord> ):Bool
 	{
 		var allin:Bool = true, allout:Bool = true, v:Vertex,
