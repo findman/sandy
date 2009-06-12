@@ -1,4 +1,4 @@
-
+﻿
 package sandy.core.data;
 
 import sandy.util.NumberUtil;
@@ -425,7 +425,7 @@ class Matrix4
 	 */
 	public function fromPoint3Ds(px:Point3D, py:Point3D, pz:Point3D, pt:Point3D):Void
 	{
-		zero ();
+		identity ();
 		n11 = px.x; n21 = px.y; n31 = px.z;
 		n12 = py.x; n22 = py.y; n32 = py.z;
 		n13 = pz.x; n23 = pz.y; n33 = pz.z;
@@ -716,11 +716,12 @@ class Matrix4
 	 */
 	public function toString(): String
 	{
+		var round = NumberUtil.roundTo;
 		var s:String =  "sandy.core.data.Matrix4" + "(\n";
-		s += n11+"\t "+n12+"\t "+n13+"\t "+n14+"\n";
-		s += n21+"\t "+n22+"\t "+n23+"\t "+n24+"\n";
-		s += n31+"\t "+n32+"\t "+n33+"\t "+n34+"\n";
-		s += n41+"\t "+n42+"\t "+n43+"\t "+n44+"\n)";
+		s += round(n11, .0001)+"\t "+round(n12, .0001)+"\t "+round(n13, .0001)+"\t "+round(n14, .0001)+"\n";
+		s += round(n21, .0001)+"\t "+round(n22, .0001)+"\t "+round(n23, .0001)+"\t "+round(n24, .0001)+"\n";
+		s += round(n31, .0001)+"\t "+round(n32, .0001)+"\t "+round(n33, .0001)+"\t "+round(n34, .0001)+"\n";
+		s += round(n41, .0001)+"\t "+round(n42, .0001)+"\t "+round(n43, .0001)+"\t "+round(n44, .0001)+"\n)";
 		return s;
 	}
 
