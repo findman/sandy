@@ -506,7 +506,7 @@ package sandy.core.data
 		 */
 		public final function fromPoint3Ds (px:Point3D, py:Point3D, pz:Point3D, pt:Point3D):void
 		{
-			zero ();
+			identity ();
 			n11 = px.x; n21 = px.y; n31 = px.z;
 			n12 = py.x; n22 = py.y; n32 = py.z;
 			n13 = pz.x; n23 = pz.y; n33 = pz.z;
