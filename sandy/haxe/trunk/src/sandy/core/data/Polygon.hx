@@ -297,6 +297,7 @@ class Polygon implements IDisplayable
 		var y:Float =	((a.z - b.z) * (c.x - b.x)) - ((a.x - b.x) * (c.z - b.z)) ;
 		var z:Float = 	((a.x - b.x) * (c.y - b.y)) - ((a.y - b.y) * (c.x - b.x)) ;
 		normal.reset( x, y, z );
+		if (normal.getNorm () > 0) normal.normalize(); else normal.y = 1;
 	}
 
 	/**
