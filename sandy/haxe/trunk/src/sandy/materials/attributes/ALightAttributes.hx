@@ -200,16 +200,19 @@ class ALightAttributes implements IAttributes
 				if(m_oL != null) {
 					m_oCurrentL.copy (m_oL);
 					invModelMatrix.transform3x3 (m_oCurrentL);
+					m_oCurrentL.normalize ();
 				}
 
 				if(m_oV != null) {
 					m_oCurrentV.copy (m_oV);
 					invModelMatrix.transform3x3 (m_oCurrentV);
+					m_oCurrentV.normalize ();
 				}
 
 				if(m_oH != null) {
 					m_oCurrentH.copy (m_oH);
 					invModelMatrix.transform3x3 (m_oCurrentH);
+					m_oCurrentH.normalize ();
 				}
 			}
 		}
