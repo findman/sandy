@@ -169,10 +169,11 @@ class Renderer
 			if( Std.is(m_aDisplayList[i], Shape3D) )
 			{
 				var l_oShape:Shape3D = cast m_aDisplayList[i];
+				var l_oShapeSingleContainer:Bool = l_oShape.useSingleContainer;
 				// if no change for that object, directly go to the draw level
 				if( l_oShape.changed == false && l_bForceRedraw == false )
 				{
-					if( l_oShape.useSingleContainer )
+					if( l_oShapeSingleContainer )
 						m_aRenderingList[m_nRenderingListCount++] = l_oShape;
 					else
 					{
@@ -289,9 +290,10 @@ class Renderer
 					if( l_aVertices.length > 1 )
 					{
 						l_oCamera.projectArray( l_aVertices );
-						if(l_oShape.enableForcedDepth)
-							l_oFace.depth = l_oShape.forcedDepth;
-						else
+						if (l_oShape.enableForcedDepth) {
+							if (l_oShapeSingleContainer == false)
+								l_oFace.depth = l_oShape.forcedDepth;
+						} else
 							l_oShape.depth += l_oFace.depth;
 						// --
 						l_nVisiblePolyCount++;
@@ -299,7 +301,7 @@ class Renderer
 						// --
 						l_nPolyFlags |= l_nFlags;
 						// --
-						if ( l_oShape.useSingleContainer == false )
+						if( l_oShapeSingleContainer == false )
 						{
 						    m_aRenderingList[m_nRenderingListCount++] = l_oFace;
 						}

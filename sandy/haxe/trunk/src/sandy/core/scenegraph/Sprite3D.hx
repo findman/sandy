@@ -59,7 +59,13 @@ class Sprite3D extends Sprite2D
 	*/
 	override private function __setContent( p_content:DisplayObject ):DisplayObject
 	{
-		var mc = try cast(p_content,MovieClip) catch(e:Dynamic) return p_content;
+		var mc : MovieClip = null;
+		try
+		{
+			mc = cast(p_content,MovieClip);
+		} catch(e:Dynamic) {
+			return p_content;
+		}
 		if (mc != null)
 		{
 			super.__setContent( p_content );
