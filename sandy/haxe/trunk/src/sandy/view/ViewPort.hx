@@ -56,8 +56,8 @@ class ViewPort
 	*/
 	public function update():Void
 	{
-		m_nW2 = m_nW >> 1;
-		m_nH2 = m_nH >> 1;
+		m_nW2 = m_nW / 2;
+		m_nH2 = m_nH / 2;
 		// --
 		m_nRatio = (m_nH != 0)? m_nW / m_nH : 0;
 		// --
@@ -69,10 +69,10 @@ class ViewPort
 	public function __getWidth():Int { return m_nW; }
 	public var height(__getHeight,__setHeight):Int;
 	public function __getHeight():Int { return m_nH; }
-	public var width2(__getWidth2,null):Int;
-	public function __getWidth2():Int { return m_nW2; }
-	public var height2(__getHeight2,null):Int;
-	public function __getHeight2():Int { return m_nH2; }
+	public var width2(__getWidth2,null):Float;
+	public function __getWidth2():Float { return m_nW2; }
+	public var height2(__getHeight2,null):Float;
+	public function __getHeight2():Float { return m_nH2; }
 	public var ratio(__getRatio,null):Float;
 	public function __getRatio():Float { return m_nRatio; }
 
@@ -81,9 +81,9 @@ class ViewPort
 
 
 	private var m_nW:Int;
-	private var m_nW2:Int;
+	private var m_nW2:Float;
 	private var m_nH:Int;
-	private var m_nH2:Int;
+	private var m_nH2:Float;
 	private var m_nRatio:Float;
 }
 

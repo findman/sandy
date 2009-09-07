@@ -98,7 +98,7 @@ class Camera3D extends ATransformable
 	public var focalLength(__getFocalLength,__setFocalLength) : Float;
 	private function __setFocalLength( f:Float ):Float
 	{
-		_nFov = Math.atan2 (viewport.height2, f) * 114.591559 /* 2 * (180 / Math.PI) */;
+		_nFov = Math.atan2 (viewport.height2, f) * 2. * (180. / Math.PI);
 		_perspectiveChanged = true;
 		changed = true;
 		return f;
@@ -109,7 +109,7 @@ class Camera3D extends ATransformable
 		*/
 	private function __getFocalLength():Float
 	{
-		return viewport.height2 / Math.tan (_nFov * 0.00872664626 /* 1 / 2 * (Math.PI / 180) */ );
+		return viewport.height2 / Math.tan (_nFov * 0.5 * (Math.PI / 180.) );
 	}
 
 	/**
@@ -323,6 +323,6 @@ class Camera3D extends ATransformable
 	private var mp12:Float;private var mp22:Float;private var mp32:Float;private var mp42:Float;
 	private var mp13:Float;private var mp23:Float;private var mp33:Float;private var mp43:Float;
 	private var mp14:Float;private var mp24:Float;private var mp34:Float;private var mp44:Float;
-	private var	m_nOffx:Int;private var m_nOffy:Int;
+	private var	m_nOffx:Float;private var m_nOffy:Float;
 
 }
