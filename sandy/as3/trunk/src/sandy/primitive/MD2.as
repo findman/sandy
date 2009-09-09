@@ -1,9 +1,11 @@
-package sandy.primitive
+﻿package sandy.primitive
 {
 	import sandy.core.data.*;
 	import sandy.core.scenegraph.Geometry3D;
 	import sandy.core.scenegraph.Shape3D;
 	import sandy.primitive.Primitive3D;
+	import sandy.view.CullingState;
+	import sandy.view.Frustum;
 	
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;	
@@ -25,8 +27,7 @@ package sandy.primitive
 		public function MD2 ( p_sName:String, data:ByteArray, scale:Number = 1 )
 		{
 			m_oBinaryData = data;
-			super (p_sName); scaling = scale; geometry = generate (data); frame = 0;
-			//animated = true;
+			super (p_sName); scaling = scale; geometry = generate (data); t_old = -1; frame = 0;
 		}
 
 		public override function clone(  p_sName:String="", p_bKeepTransform:Boolean = false ):Shape3D
@@ -173,40 +174,48 @@ package sandy.primitive
 		/**
 		* @private (setter)
 		*/
-		public function set frame (value:Number):void
-		{
-			t = value;
+		public function set frame (value:Number):void { t = value; changed = true; }
 
-			// interpolation frames
-			var f1:Array = vertices [int (t) % num_frames];
-			var f2:Array = vertices [(int (t) + 1) % num_frames];
+		/**
+		 * @inheritDoc
+		 */
+		override public function cull(p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Boolean):void {
+			super.cull (p_oFrustum, p_oViewMatrix, p_bChanged);
 
-			// interpolation coef-s
-			var c2:Number = t - int (t), c1:Number = 1 - c2;
+			if ((t != t_old) && (culled != CullingState.OUTSIDE) && (appearance != null)) {
+				// it does make sense to do this only when we're on display list
+				t_old = t;
 
-			// loop through vertices
-			for (var i:int = 0; i < num_vertices; i++)
-			{
-				var v0:Vertex = Vertex (geometry.aVertex [i]);
-				var v1:Point3D = Point3D (f1 [i]);
-				var v2:Point3D = Point3D (f2 [i]);
+				// interpolation frames
+				var f1:Array = vertices [int (t) % num_frames];
+				var f2:Array = vertices [(int (t) + 1) % num_frames];
 
-				// interpolate
-				v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
-				v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
-				v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
+				// interpolation coef-s
+				var c2:Number = t - int (t), c1:Number = 1 - c2;
+
+				// loop through vertices
+				for (var i:int = 0; i < num_vertices; i++)
+				{
+					var v0:Vertex = Vertex (geometry.aVertex [i]);
+					var v1:Point3D = Point3D (f1 [i]);
+					var v2:Point3D = Point3D (f2 [i]);
+
+					// interpolate
+					v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
+					v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
+					v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
+				}
+
+				// update face normals, if not animated all the time
+				if (!animated) for each (var l_oPoly:Polygon in aPolygons)
+				{
+					v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
+					w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
+					w.crossWith (v); w.normalize ();
+					l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
+				}
+
 			}
-
-			// update face normals
-			for each (var l_oPoly:Polygon in aPolygons)
-			{
-				v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
-				w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-				w.crossWith (v); w.normalize ();
-				l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
-			}
-
-			changed = true;
 		}
 
 		/**
@@ -261,7 +270,7 @@ package sandy.primitive
 		}
 
 		// animation "time" (frame number)
-		private var t:Number;		
+		private var t:Number, t_old:Number;
 
 		// vertices list for every frame
 		private var vertices:Array = [];
