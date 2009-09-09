@@ -207,14 +207,7 @@
 				}
 
 				// update face normals, if not animated all the time
-				if (!animated) for each (var l_oPoly:Polygon in aPolygons)
-				{
-					v.x = l_oPoly.b.x - l_oPoly.a.x; v.y = l_oPoly.b.y - l_oPoly.a.y; v.z = l_oPoly.b.z - l_oPoly.a.z;
-					w.x = l_oPoly.b.x - l_oPoly.c.x; w.y = l_oPoly.b.y - l_oPoly.c.y; w.z = l_oPoly.b.z - l_oPoly.c.z;
-					w.crossWith (v); w.normalize ();
-					l_oPoly.normal.x = w.x; l_oPoly.normal.y = w.y; l_oPoly.normal.z = w.z;
-				}
-
+				if (!animated) for each (var l_oPoly:Polygon in aPolygons) l_oPoly.updateNormal ();
 			}
 		}
 
@@ -274,9 +267,6 @@
 
 		// vertices list for every frame
 		private var vertices:Array = [];
-
-		// vars for quick normal computation
-		private var v:Point3D = new Point3D (), w:Point3D = new Point3D ();
 
 		// original Philippe vars
 		private var ident:int;
