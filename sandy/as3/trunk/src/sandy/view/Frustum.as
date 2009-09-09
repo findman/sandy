@@ -127,8 +127,8 @@ package sandy.view
 			// we inverse the vertical axis as Flash as a vertical axis inversed by our 3D one. VERY IMPORTANT
 			var yNear:Number = -tang * p_nNear;			
 			var xNear:Number = yNear * p_nAspect;
-			var yFar:Number = yNear * p_nFar / p_nNear;
-			var xFar:Number = xNear * p_nFar / p_nNear;
+			var yFar:Number = ( p_nNear != 0 ) ? yNear * p_nFar / p_nNear : -tang * p_nFar;
+			var xFar:Number = ( p_nNear != 0 ) ? xNear * p_nFar / p_nNear : -tang * p_nAspect * p_nFar;
 			p_nNear = -p_nNear;
 			p_nFar = -p_nFar;
 			var p:Array = aPoints;
@@ -141,11 +141,11 @@ package sandy.view
 			p[6] = new Point3D(-xFar, -yFar,  p_nFar);  // Far, left, bottom
 			p[7] = new Point3D(-xFar,  yFar,  p_nFar);  // Far, left, top
 			
-			aPlanes[LEFT] 	= PlaneMath.computePlaneFromPoints( p[2], p[3], p[6] ); // Left
-			aPlanes[RIGHT] 	= PlaneMath.computePlaneFromPoints( p[0], p[1], p[4] ); // right
-			aPlanes[TOP] 	= PlaneMath.computePlaneFromPoints( p[0], p[7], p[3] ); // Top
-			aPlanes[BOTTOM] = PlaneMath.computePlaneFromPoints( p[1], p[2], p[5] ); // Bottom
-			aPlanes[NEAR] 	= PlaneMath.computePlaneFromPoints( p[0], p[2], p[1] ); // Near
+			aPlanes[LEFT]   = PlaneMath.computePlaneFromPoints( p[7], p[6], p[2] ); // Left
+			aPlanes[RIGHT]  = PlaneMath.computePlaneFromPoints( p[4], p[0], p[5] ); // right
+			aPlanes[TOP]    = PlaneMath.computePlaneFromPoints( p[7], p[0], p[4] ); // Top
+			aPlanes[BOTTOM] = PlaneMath.computePlaneFromPoints( p[5], p[1], p[6] ); // Bottom
+ 			aPlanes[NEAR] 	= PlaneMath.computePlaneFromPoints( p[0], p[2], p[1] ); // Near
 			aPlanes[FAR] 	= PlaneMath.computePlaneFromPoints( p[4], p[5], p[6] ); // Far
 			
 			for( var i:int = 0; i < 6; i++ )
