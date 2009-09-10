@@ -137,7 +137,7 @@
 				m_sName = p_sName;
 			}
 			// --
-			light = new Light3D(new Point3D(0, 0, 1), 100);
+			_light = new Light3D(new Point3D(0, 0, 1), 100);
 		}
 
 		/**
@@ -251,19 +251,11 @@
 		{
 			if (_light)
 			{
-				removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 				_light.destroy();
 			}
-
-			addEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 			// --
 			_light = l;
 			dispatchEvent(new SandyEvent(SandyEvent.LIGHT_ADDED));
-		}
-
-		private function _updateLightFlags(pEvt:SandyEvent):void
-		{
-			_light.changed = false;
 		}
 
 		/**
