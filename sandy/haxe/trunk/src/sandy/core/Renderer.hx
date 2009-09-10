@@ -141,7 +141,7 @@ class Renderer
 				l_oVertex:Vertex, l_aVertices:Array<Vertex>, l_oFace:Polygon, l_nMinZ:Float, l_nFlags:Int;
 		var 	l_nVisiblePolyCount:Int = 0;
 
-		var l_bForceRedraw:Bool = p_oScene.camera.changed || !p_bUseCache;
+		var l_bForceRedraw:Bool = p_oScene.camera.changed || !p_bUseCache || p_oScene.light.changed;
 
 		m_bGlobalRedraw = m_bGlobalRedraw || (m_aRenderingList.length == m_aDisplayList.length);
 		// -- return false because we do not even need to refresh display

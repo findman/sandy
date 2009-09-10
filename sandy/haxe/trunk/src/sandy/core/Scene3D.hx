@@ -114,7 +114,7 @@ class Scene3D extends EventDispatcher
 			m_sName = p_sName;
 		}
 		// --
-		_light = new Light3D(new Point3D(0, 0, 1), 100);
+		light = new Light3D(new Point3D(0, 0, 1), 100);
 	}
 
 	/**
@@ -229,12 +229,20 @@ class Scene3D extends EventDispatcher
 	{
 		if (_light != null)
 		{
+			removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 			_light.destroy();
 		}
+
+		addEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 		// --
 		_light = l;
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_ADDED));
 		return l;
+	}
+
+	private function _updateLightFlags( _ ):Void
+	{
+		_light.changed = false;
 	}
 
 	private function _onLightUpdate(pEvt:SandyEvent):Void {}
