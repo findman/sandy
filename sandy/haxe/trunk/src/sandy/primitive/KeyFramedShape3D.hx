@@ -153,7 +153,8 @@ class KeyFramedShape3D extends Shape3D,
 		var c2 = ratio;
 		var c1 = 1 - c2;
 
-		if(m_oBBoxes.length > frame1 && m_oBBoxes.length > frame2) {
+		var l_nBoxesLen : Int = m_oBBoxes.length;
+		if( l_nBoxesLen > frame1 && l_nBoxesLen > frame2) {
 			var box1 = m_oBBoxes[frame1];
 			var box2 = m_oBBoxes[frame2];
 
@@ -182,7 +183,8 @@ class KeyFramedShape3D extends Shape3D,
 		}
 		// probably faster here to interpolate sphere values than
 		// to incur the sqrt in BSphere.resetFromBox
-		if(m_oBSpheres.length > frame1 && m_oBSpheres.length > frame2) {
+		var l_nSpheresLen : Int = m_oBSpheres.length;
+		if( l_nSpheresLen > frame1 && l_nSpheresLen > frame2) {
 			var s1 = m_oBSpheres[frame1];
 			var s2 = m_oBSpheres[frame2];
 
