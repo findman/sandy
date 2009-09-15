@@ -286,10 +286,15 @@ class Renderer
 						continue;
 					}
 					// --
-					l_aVertices = l_oFace.isClipped ? l_oFace.cvertices : l_oFace.vertices;
+					var l_bIsClipped = l_oFace.isClipped;
+					l_aVertices = l_bIsClipped ? l_oFace.cvertices : l_oFace.vertices;
 					if( l_aVertices.length > 1 )
 					{
 						l_oCamera.projectArray( l_aVertices );
+						// Fix for clipped triangles incorrectly reporting vertices position during interaction events
+						if ( l_bIsClipped && l_oFace.enableEvents )
+							l_oCamera.projectArray( l_oFace.vertices );
+
 						if (l_oShape.enableForcedDepth) {
 							if (l_oShapeSingleContainer == false)
 								l_oFace.depth = l_oShape.forcedDepth;
