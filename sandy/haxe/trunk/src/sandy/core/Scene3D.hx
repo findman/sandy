@@ -149,6 +149,7 @@ class Scene3D extends EventDispatcher
 			if( l_bNeedDraw )
 			{
 				renderer.renderDisplayList( this );
+				_light.changed = false;
 			}
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_FINISH));
 		}
@@ -229,20 +230,13 @@ class Scene3D extends EventDispatcher
 	{
 		if (_light != null)
 		{
-			removeEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 			_light.destroy();
 		}
 
-		addEventListener(SandyEvent.SCENE_RENDER_FINISH, _updateLightFlags );
 		// --
 		_light = l;
 		dispatchEvent(new SandyEvent(SandyEvent.LIGHT_ADDED));
 		return l;
-	}
-
-	private function _updateLightFlags( _ ):Void
-	{
-		_light.changed = false;
 	}
 
 	private function _onLightUpdate(pEvt:SandyEvent):Void {}
