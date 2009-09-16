@@ -324,6 +324,11 @@ class Renderer
 						// --
 						m_aRenderingList[m_nRenderingListCount++] = l_oShape;
 					}
+					else
+					{
+						if (l_oShape.enableForcedDepth == false)
+							l_oShape.depth /= l_oShape.aVisiblePolygons.length;
+					}
 					// --
 					if( l_nFlags != 0 || l_nPolyFlags != 0 )
 					{

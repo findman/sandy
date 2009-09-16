@@ -4,6 +4,7 @@ package sandy.primitive;
 import sandy.animation.IKeyFramed;
 import sandy.animation.Tag;
 import sandy.core.data.Point3D;
+import sandy.core.data.Matrix4;
 import sandy.core.data.Vertex;
 import sandy.core.data.UVCoord;
 import sandy.core.scenegraph.Geometry3D;
@@ -12,6 +13,8 @@ import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
 import sandy.materials.Appearance;
 import sandy.primitive.Primitive3D;
+import sandy.view.CullingState;
+import sandy.view.Frustum;
 
 import flash.utils.ByteArray;
 import flash.utils.Endian;
@@ -51,8 +54,6 @@ class KeyFramedShape3D extends Shape3D,
 	* @param scale Adjusts model scale.
 	*/
 	public function new( p_sName:String="", data:Bytes=null, scale:Float=1.0, p_oAppearance:Appearance=null, p_bUseSingleContainer:Bool=true) {
-		m_oV = new Point3D ();
-		m_oW = new Point3D ();
 		frames = new Hash();
 		vertices = new TypedArray();
 		m_oBBoxes = new TypedArray();
@@ -292,66 +293,69 @@ class KeyFramedShape3D extends Shape3D,
 	private function __setFrame (value:Float):Float
 	{
 		m_nCurFrame = value;
-
-		if(vertices.length == 0)
-			return value;
-
-		var cfi : Int = Std.int(m_nCurFrame);
-		var frame1 : Int = cfi % num_frames;
-		var frame2 : Int = (cfi + 1) % num_frames;
-
-		// interpolation frames
-		var f1:TypedArray<Point3D> = vertices [frame1];
-		var f2:TypedArray<Point3D> = vertices [frame2];
-
-		// interpolation coef-s
-		var c2:Float = m_nCurFrame - Std.int(m_nCurFrame), c1:Float = 1 - c2;
-
-		// loop through vertices
-		for (i in 0...num_vertices)
-		{
-			var v0:Vertex = m_oGeometry.aVertex [i];
-			var v1:Point3D = f1 [i];
-			var v2:Point3D = f2 [i];
-
-			// interpolate
-			v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
-			v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
-			v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
-		}
-
-		// update face normals
-		for (l_oPoly in aPolygons)
-		{
-			m_oV.x = l_oPoly.b.x - l_oPoly.a.x; m_oV.y = l_oPoly.b.y - l_oPoly.a.y; m_oV.z = l_oPoly.b.z - l_oPoly.a.z;
-			m_oW.x = l_oPoly.b.x - l_oPoly.c.x; m_oW.y = l_oPoly.b.y - l_oPoly.c.y; m_oW.z = l_oPoly.b.z - l_oPoly.c.z;
-			m_oW.crossWith (m_oV); m_oW.normalize ();
-			l_oPoly.normal.x = m_oW.x; l_oPoly.normal.y = m_oW.y; l_oPoly.normal.z = m_oW.z;
-		}
-
-		if(m_bFrameUpdateBounds) {
-			// Set current bounds, either based on interpolation
-			// or on closest integral frame number
-			if( m_bInterpolateBounds ) {
-				interpolateFrameBounds(c2, frame1, frame2, boundingBox, boundingSphere);
-			}
-			else { // bounds set as closest frame
-				var fno = (c2 < 0.5) ? frame1 : frame2;
-				if(m_oBBoxes.length > fno)
-					boundingBox = m_oBBoxes[fno];
-				if(m_oBSpheres.length > fno)
-					boundingSphere = m_oBSpheres[fno];
-				else
-					boundingSphere.resetFromBox(boundingBox);
-				boundingBox.uptodate = false;
-				boundingSphere.uptodate = false;
-			}
-			if(parent != null)
-				parent.onChildBoundsChanged(this);
-		}
-
 		changed = true;
 		return value;
+	}
+
+	public override function cull( p_oFrustum:Frustum, p_oViewMatrix:Matrix4, p_bChanged:Bool ):Void
+	{
+		super.cull (p_oFrustum, p_oViewMatrix, p_bChanged);
+
+		if ((m_nCurFrame != m_nOldFrame) && (culled != CullingState.OUTSIDE) && (appearance != null)) {
+			// it does make sense to do this only when we're on display list
+			m_nOldFrame = m_nCurFrame;
+
+			if(vertices.length == 0) return;
+
+			var cfi : Int = Std.int(m_nCurFrame);
+			var frame1 : Int = cfi % num_frames;
+			var frame2 : Int = (cfi + 1) % num_frames;
+
+			// interpolation frames
+			var f1:TypedArray<Point3D> = vertices [frame1];
+			var f2:TypedArray<Point3D> = vertices [frame2];
+
+			// interpolation coef-s
+			var c2:Float = m_nCurFrame - Std.int(m_nCurFrame), c1:Float = 1 - c2;
+
+			// loop through vertices
+			for (i in 0...num_vertices)
+			{
+				var v0:Vertex = m_oGeometry.aVertex [i];
+				var v1:Point3D = f1 [i];
+				var v2:Point3D = f2 [i];
+
+				// interpolate
+				v0.x = v1.x * c1 + v2.x * c2; v0.wx = v0.x;
+				v0.y = v1.y * c1 + v2.y * c2; v0.wy = v0.y;
+				v0.z = v1.z * c1 + v2.z * c2; v0.wz = v0.z;
+			}
+
+			// update face normals
+			if (!animated) for (l_oPoly in aPolygons) l_oPoly.updateNormal ();
+
+			if(m_bFrameUpdateBounds) {
+				// Set current bounds, either based on interpolation
+				// or on closest integral frame number
+				if( m_bInterpolateBounds ) {
+					interpolateFrameBounds(c2, frame1, frame2, boundingBox, boundingSphere);
+				}
+				else { // bounds set as closest frame
+					var fno = (c2 < 0.5) ? frame1 : frame2;
+					if(m_oBBoxes.length > fno)
+						boundingBox = m_oBBoxes[fno];
+					if(m_oBSpheres.length > fno)
+						boundingSphere = m_oBSpheres[fno];
+					else
+						boundingSphere.resetFromBox(boundingBox);
+					boundingBox.uptodate = false;
+					boundingSphere.uptodate = false;
+				}
+				if(parent != null)
+					parent.onChildBoundsChanged(this);
+			}
+		}
+
 	}
 
 	private function __getFrameCount():Int { return num_frames; }
@@ -424,6 +428,7 @@ class KeyFramedShape3D extends Shape3D,
 
 	// animation "time" (frame number)
 	private var m_nCurFrame:Float;
+	private var m_nOldFrame:Float;
 	private var scaling:Float;
 
 	// vertices list for every frame
@@ -432,10 +437,6 @@ class KeyFramedShape3D extends Shape3D,
 	private var m_oBBoxes:TypedArray<BBox>;
 	// bounding spheres for every frame
 	private var m_oBSpheres:TypedArray<BSphere>;
-
-	// vars for quick normal computation
-	private var m_oV:Point3D;
-	private var m_oW:Point3D;
 
 	//--
 	private var m_bFrameUpdateBounds : Bool;
