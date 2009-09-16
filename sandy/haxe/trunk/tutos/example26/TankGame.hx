@@ -22,6 +22,7 @@ import sandy.materials.ColorMaterial;
 import sandy.materials.attributes.MaterialAttributes;
 import sandy.materials.attributes.LightAttributes;
 import sandy.primitive.Cylinder;
+import sandy.primitive.KeyFramedShape3D;
 import sandy.primitive.MD2;
 import sandy.primitive.Sphere;
 import sandy.util.LoaderQueue;
@@ -31,7 +32,7 @@ class TankGame extends Sprite {
 	private var queue:LoaderQueue;
 	private var scene:Scene3D;
 	public var camera:Camera3D;
-	private var arrayDemon:Array<MD2>;
+	private var arrayDemon:Array<KeyFramedShape3D>;
 	private var demonTest:MD2;
 	private var demondie:MD2;
 	private var gun:Cylinder;
@@ -122,7 +123,7 @@ class TankGame extends Sprite {
 		g.addChild( arrayDemon[0]);
 
 		for ( i in 1...7 ){
-			arrayDemon[i] = cast arrayDemon[0].clone("dem");  
+			arrayDemon[i] = cast( arrayDemon[0].clone("dem"), KeyFramedShape3D );  
 			arrayDemon[i].pan = 90;
 			arrayDemon[i].z = (Math.random()-0.5)*1000 + 500;
 			arrayDemon[i].x = (Math.random()-0.5)*600;
