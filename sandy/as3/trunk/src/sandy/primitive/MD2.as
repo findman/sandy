@@ -27,7 +27,7 @@
 		public function MD2 ( p_sName:String, data:ByteArray, scale:Number = 1 )
 		{
 			m_oBinaryData = data;
-			super (p_sName); scaling = scale; geometry = generate (data); t_old = -1; frame = 0;
+			super (p_sName); scaling = scale; geometry = generate (data);
 		}
 
 		public override function clone(  p_sName:String="", p_bKeepTransform:Boolean = false ):Shape3D
@@ -156,6 +156,13 @@
 					// ignore "vertex normal index"
 					data.readUnsignedByte ();
 				}
+			}
+
+			// init vertices here so that updateBoundingVolumes() call has valid data to work with
+			t_old = -1; t = 0; var vs0:Array = vertices [0];
+			for (i = 0; i < num_vertices; i++) {
+				var v0:Vertex = Vertex (mesh.aVertex [i]);
+				v0.reset (vs0 [i].x, vs0 [i].y, vs0 [i].z);
 			}
 
 			return mesh;

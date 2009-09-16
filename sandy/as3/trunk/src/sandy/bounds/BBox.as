@@ -1,8 +1,12 @@
 ﻿
 package sandy.bounds 
 {
-	import sandy.core.data.Matrix4;	import sandy.core.data.Pool;	import sandy.core.data.Point3D;	import sandy.core.data.Vertex;
-	/**
+	import sandy.core.data.Matrix4;
+	import sandy.core.data.Pool;
+	import sandy.core.data.Point3D;
+	import sandy.core.data.Vertex;
+
+	/**
 	 * The BBox class is used to quickly and easily clip an object in a 3D scene.
 	 * <p>It creates a bounding box that contains the whole object.</p>
 	 * 
@@ -218,8 +222,8 @@ package sandy.bounds
 		 */		
 		public function BBox( p_min:Point3D=null, p_max:Point3D=null )
 		{
-			minEdge		= (p_min != null) ? p_min : new Point3D(-0.5, -0.5, -0.5);//Number.MAX_VALUE, Number.MAX_VALUE, Number.MAX_VALUE);
-			maxEdge		= (p_max != null) ? p_max : new Point3D(0.5,0.5,0.5);//Number.MIN_VALUE, Number.MIN_VALUE, Number.MIN_VALUE);
+			minEdge		= (p_min != null) ? p_min : new Point3D;
+			maxEdge		= (p_max != null) ? p_max : new Point3D;
 		}		
 	
 		/**
@@ -264,9 +268,9 @@ package sandy.bounds
 		 *
 		 * @return The fully qualified name of this object.
 		 */
-		public function toString():String
+		public function toString(decPlaces:Number=0):String
 		{
-			return "sandy.bounds.BBox "+minEdge+" "+maxEdge;
+			return "sandy.bounds.BBox "+minEdge.toString(decPlaces)+" "+maxEdge.toString(decPlaces);
 		}
 		
 		/**
