@@ -51,7 +51,10 @@ package sandy.bounds
 			if(p_aVertices.length == 0) return null;
 		   
 		    var l_oBox:BBox = new BBox(); 
-			for each( var l_oVertex:Vertex in p_aVertices )
+			var l_oVertex:Vertex = Vertex (p_aVertices [0]);
+			l_oBox.minEdge.reset ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
+			l_oBox.maxEdge.reset ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
+			for each( l_oVertex in p_aVertices )
 			{
 				l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
 			}
