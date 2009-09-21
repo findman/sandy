@@ -217,7 +217,6 @@ class OutlineAttributes extends AAttributes
 		}
 		// --
 		p_oGraphics.lineStyle( m_nThickness, m_nColor, m_nAlpha );
-		p_oGraphics.beginFill(0);
 		// --
 		for ( l_oEdge in p_oPolygon.aEdges )
 		{
@@ -245,8 +244,6 @@ class OutlineAttributes extends AAttributes
 				p_oGraphics.lineTo( l_oEdge.vertex2.sx, l_oEdge.vertex2.sy );
 			}
 		}
-
-		p_oGraphics.endFill();
 	}
 
 	/**
