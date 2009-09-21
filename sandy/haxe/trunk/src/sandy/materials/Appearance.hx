@@ -116,7 +116,8 @@ class Appearance
 				if( l_oPoly.appearance != null )
 					l_oPoly.appearance = null;
 			}
-			m_oFrontMaterial.dispose();
+			if (m_oFrontMaterial.autoDispose)
+				m_oFrontMaterial.dispose();
 			l_aUnLinked = null;
 		}
 
@@ -128,7 +129,8 @@ class Appearance
 				if( l_oPoly.appearance != null )
 					l_oPoly.appearance = null;
 			}
-			m_oBackMaterial.dispose();
+			if (m_oBackMaterial.autoDispose)
+				m_oBackMaterial.dispose();
 			l_aUnLinked = null;
 		}
 		// --

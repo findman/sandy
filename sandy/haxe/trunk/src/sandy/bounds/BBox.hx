@@ -53,8 +53,8 @@ class BBox
 	{
 		// initializers
 		uptodate = false;
-		minEdge = (p_min != null) ? p_min : new Point3D(-0.5, -0.5, -0.5);
-		maxEdge = (p_max != null) ? p_max : new Point3D(0.5,   0.5,  0.5);
+		minEdge = (p_min != null) ? p_min : new Point3D();
+		maxEdge = (p_max != null) ? p_max : new Point3D();
 	}
 
 	public function addInternalPoint(p_oPoint:Point3D):Void
@@ -343,9 +343,9 @@ class BBox
 	*
 	* @return 	A String representing the bounding box
 	*/
-	public function toString():String
+	public function toString(decPlaces:Int=0):String
 	{
-		return "sandy.bounds.BBox "+Std.string(minEdge)+" "+Std.string(maxEdge);
+		return "sandy.bounds.BBox "+minEdge.toString(decPlaces)+" "+maxEdge.toString(decPlaces);
 	}
 
 	/**
@@ -360,6 +360,9 @@ class BBox
 		if(p_aVertices.length == 0) return null;
 
 		var l_oBox:BBox = new BBox();
+		var l_oVertex:Vertex = p_aVertices [0];
+		l_oBox.minEdge.reset ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
+		l_oBox.maxEdge.reset ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
 		for( l_oVertex in p_aVertices )
 		{
 			l_oBox.addInternalPointXYZ( l_oVertex.x, l_oVertex.y, l_oVertex.z );
