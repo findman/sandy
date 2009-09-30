@@ -82,6 +82,7 @@
 			// texture name
 			data.position = offset_skins;
 			texture = "";
+			if (num_skins > 0)
 			for (i = 0; i < 64; i++)
 			{
 				char = data.readUnsignedByte ();
