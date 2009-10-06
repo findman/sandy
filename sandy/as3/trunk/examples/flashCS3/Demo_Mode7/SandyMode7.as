@@ -137,6 +137,11 @@
 				{
 					_rightPush=1;
 				}
+				else if (kEvt.keyCode == Keyboard.SPACE)
+				{
+					_mode7.repeatMap = ! _mode7.repeatMap;
+					_mode7.changed = true;
+				}
 			}
 			else if (kEvt.type == KeyboardEvent.KEY_UP)
 			{
