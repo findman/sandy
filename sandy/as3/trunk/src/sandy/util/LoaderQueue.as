@@ -218,6 +218,30 @@ package sandy.util
 				dispatchEvent( m_oQueueCompleteEvent );
 			}
 		}
+
+		public function getBytesLoaded():int {
+			var bytes:int=0;
+			for each (var l_oLoader:QueueElement in m_oLoaders) {
+				if (l_oLoader.loader!=null){
+					bytes+=l_oLoader.loader.contentLoaderInfo.bytesLoaded;
+				} else {
+					bytes+=l_oLoader.urlLoader.bytesLoaded;
+				}
+			}
+			return bytes;
+		}
+
+		public function getBytesTotal():int{
+			var bytes:int=0;
+			for each (var l_oLoader:QueueElement in m_oLoaders) {
+				if (l_oLoader.loader!=null){
+					bytes+=l_oLoader.loader.contentLoaderInfo.bytesTotal;
+				} else {
+					bytes+=l_oLoader.urlLoader.bytesTotal;
+				}
+			}
+			return bytes;
+		}
 	}
 }
 
