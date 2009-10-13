@@ -146,7 +146,7 @@ class HedgehogShapes extends Sprite {
 						var l_oRealTexturePosition:UVCoord = new UVCoord( l_oIntersectionUV.u * l_oMaterial.texture.width, 
 										l_oIntersectionUV.v * l_oMaterial.texture.height );
 						var l_oTexture:BitmapData = l_oMaterial.texture;
-						l_oTexture.fillRect( new Rectangle( l_oRealTexturePosition.u-2, l_oRealTexturePosition.v-2, 4, 4 ), Std.int(0xAA999FF999FF00) );
+						l_oTexture.fillRect( new Rectangle( l_oRealTexturePosition.u-2, l_oRealTexturePosition.v-2, 4, 4 ), Std.int(0xAA999FF9) );
 						l_oMaterial.texture = l_oTexture;
 				}
 
