@@ -194,7 +194,7 @@ class Player extends AnimatedShape3D {
 		queue = new LoaderQueue();
 		// loads the animation.cfg file, as well as all the textures that make
 		// up the model
-		queue.add("human_base_cfg", new URLRequest(PMODELS + "/human_base/animation.cfg"), LoaderQueue.BIN);
+		queue.add("human_base_cfg", new URLRequest(PMODELS + "/human_base/animation.cfg"), BIN);
 		queue.add("l_legs", new URLRequest(PMODELS + "/human_base/light.png") );
 		queue.add("l_kneepads", new URLRequest(PMODELS + "/human_base/armour.png") );
 		queue.add("u_torso", new URLRequest(PMODELS + "/human_base/base.png") );
@@ -326,7 +326,7 @@ class Player extends AnimatedShape3D {
 		case "torso":
 			tween.setTweenHandlers(function(v) { me.upper.frame = v;}, onTweenComplete);
 		}
-		currentAnimation = tween;
+		currentAnimation = a;
 		tween.start();
 	}
 
