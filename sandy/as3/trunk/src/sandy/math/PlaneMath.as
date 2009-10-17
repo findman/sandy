@@ -108,18 +108,17 @@ package sandy.math
 		 * Computes a plane from a normal Point3D and a specified point.
 		 *
 		 * @param p_oNormal	The normal Point3D.
-		 * @param p_nPoint	The point.
+		 * @param p_oPoint	The point.
 		 *
 		 * @return 	The computed plane.
 		 */
-		public static function createFromNormalAndPoint( p_oNormal:Point3D, p_nPoint:Number ):Plane
+		public static function createFromNormalAndPoint( p_oNormal:Point3D, p_oPoint:Point3D ):Plane
 		{
 			var p:Plane = new Plane();
-			Point3DMath.normalize(p_oNormal);
 			p.a = p_oNormal.x;
 			p.b = p_oNormal.y;
 			p.c = p_oNormal.z;
-			p.d = p_nPoint;
+			p.d = p_oNormal.dot (p_oPoint) * -1;
 			PlaneMath.normalizePlane( p );
 			return p;
 		}
