@@ -46,13 +46,24 @@
 			// create array of info about planes
 			var planes:Array = [];
 			for each (var poly:Polygon in fba) {
+				// calculate center of polygon
+				var center:Point3D = poly.a.getPoint3D ();
+				center.x += poly.b.x; center.y += poly.b.y; center.z += poly.b.z;
+				center.x += poly.c.x; center.y += poly.c.y; center.z += poly.c.z;
+				if (poly.d != null) {
+					center.x += poly.d.x; center.y += poly.d.y; center.z += poly.d.z;
+					center.scale (0.25);
+				} else {
+					center.scale (1/3);
+				}
+
 				var pobj:Object;
 				var found:Boolean = false;
 				for (var i:int = 0; i < planes.length; i++) {
 					pobj = planes [i];
 					var p:Plane = pobj.plane;
 					// if poly is in p, store it in face list
-					if ((Math.abs (p.a * poly.a.x + p.b * poly.a.y + p.c * poly.a.z + p.d) < threshold) &&
+					if ((Math.abs (p.a * center.x + p.b * center.y + p.c * center.z + p.d) < threshold) &&
 						(Math.abs (p.a * poly.normal.x + p.b * poly.normal.y + p.c * poly.normal.z) > 1 - threshold)) {
 						pobj.area += poly.area; pobj.faces.push (poly); found = true; break;
 					}
@@ -62,7 +73,7 @@
 					pobj = {
 						area: poly.area,
 						faces: [ poly ],
-						plane: PlaneMath.createFromNormalAndPoint (poly.normal.getPoint3D (), poly.a.getPoint3D ())
+						plane: PlaneMath.createFromNormalAndPoint (poly.normal.getPoint3D (), center)
 					};
 					planes.push (pobj);
 				}
