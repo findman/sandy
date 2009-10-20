@@ -482,7 +482,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-   Sets internal convex flag.</td>
+   Sets SORT_NONE or SORT_AVGZ sorting mode.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html#setDirection()">setDirection</a>(x, y, z) &mdash; Method in class sandy.core.light.<a onclick="javascript:loadClassListFrame('sandy/core/light/class-list.html');" href="sandy/core/light/Light3D.html">Light3D</a></td>
@@ -725,6 +725,41 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("SÂ
 <tr>
 <td width="20"></td><td>
    This property enables smooth bitmap rendering when set to true.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#SORT_AVGZ">SORT_AVGZ</a> &mdash; Constant static property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Average distance sorting.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#SORT_CUSTOM_BSP">SORT_CUSTOM_BSP</a> &mdash; Constant static property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   In this mode mesh is sorted using BSP tree, but no tree is built for you (you need to set <code>bsp</code> property yourself).</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#sortingMode">sortingMode</a> &mdash; Property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   Faces sorting method.</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#SORT_LAZY_BSP">SORT_LAZY_BSP</a> &mdash; Constant static property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   In this mode mesh is sorted using BSP tree, but no faces are split for you (means sorting problems are still possible).</td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html#SORT_NONE">SORT_NONE</a> &mdash; Constant static property in class sandy.core.scenegraph.<a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Shape3D.html">Shape3D</a></td>
+</tr>
+<tr>
+<td width="20"></td><td>
+   No sorting.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/Sound3D.html">Sound3D</a> &mdash; Class in package <a onclick="javascript:loadClassListFrame('sandy/core/scenegraph/class-list.html');" href="sandy/core/scenegraph/package-detail.html">sandy.core.scenegraph</a></td>

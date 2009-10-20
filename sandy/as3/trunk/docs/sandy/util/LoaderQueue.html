@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="LoaderQueue,sandy.util.LoaderQueue,BIN,IMG,SWF,clips,data,add,start" name="keywords">
+<meta content="LoaderQueue,sandy.util.LoaderQueue,BIN,IMG,SWF,clips,data,add,getBytesLoaded,getBytesTotal,start" name="keywords">
 <title>sandy.util.LoaderQueue</title>
 </head>
 <body>
@@ -88,6 +88,20 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <a class="signatureLink" href="#add()">add</a>(p_sID:String, p_oURLRequest:URLRequest, type:String = "IMG"):void</div>
 <div class="summaryTableDescription">
    Adds a new request to this loader queue.</div>
+</td><td class="summaryTableOwnerCol">LoaderQueue</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getBytesLoaded()">getBytesLoaded</a>():int</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">LoaderQueue</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#getBytesTotal()">getBytesTotal</a>():int</div>
+<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">LoaderQueue</td>
 </tr>
 <tr class="">
@@ -230,6 +244,38 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">type</span>:String</code> (default = "<code>IMG</code>")<code></code></td>
+</tr>
+</table>
+</div>
+<a name="getBytesLoaded()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getBytesLoaded</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getBytesLoaded():int</code>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>int</code></td>
+</tr>
+</table>
+</div>
+<a name="getBytesTotal()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">getBytesTotal</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function getBytesTotal():int</code>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>int</code></td>
 </tr>
 </table>
 </div>
