@@ -168,6 +168,7 @@
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
 				var l_bNeedDraw:Boolean = renderer.render( this, p_bUseCache );
 				// -- clear the polygon's container and the projection vertices list
+				frameCount++;
 				dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
 				if( l_bNeedDraw || _light.changed )
 				{
@@ -177,6 +178,11 @@
 	            dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_FINISH));
 			}
 		} // end method
+
+		/**
+		 * @private
+		 */
+		public var frameCount:int = 0;
 
 
 		/**
