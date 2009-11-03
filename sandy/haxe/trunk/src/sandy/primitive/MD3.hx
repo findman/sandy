@@ -170,7 +170,7 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 			for(i in 0...num_vertices) {
 				var p = new Point3D();
 				// translate to Sandy's orientation
-				p.z = data.readShort() * ts;
+				p.z = - data.readShort() * ts;
 				p.x = data.readShort() * ts;
 				p.y = data.readShort() * ts;
 
@@ -178,14 +178,6 @@ class MD3 extends KeyFramedShape3D, implements Primitive3D
 
 				var lat = data.readUnsignedByte();
 				var lon = data.readUnsignedByte();
-				/* ignore normals.. code for you anyway.
-				lat *= Math.PI / 128;
-				lon *= Math.PI / 128;
-				var pn = new Point3D;
-				pn.x = Math.cos(lat) * Math.sin(lon);
-				pn.y = Math.sin(lat) * Math.sin(lon);
-				pn.z = Math.cos(lon);
-				*/
 			}
 			vertices[f] = va;
 		}
