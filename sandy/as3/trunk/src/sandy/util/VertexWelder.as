@@ -31,6 +31,18 @@
 		public static var geometry = null;
 		
 		/**
+		 *
+		 * Throw an error if the user tried to instantiate the class.
+		 *
+		 * @private 
+		 *
+		 */
+		public function VertexWelder():void
+		{
+			throw new Error("VertexWelder is a static only class and can not be instantiated.");
+		}
+		
+		/**
 		 * Create a clone of a geometry, deletes all redundant data, and welds
 		 * all duplicate vertex found in the former geometry.
 		 * 
@@ -76,7 +88,7 @@
 			var mapID:int;
 			for (var i:int=0; i<len; i++) {
 				var uv:UVCoord=aUVCoords[i];
-				if(!uv) continue;
+				if( null == uv ) continue;	// aUVCoords array can be sparse
 				var uvID:String=int(uv.u*1000000)+"_"+int(uv.v*1000000);
 				if (null==uvCache[uvID]) {
 					mapID=_geometry.setUVCoords(_geometry.getNextUVCoordID(),uv.u,uv.v);
@@ -101,44 +113,52 @@
 			len=aVertex.length;
 			for (i=0; i<len; i++) {
 				var v:Vertex=aVertex[i];
-				if(!v) continue;
+				if( null == v ) continue;	// aVertex array can be sparse
 				var vID:String=int(v.x*precision)+"_"+int(v.y*precision)+"_"+int(v.z*precision);
 				if (null==vertexCache[vID]) {
 					mapID=_geometry.setVertex(_geometry.getNextVertexID(),v.x,v.y,v.z);
 					vertexCache[vID]=mapID;
 
 					var nRef:Vertex=aVertexNormals[i];
-					_geometry.setVertexNormal(mapID, nRef.x, nRef.y, nRef.z);
-					var nNew:Vertex=_geometry.aVertexNormals[mapID];
-					nNew.flags=1;
+					if( null != nRef ){		// Vertex normal might not exist for "virgin" geometries from parsers.
+						_geometry.setVertexNormal(mapID, nRef.x, nRef.y, nRef.z);
+						var nNew:Vertex=_geometry.aVertexNormals[mapID];
+						nNew.flags=1;
+					}
 				} else {
 					mapID=vertexCache[vID];
 
 					nRef=aVertexNormals[i];
-					nNew=_geometry.aVertexNormals[mapID];
-					nNew.add(nRef);
-					nNew.flags++;
+					if( null != nRef ){		// Vertex normal might not exist for "virgin" geometries from parsers.
+						nNew=_geometry.aVertexNormals[mapID];
+						nNew.add(nRef);
+						nNew.flags++;
+					}
 				}
 				vertexMap[i]=mapID;
 			}
 			
 			/**
 			 *
-			 * Average the normals, normalize, and reset the flag to 0
+			 * Average the normals, normalize, and reset the flag to 0.
 			 *
 			 */
 			len=_geometry.aVertexNormals.length;
 			for (i=0; i<len; i++) {
 				nNew=_geometry.aVertexNormals[i];
-				nNew.scale(1/nNew.flags);
-				nNew.normalize();
-				nNew.flags=0;
+				if( null != nNew){		// Vertex normal might not exist for "virgin" geometries from parsers.
+					nNew.scale(1/nNew.flags);
+					nNew.normalize();
+					nNew.flags=0;
+				}
 			}
 			
 			/**
 			 *
 			 * Rebuild the geometry faces and copy the face normal data
-			 * and the UV data
+			 * and the UV data.
+			 *
+			 * Make sure the data exists before we try to rebuild it.
 			 *
 			 */
 			var facesVtx:Array=refGeom.aFacesVertexID;
@@ -152,8 +172,8 @@
 					if(faceVtx) faceVtx[j]=vertexMap[faceVtx[j]];
 					if(faceUV) faceUV[j]=uvMap[faceUV[j]];
 				}
-				_geometry.setFaceVertexIds(i, faceVtx);
-				_geometry.setFaceUVCoordsIds(i, faceUV);
+				if(faceVtx) _geometry.setFaceVertexIds(i, faceVtx);
+				if(faceUV) _geometry.setFaceUVCoordsIds(i, faceUV);
 
 				nRef=facesNorm[i];
 				if(nRef) _geometry.setFaceNormal(i, nRef.x, nRef.y, nRef.z);
@@ -168,7 +188,9 @@
 			aUVCoords=null;
 			aFacesNormals=null;
 			aVertexNormals=null;
+			vertexMap.length = 0;
 			vertexMap=null;
+			uvMap.length = 0;
 			uvMap=null;
 			refGeom=null;
 
