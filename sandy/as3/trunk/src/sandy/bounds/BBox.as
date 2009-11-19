@@ -288,6 +288,14 @@ package sandy.bounds
 		    l_oBBox.minEdge = minEdge.clone();
 		    return l_oBBox;
 		}
-		
+
+		/**
+		 * @internal haxe
+		 */
+		public function copy(p_oBBox : sandy.bounds.BBox) : void {
+			this.uptodate = p_oBBox.uptodate;
+			this.minEdge.copy(p_oBBox.minEdge);
+			this.maxEdge.copy(p_oBBox.maxEdge);
+		}
 	}
 }

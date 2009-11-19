@@ -732,7 +732,7 @@ package sandy.core.scenegraph
 		    	return "sandy.core.scenegraph.ATransformable";
 		}
 		//
-		private var m_oMatrix:Matrix4;
+		protected var m_oMatrix:Matrix4;
 		// Side Orientation Point3D
 		protected var _vSide:Point3D;
 		// view Orientation Point3D

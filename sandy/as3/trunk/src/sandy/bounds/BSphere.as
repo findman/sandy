@@ -1,8 +1,11 @@
 ﻿
 package sandy.bounds 
 {
-	import sandy.core.data.Matrix4;	import sandy.core.data.Point3D;	import sandy.core.data.Vertex;	
-	/**
+	import sandy.core.data.Matrix4;
+	import sandy.core.data.Point3D;
+	import sandy.core.data.Vertex;	
+
+	/**
 	 * The BSphere class is used to quickly and easily clip an object in a 3D scene.
 	 * <p>It creates a bounding sphere that contains the whole object</p>
 	 * 
@@ -200,6 +203,16 @@ package sandy.bounds
 				i++;
 			}
 			return Math.sqrt(dmax);
+		}
+
+		/**
+		 * @internal haxe
+		 */
+		public function copy(p_oBSphere : sandy.bounds.BSphere) : void {
+			this.uptodate = p_oBSphere.uptodate;
+			this.center.copy(p_oBSphere.center);
+			this.radius = p_oBSphere.radius;
+			this.position.copy(p_oBSphere.position);
 		}
 	}
 }

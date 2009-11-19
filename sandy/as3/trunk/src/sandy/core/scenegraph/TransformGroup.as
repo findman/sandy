@@ -1,6 +1,8 @@
 ﻿
 package sandy.core.scenegraph
 {
+	import sandy.bounds.BBox;
+	import sandy.core.data.haxe.TypedDictionary;
 	import sandy.core.data.Matrix4;
 	import sandy.view.CullingState;
 	import sandy.view.Frustum;	
@@ -26,6 +28,7 @@ package sandy.core.scenegraph
 		public function TransformGroup( p_sName:String = "" )
 		{
 			super( p_sName );
+			this.m_dChildBounds = new TypedDictionary();
 		}
 
 
@@ -86,6 +89,74 @@ package sandy.core.scenegraph
 		public override function toString():String
 		{
 			return "sandy.core.scenegraph.TransformGroup :["+name+"]";
+		}
+
+		// haxe stuff below -------------------------------------------------------------
+		public var trackBounds : Boolean;
+		protected var m_dChildBounds : TypedDictionary;
+		protected var m_bUpdatingBounds : Boolean;
+		public override function addChild(p_oChild : sandy.core.scenegraph.Node) : void {
+			super.addChild(p_oChild);
+			this.updateChildBoundsCache(p_oChild);
+		}
+		
+		public override function destroy() : void {
+			super.destroy();
+			{ var $it : * = this.m_dChildBounds.iterator();
+			while( $it.hasNext() ) { var k : sandy.core.scenegraph.Node = $it.next();
+			this.m_dChildBounds._delete(k);
+			}}
+			this.m_dChildBounds = null;
+		}
+		
+		public override function onChildBoundsChanged(child : sandy.core.scenegraph.Node) : void {
+			if(this.m_bUpdatingBounds) return;
+			this.updateChildBoundsCache(child);
+			this.boundingBox.reset();
+			{ var $it : * = this.m_dChildBounds.iterator();
+			while( $it.hasNext() ) { var key : sandy.core.scenegraph.Node = $it.next();
+			this.boundingBox.merge(this.m_dChildBounds.get(key));
+			}}
+			this.boundingSphere.resetFromBox(this.boundingBox);
+			if(this.parent/*__getParent()*/ != null) this.parent/*__getParent()*/.onChildBoundsChanged(this);
+		}
+		
+		public override function removeChild(p_oNode : sandy.core.scenegraph.Node) : sandy.core.scenegraph.Node {
+			var rv : sandy.core.scenegraph.Node = super.removeChild(p_oNode);
+			this.m_dChildBounds._delete(p_oNode);
+			return rv;
+		}
+		
+		public override function removeChildByName(p_sName : String) : sandy.core.scenegraph.Node {
+			var rv : sandy.core.scenegraph.Node = super.removeChildByName(p_sName);
+			if(rv != null) this.m_dChildBounds._delete(rv);
+			return rv;
+		}
+		
+		public override function updateBoundingVolumes() : void {
+			this.m_bUpdatingBounds = true;
+			this.boundingBox.reset();
+			{
+				var _g : int = 0, _g1 : Array = this.children;
+				while(_g < _g1.length) {
+					var child : sandy.core.scenegraph.Node = _g1[_g];
+					++_g;
+					child.updateBoundingVolumes();
+					this.boundingBox.merge(this.updateChildBoundsCache(child));
+				}
+			}
+			this.boundingSphere.resetFromBox(this.boundingBox);
+			this.m_bUpdatingBounds = false;
+		}
+		
+		protected function updateChildBoundsCache(child : sandy.core.scenegraph.Node) : sandy.bounds.BBox {
+			var box : sandy.bounds.BBox = this.m_dChildBounds.get(child);
+			if(box == null) {
+				box = new sandy.bounds.BBox();
+				this.m_dChildBounds.set(child,box);
+			}
+			box.copy(child.boundingBox);
+			return box;
 		}
 	}
 }
