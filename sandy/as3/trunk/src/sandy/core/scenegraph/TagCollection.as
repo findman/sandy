@@ -227,5 +227,10 @@ package sandy.core.scenegraph {
 		protected var m_nFrames : int;
 		protected var m_bFrameUpdateBounds : Boolean;
 		protected var m_bInterpolateBounds : Boolean;
+
+		// for debug
+		public override function toString ():String {
+			return "sandy.core.scenegraph.TagCollection :[" + this.name + "]";
+		}
 	}
 }

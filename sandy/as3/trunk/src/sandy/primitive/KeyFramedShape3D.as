@@ -397,7 +397,9 @@ package sandy.primitive {
 			}
 			return rv;
 		}
-		
+		override public function toString():String {
+			return "sandy.primitive.KeyFramedShape3D :[" + this.name + "]";
+		}
 	}
 }
 
