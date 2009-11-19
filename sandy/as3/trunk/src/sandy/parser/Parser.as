@@ -1,5 +1,6 @@
 ﻿package sandy.parser
 {
+	import sandy.util.LoaderQueue;
 	/**
 	* Dispatched when parsing fails.
 	*
@@ -62,6 +63,10 @@
 		 */
 		public static const MD2:String = "MD2";
 		/**
+		 * Specifies that the MD3 (Quake III model) parser should be used.
+		 */
+		public static const MD3:String = "MD3";
+		/**
 		 * Specifies that the 3DS (3D Studio) parser should be used.
 		 */
 		public static const MAX_3DS:String = "3DS";
@@ -108,6 +113,9 @@
 					break;
 				case MD2:
 					l_iParser = new MD2Parser( p_sFile, p_nScale, p_sTextureExtension );
+					break;
+				case MD3:
+					l_iParser = new MD3Parser( p_sFile, null, new LoaderQueue(), p_nScale );
 					break;
 				case COLLADA:
 					l_iParser = new ColladaParser( p_sFile, p_nScale, p_sTextureExtension );
