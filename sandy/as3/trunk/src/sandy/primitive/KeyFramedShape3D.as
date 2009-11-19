@@ -29,7 +29,7 @@ package sandy.primitive {
 			this.scaling = scale;
 			super(p_sName,null,p_oAppearance,p_bUseSingleContainer);
 			if(data != null) {
-				geometry = this.generate([data]); //this.__setGeometry(this.generate([data]));
+				geometry = this.generate(data); //this.__setGeometry(this.generate([data]));
 				this.resetFrameBounds();
 				this.__setFrame(0);
 			}
