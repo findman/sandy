@@ -21,7 +21,8 @@ package sandy.primitive {
 			var mesh : sandy.core.scenegraph.Geometry3D = new sandy.core.scenegraph.Geometry3D();
 			var data : flash.utils.ByteArray = null;
 			try {
-				data = function($this:MD3) : flash.utils.ByteArray {
+				data = arguments [0];
+				/*data = function($this:MD3) : flash.utils.ByteArray {
 					var $r : flash.utils.ByteArray;
 					var tmp : * = arguments[0];
 					$r = (Std._is(tmp,flash.utils.ByteArray)?tmp:function($this:MD3) : * {
@@ -30,7 +31,7 @@ package sandy.primitive {
 						return $r2;
 					}($this));
 					return $r;
-				}(this);
+				}(this);*/
 			}
 			catch( e : * ){
 				return mesh;
