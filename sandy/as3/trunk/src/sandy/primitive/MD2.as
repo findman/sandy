@@ -142,5 +142,9 @@ package sandy.primitive {
 			return this.texture;
 		}
 		
+		/**
+		 * @internal re-added for backward compatibility with 3.1.1
+		 */
+		public function get nFrames():Number { return num_frames }
 	}
 }
