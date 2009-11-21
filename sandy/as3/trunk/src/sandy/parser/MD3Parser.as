@@ -118,7 +118,7 @@ package sandy.parser {
 				while(_g3 < _g13.length) {
 					var c : sandy.core.scenegraph.Node = _g13[_g3];
 					++_g3;
-					(function($this:MD3Parser) : sandy.animation.IKeyFramed {
+					IKeyFramed(c)/*(function($this:MD3Parser) : sandy.animation.IKeyFramed {
 						var $r : sandy.animation.IKeyFramed;
 						var tmp : sandy.core.scenegraph.Node = c;
 						$r = (Std._is(tmp,sandy.animation.IKeyFramed)?tmp:function($this:MD3Parser) : sandy.core.scenegraph.Node {
@@ -127,7 +127,7 @@ package sandy.parser {
 							return $r2;
 						}($this));
 						return $r;
-					})(this).__setFrame(0);
+					})(this)*/.__setFrame(0);
 				}
 			}
 			this.dispatchInitEvent();

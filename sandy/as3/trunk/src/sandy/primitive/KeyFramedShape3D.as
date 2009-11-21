@@ -326,7 +326,7 @@ package sandy.primitive {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
 					if(Std._is(c,sandy.animation.IKeyFramed)) {
-						(function($this:KeyFramedShape3D) : sandy.animation.IKeyFramed {
+						IKeyFramed(c)/*(function($this:KeyFramedShape3D) : sandy.animation.IKeyFramed {
 							var $r : sandy.animation.IKeyFramed;
 							var tmp : sandy.core.scenegraph.Node = c;
 							$r = (Std._is(tmp,sandy.animation.IKeyFramed)?tmp:function($this:KeyFramedShape3D) : sandy.core.scenegraph.Node {
@@ -335,7 +335,7 @@ package sandy.primitive {
 								return $r2;
 							}($this));
 							return $r;
-						})(this).__setFrameUpdateBounds(v);
+						})(this)*/.__setFrameUpdateBounds(v);
 					}
 				}
 			}
@@ -353,7 +353,7 @@ package sandy.primitive {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
 					if(Std._is(c,sandy.animation.IKeyFramed)) {
-						(function($this:KeyFramedShape3D) : sandy.animation.IKeyFramed {
+						IKeyFramed(c)/*(function($this:KeyFramedShape3D) : sandy.animation.IKeyFramed {
 							var $r : sandy.animation.IKeyFramed;
 							var tmp : sandy.core.scenegraph.Node = c;
 							$r = (Std._is(tmp,sandy.animation.IKeyFramed)?tmp:function($this:KeyFramedShape3D) : sandy.core.scenegraph.Node {
@@ -362,7 +362,7 @@ package sandy.primitive {
 								return $r2;
 							}($this));
 							return $r;
-						})(this).__setInterpolateBounds(v);
+						})(this)*/.__setInterpolateBounds(v);
 					}
 				}
 			}

@@ -72,8 +72,8 @@ package sandy.core.scenegraph {
 				kftg = new sandy.core.scenegraph.KeyFramedTransformGroup();
 				kftg.addChild(p_oChild);
 			}
-			else if(Std._is(p_oChild,sandy.core.scenegraph.KeyFramedTransformGroup)) {
-				kftg = function($this:AnimatedShape3D) : sandy.core.scenegraph.KeyFramedTransformGroup {
+			else if(Std._is(p_oChild, sandy.core.scenegraph.KeyFramedTransformGroup)) {
+				kftg = KeyFramedTransformGroup (p_oChild);/*function($this:AnimatedShape3D) : sandy.core.scenegraph.KeyFramedTransformGroup {
 					var $r : sandy.core.scenegraph.KeyFramedTransformGroup;
 					var tmp : * = p_oChild;
 					$r = (Std._is(tmp,sandy.core.scenegraph.KeyFramedTransformGroup)?tmp:function($this:AnimatedShape3D) : * {
@@ -82,10 +82,10 @@ package sandy.core.scenegraph {
 						return $r2;
 					}($this));
 					return $r;
-				}(this);
+				}(this);*/
 			}
 			else if(Std._is(p_oChild,sandy.core.scenegraph.AnimatedShape3D)) {
-				as3d = function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
+				as3d = AnimatedShape3D (p_oChild);/*function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
 					var $r3 : sandy.core.scenegraph.AnimatedShape3D;
 					var tmp2 : * = p_oChild;
 					$r3 = (Std._is(tmp2,sandy.core.scenegraph.AnimatedShape3D)?tmp2:function($this:AnimatedShape3D) : * {
@@ -94,7 +94,7 @@ package sandy.core.scenegraph {
 						return $r4;
 					}($this));
 					return $r3;
-				}(this);
+				}(this);*/
 			}
 			else {
 				var msg : String = "Unable to attach " + /*Type.getClassName(Type.getClass(*/p_oChild/*))*/ + " to AnimatedShape3D";
@@ -109,7 +109,7 @@ package sandy.core.scenegraph {
 				return true;
 			}
 			if(kftg != null) as3d = new sandy.core.scenegraph.AnimatedShape3D(asPartName,kftg);
-			else kftg = function($this:AnimatedShape3D) : sandy.core.scenegraph.KeyFramedTransformGroup {
+			else kftg = KeyFramedTransformGroup (as3d.children[0]);/*function($this:AnimatedShape3D) : sandy.core.scenegraph.KeyFramedTransformGroup {
 				var $r5 : sandy.core.scenegraph.KeyFramedTransformGroup;
 				var tmp3 : sandy.core.scenegraph.Node = as3d.children[0];
 				$r5 = (Std._is(tmp3,sandy.core.scenegraph.KeyFramedTransformGroup)?tmp3:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -118,7 +118,7 @@ package sandy.core.scenegraph {
 					return $r6;
 				}($this));
 				return $r5;
-			}(this);
+			}(this);*/
 			if(toPartNamed == null) {
 				toPartNamed = this.name;
 			}
@@ -227,7 +227,7 @@ package sandy.core.scenegraph {
 			}
 			var p : sandy.core.scenegraph.Node = this.getChildByName(p_sName,true);
 			if(p == null) return null;
-			if(Std._is(p,sandy.core.scenegraph.AnimatedShape3D)) return function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
+			return AnimatedShape3D (p);/*if(Std._is(p,sandy.core.scenegraph.AnimatedShape3D)) return function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
 				var $r : sandy.core.scenegraph.AnimatedShape3D;
 				var tmp : sandy.core.scenegraph.Node = p;
 				$r = (Std._is(tmp,sandy.core.scenegraph.AnimatedShape3D)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -237,7 +237,7 @@ package sandy.core.scenegraph {
 				}($this));
 				return $r;
 			}(this);
-			return null;
+			return null;*/
 		}
 		
 		public function onFrameChanged(p_oChild : sandy.core.scenegraph.KeyFramedTransformGroup,p_ahMatrices : Array) : void {
@@ -299,7 +299,7 @@ package sandy.core.scenegraph {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
 					if(Std._is(c,sandy.core.scenegraph.TagCollection)) {
-						var h : Hash = function($this:AnimatedShape3D) : sandy.core.scenegraph.TagCollection {
+						var h : Hash = TagCollection(c)/*function($this:AnimatedShape3D) : sandy.core.scenegraph.TagCollection {
 							var $r : sandy.core.scenegraph.TagCollection;
 							var tmp : sandy.core.scenegraph.Node = c;
 							$r = (Std._is(tmp,sandy.core.scenegraph.TagCollection)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -308,7 +308,7 @@ package sandy.core.scenegraph {
 								return $r2;
 							}($this));
 							return $r;
-						}(this).__getTags();
+						}(this)*/.__getTags();
 						{ var $it : * = h.keys();
 						while( $it.hasNext() ) { var s : String = $it.next();
 						a.push(s);
@@ -339,7 +339,7 @@ package sandy.core.scenegraph {
 				while(_g < _g1.length) {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
-					if(Std._is(c,sandy.core.scenegraph.TagCollection)) a.push(function($this:AnimatedShape3D) : sandy.core.scenegraph.TagCollection {
+					if(Std._is(c,sandy.core.scenegraph.TagCollection)) a.push(c/*function($this:AnimatedShape3D) : sandy.core.scenegraph.TagCollection {
 						var $r : sandy.core.scenegraph.TagCollection;
 						var tmp : sandy.core.scenegraph.Node = c;
 						$r = (Std._is(tmp,sandy.core.scenegraph.TagCollection)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -348,7 +348,7 @@ package sandy.core.scenegraph {
 							return $r2;
 						}($this));
 						return $r;
-					}(this));
+					}(this)*/);
 				}
 			}
 			return { iterator : function() : * {
@@ -386,8 +386,8 @@ package sandy.core.scenegraph {
 				while(_g < _g1.length) {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
-					if(Std._is(c,sandy.animation.IKeyFramed)) {
-						(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
+					if (Std._is(c, sandy.animation.IKeyFramed)) {
+						IKeyFramed (c)/*(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
 							var $r : sandy.animation.IKeyFramed;
 							var tmp : sandy.core.scenegraph.Node = c;
 							$r = (Std._is(tmp,sandy.animation.IKeyFramed)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -396,10 +396,10 @@ package sandy.core.scenegraph {
 								return $r2;
 							}($this));
 							return $r;
-						})(this).__setFrameUpdateBounds(v);
+						})(this)*/.__setFrameUpdateBounds(v);
 					}
 					else if(Std._is(c,sandy.core.scenegraph.AnimatedShape3D)) {
-						(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
+						AnimatedShape3D (c)/*(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
 							var $r3 : sandy.animation.IKeyFramed;
 							var tmp2 : sandy.core.scenegraph.Node = c;
 							$r3 = (Std._is(tmp2,sandy.animation.IKeyFramed)?tmp2:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -408,7 +408,7 @@ package sandy.core.scenegraph {
 								return $r4;
 							}($this));
 							return $r3;
-						})(this).__setFrameUpdateBounds(v);
+						})(this)*/.__setFrameUpdateBounds(v);
 					}
 				}
 			}
@@ -426,7 +426,7 @@ package sandy.core.scenegraph {
 					var c : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
 					if(Std._is(c,sandy.animation.IKeyFramed)) {
-						(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
+						IKeyFramed (c)/*(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
 							var $r : sandy.animation.IKeyFramed;
 							var tmp : sandy.core.scenegraph.Node = c;
 							$r = (Std._is(tmp,sandy.animation.IKeyFramed)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -435,10 +435,10 @@ package sandy.core.scenegraph {
 								return $r2;
 							}($this));
 							return $r;
-						})(this).__setInterpolateBounds(v);
+						})(this)*/.__setInterpolateBounds(v);
 					}
 					else if(Std._is(c,sandy.core.scenegraph.AnimatedShape3D)) {
-						(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
+						AnimatedShape3D (c)/*(function($this:AnimatedShape3D) : sandy.animation.IKeyFramed {
 							var $r3 : sandy.animation.IKeyFramed;
 							var tmp2 : sandy.core.scenegraph.Node = c;
 							$r3 = (Std._is(tmp2,sandy.animation.IKeyFramed)?tmp2:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -447,7 +447,7 @@ package sandy.core.scenegraph {
 								return $r4;
 							}($this));
 							return $r3;
-						})(this).__setInterpolateBounds(v);
+						})(this)*/.__setInterpolateBounds(v);
 					}
 				}
 			}
@@ -486,7 +486,7 @@ package sandy.core.scenegraph {
 					var l_oNode : sandy.core.scenegraph.Node = _g1[_g];
 					++_g;
 					if(Std._is(l_oNode,sandy.core.scenegraph.AnimatedShape3D)) {
-						var as3d : sandy.core.scenegraph.AnimatedShape3D = function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
+						var as3d : sandy.core.scenegraph.AnimatedShape3D = AnimatedShape3D(l_oNode);/*function($this:AnimatedShape3D) : sandy.core.scenegraph.AnimatedShape3D {
 							var $r : sandy.core.scenegraph.AnimatedShape3D;
 							var tmp : sandy.core.scenegraph.Node = l_oNode;
 							$r = (Std._is(tmp,sandy.core.scenegraph.AnimatedShape3D)?tmp:function($this:AnimatedShape3D) : sandy.core.scenegraph.Node {
@@ -495,7 +495,7 @@ package sandy.core.scenegraph {
 								return $r2;
 							}($this));
 							return $r;
-						}(this);
+						}(this);*/
 						var cl : sandy.core.scenegraph.TransformGroup = as3d.clone(as3d.name);
 						l_oGroup.attach(cl,as3d.name,as3d.parentPartName,as3d.attachedAt);
 					}

@@ -10,6 +10,8 @@ package sandy.animation {
 		function __getFrameCount() : int;
 		function get frameCount() : int;
 		
+		function __setFrameUpdateBounds(v : Boolean) : Boolean;
+		function __setInterpolateBounds(v : Boolean) : Boolean;
 		
 		function appendFrameCopy(frameNumber : int) : int ;
 		function replaceFrame(destFrame : int,sourceFrame : Number) : void ;
