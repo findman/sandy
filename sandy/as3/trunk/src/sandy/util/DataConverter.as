@@ -26,7 +26,7 @@
 					nm.n21 = matrix.n32;
 					nm.n22 = matrix.n33;
 					var q : sandy.core.data.Quaternion = sandy.math.QuaternionMath.setByMatrix(nm);
-					q.x = -q.x;
+					q.x *= -1;
 					nm = sandy.math.QuaternionMath.getRotationMatrix(q);
 					return nm;
 				}break;
