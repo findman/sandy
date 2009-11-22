@@ -316,6 +316,30 @@ class LoaderQueue extends EventDispatcher
 			dispatchEvent( m_oQueueCompleteEvent );
 		}
 	}
+
+	public function getBytesLoaded():Int {
+		var bytes:Int=0;
+		for (l_oLoader in m_oLoaders) {
+			if (l_oLoader.loader!=null){
+				bytes+=l_oLoader.loader.contentLoaderInfo.bytesLoaded;
+			} else {
+				bytes+=l_oLoader.urlLoader.bytesLoaded;
+			}
+		}
+		return bytes;
+	}
+
+	public function getBytesTotal():Int{
+		var bytes:Int=0;
+		for (l_oLoader in m_oLoaders) {
+			if (l_oLoader.loader!=null){
+				bytes+=l_oLoader.loader.contentLoaderInfo.bytesTotal;
+			} else {
+				bytes+=l_oLoader.urlLoader.bytesTotal;
+			}
+		}
+		return bytes;
+	}
 }
 
 class QueueElement

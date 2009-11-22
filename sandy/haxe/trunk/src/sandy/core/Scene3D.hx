@@ -74,6 +74,8 @@ class Scene3D extends EventDispatcher
 	*/
 	public var renderer:Renderer;
 
+	public var frameCount:Int;
+
 	/**
 	* Creates a new 3D scene.
 	*
@@ -115,6 +117,8 @@ class Scene3D extends EventDispatcher
 		}
 		// --
 		light = new Light3D(new Point3D(0, 0, 1), 100);
+
+		frameCount = 0;
 	}
 
 	/**
@@ -145,6 +149,7 @@ class Scene3D extends EventDispatcher
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER));
 			var l_bNeedDraw:Bool = renderer.render( this, p_bUseCache );
 			// -- clear the polygon's container and the projection vertices list
+			frameCount++;
 			dispatchEvent(new SandyEvent(SandyEvent.SCENE_RENDER_DISPLAYLIST));
 			if( l_bNeedDraw )
 			{

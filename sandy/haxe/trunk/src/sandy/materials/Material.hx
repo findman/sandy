@@ -72,6 +72,8 @@ class Material
 		m_nRefCounting = 0;
 		m_oPolygonMap = new IntHash<Int>();
 		autoDispose = true;
+		lastBegin = 0;
+		lastFinish = 0;
 	}
 
 	private var m_oPolygonMap:IntHash<Int>;
@@ -120,8 +122,11 @@ class Material
 	*/
 	public function begin( p_oScene:Scene3D ):Void
 	{
-		if( attributes != null )
-			attributes.begin( p_oScene );
+		if (lastBegin != p_oScene.frameCount) {
+			if( attributes != null )
+				attributes.begin( p_oScene );
+			lastBegin = p_oScene.frameCount;
+		}
 	}
 
 	/**
@@ -133,8 +138,11 @@ class Material
 	*/
 	public function finish( p_oScene:Scene3D ):Void
 	{
-		if( attributes != null )
-			attributes.finish(p_oScene );
+		if (lastFinish != p_oScene.frameCount) {
+			if( attributes != null )
+				attributes.finish(p_oScene );
+			lastFinish = p_oScene.frameCount;
+		}
 		// --
 		m_bModified = false;
 	}
@@ -321,6 +329,8 @@ class Material
 	*/
 	private var m_nFlags:Int;
 	private var m_bModified:Bool;
+	private var lastBegin:Int;
+	private var lastFinish:Int;
 	private var _useLight : Bool;
 	private var m_oType:MaterialType;
 	private var _filters:Array<BitmapFilter>;

@@ -63,11 +63,12 @@ class MD2 extends KeyFramedShape3D
 		// texture name
 		data.position = offset_skins;
 		texture = "";
-		for (i in 0...64)
-		{
-			char = data.readUnsignedByte ();
-			if (char == 0) break; else texture += String.fromCharCode (char);
-		}
+		if (num_skins > 0)
+			for (i in 0...64)
+			{
+				char = data.readUnsignedByte ();
+				if (char == 0) break; else texture += String.fromCharCode (char);
+			}
 
 		// UV coordinates
 		data.position = offset_st;

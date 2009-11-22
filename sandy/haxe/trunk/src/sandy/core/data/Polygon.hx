@@ -118,6 +118,22 @@ class Polygon implements IDisplayable
 	public var c:Vertex;
 	public var d:Vertex;
 
+	private var _area:Float;
+	public var area(__getArea,null):Float;
+	private inline function __getArea ():Float {
+		if (Math.isNaN (_area)) {
+			// triangle area is 1/2 of sides cross product
+			var ab:Vertex = b.clone (); ab.sub (a);
+			var ac:Vertex = c.clone (); ac.sub (a);
+			_area = 0.5 * ab.cross (ac).getNorm ();
+			if (d != null) {
+				var ad:Vertex = d.clone (); ad.sub (a);
+				_area += 0.5 * ac.cross (ad).getNorm ();
+			}
+		}
+		return _area;
+	}
+
 	/**
 	* Creates a new polygon.
 	*

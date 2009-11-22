@@ -9,6 +9,7 @@ import flash.geom.Point;
 import sandy.bounds.BBox;
 import sandy.bounds.BSphere;
 import sandy.core.Scene3D;
+import sandy.core.data.BSPNode;
 import sandy.core.data.Matrix4;
 import sandy.core.data.Point3D;
 import sandy.core.data.Polygon;
@@ -136,6 +137,36 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*/
 	public var material(__getMaterial,__setMaterial):Material;
 
+	/**
+	 * No sorting.
+	 * Only convex shapes are guaranteed to display correctly in this mode.
+	 */
+	public static inline var SORT_NONE:Int = 0;
+
+	/**
+	 * Average distance sorting.
+	 * Default sorting mode.
+	 * Carefully designed models will display just fine, but ordering problems are common.
+	 * This is also the only possible sorting mode with <code>useSingleContainer</code> set to <code>false</code>.
+	 */
+	public static inline var SORT_AVGZ:Int = 1;
+
+	/**
+	 * In this mode mesh is sorted using BSP tree, but no faces are split for you (means sorting problems are still possible).
+	 * Experimental.
+	 */
+	public static inline var SORT_LAZY_BSP:Int = 2;
+
+	/**
+	 * In this mode mesh is sorted using BSP tree, but no tree is built for you (you need to set <code>bsp</code> property yourself).
+	 * Experimental.
+	 */
+	public static inline var SORT_CUSTOM_BSP:Int = 3;
+
+	/**
+	 * Root node of BSP tree.
+	 */
+	public var bsp:BSPNode;
 
 	/**
 	* Creates a 3D object
@@ -166,7 +197,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 		m_nDepth = 0;
 		m_bMouseInteractivity = false;
 		m_bForcedSingleContainer = false;
-		m_bNotConvex = true;
+		m_nSortingMode = SORT_AVGZ;
 
 		super( p_sName );
 		// -- Add this graphical object to the World display list
@@ -276,21 +307,52 @@ class Shape3D extends ATransformable, implements IDisplayable
 	*/
 	public function display( ?p_oContainer:Sprite  ):Void
 	{
-		if ( m_bNotConvex || m_bBackFaceCulling == false )
-		{
-		// sort only if convex flag is not set
+		// not using static consts here for speed
+		if (m_nSortingMode < SORT_LAZY_BSP ) {
+			// old sorting methods
+			if ((m_nSortingMode == SORT_AVGZ ) || (m_bBackFaceCulling == false))
 #if flash
-		untyped aVisiblePolygons.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
+				untyped aVisiblePolygons.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
 #else
-		aVisiblePolygons.sort( function(a,b) {return a.depth>b.depth?1:a.depth<b.depth?-1:0;} );
+				aVisiblePolygons.sort( function(a,b) {return a.depth>b.depth?1:a.depth<b.depth?-1:0;} );
 #end
+			for (l_oFace in aVisiblePolygons)
+				l_oFace.display (m_oContainer);
+		} else {
+			// new experimental BSP sorting
+			var camPt:Point3D = new Point3D (
+				scene.camera.modelMatrix.n14,
+				scene.camera.modelMatrix.n24,
+				scene.camera.modelMatrix.n34
+			); // cam -> world
+			invModelMatrix.transform (camPt); // world -> local
+			displayBSPTree (bsp, camPt);
 		}
 
-		for ( l_oFace in aVisiblePolygons )
-		{
-			l_oFace.display( m_oContainer );
-		}
+	}
 
+	private function displayBSPTree (tree:BSPNode, camPt:Point3D):Void {
+		var face:Polygon;
+		var dist:Float = tree.plane.a * camPt.x + tree.plane.b * camPt.y + tree.plane.c * camPt.z + tree.plane.d;
+		if (dist > 0) {
+			// display negative, this, positive
+			if (tree.negative != null)
+				displayBSPTree (tree.negative, camPt);
+			for (face in tree.faces)
+				if (face.visible) // aVisiblePolygons.indexOf?
+					face.display (m_oContainer);
+			if (tree.positive != null)
+				displayBSPTree (tree.positive, camPt);
+		} else {
+			// display positive, this, negative
+			if (tree.positive != null)
+				displayBSPTree (tree.positive, camPt);
+			for (face in tree.faces)
+				if (face.visible) // aVisiblePolygons.indexOf?
+					face.display (m_oContainer);
+			if (tree.negative != null)
+				displayBSPTree (tree.negative, camPt);
+		}
 	}
 
 	/**
@@ -321,12 +383,12 @@ class Shape3D extends ATransformable, implements IDisplayable
 	}
 
 	/**
-	* Sets internal convex flag. Set this to true if you know that this shape is convex.
-	* @internal this is implemented as simple write-only flag to avoid any computation costs whatsoever.
+	 * Sets SORT_NONE or SORT_AVGZ sorting mode. Deprecated.
+	 * @internal this is now here for backward compatibility only.
 	*/
 	public function setConvexFlag (convex:Bool):Void
 	{
-		m_bNotConvex = !convex;
+		sortingMode = convex ? SORT_NONE : SORT_AVGZ;
 	}
 
 	/**
@@ -627,7 +689,26 @@ class Shape3D extends ATransformable, implements IDisplayable
 		return p_bUseSingleContainer;
 	}
 
+	/**
+	 * Faces sorting method.
+	 * With <code>useSingleContainer</code> set to <code>false</code> only <code>SORT_AVGZ</code> is possible.
+	 */
+	public var sortingMode(__getSortingMode,__setSortingMode):Int;
+	private inline function __getSortingMode ():Int {
+		return m_bUseSingleContainer ? m_nSortingMode : SORT_AVGZ;
+	}
 
+	private inline function __setSortingMode (mode:Int):Int {
+		if (m_bUseSingleContainer) {
+
+			if (mode == SORT_LAZY_BSP) {
+				bsp = BSPNode.makeLazyBSP (aPolygons, 0.01 * boundingSphere.radius);
+			}
+			m_nSortingMode = mode; 
+			changed = true;
+		}
+		return mode;
+	}
 
 	/////////////////////////////////////////////////////////////////////
 	/////                   PRIVATE                                 /////
@@ -664,7 +745,6 @@ class Shape3D extends ATransformable, implements IDisplayable
 		//m_oContainer - don't set
 		//m_bMouseInteractivity (enableInteractivity) (in Node.hx)
 		m_nDepth = o.m_nDepth;
-		m_bNotConvex = o.m_bNotConvex;
 
 		unsubscribeEvents();
 		if(finalEvents)
@@ -839,6 +919,7 @@ class Shape3D extends ATransformable, implements IDisplayable
 	private var m_oContainer:Sprite;
 	private var m_bMouseInteractivity:Bool;
 	private var m_bForcedSingleContainer:Bool;
-	private var m_bNotConvex:Bool;
+
+	private var m_nSortingMode:Int;
 }
 
