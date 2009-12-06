@@ -10,16 +10,16 @@
 	 * <p>It can faithfully transfer all UV data in a non-destructive manner,
 	 * and automatically smooth all vertex normal data by averaging
 	 * all the normals of duplicate vertices in the geometry.</p>
-	 * 
+	 *
 	 * @see sandy.core.scenegraph.Geometry3D
 	 * @see sandy.core.data.UVCoord
 	 * @see sandy.core.data.Vertex
-	 * 
+	 *
 	 * @author	Gregorius Soedharmo
 	 * @version	3.1.1
 	 * @date	11.15.2009
 	 */
-	 
+
 	public class VertexWelder {
 		/**
 		*
@@ -28,24 +28,24 @@
 		* @default null
 		*
 		*/
-		public static var geometry = null;
-		
+		public static var geometry:Geometry3D = null;
+
 		/**
 		 *
 		 * Throw an error if the user tried to instantiate the class.
 		 *
-		 * @private 
+		 * @private
 		 *
 		 */
 		public function VertexWelder():void
 		{
 			throw new Error("VertexWelder is a static only class and can not be instantiated.");
 		}
-		
+
 		/**
 		 * Create a clone of a geometry, deletes all redundant data, and welds
 		 * all duplicate vertex found in the former geometry.
-		 * 
+		 *
 		 * @param p_oGeom The geometry input to be processed
 		 * @param p_iPrecision The precision threshold of vertex welding.
 		 * @return The welded geometry clone of <code>p_oGeom</code>
@@ -57,7 +57,7 @@
 		public static function weld(p_oGeom:Geometry3D, p_iPrecision:int = 2):Geometry3D {
 			var precision:int = Math.pow(10, p_iPrecision);
 			var _geometry:Geometry3D = new Geometry3D();
-			
+
 			var refGeom:Geometry3D =p_oGeom;
 			var aVertex:Array = refGeom.aVertex;
 			var aUVCoords:Array = refGeom.aUVCoords;
@@ -68,11 +68,11 @@
 			var vertexMap:Array = new Array();
 			var uvCache:Dictionary = new Dictionary();
 			var uvMap:Array = new Array();
-			
+
 			/**
 			 *
 			 * Copy over all the UV coordinate datas, deleting duplicates
-			 * with duplicates defined as the same ID obtained when 
+			 * with duplicates defined as the same ID obtained when
 			 * the string Us + "_" + Vs equals each other where
 			 * Us and Vs defines as the floor of U and V values
 			 * after being multiplied by a million.
@@ -98,7 +98,7 @@
 				}
 				uvMap[i]=mapID;
 			}
-			
+
 			/**
 			 *
 			 * Now we do the same with the vertices, except that this time,
@@ -106,7 +106,7 @@
 			 * to Xs + "_" + Ys + "_" + Zs.
 			 *
 			 * If multiple vertices were found, get their normals and average them.
-			 * We will temporarily use the Vertex.flag of the normal to store 
+			 * We will temporarily use the Vertex.flag of the normal to store
 			 * the duplicate count of vertices found.
 			 *
 			 */
@@ -137,7 +137,7 @@
 				}
 				vertexMap[i]=mapID;
 			}
-			
+
 			/**
 			 *
 			 * Average the normals, normalize, and reset the flag to 0.
@@ -152,7 +152,7 @@
 					nNew.flags=0;
 				}
 			}
-			
+
 			/**
 			 *
 			 * Rebuild the geometry faces and copy the face normal data
@@ -202,7 +202,7 @@
 			for (prop in uvCache) {
 				delete uvCache[prop];
 			}
-			
+
 			geometry = _geometry;
 			return _geometry;
 		}
