@@ -1,4 +1,4 @@
-
+﻿
 package sandy.core.data;
 
 import flash.display.Sprite;
@@ -8,6 +8,7 @@ import flash.events.MouseEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import sandy.math.PlaneMath;
 
 import sandy.core.Scene3D;
 import sandy.core.interaction.VirtualMouse;
@@ -905,6 +906,22 @@ class Polygon implements IDisplayable
 		POLYGON_MAP.remove( id );
 	}
 
+	public function getPlane (?centered:Bool = true):Plane {
+		// calculate center of polygon
+		var center:Point3D = a.getPoint3D ();
+		if (centered) {
+			center.x += b.x; center.y += b.y; center.z += b.z;
+			center.x += c.x; center.y += c.y; center.z += c.z;
+			if (d != null) {
+				center.x += d.x; center.y += d.y; center.z += d.z;
+				center.scale (0.25);
+			} else {
+				center.scale (1/3);
+			}
+		}
+		// return plane
+		return PlaneMath.createFromNormalAndPoint (normal.getPoint3D (), center);
+	}
 
 // _______
 // PRIVATE_______________________________________________________
