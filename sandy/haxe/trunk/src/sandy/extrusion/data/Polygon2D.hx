@@ -283,7 +283,7 @@ class Polygon2D
 				return new Polygon2D (pointsHolder);
 
 			// lexicographic sort
-			pointsHolder = ArrayUtil.sortOnLite(pointsHolder,["x", "y"], Array.NUMERIC);
+			ArrayUtil.sortOnLite(pointsHolder,["x", "y"], Array.NUMERIC);
 
 			// compute top part of hull
 			topHull.push (0);

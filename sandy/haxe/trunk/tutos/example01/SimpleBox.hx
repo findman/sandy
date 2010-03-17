@@ -43,7 +43,15 @@ class SimpleBox extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("SimpleBox",400,300);
+				#end
+				
 				new SimpleBox();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

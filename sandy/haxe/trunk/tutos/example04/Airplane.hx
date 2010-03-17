@@ -11,6 +11,7 @@ import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.net.URLRequest;
 import flash.Lib;
+import flash.ui.Keyboard;
 
 class Airplane extends Sprite {
 		var scene:Scene3D;
@@ -71,12 +72,20 @@ class Airplane extends Sprite {
 		}
 
 		function keyPressedHandler( event:KeyboardEvent ):Void {
-				if ( event.keyCode == 39 ) s.rotateY -= 5; // KEY_RIGHT
-				if ( event.keyCode == 37 ) s.rotateY += 5; // KEY_LEFT
+				if ( event.keyCode == Keyboard.RIGHT ) s.rotateY -= 5; // KEY_RIGHT
+				if ( event.keyCode == Keyboard.LEFT ) s.rotateY += 5; // KEY_LEFT
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("Airplane",400,300);
+				#end
+		
 				new Airplane();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

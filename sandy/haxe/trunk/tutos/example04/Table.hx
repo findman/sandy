@@ -18,6 +18,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.Lib;
+import flash.ui.Keyboard;
 
 class Table extends Sprite {
 		var scene:Scene3D;
@@ -143,20 +144,20 @@ class Table extends Sprite {
 
 		function keyPressed( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 34: // PAGE_DOWN
+						case Keyboard.PAGE_DOWN: // PAGE_DOWN
 								scene.light.setPower( scene.light.getPower() - 5 );
-						case 33: // PAGE_UP
+						case Keyboard.PAGE_UP: // PAGE_UP
 								scene.light.setPower( scene.light.getPower() + 5 );
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								lightY += 10;
 								scene.light.setDirection( lightX, lightY, lightZ );
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								lightY -= 10;
 								scene.light.setDirection( lightX, lightY, lightZ );
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								lightX += 10;
 								scene.light.setDirection( lightX, lightY, lightZ );
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								lightX -= 10;
 								scene.light.setDirection( lightX, lightY, lightZ );
 				}
@@ -164,7 +165,15 @@ class Table extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("Table",400,300);
+				#end
+				
 				new Table();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

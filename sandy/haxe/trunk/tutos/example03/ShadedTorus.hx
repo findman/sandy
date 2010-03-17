@@ -14,6 +14,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.Lib;
+import flash.ui.Keyboard;
 
 class ShadedTorus extends Sprite {
 		var scene:Scene3D;
@@ -72,25 +73,33 @@ class ShadedTorus extends Sprite {
 
 		function keyPressed( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38:
+						case Keyboard.UP:
 								camera.tilt += 2;
-						case 40:
+						case Keyboard.DOWN:
 								camera.tilt -= 2;
-						case 39:
+						case Keyboard.RIGHT:
 								camera.pan -= 2;
-						case 37:
+						case Keyboard.LEFT:
 								camera.pan += 2;
-						case 17:
+						case Keyboard.CONTROL:
 								camera.roll += 2;
-						case 34:
+						case Keyboard.PAGE_DOWN:
 								camera.z -= 5;
-						case 33:
+						case Keyboard.PAGE_UP:
 								camera.z += 5;
 				}
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("ShadedTorus",400,300);
+				#end
+		
 				new ShadedTorus();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

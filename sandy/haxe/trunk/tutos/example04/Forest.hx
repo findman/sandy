@@ -13,6 +13,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.net.URLRequest;
 import flash.Lib;
+import flash.ui.Keyboard;
 
 class Forest extends Sprite {
 		var scene:Scene3D;
@@ -57,7 +58,8 @@ class Forest extends Sprite {
 
 						var tree:DisplayObject = queue.data.get( "tree" ); 
 						if ( Reflect.hasField( tree, "bitmapData" ) ) {
-								var bit:Bitmap = new Bitmap( Reflect.field( tree, "bitmapData" ) );
+								var bd = Reflect.field( tree, "bitmapData" );
+								var bit:Bitmap = new Bitmap( bd );
 								var s:Sprite2D = new Sprite2D( "tree"+i, bit, 1 );
 								s.x = Math.random() * 600 - 300;
 								s.z = Math.random() * 600;
@@ -75,9 +77,9 @@ class Forest extends Sprite {
 
 		function keyPressedHandler( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								camera.moveForward(5);
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								camera.moveForward(-5);
 				}
 		}
@@ -88,7 +90,15 @@ class Forest extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("Forest",400,300);
+				#end
+				
 				new Forest();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

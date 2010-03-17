@@ -105,19 +105,27 @@ class Room extends Sprite {
 
 		function keyPressed( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38: // KEY_UP
+						case flash.ui.Keyboard.UP: // KEY_UP
 								tg.tilt += 2;
-						case 40: // KEY_DOWN
+						case flash.ui.Keyboard.DOWN: // KEY_DOWN
 								tg.tilt -= 2;
-						case 39: // KEY_RIGHT
+						case flash.ui.Keyboard.RIGHT: // KEY_RIGHT
 								tg.tilt += 2;
-						case 37: // KEY_LEFT
+						case flash.ui.Keyboard.LEFT: // KEY_LEFT
 								tg.tilt -= 2;
 				}
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("Room",400,300);
+				#end
+		
 				new Room();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

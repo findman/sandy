@@ -16,6 +16,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.Lib;
+import flash.ui.Keyboard;
 
 class ConeHedra extends Sprite {
 		var scene:Scene3D;
@@ -90,19 +91,27 @@ class ConeHedra extends Sprite {
 
 		function keyPressed( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								tg.y += 2;
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								tg.y -= 2;
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								tg.roll += 2;
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								tg.roll -= 2;
 				}
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("ConeHedra",400,300);
+				#end
+		
 				new ConeHedra();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

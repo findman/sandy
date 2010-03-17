@@ -60,7 +60,15 @@ class ShadedBox extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("ShadedBox",400,300);
+				#end
+				
 				new ShadedBox();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 
