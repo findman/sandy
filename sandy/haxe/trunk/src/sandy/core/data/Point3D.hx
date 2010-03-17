@@ -300,11 +300,11 @@ class Point3D
 	 * @param decPlaces	Float of decimals
 	 * @return	The string representatation
 	 */
-	public function toString(decPlaces:Int=2):String
+	public function toString():String
 	{
 		// Round display to two decimals places
 		// Returns "{x, y, z}"
-		return "{" + serialize(decPlaces) + "}";
+		return "{" + serialize(2) + "}";
 	}
 
 	// Useful for XML output

@@ -23,6 +23,7 @@ import sandy.materials.WireFrameMaterial;
 import sandy.math.IntersectionMath;
 import sandy.view.CullingState;
 import sandy.view.Frustum;
+import sandy.util.ArrayUtil;
 
 import sandy.HaxeTypes;
 
@@ -788,7 +789,9 @@ class Shape3D extends ATransformable, implements IDisplayable
 		var l_oClick:Point = new Point( m_oContainer.mouseX, m_oContainer.mouseY );
 		var l_oA:Point = new Point(), l_oB:Point = new Point(), l_oC:Point = new Point();
 		var l_oPoly:Polygon;
-		var l_aSId:Array<Int> = untyped aPolygons.sortOn( 'm_nDepth', Array.NUMERIC | Array.RETURNINDEXEDARRAY );
+		
+		var l_aSId:Array<Int> = ArrayUtil.indicesOfSorted(aPolygons, ['m_nDepth'] , ArrayUtil.SORT_NUMERIC);
+		
 		var l:Int = aPolygons.length, j:Int;
 		for( j in 0...l )
 		{

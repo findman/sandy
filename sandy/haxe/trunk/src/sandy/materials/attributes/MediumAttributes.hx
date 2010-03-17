@@ -18,6 +18,7 @@ import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 
 import sandy.HaxeTypes;
+import sandy.util.ArrayUtil;
 
 /**
 * This attribute provides very basic simulation of partially opaque medium.
@@ -120,12 +121,9 @@ class MediumAttributes extends AAttributes
 
 		var l_ratios:TypedArray<Float> = new #if flash10 TypedArray(n) #else TypedArray() #end;
 		for (i in 0...n) l_ratios[i] = ratioFromWorldPoint3D ( l_points[i].getCameraPoint3D());
+		
+		var zIndices = ArrayUtil.indicesOfSorted(Haxe.toArray(l_ratios),["ratio"],ArrayUtil.SORT_NUMERIC|ArrayUtil.SORT_RETURNINDEXEDARRAY);
 
-		#if flash
-		var zIndices = untyped l_ratios.sortOn( "ratio", Array.NUMERIC | Array.RETURNINDEXEDARRAY );
-		#else
-		#error
-		#end
 
 		var v0: Vertex = l_points[zIndices[0]];
 		var v1: Vertex = l_points[zIndices[1]];

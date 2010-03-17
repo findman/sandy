@@ -75,14 +75,8 @@ class Renderer
 	{
 		var l_mcContainer:Sprite = p_oScene.container;
 		// --
-#if flash
-		untyped m_aRenderingList.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
-#else
-		m_aRenderingList.sort(
-				function(a,b) {
-					return (a.depth>b.depth) ? 1 : a.depth<b.depth ?-1:0;
-				});
-#end
+		ArrayUtil.sortOnLite(m_aRenderingList,["m_nDepth"], ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_DESCENDING);
+
 		// -- This is the new list to be displayed.
 		var l_oFace:IDisplayable;
 		for( i in 0 ... m_nRenderingListCount )

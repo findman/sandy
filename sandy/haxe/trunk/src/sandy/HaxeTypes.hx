@@ -8,6 +8,10 @@ typedef TypedArray<T> = Array<T>;
 
 typedef Bytes = flash.utils.ByteArray;
 
+#if !flash
+typedef UInt = Int;
+#end
+
 #if SANDY_USE_FAST_MATH
 typedef TRIG = sandy.math.FastMath;
 #else

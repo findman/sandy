@@ -343,9 +343,9 @@ class BBox
 	*
 	* @return 	A String representing the bounding box
 	*/
-	public function toString(decPlaces:Int=0):String
+	public function toString():String
 	{
-		return "sandy.bounds.BBox "+minEdge.toString(decPlaces)+" "+maxEdge.toString(decPlaces);
+		return "sandy.bounds.BBox "+minEdge.toString()+" "+maxEdge.toString();
 	}
 
 	/**

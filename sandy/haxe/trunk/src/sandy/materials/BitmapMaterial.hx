@@ -136,10 +136,17 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 				}
 				else
 				{
+					#if cpp
+					renderRec(	[map.a, map.b, map.c, map.d, map.tx, map.ty,
+								v0.sx, v0.sy, v0.wz,
+								v1.sx, v1.sy, v1.wz,
+								v2.sx, v2.sy, v2.wz]);
+					#else
 					renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
 								v0.sx, v0.sy, v0.wz,
 								v1.sx, v1.sy, v1.wz,
 								v2.sx, v2.sy, v2.wz);
+					#end
 				}
 			}
 		}
@@ -159,10 +166,17 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 				}
 				else
 				{
+					#if cpp
+					renderRec(	[map.a, map.b, map.c, map.d, map.tx, map.ty,
+								v0.sx, v0.sy, v0.wz,
+								v1.sx, v1.sy, v1.wz,
+								v2.sx, v2.sy, v2.wz]);
+					#else
 					renderRec(	map.a, map.b, map.c, map.d, map.tx, map.ty,
 								v0.sx, v0.sy, v0.wz,
 								v1.sx, v1.sy, v1.wz,
 								v2.sx, v2.sy, v2.wz);
+					#end
 				}
 			}
 		}
@@ -173,6 +187,108 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 		l_uv = null;
 	}
 
+#if cpp
+private function renderRec( args:Array<Float> ):Void
+	{
+		var ta:Float = args[0]; 
+		var tb:Float = args[1]; 
+		var tc:Float = args[2]; 
+		var td:Float = args[3]; 
+		var tx:Float = args[4]; 
+		var ty:Float = args[5]; 
+		var ax:Float = args[6]; 
+		var ay:Float = args[7]; 
+		var az:Float = args[8]; 
+		var bx:Float = args[9]; 
+		var by:Float = args[10]; 
+		var bz:Float = args[11]; 
+		var cx:Float = args[12]; 
+		var cy:Float = args[13]; 
+		var cz:Float = args[14];
+	
+		m_nRecLevel++;
+		var ta2:Float = ta+ta;
+		var tb2:Float = tb+tb;
+		var tc2:Float = tc+tc;
+		var td2:Float = td+td;
+		var tx2:Float = tx+tx;
+		var ty2:Float = ty+ty;
+		var mabz:Float = 2 / (az + bz);
+		var mbcz:Float = 2 / (bz + cz);
+		var mcaz:Float = 2 / (cz + az);
+		var mabx:Float = (ax*az + bx*bz)*mabz;
+		var maby:Float = (ay*az + by*bz)*mabz;
+		var mbcx:Float = (bx*bz + cx*cz)*mbcz;
+		var mbcy:Float = (by*bz + cy*cz)*mbcz;
+		var mcax:Float = (cx*cz + ax*az)*mcaz;
+		var mcay:Float = (cy*cz + ay*az)*mcaz;
+		var dabx:Float = ax + bx - mabx;
+		var daby:Float = ay + by - maby;
+		var dbcx:Float = bx + cx - mbcx;
+		var dbcy:Float = by + cy - mbcy;
+		var dcax:Float = cx + ax - mcax;
+		var dcay:Float = cy + ay - mcay;
+		var dsab:Float = (dabx*dabx + daby*daby);
+		var dsbc:Float = (dbcx*dbcx + dbcy*dbcy);
+		var dsca:Float = (dcax*dcax + dcay*dcay);
+		var mabxHalf:Float = mabx*0.5;
+		var mabyHalf:Float = maby*0.5;
+		var azbzHalf:Float = (az+bz)*0.5;
+		var mcaxHalf:Float = mcax*0.5;
+		var mcayHalf:Float = mcay*0.5;
+		var czazHalf:Float = (cz+az)*0.5;
+		var mbcxHalf:Float = mbcx*0.5;
+		var mbcyHalf:Float = mbcy*0.5;
+		var bzczHalf:Float = (bz+cz)*0.5;
+
+		if (( m_nRecLevel > maxRecurssionDepth ) || ((dsab <= precision) && (dsca <= precision) && (dsbc <= precision))){
+			renderTriangle(ta, tb, tc, td, tx, ty, ax, ay, bx, by, cx, cy);
+			m_nRecLevel--;
+		} else if ((dsab > precision) && (dsca > precision) && (dsbc > precision) ){
+			renderRec([ta2, tb2, tc2, td2, tx2, ty2,
+				ax, ay, az, mabxHalf, mabyHalf, azbzHalf, mcaxHalf, mcayHalf, czazHalf]);
+
+			renderRec([ta2, tb2, tc2, td2, tx2-1, ty2,
+				mabxHalf, mabyHalf, azbzHalf, bx, by, bz, mbcxHalf, mbcyHalf, bzczHalf]);
+
+			renderRec([ta2, tb2, tc2, td2, tx2, ty2-1,
+				mcaxHalf, mcayHalf, czazHalf, mbcxHalf, mbcyHalf, bzczHalf, cx, cy, cz]);
+
+			renderRec([-ta2, -tb2, -tc2, -td2, -tx2+1, -ty2+1,
+				mbcxHalf, mbcyHalf, bzczHalf, mcaxHalf, mcayHalf, czazHalf, mabxHalf, mabyHalf, azbzHalf]);
+
+			m_nRecLevel--;
+		} else {
+			var dmax:Float = Math.max(dsab, Math.max(dsca, dsbc));
+			
+			if (dsab == dmax) {
+				renderRec([ta2, tb, tc2, td, tx2, ty,
+					ax, ay, az, mabxHalf, mabyHalf, azbzHalf, cx, cy, cz]);
+
+				renderRec([ta2+tb, tb, tc2+td, td, tx2+ty-1, ty,
+					mabxHalf, mabyHalf, azbzHalf, bx, by, bz, cx, cy, cz]);
+
+				m_nRecLevel--;
+			} else if (dsca == dmax){
+				renderRec([ta, tb2, tc, td2, tx, ty2,
+					ax, ay, az, bx, by, bz, mcaxHalf, mcayHalf, czazHalf]);
+
+				renderRec([ta, tb2 + ta, tc, td2 + tc, tx, ty2+tx-1,
+					mcaxHalf, mcayHalf, czazHalf, bx, by, bz, cx, cy, cz]);
+
+				m_nRecLevel--;
+			} else {
+				renderRec([ta-tb, tb2, tc-td, td2, tx-ty, ty2,
+					ax, ay, az, bx, by, bz, mbcxHalf, mbcyHalf, bzczHalf]);
+
+				renderRec([ta2, tb-ta, tc2, td-tc, tx2, ty-tx,
+					ax, ay, az, mbcxHalf, mbcyHalf, bzczHalf, cx, cy, cz]);
+
+				m_nRecLevel--;
+			}
+		}
+	}
+#else
 	private function renderRec( ta:Float, tb:Float, tc:Float, td:Float, tx:Float, ty:Float,
 	ax:Float, ay:Float, az:Float, bx:Float, by:Float, bz:Float, cx:Float, cy:Float, cz:Float):Void
 	{
@@ -266,7 +382,7 @@ class BitmapMaterial extends Material, implements IAlphaMaterial
 
 		m_nRecLevel--;
 	}
-
+#end
 
 	private function renderTriangle(a:Float, b:Float, c:Float, d:Float, tx:Float, ty:Float,
 		v0x:Float, v0y:Float, v1x:Float, v1y:Float, v2x:Float, v2y:Float):Void

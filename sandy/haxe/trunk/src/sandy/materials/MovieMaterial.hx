@@ -70,6 +70,8 @@ class MovieMaterial extends BitmapMaterial
 	 */
 	public function new( p_oMovie:Sprite, ?p_nUpdateMS:Int = 40, ?p_oAttr:MaterialAttributes, ?p_bRemoveTransparentBorder:Bool = false, ?p_nHeight:Float = 0.0, ?p_nWidth:Float = 0.0 )
 	{
+		super();
+	
 		var w : Float;
 		var h : Float;
 
@@ -162,13 +164,8 @@ class MovieMaterial extends BitmapMaterial
 	{
 		if ( m_bUpdate || forceUpdate )
 		{
-			#if neko
-			m_oTexture.fillRect( m_oTexture.rect,
-				ColorMath.applyAlpha( Int32.ofInt(DEFAULT_FILL_COLOR), m_oAlpha.alphaMultiplier) );
-			#else
 			m_oTexture.fillRect( m_oTexture.rect,
 				ColorMath.applyAlpha( DEFAULT_FILL_COLOR, m_oAlpha.alphaMultiplier) );
-			#end
 			// --
 			m_oTexture.draw( m_oMovie, null, m_oAlpha, null, null, smooth );
 		}

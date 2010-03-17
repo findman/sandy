@@ -1,6 +1,7 @@
 ﻿package sandy.core.data;
 
 import sandy.math.PlaneMath;
+import sandy.util.ArrayUtil;
 
 typedef PObj = {
 	area : Float,
@@ -53,11 +54,9 @@ class BSPNode {
 
 	private static function lazyBSPFaces2Planes (faces:Array<Polygon>, threshold:Float):Array<PObj> {
 		var fba:Array<Polygon> = faces.slice (0);
-#if flash
-		untyped fba.sortOn ("area", Array.DESCENDING | Array.NUMERIC);
-#else
-		fba.sort( function (a,b) { return (a.area>b.area) ? 1 : a.area<b.area ?-1:0; });
-#end
+		
+		ArrayUtil.sortOnLite(fba,["area"],ArrayUtil.SORT_DESCENDING|ArrayUtil.SORT_NUMERIC);
+		
 		// create array of info about planes
 		var planes:Array<PObj> = [];
 		for (poly in fba) {
@@ -93,12 +92,9 @@ class BSPNode {
 				planes.push (pobj);
 			}
 		}
-		// sort and return
-#if flash
-		untyped planes.sortOn ("area", Array.NUMERIC);
-#else
-		planes.sort( function(a,b) { return (a.area<b.area) ? 1 : a.area>b.area ? -1:0; });
-#end
+		
+		ArrayUtil.sortOnLite(planes,["area"],ArrayUtil.SORT_NUMERIC);
+		
 		return planes;
 	}
 }

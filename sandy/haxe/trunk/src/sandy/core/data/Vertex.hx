@@ -398,14 +398,10 @@ class Vertex
 	* @param decPlaces	Float of decimals
 	* @return	The representation
 	*/
-	public function toString(?decPlaces:Float):String
+	public function toString():String
 	{
-		decPlaces = (decPlaces != null)?decPlaces:0;
-
-		if (decPlaces == 0)
-		{
-			decPlaces = 0.01;
-		}
+		var decPlaces = 0.01;
+		
 		// Round display to two decimals places
 		// Returns "{x, y, z}"
 		return "{" + 	NumberUtil.roundTo(x, decPlaces) + ", " +
