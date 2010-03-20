@@ -311,12 +311,10 @@ class Shape3D extends ATransformable, implements IDisplayable
 		// not using static consts here for speed
 		if (m_nSortingMode < SORT_LAZY_BSP ) {
 			// old sorting methods
-			if ((m_nSortingMode == SORT_AVGZ ) || (m_bBackFaceCulling == false))
-#if flash
-				untyped aVisiblePolygons.sortOn( "m_nDepth", Array.NUMERIC | Array.DESCENDING );
-#else
-				aVisiblePolygons.sort( function(a,b) {return a.depth>b.depth?1:a.depth<b.depth?-1:0;} );
-#end
+			if ((m_nSortingMode == SORT_AVGZ ) || (m_bBackFaceCulling == false)) {
+				ArrayUtil.sortOnLite(aVisiblePolygons,["m_nDepth"],ArrayUtil.SORT_NUMERIC | ArrayUtil.SORT_DESCENDING);
+			}
+			
 			for (l_oFace in aVisiblePolygons)
 				l_oFace.display (m_oContainer);
 		} else {

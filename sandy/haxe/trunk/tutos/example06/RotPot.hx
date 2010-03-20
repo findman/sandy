@@ -63,7 +63,15 @@ class RotPot extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("RotPot",400,300);
+				#end
+				
 				new RotPot();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

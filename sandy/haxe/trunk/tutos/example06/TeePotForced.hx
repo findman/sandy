@@ -81,7 +81,15 @@ class TeePotForced extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("TeePotForced",400,300);
+				#end
+				
 				new TeePotForced();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 
