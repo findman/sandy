@@ -1,8 +1,6 @@
 
 package sandy.parser;
 
-import flash.events.IEventDispatcher;
-
 import sandy.materials.Appearance;
 
 import sandy.HaxeTypes;
@@ -18,7 +16,7 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		26.07.2007
 */
-interface IParser implements IEventDispatcher
+interface IParser
 {
 		/**
 		* This method starts the parsing process.
@@ -32,6 +30,10 @@ interface IParser implements IEventDispatcher
 		*/
 		public var standardAppearance( null, __setStandardAppearance ):Appearance;
 		private function __setStandardAppearance( p_oAppearance:Appearance ):Appearance;
-
+		
+		/**
+		* A unique id between all IParser. It is automatically set by AParser.
+		*/
+		public var m_nId:Int;
 }
 

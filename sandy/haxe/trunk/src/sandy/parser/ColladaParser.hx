@@ -806,7 +806,7 @@ class ColladaParser extends AParser, implements IParser
 		for ( l_oLoader in l_oLoaders )
 		{
 			if( l_oLoader.loader.content != null && Reflect.hasField( l_oLoader.loader.content, "bitmapData" ) )
-				m_oMaterials.get( l_oLoader.name ).bitmapData = Reflect.field( l_oLoader.loader.content, "bitmapData" );
+				m_oMaterials.get( l_oLoader.name ).bitmapData = cast Reflect.field( l_oLoader.loader.content, "bitmapData" );
 		}
 		parseScene( m_oCollada.node.library_visual_scenes.node.visual_scene );
 	}

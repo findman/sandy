@@ -15,6 +15,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.net.URLRequest;
+import flash.ui.Keyboard;
 import flash.Lib;
 
 class MaxCar extends Sprite {
@@ -91,11 +92,11 @@ class MaxCar extends Sprite {
 
 				tg = new TransformGroup('myGroup');
 
-				var material:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "carSkin" ), "bitmapData" ) );
+				var material:BitmapMaterial = new BitmapMaterial( cast Reflect.field( queue.data.get( "carSkin" ), "bitmapData" ) );
 				var app:Appearance = new Appearance( material );
 				car.appearance = app;
 
-				var materialW:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "wheels" ), "bitmapData" ) );
+				var materialW:BitmapMaterial = new BitmapMaterial( cast Reflect.field( queue.data.get( "wheels" ), "bitmapData" ) );
 				var appW:Appearance = new Appearance( materialW );
 				wheelLF.appearance = appW;
 				wheelRF.appearance = appW;
@@ -122,17 +123,17 @@ class MaxCar extends Sprite {
 
 		function keyPressedHandler( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								tg.roll += 2;
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								tg.roll -= 2;
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								tg.pan -= 2;
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								tg.pan += 1;
-						case 34: // PAGE_DOWN
+						case Keyboard.DOWN: // PAGE_DOWN
 								tg.z -= 5;
-						case 33: // PAGE_UP
+						case Keyboard.UP: // PAGE_UP
 								tg.z += 5;
 				}
 		}
@@ -142,7 +143,15 @@ class MaxCar extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("MaxCar",400,300);
+				#end
+				
 				new MaxCar();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

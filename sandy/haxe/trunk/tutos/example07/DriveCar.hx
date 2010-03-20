@@ -17,6 +17,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.net.URLRequest;
+import flash.ui.Keyboard;
 import flash.Lib;
 
 class DriveCar extends Sprite {
@@ -107,11 +108,11 @@ class DriveCar extends Sprite {
 				// we need a second transformGroup to be able to rotate the car other than its center
 				tg2 = new TransformGroup();
 
-				var material:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "carSkin" ), "bitmapData" ) );
+				var material:BitmapMaterial = new BitmapMaterial( cast Reflect.field( queue.data.get( "carSkin" ), "bitmapData" ) );
 				var app:Appearance = new Appearance( material );
 				car.appearance = app;
 
-				var materialW:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "wheels" ), "bitmapData" ) );
+				var materialW:BitmapMaterial = new BitmapMaterial( cast Reflect.field( queue.data.get( "wheels" ), "bitmapData" ) );
 				var appW:Appearance = new Appearance( materialW );
 				wheelLF.appearance = appW;
 				wheelRF.appearance = appW;
@@ -172,24 +173,24 @@ class DriveCar extends Sprite {
 		private function keyPressedHandler(event:flash.events.KeyboardEvent):Void 
 		{
 				switch(event.keyCode) {
-						case 32: // SPACE
+						case Keyboard.SPACE: // SPACE
 								tg2.x = -50;
 								tg2.y = 0;
 								tg2.z = 150;
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								if (speed < 6)
 										speed += 1;
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								if (speed > -4)
 										speed -= 1;
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								if(wheelLF.pan>=-40){
 										wheelLF.tilt =0;
 										wheelRF.tilt =0;
 										wheelLF.pan -=4;
 										wheelRF.pan -=4;
 								}
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								if(wheelLF.pan<=40){
 										wheelLF.tilt =0;
 										wheelRF.tilt =0;
@@ -215,7 +216,15 @@ class DriveCar extends Sprite {
 				scene.render();
 		}
 		static function main() {
+				#if !flash
+				neash.Lib.Init("DriveCar",400,300);
+				#end
+		
 				new DriveCar();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 
 }

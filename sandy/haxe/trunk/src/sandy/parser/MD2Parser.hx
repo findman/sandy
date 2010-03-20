@@ -63,7 +63,7 @@ class MD2Parser extends AParser, implements IParser
 	{
 		super.parseData( e );
 		// make MD2 object
-		var md2:MD2 = new MD2 ( "animation", m_oFile, m_nScale );
+		var md2:MD2 = new MD2 ( "animation", cast m_oFile, m_nScale );
 		// we are not quite done yet, so we dispatch less than 100% :)
 		var event:ParserEvent = new ParserEvent( ParserEvent.PARSING ); event.percent = 80; dispatchEvent( event );
 		// --

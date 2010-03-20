@@ -88,7 +88,11 @@ class Parser3DS extends AParser, implements IParser
 		var x:Float, y:Float, z:Float;
 		var l_qty:Int;
 		// --
+		#if flash
 		while( data.bytesAvailable > 0 )
+		#else
+		while( data.length - data.position > 0)
+		#end
 		{
 			var id:Int = data.readUnsignedShort();
 			var l_chunk_length:Int = data.readUnsignedInt();
@@ -246,7 +250,7 @@ class Parser3DS extends AParser, implements IParser
 				default:
 					data.position += l_chunk_length-6;
 					if (l_chunk_length-6 < 0) {
-						data.position += data.bytesAvailable;
+						data.position = data.length;
 						trace ("Parser3DS.parseData(): WARNING! There were errors parsing your file.");
 					}
 			}

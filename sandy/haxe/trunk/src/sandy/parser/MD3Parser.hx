@@ -208,7 +208,7 @@ class MD3Parser extends AParser, implements IParser
 				// Apply textures to the meshes by part name
 				if(md3.name != null && m_oTextureQueue != null && m_oTextureQueue.data.exists(md3.name) ) {
 					try {
-						var mat:BitmapMaterial = new BitmapMaterial( Reflect.field( m_oTextureQueue.data.get(md3.name), 'bitmapData' ) );
+						var mat:BitmapMaterial = new BitmapMaterial( cast Reflect.field( m_oTextureQueue.data.get(md3.name), 'bitmapData' ) );
 						md3.appearance = new Appearance(mat);
 					} catch(e : Dynamic) {
 						md3.appearance = m_oStandardAppearance;

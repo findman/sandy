@@ -13,6 +13,7 @@ import sandy.util.LoaderQueue;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.IEventDispatcher;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.net.URLLoader;
@@ -35,8 +36,10 @@ import sandy.HaxeTypes;
 * @version		3.1
 * @date 		26.07.2007
 */
-class AParser extends EventDispatcher, implements IParser
+class AParser extends EventDispatcher, implements IParser, implements IEventDispatcher
 {
+	private static var NextID:Int = 0;
+
 	private var m_oLoader:URLLoader;
 	private var m_oGroup:Group;
 	private var m_oFile:Dynamic;
@@ -52,6 +55,8 @@ class AParser extends EventDispatcher, implements IParser
 	private var m_aShapes:Array<Dynamic>;
 	private var m_aTextures:Array<String>;
 	private var m_oQueue:LoaderQueue;
+	
+	public var m_nId:Int;
 
 	/**
 	* Default path for images.
@@ -68,6 +73,8 @@ class AParser extends EventDispatcher, implements IParser
 	*/
 	public function new( p_sFile:Dynamic, ?p_nScale:Float = 1.0, ?p_sTextureExtension:String)
 	{
+		m_nId = AParser.NextID++;
+	
 		m_oLoader = new URLLoader();
 		RELATIVE_TEXTURE_PATH = ".";
 
@@ -187,7 +194,8 @@ class AParser extends EventDispatcher, implements IParser
 		m_oQueue.removeEventListener(QueueEvent.QUEUE_COMPLETE, onTexturesloadComplete);
 
 		// this is called even if there were errors loading textures... perfect!
-		m_aShapes = m_aTextures = null;
+		m_aShapes = null;
+		m_aTextures = null;
 		dispatchInitEvent();
 	}
 

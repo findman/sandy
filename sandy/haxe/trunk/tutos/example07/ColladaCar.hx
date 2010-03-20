@@ -15,6 +15,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.net.URLRequest;
+import flash.ui.Keyboard;
 import flash.Lib;
 
 class ColladaCar extends Sprite {
@@ -93,12 +94,16 @@ var timer : Float;
 				var g:Group = new Group();
 
 				tg = new TransformGroup('myGroup');
-
-				var material:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "carSkin" ), "bitmapData" ) );
+				
+				var bd = Reflect.field( queue.data.get( "carSkin" ), "bitmapData" );
+				
+				var material:BitmapMaterial = new BitmapMaterial( bd  );
 				var app:Appearance = new Appearance( material );
 				car.appearance = app;
+				
+				bd = Reflect.field( queue.data.get( "wheels" ), "bitmapData" );
 
-				var materialW:BitmapMaterial = new BitmapMaterial( Reflect.field( queue.data.get( "wheels" ), "bitmapData" ) );
+				var materialW:BitmapMaterial = new BitmapMaterial( bd );
 				var appW:Appearance = new Appearance( materialW );
 				wheelLF.appearance = appW;
 				wheelRF.appearance = appW;
@@ -125,17 +130,17 @@ var timer : Float;
 
 		function keyPressedHandler( event:KeyboardEvent ):Void {
 				switch( event.keyCode ) {
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								tg.roll += 2;
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								tg.roll -= 2;
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								tg.pan -= 2;
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								tg.pan += 1;
-						case 34: // PAGE_DOWN
+						case Keyboard.PAGE_DOWN: // PAGE_DOWN
 								tg.z -= 5;
-						case 33: // PAGE_UP
+						case Keyboard.PAGE_UP: // PAGE_UP
 								tg.z += 5;
 				}
 		}
@@ -145,7 +150,15 @@ var timer : Float;
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("ColladaCar",400,300);
+				#end
+				
 				new ColladaCar();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 
