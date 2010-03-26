@@ -85,7 +85,15 @@ class InteractiveBox extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("InteractiveBox",400,300);
+				#end
+		
 				new InteractiveBox();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 
 }

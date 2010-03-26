@@ -119,7 +119,15 @@ class InteractiveConeHedra extends Sprite {
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("InteractiveConeHedra",400,300);
+				#end
+		
 				new InteractiveConeHedra();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 }
 

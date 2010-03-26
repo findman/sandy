@@ -12,6 +12,7 @@ import sandy.primitive.Box;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
 import flash.Lib;
 
 class AnimBox extends Sprite {
@@ -88,24 +89,32 @@ class AnimBox extends Sprite {
 		private function keyPressed( event:flash.events.KeyboardEvent ):Void 
 		{
 				switch(event.keyCode) {
-						case 38: // KEY_UP
+						case Keyboard.UP: // KEY_UP
 								box.appearance = app01;
-						case 40: // KEY_DOWN
+						case Keyboard.DOWN: // KEY_DOWN
 								box.aPolygons[0].appearance = app01;
 								box.aPolygons[1].appearance = app02;
 								box.aPolygons[2].appearance = app03;
 								box.aPolygons[3].appearance = app02;
 								box.aPolygons[4].appearance = app01;
 								box.aPolygons[5].appearance = app03;
-						case 39: // KEY_RIGHT
+						case Keyboard.RIGHT: // KEY_RIGHT
 								box.appearance = app02;
-						case 37: // KEY_LEFT
+						case Keyboard.LEFT: // KEY_LEFT
 								box.appearance = app03;
 				}
 		}
 
 		static function main() {
+				#if !flash
+				neash.Lib.Init("AnimBox",400,300);
+				#end
+		
 				new AnimBox();
+				
+				#if !flash
+				neash.Lib.Run();
+				#end
 		}
 
 }
