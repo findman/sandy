@@ -80,12 +80,12 @@ class MD2 extends KeyFramedShape3D
 		var j = 0;
 		for (i in 0...num_tris)
 		{
-			var c:Int = data.readUnsignedShort();
-			var b:Int = data.readUnsignedShort();
 			var a:Int = data.readUnsignedShort();
-			var tc:Int = data.readUnsignedShort();
-			var tb:Int = data.readUnsignedShort();
+			var b:Int = data.readUnsignedShort();
+			var c:Int = data.readUnsignedShort();
 			var ta:Int = data.readUnsignedShort();
+			var tb:Int = data.readUnsignedShort();
+			var tc:Int = data.readUnsignedShort();
 
 			// create placeholder vertices (actual coordinates are set later)
 			mesh.setVertex (a, 1, 0, 0);
