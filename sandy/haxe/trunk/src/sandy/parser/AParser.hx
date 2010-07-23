@@ -186,7 +186,7 @@ class AParser extends EventDispatcher, implements IParser, implements IEventDisp
 				for (j in 0...shapes.length)
 				{
 					// whatever is in m_aShapes must have appearance property or be dynamic class
-					shapes[j].appearance = mat;
+					shapes[j].m_oAppearance = mat;
 				}
 			}
 		}
