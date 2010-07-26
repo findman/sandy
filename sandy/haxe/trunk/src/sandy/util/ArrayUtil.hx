@@ -54,6 +54,17 @@ class ArrayUtil {
 		untyped array.splice(0, untyped array.length);
 		#end
 	}
+
+	#if js
+	static function jsSort<T>( a:T, b:T )
+	{
+		untyped
+		{
+			return (a['m_nDepth'] < b['m_nDepth']) ? 1 : -1;
+		}
+	}
+
+	#end
 	
 	inline public static function sortOnLite<T>(inArray:Array<T>, fieldNames:Array<String>, ?options:Int = 0):Array<T> {
 			#if flash
@@ -62,6 +73,10 @@ class ArrayUtil {
 			var result:Dynamic = untyped inArray.sortOn(fieldNames, options & 23);
 			return Std.is(result,Array) ? result : [];
 			
+
+			#elseif (js && SANDY_JS_DIRTY_SORT)
+				inArray.sort( jsSort );
+				return inArray;
 
 			#else
 			
