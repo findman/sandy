@@ -77,15 +77,13 @@ class Airplane extends Sprite {
 		}
 
 		static function main() {
-				#if !flash
-				neash.Lib.Init("Airplane",400,300);
-				#end
-		
+			#if cpp
+				nme.Lib.create(function(){
+					new Airplane();
+				},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
+			#else
 				new Airplane();
-				
-				#if !flash
-				neash.Lib.Run();
-				#end
+			#end
 		}
 }
 

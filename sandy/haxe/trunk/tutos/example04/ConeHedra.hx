@@ -103,15 +103,13 @@ class ConeHedra extends Sprite {
 		}
 
 		static function main() {
-				#if !flash
-				neash.Lib.Init("ConeHedra",400,300);
-				#end
-		
+			#if cpp
+				nme.Lib.create(function(){
+					new ConeHedra();
+				},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
+			#else
 				new ConeHedra();
-				
-				#if !flash
-				neash.Lib.Run();
-				#end
+			#end
 		}
 }
 

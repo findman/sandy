@@ -165,15 +165,13 @@ class Table extends Sprite {
 		}
 
 		static function main() {
-				#if !flash
-				neash.Lib.Init("Table",400,300);
-				#end
-				
+			#if cpp
+				nme.Lib.create(function(){
+					new Table();
+				},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
+			#else
 				new Table();
-				
-				#if !flash
-				neash.Lib.Run();
-				#end
+			#end
 		}
 }
 

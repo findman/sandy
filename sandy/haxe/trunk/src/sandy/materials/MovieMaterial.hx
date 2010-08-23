@@ -12,7 +12,7 @@ import flash.geom.Rectangle;
 #if flash
 import flash.utils.Timer;
 #elseif (neko || cpp)
-import neash.Timer;
+import nme.Timer;
 #else
 import haxe.Timer;
 #end

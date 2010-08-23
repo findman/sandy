@@ -1,6 +1,5 @@
 -main ShadedBox
 -cpp cpp
 -lib sandy
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme

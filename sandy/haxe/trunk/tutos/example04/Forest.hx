@@ -90,15 +90,13 @@ class Forest extends Sprite {
 		}
 
 		static function main() {
-				#if !flash
-				neash.Lib.Init("Forest",400,300);
-				#end
-				
+			#if cpp
+				nme.Lib.create(function(){
+					new Forest();
+				},400,300,24,0xFFFFFF,nme.Lib.RESIZABLE);
+			#else
 				new Forest();
-				
-				#if !flash
-				neash.Lib.Run();
-				#end
+			#end
 		}
 }
 

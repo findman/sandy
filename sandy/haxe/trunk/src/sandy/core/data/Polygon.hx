@@ -11,7 +11,9 @@ import flash.geom.Rectangle;
 import sandy.math.PlaneMath;
 
 import sandy.core.Scene3D;
+#if !(cpp || neko) //TODO
 import sandy.core.interaction.VirtualMouse;
+#end
 import sandy.core.scenegraph.Geometry3D;
 import sandy.core.scenegraph.IDisplayable;
 import sandy.core.scenegraph.Shape3D;
@@ -727,8 +729,10 @@ class Polygon implements IDisplayable
 		//	get the position of the mouse on the poly
 		var pt2D : Point = new Point( scene.container.mouseX, scene.container.mouseY );
 		var uv : UVCoord = getUVFrom2D( pt2D );
-
+		
+		#if !(cpp || neko) //TODO
 		VirtualMouse.getInstance().interactWithTexture( this, uv, l_oEvt );
+		#end
 		_onInteraction( p_oEvt );
 	}
 

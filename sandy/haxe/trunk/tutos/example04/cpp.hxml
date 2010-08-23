@@ -1,31 +1,27 @@
 #-main Airplane
 #-cpp bin/cpp
 #-cp tutos/example04
-#-cp /Users/andylihahaha/Documents/repo/sandy/src
-#-lib neash
+#-lib sandy
 #-lib nme
-#--remap flash:neash
+#--remap flash:nme
 
 #--next
 -main ConeHedra
--cpp bin/cpp
+-cpp cpp
 -lib sandy
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme
 
 --next
 -main Forest
--cpp bin/cpp
+-cpp cpp
 -lib sandy
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme
 
 --next
 -main Table
--cpp bin/cpp
+-cpp cpp
 -lib sandy
--lib neash
 -lib nme
---remap flash:neash
+--remap flash:nme
